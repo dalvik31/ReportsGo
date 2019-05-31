@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout   xmlns:android="http://schemas.android.com/apk/res/android"
+  >
+
+  <RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_view"
+    tools:context=".View.MainAcitivityView.MainActivityViewClass">
+    <View
+      android:layout_width="130dp"
+      android:layout_height="match_parent"
+      android:background="@color/colorPrimaryTransparent"/>
+    <android.support.design.widget.AppBarLayout
+      android:id="@+id/appBarLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+      <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+          android:id="@+id/img_profile"
+          android:layout_width="?attr/actionBarSize"
+          android:layout_height="?attr/actionBarSize"
+          android:layout_alignParentTop="true"
+          android:layout_centerHorizontal="true"
+          android:src="@drawable/ic_vector_account"
+          android:padding="12dp"
+          android:layout_alignParentEnd="true"
+          android:onClick="goProfileActivity"/>
+
+
+        <android.support.v7.widget.Toolbar
+          android:id="@+id/app_bar"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:theme="@style/AppThemeSearchView"
+          android:layout_toStartOf="@+id/img_profile"
+          app:title="@string/lbl_menu_option">
+
+        </android.support.v7.widget.Toolbar>
+      </RelativeLayout>
+    </android.support.design.widget.AppBarLayout>
+
+
+    <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@id/appBarLayout">
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <com.epacheco.reports.Tools.CustomView.ButtonMenu
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:image="@drawable/ic_vector_clients"
+          android:onClick="goClientsActivity"
+          app:subTitle="@string/lbl_menu_option_client_subttitle"
+          app:title="@string/lbl_menu_option_client"/>
+        <com.epacheco.reports.Tools.CustomView.ButtonMenu
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:image="@drawable/ic_vector_sale"
+          android:onClick="goSaleActivity"
+          app:subTitle="@string/lbl_menu_option_sell_subtitle"
+          app:title="@string/lbl_menu_option_sell"/>
+        <com.epacheco.reports.Tools.CustomView.ButtonMenu
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:image="@drawable/ic_vector_cart"
+          app:subTitle="@string/lbl_menu_option_products_subtitle"
+          app:title="@string/lbl_menu_option_products"
+          android:onClick="goProductsActivity"/>
+
+        <com.epacheco.reports.Tools.CustomView.ButtonMenu
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:image="@drawable/ic_vector_order"
+          app:subTitle="@string/lbl_menu_option_order_subtitle"
+          app:title="@string/lbl_menu_option_order"
+          android:onClick="goOrderActivity"/>
+      </LinearLayout>
+    </ScrollView>
+  </RelativeLayout>
+
+</layout>

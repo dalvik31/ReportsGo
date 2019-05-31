@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "948414846887",
+    "firebase_url": "https://reports-go.firebaseio.com",
+    "project_id": "reports-go",
+    "storage_bucket": "reports-go.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948414846887:android:f012459a22be93bb",
+        "android_client_info": {
+          "package_name": "com.epacheco.reports"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "948414846887-g86rijitriq55navan1amib5omiacbl7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.epacheco.reports",
+            "certificate_hash": "033d85afceb13530593082875df915f9090521b5"
+          }
+        },
+        {
+          "client_id": "948414846887-0rruas4ftj7tb62dn8nbm6dr89uthna5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.epacheco.reports",
+            "certificate_hash": "f97ee489546f80a21d172a5b0ee586ca791247dc"
+          }
+        },
+        {
+          "client_id": "948414846887-6hk1qook38qbp9gadhucnehpdtgfje0l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnfPEgKbwzhK3R9tJXFpjBumgk4lWo1hY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "948414846887-6hk1qook38qbp9gadhucnehpdtgfje0l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".View.RegisterUserView.RegisterUserViewClass">
+
+    <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+      <TextView
+        android:id="@+id/lbl_login"
+        style="@style/TextView_Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentTop="true"
+        android:padding="10dp"
+        android:gravity="center"
+        android:text="@string/lbl_select_social_network"/>
+
+
+      <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/lbl_login">
+
+
+        <android.support.v7.widget.AppCompatButton
+          android:id="@+id/btn_continue_facebook"
+          style="@style/Widget.AppCompat.Button"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="20dp"
+          android:layout_marginEnd="20dp"
+          android:layout_centerHorizontal="true"
+          android:paddingTop="10dp"
+          android:paddingBottom="10dp"
+          android:onClick="registerFacebook"
+          android:text="@string/btn_continue_facebook"
+          android:theme="@style/AppTheme.ButtonFacebook"/>
+
+        <android.support.v7.widget.AppCompatButton
+          android:id="@+id/btn_continue_google"
+          style="@style/Widget.AppCompat.Button"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="20dp"
+          android:layout_marginEnd="20dp"
+          android:layout_below="@+id/btn_continue_facebook"
+          android:layout_centerHorizontal="true"
+          android:paddingTop="10dp"
+          android:paddingBottom="10dp"
+          android:onClick="registerGoogle"
+          android:text="@string/btn_continue_google"
+          android:theme="@style/AppTheme.ButtonGoogle"/>
+
+        <android.support.v7.widget.AppCompatButton
+          android:id="@+id/btn_continue_twitter"
+          style="@style/Widget.AppCompat.Button"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="20dp"
+          android:layout_marginEnd="20dp"
+          android:layout_below="@+id/btn_continue_google"
+          android:layout_centerHorizontal="true"
+          android:paddingTop="10dp"
+          android:paddingBottom="10dp"
+          android:onClick="registerTwitter"
+          android:text="@string/btn_continue_twitter"
+          android:theme="@style/AppTheme.ButtonTwitter"/>
+
+        <RelativeLayout
+          android:id="@+id/container_separator"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="20dp"
+          android:layout_below="@+id/btn_continue_twitter">
+          <View
+            android:id="@+id/view_first"
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/lbl_separator"
+            android:background="@color/colorPrimary"/>
+          <TextView
+            android:id="@+id/lbl_separator"
+            style="@style/TextView_Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/lbl_or_account"/>
+          <View
+            android:id="@+id/view_second"
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/lbl_separator"
+            android:background="@color/colorPrimary"/>
+
+
+        </RelativeLayout>
+        <android.support.v7.widget.AppCompatEditText
+          android:id="@+id/txt_email"
+          style="@style/Edittext_custom"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
+          android:layout_marginStart="20dp"
+          android:layout_marginEnd="20dp"
+          android:layout_below="@+id/container_separator"
+          android:paddingTop="10dp"
+          android:paddingBottom="10dp"
+          android:hint="@string/lbl_email"
+          android:inputType="textEmailAddress"/>
+        <android.support.v7.widget.AppCompatEditText
+          android:id="@+id/txt_password"
+          style="@style/Edittext_custom"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
+          android:layout_marginStart="20dp"
+          android:layout_marginEnd="20dp"
+          android:layout_below="@+id/txt_email"
+          android:paddingTop="10dp"
+          android:paddingBottom="10dp"
+          android:hint="@string/lbl_password"
+          android:inputType="textPassword"/>
+
+        <RelativeLayout
+          android:id="@+id/contanier_password"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="20dp"
+          android:layout_marginEnd="20dp"
+          android:layout_below="@+id/txt_password">
+
+          <android.support.v7.widget.AppCompatCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
+            android:layout_toStartOf="@+id/lbl_forgot_password"
+            android:text="@string/lbl_remember_user"
+            android:theme="@style/checkBoxStyle"/>
+          <TextView
+            android:id="@+id/lbl_forgot_password"
+            style="@style/TextView_Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:gravity="end"
+            android:text="@string/lbl_forgot_password"
+            android:textSize="14dp"/>
+        </RelativeLayout>
+
+
+        <android.support.v7.widget.AppCompatButton
+          android:id="@+id/btn_create_accoount"
+          style="@style/Widget.AppCompat.Button"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="20dp"
+          android:layout_marginBottom="10dp"
+          android:layout_marginStart="20dp"
+          android:layout_marginEnd="20dp"
+          android:layout_below="@+id/contanier_password"
+          android:onClick="registerWithEmailAndPassword"
+          android:text="@string/lbl_login"
+          android:theme="@style/AppTheme.ButtonGral"/>
+
+
+        <android.support.v7.widget.AppCompatButton
+          android:id="@+id/btn_haven_account"
+          style="@style/Widget.AppCompat.Button.Borderless"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="10dp"
+          android:layout_marginStart="20dp"
+          android:layout_marginEnd="20dp"
+          android:layout_below="@+id/btn_create_accoount"
+          android:onClick="switchViewsToRegister"
+          android:text="@string/btn_havent_account"
+          android:theme="@style/AppTheme.ButtonGralTransparent"/>
+      </RelativeLayout>
+
+    </RelativeLayout>
+
+
+  </ScrollView>
+</layout>

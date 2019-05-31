@@ -1,0 +1,175 @@
+<resources>
+
+  <!-- Base application theme. -->
+  <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <!-- Customize your theme here. -->
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+  </style>
+
+
+  <!-- Base application theme. -->
+  <style name="AppThemeNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- Customize your theme here. -->
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+  </style>
+
+  <!-- Base application theme. -->
+  <style name="AppThemeSearchView" parent="AppTheme">
+    <!-- Customize your theme here. -->
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorWhite</item>
+    <!--This line changes the color of text in Toolbar-->
+    <item name="android:textColorPrimary">@color/colorWhite</item>
+    <!--This line changes the color of icons in toolbar (back, overflow menu icons)-->
+    <item name="android:textColorSecondary">@color/colorWhite</item>
+    <item name="android:textColorHint">@color/colorWhiteTransparent</item>
+    <item name="android:textStyle">normal</item>
+    <item name="android:textSize">22sp</item>
+    <item name="android:fontFamily">sans-serif-condensed</item>
+    <item name="android:inputType">textCapWords</item>
+
+  </style>
+
+  <!--Style para Textview como titulo -->
+  <style name="TextView_Title" parent="@android:style/TextAppearance.Widget.TextView">
+    <item name="android:textColor">@color/colorPrimary</item>
+    <item name="android:textStyle">normal</item>
+    <item name="android:textSize">22sp</item>
+    <item name="android:fontFamily">sans-serif-condensed</item>
+  </style>
+  <!--Style para Textview como titulo negro-->
+  <style name="TextView_Title_Black" parent="@android:style/TextAppearance.Widget.TextView">
+    <item name="android:textColor">@android:color/black</item>
+    <item name="android:textStyle">normal</item>
+    <item name="android:textSize">22sp</item>
+    <item name="android:fontFamily">sans-serif-condensed</item>
+  </style>
+  <!--Style para Textview como titulo white-->
+  <style name="TextView_Title_White" parent="@android:style/TextAppearance.Widget.TextView">
+    <item name="android:textColor">@android:color/white</item>
+    <item name="android:textStyle">normal</item>
+    <item name="android:textSize">22sp</item>
+    <item name="android:fontFamily">sans-serif-condensed</item>
+  </style>
+  <!--Style para Textview como texto -->
+  <style name="TextView_Text" parent="@android:style/TextAppearance.Widget.TextView">
+    <item name="android:textColor">@color/colorPrimaryDark</item>
+    <item name="android:textStyle">normal</item>
+    <item name="android:textSize">18sp</item>
+    <item name="android:fontFamily">sans-serif-condensed</item>
+  </style>
+
+  <!--Style para Edittext como titulo -->
+  <style name="Edittext_custom" parent="@android:style/TextAppearance.Widget.TextView">
+    <item name="android:textColor">@color/colorPrimary</item>
+    <item name="android:textStyle">normal</item>
+    <item name="android:textSize">22sp</item>
+    <item name="android:fontFamily">sans-serif-condensed</item>
+  </style>
+  <!--Style para Edittext como texto -->
+  <style name="Edittext_custom_text" parent="@android:style/TextAppearance.Widget.TextView">
+    <item name="android:textColor">@color/colorPrimary</item>
+    <item name="android:textStyle">normal</item>
+    <item name="android:textSize">18sp</item>
+    <item name="android:fontFamily">sans-serif-condensed</item>
+    <item name="android:inputType">textCapWords</item>
+  </style>
+  <!--Style para boton facebook -->
+  <style name="AppTheme.ButtonFacebook" parent="Base.Widget.AppCompat.Button">
+    <item name="colorButtonNormal">@color/colorFacebook</item>
+    <item name="android:textColor">@color/colorWhite</item>
+    <item name="android:drawableStart">@drawable/ic_vector_facebook_logo</item>
+  </style>
+
+  <!--Style para boton google -->
+  <style name="AppTheme.ButtonGoogle" parent="Base.Widget.AppCompat.Button">
+    <item name="colorButtonNormal">@color/colorWhite</item>
+    <item name="android:textColor">@color/colorGoogle</item>
+    <item name="android:drawableStart">@drawable/ic_vector_google_logo</item>
+  </style>
+
+  <!--Style para boton twitter -->
+  <style name="AppTheme.ButtonTwitter" parent="Base.Widget.AppCompat.Button">
+    <item name="colorButtonNormal">@color/colorTwitter</item>
+    <item name="android:textColor">@color/colorWhite</item>
+    <item name="android:drawableStart">@drawable/ic_vector_twitter_logo</item>
+  </style>
+
+  <!--Style para boton general -->
+  <style name="AppTheme.ButtonGral" parent="Base.Widget.AppCompat.Button">
+    <item name="colorButtonNormal">@color/colorPrimary</item>
+    <item name="android:textColor">@color/colorWhite</item>
+  </style>
+
+  <!--Style para boton general verde-->
+  <style name="AppTheme.ButtonGralGreen" parent="Base.Widget.AppCompat.Button">
+    <item name="colorButtonNormal">@android:color/holo_green_dark</item>
+    <item name="android:textColor">@color/colorWhite</item>
+  </style>
+  <!--Style para boton general negro -->
+  <style name="AppTheme.ButtonGralBlack" parent="Base.Widget.AppCompat.Button">
+    <item name="colorButtonNormal">@color/colorAccent</item>
+    <item name="android:textColor">@color/colorWhite</item>
+  </style>
+
+  <!--Style para boton general transparente -->
+  <style name="AppTheme.ButtonGralTransparent" parent="Base.Widget.AppCompat.Button">
+    <item name="colorButtonNormal">@color/colorWhite</item>
+    <item name="android:textColor">@color/colorPrimary</item>
+  </style>
+
+  <!--Style para boton general transparente inverso-->
+  <style name="AppTheme.ButtonGralTransparentInverse" parent="Base.Widget.AppCompat.Button">
+    <item name="colorButtonNormal">@color/colorPrimary</item>
+    <item name="android:textColor">@color/colorWhite</item>
+  </style>
+
+  <!--Style para checkBox -->
+  <style name="checkBoxStyle" parent="Widget.AppCompat.CompoundButton.CheckBox">
+    <item name="colorAccent">@color/colorPrimary</item>
+    <item name="android:textColorSecondary">@color/colorGray</item>
+    <item name="android:textColor">@color/colorPrimary</item>
+    <item name="android:textStyle">normal</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:fontFamily">sans-serif-condensed</item>
+  </style>
+
+  <!--Style para progress bar -->
+  <style name="AppTheme.ProgressBar">
+    <item name="colorAccent">@color/colorPrimary</item> <!-- Whatever color you want-->
+  </style>
+  <!--Style para progress bar white-->
+  <style name="AppTheme.ProgressBarWhite">
+    <item name="colorAccent">@color/colorWhite</item> <!-- Whatever color you want-->
+  </style>
+
+  <declare-styleable name="ButtonMenu">
+    <attr name="image" format="integer"/>
+    <attr name="title" format="string"/>
+    <attr name="subTitle" format="string"/>
+  </declare-styleable>
+
+
+  <declare-styleable name="Pinview">
+    <attr name="pinBackground" format="reference"/>
+    <attr name="pinLength" format="integer"/>
+    <attr name="pinWidth" format="dimension"/>
+    <attr name="pinHeight" format="dimension"/>
+    <attr name="splitWidth" format="dimension"/>
+    <attr name="cursorVisible" format="boolean"/>
+    <attr name="password" format="boolean"/>
+    <attr name="forceKeyboard" format ="boolean"/>
+    <attr name="hint" format="string"/>
+    <attr name="inputType"/>
+    <attr name="textSize" format="dimension"/>
+  </declare-styleable>
+  <attr name="inputType" format="enum">
+    <enum name="text" value="0"/>
+    <enum name="number" value="1"/>
+  </attr>
+</resources>

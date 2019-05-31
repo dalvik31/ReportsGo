@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".View.TestPin.TestPin"
+  android:background="@color/colorGray">
+
+
+  <com.epacheco.reports.View.TestPin.OtpEditText
+    android:id="@+id/pin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cursorVisible="false"
+    app:hint=""
+    app:inputType="number"
+    app:forceKeyboard="true"
+    app:password="false"
+    app:pinBackground="@drawable/big2"
+    app:pinHeight="40dp"
+    app:pinLength="4"
+    app:pinWidth="40dp"/>
+</RelativeLayout>

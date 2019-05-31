@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content">
+
+  <RelativeLayout
+    android:id="@+id/container_image"
+    android:layout_width="match_parent"
+    android:layout_height="220dp"
+    android:visibility="gone"
+    android:background="@color/colorBlackTransparent">
+
+
+
+  </RelativeLayout>
+
+
+  <TextView
+    android:id="@+id/txt_product_stock"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/holo_orange_light"
+    android:text="@string/lbl_stock_product"
+    android:textColor="@color/colorWhite"
+    android:layout_alignParentTop="true"
+    style="@style/TextView_Text"
+    android:gravity="end"/>
+
+  <LinearLayout
+    android:id="@+id/container_values"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_below="@+id/txt_product_stock"
+    android:layout_toStartOf="@+id/img_product">
+
+    <TextView
+      android:id="@+id/lbl_product_name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Name"
+      android:gravity="center"
+      style="@style/TextView_Title"
+      android:drawablePadding="10dp"
+      android:drawableStart="@drawable/ic_vector_products_red"
+      android:padding="5dp"/>
+    <TextView
+      android:id="@+id/lbl_product_description"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Descripcion"
+      android:gravity="center"
+      style="@style/TextView_Text"
+      android:visibility="gone"
+      android:padding="5dp"/>
+    <RelativeLayout
+      android:id="@+id/container_img_buttons"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+      <TextView
+        android:id="@+id/lbl_product_id"
+        style="@style/TextView_Text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:drawablePadding="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_toStartOf="@+id/btn_modify"
+        android:drawableStart="@drawable/ic_vector_bar_code"
+        android:gravity="start|center"
+        android:text="id"/>
+
+      <ImageView
+        android:id="@+id/btn_modify"
+        android:layout_width="?attr/actionBarSize"
+        android:layout_height="?attr/actionBarSize"
+        android:scaleType="center"
+        android:clickable="true"
+        android:focusable="true"
+
+        android:layout_gravity="end"
+        android:layout_toStartOf="@+id/btn_detail"
+        app:srcCompat="@drawable/ic_vector_modify"
+        android:visibility="gone"/>
+      <ImageView
+        android:id="@+id/btn_detail"
+        android:layout_width="?attr/actionBarSize"
+        android:layout_height="?attr/actionBarSize"
+        android:scaleType="center"
+        android:layout_gravity="end"
+        android:layout_alignParentEnd="true"
+        app:srcCompat="@drawable/ic_vector_settings"
+        android:clickable="true"
+        android:visibility="gone"
+        android:focusable="true"/>
+
+    </RelativeLayout>
+
+
+  </LinearLayout>
+
+  <ImageView
+    android:id="@+id/img_product"
+    android:layout_width="80dp"
+    android:layout_height="80dp"
+    android:layout_alignParentEnd="true"
+    android:layout_below="@+id/txt_product_stock"
+    app:srcCompat="@drawable/ic_vector_image"
+
+    android:scaleType="centerCrop"/>
+  <LinearLayout
+    android:id="@+id/containers_price"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/img_product"
+    android:weightSum="1">
+    <RelativeLayout
+      android:id="@+id/container_name"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight=".5"
+      >
+      <TextView
+        android:id="@+id/lbl_title_unit_price"
+        style="@style/TextView_Text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_title_unit_price"/>
+      <TextView
+        android:id="@+id/lbl_product_price_unit"
+        style="@style/TextView_Title"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="0dp"
+        android:padding="5dp"
+        android:gravity="center"
+        android:layout_below="@+id/lbl_title_unit_price"
+        android:text="Precio"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight=".5"
+      >
+      <TextView
+        android:id="@+id/lbl_title_total_price"
+        style="@style/TextView_Text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_title_total_price"/>
+      <TextView
+        android:id="@+id/lbl_product_price_total"
+        style="@style/TextView_Title"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="0dp"
+        android:padding="5dp"
+        android:gravity="center"
+        android:layout_below="@+id/lbl_title_total_price"
+        android:text="Precio"/>
+    </RelativeLayout>
+  </LinearLayout>
+
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="1"
+    android:visibility="visible"
+    android:layout_below="@+id/containers_price">
+
+    <RelativeLayout
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight=".4">
+      <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabtn_minum_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:fabSize="mini"
+        android:layout_centerInParent="true"
+        app:srcCompat="@drawable/ic_vector_minum"
+        android:onClick="removeProduct"
+        app:backgroundTint="@color/colorPrimary"/>
+    </RelativeLayout>
+    <RelativeLayout
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight=".2"
+      android:layout_gravity="center">
+      <TextView
+        android:id="@+id/lbl_stock_product_count"
+        style="@style/TextView_Title"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:padding="5dp"
+        android:gravity="center"
+        android:text="3"/>
+    </RelativeLayout>
+    <RelativeLayout
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight=".4">
+      <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabtn_plus_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:fabSize="mini"
+        android:layout_centerInParent="true"
+        app:srcCompat="@drawable/ic_vector_plus"
+        android:onClick="removeProduct"
+        app:backgroundTint="@color/colorPrimary"/>
+    </RelativeLayout>
+  </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+  <View
+    android:id="@+id/background_stock_empty"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone"
+    android:background="@color/colorWhiteTransparent"/>
+</RelativeLayout>

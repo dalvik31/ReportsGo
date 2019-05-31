@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android">
+  <RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".View.MainAcitivityView.MainActivityViewClass">
+
+    <android.support.design.widget.AppBarLayout
+      android:id="@+id/appBarLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+      <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+          android:id="@+id/btn_scan"
+          android:layout_width="?attr/actionBarSize"
+          android:layout_height="?attr/actionBarSize"
+          android:layout_toStartOf="@+id/img_profile"
+          android:onClick="openQRorBarCode"
+          android:scaleType="center"
+          app:srcCompat="@drawable/ic_vector_bar_code_scanner"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+          android:id="@+id/img_profile"
+          android:layout_width="?attr/actionBarSize"
+          android:layout_height="?attr/actionBarSize"
+          android:layout_toStartOf="@+id/btn_add"
+          android:padding="12dp"
+          android:src="@drawable/ic_vector_account"
+          android:layout_alignParentEnd="true"
+          app:srcCompat="@drawable/ic_vector_account"
+          android:onClick="goProfileActivity"/>
+
+        <android.support.v7.widget.Toolbar
+          android:id="@+id/app_bar"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:theme="@style/AppThemeSearchView"
+          android:layout_toStartOf="@+id/btn_scan">
+
+          <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:iconifiedByDefault="false"
+            android:queryHint="@string/lbl_search_product"
+
+            android:layout_centerHorizontal="true"
+            android:queryBackground="@android:color/transparent"
+            />
+        </android.support.v7.widget.Toolbar>
+      </RelativeLayout>
+    </android.support.design.widget.AppBarLayout>
+    <ProgressBar
+      android:id="@+id/progress_downloadclient"
+      style="?android:attr/progressBarStyleHorizontal"
+      android:indeterminateOnly="true"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/appBarLayout"
+      android:layout_marginTop="-5dp"
+      android:theme="@style/AppTheme.ProgressBar"/>
+    <android.support.v7.widget.RecyclerView
+      android:id="@+id/recyclerListClient"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      tools:listitem="@layout/item_product"
+      android:visibility="gone"
+      android:layout_below="@+id/progress_downloadclient"
+      />
+
+
+    <TextView
+      android:id="@+id/lbl_zero_products"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      style="@style/TextView_Title"
+      android:text="@string/msg_zero_products"
+      android:layout_centerInParent="true"
+      android:textColor="@color/colorPrimary"
+      android:textSize="28sp"
+      android:visibility="visible"/>
+
+    <android.support.design.widget.FloatingActionButton
+      android:id="@+id/floating_action_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="20dp"
+      app:srcCompat="@drawable/ic_vector_add"
+      android:layout_alignParentBottom="true"
+      android:layout_alignParentEnd="true"
+      android:onClick="goAddProductActivity"
+      app:backgroundTint="@color/colorPrimary"
+      />
+  </RelativeLayout>
+
+</layout>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="colorPrimary">#CC0000</color>
+  <color name="colorPrimaryDark">#570000</color>
+  <color name="colorAccent">#000000</color>
+
+  <!--Basic colors-->
+  <color name="colorWhite">#FFFFFF</color>
+  <color name="colorWhiteTransparent">#80FFFFFF</color>
+  <color name="colorBlackTransparent">#80000000</color>
+  <color name="colorPrimaryTransparent">#80CC0000</color>
+  <color name="colorPrimaryDarkTransparent">#80570000</color>
+  <color name="colorGray">#9E9E9E</color>
+  <color name="background_view">#BDBDBD</color>
+
+  <color name="colorFacebook">#3b5998</color>
+  <color name="colorTwitter">#00acee</color>
+  <color name="colorGoogle">#DB4437</color>
+
+</resources>

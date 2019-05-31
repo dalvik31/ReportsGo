@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <RelativeLayout
+   android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".View.SaleView2.SaleViewClass">
+
+    <android.support.design.widget.AppBarLayout
+      android:id="@+id/appBarLayout"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize">
+      <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+          android:id="@+id/containers_buttons"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_alignParentEnd="true">
+
+          <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_add_product"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/lbl_sale_total"
+            android:visibility="visible"
+            android:theme="@style/AppTheme.ButtonGralTransparentInverse"
+            android:clickable="false"
+            android:focusable="false"/>
+
+        </RelativeLayout>
+
+
+        <android.support.v7.widget.Toolbar
+          android:id="@+id/app_bar"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_alignParentStart="true"
+          android:layout_toStartOf="@+id/containers_buttons"
+          android:theme="@style/AppThemeSearchView"
+          app:title="@string/lbl_generate_sale">
+        </android.support.v7.widget.Toolbar>
+      </RelativeLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@+id/appBarLayout"
+      android:paddingStart="5dp"
+      android:paddingEnd="5dp">
+
+
+      <TextView
+        android:id="@+id/lbl_sale_client_name"
+        style="@style/TextView_Text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:text="@string/lbl_sale_select_name"
+        android:padding="5dp"/>
+      <LinearLayout
+        android:id="@+id/container_client"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lbl_sale_client_name"
+        android:weightSum="1"
+        android:padding="5dp">
+
+
+        <RelativeLayout
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight=".2">
+          <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fbtn_search_client"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_gravity="start|center"
+            app:fabSize="mini"
+            app:srcCompat="@drawable/ic_vector_search_client"
+            app:backgroundTint="@color/colorPrimary"
+            android:onClick="goSearchElement"
+            />
+        </RelativeLayout>
+
+
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight=".8"
+          android:gravity="center"
+          android:orientation="vertical">
+          <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/txt_sale_client_name"
+            style="@style/Edittext_custom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:layout_gravity="center"
+            android:hint="@string/lbl_client_name"
+            android:inputType="number"/>
+          <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/txt_sale_client_amount"
+            style="@style/Edittext_custom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:visibility="gone"
+            android:hint="@string/lbl_product_price_sale_hint"
+            android:inputType="number"/>
+        </LinearLayout>
+
+
+
+      </LinearLayout>
+
+
+      <TextView
+        android:id="@+id/lbl_sale_product_name"
+        style="@style/TextView_Text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:text="@string/lbl_sale_select_product"
+        android:layout_below="@+id/container_client"
+        android:padding="5dp"/>
+      <RelativeLayout
+        android:id="@+id/container_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lbl_sale_product_name"
+        android:weightSum="1"
+        android:padding="5dp">
+        <android.support.design.widget.FloatingActionButton
+          android:id="@+id/fbtn_search_product"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_margin="10dp"
+          app:fabSize="mini"
+          android:layout_centerVertical="true"
+          android:layout_gravity="start|center"
+          app:srcCompat="@drawable/ic_vector_search"
+          app:backgroundTint="@color/colorPrimary"
+          android:onClick="goSearchElement"
+          />
+
+        <android.support.v7.widget.AppCompatTextView
+
+          android:id="@+id/lbl_name_product"
+          style="@style/Edittext_custom_text"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:layout_gravity="center_horizontal"
+          android:hint="@string/lbl_product_name"
+          android:layout_toEndOf="@+id/fbtn_search_product"
+          android:layout_toStartOf="@+id/lbl_price_product"
+          android:inputType="number"
+          />
+
+        <android.support.v7.widget.AppCompatTextView
+          android:id="@+id/lbl_price_product"
+          style="@style/Edittext_custom"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="end"
+          android:layout_gravity="center_horizontal"
+          android:hint="@string/lbl_product_price_sale_hint"
+          android:layout_toStartOf="@+id/img_product"
+          android:inputType="number"
+          android:paddingEnd="10dp"
+          android:paddingStart="0dp"
+          />
+        <android.support.v7.widget.AppCompatTextView
+          android:id="@+id/lbl_code_product"
+          style="@style/Edittext_custom_text"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:hint="@string/lbl_product_code_hint"
+          android:inputType="number"
+          android:gravity="end"
+          android:layout_toStartOf="@+id/img_product"
+          android:layout_alignBottom="@+id/img_product"
+          android:drawableStart="@drawable/ic_vector_bar_code"
+          android:drawablePadding="10dp"
+          android:paddingEnd="10dp"
+          android:textColor="@color/colorGray"
+          android:paddingStart="0dp"
+          />
+
+        <ImageView
+          android:id="@+id/img_product"
+          android:layout_width="80dp"
+          android:layout_height="80dp"
+          android:layout_alignParentEnd="true"
+          app:srcCompat="@drawable/ic_vector_image"
+
+          android:scaleType="centerCrop"/>
+
+      </RelativeLayout>
+
+      <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/container_code">
+
+      </android.support.v4.view.ViewPager>
+    </RelativeLayout>
+  </RelativeLayout>
+
+</layout>
