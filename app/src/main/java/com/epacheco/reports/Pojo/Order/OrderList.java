@@ -1,8 +1,13 @@
 package com.epacheco.reports.Pojo.Order;
 
+import com.epacheco.reports.Pojo.OrderDetail.OrderDetail;
+import java.util.HashMap;
+import java.util.List;
+
 public class OrderList {
   private String dateOrder;
   private String nameOrder;
+  private HashMap<String,Object> orderLists;
 
   public String getDateOrder() {
     return dateOrder;
@@ -18,5 +23,13 @@ public class OrderList {
 
   public void setNameOrder(String nameOrder) {
     this.nameOrder = nameOrder;
+  }
+
+  public HashMap<String, Object> getOrderLists() {
+    return orderLists;
+  }
+
+  public void setOrderLists(HashMap<String, Object> orderLists) {
+    this.orderLists = orderLists;
   }
 }

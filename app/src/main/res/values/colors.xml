@@ -7,6 +7,7 @@
   <!--Basic colors-->
   <color name="colorWhite">#FFFFFF</color>
   <color name="colorWhiteTransparent">#80FFFFFF</color>
+  <color name="colorGreenTransparent">#8BB9FFBB</color>
   <color name="colorBlackTransparent">#80000000</color>
   <color name="colorPrimaryTransparent">#80CC0000</color>
   <color name="colorPrimaryDarkTransparent">#80570000</color>

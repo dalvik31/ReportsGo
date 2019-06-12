@@ -50,6 +50,20 @@ public class OrderModelClass implements OrderModelInterface{
   }
 
   @Override
+  public void successRemoveOrderList() {
+    if(orderViewClass!=null){
+      orderViewClass.successRemoveOrderList();
+    }
+  }
+
+  @Override
+  public void errorRemoveOrderList(String error) {
+    if(orderViewClass!=null){
+      orderViewClass.errorRemoveOrderList(error);
+    }
+  }
+
+  @Override
   public void getOrders() {
     if(orderControllerClass!=null){
       orderControllerClass.getOrders();
@@ -60,6 +74,13 @@ public class OrderModelClass implements OrderModelInterface{
   public void createOrder(OrderList orderList) {
     if(orderControllerClass!=null){
       orderControllerClass.createOrder(orderList);
+    }
+  }
+
+  @Override
+  public void removeOrderList(String orderId) {
+    if(orderControllerClass!=null){
+      orderControllerClass.removeOrderList(orderId);
     }
   }
 }

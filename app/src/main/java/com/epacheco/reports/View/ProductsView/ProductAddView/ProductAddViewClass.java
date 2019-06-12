@@ -101,7 +101,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
   public void createNewProduct(View view){
     if(isImgSelected()){
       if(validateInputs()){
-        showProgress("Guardando imagen");
+        showProgress(getString(R.string.msg_save_image));
         productsAddModelClass.uploadImage( ((BitmapDrawable) binding.imgProduct.getDrawable()).getBitmap());
       }else{
         Tools.showToasMessage(this,getString(R.string.msg_error_empty_inputs));
@@ -181,12 +181,11 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
   public void successUploadImage(String imgUrl) {
     hideProgress();
     setImgUrlUpload(imgUrl);
+    showProgress(getString(R.string.msg_save_product));
     if(productId!=null && !productId.isEmpty()){
-      showProgress("Modificando producto");
       createProduct(getNewProduct());
       productsAddModelClass.modifyProduct(getNewProduct());
     }else{
-      showProgress("Creando producto");
       createProduct(null);
       productsAddModelClass.addProduct(getNewProduct());
     }

@@ -35,6 +35,27 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
+
+/**
+ *
+ * EN ESTA CLASE SE ENCUENTRA LO NECESARIO PARA PODER LEER DATOS POR MEDIO DE NFC
+ * FUNCIONA SE TIENE QUE MODIFICAR EL MANIFEST:
+ * <uses-permission android:name="android.permission.NFC"/>
+ *
+ * Y SE AGREGA UN FILTER A LA ACTIVIDAD QUE QUEREMOS QUE LEA LA INFORMACION:
+ *
+ * <intent-filter>
+ *         <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
+ *
+ *         <category android:name="android.intent.category.DEFAULT"/>
+ *
+ *         <data android:mimeType="application/com.epacheco.reports"/>
+ *       </intent-filter>
+ *
+ *  OJO: ESTE NOMBRE DE PAQUETE: application/com.epacheco.reports
+ *  DEBE SER EL MISMO QUE SE OCUPE EN ESTE METODO: createNdefMessage
+ *
+ * */
 public class TestNfcView extends AppCompatActivity implements NfcAdapter.OnNdefPushCompleteCallback, NfcAdapter.CreateNdefMessageCallback{
   NfcAdapter myNfcAdapter;
   String textoaenviar="";

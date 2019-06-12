@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools">
+  <android.support.design.widget.CoordinatorLayout
+    android:id="@+id/CoordinatorLayout_container_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-  <ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+  <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -148,6 +152,7 @@
           android:layout_below="@+id/txt_password">
 
           <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/AppCompatCheckBox_save_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -178,7 +183,7 @@
           android:layout_marginStart="20dp"
           android:layout_marginEnd="20dp"
           android:layout_below="@+id/contanier_password"
-          android:onClick="registerWithEmailAndPassword"
+          android:onClick="loginWithEmailAndPassword"
           android:text="@string/lbl_login"
           android:theme="@style/AppTheme.ButtonGral"/>
 
@@ -192,8 +197,8 @@
           android:layout_marginStart="20dp"
           android:layout_marginEnd="20dp"
           android:layout_below="@+id/btn_create_accoount"
-          android:onClick="switchViewsToRegister"
-          android:text="@string/btn_havent_account"
+          android:onClick="registerWithEmailAndPassword"
+          android:text="@string/lbl_sign_up"
           android:theme="@style/AppTheme.ButtonGralTransparent"/>
       </RelativeLayout>
 
@@ -201,4 +206,6 @@
 
 
   </ScrollView>
+
+  </android.support.design.widget.CoordinatorLayout>
 </layout>

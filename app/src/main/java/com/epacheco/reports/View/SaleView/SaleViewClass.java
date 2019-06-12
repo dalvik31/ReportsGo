@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.epacheco.reports.Model.SaleModel.SaleModelClass;
 import com.epacheco.reports.Pojo.Client.Client;
@@ -59,10 +60,10 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
     getTotalSale(0,false);
     if(getIntent()!=null && getIntent().getStringExtra(ClientAddViewClass.CLIENT_ID)!=null && !getIntent().getStringExtra(ClientAddViewClass.CLIENT_ID).isEmpty()){
       clientId = getIntent().getStringExtra(ClientAddViewClass.CLIENT_ID);
-      showProgress("Buscando cliente");
+      showProgress(getString(R.string.lbl_search_clients));
       saleModelClass.getCLient(clientId);
     }else if(getIntent()!=null && getIntent().getStringExtra(ProductAddViewClass.PRODUCT_ID)!=null && !getIntent().getStringExtra(ProductAddViewClass.PRODUCT_ID).isEmpty()){
-      showProgress("Buscando producto");
+      showProgress(getString(R.string.msg_search_products));
       saleModelClass.getProduct(getIntent().getStringExtra(ProductAddViewClass.PRODUCT_ID));
     }
   }
@@ -199,12 +200,14 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
   public void removeProduct(View view){
     if(adapterViewPagerSale!=null && adapterViewPagerSale.getCount()>0){
       adapterViewPagerSale.removeView(binding.viewPagerProducts,binding.viewPagerProducts.getCurrentItem());
+    }else{
+      Toast.makeText(this,getString(R.string.msg_sale_empty_products),Toast.LENGTH_LONG).show();
     }
   }
 
   public void generateTicket(View view){
     if(adapterViewPagerSale!=null && adapterViewPagerSale.getCount()>0){
-      showProgress("Generando ticket");
+      showProgress(getString(R.string.msg_generate_sale));
       List<ClientDetail> listDetail = new ArrayList<>(adapterViewPagerSale.getCount());
       for(Product product: adapterViewPagerSale.getProductList()){
         ClientDetail clientDetail = new ClientDetail();
@@ -220,6 +223,8 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
       }
 
       saleModelClass.addClientDetail(listDetail ,getObjClient()!=null && !getObjClient().getId().isEmpty() ?getObjClient().getId() : mAuth.getUid() );
+    }else{
+      Toast.makeText(this,getString(R.string.msg_sale_empty_products),Toast.LENGTH_LONG).show();
     }
   }
 

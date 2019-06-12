@@ -1,0 +1,16 @@
+package com.epacheco.reports.View.OrderView.OrderDetailView;
+
+import android.support.v4.app.FragmentActivity;
+import com.epacheco.reports.Pojo.OrderDetail.OrderDetail;
+import java.util.List;
+
+public interface OrderDetailInterface {
+  FragmentActivity getMyActivity();
+  void successGetListDetail(List<OrderDetail> orderDetailList);
+  void errorGetListDetail(String error);
+  void successOrderBuyElement();
+  void errorOrderBuyElement(String error);
+
+  void successremoveOrderDetail();
+  void errorremoveOrderDetail(String error);
+}

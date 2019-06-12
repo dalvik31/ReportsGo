@@ -7,6 +7,8 @@ import com.epacheco.reports.View.ClientView.ClientAddView.ClientAddViewClass;
 import com.epacheco.reports.View.ClientView.ClientDetailListView.ClientDetailListViewClass;
 import com.epacheco.reports.View.ClientView.ClientView.ClientsViewClass;
 import com.epacheco.reports.View.MainAcitivityView.MainActivityViewClass;
+import com.epacheco.reports.View.OrderView.OrderCreateView.OrderCreateView;
+import com.epacheco.reports.View.OrderView.OrderDetailView.OrderDetailView;
 import com.epacheco.reports.View.OrderView.OrderViewClass;
 import com.epacheco.reports.View.ProductsView.ProductAddView.ProductAddViewClass;
 import com.epacheco.reports.View.ProductsView.ProductsView.ProductViewClass;
@@ -91,9 +93,22 @@ public class ScreenManager {
   }
 
   public static void goOrderActivity(FragmentActivity myActivity){
-    Intent orderActivity = new Intent(myActivity, TestPin.class);
-    myActivity.startActivity(orderActivity);
-   //Intent orderActivity = new Intent(myActivity, OrderViewClass.class);
+    //Intent orderActivity = new Intent(myActivity, TestPin.class);
     //myActivity.startActivity(orderActivity);
+   Intent orderActivity = new Intent(myActivity, OrderViewClass.class);
+    myActivity.startActivity(orderActivity);
+  }
+
+  public static void goOrderDetailActivity(FragmentActivity myActivity,String orderId,String nameOrder){
+    Intent orderDetailActivity = new Intent(myActivity, OrderDetailView.class);
+    orderDetailActivity.putExtra(OrderDetailView.ORDER_ID,orderId);
+    orderDetailActivity.putExtra(OrderDetailView.ORDER_NAME,nameOrder);
+    myActivity.startActivityForResult(orderDetailActivity,ScannedBarcodeActivity.SCANBAR_ACTIVITY);
+  }
+
+  public static void goOrderCreateActivity(FragmentActivity myActivity,String orderId){
+    Intent orderCreateActivity = new Intent(myActivity, OrderCreateView.class);
+    orderCreateActivity.putExtra(OrderDetailView.ORDER_ID,orderId);
+    myActivity.startActivityForResult(orderCreateActivity,ScannedBarcodeActivity.SCANBAR_ACTIVITY);
   }
 }

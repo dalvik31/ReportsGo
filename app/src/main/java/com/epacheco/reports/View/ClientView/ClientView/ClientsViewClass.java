@@ -29,7 +29,7 @@ public class ClientsViewClass extends AppCompatActivity implements ClientViewInt
   private ActivityClientsViewBinding binding;
   private boolean isSearch;
   private ReportsProgressDialog progressbar;
-  final Handler handler = new Handler();
+  private Handler handler;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -67,15 +67,20 @@ public class ClientsViewClass extends AppCompatActivity implements ClientViewInt
   }
   private void downloadClient(final String name){
 
-    handler.removeCallbacksAndMessages(null);
+    getHandler().removeCallbacksAndMessages(null);
 
-    handler.postDelayed(new Runnable() {
-      @Override
-      public void run() {
-        showProgress("Buscando clientes");
-        clientModelClass.downloadClients(name);
-      }
-    }, 1000);
+    if(name!=null){
+      getHandler().postDelayed(new Runnable() {
+        @Override
+        public void run() {
+          showProgress(getString(R.string.msg_search_client));
+          clientModelClass.downloadClients(name);
+        }
+      }, 1000);
+    }else{
+      showProgress(getString(R.string.msg_search_client));
+      clientModelClass.downloadClients(null);
+    }
   }
 
   @Override
@@ -100,7 +105,7 @@ public class ClientsViewClass extends AppCompatActivity implements ClientViewInt
     hideProgress();
     binding.lblZeroClients.setVisibility(View.VISIBLE);
     binding.recyclerListClient.setVisibility(View.GONE);
-    Tools.showToasMessage(this,error);
+    //Tools.showToasMessage(this,error);
   }
 
   @Override
@@ -143,6 +148,13 @@ public class ClientsViewClass extends AppCompatActivity implements ClientViewInt
   private void hideProgress(){
     progressbar.hideProgress();
     binding.progressDownloadclient.setVisibility(View.GONE);
+  }
+
+  public Handler getHandler() {
+    if(handler==null){
+      handler = new Handler();
+    }
+    return handler;
   }
 
 }

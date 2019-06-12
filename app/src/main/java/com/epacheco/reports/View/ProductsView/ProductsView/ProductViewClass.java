@@ -8,6 +8,7 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -45,6 +46,7 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
   private boolean isSearch;
   private FirebaseAuth mAuth;
   private ReportsProgressDialog progressbar;
+  private Handler handler;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -60,8 +62,7 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
     }
     binding.searchView.setOnQueryTextListener(this);
     productsModelClass = new ProductsModelClass(this);
-    productsModelClass.downloadPorducts(null,null);
-    progressbar.showProgress(this,"Descargando productos");
+    downloadProducts(null);
   }
 
   @Override
@@ -79,13 +80,29 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
   }
 
   @Override
-  public boolean onQueryTextChange(String productName) {
-    if(productName.matches("[0-9]+")){
-      productsModelClass.downloadPorducts(null,productName);
-    }else{
-      productsModelClass.downloadPorducts(productName,null);
-    }
+  public boolean onQueryTextChange( String productName) {
+    downloadProducts(productName);
     return true;
+  }
+
+  private void downloadProducts(final String productName){
+    getHandler().removeCallbacksAndMessages(null);
+    if(productName!=null){
+      handler.postDelayed(new Runnable() {
+        @Override
+        public void run() {
+          showProgress(getString(R.string.msg_search_product));
+          if(productName.matches("[0-9]+")){
+            productsModelClass.downloadPorducts(null,productName);
+          }else{
+            productsModelClass.downloadPorducts(productName,null);
+          }
+        }
+      }, 1000);
+    }else{
+      showProgress(getString(R.string.msg_search_product));
+      productsModelClass.downloadPorducts( null,null);
+    }
   }
 
   @Override
@@ -114,7 +131,7 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
 
   @Override
   public void errorDownloadProducts(String error) {
-    Tools.showToasMessage(this,error);
+    //Tools.showToasMessage(this,error);
     binding.lblZeroProducts.setVisibility(View.VISIBLE);
     binding.recyclerListClient.setVisibility(View.GONE);
     binding.progressDownloadclient.setVisibility(View.GONE);
@@ -229,4 +246,20 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
     }
   }
 
+
+  private void showProgress(String message){
+    progressbar.showProgress(this,message);
+    binding.progressDownloadclient.setVisibility(View.VISIBLE);
+  }
+  private void hideProgress(){
+    progressbar.hideProgress();
+    binding.progressDownloadclient.setVisibility(View.GONE);
+  }
+
+  public Handler getHandler() {
+    if(handler==null){
+      handler = new Handler();
+    }
+    return handler;
+  }
 }

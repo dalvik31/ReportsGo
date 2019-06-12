@@ -47,9 +47,8 @@ public class ReportsProgressDialog {
     m_Dialog.show();
   }
   public void hideProgress() {
-    if(m_Dialog.isShowing()){
+    if(m_Dialog!=null && m_Dialog.isShowing()){
       m_Dialog.dismiss();
-      Log.e("cerramos","avuso");
     }
   }
 }

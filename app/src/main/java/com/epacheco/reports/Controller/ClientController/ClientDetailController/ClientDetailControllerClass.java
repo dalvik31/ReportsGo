@@ -100,7 +100,7 @@ public class ClientDetailControllerClass implements ClientDetailControllerIterfa
               if (myClient != null) {
                 clientDetailModelIterface.successGetClientDetail(myClient);
               } else {
-                clientDetailModelIterface.errorGetClientDetail("eee");
+                clientDetailModelIterface.errorGetClientDetail("");
               }
             }
 

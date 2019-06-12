@@ -1,6 +1,7 @@
 package com.epacheco.reports.View.RegisterUserView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
@@ -8,10 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.epacheco.reports.Model.RegisterUserModel.RegisterUserModelClass;
 import com.epacheco.reports.R;
+import com.epacheco.reports.Tools.Constants;
 import com.epacheco.reports.Tools.ScreenManager;
 import com.epacheco.reports.Tools.Tools;
 import com.epacheco.reports.databinding.ActivityRegisterClassBinding;
@@ -86,6 +90,9 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
             Log.e("error facebook","error: "+exception.toString());
           }
         });
+
+    configSwitchSaveUser();
+    getSaveData();
   }
 
   public void registerGoogle(View v){
@@ -116,33 +123,63 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
   }
 
 
-  public void switchViewsToRegister(View v){
-    if(binding.lblLogin.getText().toString().equals(getString(R.string.lbl_select_social_network))){
-      binding.lblLogin.setText(R.string.lbl_sign_up);
-      binding.btnHavenAccount.setText(R.string.btn_have_account);
-      binding.btnCreateAccoount.setText(R.string.lbl_sign_up);
-    }else{
-      binding.lblLogin.setText(R.string.lbl_select_social_network);
-      binding.btnHavenAccount.setText(R.string.btn_havent_account);
-      binding.btnCreateAccoount.setText(R.string.lbl_login);
-    }
-  }
-
   public void registerWithEmailAndPassword(View v){
+    Tools.setLongPreference(Constants.TIMER_SAVED,System.currentTimeMillis());
     String email = binding.txtEmail.getText().toString();
     String password = binding.txtPassword.getText().toString();
-    if(!email.isEmpty() && !password.isEmpty()){
-      if(binding.lblLogin.getText().toString().equals(getString(R.string.lbl_select_social_network))){
-        registerUserModelClass.loginEmailAndPassword(email,password);
-      }else{
-        registerUserModelClass.createAccountEmailAndPassword(email,password);
-      }
-    }else{
-      Log.e("ERROR","CAMPOS VACIOS");
+    if(email.isEmpty()){
+      Tools.showSnackMessage(binding.CoordinatorLayoutContainerLogin,getString(R.string.lbl_email));
+      return;
+    }else if(password.isEmpty()){
+      Tools.showSnackMessage(binding.CoordinatorLayoutContainerLogin,getString(R.string.lbl_password));
+      return;
     }
+    registerUserModelClass.createAccountEmailAndPassword(email,password);
+  }
+
+  public void loginWithEmailAndPassword(View v){
+    Tools.setLongPreference(Constants.TIMER_SAVED,System.currentTimeMillis());
+    String email = binding.txtEmail.getText().toString();
+    String password = binding.txtPassword.getText().toString();
+    if(email.isEmpty()){
+      Tools.showSnackMessage(binding.CoordinatorLayoutContainerLogin,getString(R.string.lbl_email));
+      return;
+    }else if(password.isEmpty()){
+      Tools.showSnackMessage(binding.CoordinatorLayoutContainerLogin,getString(R.string.lbl_password));
+      return;
+    }
+    registerUserModelClass.loginEmailAndPassword(email,password);
 
   }
 
+  private void configSwitchSaveUser(){
+    binding.AppCompatCheckBoxSaveUser.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+      @Override
+      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        String userName = binding.txtEmail.getText().toString();
+        if(!userName.isEmpty()){
+          if(isChecked){
+            Tools.setStringPreference(Constants.USERNAME_SAVE,userName);
+          }else {
+            Tools.setStringPreference(Constants.USERNAME_SAVE,"");
+          }
+        }else{
+          binding.AppCompatCheckBoxSaveUser.setChecked(false);
+          Tools.showSnackMessage(binding.CoordinatorLayoutContainerLogin,getString(R.string.lbl_email));
+        }
+
+      }
+    });
+  }
+
+
+  private void getSaveData(){
+    String userName = Tools.getStringPreference(Constants.USERNAME_SAVE);
+    if(!userName.isEmpty()){
+      binding.txtEmail.setText(userName);
+      binding.AppCompatCheckBoxSaveUser.setChecked(true);
+    }
+  }
   @Override
   public FragmentActivity getMyActivity() {
     return this;
@@ -222,3 +259,5 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
     }
   }
 }
+
+//viernes creando el servicio para

@@ -11,4 +11,7 @@ public interface OrderViewIterface {
 
   void successCreateOrderList();
   void errorCreateOrderList(String error);
+
+  void successRemoveOrderList();
+  void errorRemoveOrderList(String error);
 }

@@ -3,12 +3,16 @@ package com.epacheco.reports.Controller.OrderController;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
 import com.epacheco.reports.Model.OrderModel.OrderModelClass;
+import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.Order.OrderList;
 import com.epacheco.reports.Pojo.Product.Product;
 import com.epacheco.reports.R;
 import com.epacheco.reports.Tools.Constants;
 import com.epacheco.reports.Tools.ReportsApplication;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,7 +20,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.DatabaseReference.CompletionListener;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.twitter.sdk.android.core.models.User;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class OrderControllerClass implements OrderControllerInterface{
   private FirebaseAuth mAuth;
@@ -47,6 +53,7 @@ public class OrderControllerClass implements OrderControllerInterface{
             clientList.add(university);
           }
           if(clientList.size()>0){
+            Collections.reverse(clientList);
             orderModelClass.successGetOrderList(clientList);
           }else{
             orderModelClass.errorGetOrderList(ReportsApplication.getMyApplicationContext().getString(
@@ -64,24 +71,72 @@ public class OrderControllerClass implements OrderControllerInterface{
   }
 
   @Override
-  public void createOrder(OrderList orderList) {
+  public void createOrder(final OrderList orderList) {
 
     if(orderModelClass!=null && mAuth!=null&& mAuth.getUid()!=null){
       FirebaseDatabase database = FirebaseDatabase.getInstance();
       DatabaseReference myRef = database.getReference("Reports");
 
-      DatabaseReference usersRef = myRef.child(mAuth.getUid()).child(Constants.CLIENT_ORDERS_TABLE_FIREBASE);
-      usersRef.child(orderList.getDateOrder()).setValue(orderList, new CompletionListener() {
+      final DatabaseReference usersRef = myRef.child(mAuth.getUid()).child(Constants.CLIENT_ORDERS_TABLE_FIREBASE);
+
+      usersRef.orderByChild("nameOrder").equalTo(orderList.getNameOrder()).addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
-        public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
-          if (databaseError != null) {
-            orderModelClass.errorCreateOrderList(databaseError.getMessage());
-          } else {
-            orderModelClass.successCreateOrderList();
+        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+          OrderList myClient = null;
+          for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+            myClient = postSnapshot.getValue(OrderList.class);
+          }
+          if(myClient!=null){
+            orderModelClass.errorCreateOrderList(ReportsApplication.getMyApplicationContext().getString(R.string.item_list_repeat));
+          }else{
+
+            usersRef.child(orderList.getDateOrder()).setValue(orderList, new CompletionListener() {
+              @Override
+              public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                if (databaseError != null) {
+                  orderModelClass.errorCreateOrderList(databaseError.getMessage());
+                } else {
+                  orderModelClass.successCreateOrderList();
+                }
+              }
+
+            });
           }
         }
 
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+          orderModelClass.errorCreateOrderList(databaseError.getMessage());
+        }
       });
+
+
+
+
+
+    }
+  }
+
+  @Override
+  public void removeOrderList(String orderId) {
+    if(orderModelClass!=null && mAuth!=null&& mAuth.getUid()!=null){
+      FirebaseDatabase database = FirebaseDatabase.getInstance();
+      DatabaseReference myRef = database.getReference("Reports");
+      DatabaseReference usersRef = myRef.child(mAuth.getUid()).child(Constants.CLIENT_ORDERS_TABLE_FIREBASE);
+      usersRef.child(orderId).removeValue()
+          .addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+              orderModelClass.successRemoveOrderList();
+            }
+          })
+          .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+              orderModelClass.errorRemoveOrderList(e.getMessage());
+            }
+          });
     }
   }
 }

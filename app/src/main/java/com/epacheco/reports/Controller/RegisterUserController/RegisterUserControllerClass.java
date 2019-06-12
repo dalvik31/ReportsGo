@@ -39,7 +39,7 @@ public class RegisterUserControllerClass implements RegisterUserControllerInterf
                 registerUserModelClass.successRegisterUserEmail(mAuth.getCurrentUser());
               } else {
                 if(task.getException()!=null && task.getException().getMessage()!=null){
-                  registerUserModelClass.errorRegisterUserEmail(task.getException().getMessage());
+                  registerUserModelClass.errorRegisterUserEmail(getMessageFireBase(task.getException().getMessage()));
                 }else{
                   registerUserModelClass.errorRegisterUserEmail(registerUserModelClass.getMyActivity().getString(R.string.msg_error_sistema));
                 }
@@ -61,7 +61,7 @@ public class RegisterUserControllerClass implements RegisterUserControllerInterf
 
               } else {
                 if(task.getException()!=null && task.getException().getMessage()!=null){
-                  registerUserModelClass.errorLoginUserEmail(task.getException().getMessage());
+                  registerUserModelClass.errorLoginUserEmail(getMessageFireBase(task.getException().getMessage()));
                 }else{
                   registerUserModelClass.errorLoginUserEmail(registerUserModelClass.getMyActivity().getString(R.string.msg_error_sistema));
                 }
@@ -146,4 +146,18 @@ public class RegisterUserControllerClass implements RegisterUserControllerInterf
           });
     }
   }
+
+  private String getMessageFireBase(String exception){
+   if(exception.contains("The user may have been deleted")){
+     return ReportsApplication.getMyApplicationContext().getString(R.string.msg_firebase_delete_user);
+   }else if(exception.contains("The password is invalid or the user does not have a password")){
+     return ReportsApplication.getMyApplicationContext().getString(R.string.msg_firebase_without_password);
+   }else if(exception.contains("The email address is already in use by another account")){
+     return ReportsApplication.getMyApplicationContext().getString(R.string.msg_firebase_used_email);
+   }else{
+     return exception;
+   }
+  }
+
+
 }

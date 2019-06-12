@@ -6,11 +6,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -20,6 +22,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 public class Tools {
+  private final static String TAG = Tools.class.getSimpleName();
   private static final String PREFERENCE_FILE_KEY = "reportsPreference";
   private static SharedPreferences preferences = ReportsApplication.getMyApplicationContext().getSharedPreferences(PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
   private static final String DATE_FORMAT_2 = "dd / MMMM / yyyy";
@@ -29,6 +32,9 @@ public class Tools {
     Toast.makeText(myActivity, message, Toast.LENGTH_LONG).show();
   }
 
+  public static void showSnackMessage(View myActivity, String message){
+    Snackbar.make(myActivity,message,Snackbar.LENGTH_SHORT).show();
+  }
   public static String getFormatDate(String epochDate) {
     if (epochDate == null || epochDate.isEmpty()) {
       return "-- ---- ----";
@@ -88,6 +94,15 @@ public class Tools {
     return preferences.getFloat(name,0);
   }
 
+  public static void setLongPreference(String name,long value){
+    SharedPreferences.Editor editor = preferences.edit();
+    editor.putLong(name,value);
+    editor.apply();
+  }
+  public static long getLongPreference(String name){
+    return preferences.getLong(name,0);
+  }
+
   public static String getFormatUrlImage(Uri photoPath){
     String photoPathCustom;
     if(photoPath!=null && !photoPath.toString().isEmpty()){
@@ -105,7 +120,6 @@ public class Tools {
       }else if(photoPathCustom.contains(originalPieceOfUrlFacebook)){
         photoPathCustom+="?height=500";
       }
-      Log.e("aqui","photoPath:"+photoPathCustom);
     }else{
       photoPathCustom = "";
     }
@@ -113,5 +127,17 @@ public class Tools {
     return photoPathCustom;
   }
 
-  //11477594
+  /**Creamos este metodo para comparar el tiempo que ha transcurrido
+   * la aplicacion cerrada si ha pasado mas de 5 min cerramos sesion*/
+  public static boolean compareTime(){
+    long timeSave = Tools.getLongPreference(Constants.TIMER_SAVED);
+    long time = System.currentTimeMillis();
+    long timeFinish = time - timeSave;
+    Log.e(TAG,"timeSave: "+timeSave);
+    Log.e(TAG,"time: "+time);
+    Log.e(TAG,"timeFinish: "+timeSave);
+    //return timeFinish > 10000;//si el tiempo es mayor a 10 segundos
+    return timeFinish > 300000;//si el tiempo es mayor a 5 minutos
+  }
+
 }

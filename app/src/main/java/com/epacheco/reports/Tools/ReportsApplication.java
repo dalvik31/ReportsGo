@@ -67,4 +67,6 @@ public class ReportsApplication  extends MultiDexApplication {
     FacebookSdk.sdkInitialize(getApplicationContext());
     AppEventsLogger.activateApp(this);
   }
+
+
 }

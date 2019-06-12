@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+<android.support.constraint.ConstraintLayout
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".View.OrderView.OrderDetailView.OrderDetailView">
   <RelativeLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -19,46 +26,23 @@
           android:id="@+id/img_profile"
           android:layout_width="?attr/actionBarSize"
           android:layout_height="?attr/actionBarSize"
-
+          android:layout_toStartOf="@+id/btn_add"
           android:padding="12dp"
           android:src="@drawable/ic_vector_account"
+          android:layout_alignParentEnd="true"
           app:srcCompat="@drawable/ic_vector_account"
-          android:onClick="goProfileActivity"
-          android:layout_alignParentEnd="true"/>
-
-
-        <ImageView
-          android:id="@+id/btn_add"
-          android:layout_width="?attr/actionBarSize"
-          android:layout_height="?attr/actionBarSize"
-          app:srcCompat="@drawable/ic_vector_add"
-          android:scaleType="center"
-          android:layout_toStartOf="@+id/img_profile"
-          android:onClick="goAddClientActivity"
-          android:visibility="gone"/>
+          android:onClick="goProfileActivity"/>
         <android.support.v7.widget.Toolbar
           android:id="@+id/app_bar"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:theme="@style/AppThemeSearchView"
-          android:layout_toStartOf="@+id/btn_add">
-
-          <SearchView
-            android:id="@+id/searchView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:iconifiedByDefault="false"
-            android:queryHint="@string/lbl_search_client"
-
-            android:layout_centerHorizontal="true"
-            android:queryBackground="@android:color/transparent"
-            />
+          android:layout_toStartOf="@+id/img_profile">
         </android.support.v7.widget.Toolbar>
       </RelativeLayout>
     </android.support.design.widget.AppBarLayout>
-
     <ProgressBar
-      android:id="@+id/progress_downloadclient"
+      android:id="@+id/progress_downloadOrderElements"
       style="?android:attr/progressBarStyleHorizontal"
       android:indeterminateOnly="true"
       android:layout_width="match_parent"
@@ -67,24 +51,26 @@
       android:layout_marginTop="-5dp"
       android:theme="@style/AppTheme.ProgressBar"/>
     <android.support.v7.widget.RecyclerView
-      android:id="@+id/recyclerListClient"
+      android:id="@+id/recyclerListOrderElelments"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_marginTop="-4dp"
-      android:layout_below="@+id/progress_downloadclient"
-      tools:listitem="@layout/item_client"/>
+      android:layout_marginTop="-11dp"
+      android:layout_below="@+id/progress_downloadOrderElements"
+      android:visibility="visible"
+      tools:listitem="@layout/item_list_order_detail"/>
 
 
     <TextView
-      android:id="@+id/lbl_zero_clients"
+      android:id="@+id/lbl_zero_orders_elements"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       style="@style/TextView_Title"
-      android:text="@string/msg_zero_clients"
+      android:text="@string/msg_zero_orders_elements"
       android:layout_centerInParent="true"
       android:textColor="@color/colorPrimary"
       android:textSize="28sp"
-      android:visibility="gone"/>
+      android:visibility="visible"
+      android:gravity="center"/>
 
     <android.support.design.widget.FloatingActionButton
       android:id="@+id/floating_action_button"
@@ -94,9 +80,12 @@
       app:srcCompat="@drawable/ic_vector_add"
       android:layout_alignParentBottom="true"
       android:layout_alignParentEnd="true"
+      android:onClick="goCreateOrder"
       app:backgroundTint="@color/colorPrimary"
-      android:onClick="goAddClientActivity"
       />
-
   </RelativeLayout>
+
+
+</android.support.constraint.ConstraintLayout>
+
 </layout>

@@ -39,7 +39,7 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
       binding.appBar.setTitle(R.string.lbl_modify_client);
       binding.btnCreateAccoount.setVisibility(View.GONE);
       binding.containerModify.setVisibility(View.VISIBLE);
-      showProgress("Buscando cliente");
+      showProgress(getString(R.string.lbl_search_clients));
       clientAddModelClass.getClient(clientId);
       binding.btnModifyClient.setVisibility(View.VISIBLE);
       binding.btnAddClient.setVisibility(View.GONE);
@@ -54,7 +54,7 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
   public void addClient(View v){
     if(validateItems()){
       createClient(null);
-      showProgress("Creando cliente");
+      showProgress(getString(R.string.msg_client_save));
       clientAddModelClass.addClient(getObjClient());
     }else{
       Tools.showToasMessage(this,getString(R.string.msg_name_empty));
@@ -176,7 +176,7 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
   public void modifyAccount(View v){
     if(validateItems()){
       createClient(getObjClient());
-      showProgress("Modificando cliente");
+      showProgress(getString(R.string.msg_client_save));
       clientAddModelClass.modifyClient(getObjClient());
     }else{
       Tools.showToasMessage(this,getString(R.string.msg_name_empty));

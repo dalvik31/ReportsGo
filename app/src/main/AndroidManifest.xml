@@ -18,6 +18,12 @@
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
+    <activity android:name=".View.OrderView.OrderCreateView.OrderCreateView"
+      android:theme="@style/AppThemeNoActionBar">
+    </activity>
+    <activity android:name=".View.OrderView.OrderDetailView.OrderDetailView"
+      android:theme="@style/AppThemeNoActionBar">
+    </activity>
     <activity android:name=".View.TestPin.TestPin">
     </activity>
     <activity android:name=".View.TestNFC.TestNfcView">

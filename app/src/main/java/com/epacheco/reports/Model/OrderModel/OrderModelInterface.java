@@ -13,8 +13,12 @@ public interface OrderModelInterface {
   void successCreateOrderList();
   void errorCreateOrderList(String error);
 
+  void successRemoveOrderList();
+  void errorRemoveOrderList(String error);
+
 
   //Controller Methods
   void getOrders();
   void createOrder(OrderList orderList);
+  void removeOrderList(String orderId);
 }
