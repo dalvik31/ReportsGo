@@ -154,7 +154,10 @@ public class ClientDetailViewClass extends AppCompatActivity implements ClientDe
   }
 
   public void goSaleActivity(View view){
-    Log.e("aaa","clientId: "+clientId);
     ScreenManager.goSaleActivity(this,clientId,null);
+  }
+
+  public void goNewOrder(View view){
+    ScreenManager.goOrderActivity(this,clientId);
   }
 }

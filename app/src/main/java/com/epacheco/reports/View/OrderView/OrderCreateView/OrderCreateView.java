@@ -52,10 +52,16 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
     binding.txtOrderSize.setText(sizeSelected);
     binding.txtOrderGender.setText(typeSelected);
     Bundle extras = getIntent().getExtras();
+    orderCreateModelClass = new OrderCreateModelClass(this);
     if(extras!=null){
       orderListId = extras.getString(OrderDetailView.ORDER_ID);
+      if(extras.containsKey(OrderDetailView.CLIENT_ID)){
+        showProgress(getString(R.string.lbl_search_clients));
+        orderCreateModelClass.getClient(extras.getString(OrderDetailView.CLIENT_ID));
+        extras.remove(OrderDetailView.CLIENT_ID);
+      }
     }
-    orderCreateModelClass = new OrderCreateModelClass(this);
+
   }
 
   public void searchClient(View view){

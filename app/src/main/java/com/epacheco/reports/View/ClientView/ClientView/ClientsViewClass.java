@@ -105,7 +105,6 @@ public class ClientsViewClass extends AppCompatActivity implements ClientViewInt
     hideProgress();
     binding.lblZeroClients.setVisibility(View.VISIBLE);
     binding.recyclerListClient.setVisibility(View.GONE);
-    //Tools.showToasMessage(this,error);
   }
 
   @Override

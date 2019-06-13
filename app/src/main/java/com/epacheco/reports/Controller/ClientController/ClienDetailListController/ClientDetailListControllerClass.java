@@ -33,8 +33,8 @@ public class ClientDetailListControllerClass implements ClientDetailListControll
       FirebaseDatabase database = FirebaseDatabase.getInstance();
       DatabaseReference myRef = database.getReference("Reports");
 
-      DatabaseReference usersRef = myRef.child(mAuth.getUid()).child(Constants.CLIENT_DETAIL_TABLE_FIREBASE);
-      usersRef.child(id).orderByChild("datePayment").addValueEventListener(new ValueEventListener() {
+      DatabaseReference usersRef = myRef.child(mAuth.getUid()).child(Constants.CLIENT_TABLE_FIREBASE);
+      usersRef.child(id).child(Constants.CLIENT_DETAIL_TABLE_FIREBASE).orderByChild("datePayment").addValueEventListener(new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot snapshot) {
           clientList.clear();

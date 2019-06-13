@@ -1,6 +1,8 @@
 package com.epacheco.reports.View.OrderView;
 
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +20,8 @@ import com.epacheco.reports.Tools.ReportsDialogGlobal;
 import com.epacheco.reports.Tools.ReportsProgressDialog;
 import com.epacheco.reports.Tools.ScreenManager;
 import com.epacheco.reports.Tools.Tools;
+import com.epacheco.reports.View.ClientView.ClientAddView.ClientAddViewClass;
+import com.epacheco.reports.View.ProductsView.ProductAddView.ProductAddViewClass;
 import com.epacheco.reports.View.ProductsView.ProductsView.AdapterProducts;
 import com.epacheco.reports.databinding.ActivityOrderViewClassBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,6 +39,8 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
   private ActivityOrderViewClassBinding binding;
   private ReportsProgressDialog progressbar;
   private FirebaseAuth mAuth;
+  private String idClient;
+  private boolean idListSelected;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -48,8 +54,25 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
     orderModelClass = new OrderModelClass(this);
     showProgress(getString(R.string.msg_search_orders));
     orderModelClass.getOrders();
+
+    Bundle extras = getIntent().getExtras();
+    if(extras!=null){
+      idClient = extras.getString(ClientAddViewClass.CLIENT_ID);
+      selectListOrder();
+    }
   }
 
+  private void selectListOrder() {
+    ReportsDialogGlobal.showDialogAccept(this, getString(R.string.title_message_select_order),
+        getString(R.string.body_message_select_order),
+        new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+            idListSelected = true;
+          }
+        }
+    );
+  }
   @Override
   public FragmentActivity getMyActivity() {
     return this;
@@ -138,11 +161,25 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
   }
 
   @Override
-  public void onItemOrderClic(boolean removeElement,String orderId,String nameOrder) {
-    if(removeElement)
-    orderModelClass.removeOrderList(orderId);
-    else
-      ScreenManager.goOrderDetailActivity(this,orderId,nameOrder);
+  public void onItemOrderClic(boolean removeElement, final String orderId,String nameOrder) {
+    if(idListSelected){
+      ScreenManager.goOrderDetailActivity(this,orderId,nameOrder,idClient);
+    }else{
+      if(removeElement){
+        ReportsDialogGlobal.showDialogAccept(this, getString(R.string.title_message_delete_elemnt),
+            getString(R.string.body_message_delete_elemnt),
+            new DialogInterface.OnClickListener() {
+              @Override
+              public void onClick(DialogInterface dialog, int which) {
+                orderModelClass.removeOrderList(orderId);
+              }
+            }
+        );
+      }
+      else
+        ScreenManager.goOrderDetailActivity(this,orderId,nameOrder,null);
+    }
+
   }
 
   public void goProfileActivity(View v){

@@ -1,5 +1,6 @@
 package com.epacheco.reports.View.OrderView.OrderDetailView;
 
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import com.epacheco.reports.Model.OrderModel.OrderDetailModel.OrderDetailModelCl
 import com.epacheco.reports.Pojo.OrderDetail.OrderDetail;
 import com.epacheco.reports.R;
 import com.epacheco.reports.Tools.ReportsApplication;
+import com.epacheco.reports.Tools.ReportsDialogGlobal;
 import com.epacheco.reports.Tools.ReportsProgressDialog;
 import com.epacheco.reports.Tools.ScreenManager;
 import com.epacheco.reports.Tools.Tools;
@@ -25,12 +27,15 @@ public class OrderDetailView extends AppCompatActivity implements OrderDetailInt
   private final String TAG = OrderDetailView.class.getSimpleName();
   public static final String ORDER_ID = "orderId";
   public static final String ORDER_NAME= "orderName";
+  public static final String CLIENT_ID= "clientId";
 
   private ActivityOrderDetailViewBinding binding;
   private FirebaseAuth mAuth;
   private String listOrderId;
   private ReportsProgressDialog progressbar;
   private OrderDetailModelClass orderDetailModelClass;
+  private String clientId;
+  private Bundle extras;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +48,7 @@ public class OrderDetailView extends AppCompatActivity implements OrderDetailInt
     mAuth = FirebaseAuth.getInstance();
     progressbar = ReportsProgressDialog.getInstance(this);
     orderDetailModelClass = new OrderDetailModelClass(this);
-    Bundle extras = getIntent().getExtras();
+    extras = getIntent().getExtras();
     if(extras!=null){
       binding.appBar.setTitle(extras.getString(ORDER_NAME));
       listOrderId = extras.getString(ORDER_ID);
@@ -66,7 +71,7 @@ public class OrderDetailView extends AppCompatActivity implements OrderDetailInt
   }
 
   public void goCreateOrder(View view){
-    ScreenManager.goOrderCreateActivity(this,listOrderId);
+    ScreenManager.goOrderCreateActivity(this,listOrderId,null);
   }
 
   @Override
@@ -86,6 +91,11 @@ public class OrderDetailView extends AppCompatActivity implements OrderDetailInt
       adapterOrders.setOnItemOrderDetailClic(this);
       adapterOrders.setOnItemOrderBuy(this);
       binding.recyclerListOrderElelments.setAdapter(adapterOrders);
+      if(extras!=null && extras.containsKey(CLIENT_ID)){
+        clientId = extras.getString(CLIENT_ID);
+        ScreenManager.goOrderCreateActivity(this,listOrderId,clientId);
+        extras.remove(CLIENT_ID);
+      }
     }else{
       binding.lblZeroOrdersElements.setVisibility(View.VISIBLE);
       binding.recyclerListOrderElelments.setVisibility(View.GONE);
@@ -133,9 +143,18 @@ public class OrderDetailView extends AppCompatActivity implements OrderDetailInt
   }
 
   @Override
-  public void onItemOrderClic(boolean removeElement, String orderId,String orderItemId) {
+  public void onItemOrderClic(boolean removeElement, final String orderId, final String orderItemId) {
     if(removeElement){
-      orderDetailModelClass.removeOrderDetail(orderId,orderItemId);
+      ReportsDialogGlobal.showDialogAccept(this, getString(R.string.title_message_delete_elemnt),
+          getString(R.string.body_message_delete_elemnt),
+          new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+              orderDetailModelClass.removeOrderDetail(orderId,orderItemId);
+            }
+          }
+      );
+
     }
   }
 

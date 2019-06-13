@@ -1,5 +1,6 @@
 package com.epacheco.reports.Controller.ClientController.ClientController;
 
+import android.support.annotation.NonNull;
 import com.epacheco.reports.Model.ClientModel.ClientModel.ClientModelInterface;
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.R;
@@ -37,7 +38,7 @@ public class ClientControllerClass implements ClientControllerInterface {
       usersRef.orderByChild("name").startAt(paramName)
           .endAt( paramName + "\uf8ff").addValueEventListener(new ValueEventListener() {
         @Override
-        public void onDataChange(DataSnapshot snapshot) {
+        public void onDataChange(@NonNull DataSnapshot snapshot) {
           clientList.clear();
           for (DataSnapshot postSnapshot: snapshot.getChildren()) {
             Client university = postSnapshot.getValue(Client.class);
@@ -52,7 +53,7 @@ public class ClientControllerClass implements ClientControllerInterface {
         }
 
         @Override
-        public void onCancelled(DatabaseError databaseError) {
+        public void onCancelled(@NonNull DatabaseError databaseError) {
           clientModelInterface.errorDownloadClients(databaseError.getMessage());
         }
       });

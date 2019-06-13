@@ -1,5 +1,6 @@
 package com.epacheco.reports.View.ClientView.ClientAddView;
 
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.view.View;
 import com.epacheco.reports.Model.ClientModel.ClientAddModel.ClientAddModelClass;
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.R;
+import com.epacheco.reports.Tools.ReportsDialogGlobal;
 import com.epacheco.reports.Tools.ReportsProgressDialog;
 import com.epacheco.reports.Tools.ScreenManager;
 import com.epacheco.reports.Tools.Tools;
@@ -186,7 +188,16 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
 
 
   public void deleteAccount(View v){
-    clientAddModelClass.removeClient(getObjClient().getId());
+    ReportsDialogGlobal.showDialogAccept(this, getString(R.string.title_message_delete_elemnt),
+        getString(R.string.body_message_delete_elemnt),
+        new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+            clientAddModelClass.removeClient(getObjClient().getId());
+          }
+        }
+    );
+
   }
 
   private void showProgress(String message){

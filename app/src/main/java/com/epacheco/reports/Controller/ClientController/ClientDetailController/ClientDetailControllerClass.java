@@ -63,8 +63,8 @@ public class ClientDetailControllerClass implements ClientDetailControllerIterfa
       FirebaseDatabase database = FirebaseDatabase.getInstance();
       DatabaseReference myRef = database.getReference("Reports");
 
-      DatabaseReference usersRef = myRef.child(mAuth.getUid()).child(Constants.CLIENT_DETAIL_TABLE_FIREBASE);
-      usersRef.child(id).child(clientDetail.getDatePayment()).setValue(clientDetail, new CompletionListener() {
+      DatabaseReference usersRef = myRef.child(mAuth.getUid()).child(Constants.CLIENT_TABLE_FIREBASE);
+      usersRef.child(id).child(Constants.CLIENT_DETAIL_TABLE_FIREBASE).child(clientDetail.getDatePayment()).setValue(clientDetail, new CompletionListener() {
         @Override
         public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
           if (databaseError != null) {
@@ -85,10 +85,10 @@ public class ClientDetailControllerClass implements ClientDetailControllerIterfa
       FirebaseDatabase database = FirebaseDatabase.getInstance();
       DatabaseReference myRef = database.getReference("Reports");
 
-      DatabaseReference usersRef = myRef.child(mAuth.getUid())
-          .child(Constants.CLIENT_DETAIL_TABLE_FIREBASE);
+      DatabaseReference usersRef = myRef.child(mAuth.getUid()).child(Constants.CLIENT_TABLE_FIREBASE);
 
-      usersRef.child(id).orderByKey().limitToLast(1)
+
+      usersRef.child(id).child(Constants.CLIENT_DETAIL_TABLE_FIREBASE).orderByKey().limitToLast(1)
           .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

@@ -89,7 +89,7 @@
   <string name="txt_client_date_format">Cliente desde el %s</string>
   <string name="txt_client_name_format"> %s %s</string>
   <string name="txt_client_limit_format">Limite de credito %s</string>
-  <string name="txt_client_amount_empty">$ 0.0</string>
+  <string name="txt_client_amount_empty">0.0</string>
   <string name="lbl_change_client">Cambiar cliente</string>
   <string name="lbl_change_product">Seleccionar otro producto</string>
   <string name="lbl_body_message_detail_client">Usted debe: $%s</string>
@@ -191,6 +191,10 @@
   <string name="lbl_title_create_order_description_hint">Detalles importantes de la prenda</string>
   <string name="lbl_order_buy">Comprado</string>
   <string name="lbl_order_buy_update">Pedido actualizado</string>
+  <string name="title_message_select_order">Selecciona una lista.</string>
+  <string name="body_message_select_order">Elige la lista en la cual se agregara el pedido del cliente.</string>
+  <string name="title_message_delete_elemnt">Borrar elemento.</string>
+  <string name="body_message_delete_elemnt">¿Realmente deseas eliminar este elemento.</string>
 
   <!--Errores FIREBASE-->
   <string name="msg_firebase_delete_user">No se encontro información del usuario, probablemente fue eliminado.</string>

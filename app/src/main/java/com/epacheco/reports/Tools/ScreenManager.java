@@ -92,23 +92,26 @@ public class ScreenManager {
     myActivity.startActivityForResult(scanActivity,ScannedBarcodeActivity.SCANBAR_ACTIVITY);
   }
 
-  public static void goOrderActivity(FragmentActivity myActivity){
+  public static void goOrderActivity(FragmentActivity myActivity,String clientId){
     //Intent orderActivity = new Intent(myActivity, TestPin.class);
     //myActivity.startActivity(orderActivity);
    Intent orderActivity = new Intent(myActivity, OrderViewClass.class);
+    if(clientId!=null)orderActivity.putExtra(ClientAddViewClass.CLIENT_ID ,clientId);
     myActivity.startActivity(orderActivity);
   }
 
-  public static void goOrderDetailActivity(FragmentActivity myActivity,String orderId,String nameOrder){
+  public static void goOrderDetailActivity(FragmentActivity myActivity,String orderId,String nameOrder,String idClient){
     Intent orderDetailActivity = new Intent(myActivity, OrderDetailView.class);
     orderDetailActivity.putExtra(OrderDetailView.ORDER_ID,orderId);
     orderDetailActivity.putExtra(OrderDetailView.ORDER_NAME,nameOrder);
+    if(idClient!=null)orderDetailActivity.putExtra(OrderDetailView.CLIENT_ID,idClient);
     myActivity.startActivityForResult(orderDetailActivity,ScannedBarcodeActivity.SCANBAR_ACTIVITY);
   }
 
-  public static void goOrderCreateActivity(FragmentActivity myActivity,String orderId){
+  public static void goOrderCreateActivity(FragmentActivity myActivity,String orderId,String idClient){
     Intent orderCreateActivity = new Intent(myActivity, OrderCreateView.class);
     orderCreateActivity.putExtra(OrderDetailView.ORDER_ID,orderId);
+    if(idClient!=null)orderCreateActivity.putExtra(OrderDetailView.CLIENT_ID,idClient);
     myActivity.startActivityForResult(orderCreateActivity,ScannedBarcodeActivity.SCANBAR_ACTIVITY);
   }
 }

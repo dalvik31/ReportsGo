@@ -250,7 +250,16 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
   }
 
   public void removeProduct(View view){
-    productsAddModelClass.removeProduct(productId);
+    ReportsDialogGlobal.showDialogAccept(this, getString(R.string.title_message_delete_elemnt),
+        getString(R.string.body_message_delete_elemnt),
+        new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+            productsAddModelClass.removeProduct(productId);
+          }
+        }
+    );
+
   }
 
   @Override

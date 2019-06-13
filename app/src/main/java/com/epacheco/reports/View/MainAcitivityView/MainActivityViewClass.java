@@ -75,7 +75,7 @@ public class MainActivityViewClass extends AppCompatActivity{
     ScreenManager.goSaleActivity(this,null,null);
   }
   public void goOrderActivity(View v){
-    ScreenManager.goOrderActivity(this);
+    ScreenManager.goOrderActivity(this,null);
   }
 
 

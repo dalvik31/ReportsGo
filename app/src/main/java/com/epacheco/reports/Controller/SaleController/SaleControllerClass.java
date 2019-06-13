@@ -100,10 +100,11 @@ public class SaleControllerClass implements SaleControllerInterface{
     if(saleModelClass!=null && mAuth!=null&& mAuth.getUid()!=null){
       FirebaseDatabase database = FirebaseDatabase.getInstance();
       final DatabaseReference myRef = database.getReference("Reports");
-      DatabaseReference usersRef = myRef.child(mAuth.getUid()).child(Constants.CLIENT_DETAIL_TABLE_FIREBASE);
+
+      DatabaseReference usersRef = myRef.child(mAuth.getUid()).child(Constants.CLIENT_TABLE_FIREBASE);
 
       for(final ClientDetail clientDetail1: clientDetail){
-        usersRef.child(idClient).child(clientDetail1.getDatePayment() + new Random().nextInt()).setValue(clientDetail1, new CompletionListener() {
+        usersRef.child(idClient).child(Constants.CLIENT_DETAIL_TABLE_FIREBASE).child(clientDetail1.getDatePayment() + new Random().nextInt()).setValue(clientDetail1, new CompletionListener() {
           @Override
           public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
             if (databaseError != null) {
@@ -138,11 +139,10 @@ public class SaleControllerClass implements SaleControllerInterface{
     if(saleModelClass!=null && mAuth.getUid()!=null) {
       FirebaseDatabase database = FirebaseDatabase.getInstance();
       DatabaseReference myRef = database.getReference("Reports");
+      DatabaseReference usersRef = myRef.child(mAuth.getUid()).child(Constants.CLIENT_TABLE_FIREBASE);
 
-      DatabaseReference usersRef = myRef.child(mAuth.getUid())
-          .child(Constants.CLIENT_DETAIL_TABLE_FIREBASE);
 
-      usersRef.child(id).orderByKey().limitToLast(1)
+      usersRef.child(id).child(Constants.CLIENT_DETAIL_TABLE_FIREBASE).orderByKey().limitToLast(1)
           .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

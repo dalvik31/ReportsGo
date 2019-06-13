@@ -7,5 +7,4 @@ public interface ClientDetailControllerIterface {
   void getClient(String id);
   void addClientDetail(ClientDetail clientDetail,String id);
   void getClientDetail(String id);
-
 }

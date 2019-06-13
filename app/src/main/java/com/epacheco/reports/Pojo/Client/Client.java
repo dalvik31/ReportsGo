@@ -1,5 +1,8 @@
 package com.epacheco.reports.Pojo.Client;
 
+import com.epacheco.reports.Pojo.ClientDetail.ClientDetail;
+import java.util.HashMap;
+
 public class Client {
   private String id;
   private String Name;
@@ -8,6 +11,7 @@ public class Client {
   private String phone;
   private double limit;
   private String dateClient;
+  private HashMap<String, ClientDetail> ClientsDetails;
 
   public Client() {
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -67,5 +71,14 @@ public class Client {
 
   public void setDateClient(String dateClient) {
     this.dateClient = dateClient;
+  }
+
+  public HashMap<String, ClientDetail> getClientsDetails() {
+    return ClientsDetails;
+  }
+
+  public void setClientsDetails(
+      HashMap<String, ClientDetail> clientsDetails) {
+    ClientsDetails = clientsDetails;
   }
 }
