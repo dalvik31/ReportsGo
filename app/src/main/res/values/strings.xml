@@ -23,6 +23,7 @@
   <string name="lbl_or_account">Ó</string>
   <string name="lbl_select_social_network">Inicia con una red social</string>
   <string name="lbl_remember_user">Recordar usuario</string>
+  <string name="title_msg_error_sistema">Error.</string>
   <string name="msg_error_sistema">Ocurrio un problema, intenta más tarde.</string>
   <string name="msg_zero_elements">No se encontraron pagos de este cliente.</string>
   <string name="msg_zero_clients">No se encontraron clientes.</string>
@@ -91,7 +92,7 @@
   <string name="txt_client_limit_format">Limite de credito %s</string>
   <string name="txt_client_amount_empty">0.0</string>
   <string name="lbl_change_client">Cambiar cliente</string>
-  <string name="lbl_change_product">Seleccionar otro producto</string>
+  <string name="lbl_change_product">Cambiar producto</string>
   <string name="lbl_body_message_detail_client">Usted debe: $%s</string>
   <string name="lbl_subject_message_detail_client">Estado de cuenta de %s %s</string>
 
@@ -129,6 +130,26 @@
   <string name="lbl_select_product_size_me">Mediano</string>
   <string name="lbl_select_product_size_gra">Grande</string>
   <string name="lbl_select_product_size_ex">Extra</string>
+
+  <string name="lbl_select_product_size_2">2</string>
+  <string name="lbl_select_product_size_4">4</string>
+  <string name="lbl_select_product_size_6">6</string>
+  <string name="lbl_select_product_size_8">8</string>
+  <string name="lbl_select_product_size_10">10</string>
+  <string name="lbl_select_product_size_12">12</string>
+  <string name="lbl_select_product_size_14">14</string>
+  <string name="lbl_select_product_size_16">16</string>
+  <string name="lbl_select_product_size_28">28</string>
+  <string name="lbl_select_product_size_30">30</string>
+  <string name="lbl_select_product_size_32">32</string>
+  <string name="lbl_select_product_size_34">34</string>
+  <string name="lbl_select_product_size_36">36</string>
+  <string name="lbl_select_product_size_38">38</string>
+  <string name="lbl_select_product_size_40">40</string>
+  <string name="lbl_select_product_size_42">42</string>
+  <string name="lbl_select_product_size_44">44</string>
+
+
   <string name="lbl_take_photo">Toma una foto</string>
   <string name="lbl_select_gallery">Abre tu galería</string>
   <string name="msg_error_empty_product_name">Falta nombre del producto</string>
@@ -157,8 +178,8 @@
   <string name="lbl_sale_select_name_hint">Nombre o id de cliente</string>
   <string name="lbl_sale_select_product">Buscar producto</string>
   <string name="lbl_sale_select_product_hint">Nombre o id de producto</string>
-  <string name="lbl_title_unit_price">Precio por\nUnidad</string>
-  <string name="lbl_title_total_price">Precio total\n</string>
+  <string name="lbl_title_unit_price">Precio por\nUnidad:</string>
+  <string name="lbl_title_total_price">Precio total:\n</string>
   <string name="txt_product_name_and_code_format"> %s\n%s</string>
   <string name="txt_product_name_and_debt_format">%s %s\nDebe: $ %s</string>
   <string name="lbl_sale_ticket_empty_">Agrega productos para generar un nuevo ticket, si prefieres puedes elegir un cliente o dejarlo asi.</string>
@@ -195,6 +216,7 @@
   <string name="body_message_select_order">Elige la lista en la cual se agregara el pedido del cliente.</string>
   <string name="title_message_delete_elemnt">Borrar elemento.</string>
   <string name="body_message_delete_elemnt">¿Realmente deseas eliminar este elemento.</string>
+  <string name="lbl_size_number">Numérica</string>
 
   <!--Errores FIREBASE-->
   <string name="msg_firebase_delete_user">No se encontro información del usuario, probablemente fue eliminado.</string>

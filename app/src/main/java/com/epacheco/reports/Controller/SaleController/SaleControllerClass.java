@@ -142,7 +142,7 @@ public class SaleControllerClass implements SaleControllerInterface{
       DatabaseReference usersRef = myRef.child(mAuth.getUid()).child(Constants.CLIENT_TABLE_FIREBASE);
 
 
-      usersRef.child(id).child(Constants.CLIENT_DETAIL_TABLE_FIREBASE).orderByKey().limitToLast(1)
+      usersRef.child(id).child(Constants.CLIENT_DETAIL_TABLE_FIREBASE).orderByChild("datePayment").limitToLast(1)
           .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

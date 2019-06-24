@@ -34,49 +34,50 @@
         android:layout_below="@+id/lbl_login">
 
 
-        <android.support.v7.widget.AppCompatButton
+        <Button
           android:id="@+id/btn_continue_facebook"
-          style="@style/Widget.AppCompat.Button"
+          style="@style/AppTheme.ButtonFacebook"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginStart="20dp"
           android:layout_marginEnd="20dp"
           android:layout_centerHorizontal="true"
-          android:paddingTop="10dp"
-          android:paddingBottom="10dp"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
           android:onClick="registerFacebook"
+          android:clickable="true"
           android:text="@string/btn_continue_facebook"
-          android:theme="@style/AppTheme.ButtonFacebook"/>
+          android:focusable="true"
 
-        <android.support.v7.widget.AppCompatButton
+          />
+
+        <Button
           android:id="@+id/btn_continue_google"
-          style="@style/Widget.AppCompat.Button"
+          style="@style/AppTheme.ButtonGoogle"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginStart="20dp"
           android:layout_marginEnd="20dp"
           android:layout_below="@+id/btn_continue_facebook"
           android:layout_centerHorizontal="true"
-          android:paddingTop="10dp"
-          android:paddingBottom="10dp"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
           android:onClick="registerGoogle"
-          android:text="@string/btn_continue_google"
-          android:theme="@style/AppTheme.ButtonGoogle"/>
+          android:text="@string/btn_continue_google"/>
 
-        <android.support.v7.widget.AppCompatButton
+        <Button
           android:id="@+id/btn_continue_twitter"
-          style="@style/Widget.AppCompat.Button"
+          style="@style/AppTheme.ButtonTwitter"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginStart="20dp"
           android:layout_marginEnd="20dp"
           android:layout_below="@+id/btn_continue_google"
           android:layout_centerHorizontal="true"
-          android:paddingTop="10dp"
-          android:paddingBottom="10dp"
-          android:onClick="registerTwitter"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
           android:text="@string/btn_continue_twitter"
-          android:theme="@style/AppTheme.ButtonTwitter"/>
+          android:onClick="registerTwitter"/>
 
         <RelativeLayout
           android:id="@+id/container_separator"
@@ -173,9 +174,9 @@
         </RelativeLayout>
 
 
-        <android.support.v7.widget.AppCompatButton
+        <Button
           android:id="@+id/btn_create_accoount"
-          style="@style/Widget.AppCompat.Button"
+          style="@style/AppTheme.ButtonGral"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="20dp"
@@ -184,11 +185,10 @@
           android:layout_marginEnd="20dp"
           android:layout_below="@+id/contanier_password"
           android:onClick="loginWithEmailAndPassword"
-          android:text="@string/lbl_login"
-          android:theme="@style/AppTheme.ButtonGral"/>
+          android:text="@string/lbl_login"/>
 
 
-        <android.support.v7.widget.AppCompatButton
+        <Button
           android:id="@+id/btn_haven_account"
           style="@style/Widget.AppCompat.Button.Borderless"
           android:layout_width="match_parent"
@@ -197,8 +197,9 @@
           android:layout_marginStart="20dp"
           android:layout_marginEnd="20dp"
           android:layout_below="@+id/btn_create_accoount"
-          android:onClick="registerWithEmailAndPassword"
           android:text="@string/lbl_sign_up"
+          android:textColor="@color/colorPrimary"
+          android:onClick="registerWithEmailAndPassword"
           android:theme="@style/AppTheme.ButtonGralTransparent"/>
       </RelativeLayout>
 

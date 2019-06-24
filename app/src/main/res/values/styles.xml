@@ -80,53 +80,54 @@
     <item name="android:inputType">textCapWords</item>
   </style>
   <!--Style para boton facebook -->
-  <style name="AppTheme.ButtonFacebook" parent="Base.Widget.AppCompat.Button">
-    <item name="colorButtonNormal">@color/colorFacebook</item>
+  <style name="AppTheme.ButtonFacebook" parent="Widget.AppCompat.Button.Borderless">
     <item name="android:textColor">@color/colorWhite</item>
+    <item name="android:background">@color/com_facebook_blue</item>
     <item name="android:drawableStart">@drawable/ic_vector_facebook_logo</item>
   </style>
 
   <!--Style para boton google -->
-  <style name="AppTheme.ButtonGoogle" parent="Base.Widget.AppCompat.Button">
-    <item name="colorButtonNormal">@color/colorWhite</item>
+  <style name="AppTheme.ButtonGoogle" parent="Widget.AppCompat.Button.Borderless">
     <item name="android:textColor">@color/colorGoogle</item>
+    <item name="android:background">@color/colorWhite</item>
     <item name="android:drawableStart">@drawable/ic_vector_google_logo</item>
   </style>
 
   <!--Style para boton twitter -->
-  <style name="AppTheme.ButtonTwitter" parent="Base.Widget.AppCompat.Button">
-    <item name="colorButtonNormal">@color/colorTwitter</item>
+  <style name="AppTheme.ButtonTwitter" parent="Widget.AppCompat.Button.Borderless">
     <item name="android:textColor">@color/colorWhite</item>
+    <item name="android:background">@color/colorTwitter</item>
     <item name="android:drawableStart">@drawable/ic_vector_twitter_logo</item>
   </style>
 
   <!--Style para boton general -->
-  <style name="AppTheme.ButtonGral" parent="Base.Widget.AppCompat.Button">
-    <item name="colorButtonNormal">@color/colorPrimary</item>
+  <style name="AppTheme.ButtonGral" parent="Widget.AppCompat.Button.Borderless">
     <item name="android:textColor">@color/colorWhite</item>
+    <item name="android:background">@color/colorPrimary</item>
   </style>
+
 
   <!--Style para boton general verde-->
   <style name="AppTheme.ButtonGralGreen" parent="Base.Widget.AppCompat.Button">
-    <item name="colorButtonNormal">@android:color/holo_green_dark</item>
     <item name="android:textColor">@color/colorWhite</item>
+    <item name="android:background">@android:color/holo_green_dark</item>
   </style>
   <!--Style para boton general negro -->
   <style name="AppTheme.ButtonGralBlack" parent="Base.Widget.AppCompat.Button">
-    <item name="colorButtonNormal">@color/colorAccent</item>
     <item name="android:textColor">@color/colorWhite</item>
+    <item name="android:background">@color/colorAccent</item>
   </style>
 
   <!--Style para boton general transparente -->
   <style name="AppTheme.ButtonGralTransparent" parent="Base.Widget.AppCompat.Button">
-    <item name="colorButtonNormal">@color/colorWhite</item>
     <item name="android:textColor">@color/colorPrimary</item>
+    <item name="android:background">@android:color/transparent</item>
   </style>
 
   <!--Style para boton general transparente inverso-->
   <style name="AppTheme.ButtonGralTransparentInverse" parent="Base.Widget.AppCompat.Button">
-    <item name="colorButtonNormal">@color/colorPrimary</item>
     <item name="android:textColor">@color/colorWhite</item>
+    <item name="android:background">@color/colorPrimary</item>
   </style>
 
   <!--Style para checkBox -->
@@ -172,4 +173,6 @@
     <enum name="text" value="0"/>
     <enum name="number" value="1"/>
   </attr>
+
+
 </resources>

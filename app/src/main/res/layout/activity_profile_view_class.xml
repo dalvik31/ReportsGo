@@ -84,11 +84,11 @@
     </RelativeLayout>
 
 
-  <android.support.v7.widget.AppCompatButton
+  <Button
     android:id="@+id/btn_create_accoount"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    style="@style/Widget.AppCompat.Button"
+    style="@style/AppTheme.ButtonGral"
     android:theme="@style/AppTheme.ButtonGral"
     android:layout_alignParentBottom="true"
     android:layout_marginEnd="20dp"

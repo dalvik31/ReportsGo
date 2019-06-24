@@ -57,7 +57,7 @@ public class ClientDetailViewClass extends AppCompatActivity implements ClientDe
   @Override
   public void errorAddClientDetail(String error) {
 
-    Tools.showToasMessage(this, getString(R.string.msg_error_sistema));
+    if(!error.isEmpty()) Tools.showToasMessage(this, getString(R.string.msg_error_sistema));
   }
 
 
@@ -87,7 +87,7 @@ public class ClientDetailViewClass extends AppCompatActivity implements ClientDe
   @Override
   public void errorGetClient(String error) {
     finish();
-    Tools.showToasMessage(this, error);
+    if(!error.isEmpty())Tools.showToasMessage(this, error);
   }
 
 

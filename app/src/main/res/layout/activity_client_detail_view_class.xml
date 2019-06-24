@@ -23,14 +23,13 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
-      <android.support.v7.widget.AppCompatButton
+      <Button
         android:id="@+id/btn_add_client"
-        style="@style/Widget.AppCompat.Button.Borderless"
+        style="@style/AppTheme.ButtonGralTransparentInverse"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:text="@string/btn_detail"
-        android:theme="@style/AppTheme.ButtonGralTransparentInverse"
         android:onClick="goDetailPayments"/>
 
 
@@ -168,14 +167,12 @@
           android:layout_below="@+id/container_amount"
           android:gravity="center"/>
 
-      <android.support.v7.widget.AppCompatButton
+      <Button
       android:id="@+id/btn_abonar"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-
         android:layout_below="@+id/lbl_client_limit"
-      style="@style/Widget.AppCompat.Button"
-      android:theme="@style/AppTheme.ButtonGralGreen"
+      style="@style/AppTheme.ButtonGralGreen"
       android:layout_marginEnd="20dp"
       android:layout_marginStart="20dp"
       android:layout_marginTop="20dp"
@@ -192,13 +189,12 @@
       android:orientation="horizontal"
       android:layout_below="@+id/btn_abonar"
       android:weightSum="1">
-      <android.support.v7.widget.AppCompatButton
+      <Button
         android:id="@+id/btn_generate_order"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight=".5"
-        style="@style/Widget.AppCompat.Button"
-        android:theme="@style/AppTheme.ButtonGralBlack"
+        style="@style/AppTheme.ButtonGralBlack"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
@@ -206,13 +202,12 @@
         android:text="@string/btn_generate_order"
         android:onClick="goNewOrder"/>
 
-      <android.support.v7.widget.AppCompatButton
+      <Button
         android:id="@+id/btn_generate_ticket"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight=".5"
-        style="@style/Widget.AppCompat.Button"
-        android:theme="@style/AppTheme.ButtonGralBlack"
+        style="@style/AppTheme.ButtonGralBlack"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
@@ -224,9 +219,9 @@
     </LinearLayout>
       </RelativeLayout>
     </ScrollView>
-    <android.support.v7.widget.AppCompatButton
+    <Button
       android:id="@+id/btn_detail_payments"
-      style="@style/Widget.AppCompat.Button"
+      style="@style/AppTheme.ButtonGralBlack"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="20dp"
@@ -236,8 +231,7 @@
       android:visibility="gone"
       android:layout_alignParentBottom="true"
       android:onClick="registerWithEmailAndPassword"
-      android:text="@string/btn_detail_payments"
-      android:theme="@style/AppTheme.ButtonGralBlack"/>
+      android:text="@string/btn_detail_payments"/>
 
 
   </RelativeLayout>

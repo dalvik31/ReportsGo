@@ -131,7 +131,8 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
 
   @Override
   public void errorDownloadProducts(String error) {
-    //Tools.showToasMessage(this,error);
+    if(!error.isEmpty())Tools.showToasMessage(this,error);
+
     binding.lblZeroProducts.setVisibility(View.VISIBLE);
     binding.recyclerListClient.setVisibility(View.GONE);
     binding.progressDownloadclient.setVisibility(View.GONE);

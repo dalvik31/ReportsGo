@@ -91,15 +91,11 @@ public class OrderDetailView extends AppCompatActivity implements OrderDetailInt
       adapterOrders.setOnItemOrderDetailClic(this);
       adapterOrders.setOnItemOrderBuy(this);
       binding.recyclerListOrderElelments.setAdapter(adapterOrders);
-      if(extras!=null && extras.containsKey(CLIENT_ID)){
-        clientId = extras.getString(CLIENT_ID);
-        ScreenManager.goOrderCreateActivity(this,listOrderId,clientId);
-        extras.remove(CLIENT_ID);
-      }
     }else{
       binding.lblZeroOrdersElements.setVisibility(View.VISIBLE);
       binding.recyclerListOrderElelments.setVisibility(View.GONE);
     }
+    checkIdClient();
   }
 
   @Override
@@ -107,6 +103,7 @@ public class OrderDetailView extends AppCompatActivity implements OrderDetailInt
     hideProgress();
     binding.recyclerListOrderElelments.removeAllViews();
     binding.lblZeroOrdersElements.setVisibility(View.VISIBLE);
+    checkIdClient();
   }
 
   @Override
@@ -164,5 +161,17 @@ public class OrderDetailView extends AppCompatActivity implements OrderDetailInt
   }
   public void goProfileActivity(View v){
     ScreenManager.goProfileActivity(this);
+  }
+
+
+  private void checkIdClient(){
+    if(extras!=null && extras.containsKey(CLIENT_ID)){
+      clientId = extras.getString(CLIENT_ID);
+      Log.e(TAG,"clientId: "+clientId);
+      ScreenManager.goOrderCreateActivity(this,listOrderId,clientId);
+      extras.remove(CLIENT_ID);
+    }else{
+      Log.e(TAG,"extra nulo");
+    }
   }
 }

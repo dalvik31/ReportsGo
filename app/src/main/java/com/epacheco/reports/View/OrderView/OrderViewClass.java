@@ -58,6 +58,7 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
     Bundle extras = getIntent().getExtras();
     if(extras!=null){
       idClient = extras.getString(ClientAddViewClass.CLIENT_ID);
+      Log.e(TAG,"idClient: "+idClient);
       selectListOrder();
     }
   }
@@ -164,6 +165,7 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
   public void onItemOrderClic(boolean removeElement, final String orderId,String nameOrder) {
     if(idListSelected){
       ScreenManager.goOrderDetailActivity(this,orderId,nameOrder,idClient);
+      idListSelected= false;
     }else{
       if(removeElement){
         ReportsDialogGlobal.showDialogAccept(this, getString(R.string.title_message_delete_elemnt),

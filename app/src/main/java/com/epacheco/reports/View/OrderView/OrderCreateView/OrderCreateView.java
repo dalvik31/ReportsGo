@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import com.bumptech.glide.Glide;
 import com.epacheco.reports.Model.OrderModel.CreateOrderModel.OrderCreateModelClass;
 import com.epacheco.reports.Pojo.Client.Client;
@@ -39,6 +41,7 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
   private String typeSelected = ReportsApplication.getMyApplicationContext().getString(R.string.lbl_select_product_type_empty);
   private FirebaseAuth mAuth;
   private String sizeSelected = ReportsApplication.getMyApplicationContext().getString(R.string.lbl_select_product_type_empty);
+  private boolean sizeNumeric;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -61,6 +64,13 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
         extras.remove(OrderDetailView.CLIENT_ID);
       }
     }
+    binding.AppCompatCheckBoxNumeric.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+      @Override
+      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        sizeNumeric = isChecked;
+      }
+    });
+
 
   }
 
@@ -216,41 +226,148 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
   }
 
   public void createSelectedSizeDialog(View view){
-    AlertDialog.Builder b = new Builder(this);
-    b.setTitle(getString(R.string.lbl_select_image_title));
-    String[] types = {getString(R.string.lbl_select_product_size_ch),getString(R.string.lbl_select_product_size_me),getString(R.string.lbl_select_product_size_gra),getString(R.string.lbl_select_product_size_ex)};
-    b.setItems(types, new OnClickListener() {
+    if(sizeNumeric){
+      AlertDialog.Builder b = new Builder(this);
+      b.setTitle(getString(R.string.lbl_select_image_title));
+      String[] types = {
+          getString(R.string.lbl_select_product_size_2),
+          getString(R.string.lbl_select_product_size_4),
+          getString(R.string.lbl_select_product_size_6),
+          getString(R.string.lbl_select_product_size_8),
+          getString(R.string.lbl_select_product_size_10),
+          getString(R.string.lbl_select_product_size_12),
+          getString(R.string.lbl_select_product_size_14),
+          getString(R.string.lbl_select_product_size_16),
+          getString(R.string.lbl_select_product_size_28),
+          getString(R.string.lbl_select_product_size_30),
+          getString(R.string.lbl_select_product_size_32),
+          getString(R.string.lbl_select_product_size_34),
+          getString(R.string.lbl_select_product_size_36),
+          getString(R.string.lbl_select_product_size_38),
+          getString(R.string.lbl_select_product_size_40),
+          getString(R.string.lbl_select_product_size_42),
+          getString(R.string.lbl_select_product_size_44),
+      };
+      b.setItems(types, new OnClickListener() {
 
-      @Override
-      public void onClick(DialogInterface dialog, int which) {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
 
-        dialog.dismiss();
-        switch(which){
-          case 0:
-            sizeSelected = getString(R.string.lbl_select_product_size_ch);
-            binding.txtOrderSize.setText(sizeSelected);
-            break;
-          case 1:
-            sizeSelected = getString(R.string.lbl_select_product_size_me);
-            binding.txtOrderSize.setText(sizeSelected);
-            break;
-          case 2:
-            sizeSelected = getString(R.string.lbl_select_product_size_gra);
-            binding.txtOrderSize.setText(sizeSelected);
-            break;
-          case 3:
-            sizeSelected = getString(R.string.lbl_select_product_size_ex);
-            binding.txtOrderSize.setText(sizeSelected);
-            break;
-          default:
-            sizeSelected = getString(R.string.lbl_select_product_type_empty);
-            binding.txtOrderSize.setText(sizeSelected);
+          dialog.dismiss();
+          switch(which){
+            case 0:
+              sizeSelected = getString(R.string.lbl_select_product_size_2);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 1:
+              sizeSelected = getString(R.string.lbl_select_product_size_4);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 2:
+              sizeSelected = getString(R.string.lbl_select_product_size_6);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 3:
+              sizeSelected = getString(R.string.lbl_select_product_size_8);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 4:
+              sizeSelected = getString(R.string.lbl_select_product_size_10);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 5:
+              sizeSelected = getString(R.string.lbl_select_product_size_12);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 6:
+              sizeSelected = getString(R.string.lbl_select_product_size_14);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 7:
+              sizeSelected = getString(R.string.lbl_select_product_size_16);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 8:
+              sizeSelected = getString(R.string.lbl_select_product_size_28);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 9:
+              sizeSelected = getString(R.string.lbl_select_product_size_30);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 10:
+              sizeSelected = getString(R.string.lbl_select_product_size_32);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 11:
+              sizeSelected = getString(R.string.lbl_select_product_size_34);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 12:
+              sizeSelected = getString(R.string.lbl_select_product_size_36);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 13:
+              sizeSelected = getString(R.string.lbl_select_product_size_38);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 14:
+              sizeSelected = getString(R.string.lbl_select_product_size_40);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 15:
+              sizeSelected = getString(R.string.lbl_select_product_size_42);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 16:
+              sizeSelected = getString(R.string.lbl_select_product_size_44);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            default:
+              sizeSelected = getString(R.string.lbl_select_product_type_empty);
+              binding.txtOrderSize.setText(sizeSelected);
+          }
         }
-      }
 
-    });
+      });
+      b.show();
+    }else{
+      AlertDialog.Builder b = new Builder(this);
+      b.setTitle(getString(R.string.lbl_select_image_title));
+      String[] types = {getString(R.string.lbl_select_product_size_ch),getString(R.string.lbl_select_product_size_me),getString(R.string.lbl_select_product_size_gra),getString(R.string.lbl_select_product_size_ex)};
+      b.setItems(types, new OnClickListener() {
 
-    b.show();
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+          dialog.dismiss();
+          switch(which){
+            case 0:
+              sizeSelected = getString(R.string.lbl_select_product_size_ch);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 1:
+              sizeSelected = getString(R.string.lbl_select_product_size_me);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 2:
+              sizeSelected = getString(R.string.lbl_select_product_size_gra);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 3:
+              sizeSelected = getString(R.string.lbl_select_product_size_ex);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            default:
+              sizeSelected = getString(R.string.lbl_select_product_type_empty);
+              binding.txtOrderSize.setText(sizeSelected);
+          }
+        }
+
+      });
+
+      b.show();
+    }
+
   }
   public void goProfileActivity(View v){
     ScreenManager.goProfileActivity(this);

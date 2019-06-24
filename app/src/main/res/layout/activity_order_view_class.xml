@@ -75,7 +75,8 @@
     android:layout_centerInParent="true"
     android:textColor="@color/colorPrimary"
     android:textSize="28sp"
-    android:visibility="visible"/>
+    android:visibility="visible"
+    android:gravity="center"/>
   <android.support.design.widget.FloatingActionButton
     android:id="@+id/floating_action_button"
     android:layout_width="wrap_content"

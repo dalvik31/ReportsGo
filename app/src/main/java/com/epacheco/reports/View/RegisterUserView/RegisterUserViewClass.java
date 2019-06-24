@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.epacheco.reports.Model.RegisterUserModel.RegisterUserModelClass;
 import com.epacheco.reports.R;
 import com.epacheco.reports.Tools.Constants;
+import com.epacheco.reports.Tools.ReportsDialogGlobal;
 import com.epacheco.reports.Tools.ScreenManager;
 import com.epacheco.reports.Tools.Tools;
 import com.epacheco.reports.databinding.ActivityRegisterClassBinding;
@@ -69,7 +70,7 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
     mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
     //Inicializamos twitter
-     mTwitterAuthClient= new TwitterAuthClient();
+    mTwitterAuthClient= new TwitterAuthClient();
 
     //Inicializamos facebook
     mCallbackManager = CallbackManager.Factory.create();
@@ -86,8 +87,10 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
           }
 
           @Override
-          public void onError(FacebookException exception) {
-            Log.e("error facebook","error: "+exception.toString());
+          public void onError(FacebookException e) {
+            Log.e("error facebook","error: "+e.toString());
+            ReportsDialogGlobal.showDialogOk(RegisterUserViewClass.this,"Error FaceBook",e.getMessage());
+
           }
         });
 
@@ -96,8 +99,8 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
   }
 
   public void registerGoogle(View v){
-      Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-      startActivityForResult(signInIntent, RC_SIGN_IN);
+    Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+    startActivityForResult(signInIntent, RC_SIGN_IN);
   }
 
   public void registerTwitter(View v){
@@ -112,6 +115,7 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
       @Override
       public void failure(TwitterException e) {
         Log.e("failure","failure TWIITER: "+e.getMessage());
+        ReportsDialogGlobal.showDialogOk(RegisterUserViewClass.this,"Error Twitter",e.getMessage());
         e.printStackTrace();
       }
     });
@@ -254,6 +258,8 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
       } catch (ApiException e) {
         // Google Sign In failed, update UI appropriately
         Log.e("ERROR GOOGLE", "Google sign in failed" +e.getStatusCode());
+        ReportsDialogGlobal.showDialogOk(RegisterUserViewClass.this,"Error Google",e.getMessage());
+
 
       }
     }

@@ -22,24 +22,23 @@
           android:layout_height="match_parent"
           android:layout_alignParentEnd="true">
 
-          <android.support.v7.widget.AppCompatButton
+          <Button
             android:id="@+id/btn_add_product"
-            style="@style/Widget.AppCompat.Button.Borderless"
+            style="@style/AppTheme.ButtonGralTransparentInverse"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/btn_save"
             android:visibility="visible"
-            android:theme="@style/AppTheme.ButtonGralTransparentInverse"
             android:onClick="createNewProduct"/>
-          <android.support.v7.widget.AppCompatButton
+          <Button
             android:id="@+id/btn_modify_product"
-            style="@style/Widget.AppCompat.Button.Borderless"
+            style="@style/AppTheme.ButtonGralTransparentInverse"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/btn_sale"
             android:visibility="gone"
             android:onClick="saleProduct"
-            android:theme="@style/AppTheme.ButtonGralTransparentInverse"/>
+            />
 
         </RelativeLayout>
 
@@ -274,26 +273,24 @@
           android:layout_below="@+id/container_code"
           android:visibility="gone"
           android:weightSum="1">
-          <android.support.v7.widget.AppCompatButton
+          <Button
             android:id="@+id/btn_delete_accoount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".5"
-            style="@style/Widget.AppCompat.Button"
-            android:theme="@style/AppTheme.ButtonGralBlack"
+            style="@style/AppTheme.ButtonGralBlack"
             android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
             android:text="@string/btn_delete"
             android:onClick="removeProduct"/>
-          <android.support.v7.widget.AppCompatButton
+          <Button
             android:id="@+id/btn_modify_accoount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".5"
-            style="@style/Widget.AppCompat.Button"
-            android:theme="@style/AppTheme.ButtonGral"
+            style="@style/AppTheme.ButtonGral"
             android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
@@ -301,9 +298,9 @@
             android:text="@string/btn_modify"
             android:onClick="modifyProduct"/>
         </LinearLayout>
-        <android.support.v7.widget.AppCompatButton
+        <Button
           android:id="@+id/btn_create_product"
-          style="@style/Widget.AppCompat.Button"
+          style="@style/AppTheme.ButtonGral"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="20dp"
@@ -313,7 +310,7 @@
           android:layout_below="@+id/container_code"
           android:onClick="createNewProduct"
           android:text="@string/btn_save"
-          android:theme="@style/AppTheme.ButtonGral"/>
+         />
 
       </RelativeLayout>
 

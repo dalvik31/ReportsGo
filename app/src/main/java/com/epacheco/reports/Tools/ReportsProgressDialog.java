@@ -32,6 +32,7 @@ public class ReportsProgressDialog {
   }
 
   public void showProgress(FragmentActivity myActivity,String message) {
+    hideProgress();
     m_Dialog = new Dialog(myActivity);
     m_Dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
     m_Dialog.setContentView(R.layout.custom_progress_dialog);

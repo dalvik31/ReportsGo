@@ -118,15 +118,15 @@
           android:layout_gravity="center"
           android:text="@string/lbl_change_client"
           android:visibility="gone"
+          android:textColor="@android:color/holo_green_dark"
           android:inputType="number"/>
-        <android.support.v7.widget.AppCompatButton
+        <Button
           android:id="@+id/btn_name_client"
-          style="@style/Widget.AppCompat.Button.Borderless"
+          style="@style/AppTheme.ButtonGralTransparent"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:onClick="searchClient"
           android:text="@string/lbl_sale_select_name"
-          android:theme="@style/AppTheme.ButtonGralTransparent"
           android:visibility="visible"/>
         <android.support.v7.widget.AppCompatTextView
           android:id="@+id/txt_sale_client_amount"
@@ -188,19 +188,43 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:padding="10dp">
-      <TextView
-        android:id="@+id/lbl_order_size"
-        style="@style/TextView_Text"
+      <LinearLayout
+        android:id="@+id/LinearLayout_container_size"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/lbl_title_create_order_size"/>
+        android:orientation="horizontal"
+        android:weightSum="1"
+        >
+        <TextView
+          android:id="@+id/lbl_order_size"
+          style="@style/TextView_Text"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight=".5"
+          android:text="@string/lbl_title_create_order_size"/>
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight=".5"
+          android:gravity="end">
+
+
+          <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/AppCompatCheckBox_numeric"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/lbl_size_number"
+            android:theme="@style/checkBoxStyle"/>
+        </LinearLayout>
+      </LinearLayout>
+
       <android.support.v7.widget.AppCompatEditText
         android:id="@+id/txt_order_size"
         style="@style/Edittext_custom_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
-        android:layout_below="@+id/lbl_order_size"
+        android:layout_below="@+id/LinearLayout_container_size"
         android:focusable="false"
         android:onClick="createSelectedSizeDialog"
         android:hint="@string/lbl_title_create_order_size_hint"/>
@@ -249,12 +273,11 @@
         android:hint="@string/lbl_title_create_order_gender_hint"/>
     </RelativeLayout>
 
-        <android.support.v7.widget.AppCompatButton
+        <Button
           android:id="@+id/btn_create_accoount"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          style="@style/Widget.AppCompat.Button"
-          android:theme="@style/AppTheme.ButtonGral"
+          style="@style/AppTheme.ButtonGral"
           android:layout_marginEnd="20dp"
           android:layout_marginStart="20dp"
           android:layout_marginTop="20dp"

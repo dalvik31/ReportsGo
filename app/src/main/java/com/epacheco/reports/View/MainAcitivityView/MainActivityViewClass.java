@@ -51,7 +51,7 @@ public class MainActivityViewClass extends AppCompatActivity{
   public void onStart() {
     super.onStart();
 
-    if(mAuth.getCurrentUser()!=null && !Tools.compareTime() ){
+    if(mAuth.getCurrentUser()!=null /*&& !Tools.compareTime()*/){
       if( mAuth.getCurrentUser().getPhotoUrl()!=null){
         Glide.with(ReportsApplication.getMyApplicationContext()).load(Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl())).into(binding.imgProfile);
       }

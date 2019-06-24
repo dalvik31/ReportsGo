@@ -1,5 +1,6 @@
 package com.epacheco.reports.View.SaleView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
@@ -19,6 +20,7 @@ import com.epacheco.reports.Pojo.ClientDetail.ClientDetail;
 import com.epacheco.reports.Pojo.Product.Product;
 import com.epacheco.reports.R;
 import com.epacheco.reports.Tools.ReportsApplication;
+import com.epacheco.reports.Tools.ReportsDialogGlobal;
 import com.epacheco.reports.Tools.ReportsProgressDialog;
 import com.epacheco.reports.Tools.ScreenManager;
 import com.epacheco.reports.Tools.Tools;
@@ -198,11 +200,21 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
   }
 
   public void removeProduct(View view){
-    if(adapterViewPagerSale!=null && adapterViewPagerSale.getCount()>0){
-      adapterViewPagerSale.removeView(binding.viewPagerProducts,binding.viewPagerProducts.getCurrentItem());
-    }else{
-      Toast.makeText(this,getString(R.string.msg_sale_empty_products),Toast.LENGTH_LONG).show();
-    }
+    ReportsDialogGlobal.showDialogAccept(this, getString(R.string.title_message_delete_elemnt),
+        getString(R.string.body_message_delete_elemnt),
+        new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+            if(adapterViewPagerSale!=null && adapterViewPagerSale.getCount()>0){
+              adapterViewPagerSale.removeView(binding.viewPagerProducts,binding.viewPagerProducts.getCurrentItem());
+            }else{
+              Toast.makeText(SaleViewClass.this,getString(R.string.msg_sale_empty_products),Toast.LENGTH_LONG).show();
+            }
+          }
+        }
+    );
+
+
   }
 
   public void generateTicket(View view){
