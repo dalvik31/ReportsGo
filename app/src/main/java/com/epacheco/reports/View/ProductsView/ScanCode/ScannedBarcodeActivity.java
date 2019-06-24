@@ -43,7 +43,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
 
   private void initialiseDetectorsAndSources() {
 
-    Toast.makeText(getApplicationContext(), "Inicia scanner", Toast.LENGTH_SHORT).show();
+    Toast.makeText(getApplicationContext(), getString(R.string.msg_camera_scan), Toast.LENGTH_SHORT).show();
 
     barcodeDetector = new BarcodeDetector.Builder(this)
         .setBarcodeFormats(Barcode.ALL_FORMATS)

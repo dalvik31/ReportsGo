@@ -142,10 +142,6 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
       inputsValidate = false;
     }
 
-    if(binding.txtProductName.getText().toString().isEmpty()){
-      binding.txtProductName.setError(getString(R.string.msg_error_empty_product_name));
-      inputsValidate = false;
-    }
 
     if(typeSelected.equals(getString(R.string.lbl_select_product_type_empty))) {
       binding.txtProductType.setError(getString(R.string.msg_error_empty_type_name));

@@ -28,6 +28,7 @@
   <string name="msg_zero_elements">No se encontraron pagos de este cliente.</string>
   <string name="msg_zero_clients">No se encontraron clientes.</string>
   <string name="msg_zero_products">No se encontraron productos.</string>
+  <string name="msg_camera_scan">Escanea el código QR o de barras.</string>
 
 
   <!--Activity Principal-->
@@ -156,7 +157,7 @@
   <string name="msg_error_empty_type_name">Falta tipo del producto</string>
   <string name="msg_error_empty_price_buy">Falta precio compra</string>
   <string name="msg_error_empty_price_sale">Falta precio venta</string>
-  <string name="msg_error_empty_code">Falta precio venta</string>
+  <string name="msg_error_empty_code">Falta código venta</string>
   <string name="msg_error_empty_inputs">Falta campos obligatorios</string>
   <string name="msg_error_empty_img_url">Falta imagen o paso algo al guardarla.\nIntenta mas tarde</string>
   <string name="msg_success_product">Producto agregado</string>
