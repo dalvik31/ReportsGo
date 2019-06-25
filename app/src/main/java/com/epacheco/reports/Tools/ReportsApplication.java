@@ -1,8 +1,7 @@
 package com.epacheco.reports.Tools;
 
-import android.app.Application;
 import android.content.Context;
-import android.support.multidex.MultiDexApplication;
+import androidx.multidex.MultiDexApplication;
 import android.util.Log;
 import com.epacheco.reports.R;
 import com.facebook.FacebookSdk;
@@ -13,8 +12,6 @@ import com.twitter.sdk.android.core.DefaultLogger;
 import com.twitter.sdk.android.core.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterConfig;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 public class ReportsApplication  extends MultiDexApplication {
   private static Context myApplicationContext;

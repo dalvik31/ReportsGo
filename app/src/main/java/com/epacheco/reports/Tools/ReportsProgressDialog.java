@@ -2,10 +2,8 @@ package com.epacheco.reports.Tools;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
+import androidx.fragment.app.FragmentActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.ProgressBar;

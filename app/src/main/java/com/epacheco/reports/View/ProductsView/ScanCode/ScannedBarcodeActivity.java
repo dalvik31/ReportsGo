@@ -4,7 +4,7 @@ package com.epacheco.reports.View.ProductsView.ScanCode;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.epacheco.reports.R;
 import com.epacheco.reports.Tools.Tools;
-import com.epacheco.reports.View.ProductsView.ProductAddView.ProductAddViewClass;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;

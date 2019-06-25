@@ -1,9 +1,8 @@
 package com.epacheco.reports.Controller.OrderController.OrderDetailController;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.epacheco.reports.Model.OrderModel.OrderDetailModel.OrderDetailModelClass;
-import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.OrderDetail.OrderDetail;
 import com.epacheco.reports.R;
 import com.epacheco.reports.Tools.Constants;

@@ -1,6 +1,6 @@
 package com.epacheco.reports.Controller.ClientController.ClienDetailListController;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.epacheco.reports.Model.ClientModel.ClientDetailListModel.ClientDetailListModelClass;
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.ClientDetail.ClientDetail;

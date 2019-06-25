@@ -1,10 +1,9 @@
 package com.epacheco.reports.Model.SaleModel;
 
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.ClientDetail.ClientDetail;
 import com.epacheco.reports.Pojo.Product.Product;
-import java.util.HashMap;
 import java.util.List;
 
 public interface SaleModelInterface {

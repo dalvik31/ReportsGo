@@ -1,9 +1,8 @@
 package com.epacheco.reports.Model.ClientModel.ClientDetailModel;
 
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.ClientDetail.ClientDetail;
-import java.util.ArrayList;
 
 public interface ClientDetailModelIterface {
   //View methods

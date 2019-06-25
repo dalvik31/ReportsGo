@@ -9,7 +9,7 @@
     tools:context=".View.ClientView.ClientAddView.ClientAddViewClass"
     >
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
       android:id="@+id/appBarLayout"
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize">
@@ -43,7 +43,7 @@
         </RelativeLayout>
 
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
           android:id="@+id/app_bar"
           android:layout_width="wrap_content"
           android:layout_height="match_parent"
@@ -51,9 +51,9 @@
           android:layout_toStartOf="@+id/containers_buttons"
           android:theme="@style/AppThemeSearchView"
           app:title="@string/lbl_add_client">
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
       </RelativeLayout>
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
     <ProgressBar
       android:id="@+id/progress_uploadProduct"
       style="?android:attr/progressBarStyleHorizontal"
@@ -93,7 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/lbl_client_name"/>
-          <android.support.v7.widget.AppCompatEditText
+          <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/txt_client_name"
             style="@style/Edittext_custom_text"
             android:layout_width="match_parent"
@@ -112,7 +112,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/lbl_client_lastname"/>
-          <android.support.v7.widget.AppCompatEditText
+          <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/txt_client_lastname"
             style="@style/Edittext_custom_text"
             android:layout_width="match_parent"
@@ -130,7 +130,7 @@
         android:layout_margin="5dp"
         android:layout_below="@+id/container_name"
         android:text="@string/lbl_client_detail"/>
-      <android.support.v7.widget.AppCompatEditText
+      <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/txt_client_detail"
         style="@style/Edittext_custom_text"
         android:layout_width="match_parent"
@@ -161,7 +161,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/lbl_client_phone"/>
-          <android.support.v7.widget.AppCompatEditText
+          <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/txt_client_phone"
             style="@style/Edittext_custom_text"
             android:layout_width="match_parent"
@@ -181,7 +181,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/lbl_client_limit"/>
-          <android.support.v7.widget.AppCompatEditText
+          <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/txt_client_limit"
             style="@style/Edittext_custom_text"
             android:layout_width="match_parent"

@@ -13,7 +13,7 @@
       android:layout_width="130dp"
       android:layout_height="match_parent"
       android:background="@color/colorPrimaryTransparent"/>
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
       android:id="@+id/appBarLayout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
@@ -34,7 +34,7 @@
           android:onClick="goProfileActivity"/>
 
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
           android:id="@+id/app_bar"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -42,9 +42,9 @@
           android:layout_toStartOf="@+id/img_profile"
           app:title="@string/lbl_menu_option">
 
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
       </RelativeLayout>
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
 
     <ScrollView

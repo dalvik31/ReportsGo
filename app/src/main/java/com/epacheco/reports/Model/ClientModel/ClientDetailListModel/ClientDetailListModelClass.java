@@ -1,6 +1,6 @@
 package com.epacheco.reports.Model.ClientModel.ClientDetailListModel;
 
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 import com.epacheco.reports.Controller.ClientController.ClienDetailListController.ClientDetailListControllerClass;
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.ClientDetail.ClientDetail;

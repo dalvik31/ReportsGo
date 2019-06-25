@@ -1,11 +1,9 @@
 package com.epacheco.reports.View.ClientView.ClienDetailView;
 
-import android.databinding.DataBindingUtil;
-import android.renderscript.ScriptGroup.Binding;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import com.epacheco.reports.Model.ClientModel.ClientDetailModel.ClientDetailModelClass;
 import com.epacheco.reports.Pojo.Client.Client;
@@ -14,7 +12,6 @@ import com.epacheco.reports.R;
 import com.epacheco.reports.Tools.ScreenManager;
 import com.epacheco.reports.Tools.Tools;
 import com.epacheco.reports.databinding.ActivityClientDetailViewClassBinding;
-import java.util.ArrayList;
 
 public class ClientDetailViewClass extends AppCompatActivity implements ClientDetailViewInterface {
 

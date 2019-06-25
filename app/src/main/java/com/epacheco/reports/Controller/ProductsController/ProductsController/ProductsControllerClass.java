@@ -1,7 +1,6 @@
 package com.epacheco.reports.Controller.ProductsController.ProductsController;
 
-import android.support.annotation.NonNull;
-import android.util.Log;
+import androidx.annotation.NonNull;
 import com.epacheco.reports.Model.ProductsModel.ProductsModel.ProductsModelClass;
 import com.epacheco.reports.Pojo.Product.Product;
 import com.epacheco.reports.R;

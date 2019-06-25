@@ -2,18 +2,15 @@ package com.epacheco.reports.View.SaleView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-import com.bumptech.glide.Glide;
 import com.epacheco.reports.Model.SaleModel.SaleModelClass;
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.ClientDetail.ClientDetail;
@@ -31,7 +28,6 @@ import com.epacheco.reports.View.ProductsView.ProductsView.ProductViewClass;
 import com.epacheco.reports.databinding.ActivitySaleViewClass2Binding;
 import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class SaleViewClass extends AppCompatActivity implements SaleViewInterface, getTotalSale{

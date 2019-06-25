@@ -1,6 +1,6 @@
 package com.epacheco.reports.View.OrderView.OrderDetailView;
 
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 import com.epacheco.reports.Pojo.OrderDetail.OrderDetail;
 import java.util.List;
 

@@ -1,20 +1,16 @@
 package com.epacheco.reports.View.OrderView;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.bumptech.glide.Glide;
 import com.epacheco.reports.Pojo.Order.OrderList;
-import com.epacheco.reports.Pojo.Product.Product;
 import com.epacheco.reports.R;
-import com.epacheco.reports.Tools.ReportsApplication;
-import com.epacheco.reports.View.ProductsView.ProductsView.onItemProductClic;
 import java.util.List;
 
 public class AdapterOrders extends RecyclerView.Adapter<AdapterOrders.HolderOrder>{

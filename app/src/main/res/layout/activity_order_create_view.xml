@@ -2,7 +2,7 @@
 <layout  xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools">
-<android.support.design.widget.CoordinatorLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
   android:id="@+id/CoordinatorLayout_container_create_order"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
@@ -11,7 +11,7 @@
   <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
       android:id="@+id/appBarLayout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
@@ -32,7 +32,7 @@
           android:onClick="goProfileActivity"/>
 
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
           android:id="@+id/app_bar"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -40,9 +40,9 @@
           android:layout_toStartOf="@+id/img_profile"
           app:title="@string/lbl_title_create_order">
 
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
       </RelativeLayout>
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
 
 
@@ -89,7 +89,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight=".2">
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
           android:id="@+id/fbtn_search_client"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
         android:layout_weight=".8"
         android:gravity="center"
         android:orientation="vertical">
-        <android.support.v7.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
           android:id="@+id/txt_sale_client_name"
           style="@style/TextView_Text"
           android:layout_width="match_parent"
@@ -128,7 +128,7 @@
           android:onClick="searchClient"
           android:text="@string/lbl_sale_select_name"
           android:visibility="visible"/>
-        <android.support.v7.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
           android:id="@+id/txt_sale_client_amount"
           style="@style/Edittext_custom"
           android:layout_width="match_parent"
@@ -151,7 +151,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/lbl_title_create_order_name"/>
-      <android.support.v7.widget.AppCompatEditText
+      <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/txt_order_name"
         style="@style/Edittext_custom_text"
         android:layout_width="match_parent"
@@ -171,7 +171,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/lbl_title_create_order_description"/>
-          <android.support.v7.widget.AppCompatEditText
+          <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/txt_order_description"
             style="@style/Edittext_custom_text"
             android:layout_width="match_parent"
@@ -209,7 +209,7 @@
           android:gravity="end">
 
 
-          <android.support.v7.widget.AppCompatCheckBox
+          <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/AppCompatCheckBox_numeric"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -218,7 +218,7 @@
         </LinearLayout>
       </LinearLayout>
 
-      <android.support.v7.widget.AppCompatEditText
+      <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/txt_order_size"
         style="@style/Edittext_custom_text"
         android:layout_width="match_parent"
@@ -240,7 +240,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/lbl_title_create_order_color"/>
-      <android.support.v7.widget.AppCompatEditText
+      <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/txt_order_color"
         style="@style/Edittext_custom_text"
         android:layout_width="match_parent"
@@ -261,7 +261,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/lbl_title_create_order_gender"/>
-      <android.support.v7.widget.AppCompatEditText
+      <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/txt_order_gender"
         style="@style/Edittext_custom_text"
         android:layout_width="match_parent"
@@ -291,7 +291,7 @@
     </ScrollView>
 
   </RelativeLayout>
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
 </layout>

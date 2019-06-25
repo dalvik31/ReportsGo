@@ -1,6 +1,6 @@
 package com.epacheco.reports.Model.ProfileModel;
 
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 import com.epacheco.reports.Controller.ProfileController.ProfileControllerClass;
 import com.epacheco.reports.View.ProfileView.ProfileViewClass;
 import com.google.firebase.auth.FirebaseUser;

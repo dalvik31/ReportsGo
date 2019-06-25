@@ -1,9 +1,9 @@
 package com.epacheco.reports.View.SaleView;
 
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
+import androidx.annotation.NonNull;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,7 +15,6 @@ import com.epacheco.reports.Pojo.Product.Product;
 import com.epacheco.reports.R;
 import com.epacheco.reports.Tools.ReportsApplication;
 import java.util.ArrayList;
-import java.util.List;
 
 public class AdapterViewPagerSale extends PagerAdapter {
   // This holds all the currently displayable views, in order from left to right.

@@ -1,14 +1,10 @@
 package com.epacheco.reports.Tools;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 
 
 import android.content.DialogInterface;
-import android.support.v4.content.ContextCompat;
-import android.text.InputType;
-import android.widget.EditText;
 import com.epacheco.reports.R;
 
 public class ReportsDialogGlobal {

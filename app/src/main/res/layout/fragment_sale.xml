@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".View.SaleView2.SaleViewClass">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
       android:id="@+id/appBarLayout"
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize">
@@ -35,7 +35,7 @@
         </RelativeLayout>
 
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
           android:id="@+id/app_bar"
           android:layout_width="wrap_content"
           android:layout_height="match_parent"
@@ -43,9 +43,9 @@
           android:layout_toStartOf="@+id/containers_buttons"
           android:theme="@style/AppThemeSearchView"
           app:title="@string/lbl_generate_sale">
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
       </RelativeLayout>
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <RelativeLayout
       android:layout_width="match_parent"
@@ -76,7 +76,7 @@
           android:layout_width="0dp"
           android:layout_height="match_parent"
           android:layout_weight=".2">
-          <android.support.design.widget.FloatingActionButton
+          <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fbtn_search_client"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
           android:layout_weight=".8"
           android:gravity="center"
           android:orientation="vertical">
-          <android.support.v7.widget.AppCompatTextView
+          <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txt_sale_client_name"
             style="@style/Edittext_custom"
             android:layout_width="match_parent"
@@ -105,7 +105,7 @@
             android:layout_gravity="center"
             android:hint="@string/lbl_client_name"
             android:inputType="number"/>
-          <android.support.v7.widget.AppCompatTextView
+          <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txt_sale_client_amount"
             style="@style/Edittext_custom"
             android:layout_width="match_parent"
@@ -137,7 +137,7 @@
         android:layout_below="@+id/lbl_sale_product_name"
         android:weightSum="1"
         android:padding="5dp">
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
           android:id="@+id/fbtn_search_product"
           android:layout_width="wrap_content"
           android:layout_height="match_parent"
@@ -150,7 +150,7 @@
           android:onClick="goSearchElement"
           />
 
-        <android.support.v7.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
 
           android:id="@+id/lbl_name_product"
           style="@style/Edittext_custom_text"
@@ -164,7 +164,7 @@
           android:inputType="number"
           />
 
-        <android.support.v7.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
           android:id="@+id/lbl_price_product"
           style="@style/Edittext_custom"
           android:layout_width="wrap_content"
@@ -177,7 +177,7 @@
           android:paddingEnd="10dp"
           android:paddingStart="0dp"
           />
-        <android.support.v7.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
           android:id="@+id/lbl_code_product"
           style="@style/Edittext_custom_text"
           android:layout_width="wrap_content"
@@ -205,12 +205,12 @@
 
       </RelativeLayout>
 
-      <android.support.v4.view.ViewPager
+      <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/container_code">
 
-      </android.support.v4.view.ViewPager>
+      </androidx.viewpager.widget.ViewPager>
     </RelativeLayout>
   </RelativeLayout>
 

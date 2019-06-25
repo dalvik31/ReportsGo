@@ -2,13 +2,9 @@ package com.epacheco.reports.Controller.ProductsController.ProductsAddController
 
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.util.Log;
-import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.epacheco.reports.Model.ProductsModel.ProductsAddModel.ProductsAddModelClass;
-import com.epacheco.reports.Model.ProductsModel.ProductsModel.ProductsModelClass;
-import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.Product.Product;
 import com.epacheco.reports.R;
 import com.epacheco.reports.Tools.Constants;
@@ -25,11 +21,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.DatabaseReference.CompletionListener;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.core.Repo;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.google.firebase.storage.UploadTask.TaskSnapshot;
 import java.io.ByteArrayOutputStream;
 
 public class ProductsAddControllerClass implements ProductsAddControllerInterface {

@@ -3,7 +3,7 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools">
 
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   tools:context=".View.OrderView.OrderDetailView.OrderDetailView">
@@ -14,7 +14,7 @@
     android:layout_height="match_parent"
     tools:context=".View.MainAcitivityView.MainActivityViewClass">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
       android:id="@+id/appBarLayout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
@@ -32,15 +32,15 @@
           android:layout_alignParentEnd="true"
           app:srcCompat="@drawable/ic_vector_account"
           android:onClick="goProfileActivity"/>
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
           android:id="@+id/app_bar"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:theme="@style/AppThemeSearchView"
           android:layout_toStartOf="@+id/img_profile">
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
       </RelativeLayout>
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
     <ProgressBar
       android:id="@+id/progress_downloadOrderElements"
       style="?android:attr/progressBarStyleHorizontal"
@@ -50,7 +50,7 @@
       android:layout_below="@+id/appBarLayout"
       android:layout_marginTop="-5dp"
       android:theme="@style/AppTheme.ProgressBar"/>
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/recyclerListOrderElelments"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
@@ -72,7 +72,7 @@
       android:visibility="visible"
       android:gravity="center"/>
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/floating_action_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -86,6 +86,6 @@
   </RelativeLayout>
 
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

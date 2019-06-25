@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools">
-  <android.support.design.widget.CoordinatorLayout
+  <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:id="@+id/CoordinatorLayout_container_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -115,7 +115,7 @@
 
 
         </RelativeLayout>
-        <android.support.v7.widget.AppCompatEditText
+        <androidx.appcompat.widget.AppCompatEditText
           android:id="@+id/txt_email"
           style="@style/Edittext_custom"
           android:layout_width="match_parent"
@@ -129,7 +129,7 @@
           android:paddingBottom="10dp"
           android:hint="@string/lbl_email"
           android:inputType="textEmailAddress"/>
-        <android.support.v7.widget.AppCompatEditText
+        <androidx.appcompat.widget.AppCompatEditText
           android:id="@+id/txt_password"
           style="@style/Edittext_custom"
           android:layout_width="match_parent"
@@ -152,7 +152,7 @@
           android:layout_marginEnd="20dp"
           android:layout_below="@+id/txt_password">
 
-          <android.support.v7.widget.AppCompatCheckBox
+          <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/AppCompatCheckBox_save_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -208,5 +208,5 @@
 
   </ScrollView>
 
-  </android.support.design.widget.CoordinatorLayout>
+  </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

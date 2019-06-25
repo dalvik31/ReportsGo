@@ -8,7 +8,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   tools:context=".View.ClientView.ClientDetailListView.ClientDetailListViewClass">
-  <android.support.design.widget.AppBarLayout
+  <com.google.android.material.appbar.AppBarLayout
     android:id="@+id/appBarLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -31,7 +31,7 @@
         android:scaleType="center"
         android:layout_alignParentEnd="true"
         android:onClick="shareListClienDetailPayments"/>
-      <android.support.v7.widget.Toolbar
+      <androidx.appcompat.widget.Toolbar
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,9 +39,9 @@
         android:layout_toStartOf="@+id/img_profile"
         app:title="Detalle de pagos">
 
-      </android.support.v7.widget.Toolbar>
+      </androidx.appcompat.widget.Toolbar>
     </RelativeLayout>
-  </android.support.design.widget.AppBarLayout>
+  </com.google.android.material.appbar.AppBarLayout>
 
   <ProgressBar
     android:id="@+id/progress_downloadclient_detail_payments"
@@ -104,7 +104,7 @@
   </RelativeLayout>
   </LinearLayout>
 
-  <android.support.v7.widget.RecyclerView
+  <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recyclerListClientFDetailPayments"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

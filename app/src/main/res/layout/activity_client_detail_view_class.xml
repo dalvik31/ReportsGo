@@ -15,7 +15,7 @@
       <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-  <android.support.design.widget.AppBarLayout
+  <com.google.android.material.appbar.AppBarLayout
     android:id="@+id/appBarLayout"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize">
@@ -33,16 +33,16 @@
         android:onClick="goDetailPayments"/>
 
 
-      <android.support.v7.widget.Toolbar
+      <androidx.appcompat.widget.Toolbar
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toStartOf="@+id/btn_add_client"
         android:theme="@style/AppThemeSearchView"
         app:title="@string/lbl_detail_client">
-      </android.support.v7.widget.Toolbar>
+      </androidx.appcompat.widget.Toolbar>
     </RelativeLayout>
-  </android.support.design.widget.AppBarLayout>
+  </com.google.android.material.appbar.AppBarLayout>
 
   <TextView
     android:id="@+id/lbl_date_name"
@@ -129,7 +129,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:text="@string/lbl_client_amount"/>
-        <android.support.v7.widget.AppCompatEditText
+        <androidx.appcompat.widget.AppCompatEditText
           android:id="@+id/txt_client_amount"
           style="@style/Edittext_custom_text"
           android:layout_width="match_parent"
@@ -148,7 +148,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:text="@string/lbl_client_concept"/>
-        <android.support.v7.widget.AppCompatEditText
+        <androidx.appcompat.widget.AppCompatEditText
           android:id="@+id/txt_client_concept"
           style="@style/Edittext_custom_text"
           android:layout_width="match_parent"

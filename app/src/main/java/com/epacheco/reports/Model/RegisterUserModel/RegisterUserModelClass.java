@@ -1,6 +1,6 @@
 package com.epacheco.reports.Model.RegisterUserModel;
 
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 import com.epacheco.reports.Controller.RegisterUserController.RegisterUserControllerClass;
 import com.epacheco.reports.View.RegisterUserView.RegisterUserViewClass;
 import com.facebook.AccessToken;

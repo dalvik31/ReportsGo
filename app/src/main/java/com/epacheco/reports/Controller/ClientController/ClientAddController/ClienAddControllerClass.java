@@ -1,19 +1,12 @@
 package com.epacheco.reports.Controller.ClientController.ClientAddController;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.util.Log;
-import com.epacheco.reports.BuildConfig;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.epacheco.reports.Model.ClientModel.ClientAddModel.ClientAddModelClass;
 import com.epacheco.reports.Pojo.Client.Client;
-import com.epacheco.reports.R;
 import com.epacheco.reports.Tools.Constants;
-import com.epacheco.reports.Tools.Tools;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,7 +14,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.DatabaseReference.CompletionListener;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import java.util.ArrayList;
 
 public class ClienAddControllerClass implements ClientAddControllerInterface{
   private FirebaseAuth mAuth;

@@ -1,7 +1,7 @@
 package com.epacheco.reports.Controller.OrderController.OrderCreateController;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.epacheco.reports.Model.OrderModel.CreateOrderModel.OrderCreateModelClass;
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.OrderDetail.OrderDetail;

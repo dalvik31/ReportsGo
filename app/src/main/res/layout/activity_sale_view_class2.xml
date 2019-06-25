@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".View.SaleView2.SaleViewClass">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
       android:id="@+id/appBarLayout"
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize">
@@ -35,7 +35,7 @@
         </RelativeLayout>
 
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
           android:id="@+id/app_bar"
           android:layout_width="wrap_content"
           android:layout_height="match_parent"
@@ -43,9 +43,9 @@
           android:layout_toStartOf="@+id/containers_buttons"
           android:theme="@style/AppThemeSearchView"
           app:title="@string/lbl_generate_sale">
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
       </RelativeLayout>
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <RelativeLayout
       android:layout_width="match_parent"
@@ -97,7 +97,7 @@
               android:layout_width="0dp"
               android:layout_height="match_parent"
               android:layout_weight=".2">
-              <android.support.design.widget.FloatingActionButton
+              <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fbtn_search_client"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -118,7 +118,7 @@
               android:layout_height="match_parent"
               android:gravity="center"
               android:orientation="vertical">
-              <android.support.v7.widget.AppCompatTextView
+              <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txt_sale_client_name"
                 style="@style/TextView_Text"
                 android:layout_width="match_parent"
@@ -139,7 +139,7 @@
                 android:gravity="start|center"
                 android:text="@string/lbl_sale_select_name"
                 android:visibility="visible"/>
-              <android.support.v7.widget.AppCompatTextView
+              <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txt_sale_client_amount"
                 style="@style/Edittext_custom"
                 android:layout_width="match_parent"
@@ -181,7 +181,7 @@
               android:layout_width="0dp"
               android:layout_height="match_parent"
               android:layout_weight=".2">
-              <android.support.design.widget.FloatingActionButton
+              <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fbtn_search_product"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -201,7 +201,7 @@
               android:layout_height="match_parent"
               android:gravity="center"
               android:orientation="vertical">
-              <android.support.v7.widget.AppCompatTextView
+              <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txt_sale_product_name"
                 style="@style/TextView_Text"
                 android:layout_width="match_parent"
@@ -228,7 +228,7 @@
 
       </LinearLayout>
 
-      <android.support.v4.view.ViewPager
+      <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager_Products"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -248,7 +248,7 @@
         android:textSize="28dp"/>
     </RelativeLayout>
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/fabtn_remove_product"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -260,7 +260,7 @@
       app:srcCompat="@drawable/ic_vector_remove"
       android:onClick="removeProduct"
       app:backgroundTint="@color/colorPrimary"/>
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/fabtn_generar_ticket"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"

@@ -1,13 +1,9 @@
 package com.epacheco.reports.Controller.OrderController;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.util.Log;
-import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.epacheco.reports.Model.OrderModel.OrderModelClass;
-import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.Order.OrderList;
-import com.epacheco.reports.Pojo.Product.Product;
 import com.epacheco.reports.R;
 import com.epacheco.reports.Tools.Constants;
 import com.epacheco.reports.Tools.ReportsApplication;
@@ -20,7 +16,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.DatabaseReference.CompletionListener;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.twitter.sdk.android.core.models.User;
 import java.util.ArrayList;
 import java.util.Collections;
 

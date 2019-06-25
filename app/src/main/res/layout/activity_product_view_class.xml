@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".View.MainAcitivityView.MainActivityViewClass">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
       android:id="@+id/appBarLayout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
@@ -33,7 +33,7 @@
           app:srcCompat="@drawable/ic_vector_account"
           android:onClick="goProfileActivity"/>
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
           android:id="@+id/app_bar"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -50,9 +50,9 @@
             android:layout_centerHorizontal="true"
             android:queryBackground="@android:color/transparent"
             />
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
       </RelativeLayout>
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
     <ProgressBar
       android:id="@+id/progress_downloadclient"
       style="?android:attr/progressBarStyleHorizontal"
@@ -62,7 +62,7 @@
       android:layout_below="@+id/appBarLayout"
       android:layout_marginTop="-5dp"
       android:theme="@style/AppTheme.ProgressBar"/>
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/recyclerListClient"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
@@ -83,7 +83,7 @@
       android:textSize="28sp"
       android:visibility="visible"/>
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/floating_action_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"

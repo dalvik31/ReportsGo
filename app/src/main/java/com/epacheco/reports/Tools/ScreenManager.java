@@ -1,7 +1,7 @@
 package com.epacheco.reports.Tools;
 
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 import com.epacheco.reports.View.ClientView.ClienDetailView.ClientDetailViewClass;
 import com.epacheco.reports.View.ClientView.ClientAddView.ClientAddViewClass;
 import com.epacheco.reports.View.ClientView.ClientDetailListView.ClientDetailListViewClass;
@@ -17,8 +17,6 @@ import com.epacheco.reports.View.ProfileView.ProfileViewClass;
 import com.epacheco.reports.View.RegisterUserView.RegisterUserViewClass;
 import com.epacheco.reports.View.SaleView.SaleViewClass;
 import com.epacheco.reports.View.SearchElementsView.SearchElementView;
-import com.epacheco.reports.View.TestNFC.TestNfcView;
-import com.epacheco.reports.View.TestPin.TestPin;
 
 public class ScreenManager {
   public static void goRegisterActivity(FragmentActivity myActivity){

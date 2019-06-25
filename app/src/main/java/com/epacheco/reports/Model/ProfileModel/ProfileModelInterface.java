@@ -1,6 +1,6 @@
 package com.epacheco.reports.Model.ProfileModel;
 
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 import com.google.firebase.auth.FirebaseUser;
 
 public interface ProfileModelInterface {

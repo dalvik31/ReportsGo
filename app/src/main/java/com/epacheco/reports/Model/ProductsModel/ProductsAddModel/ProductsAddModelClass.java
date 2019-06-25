@@ -1,8 +1,7 @@
 package com.epacheco.reports.Model.ProductsModel.ProductsAddModel;
 
 import android.graphics.Bitmap;
-import android.net.Uri;
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 import com.epacheco.reports.Controller.ProductsController.ProductsAddController.ProductsAddControllerClass;
 import com.epacheco.reports.Pojo.Product.Product;
 import com.epacheco.reports.View.ProductsView.ProductAddView.ProductAddViewClass;

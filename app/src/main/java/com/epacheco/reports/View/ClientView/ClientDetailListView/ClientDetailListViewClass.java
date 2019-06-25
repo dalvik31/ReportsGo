@@ -1,14 +1,11 @@
 package com.epacheco.reports.View.ClientView.ClientDetailListView;
 
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
-import android.graphics.Movie;
-import android.os.Handler;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.View;
 import com.epacheco.reports.Model.ClientModel.ClientDetailListModel.ClientDetailListModelClass;
 import com.epacheco.reports.Pojo.Client.Client;
@@ -16,7 +13,6 @@ import com.epacheco.reports.Pojo.ClientDetail.ClientDetail;
 import com.epacheco.reports.R;
 import com.epacheco.reports.Tools.ReportsProgressDialog;
 import com.epacheco.reports.Tools.Tools;
-import com.epacheco.reports.View.ClientView.ClientView.AdapterClients;
 import com.epacheco.reports.databinding.ActivityClientDetailListViewBinding;
 import java.util.List;
 

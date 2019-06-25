@@ -1,18 +1,16 @@
 package com.epacheco.reports.View.ClientView.ClientAddView;
 
 import android.content.DialogInterface;
-import android.databinding.DataBindingUtil;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import com.epacheco.reports.Model.ClientModel.ClientAddModel.ClientAddModelClass;
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.R;
 import com.epacheco.reports.Tools.ReportsDialogGlobal;
 import com.epacheco.reports.Tools.ReportsProgressDialog;
-import com.epacheco.reports.Tools.ScreenManager;
 import com.epacheco.reports.Tools.Tools;
 import com.epacheco.reports.databinding.ActivityClientAddViewClassBinding;
 
