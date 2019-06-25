@@ -78,7 +78,7 @@ public class Client {
   }
 
   public void setClientsDetails(
-      HashMap<String, ClientDetail> clientsDetails) {
-    ClientsDetails = clientsDetails;
+      HashMap<String, ClientDetail> ClientsDetails) {
+    this.ClientsDetails = ClientsDetails;
   }
 }

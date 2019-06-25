@@ -151,6 +151,10 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
       newClient.setDetail(binding.txtClientDetail.getText().toString());
       newClient.setPhone(binding.txtClientPhone.getText().toString());
       newClient.setLimit(limitSendClient);
+      if(client!=null && client.getClientsDetails()!=null){
+        newClient.setClientsDetails(client.getClientsDetails());
+      }
+
 
 
   }
