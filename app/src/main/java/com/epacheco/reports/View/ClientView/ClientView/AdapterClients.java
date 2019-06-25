@@ -1,5 +1,6 @@
 package com.epacheco.reports.View.ClientView.ClientView;
 
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,9 +11,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.epacheco.reports.Pojo.Client.Client;
+import com.epacheco.reports.Pojo.ClientDetail.ClientDetail;
 import com.epacheco.reports.R;
 import com.epacheco.reports.Tools.ReportsApplication;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 public class AdapterClients extends RecyclerView.Adapter<AdapterClients.HolderClients> {
 
@@ -69,8 +78,19 @@ public class AdapterClients extends RecyclerView.Adapter<AdapterClients.HolderCl
         }
       }
     });
-    String value = clientSelected.getClientsDetails()!=null && clientSelected.getClientsDetails().entrySet()!=null && clientSelected.getClientsDetails().entrySet().iterator()!=null ? String.valueOf(clientSelected.getClientsDetails().entrySet().iterator().next().getValue().getDebt()) : "0";
-    holderClients.txtDebt.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_amount_format),value));
+    String clientDeb = "0";
+    if(clientSelected.getClientsDetails()!=null){
+      Map<String, ClientDetail> map = clientSelected.getClientsDetails();
+      TreeMap<String, ClientDetail> treeMap = new TreeMap<>(map);
+      if(treeMap.size()>0){
+        ClientDetail myClientDetail = treeMap.lastEntry().getValue();
+        if(myClientDetail!=null)
+        clientDeb = String.valueOf(treeMap.lastEntry().getValue().getDebt());
+      }
+
+    }
+
+    holderClients.txtDebt.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_amount_format),clientDeb));
   }
 
   @Override
