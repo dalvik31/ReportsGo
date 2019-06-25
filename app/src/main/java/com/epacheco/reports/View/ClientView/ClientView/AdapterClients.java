@@ -69,6 +69,8 @@ public class AdapterClients extends RecyclerView.Adapter<AdapterClients.HolderCl
         }
       }
     });
+    String value = clientSelected.getClientsDetails()!=null && clientSelected.getClientsDetails().entrySet()!=null && clientSelected.getClientsDetails().entrySet().iterator()!=null ? String.valueOf(clientSelected.getClientsDetails().entrySet().iterator().next().getValue().getDebt()) : "0";
+    holderClients.txtDebt.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_amount_format),value));
   }
 
   @Override
@@ -78,7 +80,7 @@ public class AdapterClients extends RecyclerView.Adapter<AdapterClients.HolderCl
 
   class HolderClients extends RecyclerView.ViewHolder {
 
-    private TextView txtName, txtDesc;
+    private TextView txtName, txtDesc, txtDebt;
     private ImageView btnPhone, btnModify, btnDetail;
     private CardView cardClient;
 
@@ -90,7 +92,7 @@ public class AdapterClients extends RecyclerView.Adapter<AdapterClients.HolderCl
       btnModify = itemView.findViewById(R.id.btn_modify);
       btnDetail = itemView.findViewById(R.id.btn_detail);
       cardClient = itemView.findViewById(R.id.card_client);
-
+      txtDebt= itemView.findViewById(R.id.lbl_client_debt);
     }
   }
 

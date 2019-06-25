@@ -106,14 +106,16 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
       @Override
       public void failure(TwitterException e) {
         Log.e("failure","failure TWIITER: "+e.getMessage());
-        ReportsDialogGlobal.showDialogOk(RegisterUserViewClass.this,"Error Twitter",e.getMessage());
+        if(!e.getMessage().contains("request was canceled")){
+          ReportsDialogGlobal.showDialogOk(RegisterUserViewClass.this,"Error Twitter",e.getMessage());
+        }
         e.printStackTrace();
       }
     });
   }
 
   public void registerFacebook(View v){
-    LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "user_friends"));
+    LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
 
   }
 
@@ -249,7 +251,7 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
       } catch (ApiException e) {
         // Google Sign In failed, update UI appropriately
         Log.e("ERROR GOOGLE", "Google sign in failed" +e.getStatusCode());
-        ReportsDialogGlobal.showDialogOk(RegisterUserViewClass.this,"Error Google",e.getMessage());
+        if(!e.getMessage().contains("12501")) ReportsDialogGlobal.showDialogOk(RegisterUserViewClass.this,"Error Google",e.getMessage());
 
 
       }

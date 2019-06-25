@@ -39,7 +39,7 @@ public class OrderDetailView extends AppCompatActivity implements OrderDetailInt
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    binding = DataBindingUtil.setContentView(this,R.layout.activity_order_detail_view);
+    binding = DataBindingUtil.setContentView(OrderDetailView.this,R.layout.activity_order_detail_view);
     initElements();
   }
 

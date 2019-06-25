@@ -48,36 +48,57 @@
     android:id="@+id/container_img_buttons"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_alignParentEnd="true"
-    android:layout_centerInParent="true">
+    android:layout_centerInParent="true"
+    android:gravity="center"
+    android:weightSum="1">
+    <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="0dp"
+      android:orientation="horizontal"
+      android:layout_weight=".5"
+      android:gravity="center">
 
-    <ImageView
-      android:id="@+id/btn_phone"
-      android:layout_width="?attr/actionBarSize"
-      android:layout_height="?attr/actionBarSize"
-      android:clickable="true"
-      android:focusable="true"
-      android:scaleType="center"
-      android:src="@drawable/ic_vector_phone"/>
-    <ImageView
-      android:id="@+id/btn_modify"
-      android:layout_width="?attr/actionBarSize"
-      android:layout_height="?attr/actionBarSize"
-      android:scaleType="center"
-      android:clickable="true"
-      android:focusable="true"
-      android:src="@drawable/ic_vector_modify"/>
-    <ImageView
-      android:id="@+id/btn_detail"
-      android:layout_width="?attr/actionBarSize"
-      android:layout_height="?attr/actionBarSize"
-      android:scaleType="center"
-      android:src="@drawable/ic_vector_settings"
-      android:clickable="true"
-      android:focusable="true"/>
+      <ImageView
+        android:id="@+id/btn_phone"
+        android:layout_width="?attr/actionBarSize"
+        android:layout_height="?attr/actionBarSize"
+        android:clickable="true"
+        android:focusable="true"
+        android:scaleType="center"
+        android:src="@drawable/ic_vector_phone"/>
+      <ImageView
+        android:id="@+id/btn_modify"
+        android:layout_width="?attr/actionBarSize"
+        android:layout_height="?attr/actionBarSize"
+        android:scaleType="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_vector_modify"/>
+      <ImageView
+        android:id="@+id/btn_detail"
+        android:layout_width="?attr/actionBarSize"
+        android:layout_height="?attr/actionBarSize"
+        android:scaleType="center"
+        android:src="@drawable/ic_vector_settings"
+        android:clickable="true"
+        android:focusable="true"/>
 
+    </LinearLayout>
+    <TextView
+      android:id="@+id/lbl_client_debt"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight=".5"
+      android:gravity="center"
+      style="@style/TextView_Text"
+      android:lines="1"
+      android:textColor="@android:color/holo_green_dark"
+      android:maxLines="1"
+      android:textStyle="bold"/>
   </LinearLayout>
+
 
 </RelativeLayout>
   <RelativeLayout
