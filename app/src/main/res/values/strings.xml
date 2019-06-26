@@ -11,6 +11,7 @@
 
 
   <!--Activity Select Account Register-->
+  <string name="msg_process">Procesando…</string>
   <string name="lbl_login">Iniciar sesión</string>
   <string name="lbl_logout">Cerrar sesión</string>
   <string name="lbl_sign_up">Crear cuenta</string>
@@ -175,6 +176,8 @@
   <string name="msg_generate_sale">Generando ticket</string>
   <string name="lbl_sale_total">Total: $ %s</string>
   <string name="lbl_sale_select_name">Buscar  cliente</string>
+  <string name="lbl_sale_name_client">CLIENTE</string>
+  <string name="lbl_sale_name_product">PRODUCTO</string>
   <string name="msg_sale_empty_products">Agrega un producto</string>
   <string name="lbl_sale_select_name_hint">Nombre o id de cliente</string>
   <string name="lbl_sale_select_product">Buscar producto</string>
@@ -219,20 +222,13 @@
   <string name="body_message_delete_elemnt">¿Realmente deseas eliminar este elemento.</string>
   <string name="lbl_size_number">Numérica</string>
 
+
   <!--Errores FIREBASE-->
   <string name="msg_firebase_delete_user">No se encontro información del usuario, probablemente fue eliminado.</string>
   <string name="msg_firebase_without_password">Contraseña incorrecta o el usuario inicio con una red social.</string>
   <string name="msg_firebase_used_email">Ya existe un cuenta con esa dirección de correo electrónico.</string>
 
-  <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
-  <!--
-      This is the name that users will see when interacting with this channel.
-      It should describe the category of notifications that will be sent through this channel
-   -->
-  <string name="default_notification_channel_name" translatable="true">MyChannel</string>
 
-  <string name="info">Ensure that Android Beam is enabled by turning it on in
-        the system Settings (select the setting icon above), then place this device up
-        against another Android device that supports Android Beam to send a
-        message.</string>
+
+
 </resources>

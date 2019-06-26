@@ -6,11 +6,23 @@ android {
         applicationId "com.epacheco.reports"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 3
-        versionName "1.0.2"
+        versionCode 6
+        versionName "1.0.6"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
+
+    }
+
+    signingConfigs {
+        release {
+            // You need to specify either an absolute path or include the
+            // keystore file in the same directory as the build.gradle file.
+            storeFile file("reports_keystore_release.jks")
+            storePassword "Emma3103"
+            keyAlias "reports"
+            keyPassword "Emma3103"
+        }
 
     }
 
@@ -21,14 +33,17 @@ android {
 
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
         }
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
     implementation 'com.google.android.material:material:1.0.0-beta01'
     //Dependencia para navigationBottom
@@ -36,7 +51,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
-
     //Dependencia FireBase
     implementation 'com.google.firebase:firebase-core:17.0.0'
     //Dependencia FireBase Login with email
@@ -62,8 +76,10 @@ dependencies {
     //Dependencia para notificaciones
     implementation 'com.google.firebase:firebase-messaging:19.0.1'
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
+    //Se agrego por un error al inflar el contraint layout con androidx
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
-
+    //Se agrego por un error al iniciar sesion con google
+    implementation 'androidx.appcompat:appcompat:1.1.0-beta01'
 }
 
 

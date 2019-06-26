@@ -93,7 +93,7 @@ public class ClientDetail {
 
   @Override
   public String toString() {
-  /*  StringBuilder stringBuilder = new StringBuilder();
+    StringBuilder stringBuilder = new StringBuilder();
     stringBuilder.append("\n");
     stringBuilder.append("\n");
     stringBuilder.append("\n");
@@ -119,8 +119,7 @@ public class ClientDetail {
     stringBuilder.append("\n");
     stringBuilder.append("\n");
     stringBuilder.append("\n");
-    return stringBuilder.toString();*/
-  return "debe: "+debt;
+    return stringBuilder.toString();
   }
 }
 
