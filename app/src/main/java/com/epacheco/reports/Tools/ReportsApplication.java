@@ -1,6 +1,7 @@
 package com.epacheco.reports.Tools;
 
 import android.content.Context;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.multidex.MultiDexApplication;
 import android.util.Log;
 import com.epacheco.reports.R;
@@ -19,6 +20,7 @@ public class ReportsApplication  extends MultiDexApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+    AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     myApplicationContext = this;
     inicializateTwoProjectsFireBase();
     inicializateConfigurationTwitter();

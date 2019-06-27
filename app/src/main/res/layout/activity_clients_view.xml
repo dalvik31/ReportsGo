@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools">
   <RelativeLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".View.MainAcitivityView.MainActivityViewClass">
@@ -15,13 +15,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
           android:id="@+id/img_profile"
           android:layout_width="?attr/actionBarSize"
           android:layout_height="?attr/actionBarSize"
 
           android:padding="12dp"
-          android:src="@drawable/ic_vector_account"
           app:srcCompat="@drawable/ic_vector_account"
           android:onClick="goProfileActivity"
           android:layout_alignParentEnd="true"/>
@@ -98,5 +97,6 @@
       android:onClick="goAddClientActivity"
       />
 
-  </RelativeLayout>
+  </RelativeLayout
+  >
 </layout>

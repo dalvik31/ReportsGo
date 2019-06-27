@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.SearchView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.epacheco.reports.Model.ClientModel.ClientModel.ClientModelClass;
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.R;
@@ -48,7 +49,8 @@ public class ClientsViewClass extends AppCompatActivity implements ClientViewInt
 
     if( FirebaseAuth.getInstance().getCurrentUser()!=null ){
       if(  FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()!=null){
-        Glide.with(ReportsApplication.getMyApplicationContext()).load(Tools.getFormatUrlImage( FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl())).into(binding.imgProfile);
+        Glide.with(ReportsApplication.getMyApplicationContext()).load(Tools.getFormatUrlImage( FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()))  .apply(
+            RequestOptions.circleCropTransform()).into(binding.imgProfile);
       }
     }
     binding.searchView.setOnQueryTextListener(this);

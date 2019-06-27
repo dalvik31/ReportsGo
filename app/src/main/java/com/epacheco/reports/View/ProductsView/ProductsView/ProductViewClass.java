@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.SearchView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.epacheco.reports.Model.ProductsModel.ProductsModel.ProductsModelClass;
 import com.epacheco.reports.Pojo.Product.Product;
 import com.epacheco.reports.R;
@@ -63,7 +64,8 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
     super.onStart();
     if(mAuth.getCurrentUser()!=null ){
       if( mAuth.getCurrentUser().getPhotoUrl()!=null){
-        Glide.with(ReportsApplication.getMyApplicationContext()).load(Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl())).into(binding.imgProfile);
+        Glide.with(ReportsApplication.getMyApplicationContext()).load(Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl()))  .apply(
+            RequestOptions.circleCropTransform()).into(binding.imgProfile);
       }
     }
   }

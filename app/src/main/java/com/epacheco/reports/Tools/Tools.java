@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.widget.ImageView;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.fragment.app.FragmentActivity;
 import androidx.core.content.ContextCompat;
@@ -134,5 +135,6 @@ public class Tools {
     //return timeFinish > 10000;//si el tiempo es mayor a 10 segundos
     return timeFinish > 300000;//si el tiempo es mayor a 5 minutos
   }
+
 
 }

@@ -18,15 +18,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
           android:id="@+id/img_profile"
           android:layout_width="?attr/actionBarSize"
           android:layout_height="?attr/actionBarSize"
           android:layout_toStartOf="@+id/btn_add"
           android:padding="12dp"
-          android:src="@drawable/ic_vector_account"
-          android:layout_alignParentEnd="true"
           app:srcCompat="@drawable/ic_vector_account"
+          android:layout_alignParentEnd="true"
           android:onClick="goProfileActivity"/>
         <androidx.appcompat.widget.Toolbar
           android:id="@+id/app_bar"

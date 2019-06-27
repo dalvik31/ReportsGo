@@ -89,6 +89,8 @@
   <string name="txt_client_concept_payment">Abono normal</string>
   <string name="txt_client_without_concept_payment">Sin concepto</string>
   <string name="txt_client_amount_format">$ %s</string>
+  <string name="txt_client_amount_format_plus">+ $ %s</string>
+  <string name="txt_client_amount_format_minum">- $ %s</string>
   <string name="txt_client_date_format">Cliente desde el %s</string>
   <string name="txt_client_name_format"> %s %s</string>
   <string name="txt_client_limit_format">Limite de credito %s</string>

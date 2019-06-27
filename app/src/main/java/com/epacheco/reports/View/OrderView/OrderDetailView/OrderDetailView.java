@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.epacheco.reports.Model.OrderModel.OrderDetailModel.OrderDetailModelClass;
 import com.epacheco.reports.Pojo.OrderDetail.OrderDetail;
 import com.epacheco.reports.R;
@@ -64,7 +65,7 @@ public class OrderDetailView extends AppCompatActivity implements OrderDetailInt
     if(mAuth.getCurrentUser()!=null ){
       if( mAuth.getCurrentUser().getPhotoUrl()!=null){
         Glide.with(ReportsApplication.getMyApplicationContext()).load(
-            Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl())).into(binding.imgProfile);
+            Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl())) .apply(RequestOptions.circleCropTransform()).into(binding.imgProfile);
       }
     }
   }

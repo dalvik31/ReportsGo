@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools">
+  xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
   <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:id="@+id/CoordinatorLayout_container_login"
     android:layout_width="match_parent"
@@ -48,6 +49,7 @@
           android:clickable="true"
           android:text="@string/btn_continue_facebook"
           android:focusable="true"
+          app:drawableLeftCompat="@drawable/ic_vector_facebook_logo"
 
           />
 
@@ -63,6 +65,7 @@
           android:layout_marginTop="10dp"
           android:layout_marginBottom="10dp"
           android:onClick="registerGoogle"
+          app:drawableLeftCompat="@drawable/ic_vector_google_logo"
           android:text="@string/btn_continue_google"/>
 
         <Button
@@ -77,6 +80,7 @@
           android:layout_marginTop="10dp"
           android:layout_marginBottom="10dp"
           android:text="@string/btn_continue_twitter"
+          app:drawableLeftCompat="@drawable/ic_vector_twitter_logo"
           android:onClick="registerTwitter"/>
 
         <RelativeLayout

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.epacheco.reports.R;
 import com.epacheco.reports.Tools.ScreenManager;
 import com.epacheco.reports.Tools.Tools;
@@ -34,8 +35,10 @@ public class ProfileViewClass extends AppCompatActivity implements ProfileViewIn
     }
     if(getFirebaseUser().getPhotoUrl()!=null && !getFirebaseUser().getPhotoUrl().toString().isEmpty()){
 
-      Glide.with(this).load(Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl())).into(binding.imageviewAccountProfile);
-      Glide.with(this).load(Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl())).into(binding.imgBackground);
+
+      Glide.with(this).load(Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl())).apply(
+          RequestOptions.circleCropTransform()).into(binding.imageviewAccountProfile);
+      Glide.with(this).load(Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl()))  .into(binding.imgBackground);
     }
     binding.lblUserEmail.setText(getFirebaseUser().getEmail());
 

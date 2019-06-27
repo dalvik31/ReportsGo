@@ -57,7 +57,7 @@ public class AdapterClientDetailPayments extends  RecyclerView.Adapter<AdapterCl
 
         ClientDetail clientDetail = clientDetailsList.get(i);
         double amount = clientDetail.getAmount();
-        holderClientDetailPayments.txt_amount.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_amount_format), String.valueOf(amount)));
+        holderClientDetailPayments.txt_amount.setText(String.format(ReportsApplication.getMyApplicationContext().getString(clientDetail.isPay() ? R.string.txt_client_amount_format_minum:R.string.txt_client_amount_format_plus), String.valueOf(amount)));
 
         holderClientDetailPayments.txtDetailName.setText(clientDetail.getCantProduct()>0 ? String.format(ReportsApplication.getMyApplicationContext().getString(R.string.lbl_detail_name_client),String.valueOf(clientDetail.getCantProduct()),clientDetail.getConcept()) : clientDetail.getConcept());
 

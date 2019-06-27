@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.epacheco.reports.R;
 import com.epacheco.reports.Tools.Constants;
 import com.epacheco.reports.Tools.ReportsApplication;
@@ -34,7 +35,13 @@ public class MainActivityViewClass extends AppCompatActivity{
 
     if(mAuth.getCurrentUser()!=null /*&& !Tools.compareTime()*/){
       if( mAuth.getCurrentUser().getPhotoUrl()!=null){
-        Glide.with(ReportsApplication.getMyApplicationContext()).load(Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl())).into(binding.imgProfile);
+
+          Glide
+              .with(ReportsApplication.getMyApplicationContext())
+              .load(Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl()))
+              .apply(RequestOptions.circleCropTransform())
+              .into(binding.imgProfile);
+
       }
       return;
     }

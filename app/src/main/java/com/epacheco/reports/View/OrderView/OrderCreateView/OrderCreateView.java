@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.epacheco.reports.Model.OrderModel.CreateOrderModel.OrderCreateModelClass;
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.OrderDetail.OrderDetail;
@@ -144,7 +145,7 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
     if(mAuth.getCurrentUser()!=null ){
       if( mAuth.getCurrentUser().getPhotoUrl()!=null){
         Glide.with(ReportsApplication.getMyApplicationContext()).load(
-            Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl())).into(binding.imgProfile);
+            Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl()))  .apply(RequestOptions.circleCropTransform()).into(binding.imgProfile);
       }
     }
   }
