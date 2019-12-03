@@ -49,6 +49,7 @@ public class TestNfcView extends AppCompatActivity implements NfcAdapter.OnNdefP
     setContentView(R.layout.activity_test_nfc_view);
     tex = findViewById(R.id.textView);
     setUpAndroidBeam();
+    Log.e("agregamos","linea");
   }
 
 
