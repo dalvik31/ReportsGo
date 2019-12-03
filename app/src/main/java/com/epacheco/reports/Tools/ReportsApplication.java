@@ -22,28 +22,9 @@ public class ReportsApplication  extends MultiDexApplication {
     super.onCreate();
     AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     myApplicationContext = this;
-    inicializateTwoProjectsFireBase();
     inicializateConfigurationTwitter();
     inicializateConfigurationFacebook();
 
-  }
-
-  private void inicializateTwoProjectsFireBase() {
-   /* FirebaseOptions options2 = new FirebaseOptions.Builder()
-        .setApplicationId("1:948414846887:android:f012459a22be93bb") // Required for Analytics.
-        .setApiKey("AIzaSyDnfPEgKbwzhK3R9tJXFpjBumgk4lWo1hY") // Required for Auth.
-        .setDatabaseUrl("https://reports-go.firebaseio.com") // Required for RTDB.
-        .setProjectId("reports-go")
-        .build();
-    FirebaseApp.initializeApp(this , options2);*/
-    // Manually configure Firebase Options
-    FirebaseOptions options = new FirebaseOptions.Builder()
-        .setApplicationId("1:1033289891829:android:2a18e3a9d8c59d87") // Required for Analytics.
-        .setApiKey("AIzaSyB6r9RWSUKPZyZapBbDeii0AGDS_JciRls") // Required for Auth.
-        .setDatabaseUrl("https://superheroapp1.firebaseio.com") // Required for RTDB.
-        .setProjectId("superheroapp1")
-        .build();
-    FirebaseApp.initializeApp(this /* Context */, options, "secondary");
   }
 
 
