@@ -45,7 +45,7 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
 
   private void inicializateElements() {
     mAuth = FirebaseAuth.getInstance();
-    progressbar = ReportsProgressDialog.getInstance(this);
+    progressbar = ReportsProgressDialog.getInstance();
     orderModelClass = new OrderModelClass(this);
     showProgress(getString(R.string.msg_search_orders));
     orderModelClass.getOrders();

@@ -46,7 +46,7 @@ public class OrderDetailView extends AppCompatActivity implements OrderDetailInt
 
   private void initElements() {
     mAuth = FirebaseAuth.getInstance();
-    progressbar = ReportsProgressDialog.getInstance(this);
+    progressbar = ReportsProgressDialog.getInstance();
     orderDetailModelClass = new OrderDetailModelClass(this);
     extras = getIntent().getExtras();
     if(extras!=null){

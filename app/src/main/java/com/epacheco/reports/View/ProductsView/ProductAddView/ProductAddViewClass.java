@@ -92,7 +92,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
   }
 
   private void inicializateElements() {
-     progressbar = ReportsProgressDialog.getInstance(this);
+     progressbar = ReportsProgressDialog.getInstance();
     productId = getIntent()!=null ? getIntent().getStringExtra(PRODUCT_ID):"";
     productsAddModelClass = new ProductsAddModelClass(this);
   }

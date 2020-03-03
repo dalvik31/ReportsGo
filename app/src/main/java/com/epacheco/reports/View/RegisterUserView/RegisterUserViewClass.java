@@ -55,7 +55,7 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
   }
 
   private void inicializateElements() {
-    progressbar = ReportsProgressDialog.getInstance(this);
+    progressbar = ReportsProgressDialog.getInstance();
     registerUserModelClass = new RegisterUserModelClass(this);
 
     //Inicializamos google

@@ -63,7 +63,7 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
   }
 
   private void inicializateElements() {
-    progressbar = ReportsProgressDialog.getInstance(this);
+    progressbar = ReportsProgressDialog.getInstance();
     clientId = getIntent()!=null ?  getIntent().getStringExtra(CLIENT_ID) : "";
     clientAddModelClass = new ClientAddModelClass(this);
   }

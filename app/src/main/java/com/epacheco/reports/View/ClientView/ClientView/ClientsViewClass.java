@@ -42,7 +42,7 @@ public class ClientsViewClass extends AppCompatActivity implements ClientViewInt
   }
 
   private void inicializateElements() {
-    progressbar = ReportsProgressDialog.getInstance(this);
+    progressbar = ReportsProgressDialog.getInstance();
     if(getIntent()!=null){
       setSearch(getIntent().getBooleanExtra(IS_SEARCH,false));
     }

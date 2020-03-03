@@ -50,7 +50,7 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
 
   private void inicializateElements() {
     mAuth = FirebaseAuth.getInstance();
-    progressbar = ReportsProgressDialog.getInstance(this);
+    progressbar = ReportsProgressDialog.getInstance();
     if(getIntent()!=null){
       setSearch(getIntent().getBooleanExtra(IS_SEARCH,false));
     }

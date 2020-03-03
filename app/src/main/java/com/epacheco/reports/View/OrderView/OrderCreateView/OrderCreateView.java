@@ -51,7 +51,7 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
 
   private void initializateElements() {
     mAuth = FirebaseAuth.getInstance();
-    progressbar = ReportsProgressDialog.getInstance(this);
+    progressbar = ReportsProgressDialog.getInstance();
     binding.txtOrderSize.setText(sizeSelected);
     binding.txtOrderGender.setText(typeSelected);
     Bundle extras = getIntent().getExtras();

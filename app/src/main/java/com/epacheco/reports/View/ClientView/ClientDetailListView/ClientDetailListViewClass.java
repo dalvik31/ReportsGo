@@ -36,7 +36,7 @@ public class ClientDetailListViewClass extends AppCompatActivity implements Clie
   }
 
   private void inicializateElements() {
-    progressbar = ReportsProgressDialog.getInstance(this);
+    progressbar = ReportsProgressDialog.getInstance();
     if(getIntent()==null){
      return;
     }

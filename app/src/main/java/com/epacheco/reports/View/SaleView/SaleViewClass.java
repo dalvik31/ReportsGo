@@ -51,7 +51,7 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
 
   private void inicalizateElements() {
     mAuth = FirebaseAuth.getInstance();
-    progressbar = ReportsProgressDialog.getInstance(this);
+    progressbar = ReportsProgressDialog.getInstance();
     adapterViewPagerSale = new AdapterViewPagerSale();
     binding.viewPagerProducts.setAdapter(adapterViewPagerSale);
     saleModelClass = new SaleModelClass(this);
