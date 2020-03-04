@@ -10,6 +10,12 @@
     <string name="fb_login_protocol_scheme">fb415445955694509</string>
 
 
+
+    <!--Activity Splash-->
+    <string name="title_google_play_services">Actualiza Servicios de Google Play</string>
+    <string name="msg_google_play_services">Reports no funcionará hasta que no actualices Servicios de Google Play.</string>
+
+
     <!--Activity Select Account Register-->
     <string name="msg_process">Procesando…</string>
     <string name="lbl_login">Iniciar sesión</string>
@@ -50,6 +56,7 @@
     <string name="lbl_detail_client">Detalle de cliente</string>
     <string name="lbl_detail_name_client">%s - %s</string>
     <string name="btn_save">guardar</string>
+    <string name="btn_update">actualizar</string>
     <string name="btn_ok">aceptar</string>
     <string name="btn_cancel">Cancelar</string>
     <string name="btn_modify">modificar</string>

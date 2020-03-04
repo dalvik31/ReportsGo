@@ -1,11 +1,18 @@
 package com.epacheco.reports.Tools;
 
 import android.Manifest.permission;
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.view.KeyEvent;
 import android.widget.ImageView;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.fragment.app.FragmentActivity;
 import androidx.core.content.ContextCompat;
@@ -136,5 +143,18 @@ public class Tools {
     return timeFinish > 300000;//si el tiempo es mayor a 5 minutos
   }
 
+
+  public static boolean isGooglePlayServicesAvailable(Activity activity) {
+    GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
+    int status = googleApiAvailability.isGooglePlayServicesAvailable(activity);
+    if(status != ConnectionResult.SUCCESS) {
+      if(googleApiAvailability.isUserResolvableError(status)) {
+       googleApiAvailability.getErrorDialog(activity, status, 2404).show();
+
+      }
+      return false;
+    }
+    return true;
+  }
 
 }

@@ -7,6 +7,7 @@ import android.util.Log;
 import com.epacheco.reports.R;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.twitter.sdk.android.core.DefaultLogger;
@@ -16,6 +17,8 @@ import com.twitter.sdk.android.core.TwitterConfig;
 
 public class ReportsApplication  extends MultiDexApplication {
   private static Context myApplicationContext;
+  private static ReportsApplication instance;
+
 
   @Override
   public void onCreate() {
@@ -27,6 +30,15 @@ public class ReportsApplication  extends MultiDexApplication {
 
   }
 
+  public static ReportsApplication getInstance() {
+    if (instance== null) {
+      synchronized(ReportsApplication.class) {
+        if (instance == null)
+          instance = new ReportsApplication();
+      }
+    }
+    return instance;
+  }
 
   public static Context getMyApplicationContext(){
    return myApplicationContext;
@@ -48,5 +60,9 @@ public class ReportsApplication  extends MultiDexApplication {
     AppEventsLogger.activateApp(this);
   }
 
+
+  public GoogleApiAvailability getGoogleAvalability(){
+    return    GoogleApiAvailability.getInstance();
+  }
 
 }
