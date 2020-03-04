@@ -126,6 +126,10 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
     });
   }
 
+  public void forgotPassword(View v){
+    ScreenManager.goForgotPasswordActivity(this);
+  }
+
   public void registerFacebook(View v){
     progressbar.showProgress(this,getString(R.string.msg_process));
     LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
@@ -287,5 +291,3 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
     }
   }
 }
-
-//viernes creando el servicio para

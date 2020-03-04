@@ -1,236 +1,240 @@
 <resources>
-  <string name="app_name">Reports</string>
+    <string name="app_name">Reports</string>
 
 
-  <!--Llaves para twitter-->
-  <string name="TWITTER_CONSUMER_KEY">yqBSSKlAUm2bETW0T1xn6tcMt</string>
-  <string name="TWITTER_CONSUMER_SECRET">IiqWBNzpyXLDTo9Ii37vJaF2qODfOiqyostEMdP87F8RWvKW1Q</string>
-  <!--Llaves para facebook-->
-  <string name="facebook_app_id">415445955694509</string>
-  <string name="fb_login_protocol_scheme">fb415445955694509</string>
+    <!--Llaves para twitter-->
+    <string name="TWITTER_CONSUMER_KEY">yqBSSKlAUm2bETW0T1xn6tcMt</string>
+    <string name="TWITTER_CONSUMER_SECRET">IiqWBNzpyXLDTo9Ii37vJaF2qODfOiqyostEMdP87F8RWvKW1Q</string>
+    <!--Llaves para facebook-->
+    <string name="facebook_app_id">415445955694509</string>
+    <string name="fb_login_protocol_scheme">fb415445955694509</string>
 
 
-  <!--Activity Select Account Register-->
-  <string name="msg_process">Procesando…</string>
-  <string name="lbl_login">Iniciar sesión</string>
-  <string name="lbl_logout">Cerrar sesión</string>
-  <string name="lbl_sign_up">Crear cuenta</string>
-  <string name="btn_continue_facebook">Continua con Facebook</string>
-  <string name="btn_continue_google">Continua con Google</string>
-  <string name="btn_continue_twitter">Continua con Twitter</string>
-  <string name="lbl_email">Ingresa correo electrónico</string>
-  <string name="lbl_password">Ingresa contraseña</string>
-  <string name="lbl_forgot_password">Olvidé mi contraseña</string>
-  <string name="lbl_or_account">Ó</string>
-  <string name="lbl_select_social_network">Inicia con una red social</string>
-  <string name="lbl_remember_user">Recordar usuario</string>
-  <string name="title_msg_error_sistema">Error.</string>
-  <string name="msg_error_sistema">Ocurrio un problema, intenta más tarde.</string>
-  <string name="msg_zero_elements">No se encontraron pagos de este cliente.</string>
-  <string name="msg_zero_clients">No se encontraron clientes.</string>
-  <string name="msg_zero_products">No se encontraron productos.</string>
-  <string name="msg_camera_scan">Escanea el código QR o de barras.</string>
+    <!--Activity Select Account Register-->
+    <string name="msg_process">Procesando…</string>
+    <string name="lbl_login">Iniciar sesión</string>
+    <string name="lbl_logout">Cerrar sesión</string>
+    <string name="lbl_sign_up">Crear cuenta</string>
+    <string name="btn_continue_facebook">Continua con Facebook</string>
+    <string name="btn_continue_google">Continua con Google</string>
+    <string name="btn_continue_twitter">Continua con Twitter</string>
+    <string name="lbl_email">Ingresa correo electrónico</string>
+    <string name="lbl_password">Ingresa contraseña</string>
+    <string name="lbl_forgot_password">Olvidé mi contraseña</string>
+    <string name="lbl_or_account">Ó</string>
+    <string name="lbl_select_social_network">Inicia con una red social</string>
+    <string name="lbl_remember_user">Recordar usuario</string>
+    <string name="title_msg_error_sistema">Error.</string>
+    <string name="msg_error_sistema">Ocurrio un problema, intenta más tarde.</string>
+    <string name="msg_zero_elements">No se encontraron pagos de este cliente.</string>
+    <string name="msg_zero_clients">No se encontraron clientes.</string>
+    <string name="msg_zero_products">No se encontraron productos.</string>
+    <string name="msg_camera_scan">Escanea el código QR o de barras.</string>
 
 
-  <!--Activity Principal-->
-  <string name="lbl_menu_option_client">Clientes</string>
-  <string name="lbl_menu_option_products">Productos</string>
-  <string name="lbl_menu_option_sell">Ventas</string>
-  <string name="lbl_menu_option_order">Pedidos</string>
-  <string name="lbl_menu_option">Selecciona una operación</string>
-  <string name="lbl_menu_option_sell_subtitle">Selecciona un cliente y genera un ticket con varios productos.</string>
-  <string name="lbl_menu_option_order_subtitle">Crea pedidos y asígnalos a tus clientes, guardalos y consultalos más tarde.</string>
-  <string name="lbl_menu_option_client_subttitle">Agrega clientes para llevar el control de su crédito.</string>
-  <string name="lbl_menu_option_products_subtitle">Lleva el control de tu inventario, de una manera rápida y sencilla.</string>
-  <!--Fragment Clientes-->
-  <string name="msg_search_client">Buscando clientes</string>
-  <string name="lbl_search_client">Buscar cliente</string>
-  <string name="lbl_search_clients">Buscando cliente</string>
-  <string name="lbl_add_client">Crear nuevo cliente</string>
-  <string name="lbl_detail_client">Detalle de cliente</string>
-  <string name="lbl_detail_name_client">%s - %s</string>
-  <string name="btn_save">guardar</string>
-  <string name="btn_ok">aceptar</string>
-  <string name="btn_cancel">Cancelar</string>
-  <string name="btn_modify">modificar</string>
-  <string name="btn_sale">vender</string>
-  <string name="btn_delete">eliminar</string>
-  <string name="btn_close">cerrar</string>
-  <string name="btn_detail">detalle</string>
-  <string name="lbl_client_name">Nombre</string>
-  <string name="lbl_client_name_hint">Juan</string>
-  <string name="lbl_client_lastname">Apellido</string>
-  <string name="lbl_client_lastname_hint">Perez</string>
-  <string name="lbl_client_detail">Detalle</string>
-  <string name="lbl_client_detail_hint">El dueño de la farmacia.</string>
-  <string name="lbl_client_phone">Celular</string>
-  <string name="lbl_client_phone_hint">555–555–5555</string>
-  <string name="lbl_client_limit">Limite de credito</string>
-  <string name="lbl_client_limit_hint">$2,000</string>
-  <string name="lbl_date_client">Cliente desde 19/Ago/2019</string>
-  <string name="lbl_amount_client">Debe:</string>
-  <string name="lbl_client_amount">Monto</string>
-  <string name="lbl_client_amount_hint">$2,000</string>
-  <string name="lbl_client_concept_hint">Abono</string>
-  <string name="lbl_client_concept">Concepto</string>
-  <string name="btn_abonar">Abonar</string>
-  <string name="btn_generate_order">Nuevo pedido</string>
-  <string name="btn_generate_ticket">Nuevo ticket</string>
-  <string name="btn_detail_payments">Detalle de pagos</string>
-  <string name="lbl_modify_client">Modificar cliente</string>
-  <string name="msg_name_empty">Ingresa un nombre</string>
-  <string name="msg_amount_empty">Ingresa un monto</string>
+    <!--Activity Principal-->
+    <string name="lbl_menu_option_client">Clientes</string>
+    <string name="lbl_menu_option_products">Productos</string>
+    <string name="lbl_menu_option_sell">Ventas</string>
+    <string name="lbl_menu_option_order">Pedidos</string>
+    <string name="lbl_menu_option">Selecciona una operación</string>
+    <string name="lbl_menu_option_sell_subtitle">Selecciona un cliente y genera un ticket con varios productos.</string>
+    <string name="lbl_menu_option_order_subtitle">Crea pedidos y asígnalos a tus clientes, guardalos y consultalos más tarde.</string>
+    <string name="lbl_menu_option_client_subttitle">Agrega clientes para llevar el control de su crédito.</string>
+    <string name="lbl_menu_option_products_subtitle">Lleva el control de tu inventario, de una manera rápida y sencilla.</string>
+    <!--Fragment Clientes-->
+    <string name="msg_search_client">Buscando clientes</string>
+    <string name="lbl_search_client">Buscar cliente</string>
+    <string name="lbl_search_clients">Buscando cliente</string>
+    <string name="lbl_add_client">Crear nuevo cliente</string>
+    <string name="lbl_detail_client">Detalle de cliente</string>
+    <string name="lbl_detail_name_client">%s - %s</string>
+    <string name="btn_save">guardar</string>
+    <string name="btn_ok">aceptar</string>
+    <string name="btn_cancel">Cancelar</string>
+    <string name="btn_modify">modificar</string>
+    <string name="btn_sale">vender</string>
+    <string name="btn_delete">eliminar</string>
+    <string name="btn_close">cerrar</string>
+    <string name="btn_detail">detalle</string>
+    <string name="lbl_client_name">Nombre</string>
+    <string name="lbl_client_name_hint">Juan</string>
+    <string name="lbl_client_lastname">Apellido</string>
+    <string name="lbl_client_lastname_hint">Perez</string>
+    <string name="lbl_client_detail">Detalle</string>
+    <string name="lbl_client_detail_hint">El dueño de la farmacia.</string>
+    <string name="lbl_client_phone">Celular</string>
+    <string name="lbl_client_phone_hint">555–555–5555</string>
+    <string name="lbl_client_limit">Limite de credito</string>
+    <string name="lbl_client_limit_hint">$2,000</string>
+    <string name="lbl_date_client">Cliente desde 19/Ago/2019</string>
+    <string name="lbl_amount_client">Debe:</string>
+    <string name="lbl_client_amount">Monto</string>
+    <string name="lbl_client_amount_hint">$2,000</string>
+    <string name="lbl_client_concept_hint">Abono</string>
+    <string name="lbl_client_concept">Concepto</string>
+    <string name="btn_abonar">Abonar</string>
+    <string name="btn_generate_order">Nuevo pedido</string>
+    <string name="btn_generate_ticket">Nuevo ticket</string>
+    <string name="btn_detail_payments">Detalle de pagos</string>
+    <string name="lbl_modify_client">Modificar cliente</string>
+    <string name="msg_name_empty">Ingresa un nombre</string>
+    <string name="msg_amount_empty">Ingresa un monto</string>
 
-  <string name="msg_client_save">Guardando información del cliente</string>
-  <string name="msg_client_created">Cliente agregado</string>
-  <string name="msg_client_detail_created">Detalle del cliente actualizado</string>
-  <string name="msg_client_delete">Cliente eliminado</string>
-  <string name="msg_client_modify">Cliente modificado</string>
-  <string name="txt_client_concept_payment">Abono normal</string>
-  <string name="txt_client_without_concept_payment">Sin concepto</string>
-  <string name="txt_client_amount_format">$ %s</string>
-  <string name="txt_client_amount_format_plus">+ $ %s</string>
-  <string name="txt_client_amount_format_minum">- $ %s</string>
-  <string name="txt_client_date_format">Cliente desde el %s</string>
-  <string name="txt_client_name_format"> %s %s</string>
-  <string name="txt_client_limit_format">Limite de credito %s</string>
-  <string name="txt_client_amount_empty">0.0</string>
-  <string name="lbl_change_client">Cambiar cliente</string>
-  <string name="lbl_change_product">Cambiar producto</string>
-  <string name="lbl_body_message_detail_client">Usted debe: $%s</string>
-  <string name="lbl_subject_message_detail_client">Estado de cuenta de %s %s</string>
-
-
-  <!--Fragment Productos-->
-  <string name="msg_search_product">Buscando productos</string>
-  <string name="msg_search_products">Buscando producto</string>
-  <string name="lbl_search_product">Buscar producto</string>
-  <string name="lbl_add_product">Crear nuevo producto</string>
-  <string name="lbl_product_name">Nombre</string>
-  <string name="lbl_product_name_hint">Pantalon mezclilla</string>
-  <string name="lbl_product_description">Descripción</string>
-  <string name="lbl_product_description_hint">No tiene botón, y esta roto de la bolsa</string>
-  <string name="lbl_product_type">Tipo</string>
-  <string name="lbl_bar_and_qr_code">CÓDIGO NO DETECTADO</string>
-  <string name="msg_save_image">Guardando imagen</string>
-  <string name="lbl_product_type_hint">Hombre</string>
-  <string name="lbl_product_price_buy">Precio compra</string>
-  <string name="lbl_product_stock">Cantidad</string>
-  <string name="lbl_product_stock_hint">2</string>
-  <string name="lbl_product_price_buy_hint">$100</string>
-  <string name="lbl_product_price_sale">Precio venta</string>
-  <string name="lbl_product_price_sale_hint">$200</string>
-  <string name="lbl_product_code_hint">Código</string>
-  <string name="msg_permissions_title">Solicitud de permisos</string>
-  <string name="msg_permissions_camera_body">Necesitamos acceder a la cámara del dispositivo, para poder hacer más intuitivo el uso de la aplicación.</string>
-  <string name="msg_permissions_galler_body">Necesitamos acceder a tu galería, para poder hacer más intuitivo el uso de la aplicación.</string>
-  <string name="lbl_select_image_title">Selecciona una opción</string>
-  <string name="lbl_select_product_type_empty">Ninguno</string>
-  <string name="lbl_select_product_type_child">Niño</string>
-  <string name="lbl_select_product_type_girl">Niña</string>
-  <string name="lbl_select_product_type_man">Hombre</string>
-  <string name="lbl_select_product_type_woman">Mujer</string>
-  <string name="lbl_select_product_size_ch">Chico</string>
-  <string name="lbl_select_product_size_me">Mediano</string>
-  <string name="lbl_select_product_size_gra">Grande</string>
-  <string name="lbl_select_product_size_ex">Extra</string>
-
-  <string name="lbl_select_product_size_2">2</string>
-  <string name="lbl_select_product_size_4">4</string>
-  <string name="lbl_select_product_size_6">6</string>
-  <string name="lbl_select_product_size_8">8</string>
-  <string name="lbl_select_product_size_10">10</string>
-  <string name="lbl_select_product_size_12">12</string>
-  <string name="lbl_select_product_size_14">14</string>
-  <string name="lbl_select_product_size_16">16</string>
-  <string name="lbl_select_product_size_28">28</string>
-  <string name="lbl_select_product_size_30">30</string>
-  <string name="lbl_select_product_size_32">32</string>
-  <string name="lbl_select_product_size_34">34</string>
-  <string name="lbl_select_product_size_36">36</string>
-  <string name="lbl_select_product_size_38">38</string>
-  <string name="lbl_select_product_size_40">40</string>
-  <string name="lbl_select_product_size_42">42</string>
-  <string name="lbl_select_product_size_44">44</string>
+    <string name="msg_client_save">Guardando información del cliente</string>
+    <string name="msg_client_created">Cliente agregado</string>
+    <string name="msg_client_detail_created">Detalle del cliente actualizado</string>
+    <string name="msg_client_delete">Cliente eliminado</string>
+    <string name="msg_client_modify">Cliente modificado</string>
+    <string name="txt_client_concept_payment">Abono normal</string>
+    <string name="txt_client_without_concept_payment">Sin concepto</string>
+    <string name="txt_client_amount_format">$ %s</string>
+    <string name="txt_client_amount_format_plus">+ $ %s</string>
+    <string name="txt_client_amount_format_minum">- $ %s</string>
+    <string name="txt_client_date_format">Cliente desde el %s</string>
+    <string name="txt_client_name_format"> %s %s</string>
+    <string name="txt_client_limit_format">Limite de credito %s</string>
+    <string name="txt_client_amount_empty">0.0</string>
+    <string name="lbl_change_client">Cambiar cliente</string>
+    <string name="lbl_change_product">Cambiar producto</string>
+    <string name="lbl_body_message_detail_client">Usted debe: $%s</string>
+    <string name="lbl_subject_message_detail_client">Estado de cuenta de %s %s</string>
 
 
-  <string name="lbl_take_photo">Toma una foto</string>
-  <string name="lbl_select_gallery">Abre tu galería</string>
-  <string name="msg_error_empty_product_name">Falta nombre del producto</string>
-  <string name="msg_error_empty_type_name">Falta tipo del producto</string>
-  <string name="msg_error_empty_price_buy">Falta precio compra</string>
-  <string name="msg_error_empty_price_sale">Falta precio venta</string>
-  <string name="msg_error_empty_code">Falta código venta</string>
-  <string name="msg_error_empty_inputs">Falta campos obligatorios</string>
-  <string name="msg_error_empty_img_url">Falta imagen o paso algo al guardarla.\nIntenta mas tarde</string>
-  <string name="msg_success_product">Producto agregado</string>
-  <string name="msg_save_product">Guardando información del producto</string>
-  <string name="msg_product_modify_success">Producto modificado</string>
-  <string name="msg_product_remove_success">Producto eliminado</string>
-  <string name="lbl_modify_product">Modificar producto</string>
-  <string name="lbl_stock_product">%s en existencia</string>
-  <string name="lbl_stock_product_exist">Ya agregaste este producto</string>
-  <string name="lbl_stock_product_empty">No hay productos en tu inventario.\nCambia el valor de cantidad</string>
+    <!--Fragment Productos-->
+    <string name="msg_search_product">Buscando productos</string>
+    <string name="msg_search_products">Buscando producto</string>
+    <string name="lbl_search_product">Buscar producto</string>
+    <string name="lbl_add_product">Crear nuevo producto</string>
+    <string name="lbl_product_name">Nombre</string>
+    <string name="lbl_product_name_hint">Pantalon mezclilla</string>
+    <string name="lbl_product_description">Descripción</string>
+    <string name="lbl_product_description_hint">No tiene botón, y esta roto de la bolsa</string>
+    <string name="lbl_product_type">Tipo</string>
+    <string name="lbl_bar_and_qr_code">CÓDIGO NO DETECTADO</string>
+    <string name="msg_save_image">Guardando imagen</string>
+    <string name="lbl_product_type_hint">Hombre</string>
+    <string name="lbl_product_price_buy">Precio compra</string>
+    <string name="lbl_product_stock">Cantidad</string>
+    <string name="lbl_product_stock_hint">2</string>
+    <string name="lbl_product_price_buy_hint">$100</string>
+    <string name="lbl_product_price_sale">Precio venta</string>
+    <string name="lbl_product_price_sale_hint">$200</string>
+    <string name="lbl_product_code_hint">Código</string>
+    <string name="msg_permissions_title">Solicitud de permisos</string>
+    <string name="msg_permissions_camera_body">Necesitamos acceder a la cámara del dispositivo, para poder hacer más intuitivo el uso de la aplicación.</string>
+    <string name="msg_permissions_galler_body">Necesitamos acceder a tu galería, para poder hacer más intuitivo el uso de la aplicación.</string>
+    <string name="lbl_select_image_title">Selecciona una opción</string>
+    <string name="lbl_select_product_type_empty">Ninguno</string>
+    <string name="lbl_select_product_type_child">Niño</string>
+    <string name="lbl_select_product_type_girl">Niña</string>
+    <string name="lbl_select_product_type_man">Hombre</string>
+    <string name="lbl_select_product_type_woman">Mujer</string>
+    <string name="lbl_select_product_size_ch">Chico</string>
+    <string name="lbl_select_product_size_me">Mediano</string>
+    <string name="lbl_select_product_size_gra">Grande</string>
+    <string name="lbl_select_product_size_ex">Extra</string>
+
+    <string name="lbl_select_product_size_2">2</string>
+    <string name="lbl_select_product_size_4">4</string>
+    <string name="lbl_select_product_size_6">6</string>
+    <string name="lbl_select_product_size_8">8</string>
+    <string name="lbl_select_product_size_10">10</string>
+    <string name="lbl_select_product_size_12">12</string>
+    <string name="lbl_select_product_size_14">14</string>
+    <string name="lbl_select_product_size_16">16</string>
+    <string name="lbl_select_product_size_28">28</string>
+    <string name="lbl_select_product_size_30">30</string>
+    <string name="lbl_select_product_size_32">32</string>
+    <string name="lbl_select_product_size_34">34</string>
+    <string name="lbl_select_product_size_36">36</string>
+    <string name="lbl_select_product_size_38">38</string>
+    <string name="lbl_select_product_size_40">40</string>
+    <string name="lbl_select_product_size_42">42</string>
+    <string name="lbl_select_product_size_44">44</string>
 
 
-  <!--Vista Venta-->
-  <string name="lbl_generate_sale">Nuevo ticket</string>
-  <string name="msg_generate_sale">Generando ticket</string>
-  <string name="lbl_sale_total">Total: $ %s</string>
-  <string name="lbl_sale_select_name">Buscar  cliente</string>
-  <string name="lbl_sale_name_client">CLIENTE</string>
-  <string name="lbl_sale_name_product">PRODUCTO</string>
-  <string name="msg_sale_empty_products">Agrega un producto</string>
-  <string name="lbl_sale_select_name_hint">Nombre o id de cliente</string>
-  <string name="lbl_sale_select_product">Buscar producto</string>
-  <string name="lbl_sale_select_product_hint">Nombre o id de producto</string>
-  <string name="lbl_title_unit_price">Precio por\nUnidad:</string>
-  <string name="lbl_title_total_price">Precio total:\n</string>
-  <string name="txt_product_name_and_code_format"> %s\n%s</string>
-  <string name="txt_product_name_and_debt_format">%s %s\nDebe: $ %s</string>
-  <string name="lbl_sale_ticket_empty_">Agrega productos para generar un nuevo ticket, si prefieres puedes elegir un cliente o dejarlo asi.</string>
+    <string name="lbl_take_photo">Toma una foto</string>
+    <string name="lbl_select_gallery">Abre tu galería</string>
+    <string name="msg_error_empty_product_name">Falta nombre del producto</string>
+    <string name="msg_error_empty_type_name">Falta tipo del producto</string>
+    <string name="msg_error_empty_price_buy">Falta precio compra</string>
+    <string name="msg_error_empty_price_sale">Falta precio venta</string>
+    <string name="msg_error_empty_code">Falta código venta</string>
+    <string name="msg_error_empty_inputs">Falta campos obligatorios</string>
+    <string name="msg_error_empty_img_url">Falta imagen o paso algo al guardarla.\nIntenta mas tarde</string>
+    <string name="msg_success_product">Producto agregado</string>
+    <string name="msg_save_product">Guardando información del producto</string>
+    <string name="msg_product_modify_success">Producto modificado</string>
+    <string name="msg_product_remove_success">Producto eliminado</string>
+    <string name="lbl_modify_product">Modificar producto</string>
+    <string name="lbl_stock_product">%s en existencia</string>
+    <string name="lbl_stock_product_exist">Ya agregaste este producto</string>
+    <string name="lbl_stock_product_empty">No hay productos en tu inventario.\nCambia el valor de cantidad</string>
 
 
-  <!--Vista Pedidos-->
-  <string name="msg_success_list_order">Lista creada</string>
-  <string name="msg_name_list_required">Nombre requerido</string>
-  <string name="msg_name_order_required">Ingresa un nombre</string>
-  <string name="msg_description_order_required">Ingresa una descripción</string>
-  <string name="msg_search_orders">Buscando listas de pedido</string>
-  <string name="item_list_repeat">Ya existe una lista con la misma fecha</string>
-  <string name="msg_zero_orders">No se encontraron listas de pedido.</string>
-  <string name="msg_zero_orders_details">No se encontraron pedidos en esta lista.</string>
-  <string name="msg_search_orders_details">Buscando pedidos.</string>
-  <string name="msg_item_removed">Lista eliminada.</string>
-  <string name="msg_item_order_removed">Pedido eliminado.</string>
-  <string name="msg_zero_orders_elements">No se encontraron pedidos en esta lista.</string>
-  <string name="lbl_title_orders">Listas de pedidos</string>
-  <string name="lbl_title_create_order">Nuevo pedido</string>
-  <string name="lbl_title_create_order_name">Nombre</string>
-  <string name="lbl_title_create_order_name_hint">Qué pidieron</string>
-  <string name="lbl_title_create_order_size">Talla</string>
-  <string name="lbl_title_create_order_size_hint">Que talla</string>
-  <string name="lbl_title_create_order_color">Color</string>
-  <string name="lbl_title_create_order_color_hint">Que color</string>
-  <string name="lbl_title_create_order_gender">Género</string>
-  <string name="lbl_title_create_order_gender_hint">Para que género</string>
-  <string name="lbl_title_create_order_description">Descripción</string>
-  <string name="lbl_title_create_order_description_hint">Detalles importantes de la prenda</string>
-  <string name="lbl_order_buy">Comprado</string>
-  <string name="lbl_order_buy_update">Pedido actualizado</string>
-  <string name="title_message_select_order">Selecciona una lista.</string>
-  <string name="body_message_select_order">Elige la lista en la cual se agregara el pedido del cliente.</string>
-  <string name="title_message_delete_elemnt">Borrar elemento.</string>
-  <string name="body_message_delete_elemnt">¿Realmente deseas eliminar este elemento.</string>
-  <string name="lbl_size_number">Numérica</string>
+    <!--Vista Venta-->
+    <string name="lbl_generate_sale">Nuevo ticket</string>
+    <string name="msg_generate_sale">Generando ticket</string>
+    <string name="lbl_sale_total">Total: $ %s</string>
+    <string name="lbl_sale_select_name">Buscar  cliente</string>
+    <string name="lbl_sale_name_client">CLIENTE</string>
+    <string name="lbl_sale_name_product">PRODUCTO</string>
+    <string name="msg_sale_empty_products">Agrega un producto</string>
+    <string name="lbl_sale_select_name_hint">Nombre o id de cliente</string>
+    <string name="lbl_sale_select_product">Buscar producto</string>
+    <string name="lbl_sale_select_product_hint">Nombre o id de producto</string>
+    <string name="lbl_title_unit_price">Precio por\nUnidad:</string>
+    <string name="lbl_title_total_price">Precio total:\n</string>
+    <string name="txt_product_name_and_code_format"> %s\n%s</string>
+    <string name="txt_product_name_and_debt_format">%s %s\nDebe: $ %s</string>
+    <string name="lbl_sale_ticket_empty_">Agrega productos para generar un nuevo ticket, si prefieres puedes elegir un cliente o dejarlo asi.</string>
 
 
-  <!--Errores FIREBASE-->
-  <string name="msg_firebase_delete_user">No se encontro información del usuario, probablemente fue eliminado.</string>
-  <string name="msg_firebase_without_password">Contraseña incorrecta o el usuario inicio con una red social.</string>
-  <string name="msg_firebase_used_email">Ya existe un cuenta con esa dirección de correo electrónico.</string>
+    <!--Vista Pedidos-->
+    <string name="msg_success_list_order">Lista creada</string>
+    <string name="msg_name_list_required">Nombre requerido</string>
+    <string name="msg_name_order_required">Ingresa un nombre</string>
+    <string name="msg_description_order_required">Ingresa una descripción</string>
+    <string name="msg_search_orders">Buscando listas de pedido</string>
+    <string name="item_list_repeat">Ya existe una lista con la misma fecha</string>
+    <string name="msg_zero_orders">No se encontraron listas de pedido.</string>
+    <string name="msg_zero_orders_details">No se encontraron pedidos en esta lista.</string>
+    <string name="msg_search_orders_details">Buscando pedidos.</string>
+    <string name="msg_item_removed">Lista eliminada.</string>
+    <string name="msg_item_order_removed">Pedido eliminado.</string>
+    <string name="msg_zero_orders_elements">No se encontraron pedidos en esta lista.</string>
+    <string name="lbl_title_orders">Listas de pedidos</string>
+    <string name="lbl_title_create_order">Nuevo pedido</string>
+    <string name="lbl_title_create_order_name">Nombre</string>
+    <string name="lbl_title_create_order_name_hint">Qué pidieron</string>
+    <string name="lbl_title_create_order_size">Talla</string>
+    <string name="lbl_title_create_order_size_hint">Que talla</string>
+    <string name="lbl_title_create_order_color">Color</string>
+    <string name="lbl_title_create_order_color_hint">Que color</string>
+    <string name="lbl_title_create_order_gender">Género</string>
+    <string name="lbl_title_create_order_gender_hint">Para que género</string>
+    <string name="lbl_title_create_order_description">Descripción</string>
+    <string name="lbl_title_create_order_description_hint">Detalles importantes de la prenda</string>
+    <string name="lbl_order_buy">Comprado</string>
+    <string name="lbl_order_buy_update">Pedido actualizado</string>
+    <string name="title_message_select_order">Selecciona una lista.</string>
+    <string name="body_message_select_order">Elige la lista en la cual se agregara el pedido del cliente.</string>
+    <string name="title_message_delete_elemnt">Borrar elemento.</string>
+    <string name="body_message_delete_elemnt">¿Realmente deseas eliminar este elemento.</string>
+    <string name="lbl_size_number">Numérica</string>
 
 
+    <!--Errores FIREBASE-->
+    <string name="msg_firebase_delete_user">No se encontro información del usuario.</string>
+    <string name="msg_firebase_without_password">Contraseña incorrecta o el usuario inicio con una red social.</string>
+    <string name="msg_firebase_used_email">Ya existe un cuenta con esa dirección de correo electrónico.</string>
 
+
+    <!--Activity Forgot password-->
+    <string name="msg_email_send_success">Se envío un email a tu correo.</string>
+    <string name="title_activity_forgot_password">Recupera tu contraseña</string>
+    <string name="msg_recovery_password_hint">Ingresa tu email de recuperación</string>
+    <string name="btn_send_email">Enviar email</string>
 
 </resources>
