@@ -6,6 +6,7 @@ import com.epacheco.reports.View.ClientView.ClienDetailView.ClientDetailViewClas
 import com.epacheco.reports.View.ClientView.ClientAddView.ClientAddViewClass;
 import com.epacheco.reports.View.ClientView.ClientDetailListView.ClientDetailListViewClass;
 import com.epacheco.reports.View.ClientView.ClientView.ClientsViewClass;
+import com.epacheco.reports.View.ForgotPassword.ForgotPasswordAcitivity;
 import com.epacheco.reports.View.MainAcitivityView.MainActivityViewClass;
 import com.epacheco.reports.View.OrderView.OrderCreateView.OrderCreateView;
 import com.epacheco.reports.View.OrderView.OrderDetailView.OrderDetailView;
@@ -111,5 +112,10 @@ public class ScreenManager {
     orderCreateActivity.putExtra(OrderDetailView.ORDER_ID,orderId);
     if(idClient!=null)orderCreateActivity.putExtra(OrderDetailView.CLIENT_ID,idClient);
     myActivity.startActivity(orderCreateActivity);
+  }
+
+  public static void goForgotPasswordActivity(FragmentActivity myActivity){
+    Intent forgotPasswordActivity = new Intent(myActivity, ForgotPasswordAcitivity.class);
+    myActivity.startActivity(forgotPasswordActivity);
   }
 }

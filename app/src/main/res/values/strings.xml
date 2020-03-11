@@ -10,12 +10,6 @@
     <string name="fb_login_protocol_scheme">fb415445955694509</string>
 
 
-
-    <!--Activity Splash-->
-    <string name="title_google_play_services">Actualiza Servicios de Google Play</string>
-    <string name="msg_google_play_services">Reports no funcionará hasta que no actualices Servicios de Google Play.</string>
-
-
     <!--Activity Select Account Register-->
     <string name="msg_process">Procesando…</string>
     <string name="lbl_login">Iniciar sesión</string>
@@ -56,7 +50,6 @@
     <string name="lbl_detail_client">Detalle de cliente</string>
     <string name="lbl_detail_name_client">%s - %s</string>
     <string name="btn_save">guardar</string>
-    <string name="btn_update">actualizar</string>
     <string name="btn_ok">aceptar</string>
     <string name="btn_cancel">Cancelar</string>
     <string name="btn_modify">modificar</string>
@@ -233,9 +226,15 @@
 
 
     <!--Errores FIREBASE-->
-    <string name="msg_firebase_delete_user">No se encontro información del usuario, probablemente fue eliminado.</string>
+    <string name="msg_firebase_delete_user">No se encontro información del usuario.</string>
     <string name="msg_firebase_without_password">Contraseña incorrecta o el usuario inicio con una red social.</string>
     <string name="msg_firebase_used_email">Ya existe un cuenta con esa dirección de correo electrónico.</string>
 
+
+    <!--Activity Forgot password-->
+    <string name="msg_email_send_success">Se envío un email a tu correo.</string>
+    <string name="title_activity_forgot_password">Recupera tu contraseña</string>
+    <string name="msg_recovery_password_hint">Ingresa tu email de recuperación</string>
+    <string name="btn_send_email">Enviar email</string>
 
 </resources>

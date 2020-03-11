@@ -32,7 +32,7 @@ public class RegisterUserControllerClass implements RegisterUserControllerInterf
 
       Log.e("Reports","is null: "+(registerUserModelClass==null));
     if(registerUserModelClass!=null){
-      mAuth.createUserWithEmailAndPassword(email, password)
+      mAuth.createUserWithEmailAndPassword(email.trim(), password.trim())
           .addOnCompleteListener(registerUserModelClass.getMyActivity(), new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -55,7 +55,7 @@ public class RegisterUserControllerClass implements RegisterUserControllerInterf
   @Override
   public void loginEmailAndPassword(String email, String password) {
     if(registerUserModelClass!=null){
-      mAuth.signInWithEmailAndPassword(email, password)
+      mAuth.signInWithEmailAndPassword(email.trim(), password.trim())
           .addOnCompleteListener(registerUserModelClass.getMyActivity(), new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

@@ -1,5 +1,8 @@
 package com.epacheco.reports.View.ClientView.ClientView;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -27,7 +30,7 @@ public class AdapterClients extends RecyclerView.Adapter<AdapterClients.HolderCl
 
   private ArrayList<Client> listClients;
   private onItemClientClic onItemClientClic;
-
+  private Context context;
   AdapterClients(ArrayList<Client> listClients) {
     this.listClients = listClients;
   }
@@ -36,6 +39,7 @@ public class AdapterClients extends RecyclerView.Adapter<AdapterClients.HolderCl
   @Override
   public HolderClients onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
     // create a new view
+    context = viewGroup.getContext();
     View v = LayoutInflater.from(viewGroup.getContext())
         .inflate(R.layout.item_client, viewGroup, false);
     return new HolderClients(v);
@@ -44,9 +48,20 @@ public class AdapterClients extends RecyclerView.Adapter<AdapterClients.HolderCl
   @Override
   public void onBindViewHolder(@NonNull HolderClients holderClients, int i) {
     final Client clientSelected = listClients.get(i);
-    holderClients.btnPhone.setVisibility(
-        clientSelected.getPhone() != null && !clientSelected.getPhone().isEmpty() ? View.VISIBLE
-            : View.GONE);
+
+    holderClients.btnPhone.setVisibility(View.GONE);
+    if( clientSelected.getPhone() != null && !clientSelected.getPhone().isEmpty() ){
+      holderClients.btnPhone.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          Intent intent = new Intent(Intent.ACTION_CALL);
+
+          intent.setData(Uri.parse("tel:" + clientSelected.getPhone()));
+          context.startActivity(intent);
+        }
+      });
+      holderClients.btnPhone.setVisibility(View.VISIBLE);
+    }
     holderClients.txtName.setText(String.format(
         ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_name_format),
         listClients.get(i).getName(), listClients.get(i).getLastNanme()));
@@ -78,6 +93,8 @@ public class AdapterClients extends RecyclerView.Adapter<AdapterClients.HolderCl
         }
       }
     });
+
+
     String clientDeb = "0";
     if(clientSelected.getClientsDetails()!=null){
       Map<String, ClientDetail> map = clientSelected.getClientsDetails();

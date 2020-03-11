@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
@@ -26,22 +27,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-
+        <activity android:name=".View.ForgotPassword.ForgotPasswordAcitivity"
+            android:theme="@style/AppThemeNoActionBar"></activity>
         <activity
             android:name=".View.OrderView.OrderCreateView.OrderCreateView"
             android:theme="@style/AppThemeNoActionBar"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name=".View.OrderView.OrderDetailView.OrderDetailView"
             android:theme="@style/AppThemeNoActionBar"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name=".View.TestPin.TestPin"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity android:name=".View.TestNFC.TestNfcView">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
@@ -54,23 +52,23 @@
         <activity
             android:name=".View.OrderView.OrderViewClass"
             android:theme="@style/AppThemeNoActionBar"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name=".View.SaleView.SaleViewClass"
             android:theme="@style/AppThemeNoActionBar"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name=".View.ProductsView.ProductsView.ProductViewClass"
             android:theme="@style/AppThemeNoActionBar"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".View.ClientView.ClientView.ClientsViewClass"
             android:theme="@style/AppThemeNoActionBar"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateVisible"  />
         <activity
             android:name=".View.SearchElementsView.SearchElementView"
             android:theme="@style/AppThemeNoActionBar"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden"></activity>
 
         <service android:name=".FireBasePush.FireBaseMessagingService">
             <intent-filter>
@@ -145,15 +143,15 @@
         <activity
             android:name=".View.ClientView.ClienDetailView.ClientDetailViewClass"
             android:theme="@style/AppThemeNoActionBar"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name=".View.ClientView.ClientAddView.ClientAddViewClass"
             android:theme="@style/AppThemeNoActionBar"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name=".View.RegisterUserView.RegisterUserViewClass"
             android:theme="@style/AppThemeNoActionBar"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name=".View.MainAcitivityView.MainActivityViewClass"
             android:theme="@style/AppThemeNoActionBar">
