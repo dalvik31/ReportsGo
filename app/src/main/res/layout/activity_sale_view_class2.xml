@@ -6,7 +6,7 @@
   <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.SaleView2.SaleViewClass">
+    tools:context=".view.SaleView2.SaleViewClass">
 
     <com.google.android.material.appbar.AppBarLayout
       android:id="@+id/appBarLayout"

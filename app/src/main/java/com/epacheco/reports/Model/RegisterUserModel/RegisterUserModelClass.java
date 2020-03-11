@@ -2,7 +2,7 @@ package com.epacheco.reports.Model.RegisterUserModel;
 
 import androidx.fragment.app.FragmentActivity;
 import com.epacheco.reports.Controller.RegisterUserController.RegisterUserControllerClass;
-import com.epacheco.reports.View.RegisterUserView.RegisterUserViewClass;
+import com.epacheco.reports.view.registerUserView.RegisterUserViewClass;
 import com.facebook.AccessToken;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseUser;

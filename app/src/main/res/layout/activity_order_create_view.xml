@@ -6,7 +6,7 @@
   android:id="@+id/CoordinatorLayout_container_create_order"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".View.OrderView.OrderCreateView.OrderCreateView">
+  tools:context=".view.orderView.orderCreateView.OrderCreateView">
 
   <RelativeLayout
     android:layout_width="match_parent"

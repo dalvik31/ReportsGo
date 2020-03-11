@@ -11,14 +11,14 @@
         android:maxSdkVersion="18" />
 
     <application
-        android:name=".Tools.ReportsApplication"
+        android:name=".tools.ReportsApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.Splash.SplashActivity"
+        <activity android:name=".view.splash.SplashActivity"
             android:theme="@style/AppThemeNoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,20 +27,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.ForgotPassword.ForgotPasswordAcitivity"
-            android:theme="@style/AppThemeNoActionBar"></activity>
+        <activity android:name=".view.forgotPassword.ForgotPasswordAcitivity"
+            android:theme="@style/AppThemeNoActionBar"/>
         <activity
-            android:name=".View.OrderView.OrderCreateView.OrderCreateView"
+            android:name=".view.orderView.orderCreateView.OrderCreateView"
             android:theme="@style/AppThemeNoActionBar"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden"/>
         <activity
-            android:name=".View.OrderView.OrderDetailView.OrderDetailView"
+            android:name=".view.orderView.orderDetailView.OrderDetailView"
             android:theme="@style/AppThemeNoActionBar"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden"/>
         <activity
-            android:name=".View.TestPin.TestPin"
-            android:windowSoftInputMode="stateHidden"></activity>
-        <activity android:name=".View.TestNFC.TestNfcView">
+            android:name=".view.testPin.TestPin"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".view.testNFC.TestNfcView">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
@@ -50,27 +50,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".View.OrderView.OrderViewClass"
+            android:name=".view.orderView.OrderViewClass"
             android:theme="@style/AppThemeNoActionBar"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden"/>
         <activity
-            android:name=".View.SaleView.SaleViewClass"
+            android:name=".view.saleView.SaleViewClass"
             android:theme="@style/AppThemeNoActionBar"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden"/>
         <activity
-            android:name=".View.ProductsView.ProductsView.ProductViewClass"
+            android:name=".view.productsView.productsView.ProductViewClass"
             android:theme="@style/AppThemeNoActionBar"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".View.ClientView.ClientView.ClientsViewClass"
+            android:name=".view.clientView.clientView.ClientsViewClass"
             android:theme="@style/AppThemeNoActionBar"
             android:windowSoftInputMode="stateVisible"  />
         <activity
-            android:name=".View.SearchElementsView.SearchElementView"
+            android:name=".view.searchElementsView.SearchElementView"
             android:theme="@style/AppThemeNoActionBar"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden"/>
 
-        <service android:name=".FireBasePush.FireBaseMessagingService">
+        <service android:name=".fireBasePush.FireBaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -101,10 +101,10 @@
         </provider>
 
         <activity
-            android:name=".View.ProductsView.ScanCode.ScannedBarcodeActivity"
+            android:name=".view.productsView.scanCode.ScannedBarcodeActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".View.ProductsView.ProductAddView.ProductAddViewClass"
+            android:name=".view.productsView.productAddView.ProductAddViewClass"
             android:theme="@style/AppThemeNoActionBar"
             android:windowSoftInputMode="stateHidden" />
 
@@ -133,27 +133,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".View.ProfileView.ProfileViewClass"
+            android:name=".view.profileView.ProfileViewClass"
             android:theme="@style/AppThemeNoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".View.ClientView.ClientDetailListView.ClientDetailListViewClass"
+            android:name=".view.clientView.clientDetailListView.ClientDetailListViewClass"
             android:theme="@style/AppThemeNoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".View.ClientView.ClienDetailView.ClientDetailViewClass"
+            android:name=".view.clientView.clienDetailView.ClientDetailViewClass"
             android:theme="@style/AppThemeNoActionBar"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden"/>
         <activity
-            android:name=".View.ClientView.ClientAddView.ClientAddViewClass"
+            android:name=".view.clientView.clientAddView.ClientAddViewClass"
             android:theme="@style/AppThemeNoActionBar"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden"/>
         <activity
-            android:name=".View.RegisterUserView.RegisterUserViewClass"
+            android:name=".view.registerUserView.RegisterUserViewClass"
             android:theme="@style/AppThemeNoActionBar"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden"/>
         <activity
-            android:name=".View.MainAcitivityView.MainActivityViewClass"
+            android:name=".view.mainAcitivityView.MainActivityViewClass"
             android:theme="@style/AppThemeNoActionBar">
         </activity>
     </application>

@@ -1,7 +1,7 @@
 package com.epacheco.reports.Model.ForgotPasswordModel;
 
 import com.epacheco.reports.Controller.ForgotPasswordController.ForgotPasswordController;
-import com.epacheco.reports.View.ForgotPassword.ForgotPasswordAcitivity;
+import com.epacheco.reports.view.forgotPassword.ForgotPasswordAcitivity;
 
 public class ForgotPasswordModel implements ForgotPasswordModelInterface{
 

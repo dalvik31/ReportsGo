@@ -6,7 +6,7 @@
   <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".View.ClientView.ClientAddView.ClientAddViewClass"
+    tools:context=".view.clientView.clientAddView.ClientAddViewClass"
     >
 
     <com.google.android.material.appbar.AppBarLayout
@@ -73,7 +73,7 @@
     <RelativeLayout
     android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      tools:context=".View.ClientView.ClientAddView.ClientAddViewClass"
+      tools:context=".view.clientView.clientAddView.ClientAddViewClass"
       >
 
       <LinearLayout

@@ -3,7 +3,7 @@ package com.epacheco.reports.Model.OrderModel.OrderDetailModel;
 import androidx.fragment.app.FragmentActivity;
 import com.epacheco.reports.Controller.OrderController.OrderDetailController.OrderDetailControllerClass;
 import com.epacheco.reports.Pojo.OrderDetail.OrderDetail;
-import com.epacheco.reports.View.OrderView.OrderDetailView.OrderDetailView;
+import com.epacheco.reports.view.orderView.orderDetailView.OrderDetailView;
 import java.util.List;
 
 public class OrderDetailModelClass implements OrderDetailModelInterface {

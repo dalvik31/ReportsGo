@@ -2,8 +2,8 @@ package com.epacheco.reports.Pojo.ClientDetail;
 
 
 import com.epacheco.reports.R;
-import com.epacheco.reports.Tools.ReportsApplication;
-import com.epacheco.reports.Tools.Tools;
+import com.epacheco.reports.tools.ReportsApplication;
+import com.epacheco.reports.tools.Tools;
 
 public class ClientDetail {
 

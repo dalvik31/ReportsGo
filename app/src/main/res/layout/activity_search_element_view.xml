@@ -5,7 +5,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".View.SearchElementsView.SearchElementView">
+  tools:context=".view.searchElementsView.SearchElementView">
 <FrameLayout
   android:id="@+id/container_fragments"
   android:layout_width="match_parent"
