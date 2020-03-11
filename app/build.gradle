@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "com.epacheco.reports"
         minSdkVersion 19
-        targetSdkVersion 28
-        versionCode 8
-        versionName "1.0.8"
+        targetSdkVersion 29
+        versionCode 9
+        versionName "1.0.9"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
@@ -51,7 +51,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.appcompat:appcompat:1.2.0-alpha02'
+    implementation 'androidx.appcompat:appcompat:1.2.0-alpha03'
     implementation 'com.google.android.material:material:1.2.0-alpha05'
     //Dependencia para navigationBottom
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
@@ -59,7 +59,7 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.3.0-alpha1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha04'
     //Dependencia FireBase
-    implementation 'com.google.firebase:firebase-core:17.2.2'
+    implementation 'com.google.firebase:firebase-core:17.2.3'
     //Dependencia FireBase Login with email
     implementation 'com.google.firebase:firebase-auth:19.2.0'
     //Dependencia FireBase Login with google
@@ -79,12 +79,12 @@ dependencies {
     //Dependencia para escanear codigo qr y codigo de barras
     implementation 'com.google.android.gms:play-services-vision:19.0.0'
     //Dependencia para notificaciones
-    implementation 'com.google.firebase:firebase-messaging:20.1.0'
+    implementation 'com.google.firebase:firebase-messaging:20.1.2'
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
     //Se agrego por un error al inflar el contraint layout con androidx
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
     //Se agrego por un error al iniciar sesion con google
-    implementation 'androidx.appcompat:appcompat:1.2.0-alpha02'
+    implementation 'androidx.appcompat:appcompat:1.2.0-alpha03'
     //Se agrega para animacion lottie
     implementation 'com.airbnb.android:lottie:3.4.0'
 }
