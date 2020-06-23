@@ -4,7 +4,7 @@ import androidx.fragment.app.FragmentActivity;
 import com.epacheco.reports.Controller.OrderController.OrderCreateController.OrderCreateControllerClass;
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.OrderDetail.OrderDetail;
-import com.epacheco.reports.View.OrderView.OrderCreateView.OrderCreateView;
+import com.epacheco.reports.view.orderView.orderCreateView.OrderCreateView;
 
 public class OrderCreateModelClass implements  com.epacheco.reports.Model.OrderModel.CreateOrderModel.OrderCreateModelInterface {
 

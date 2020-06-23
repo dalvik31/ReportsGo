@@ -5,7 +5,7 @@ import com.epacheco.reports.Controller.SaleController.SaleControllerClass;
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.ClientDetail.ClientDetail;
 import com.epacheco.reports.Pojo.Product.Product;
-import com.epacheco.reports.View.SaleView.SaleViewClass;
+import com.epacheco.reports.view.saleView.SaleViewClass;
 import java.util.List;
 
 public class SaleModelClass implements SaleModelInterface {

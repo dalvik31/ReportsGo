@@ -14,7 +14,7 @@
 
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".View.OrderView.OrderViewClass">
+  tools:context=".view.orderView.OrderViewClass">
   <com.google.android.material.appbar.AppBarLayout
     android:id="@+id/appBarLayout"
     android:layout_width="match_parent"

@@ -3,7 +3,7 @@ package com.epacheco.reports.Model.ClientModel.ClientModel;
 import androidx.fragment.app.FragmentActivity;
 import com.epacheco.reports.Controller.ClientController.ClientController.ClientControllerClass;
 import com.epacheco.reports.Pojo.Client.Client;
-import com.epacheco.reports.View.ClientView.ClientView.ClientsViewClass;
+import com.epacheco.reports.view.clientView.clientView.ClientsViewClass;
 import java.util.ArrayList;
 
 public class ClientModelClass implements  ClientModelInterface{

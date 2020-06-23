@@ -2,7 +2,7 @@ package com.epacheco.reports.Model.ProfileModel;
 
 import androidx.fragment.app.FragmentActivity;
 import com.epacheco.reports.Controller.ProfileController.ProfileControllerClass;
-import com.epacheco.reports.View.ProfileView.ProfileViewClass;
+import com.epacheco.reports.view.profileView.ProfileViewClass;
 import com.google.firebase.auth.FirebaseUser;
 
 public class ProfileModelClass implements ProfileModelInterface {

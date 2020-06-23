@@ -4,7 +4,7 @@ import androidx.fragment.app.FragmentActivity;
 import com.epacheco.reports.Controller.ClientController.ClienDetailListController.ClientDetailListControllerClass;
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.ClientDetail.ClientDetail;
-import com.epacheco.reports.View.ClientView.ClientDetailListView.ClientDetailListViewClass;
+import com.epacheco.reports.view.clientView.clientDetailListView.ClientDetailListViewClass;
 import java.util.List;
 
 public class ClientDetailListModelClass implements ClientDetailListModelInterface {

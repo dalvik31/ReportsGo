@@ -3,7 +3,7 @@ package com.epacheco.reports.Model.ProductsModel.ProductsModel;
 import androidx.fragment.app.FragmentActivity;
 import com.epacheco.reports.Controller.ProductsController.ProductsController.ProductsControllerClass;
 import com.epacheco.reports.Pojo.Product.Product;
-import com.epacheco.reports.View.ProductsView.ProductsView.ProductViewClass;
+import com.epacheco.reports.view.productsView.productsView.ProductViewClass;
 import java.util.List;
 
 public class ProductsModelClass implements ProductsModelInterface{

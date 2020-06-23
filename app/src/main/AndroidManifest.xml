@@ -1,162 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.epacheco.reports">
+    package="com.epacheco.reports">
 
-  <uses-permission android:name="android.permission.INTERNET"/>
-  <uses-permission android:name="android.permission.CAMERA"/>
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-  <uses-permission android:maxSdkVersion="18" android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
 
+    <application
+        android:name=".tools.ReportsApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".view.splash.SplashActivity"
+            android:theme="@style/AppThemeNoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
-  <application
-    android:allowBackup="true"
-    android:icon="@mipmap/ic_launcher"
-    android:label="@string/app_name"
-    android:name=".Tools.ReportsApplication"
-    android:roundIcon="@mipmap/ic_launcher"
-    android:supportsRtl="true"
-    android:theme="@style/AppTheme">
-    <activity android:name=".View.OrderView.OrderCreateView.OrderCreateView"
-      android:theme="@style/AppThemeNoActionBar"
-      android:windowSoftInputMode="stateHidden">
-    </activity>
-    <activity android:name=".View.OrderView.OrderDetailView.OrderDetailView"
-      android:theme="@style/AppThemeNoActionBar"
-      android:windowSoftInputMode="stateHidden">
-    </activity>
-    <activity android:name=".View.TestPin.TestPin"
-      android:windowSoftInputMode="stateHidden"
-      >
-    </activity>
-    <activity android:name=".View.TestNFC.TestNfcView">
-      <intent-filter>
-        <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".view.forgotPassword.ForgotPasswordAcitivity"
+            android:theme="@style/AppThemeNoActionBar"/>
+        <activity
+            android:name=".view.orderView.orderCreateView.OrderCreateView"
+            android:theme="@style/AppThemeNoActionBar"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".view.orderView.orderDetailView.OrderDetailView"
+            android:theme="@style/AppThemeNoActionBar"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".view.testPin.TestPin"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".view.testNFC.TestNfcView">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
-        <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
 
-        <data android:mimeType="application/com.epacheco.reports"/>
-      </intent-filter>
-    </activity>
-    <activity
-      android:name=".View.OrderView.OrderViewClass"
-      android:theme="@style/AppThemeNoActionBar"
-      android:windowSoftInputMode="stateHidden">
-    </activity>
-    <activity
-      android:name=".View.SaleView.SaleViewClass"
-      android:theme="@style/AppThemeNoActionBar"
-      android:windowSoftInputMode="stateHidden">
-    </activity>
-    <activity
-      android:name=".View.ProductsView.ProductsView.ProductViewClass"
-      android:theme="@style/AppThemeNoActionBar"
-      android:windowSoftInputMode="stateHidden"/>
-    <activity
-      android:name=".View.ClientView.ClientView.ClientsViewClass"
-      android:theme="@style/AppThemeNoActionBar"
-      android:windowSoftInputMode="stateHidden"
-      />
-    <activity
-      android:name=".View.SearchElementsView.SearchElementView"
-      android:theme="@style/AppThemeNoActionBar"
-      android:windowSoftInputMode="stateHidden">
-    </activity>
+                <data android:mimeType="application/com.epacheco.reports" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.orderView.OrderViewClass"
+            android:theme="@style/AppThemeNoActionBar"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".view.saleView.SaleViewClass"
+            android:theme="@style/AppThemeNoActionBar"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".view.productsView.productsView.ProductViewClass"
+            android:theme="@style/AppThemeNoActionBar"
+            android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".view.clientView.clientView.ClientsViewClass"
+            android:theme="@style/AppThemeNoActionBar"
+            android:windowSoftInputMode="stateVisible"  />
+        <activity
+            android:name=".view.searchElementsView.SearchElementView"
+            android:theme="@style/AppThemeNoActionBar"
+            android:windowSoftInputMode="stateHidden"/>
 
-    <service android:name=".FireBasePush.FireBaseMessagingService">
-      <intent-filter>
-        <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-      </intent-filter>
-    </service>
-    <!--
+        <service android:name=".fireBasePush.FireBaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <!--
  Set custom default icon. This is used when no icon is set for incoming notification messages.
      See README(https://goo.gl/l4GJaQ) for more.
         -->
-    <meta-data
-      android:name="com.google.firebase.messaging.default_notification_icon"
-      android:resource="@drawable/ic_vector_bar_code"/>
-    <!--
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_vector_bar_code" />
+        <!--
  Set color used with incoming notification messages. This is used when no color is set for the incoming
          notification message. See README(https://goo.gl/6BKBk7) for more.
         -->
-    <meta-data
-      android:name="com.google.firebase.messaging.default_notification_color"
-      android:resource="@color/colorAccent"/>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
 
-    <provider
-      android:authorities="${applicationId}.providers.FileProvider"
-      android:exported="false"
-      android:grantUriPermissions="true"
-      android:name="androidx.core.content.FileProvider">
-      <meta-data
-        android:name="android.support.FILE_PROVIDER_PATHS"
-        android:resource="@xml/filepaths"/>
-    </provider>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.providers.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
 
-    <activity android:name=".View.ProductsView.ScanCode.ScannedBarcodeActivity"
-      android:windowSoftInputMode="stateHidden"/>
-    <activity
-      android:name=".View.ProductsView.ProductAddView.ProductAddViewClass"
-      android:theme="@style/AppThemeNoActionBar"
-      android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".view.productsView.scanCode.ScannedBarcodeActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".view.productsView.productAddView.ProductAddViewClass"
+            android:theme="@style/AppThemeNoActionBar"
+            android:windowSoftInputMode="stateHidden" />
 
-    <meta-data
-      android:name="com.facebook.sdk.ApplicationId"
-      android:value="@string/facebook_app_id"/>
-    <meta-data
-      android:name="com.google.android.gms.vision.DEPENDENCIES"
-      android:value="barcode"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="barcode" />
 
-    <activity
-      android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-      android:label="@string/app_name"
-      android:name="com.facebook.FacebookActivity"/>
-    <activity
-      android:exported="true"
-      android:name="com.facebook.CustomTabActivity"
-      android:windowSoftInputMode="stateHidden">
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
-        <data android:scheme="@string/fb_login_protocol_scheme"/>
-      </intent-filter>
-    </activity>
-    <activity
-      android:name=".View.ProfileView.ProfileViewClass"
-      android:theme="@style/AppThemeNoActionBar"
-      android:windowSoftInputMode="stateHidden"/>
-    <activity
-      android:name=".View.ClientView.ClientDetailListView.ClientDetailListViewClass"
-      android:theme="@style/AppThemeNoActionBar"
-      android:windowSoftInputMode="stateHidden"
-      />
-    <activity
-      android:name=".View.ClientView.ClienDetailView.ClientDetailViewClass"
-      android:theme="@style/AppThemeNoActionBar"
-      android:windowSoftInputMode="stateHidden">
-    </activity>
-    <activity
-      android:name=".View.ClientView.ClientAddView.ClientAddViewClass"
-      android:theme="@style/AppThemeNoActionBar"
-      android:windowSoftInputMode="stateHidden">
-    </activity>
-    <activity
-      android:name=".View.RegisterUserView.RegisterUserViewClass"
-      android:theme="@style/AppThemeNoActionBar"
-      android:windowSoftInputMode="stateHidden">
-    </activity>
-    <activity
-      android:name=".View.MainAcitivityView.MainActivityViewClass"
-      android:theme="@style/AppThemeNoActionBar">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
-        <action android:name="android.intent.action.VIEW"/>
-
-        <category android:name="android.intent.category.LAUNCHER"/>
-      </intent-filter>
-    </activity>
-  </application>
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.profileView.ProfileViewClass"
+            android:theme="@style/AppThemeNoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".view.clientView.clientDetailListView.ClientDetailListViewClass"
+            android:theme="@style/AppThemeNoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".view.clientView.clienDetailView.ClientDetailViewClass"
+            android:theme="@style/AppThemeNoActionBar"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".view.clientView.clientAddView.ClientAddViewClass"
+            android:theme="@style/AppThemeNoActionBar"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".view.registerUserView.RegisterUserViewClass"
+            android:theme="@style/AppThemeNoActionBar"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".view.mainAcitivityView.MainActivityViewClass"
+            android:theme="@style/AppThemeNoActionBar">
+        </activity>
+    </application>
 
 </manifest>

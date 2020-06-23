@@ -4,7 +4,7 @@ import androidx.fragment.app.FragmentActivity;
 import com.epacheco.reports.Controller.ClientController.ClientDetailController.ClientDetailControllerClass;
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.ClientDetail.ClientDetail;
-import com.epacheco.reports.View.ClientView.ClienDetailView.ClientDetailViewClass;
+import com.epacheco.reports.view.clientView.clienDetailView.ClientDetailViewClass;
 
 public class ClientDetailModelClass implements ClientDetailModelIterface {
 

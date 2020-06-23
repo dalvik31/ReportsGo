@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import androidx.fragment.app.FragmentActivity;
 import com.epacheco.reports.Controller.ProductsController.ProductsAddController.ProductsAddControllerClass;
 import com.epacheco.reports.Pojo.Product.Product;
-import com.epacheco.reports.View.ProductsView.ProductAddView.ProductAddViewClass;
+import com.epacheco.reports.view.productsView.productAddView.ProductAddViewClass;
 
 public class ProductsAddModelClass implements ProductsAddModelInterface {
 

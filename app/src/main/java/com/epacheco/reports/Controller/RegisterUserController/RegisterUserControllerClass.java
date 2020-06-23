@@ -1,9 +1,11 @@
 package com.epacheco.reports.Controller.RegisterUserController;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import com.epacheco.reports.Model.RegisterUserModel.RegisterUserModelClass;
 import com.epacheco.reports.R;
-import com.epacheco.reports.Tools.ReportsApplication;
+import com.epacheco.reports.tools.ReportsApplication;
 import com.facebook.AccessToken;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,14 +29,18 @@ public class RegisterUserControllerClass implements RegisterUserControllerInterf
 
   @Override
   public void createAccountEmailAndPassword(String email, String password) {
+
+      Log.e("Reports","is null: "+(registerUserModelClass==null));
     if(registerUserModelClass!=null){
-      mAuth.createUserWithEmailAndPassword(email, password)
+      mAuth.createUserWithEmailAndPassword(email.trim(), password.trim())
           .addOnCompleteListener(registerUserModelClass.getMyActivity(), new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
               if (task.isSuccessful()) {
+                  Log.e("Reports","task.isSuccessful()");
                 registerUserModelClass.successRegisterUserEmail(mAuth.getCurrentUser());
               } else {
+                  Log.e("Reports","task no isSuccessful()");
                 if(task.getException()!=null && task.getException().getMessage()!=null){
                   registerUserModelClass.errorRegisterUserEmail(getMessageFireBase(task.getException().getMessage()));
                 }else{
@@ -49,7 +55,7 @@ public class RegisterUserControllerClass implements RegisterUserControllerInterf
   @Override
   public void loginEmailAndPassword(String email, String password) {
     if(registerUserModelClass!=null){
-      mAuth.signInWithEmailAndPassword(email, password)
+      mAuth.signInWithEmailAndPassword(email.trim(), password.trim())
           .addOnCompleteListener(registerUserModelClass.getMyActivity(), new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
