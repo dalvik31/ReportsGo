@@ -11,7 +11,6 @@ import android.view.SurfaceView;
 import android.widget.Toast;
 
 import com.epacheco.reports.R;
-import com.epacheco.reports.tools.Tools;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -93,7 +92,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             setResult(RESULT_OK, intent);
             finish();
           }else{
-            Tools.showToasMessage(ScannedBarcodeActivity.this,getString(R.string.msg_error_sistema));
+            com.epacheco.reports.Tools.Tools.showToasMessage(ScannedBarcodeActivity.this,getString(R.string.msg_error_sistema));
           }
         }
       }

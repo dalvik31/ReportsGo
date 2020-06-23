@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.epacheco.reports.Pojo.Product.Product;
 import com.epacheco.reports.R;
-import com.epacheco.reports.tools.ReportsApplication;
+import com.epacheco.reports.Tools.ReportsApplication;
 import java.util.List;
 
 public class AdapterProducts extends RecyclerView.Adapter<AdapterProducts.HolderProducts>{

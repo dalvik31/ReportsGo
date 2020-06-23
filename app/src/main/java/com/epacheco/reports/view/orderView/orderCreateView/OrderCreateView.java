@@ -19,10 +19,9 @@ import com.epacheco.reports.Model.OrderModel.CreateOrderModel.OrderCreateModelCl
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.OrderDetail.OrderDetail;
 import com.epacheco.reports.R;
-import com.epacheco.reports.tools.ReportsApplication;
-import com.epacheco.reports.tools.ReportsProgressDialog;
-import com.epacheco.reports.tools.ScreenManager;
-import com.epacheco.reports.tools.Tools;
+import com.epacheco.reports.Tools.ReportsApplication;
+import com.epacheco.reports.Tools.ReportsProgressDialog;
+import com.epacheco.reports.Tools.ScreenManager;
 import com.epacheco.reports.view.clientView.clientAddView.ClientAddViewClass;
 import com.epacheco.reports.view.clientView.clientView.ClientsViewClass;
 import com.epacheco.reports.view.orderView.orderDetailView.OrderDetailView;
@@ -119,13 +118,13 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
 
   @Override
   public void successCreateOrder() {
-    Tools.showToasMessage(this,"Pedido creado");
+    com.epacheco.reports.Tools.Tools.showToasMessage(this,"Pedido creado");
     finish();
   }
 
   @Override
   public void errorCreateOrder(String error) {
-    Tools.showToasMessage(this,error);
+    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
   }
 
   @Override
@@ -145,14 +144,14 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
     if(mAuth.getCurrentUser()!=null ){
       if( mAuth.getCurrentUser().getPhotoUrl()!=null){
         Glide.with(ReportsApplication.getMyApplicationContext()).load(
-            Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl()))  .apply(RequestOptions.circleCropTransform()).into(binding.imgProfile);
+            com.epacheco.reports.Tools.Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl()))  .apply(RequestOptions.circleCropTransform()).into(binding.imgProfile);
       }
     }
   }
 
   @Override
   public void errorGetClient(String error) {
-    Tools.showToasMessage(this,error);
+    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
   }
 
   public Client getSelectedClient() {
@@ -176,10 +175,10 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
      nameOrder = binding.txtOrderName.getText().toString();
      descrptionOrder = binding.txtOrderDescription.getText().toString();
     if(nameOrder.isEmpty()){
-      Tools.showSnackMessage(binding.CoordinatorLayoutContainerCreateOrder,getString(R.string.msg_name_order_required));
+      com.epacheco.reports.Tools.Tools.showSnackMessage(binding.CoordinatorLayoutContainerCreateOrder,getString(R.string.msg_name_order_required));
       return false;
     }else  if(descrptionOrder.isEmpty()){
-      Tools.showSnackMessage(binding.CoordinatorLayoutContainerCreateOrder,getString(R.string.msg_description_order_required));
+      com.epacheco.reports.Tools.Tools.showSnackMessage(binding.CoordinatorLayoutContainerCreateOrder,getString(R.string.msg_description_order_required));
       return false;
     }
 

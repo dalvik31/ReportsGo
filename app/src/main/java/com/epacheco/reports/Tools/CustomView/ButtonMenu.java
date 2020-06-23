@@ -1,4 +1,4 @@
-package com.epacheco.reports.tools.CustomView;
+package com.epacheco.reports.Tools.CustomView;
 
 import android.content.Context;
 import android.content.res.TypedArray;

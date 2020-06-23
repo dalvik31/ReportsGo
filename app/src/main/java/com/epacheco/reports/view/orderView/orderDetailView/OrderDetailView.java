@@ -13,11 +13,10 @@ import com.bumptech.glide.request.RequestOptions;
 import com.epacheco.reports.Model.OrderModel.OrderDetailModel.OrderDetailModelClass;
 import com.epacheco.reports.Pojo.OrderDetail.OrderDetail;
 import com.epacheco.reports.R;
-import com.epacheco.reports.tools.ReportsApplication;
-import com.epacheco.reports.tools.ReportsDialogGlobal;
-import com.epacheco.reports.tools.ReportsProgressDialog;
-import com.epacheco.reports.tools.ScreenManager;
-import com.epacheco.reports.tools.Tools;
+import com.epacheco.reports.Tools.ReportsApplication;
+import com.epacheco.reports.Tools.ReportsDialogGlobal;
+import com.epacheco.reports.Tools.ReportsProgressDialog;
+import com.epacheco.reports.Tools.ScreenManager;
 import com.epacheco.reports.databinding.ActivityOrderDetailViewBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import java.util.List;
@@ -65,7 +64,7 @@ public class OrderDetailView extends AppCompatActivity implements OrderDetailInt
     if(mAuth.getCurrentUser()!=null ){
       if( mAuth.getCurrentUser().getPhotoUrl()!=null){
         Glide.with(ReportsApplication.getMyApplicationContext()).load(
-            Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl())) .apply(RequestOptions.circleCropTransform()).into(binding.imgProfile);
+            com.epacheco.reports.Tools.Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl())) .apply(RequestOptions.circleCropTransform()).into(binding.imgProfile);
       }
     }
   }
@@ -109,25 +108,25 @@ public class OrderDetailView extends AppCompatActivity implements OrderDetailInt
   @Override
   public void successOrderBuyElement() {
     hideProgress();
-    Tools.showToasMessage(this,getString(R.string.lbl_order_buy_update));
+    com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.lbl_order_buy_update));
   }
 
   @Override
   public void errorOrderBuyElement(String error) {
     hideProgress();
-    Tools.showToasMessage(this,error);
+    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
   }
 
   @Override
   public void successremoveOrderDetail() {
     hideProgress();
-    Tools.showToasMessage(this,getString(R.string.msg_item_order_removed));
+    com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_item_order_removed));
   }
 
   @Override
   public void errorremoveOrderDetail(String error) {
     hideProgress();
-    Tools.showToasMessage(this,error);
+    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
   }
 
   private void showProgress(String message){

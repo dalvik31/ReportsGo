@@ -19,11 +19,10 @@ import com.bumptech.glide.request.RequestOptions;
 import com.epacheco.reports.Model.ProductsModel.ProductsModel.ProductsModelClass;
 import com.epacheco.reports.Pojo.Product.Product;
 import com.epacheco.reports.R;
-import com.epacheco.reports.tools.ReportsApplication;
-import com.epacheco.reports.tools.ReportsDialogGlobal;
-import com.epacheco.reports.tools.ReportsProgressDialog;
-import com.epacheco.reports.tools.ScreenManager;
-import com.epacheco.reports.tools.Tools;
+import com.epacheco.reports.Tools.ReportsApplication;
+import com.epacheco.reports.Tools.ReportsDialogGlobal;
+import com.epacheco.reports.Tools.ReportsProgressDialog;
+import com.epacheco.reports.Tools.ScreenManager;
 import com.epacheco.reports.view.productsView.productAddView.ProductAddViewClass;
 import com.epacheco.reports.view.productsView.scanCode.ScannedBarcodeActivity;
 import com.epacheco.reports.databinding.ActivityProductViewClassBinding;
@@ -64,7 +63,7 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
     super.onStart();
     if(mAuth.getCurrentUser()!=null ){
       if( mAuth.getCurrentUser().getPhotoUrl()!=null){
-        Glide.with(ReportsApplication.getMyApplicationContext()).load(Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl()))  .apply(
+        Glide.with(ReportsApplication.getMyApplicationContext()).load(com.epacheco.reports.Tools.Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl()))  .apply(
             RequestOptions.circleCropTransform()).into(binding.imgProfile);
       }
     }
@@ -126,7 +125,7 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
 
   @Override
   public void errorDownloadProducts(String error) {
-    if(!error.isEmpty())Tools.showToasMessage(this,error);
+    if(!error.isEmpty()) com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
 
     binding.lblZeroProducts.setVisibility(View.VISIBLE);
     binding.recyclerListClient.setVisibility(View.GONE);
@@ -143,7 +142,7 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
       finish();
     }else{
       if(!inExistence){
-       Tools.showToasMessage(this,getString(R.string.lbl_stock_product_empty));
+       com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.lbl_stock_product_empty));
       }
       ScreenManager.goAddProductActivity(this,productId);
     }
@@ -175,7 +174,7 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
    *
    * */
   private void checkPermissionsCamera() {
-    if(Tools.checkPermissionsCamera(this)){
+    if(com.epacheco.reports.Tools.Tools.checkPermissionsCamera(this)){
       if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
         createDialogPermisionCamera(); /**Si el usuario no ha aceptado los permisos, creamos un dialogo explicandole por que necesitamos utilizar la camara*/
       }else{

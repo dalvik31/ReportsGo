@@ -56,21 +56,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <com.epacheco.reports.tools.CustomView.ButtonMenu
+        <com.epacheco.reports.Tools.CustomView.ButtonMenu
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           app:image="@drawable/ic_vector_clients"
           android:onClick="goClientsActivity"
           app:subTitle="@string/lbl_menu_option_client_subttitle"
           app:title="@string/lbl_menu_option_client"/>
-        <com.epacheco.reports.tools.CustomView.ButtonMenu
+        <com.epacheco.reports.Tools.CustomView.ButtonMenu
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           app:image="@drawable/ic_vector_sale"
           android:onClick="goSaleActivity"
           app:subTitle="@string/lbl_menu_option_sell_subtitle"
           app:title="@string/lbl_menu_option_sell"/>
-        <com.epacheco.reports.tools.CustomView.ButtonMenu
+        <com.epacheco.reports.Tools.CustomView.ButtonMenu
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           app:image="@drawable/ic_vector_cart"
@@ -78,7 +78,7 @@
           app:title="@string/lbl_menu_option_products"
           android:onClick="goProductsActivity"/>
 
-        <com.epacheco.reports.tools.CustomView.ButtonMenu
+        <com.epacheco.reports.Tools.CustomView.ButtonMenu
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           app:image="@drawable/ic_vector_order"

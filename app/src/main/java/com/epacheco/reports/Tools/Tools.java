@@ -1,4 +1,4 @@
-package com.epacheco.reports.tools;
+package com.epacheco.reports.Tools;
 
 import android.Manifest.permission;
 import android.app.Activity;
@@ -23,7 +23,7 @@ import java.util.Locale;
 public class Tools {
   private final static String TAG = Tools.class.getSimpleName();
   private static final String PREFERENCE_FILE_KEY = "reportsPreference";
-  private static SharedPreferences preferences = ReportsApplication.getMyApplicationContext().getSharedPreferences(PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
+  private static SharedPreferences preferences = com.epacheco.reports.Tools.ReportsApplication.getMyApplicationContext().getSharedPreferences(PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
   private static final String DATE_FORMAT_2 = "dd / MMMM / yyyy";
   private static final String DATE_FORMAT_1 = "HH:mm  -- dd / MMMM / yyyy";
 
@@ -129,7 +129,7 @@ public class Tools {
   /**Creamos este metodo para comparar el tiempo que ha transcurrido
    * la aplicacion cerrada si ha pasado mas de 5 min cerramos sesion*/
   public static boolean compareTime(){
-    long timeSave = Tools.getLongPreference(Constants.TIMER_SAVED);
+    long timeSave = com.epacheco.reports.Tools.Tools.getLongPreference(com.epacheco.reports.Tools.Constants.TIMER_SAVED);
     long time = System.currentTimeMillis();
     long timeFinish = time - timeSave;
     Log.e(TAG,"timeSave: "+timeSave);

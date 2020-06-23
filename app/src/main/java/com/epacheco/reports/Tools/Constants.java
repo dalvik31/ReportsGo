@@ -1,4 +1,4 @@
-package com.epacheco.reports.tools;
+package com.epacheco.reports.Tools;
 
 public class Constants {
   public static final String ITEM_SELECTED_MENU = "itemSelectedMenu";

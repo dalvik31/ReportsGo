@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.ClientDetail.ClientDetail;
 import com.epacheco.reports.R;
-import com.epacheco.reports.tools.ReportsApplication;
+import com.epacheco.reports.Tools.ReportsApplication;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
