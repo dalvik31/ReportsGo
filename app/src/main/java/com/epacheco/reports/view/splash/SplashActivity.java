@@ -7,8 +7,7 @@ import android.os.Bundle;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.epacheco.reports.R;
-import com.epacheco.reports.tools.ScreenManager;
-import com.epacheco.reports.tools.Tools;
+import com.epacheco.reports.Tools.ScreenManager;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashActivity extends AppCompatActivity {
@@ -60,7 +59,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(!Tools.isGooglePlayServicesAvailable(SplashActivity.this)) return;
+        if(!com.epacheco.reports.Tools.Tools.isGooglePlayServicesAvailable(SplashActivity.this)) return;
         startAnimationSplash();
     }
 }

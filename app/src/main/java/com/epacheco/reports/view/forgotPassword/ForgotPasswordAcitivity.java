@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import com.epacheco.reports.Model.ForgotPasswordModel.ForgotPasswordModel;
 import com.epacheco.reports.R;
-import com.epacheco.reports.tools.Tools;
 import com.epacheco.reports.databinding.ActivityForgotPasswordAcitivityBinding;
 
 public class ForgotPasswordAcitivity extends AppCompatActivity implements ForgotPasswordInterface{
@@ -36,7 +35,7 @@ public class ForgotPasswordAcitivity extends AppCompatActivity implements Forgot
     public void recoveryEmail(View v){
         String email = binding.txtEmail.getText().toString();
         if(email.isEmpty()){
-            Tools.showSnackMessage(binding.CoordinatorLayoutContainerForgot,getString(R.string.lbl_email));
+            com.epacheco.reports.Tools.Tools.showSnackMessage(binding.CoordinatorLayoutContainerForgot,getString(R.string.lbl_email));
             return;
         }
         forgotPasswordModel.sendRecoveryPassword(email);
