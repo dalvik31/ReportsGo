@@ -51,21 +51,21 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.appcompat:appcompat:1.2.0-alpha03'
-    implementation 'com.google.android.material:material:1.2.0-alpha05'
+    implementation 'androidx.appcompat:appcompat:1.3.0-alpha01'
+    implementation 'com.google.android.material:material:1.3.0-alpha01'
     //Dependencia para navigationBottom
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.3.0-alpha1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha04'
+    androidTestImplementation 'androidx.test:runner:1.3.0-rc01'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-rc01'
     //Dependencia FireBase
-    implementation 'com.google.firebase:firebase-core:17.2.3'
+    implementation 'com.google.firebase:firebase-core:17.4.3'
     //Dependencia FireBase Login with email
-    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'com.google.firebase:firebase-auth:19.3.1'
     //Dependencia FireBase Login with google
-    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+    implementation 'com.google.android.gms:play-services-auth:18.0.0'
     //Dependencia FireBase database
-    implementation 'com.google.firebase:firebase-database:19.2.1'
+    implementation 'com.google.firebase:firebase-database:19.3.1'
     //Dependencia para descargar imagenes
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
@@ -73,18 +73,18 @@ dependencies {
     implementation 'com.twitter.sdk.android:twitter-core:3.1.1'
     implementation 'com.twitter.sdk.android:tweet-ui:3.1.1'
     //Dependencia para inicio de sesion con facebook
-    implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
+    implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
     //Dependencia para subir archivos a firebase
     implementation 'com.google.firebase:firebase-storage:19.1.1'
     //Dependencia para escanear codigo qr y codigo de barras
-    implementation 'com.google.android.gms:play-services-vision:19.0.0'
+    implementation 'com.google.android.gms:play-services-vision:20.1.0'
     //Dependencia para notificaciones
-    implementation 'com.google.firebase:firebase-messaging:20.1.2'
+    implementation 'com.google.firebase:firebase-messaging:20.2.1'
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
     //Se agrego por un error al inflar el contraint layout con androidx
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta7'
     //Se agrego por un error al iniciar sesion con google
-    implementation 'androidx.appcompat:appcompat:1.2.0-alpha03'
+    implementation 'androidx.appcompat:appcompat:1.3.0-alpha03'
     //Se agrega para animacion lottie
     implementation 'com.airbnb.android:lottie:3.4.0'
 }
