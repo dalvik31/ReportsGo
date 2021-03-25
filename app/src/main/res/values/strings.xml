@@ -167,7 +167,7 @@
     <string name="msg_save_product">Guardando información del producto</string>
     <string name="msg_product_modify_success">Producto modificado</string>
     <string name="msg_product_remove_success">Producto eliminado</string>
-    <string name="lbl_modify_product">Modificar producto</string>
+    <string name="lbl_modify_product">Detalle del producto</string>
     <string name="lbl_stock_product">%s en existencia</string>
     <string name="lbl_stock_product_exist">Ya agregaste este producto</string>
     <string name="lbl_stock_product_empty">No hay productos en tu inventario.\nCambia el valor de cantidad</string>
