@@ -12,7 +12,6 @@ public class TestPin extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_test_pin);
-    inputPin = findViewById(R.id.pin);
 
 
 
