@@ -24,7 +24,7 @@
           android:layout_height="?attr/actionBarSize"
           android:layout_toStartOf="@+id/btn_add"
           android:padding="12dp"
-          app:srcCompat="@drawable/ic_vector_account"
+          app:srcCompat="@drawable/icon_person"
           android:layout_alignParentEnd="true"
           android:onClick="goProfileActivity"/>
         <androidx.appcompat.widget.Toolbar

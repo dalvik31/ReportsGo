@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -20,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivityViewClass extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private ActivityMainClassBinding binding;
+    private ImageView img_profile;
 
 
     @Override
@@ -27,6 +29,7 @@ public class MainActivityViewClass extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main_class);
         mAuth = FirebaseAuth.getInstance();
+        img_profile = findViewById(R.id.img_profile);
     }
 
 
@@ -39,6 +42,8 @@ public class MainActivityViewClass extends AppCompatActivity {
                     .load(com.epacheco.reports.Tools.Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl()))
                     .apply(RequestOptions.circleCropTransform())
                     .into(binding.imgProfile);
+        }else {
+            img_profile.setImageResource(R.drawable.icon_person);
         }
 
     }
