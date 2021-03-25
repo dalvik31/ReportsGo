@@ -168,7 +168,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/lbl_client_phone"
             android:inputType="phone"
-            android:hint="@string/lbl_client_phone_hint"/>
+            android:hint="@string/lbl_client_phone_hint"
+              android:maxLength="10"/>
         </RelativeLayout>
         <RelativeLayout
           android:layout_width="0dp"
