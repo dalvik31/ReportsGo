@@ -55,7 +55,26 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
       Log.e(TAG,"idClient: "+idClient);
       selectListOrder();
     }
+    else {
+      selectListOrder1();
+    }
   }
+
+
+
+  private void selectListOrder1() {
+    ReportsDialogGlobal.showDialogAccept(this, getString(R.string.title_message_select_order),
+            getString(R.string.body_message_select_order2),
+            new DialogInterface.OnClickListener() {
+              @Override
+              public void onClick(DialogInterface dialog, int which) {
+                idListSelected = true;
+              }
+            }
+    );
+  }
+
+
 
   private void selectListOrder() {
     ReportsDialogGlobal.showDialogAccept(this, getString(R.string.title_message_select_order),
