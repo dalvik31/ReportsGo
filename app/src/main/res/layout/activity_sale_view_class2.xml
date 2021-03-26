@@ -245,8 +245,10 @@
         android:layout_below="@+id/container_select"
         android:padding="10dp"
         android:gravity="center"
-        android:text="@string/lbl_sale_ticket_empty_"
-        android:textSize="28dp"/>
+        android:hint="@string/lbl_sale_ticket_empty_"
+        android:textSize="28dp"
+          android:onClick="goProductsActivity"
+          />
     </RelativeLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
