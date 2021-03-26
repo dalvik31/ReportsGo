@@ -53,18 +53,18 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
     if(extras!=null){
       idClient = extras.getString(ClientAddViewClass.CLIENT_ID);
       Log.e(TAG,"idClient: "+idClient);
-      selectListOrder();
+      selectListOrder1(getString(R.string.body_message_select_order));
     }
     else {
-      selectListOrder1();
+      selectListOrder1(getString(R.string.body_message_select_order2));
     }
   }
 
 
 
-  private void selectListOrder1() {
+  private void selectListOrder1(String string) {
     ReportsDialogGlobal.showDialogAccept(this, getString(R.string.title_message_select_order),
-            getString(R.string.body_message_select_order2),
+            string,
             new DialogInterface.OnClickListener() {
               @Override
               public void onClick(DialogInterface dialog, int which) {
@@ -74,19 +74,7 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
     );
   }
 
-
-
-  private void selectListOrder() {
-    ReportsDialogGlobal.showDialogAccept(this, getString(R.string.title_message_select_order),
-        getString(R.string.body_message_select_order),
-        new DialogInterface.OnClickListener() {
-          @Override
-          public void onClick(DialogInterface dialog, int which) {
-            idListSelected = true;
-          }
-        }
-    );
-  }
+  
   @Override
   public FragmentActivity getMyActivity() {
     return this;
