@@ -165,6 +165,7 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
     ScreenManager.goAddProductActivity(this,null);
   }
 
+
   public void openQRorBarCode(View view){
     checkPermissionsCamera();
   }
@@ -258,3 +259,5 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
     return handler;
   }
 }
+
+

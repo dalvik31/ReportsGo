@@ -132,6 +132,10 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
     myProduct.setUrlImage(getImgUrlUpload());
   }
 
+  public void goNewOrder1(View view){
+    ScreenManager.goOrderActivity(this,null);
+  }
+
 
   private boolean validateInputs(){
     boolean inputsValidate = true;

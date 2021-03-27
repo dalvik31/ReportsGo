@@ -219,6 +219,7 @@
     <string name="lbl_order_buy">Comprado</string>
     <string name="lbl_order_buy_update">Pedido actualizado</string>
     <string name="title_message_select_order">Selecciona una lista.</string>
+    <string name="body_message_select_order2">Elige la lista en la cual se agregara el pedido.</string>
     <string name="body_message_select_order">Elige la lista en la cual se agregara el pedido del cliente.</string>
     <string name="title_message_delete_elemnt">Borrar elemento.</string>
     <string name="body_message_delete_elemnt">¿Realmente deseas eliminar este elemento.</string>
