@@ -312,25 +312,28 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
     return phone;
   }
 
-  public void Search_contact(View v){
+  public void initPickContacts(View v){
 
     requestCameraPermission();
 
   }
-
   private void requestCameraPermission() {
 
     //shouldShowRequestPermissionRationale nos dice si el usuairo rechazo alguna vez los permisos
     if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
 
       //El usuario vuelve a dar clic en el boton se muestra un mensaje explicando al usuario por que es necesario conceder los permisos.
+      Log.e("tag","segunda vez");
       Snackbar.make(Rltv_Contact, "Requiere aceptar permiso para acceder a contactos ", Snackbar.LENGTH_INDEFINITE).setAction("OK", new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+          // Request the permission
           ActivityCompat.requestPermissions(ClientAddViewClass.this, new String[]{Manifest.permission.READ_CONTACTS}, READ_CONTACTS_PERMISSION );
         }
       }).show();
     }else{
+
+      Log.e("tag","primera vez");
       //El usuario entra por primera vez y da clic en el boton se muestra la ventana para aceptar  los persmisos
       ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, READ_CONTACTS_PERMISSION );
     }
@@ -338,10 +341,10 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
   }
 
   private void Obtener_contacto(){
-
     Intent i = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
     startActivityForResult(i, PICK_CONTACT_REQUEST);
   }
+
 
   @Override
   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -353,5 +356,4 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
       Toast.makeText(this,"que mal no has aceptado",Toast.LENGTH_SHORT).show();
     }
   }
-
 }

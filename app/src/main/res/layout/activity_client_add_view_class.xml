@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".view.clientView.clientAddView.ClientAddViewClass"
+      android:id="@+id/Rltv_Contact"
     >
 
     <com.google.android.material.appbar.AppBarLayout
@@ -205,6 +206,19 @@
         android:text="@string/btn_save"
         android:layout_below="@+id/container_information"
         android:onClick="addClient"/>
+
+      <Button
+          android:id="@+id/btn_search_contacts"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/btn_create_accoount"
+          style="@style/AppTheme.ButtonTwitter"
+          android:gravity="center"
+          android:padding="20dp"
+          android:text="@string/btn_conatctos"
+          android:layout_centerHorizontal="true"
+          android:onClick="initPickContacts"
+          />
 
       <LinearLayout
         android:id="@+id/container_modify"

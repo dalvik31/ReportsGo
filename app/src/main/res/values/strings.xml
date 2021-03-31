@@ -50,6 +50,7 @@
     <string name="lbl_detail_client">Detalle de cliente</string>
     <string name="lbl_detail_name_client">%s - %s</string>
     <string name="btn_save">guardar</string>
+    <string name="btn_conatctos">contactos</string>
     <string name="btn_ok">aceptar</string>
     <string name="btn_cancel">Cancelar</string>
     <string name="btn_modify">modificar</string>
