@@ -113,9 +113,9 @@
 
   <!--Style para boton total -->
   <style name="AppTheme.ButtonTotal" parent="Base.Widget.AppCompat.Button">
-    <item name="android:textColor">@color/colorAccent</item>
+    <item name="android:textColor">#FFFB15</item>
     <item name="android:textSize">18sp</item>
-    <item name="android:background">#E3CE16</item>
+    <item name="android:background">@android:color/transparent</item>
   </style>
 
 
