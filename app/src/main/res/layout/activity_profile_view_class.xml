@@ -95,7 +95,7 @@
     android:layout_marginBottom="10dp"
     android:text="@string/lbl_logout"
     android:onClick="closeSesion"
-      android:background="@drawable/borde_redondo"/>
+      android:background="@drawable/bordes_redondos"/>
   </RelativeLayout>
 </layout>
 
