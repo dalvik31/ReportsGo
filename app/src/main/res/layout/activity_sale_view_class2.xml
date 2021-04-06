@@ -80,10 +80,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:text="@string/lbl_sale_name_client"
+            android:hint="@string/lbl_sale_name_client"
             android:drawablePadding="5dp"
             android:drawableStart="@drawable/ic_vector_search_client_red"
-            android:padding="5dp"/>
+            android:padding="5dp"
+              android:onClick="goClientsActivity"/>
           <LinearLayout
             android:id="@+id/container_client"
             android:layout_width="match_parent"
@@ -167,7 +168,8 @@
             android:padding="5dp"
             android:drawablePadding="5dp"
             android:drawableStart="@drawable/ic_vector_product_red"
-            android:text="@string/lbl_sale_name_product"/>
+            android:hint="@string/lbl_sale_name_product"
+              android:onClick="goProductsActivity"/>
 
           <LinearLayout
             android:id="@+id/container_product"
