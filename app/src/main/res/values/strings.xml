@@ -236,5 +236,6 @@
     <string name="title_activity_forgot_password">Recupera tu contraseña</string>
     <string name="msg_recovery_password_hint">Ingresa tu email de recuperación</string>
     <string name="btn_send_email">Enviar email</string>
+    <string name="name_app_splash">Reports\nGO</string>
 
 </resources>
