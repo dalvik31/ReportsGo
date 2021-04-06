@@ -21,7 +21,7 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_toStartOf="@+id/btn_add"
         android:scaleType="center"
-        app:srcCompat="@drawable/ic_vector_account"
+        app:srcCompat="@drawable/icon_person"
         android:onClick="goProfileActivity"/>
       <ImageView
         android:id="@+id/btn_add"

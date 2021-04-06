@@ -30,7 +30,7 @@
           android:layout_toStartOf="@+id/btn_add"
           android:padding="12dp"
           android:layout_alignParentEnd="true"
-          app:srcCompat="@drawable/ic_vector_account"
+          app:srcCompat="@drawable/icon_person"
           android:onClick="goProfileActivity"/>
 
         <androidx.appcompat.widget.Toolbar
