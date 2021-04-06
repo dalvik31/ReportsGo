@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -67,11 +68,15 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
       clientAddModelClass.getClient(clientId);
       binding.btnModifyClient.setVisibility(View.VISIBLE);
       binding.btnAddClient.setVisibility(View.GONE);
+      binding.btnSearchContacts.setVisibility(View.GONE);
+      binding.btnContact.setVisibility(View.VISIBLE);
     }else{
       binding.btnCreateAccoount.setVisibility(View.VISIBLE);
+      binding.btnSearchContacts.setVisibility(View.VISIBLE);
       binding.containerModify.setVisibility(View.GONE);
       binding.btnModifyClient.setVisibility(View.GONE);
       binding.btnAddClient.setVisibility(View.VISIBLE);
+      binding.btnContact.setVisibility(View.GONE);
     }
   }
 
@@ -314,27 +319,23 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
 
   public void initPickContacts(View v){
 
-    requestCameraPermission();
+    requestContactPermission();
 
   }
-  private void requestCameraPermission() {
+  private void requestContactPermission() {
 
-    //shouldShowRequestPermissionRationale nos dice si el usuairo rechazo alguna vez los permisos
+
     if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
 
-      //El usuario vuelve a dar clic en el boton se muestra un mensaje explicando al usuario por que es necesario conceder los permisos.
-      Log.e("tag","segunda vez");
-      Snackbar.make(Rltv_Contact, "Requiere aceptar permiso para acceder a contactos ", Snackbar.LENGTH_INDEFINITE).setAction("OK", new View.OnClickListener() {
+      Snackbar.make(Rltv_Contact, "Requiere aceptar permiso para acceder a contactos ", Snackbar.LENGTH_INDEFINITE).setAction("ACEPTAR", new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          // Request the permission
+
           ActivityCompat.requestPermissions(ClientAddViewClass.this, new String[]{Manifest.permission.READ_CONTACTS}, READ_CONTACTS_PERMISSION );
         }
       }).show();
     }else{
 
-      Log.e("tag","primera vez");
-      //El usuario entra por primera vez y da clic en el boton se muestra la ventana para aceptar  los persmisos
       ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, READ_CONTACTS_PERMISSION );
     }
 
@@ -352,8 +353,6 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
 
     if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
       Obtener_contacto();
-    }else{
-      Toast.makeText(this,"que mal no has aceptado",Toast.LENGTH_SHORT).show();
     }
   }
 }
