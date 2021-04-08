@@ -186,15 +186,13 @@ public class ClientsViewClass extends AppCompatActivity implements ClientViewInt
 
     if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CALL_PHONE)) {
 
-      Snackbar.make(binding.recyclerListClient, "Requiere aceptar permiso para acceder a contactos ", Snackbar.LENGTH_INDEFINITE).setAction("ACEPTAR", new View.OnClickListener() {
+      Snackbar.make(binding.recyclerListClient, "Requiere aceptar permiso para continuar con la llamada ", Snackbar.LENGTH_INDEFINITE).setAction("ACEPTAR", new View.OnClickListener() {
         @Override
         public void onClick(View view) {
           ActivityCompat.requestPermissions(ClientsViewClass.this, new String[]{Manifest.permission.CALL_PHONE}, MY_PERMISSIONS_REQUEST_CALL_PHONE);
         }
       }).show();
     }else{
-
-      Log.e("tag","primera vez");
       ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, MY_PERMISSIONS_REQUEST_CALL_PHONE);
     }
 
