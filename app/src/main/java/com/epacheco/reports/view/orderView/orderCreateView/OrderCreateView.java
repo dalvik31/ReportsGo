@@ -5,14 +5,16 @@ import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentActivity;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.epacheco.reports.Model.OrderModel.CreateOrderModel.OrderCreateModelClass;
@@ -22,10 +24,10 @@ import com.epacheco.reports.R;
 import com.epacheco.reports.Tools.ReportsApplication;
 import com.epacheco.reports.Tools.ReportsProgressDialog;
 import com.epacheco.reports.Tools.ScreenManager;
+import com.epacheco.reports.databinding.ActivityOrderCreateViewBinding;
 import com.epacheco.reports.view.clientView.clientAddView.ClientAddViewClass;
 import com.epacheco.reports.view.clientView.clientView.ClientsViewClass;
 import com.epacheco.reports.view.orderView.orderDetailView.OrderDetailView;
-import com.epacheco.reports.databinding.ActivityOrderCreateViewBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class OrderCreateView extends AppCompatActivity implements OrderCreateViewInterface{
@@ -45,14 +47,14 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     binding = DataBindingUtil.setContentView(this,R.layout.activity_order_create_view);
+
     initializateElements();
   }
 
   private void initializateElements() {
     mAuth = FirebaseAuth.getInstance();
     progressbar = ReportsProgressDialog.getInstance();
-    binding.txtOrderSize.setText(sizeSelected);
-    binding.txtOrderGender.setText(typeSelected);
+
     Bundle extras = getIntent().getExtras();
     orderCreateModelClass = new OrderCreateModelClass(this);
     if(extras!=null){
@@ -70,6 +72,26 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
       }
     });
 
+    binding.CheckRopa.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+      @Override
+      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        binding.cardVRopa.setVisibility(buttonView.isChecked() ? View.VISIBLE : View.GONE);
+      }
+    });
+
+    binding.CheckDulces.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+      @Override
+      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        binding.cardVDulces.setVisibility(buttonView.isChecked() ? View.VISIBLE : View.GONE);
+      }
+    });
+
+    binding.CheckOtro.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+      @Override
+      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        binding.cardVOtro.setVisibility(buttonView.isChecked() ? View.VISIBLE : View.GONE);
+      }
+    });
 
   }
 
