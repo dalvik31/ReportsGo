@@ -39,7 +39,7 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
   @Override
   public void onBindViewHolder(@NonNull HolderOrder holderOrder, int i) {
     final OrderDetail myOrder = orderList.get(i);
-    if(myOrder.isOrderBuy()) holderOrder.containerOrderItem.setCardBackgroundColor(ContextCompat.getColor(ReportsApplication.getMyApplicationContext(),R.color.colorGreenTransparent));
+    if(myOrder.isOrderBuy()) holderOrder.containerOrderItem.setCardBackgroundColor(ContextCompat.getColor(ReportsApplication.getMyApplicationContext(),R.color.colorBackgrounditemBuy));
     holderOrder.txtNameOrder.setText(myOrder.getOrderName());
     holderOrder.txtSizeOrder.setText(myOrder.getOrderSize());
     holderOrder.txtGenderOrder.setText(myOrder.getOrderGender());
