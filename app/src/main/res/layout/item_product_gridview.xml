@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="160dp"
+android:layout_height="wrap_content"
+android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/img_product"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"/>
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           android:layout_alignBottom="@+id/img_product"
+           android:background="#D5595757"
+           >
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:weightSum="1">
+        <TextView
+            android:id="@+id/lbl_product_name"
+            android:layout_weight=".7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:drawableStart="@drawable/ic_vector_products"
+            android:drawablePadding="10dp"
+            android:text="Name"
+            />
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_weight=".3"
+                   android:text="Precio"
+                   android:textColor="@color/colorWhite"/>
+
+           </LinearLayout>
+
+           <TextView
+               android:id="@+id/txt_product_stock"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="@string/lbl_stock_product"
+               android:textColor="@color/colorWhite"
+               />
+
+
+       </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
+

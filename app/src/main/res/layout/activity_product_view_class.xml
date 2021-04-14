@@ -62,12 +62,13 @@
       android:layout_below="@+id/appBarLayout"
       android:layout_marginTop="-5dp"
       android:theme="@style/AppTheme.ProgressBar"/>
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/recyclerListClient"
+    <GridView
+      android:id="@+id/gridViewClientes"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      tools:listitem="@layout/item_product"
-      android:visibility="gone"
+      tools:listitem="@layout/item_product_gridview"
+        android:numColumns="auto_fit"
+      android:visibility="visible"
       android:layout_below="@+id/progress_downloadclient"
       />
 

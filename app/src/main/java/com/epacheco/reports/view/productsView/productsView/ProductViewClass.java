@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.View;
+import android.widget.ListAdapter;
 import android.widget.SearchView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -108,17 +109,17 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
   public void successDownloadProducts(List<Product> productList) {
     if(productList.size()>0){
       binding.lblZeroProducts.setVisibility(View.GONE);
-      binding.recyclerListClient.setVisibility(View.VISIBLE);
+      binding.gridViewClientes.setVisibility(View.VISIBLE);
       binding.progressDownloadclient.setVisibility(View.GONE);
       progressbar.hideProgress();
-      binding.recyclerListClient.setHasFixedSize(true);
-      binding.recyclerListClient.setLayoutManager(new LinearLayoutManager(this));
+     /* binding.recyclerListClient.setHasFixedSize(true);
+      binding.recyclerListClient.setLayoutManager(new LinearLayoutManager(this));*/
       AdapterProducts adapterClients = new AdapterProducts(productList);
       adapterClients.setOnItemProductClic(this);
-      binding.recyclerListClient.setAdapter(adapterClients);
+      binding.gridViewClientes.setAdapter((ListAdapter) adapterClients);
     }else{
       binding.lblZeroProducts.setVisibility(View.VISIBLE);
-      binding.recyclerListClient.setVisibility(View.GONE);
+      binding.gridViewClientes.setVisibility(View.GONE);
     }
 
   }
@@ -128,7 +129,7 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
     if(!error.isEmpty()) com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
 
     binding.lblZeroProducts.setVisibility(View.VISIBLE);
-    binding.recyclerListClient.setVisibility(View.GONE);
+    binding.gridViewClientes.setVisibility(View.GONE);
     binding.progressDownloadclient.setVisibility(View.GONE);
     progressbar.hideProgress();
   }

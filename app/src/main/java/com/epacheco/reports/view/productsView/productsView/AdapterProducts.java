@@ -28,7 +28,7 @@ public class AdapterProducts extends RecyclerView.Adapter<AdapterProducts.Holder
   @Override
   public HolderProducts onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
     View v = LayoutInflater.from(viewGroup.getContext())
-        .inflate(R.layout.item_product, viewGroup, false);
+        .inflate(R.layout.item_product_gridview, viewGroup, false);
     return new HolderProducts(v);
   }
 
@@ -36,9 +36,9 @@ public class AdapterProducts extends RecyclerView.Adapter<AdapterProducts.Holder
   public void onBindViewHolder(@NonNull HolderProducts holderProducts, int i) {
     final Product myProduct = productList.get(i);
     Glide.with(ReportsApplication.getMyApplicationContext()).load(myProduct.getUrlImage()).into(holderProducts.imgProduct);
-    holderProducts.txtProId.setText(String.valueOf(myProduct.getProductCode()));
+   // holderProducts.txtProId.setText(String.valueOf(myProduct.getProductCode()));
     holderProducts.txtProName.setText(myProduct.getProductName());
-    holderProducts.txtProDesc.setText(myProduct.getProductDescription());
+    //holderProducts.txtProDesc.setText(myProduct.getProductDescription());
     holderProducts.txtProPrice.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_amount_format),String.valueOf(myProduct.getProductPriceSale())));
     holderProducts.txtProStock.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.lbl_stock_product),String.valueOf(myProduct.getInStock())));
     holderProducts.imgModify.setOnClickListener(new OnClickListener() {
