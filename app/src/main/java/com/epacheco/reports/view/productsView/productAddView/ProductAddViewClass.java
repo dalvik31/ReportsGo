@@ -25,6 +25,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.RadioGroup;
+
 import com.bumptech.glide.Glide;
 import com.epacheco.reports.BuildConfig;
 import com.epacheco.reports.Model.ProductsModel.ProductsAddModel.ProductsAddModelClass;
@@ -59,6 +62,8 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
   private boolean uploadImageAgain = true;
   private int productStock;
   private String typeSelected = ReportsApplication.getMyApplicationContext().getString(R.string.lbl_select_product_type_empty);
+  private String sizeSelected = ReportsApplication.getMyApplicationContext().getString(R.string.lbl_select_product_type_empty);
+  private boolean sizeNumeric;
   private boolean isCameraCode;
   private ReportsProgressDialog progressbar;
   @Override
@@ -80,8 +85,61 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
       showProgress("Buscando producto");
       productsAddModelClass.getProduct(productId);
       binding.btnModifyProduct.setVisibility(View.VISIBLE);
+
+      binding.CheckRopa.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+          binding.cardVRopa.setVisibility(buttonView.isChecked() ? View.VISIBLE : View.GONE);
+        }
+      });
+
+      binding.CheckDulces.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+          binding.cardVDulces.setVisibility(buttonView.isChecked() ? View.VISIBLE : View.GONE);
+        }
+      });
+
+      binding.CheckOtro.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+          binding.cardVOtro.setVisibility(buttonView.isChecked() ? View.VISIBLE : View.GONE);
+        }
+      });
+
     }else{
       uploadImageAgain = true;
+
+      binding.AppCompatCheckBoxNumeric.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+          sizeNumeric = isChecked;
+
+        }
+      });
+
+      binding.CheckRopa.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+          binding.cardVRopa.setVisibility(buttonView.isChecked() ? View.VISIBLE : View.GONE);
+        }
+      });
+
+      binding.CheckDulces.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+          binding.cardVDulces.setVisibility(buttonView.isChecked() ? View.VISIBLE : View.GONE);
+        }
+      });
+
+      binding.CheckOtro.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+          binding.cardVOtro.setVisibility(buttonView.isChecked() ? View.VISIBLE : View.GONE);
+        }
+      });
       binding.containerModify.setVisibility(View.GONE);
       binding.btnCreateProduct.setVisibility(View.VISIBLE);
       binding.btnAddProduct.setVisibility(View.VISIBLE);
@@ -94,6 +152,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
      progressbar = ReportsProgressDialog.getInstance();
     productId = getIntent()!=null ? getIntent().getStringExtra(PRODUCT_ID):"";
     productsAddModelClass = new ProductsAddModelClass(this);
+
   }
 
 
@@ -120,6 +179,8 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
   }
   private void createProduct(Product product) {
     Product myProduct= getNewProduct();
+    String orderSize = binding.txtOrderSize.getText().toString();
+    String orderColor = binding.txtOrderColor.getText().toString();
     myProduct.setProductId(product== null ? binding.txtProductCode.getText().toString(): product.getProductId());
     myProduct.setProductDate(product== null ?String.valueOf(System.currentTimeMillis()):product.getProductDate());
     myProduct.setProductName(binding.txtProductName.getText().toString());
@@ -130,6 +191,10 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
     myProduct.setProductType(typeSelected);
     myProduct.setInStock(productStock);
     myProduct.setUrlImage(getImgUrlUpload());
+    myProduct.setColor(orderColor);
+    myProduct.setTalla(orderSize);
+    myProduct.setTipo_de_empaque(binding.EtxtTipoDeEmpaque.getText().toString());
+    myProduct.setEspecificaciones_otro(binding.EtOtroProducto.getText().toString());
   }
 
 
@@ -142,10 +207,10 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
     }
 
 
-    if(typeSelected.equals(getString(R.string.lbl_select_product_type_empty))) {
-      binding.txtProductType.setError(getString(R.string.msg_error_empty_type_name));
+    /*if(typeSelected.equals(getString(R.string.lbl_select_product_type_empty))) {
+      binding.txtOrderGendero.setError(getString(R.string.msg_error_empty_type_name));
       inputsValidate = false;
-    }
+    }*/
 
     if(binding.txtProductPriceBuy.getText().toString().isEmpty()) {
       binding.txtProductPriceBuy.setError(getString(R.string.msg_error_empty_price_buy));
@@ -214,11 +279,15 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
     binding.txtProductName.setText(product.getProductName());
     binding.txtProductDescription.setText(product.getProductDescription());
     typeSelected = product.getProductType();
-    binding.txtProductType.setText(product.getProductType());
+    binding.txtOrderGendero.setText(typeSelected);
     binding.txtProductPriceBuy.setText(String.valueOf(product.getProductPriceBuy()));
     binding.txtProductPriceSale.setText(String.valueOf(product.getProductPriceSale()));
     binding.txtProductCode.setText(String.valueOf(product.getProductCode()));
     binding.txtProductStock.setText(String.valueOf(product.getInStock()));
+    binding.EtOtroProducto.setText(String.valueOf(product.getEspecificaciones_otro()));
+    binding.txtOrderSize.setText(String.valueOf(product.getTalla()));
+    binding.txtOrderColor.setText(String.valueOf(product.getColor()));
+    binding.EtxtTipoDeEmpaque.setText(String.valueOf(product.getTipo_de_empaque()));
     setImgUrlUpload(product.getUrlImage());
     Glide.with(ReportsApplication.getMyApplicationContext()).load(product.getUrlImage()).into(binding.imgProduct);
   }
@@ -611,28 +680,23 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
         switch(which){
           case 0:
             typeSelected = getString(R.string.lbl_select_product_type_woman);
-            binding.txtProductType.setError(null);
-            binding.txtProductType.setText(typeSelected);
+            binding.txtOrderGendero.setText(typeSelected);
             break;
           case 1:
             typeSelected = getString(R.string.lbl_select_product_type_man);
-            binding.txtProductType.setError(null);
-            binding.txtProductType.setText(typeSelected);
+            binding.txtOrderGendero.setText(typeSelected);
             break;
           case 2:
             typeSelected = getString(R.string.lbl_select_product_type_child);
-            binding.txtProductType.setError(null);
-            binding.txtProductType.setText(typeSelected);
+            binding.txtOrderGendero.setText(typeSelected);
             break;
           case 3:
             typeSelected = getString(R.string.lbl_select_product_type_girl);
-            binding.txtProductType.setError(null);
-            binding.txtProductType.setText(typeSelected);
+            binding.txtOrderGendero.setText(typeSelected);
             break;
-            default:
-              typeSelected = getString(R.string.lbl_select_product_type_empty);
-              binding.txtProductType.setError(null);
-              binding.txtProductType.setText(typeSelected);
+          default:
+            typeSelected = getString(R.string.lbl_select_product_type_empty);
+            binding.txtOrderGendero.setText(typeSelected);
         }
       }
 
@@ -640,6 +704,152 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
 
     b.show();
   }
+
+  public void createSelectedSizeDialog(View view){
+    if(sizeNumeric){
+      AlertDialog.Builder b = new Builder(this);
+      b.setTitle(getString(R.string.lbl_select_image_title));
+      String[] types = {
+              getString(R.string.lbl_select_product_size_2),
+              getString(R.string.lbl_select_product_size_4),
+              getString(R.string.lbl_select_product_size_6),
+              getString(R.string.lbl_select_product_size_8),
+              getString(R.string.lbl_select_product_size_10),
+              getString(R.string.lbl_select_product_size_12),
+              getString(R.string.lbl_select_product_size_14),
+              getString(R.string.lbl_select_product_size_16),
+              getString(R.string.lbl_select_product_size_28),
+              getString(R.string.lbl_select_product_size_30),
+              getString(R.string.lbl_select_product_size_32),
+              getString(R.string.lbl_select_product_size_34),
+              getString(R.string.lbl_select_product_size_36),
+              getString(R.string.lbl_select_product_size_38),
+              getString(R.string.lbl_select_product_size_40),
+              getString(R.string.lbl_select_product_size_42),
+              getString(R.string.lbl_select_product_size_44),
+      };
+      b.setItems(types, new OnClickListener() {
+
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+
+          dialog.dismiss();
+          switch(which){
+            case 0:
+              sizeSelected = getString(R.string.lbl_select_product_size_2);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 1:
+              sizeSelected = getString(R.string.lbl_select_product_size_4);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 2:
+              sizeSelected = getString(R.string.lbl_select_product_size_6);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 3:
+              sizeSelected = getString(R.string.lbl_select_product_size_8);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 4:
+              sizeSelected = getString(R.string.lbl_select_product_size_10);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 5:
+              sizeSelected = getString(R.string.lbl_select_product_size_12);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 6:
+              sizeSelected = getString(R.string.lbl_select_product_size_14);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 7:
+              sizeSelected = getString(R.string.lbl_select_product_size_16);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 8:
+              sizeSelected = getString(R.string.lbl_select_product_size_28);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 9:
+              sizeSelected = getString(R.string.lbl_select_product_size_30);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 10:
+              sizeSelected = getString(R.string.lbl_select_product_size_32);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 11:
+              sizeSelected = getString(R.string.lbl_select_product_size_34);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 12:
+              sizeSelected = getString(R.string.lbl_select_product_size_36);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 13:
+              sizeSelected = getString(R.string.lbl_select_product_size_38);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 14:
+              sizeSelected = getString(R.string.lbl_select_product_size_40);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 15:
+              sizeSelected = getString(R.string.lbl_select_product_size_42);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 16:
+              sizeSelected = getString(R.string.lbl_select_product_size_44);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            default:
+              sizeSelected = getString(R.string.lbl_select_product_type_empty);
+              binding.txtOrderSize.setText(sizeSelected);
+          }
+        }
+
+      });
+      b.show();
+    }else{
+      AlertDialog.Builder b = new Builder(this);
+      b.setTitle(getString(R.string.lbl_select_image_title));
+      String[] types = {getString(R.string.lbl_select_product_size_ch),getString(R.string.lbl_select_product_size_me),getString(R.string.lbl_select_product_size_gra),getString(R.string.lbl_select_product_size_ex)};
+      b.setItems(types, new OnClickListener() {
+
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+          dialog.dismiss();
+          switch(which){
+            case 0:
+              sizeSelected = getString(R.string.lbl_select_product_size_ch);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 1:
+              sizeSelected = getString(R.string.lbl_select_product_size_me);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 2:
+              sizeSelected = getString(R.string.lbl_select_product_size_gra);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            case 3:
+              sizeSelected = getString(R.string.lbl_select_product_size_ex);
+              binding.txtOrderSize.setText(sizeSelected);
+              break;
+            default:
+              sizeSelected = getString(R.string.lbl_select_product_type_empty);
+              binding.txtOrderSize.setText(sizeSelected);
+          }
+        }
+
+      });
+
+      b.show();
+    }
+
+  }
+
 
 
 
