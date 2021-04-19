@@ -215,7 +215,7 @@
     <string name="lbl_title_create_order_gender">Género</string>
     <string name="lbl_title_create_order_gender_hint">Para que género</string>
     <string name="lbl_title_create_order_description">Descripción</string>
-    <string name="lbl_title_create_order_description_hint">Detalles importantes de la prenda</string>
+    <string name="lbl_title_create_order_description_hint">Detalles importantes del producto</string>
     <string name="lbl_order_buy">Comprado</string>
     <string name="lbl_order_buy_update">Pedido actualizado</string>
     <string name="title_message_select_order">Selecciona una lista.</string>

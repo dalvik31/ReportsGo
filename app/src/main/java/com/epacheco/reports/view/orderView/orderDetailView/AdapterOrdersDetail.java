@@ -43,8 +43,9 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
     holderOrder.txtNameOrder.setText(myOrder.getOrderName());
     holderOrder.txtSizeOrder.setText(myOrder.getOrderSize());
     holderOrder.txtGenderOrder.setText(myOrder.getOrderGender());
-    holderOrder.txtClientOrder.setText(myOrder.getOrderClient()!=null ? myOrder.getOrderClient().getName():"Desconocido");
+    holderOrder.txtClientOrder.setText(myOrder.getOrderClient()!=null ? myOrder.getOrderClient().getName():"Cliente Desconocido");
     holderOrder.txtDescOrder.setText(myOrder.getOrderDescription());
+    holderOrder.txtColor.setText(myOrder.getOrderColor());
 
     holderOrder.imageViewRemoveItem.setOnClickListener(new OnClickListener() {
       @Override
@@ -83,7 +84,7 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
   }
 
   class HolderOrder extends RecyclerView.ViewHolder{
-    private TextView txtNameOrder,txtSizeOrder,txtGenderOrder,txtDescOrder,txtClientOrder;
+    private TextView txtNameOrder,txtSizeOrder,txtGenderOrder,txtDescOrder,txtClientOrder,txtColor;
     private ImageView imageViewRemoveItem;
     private CardView containerOrderItem;
     private AppCompatCheckBox checkBuyOrder;
@@ -97,6 +98,7 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
       txtClientOrder = itemView.findViewById(R.id.lbl_order_client);
       imageViewRemoveItem= itemView.findViewById(R.id.ImageView_delete_item);
       containerOrderItem= itemView.findViewById(R.id.cardView_container_item_order);
+      txtColor = itemView.findViewById(R.id.txtColor);
     }
   }
 

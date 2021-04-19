@@ -158,6 +158,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
+                android:maxLength="26"
                 android:layout_below="@+id/lbl_order_name"
                 android:hint="@string/lbl_title_create_order_name_hint"/>
           </RelativeLayout>
@@ -179,7 +180,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
                 android:inputType="textMultiLine"
-                android:maxLines="3"
+                android:maxLength="70"
                 android:lines="3"
                 android:layout_below="@+id/lbl_order_descripcion"
                 android:hint="@string/lbl_title_create_order_description_hint"/>
@@ -314,6 +315,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/lbl_order_color"
                     android:layout_marginTop="0dp"
+                    android:maxLength="10"
                     android:hint="@string/lbl_title_create_order_color_hint" />
               </RelativeLayout>
 
@@ -369,11 +371,12 @@
                   style="@style/TextView_Text"
                   android:text="@string/TxtCantidad"/>
               <EditText
+                  android:id="@+id/Etxt_dulces_cantidad"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   style="@style/Edittext_custom_text"
                   android:hint="@string/Etxtcantidad"
-                  android:maxLines="3"
+                  android:maxLength="28"
                   android:lines="3"/>
 
 
@@ -412,6 +415,7 @@
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   style="@style/Edittext_custom_text"
+                  android:maxLength="28"
                   android:hint="@string/EtxtOther_product"/>
 
 

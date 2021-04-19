@@ -106,6 +106,18 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
       String orderSize = binding.txtOrderSize.getText().toString();
       String orderColor = binding.txtOrderColor.getText().toString();
       String orderGender = binding.txtOrderGender.getText().toString();
+
+      if (orderSize.isEmpty()){
+        orderSize = "Cantidad" ;
+      }else {orderSize = "Talla "+orderSize;}
+
+      if (orderGender.isEmpty()){
+        orderGender = binding.EtxtDulcesCantidad.getText().toString();
+      }
+
+      if(orderGender.isEmpty()){
+        orderGender =  binding.EtOtroProducto.getText().toString();
+      }
       orderDetail.setOrderName(nameOrder);
       orderDetail.setOrderDescription(descrptionOrder);
       orderDetail.setOrderId(String.valueOf(System.currentTimeMillis()));
