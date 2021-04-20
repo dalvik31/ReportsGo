@@ -86,7 +86,7 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
         @Override
         public void run() {
           showProgress(getString(R.string.msg_search_product));
-          if(productName.matches("[0-9]+")){
+          if(productName.matches("[a-zA-Z1-9]+")){
             productsModelClass.downloadPorducts(null,productName);
           }else{
             productsModelClass.downloadPorducts(productName,null);
