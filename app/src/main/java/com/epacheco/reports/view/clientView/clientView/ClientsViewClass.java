@@ -1,14 +1,26 @@
 package com.epacheco.reports.view.clientView.clientView;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
+
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Handler;
 import androidx.fragment.app.FragmentActivity;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.SearchView;
+import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.epacheco.reports.Model.ClientModel.ClientModel.ClientModelClass;
@@ -19,10 +31,11 @@ import com.epacheco.reports.Tools.ReportsProgressDialog;
 import com.epacheco.reports.Tools.ScreenManager;
 import com.epacheco.reports.view.clientView.clientAddView.ClientAddViewClass;
 import com.epacheco.reports.databinding.ActivityClientsViewBinding;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 
-public class ClientsViewClass extends AppCompatActivity implements ClientViewInterface, SearchView.OnQueryTextListener, onItemClientClic{
+public class ClientsViewClass extends AppCompatActivity implements ClientViewInterface, SearchView.OnQueryTextListener, onItemClientClic, AdapterClients.OnClicListener{
   public final static String IS_SEARCH = "isSearch";
   public final static int CLIENT_SELECTED = 0;
   private ClientModelClass clientModelClass;
@@ -30,6 +43,8 @@ public class ClientsViewClass extends AppCompatActivity implements ClientViewInt
   private boolean isSearch;
   private ReportsProgressDialog progressbar;
   private Handler handler;
+  private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
+  private String phone1;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +109,7 @@ public class ClientsViewClass extends AppCompatActivity implements ClientViewInt
     hideProgress();
     binding.recyclerListClient.setHasFixedSize(true);
     binding.recyclerListClient.setLayoutManager(new LinearLayoutManager(this));
-    AdapterClients adapterClients = new AdapterClients(listCliets);
+    AdapterClients adapterClients = new AdapterClients(listCliets,this);
     adapterClients.setOnItemClientClic(this);
     binding.recyclerListClient.setAdapter(adapterClients);
     binding.lblZeroClients.setVisibility(View.GONE);
@@ -155,6 +170,49 @@ public class ClientsViewClass extends AppCompatActivity implements ClientViewInt
       handler = new Handler();
     }
     return handler;
+  }
+
+
+
+  @Override
+  public void onItemClic(String phone) {
+
+    phone1 = phone;
+    request_callphone_Permission();
+
+  }
+
+  private void request_callphone_Permission() {
+
+    if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CALL_PHONE)) {
+
+      Snackbar.make(binding.recyclerListClient, "Requiere aceptar permiso para continuar con la llamada ", Snackbar.LENGTH_INDEFINITE).setAction("ACEPTAR", new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          ActivityCompat.requestPermissions(ClientsViewClass.this, new String[]{Manifest.permission.CALL_PHONE}, MY_PERMISSIONS_REQUEST_CALL_PHONE);
+        }
+      }).show();
+    }else{
+      ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, MY_PERMISSIONS_REQUEST_CALL_PHONE);
+    }
+
+  }
+
+  @Override
+  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+    if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+      StrartActivity(phone1);
+    }
+  }
+
+  private void StrartActivity(String Pphone){
+
+    Intent intent = new Intent(Intent.ACTION_CALL);
+    intent.setData(Uri.parse("tel:" + Pphone));
+    startActivity(intent);
+
   }
 
 }

@@ -1,33 +1,51 @@
 package com.epacheco.reports.view.clientView.clientView;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.ClientDetail.ClientDetail;
 import com.epacheco.reports.R;
 import com.epacheco.reports.Tools.ReportsApplication;
+import com.epacheco.reports.view.clientView.clientAddView.ClientAddViewClass;
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class AdapterClients extends RecyclerView.Adapter<AdapterClients.HolderClients> {
 
+
   private ArrayList<Client> listClients;
   private onItemClientClic onItemClientClic;
   private Context context;
-  AdapterClients(ArrayList<Client> listClients) {
+  private OnClicListener itemClic;
+
+  public interface OnClicListener{
+    void onItemClic(String phone);
+  }
+  AdapterClients(ArrayList<Client> listClients,Context context) {
     this.listClients = listClients;
+    this.itemClic = (OnClicListener) context;
   }
 
   @NonNull
@@ -49,10 +67,8 @@ public class AdapterClients extends RecyclerView.Adapter<AdapterClients.HolderCl
       holderClients.btnPhone.setOnClickListener(new OnClickListener() {
         @Override
         public void onClick(View view) {
-          Intent intent = new Intent(Intent.ACTION_CALL);
-
-          intent.setData(Uri.parse("tel:" + clientSelected.getPhone()));
-          context.startActivity(intent);
+          String phone1 = clientSelected.getPhone();
+          itemClic.onItemClic(phone1);
         }
       });
       holderClients.btnPhone.setVisibility(View.VISIBLE);
@@ -136,4 +152,9 @@ public class AdapterClients extends RecyclerView.Adapter<AdapterClients.HolderCl
       com.epacheco.reports.view.clientView.clientView.onItemClientClic onItemClientClic) {
     this.onItemClientClic = onItemClientClic;
   }
+
+
+
+
+
 }

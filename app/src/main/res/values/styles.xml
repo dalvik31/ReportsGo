@@ -104,6 +104,13 @@
     <item name="android:background">@color/colorPrimary</item>
   </style>
 
+  <!--Style para boton contactos -->
+  <style name="AppTheme.ButtonContact" parent="Widget.AppCompat.Button.Borderless">
+    <item name="android:textColor">@color/colorWhite</item>
+    <item name="android:background">@color/colorTwitter</item>
+  </style>
+
+
 
   <!--Style para boton general verde-->
   <style name="AppTheme.ButtonGralGreen" parent="Base.Widget.AppCompat.Button">
