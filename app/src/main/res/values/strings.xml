@@ -167,7 +167,7 @@
     <string name="msg_save_product">Guardando información del producto</string>
     <string name="msg_product_modify_success">Producto modificado</string>
     <string name="msg_product_remove_success">Producto eliminado</string>
-    <string name="lbl_modify_product">Modificar producto</string>
+    <string name="lbl_modify_product">Detalle del producto</string>
     <string name="lbl_stock_product">%s en existencia</string>
     <string name="lbl_stock_product_exist">Ya agregaste este producto</string>
     <string name="lbl_stock_product_empty">No hay productos en tu inventario.\nCambia el valor de cantidad</string>
@@ -245,5 +245,6 @@
     <string name="title_activity_forgot_password">Recupera tu contraseña</string>
     <string name="msg_recovery_password_hint">Ingresa tu email de recuperación</string>
     <string name="btn_send_email">Enviar email</string>
+    <string name="name_app_splash">Reports\nGO</string>
 
 </resources>

@@ -110,6 +110,15 @@
     <item name="android:textColor">@color/colorWhite</item>
     <item name="android:background">@android:color/holo_green_dark</item>
   </style>
+
+  <!--Style para boton total -->
+  <style name="AppTheme.ButtonTotal" parent="Base.Widget.AppCompat.Button">
+    <item name="android:textColor">#FFFB15</item>
+    <item name="android:textSize">18sp</item>
+    <item name="android:background">@android:color/transparent</item>
+  </style>
+
+
   <!--Style para boton general negro -->
   <style name="AppTheme.ButtonGralBlack" parent="Base.Widget.AppCompat.Button">
     <item name="android:textColor">@color/colorWhite</item>
