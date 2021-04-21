@@ -237,14 +237,6 @@
     <string name="title_message_delete_elemnt">Borrar elemento.</string>
     <string name="body_message_delete_elemnt">¿Realmente deseas eliminar este elemento.</string>
     <string name="lbl_size_number">Numérica</string>
-    <string name="Etxtcantidad">Cantidad en peso o paquetes</string>
-    <string name="TxtCantidad">Cantidad</string>
-    <string name="EtxtOther_product">Especificaciones del producto</string>
-    <string name="TxtOther_product">Otro ...</string>
-    <string name="ChkBx_ropa">Ropa</string>
-    <string name="ChkBx_otro">Otro</string>
-    <string name="ChkBx_dulces">Dulces</string>
-    <string name="TxtTipo_de_producto">Tipo de mercancia</string>
 
 
 

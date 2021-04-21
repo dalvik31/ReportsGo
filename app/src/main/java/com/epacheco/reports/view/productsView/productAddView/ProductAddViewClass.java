@@ -202,10 +202,12 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
     }
 
 
-    /*if(typeSelected.equals(getString(R.string.lbl_select_product_type_empty))) {
-      binding.txtOrderGendero.setError(getString(R.string.msg_error_empty_type_name));
-      inputsValidate = false;
-    }*/
+    if(binding.CheckRopa.isChecked()){
+      if(typeSelected.equals(getString(R.string.lbl_select_product_type_empty))) {
+        binding.txtOrderGendero.setError(getString(R.string.msg_error_empty_type_name));
+        inputsValidate = false;
+      }
+    }
 
     if(binding.txtProductPriceBuy.getText().toString().isEmpty()) {
       binding.txtProductPriceBuy.setError(getString(R.string.msg_error_empty_price_buy));
