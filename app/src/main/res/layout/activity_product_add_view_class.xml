@@ -490,7 +490,7 @@
             android:layout_height="wrap_content"
             android:layout_weight=".8"
             android:hint="@string/lbl_product_code_hint"
-            android:inputType="number"/>
+            />
 
           <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="0dp"

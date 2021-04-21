@@ -3,11 +3,14 @@ package com.epacheco.reports.view.profileView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentActivity;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.epacheco.reports.R;
+import com.epacheco.reports.Tools.ReportsDialogGlobal;
 import com.epacheco.reports.Tools.ScreenManager;
 import com.epacheco.reports.databinding.ActivityProfileViewClassBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,9 +56,20 @@ public class ProfileViewClass extends AppCompatActivity implements ProfileViewIn
   }
 
   public void closeSesion(View v){
-    mAuth.signOut();
-    ScreenManager.goRegisterActivity(this);
-    finish();
+
+    ReportsDialogGlobal.showDialogAccept(this, getString(R.string.msg_cerrar_sesion),
+            null,
+            new DialogInterface.OnClickListener() {
+              @Override
+              public void onClick(DialogInterface dialog, int which) {
+                mAuth.signOut();
+                ScreenManager.goRegisterActivity(ProfileViewClass.this);
+                finish();
+              }
+            }
+    );
+
+
   }
 
   @Override

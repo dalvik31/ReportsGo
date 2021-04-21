@@ -8,21 +8,25 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import androidx.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
+import android.view.View;
+
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
-import androidx.core.content.FileProvider;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentActivity;
+
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -129,7 +133,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
   }
 
   private void inicializateElements() {
-     progressbar = ReportsProgressDialog.getInstance();
+    progressbar = ReportsProgressDialog.getInstance();
     productId = getIntent()!=null ? getIntent().getStringExtra(PRODUCT_ID):"";
     productsAddModelClass = new ProductsAddModelClass(this);
 
@@ -288,13 +292,13 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
   private void configShowTypeProduct(Product product) {
     if(!TextUtils.isEmpty(product.getTypeProduct())){
       String typeProduct = product.getTypeProduct();
-       if(typeProduct.equals(binding.CheckDulces.getText().toString())){
-         binding.CheckDulces.setChecked(true);
+      if(typeProduct.equals(binding.CheckDulces.getText().toString())){
+        binding.CheckDulces.setChecked(true);
       }else  if(typeProduct.equals(binding.CheckOtro.getText().toString())){
-         binding.CheckOtro.setChecked(true);
+        binding.CheckOtro.setChecked(true);
       }else{
-         binding.CheckRopa.setChecked(true);
-       }
+        binding.CheckRopa.setChecked(true);
+      }
     }
   }
 
@@ -321,13 +325,13 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
 
   public void removeProduct(View view){
     ReportsDialogGlobal.showDialogAccept(this, getString(R.string.title_message_delete_elemnt),
-        getString(R.string.body_message_delete_elemnt),
-        new DialogInterface.OnClickListener() {
-          @Override
-          public void onClick(DialogInterface dialog, int which) {
-            productsAddModelClass.removeProduct(productId);
-          }
-        }
+            getString(R.string.body_message_delete_elemnt),
+            new DialogInterface.OnClickListener() {
+              @Override
+              public void onClick(DialogInterface dialog, int which) {
+                productsAddModelClass.removeProduct(productId);
+              }
+            }
     );
 
   }
@@ -409,7 +413,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
       }else{
         dispatchTakePictureIntent();/**Si el usuario ya acepto los permisos, abrimos la camara*/
       }
-     }
+    }
   }
 
   /**
@@ -436,18 +440,18 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
    * */
   private void createDialogPermisionCamera() {
     ReportsDialogGlobal.showDialogAccept(this, getString(R.string.msg_permissions_title),
-        getString(R.string.msg_permissions_camera_body),
-        new DialogInterface.OnClickListener() {
-          @Override
-          public void onClick(DialogInterface dialog, int which) {
-            /**
-             * Si acepta abrimos el dialogo del sistema para que acepte los persmisos
-             * Si cancela no hacemos nada
-             * */
-            ActivityCompat.requestPermissions(ProductAddViewClass.this,
-                new String[]{Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_CAMERA);
-          }
-        }
+            getString(R.string.msg_permissions_camera_body),
+            new DialogInterface.OnClickListener() {
+              @Override
+              public void onClick(DialogInterface dialog, int which) {
+                /**
+                 * Si acepta abrimos el dialogo del sistema para que acepte los persmisos
+                 * Si cancela no hacemos nada
+                 * */
+                ActivityCompat.requestPermissions(ProductAddViewClass.this,
+                        new String[]{Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_CAMERA);
+              }
+            }
     );
   }
 
@@ -459,19 +463,19 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
   private void createDialogPermisionGallery() {
 
     ReportsDialogGlobal.showDialogAccept(this, getString(R.string.msg_permissions_title),
-        getString(R.string.msg_permissions_galler_body),
-        new DialogInterface.OnClickListener() {
-          @Override
-          public void onClick(DialogInterface dialog, int which) {
-            /**
-             * Si acepta abrimos el dialogo del sistema para que acepte los persmisos
-             * Si cancela no hacemos nada
-             * */
-            ActivityCompat.requestPermissions(ProductAddViewClass.this,
-                new String[]{permission.READ_EXTERNAL_STORAGE},
-                MY_PERMISSIONS_REQUEST_READ_EXTERNAL);
-          }
-        }
+            getString(R.string.msg_permissions_galler_body),
+            new DialogInterface.OnClickListener() {
+              @Override
+              public void onClick(DialogInterface dialog, int which) {
+                /**
+                 * Si acepta abrimos el dialogo del sistema para que acepte los persmisos
+                 * Si cancela no hacemos nada
+                 * */
+                ActivityCompat.requestPermissions(ProductAddViewClass.this,
+                        new String[]{permission.READ_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_READ_EXTERNAL);
+              }
+            }
     );
   }
 
@@ -482,7 +486,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
    * */
   @Override
   public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
-      @NonNull int[] grantResults) {
+                                         @NonNull int[] grantResults) {
     switch (requestCode) {
       case MY_PERMISSIONS_REQUEST_CAMERA: {
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -548,8 +552,8 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
    * Con ayuda del archivo filepaths.xml vamos a obtener una uri de la foto que haya tomado
    * el usuario, guardamos la imagen en el dispositivo y obtenemos la uri
    * */
- public File getPhotoFileUri(String fileName) {
-   File mediaStorageDir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "");
+  public File getPhotoFileUri(String fileName) {
+    File mediaStorageDir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "");
     return  new File(mediaStorageDir.getPath() + File.separator + fileName);
   }
 
@@ -558,7 +562,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
    * */
   private void dispatchGalleryPictureIntent() {
     Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
     startActivityForResult(pickPhoto, REQUEST_IMAGE_GALLERY);
   }
 
@@ -855,8 +859,6 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
     }
 
   }
-
-
 
 
   public void openQRorBarCode(View view){

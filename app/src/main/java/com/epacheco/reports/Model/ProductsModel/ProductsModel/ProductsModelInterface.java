@@ -11,5 +11,5 @@ public interface ProductsModelInterface {
   void errorDownloadProducts(String error);
 
   //Controller methods
-  void downloadPorducts(String productName, String producNumber);
+  void downloadPorducts(String productName);
 }
