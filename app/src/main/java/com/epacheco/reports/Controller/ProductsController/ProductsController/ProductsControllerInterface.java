@@ -1,5 +1,5 @@
 package com.epacheco.reports.Controller.ProductsController.ProductsController;
 
 public interface ProductsControllerInterface {
-  void downloadPorducts(String productName, String producNumber);
+  void downloadPorducts(String productName);
 }

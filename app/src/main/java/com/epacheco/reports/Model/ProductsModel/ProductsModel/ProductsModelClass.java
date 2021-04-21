@@ -34,9 +34,9 @@ public class ProductsModelClass implements ProductsModelInterface{
   }
 
   @Override
-  public void downloadPorducts(String productName, String producNumber) {
+  public void downloadPorducts(String productName) {
     if(productsControllerClass!=null){
-      productsControllerClass.downloadPorducts(productName,producNumber);
+      productsControllerClass.downloadPorducts(productName);
     }
   }
 
