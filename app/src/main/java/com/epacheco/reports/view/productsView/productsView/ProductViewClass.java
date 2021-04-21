@@ -4,16 +4,18 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import androidx.databinding.DataBindingUtil;
-import android.os.Handler;
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import android.os.Handler;
 import android.view.View;
 import android.widget.SearchView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.epacheco.reports.Model.ProductsModel.ProductsModel.ProductsModelClass;
@@ -23,10 +25,11 @@ import com.epacheco.reports.Tools.ReportsApplication;
 import com.epacheco.reports.Tools.ReportsDialogGlobal;
 import com.epacheco.reports.Tools.ReportsProgressDialog;
 import com.epacheco.reports.Tools.ScreenManager;
+import com.epacheco.reports.databinding.ActivityProductViewClassBinding;
 import com.epacheco.reports.view.productsView.productAddView.ProductAddViewClass;
 import com.epacheco.reports.view.productsView.scanCode.ScannedBarcodeActivity;
-import com.epacheco.reports.databinding.ActivityProductViewClassBinding;
 import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.List;
 
 public class ProductViewClass extends AppCompatActivity implements ProductsViewInterface, SearchView.OnQueryTextListener, onItemProductClic{
@@ -86,16 +89,12 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
         @Override
         public void run() {
           showProgress(getString(R.string.msg_search_product));
-          if(productName.matches("[0-9]+")){
-            productsModelClass.downloadPorducts(null,productName);
-          }else{
-            productsModelClass.downloadPorducts(productName,null);
+          productsModelClass.downloadPorducts(productName);
           }
-        }
-      }, 1000);
+        }, 1000);
     }else{
       showProgress(getString(R.string.msg_search_product));
-      productsModelClass.downloadPorducts( null,null);
+      productsModelClass.downloadPorducts( null);
     }
   }
 
@@ -112,7 +111,8 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
       binding.progressDownloadclient.setVisibility(View.GONE);
       progressbar.hideProgress();
       binding.recyclerListClient.setHasFixedSize(true);
-      binding.recyclerListClient.setLayoutManager(new LinearLayoutManager(this));
+      //binding.recyclerListClient.setLayoutManager(new LinearLayoutManager(this));*/
+      binding.recyclerListClient.setLayoutManager(new GridLayoutManager(this,2));
       AdapterProducts adapterClients = new AdapterProducts(productList);
       adapterClients.setOnItemProductClic(this);
       binding.recyclerListClient.setAdapter(adapterClients);

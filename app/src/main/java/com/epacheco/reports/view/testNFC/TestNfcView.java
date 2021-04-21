@@ -57,7 +57,7 @@ public class TestNfcView extends AppCompatActivity implements NfcAdapter.OnNdefP
     // Check whether NFC is available on device
     if (!pm.hasSystemFeature(PackageManager.FEATURE_NFC)) {
       // NFC is not available on the device.
-      Toast.makeText(this,"nfc no disponible",Toast.LENGTH_LONG).show();
+      Toast.makeText(this,"nfc no funciona",Toast.LENGTH_LONG).show();
 
     }
     // Check whether device is running Android 4.1 or higher

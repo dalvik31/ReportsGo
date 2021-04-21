@@ -13,9 +13,51 @@ public class Product {
   private int inStock;
   private double auxPrice;
   private int auxStock;
+  private String talla;
+  private String color;
+  private String tipo_de_empaque;
+  private String especificaciones_otro;
+  private String typeProduct;
+
 
   public Product() {
   }
+
+
+  public String getTipo_de_empaque() {
+    return tipo_de_empaque;
+  }
+
+  public void setTipo_de_empaque(String tipo_de_empaque) {
+    this.tipo_de_empaque = tipo_de_empaque;
+  }
+
+
+  public String getTalla() {
+    return talla;
+  }
+
+  public void setTalla(String talla) {
+    this.talla = talla;
+  }
+
+  public String getColor() {
+    return color;
+  }
+
+  public void setColor(String color) {
+    this.color = color;
+  }
+
+
+  public String getEspecificaciones_otro() {
+    return especificaciones_otro;
+  }
+
+  public void setEspecificaciones_otro(String especificaciones_otro) {
+    this.especificaciones_otro = especificaciones_otro;
+  }
+
 
   public String getUrlImage() {
     return urlImage;
@@ -112,6 +154,14 @@ public class Product {
 
   public void setAuxStock(int auxStock) {
     this.auxStock = auxStock;
+  }
+
+  public String getTypeProduct() {
+    return typeProduct;
+  }
+
+  public void setTypeProduct(String typeProduct) {
+    this.typeProduct = typeProduct;
   }
 
   @Override
