@@ -17,6 +17,7 @@ public class Product {
   private String color;
   private String tipo_de_empaque;
   private String especificaciones_otro;
+  private String typeProduct;
 
 
   public Product() {
@@ -153,6 +154,14 @@ public class Product {
 
   public void setAuxStock(int auxStock) {
     this.auxStock = auxStock;
+  }
+
+  public String getTypeProduct() {
+    return typeProduct;
+  }
+
+  public void setTypeProduct(String typeProduct) {
+    this.typeProduct = typeProduct;
   }
 
   @Override

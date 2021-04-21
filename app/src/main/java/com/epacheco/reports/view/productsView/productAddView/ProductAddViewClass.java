@@ -23,6 +23,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.core.content.FileProvider;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -86,28 +87,6 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
       productsAddModelClass.getProduct(productId);
       binding.btnModifyProduct.setVisibility(View.VISIBLE);
 
-      binding.CheckRopa.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-          binding.cardVRopa.setVisibility(buttonView.isChecked() ? View.VISIBLE : View.GONE);
-        }
-      });
-
-      binding.CheckDulces.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-          binding.cardVDulces.setVisibility(buttonView.isChecked() ? View.VISIBLE : View.GONE);
-        }
-      });
-
-      binding.CheckOtro.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-          binding.cardVOtro.setVisibility(buttonView.isChecked() ? View.VISIBLE : View.GONE);
-        }
-      });
-
     }else{
       uploadImageAgain = true;
 
@@ -118,34 +97,35 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
 
         }
       });
-
-      binding.CheckRopa.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-          binding.cardVRopa.setVisibility(buttonView.isChecked() ? View.VISIBLE : View.GONE);
-        }
-      });
-
-      binding.CheckDulces.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-          binding.cardVDulces.setVisibility(buttonView.isChecked() ? View.VISIBLE : View.GONE);
-        }
-      });
-
-      binding.CheckOtro.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-          binding.cardVOtro.setVisibility(buttonView.isChecked() ? View.VISIBLE : View.GONE);
-        }
-      });
       binding.containerModify.setVisibility(View.GONE);
       binding.btnCreateProduct.setVisibility(View.VISIBLE);
       binding.btnAddProduct.setVisibility(View.VISIBLE);
       binding.btnModifyAccoount.setVisibility(View.GONE);
       binding.btnModifyProduct.setVisibility(View.GONE);
     }
+
+
+    binding.CheckRopa.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+      @Override
+      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        binding.cardVRopa.setVisibility(buttonView.isChecked() ? View.VISIBLE : View.GONE);
+      }
+    });
+
+    binding.CheckDulces.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+      @Override
+      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        binding.cardVDulces.setVisibility(buttonView.isChecked() ? View.VISIBLE : View.GONE);
+      }
+    });
+
+    binding.CheckOtro.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+      @Override
+      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        binding.cardVOtro.setVisibility(buttonView.isChecked() ? View.VISIBLE : View.GONE);
+      }
+    });
   }
 
   private void inicializateElements() {
@@ -193,8 +173,19 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
     myProduct.setUrlImage(getImgUrlUpload());
     myProduct.setColor(orderColor);
     myProduct.setTalla(orderSize);
+    selectTypeProduct(myProduct);
     myProduct.setTipo_de_empaque(binding.EtxtTipoDeEmpaque.getText().toString());
     myProduct.setEspecificaciones_otro(binding.EtOtroProducto.getText().toString());
+  }
+
+  private void selectTypeProduct(Product myProduct) {
+    if(binding.CheckRopa.isChecked()){
+      myProduct.setTypeProduct(binding.CheckRopa.getText().toString());
+    }else if(binding.CheckDulces.isChecked()){
+      myProduct.setTypeProduct(binding.CheckDulces.getText().toString());
+    }else{
+      myProduct.setTypeProduct(binding.CheckOtro.getText().toString());
+    }
   }
 
 
@@ -290,6 +281,21 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
     binding.EtxtTipoDeEmpaque.setText(String.valueOf(product.getTipo_de_empaque()));
     setImgUrlUpload(product.getUrlImage());
     Glide.with(ReportsApplication.getMyApplicationContext()).load(product.getUrlImage()).into(binding.imgProduct);
+
+    configShowTypeProduct(product);
+  }
+
+  private void configShowTypeProduct(Product product) {
+    if(!TextUtils.isEmpty(product.getTypeProduct())){
+      String typeProduct = product.getTypeProduct();
+       if(typeProduct.equals(binding.CheckDulces.getText().toString())){
+         binding.CheckDulces.setChecked(true);
+      }else  if(typeProduct.equals(binding.CheckOtro.getText().toString())){
+         binding.CheckOtro.setChecked(true);
+      }else{
+         binding.CheckRopa.setChecked(true);
+       }
+    }
   }
 
   public void modifyProduct(View view){
