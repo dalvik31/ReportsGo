@@ -193,7 +193,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
   }
 
   public void goNewOrder1(View view){
-    ScreenManager.goOrderActivity(this,null);
+    ScreenManager.goOrderActivityProduct(this,productId);
   }
 
 

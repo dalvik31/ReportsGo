@@ -1,6 +1,7 @@
 package com.epacheco.reports.Pojo.OrderDetail;
 
 import com.epacheco.reports.Pojo.Client.Client;
+import com.epacheco.reports.Pojo.Product.Product;
 
 public class OrderDetail {
 
@@ -12,6 +13,7 @@ public class OrderDetail {
   private String orderGender;
   private String orderDescription;
   private Client orderClient;
+  private Product orderProduct;
   private boolean orderBuy;
 
   public String getOrderListId() {
@@ -77,6 +79,16 @@ public class OrderDetail {
   public void setOrderClient(Client orderClient) {
     this.orderClient = orderClient;
   }
+
+  public Product getOrderProduct(){
+    return orderProduct;
+  }
+
+  public void setOrderProduct(Product orderProduct){
+    this.orderProduct = orderProduct;
+
+  }
+
 
   public boolean isOrderBuy() {
     return orderBuy;

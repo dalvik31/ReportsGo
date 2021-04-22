@@ -48,6 +48,7 @@
     <string name="msg_search_client">Buscando clientes</string>
     <string name="lbl_search_client">Buscar cliente</string>
     <string name="lbl_search_clients">Buscando cliente</string>
+    <string name="lbl_search_products">Buscando producto</string>
     <string name="lbl_add_client">Crear nuevo cliente</string>
     <string name="lbl_detail_client">Detalle de cliente</string>
     <string name="lbl_detail_name_client">%s - %s</string>
@@ -96,6 +97,7 @@
     <string name="txt_client_amount_format_minum">- $ %s</string>
     <string name="txt_client_date_format">Cliente desde el %s</string>
     <string name="txt_client_name_format"> %s %s</string>
+    <string name="txt_client_name_format1"> %s</string>
     <string name="txt_client_limit_format">Limite de credito %s</string>
     <string name="txt_client_amount_empty">0.0</string>
     <string name="lbl_change_client">Cambiar cliente</string>

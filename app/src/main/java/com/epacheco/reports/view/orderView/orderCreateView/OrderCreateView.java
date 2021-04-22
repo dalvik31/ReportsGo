@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -20,6 +21,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.epacheco.reports.Model.OrderModel.CreateOrderModel.OrderCreateModelClass;
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.OrderDetail.OrderDetail;
+import com.epacheco.reports.Pojo.Product.Product;
 import com.epacheco.reports.R;
 import com.epacheco.reports.Tools.ReportsApplication;
 import com.epacheco.reports.Tools.ReportsProgressDialog;
@@ -30,6 +32,8 @@ import com.epacheco.reports.view.clientView.clientView.ClientsViewClass;
 import com.epacheco.reports.view.orderView.orderDetailView.OrderDetailView;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.function.ToDoubleBiFunction;
+
 public class OrderCreateView extends AppCompatActivity implements OrderCreateViewInterface{
 
   private ActivityOrderCreateViewBinding binding;
@@ -37,6 +41,7 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
   private String orderListId;
   private ReportsProgressDialog progressbar;
   private Client selectedClient;
+  private Product selectedProduct;
   private String nameOrder;
   private String descrptionOrder;
   private String typeSelected = ReportsApplication.getMyApplicationContext().getString(R.string.lbl_select_product_type_empty);
@@ -62,7 +67,13 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
       if(extras.containsKey(OrderDetailView.CLIENT_ID)){
         showProgress(getString(R.string.lbl_search_clients));
         orderCreateModelClass.getClient(extras.getString(OrderDetailView.CLIENT_ID));
+        Log.e("Imp","id cliente : "+extras);
         extras.remove(OrderDetailView.CLIENT_ID);
+      }else if(extras.containsKey(OrderDetailView.PRODUCT_ID)){
+        showProgress(getString(R.string.lbl_search_products));
+        orderCreateModelClass.getProduct(extras.getString(OrderDetailView.PRODUCT_ID));
+        Log.e("Imp","id producto : "+extras);
+        extras.remove(OrderDetailView.PRODUCT_ID);
       }
     }
     binding.AppCompatCheckBoxNumeric.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -122,6 +133,7 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
       orderDetail.setOrderDescription(descrptionOrder);
       orderDetail.setOrderId(String.valueOf(System.currentTimeMillis()));
       orderDetail.setOrderListId(orderListId);
+      orderDetail.setOrderProduct(getSelectedProduct());
       orderDetail.setOrderClient(getSelectedClient());
       orderDetail.setOrderSize(orderSize);
       orderDetail.setOrderColor(orderColor);
@@ -170,6 +182,14 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
 
   }
 
+  @Override
+  public void succesGetProduct(Product product) {
+    setSelectedProduct(product);
+    hideProgress();
+    binding.txtOrderName.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_name_format1),product.getProductName()));
+
+  }
+
 
 
   @Override
@@ -186,6 +206,23 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
   @Override
   public void errorGetClient(String error) {
     com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+  }
+
+
+
+  @Override
+  public void errorGetProduct(String error) {
+    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+  }
+
+
+  public Product getSelectedProduct(){
+    return selectedProduct;
+  }
+
+  public void setSelectedProduct(Product selectedProduct){
+    this.selectedProduct = selectedProduct;
+
   }
 
   public Client getSelectedClient() {

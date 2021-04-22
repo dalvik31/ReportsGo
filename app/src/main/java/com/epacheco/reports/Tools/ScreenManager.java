@@ -99,11 +99,31 @@ public class ScreenManager {
     myActivity.startActivity(orderActivity);
   }
 
+  public static void goOrderActivityProduct(FragmentActivity myActivity,String clientId){
+    //Intent orderActivity = new Intent(myActivity, TestPin.class);
+    //myActivity.startActivity(orderActivity);
+    Intent orderActivity = new Intent(myActivity, OrderViewClass.class);
+    if(clientId!=null)orderActivity.putExtra(ProductAddViewClass.PRODUCT_ID ,clientId);
+    myActivity.startActivity(orderActivity);
+  }
+
+
+
+
+
   public static void goOrderDetailActivity(FragmentActivity myActivity,String orderId,String nameOrder,String idClient){
     Intent orderDetailActivity = new Intent(myActivity, OrderDetailView.class);
     orderDetailActivity.putExtra(OrderDetailView.ORDER_ID,orderId);
     orderDetailActivity.putExtra(OrderDetailView.ORDER_NAME,nameOrder);
     if(idClient!=null)orderDetailActivity.putExtra(OrderDetailView.CLIENT_ID,idClient);
+    myActivity.startActivity(orderDetailActivity);
+  }
+
+  public static void goOrderDetailActivityProduct(FragmentActivity myActivity,String orderId,String nameOrder,String idProduct){
+    Intent orderDetailActivity = new Intent(myActivity, OrderDetailView.class);
+    orderDetailActivity.putExtra(OrderDetailView.ORDER_ID,orderId);
+    orderDetailActivity.putExtra(OrderDetailView.ORDER_NAME,nameOrder);
+    if(idProduct!=null)orderDetailActivity.putExtra(OrderDetailView.PRODUCT_ID,idProduct);
     myActivity.startActivity(orderDetailActivity);
   }
 
@@ -113,6 +133,14 @@ public class ScreenManager {
     if(idClient!=null)orderCreateActivity.putExtra(OrderDetailView.CLIENT_ID,idClient);
     myActivity.startActivity(orderCreateActivity);
   }
+
+  public static void goOrderCreateActivityProduct(FragmentActivity myActivity,String orderId,String idProduct){
+    Intent orderCreateActivity = new Intent(myActivity, OrderCreateView.class);
+    orderCreateActivity.putExtra(OrderDetailView.ORDER_ID,orderId);
+    if(idProduct!=null)orderCreateActivity.putExtra(OrderDetailView.PRODUCT_ID,idProduct);
+    myActivity.startActivity(orderCreateActivity);
+  }
+
 
   public static void goForgotPasswordActivity(FragmentActivity myActivity){
     Intent forgotPasswordActivity = new Intent(myActivity, ForgotPasswordAcitivity.class);
