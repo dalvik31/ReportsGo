@@ -88,7 +88,7 @@ public class OrderCreateControllerClass implements OrderCreateControllerInterfac
       DatabaseReference usersRef = myRef.child(mAuth.getUid()).child(Constants.CLIENT_PRODUCTS_TABLE_FIREBASE);
       String paramName = idProduct!=null && !idProduct.isEmpty() ? idProduct : "";
 
-      usersRef.orderByChild("id").equalTo(paramName).addValueEventListener(new ValueEventListener() {
+      usersRef.orderByChild("productId").equalTo(paramName).addValueEventListener(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot snapshot) {
 

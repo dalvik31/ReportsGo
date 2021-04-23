@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -76,6 +77,7 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
         extras.remove(OrderDetailView.PRODUCT_ID);
       }
     }
+
     binding.AppCompatCheckBoxNumeric.setOnCheckedChangeListener(new OnCheckedChangeListener() {
       @Override
       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -140,6 +142,7 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
       orderDetail.setOrderGender(orderGender);
       orderDetail.setOrderBuy(false);
       orderCreateModelClass.createNewOrder(orderDetail);
+      finish();
     }
 
   }
@@ -171,6 +174,7 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
   @Override
   public void errorCreateOrder(String error) {
     com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    finish();
   }
 
   @Override
@@ -186,11 +190,40 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
   public void succesGetProduct(Product product) {
     setSelectedProduct(product);
     hideProgress();
-    binding.txtOrderName.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_name_format1),product.getProductName()));
 
+
+    binding.txtOrderName.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_name_format1),product.getProductName()));
+    binding.txtOrderDescription.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_name_format1),product.getProductDescription()));
+    binding.txtOrderSize.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_name_format1),product.getTalla()));
+    binding.txtOrderColor.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_name_format1),product.getColor()));
+    binding.txtOrderGender.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_name_format1),product.getProductType()));
+    binding.EtxtDulcesCantidad.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_name_format1),product.getTipo_de_empaque()));
+    binding.EtOtroProducto.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_name_format1),product.getEspecificaciones_otro()));
+    configShowTypeProduct(product);
   }
 
+  private void configShowTypeProduct(Product product) {
+    if(!TextUtils.isEmpty(product.getTypeProduct())){
+      String typeProduct = product.getTypeProduct();
+      if(typeProduct.equals(binding.CheckDulces.getText().toString())){
+        binding.CheckDulces.setChecked(true);
+        binding.cardVDulces.setVisibility(View.VISIBLE);
+        binding.cardVOtro.setVisibility(View.GONE);
+        binding.cardVRopa.setVisibility(View.GONE);
 
+      }else if(typeProduct.equals(binding.CheckOtro.getText().toString())){
+        binding.CheckOtro.setChecked(true);
+        binding.cardVDulces.setVisibility(View.GONE);
+        binding.cardVOtro.setVisibility(View.VISIBLE);
+        binding.cardVRopa.setVisibility(View.GONE);
+      }else{
+        binding.CheckRopa.setChecked(true);
+        binding.cardVDulces.setVisibility(View.GONE);
+        binding.cardVOtro.setVisibility(View.GONE);
+        binding.cardVRopa.setVisibility(View.VISIBLE);
+      }
+    }
+  }
 
   @Override
   public void onStart() {
@@ -439,6 +472,8 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
     }
 
   }
+
+
   public void goProfileActivity(View v){
     ScreenManager.goProfileActivity(this);
   }

@@ -117,6 +117,7 @@ public class ScreenManager {
     orderDetailActivity.putExtra(OrderDetailView.ORDER_NAME,nameOrder);
     if(idClient!=null)orderDetailActivity.putExtra(OrderDetailView.CLIENT_ID,idClient);
     myActivity.startActivity(orderDetailActivity);
+
   }
 
   public static void goOrderDetailActivityProduct(FragmentActivity myActivity,String orderId,String nameOrder,String idProduct){
@@ -125,6 +126,7 @@ public class ScreenManager {
     orderDetailActivity.putExtra(OrderDetailView.ORDER_NAME,nameOrder);
     if(idProduct!=null)orderDetailActivity.putExtra(OrderDetailView.PRODUCT_ID,idProduct);
     myActivity.startActivity(orderDetailActivity);
+    myActivity.finish();
   }
 
   public static void goOrderCreateActivity(FragmentActivity myActivity,String orderId,String idClient){
@@ -132,6 +134,7 @@ public class ScreenManager {
     orderCreateActivity.putExtra(OrderDetailView.ORDER_ID,orderId);
     if(idClient!=null)orderCreateActivity.putExtra(OrderDetailView.CLIENT_ID,idClient);
     myActivity.startActivity(orderCreateActivity);
+    myActivity.finish();
   }
 
   public static void goOrderCreateActivityProduct(FragmentActivity myActivity,String orderId,String idProduct){
@@ -139,6 +142,7 @@ public class ScreenManager {
     orderCreateActivity.putExtra(OrderDetailView.ORDER_ID,orderId);
     if(idProduct!=null)orderCreateActivity.putExtra(OrderDetailView.PRODUCT_ID,idProduct);
     myActivity.startActivity(orderCreateActivity);
+    myActivity.finish();
   }
 
 

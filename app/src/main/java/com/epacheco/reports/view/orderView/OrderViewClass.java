@@ -177,9 +177,12 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
   public void onItemOrderClic(boolean removeElement, final String orderId,String nameOrder) {
     if(idListSelected && idClient != null){
       ScreenManager.goOrderDetailActivity(this,orderId,nameOrder,idClient);
+      finish();
       idListSelected= false;
+
     }else if(idListSelected && idProduct != null){
       ScreenManager.goOrderDetailActivityProduct(this,orderId,nameOrder,idProduct);
+      finish();
       idListSelected= false;
     }
     else {
