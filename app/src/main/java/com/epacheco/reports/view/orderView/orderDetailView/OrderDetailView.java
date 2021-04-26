@@ -27,6 +27,10 @@ public class OrderDetailView extends AppCompatActivity implements OrderDetailInt
   public static final String ORDER_ID = "orderId";
   public static final String ORDER_NAME= "orderName";
   public static final String CLIENT_ID= "clientId";
+  public static final String PRODUCT_ID= "productId";
+
+
+
 
   private ActivityOrderDetailViewBinding binding;
   private FirebaseAuth mAuth;
@@ -34,6 +38,7 @@ public class OrderDetailView extends AppCompatActivity implements OrderDetailInt
   private ReportsProgressDialog progressbar;
   private OrderDetailModelClass orderDetailModelClass;
   private String clientId;
+  private String productId;
   private Bundle extras;
 
   @Override
@@ -169,7 +174,12 @@ public class OrderDetailView extends AppCompatActivity implements OrderDetailInt
       Log.e(TAG,"clientId: "+clientId);
       ScreenManager.goOrderCreateActivity(this,listOrderId,clientId);
       extras.remove(CLIENT_ID);
-    }else{
+    }else if(extras!=null && extras.containsKey(PRODUCT_ID)){
+      productId = extras.getString(PRODUCT_ID);
+      Log.e(TAG,"productId :  "+productId);
+      ScreenManager.goOrderCreateActivityProduct(this,listOrderId,productId);
+    }else
+      {
       Log.e(TAG,"extra nulo");
     }
   }

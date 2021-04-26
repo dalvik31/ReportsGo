@@ -5,4 +5,5 @@ import com.epacheco.reports.Pojo.OrderDetail.OrderDetail;
 public interface OrderCreateControllerInterface {
   void createNewOrder( OrderDetail orderDetail);
   void getClient(String idClient);
+  void getProduct(String idProduct);
 }

@@ -192,6 +192,10 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
     }
   }
 
+  public void goNewOrder1(View view){
+    ScreenManager.goOrderActivityProduct(this,productId);
+  }
+
 
   private boolean validateInputs(){
     boolean inputsValidate = true;
@@ -443,7 +447,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
   private void createDialogPermisionCamera() {
     ReportsDialogGlobal.showDialogAccept(this, getString(R.string.msg_permissions_title),
             getString(R.string.msg_permissions_camera_body),
-            new DialogInterface.OnClickListener() {
+              new DialogInterface.OnClickListener() {
               @Override
               public void onClick(DialogInterface dialog, int which) {
                 /**

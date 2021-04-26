@@ -508,10 +508,15 @@
           android:id="@+id/container_modify"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:orientation="horizontal"
+          android:orientation="vertical"
           android:layout_below="@+id/container_code"
           android:visibility="gone"
           android:weightSum="1">
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+            android:orientation="horizontal">
           <Button
             android:id="@+id/btn_delete_accoount"
             android:layout_width="0dp"
@@ -536,6 +541,22 @@
             android:layout_marginBottom="10dp"
             android:text="@string/btn_modify"
             android:onClick="modifyProduct"/>
+          </LinearLayout>
+
+          <Button
+              android:id="@+id/btn_generate_order"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_weight=".5"
+              style="@style/AppTheme.ButtonGralBlack"
+              android:layout_marginEnd="20dp"
+              android:layout_marginStart="20dp"
+              android:layout_marginTop="20dp"
+              android:layout_marginBottom="10dp"
+              android:text="@string/btn_generate_order"
+              android:onClick="goNewOrder1"
+            />
+
         </LinearLayout>
         <Button
           android:id="@+id/btn_create_product"
