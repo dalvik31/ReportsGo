@@ -2,6 +2,7 @@ package com.epacheco.reports.view.saleView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+
 import androidx.databinding.DataBindingUtil;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
@@ -26,6 +27,7 @@ import com.epacheco.reports.view.productsView.productAddView.ProductAddViewClass
 import com.epacheco.reports.view.productsView.productsView.ProductViewClass;
 import com.epacheco.reports.databinding.ActivitySaleViewClass2Binding;
 import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,7 +100,7 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
     binding.btnNameClient.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_name_format), client.getName(), client.getLastNanme()));
     setObjClient(client);
     saleModelClass.getClientDetail(getObjClient().getId());
-    binding.txtSaleClientName.setVisibility(View.VISIBLE);
+
   }
 
   @Override
@@ -113,7 +115,6 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
     addView(product);
     binding.lblMsgTicketEmpty.setVisibility(View.GONE);
     binding.viewPagerProducts.setVisibility(View.VISIBLE);
-    binding.txtSaleProductName.setVisibility(View.VISIBLE);
     binding.btnNameProduct.setText(String.format(
         ReportsApplication.getMyApplicationContext().getString(R.string.txt_product_name_and_code_format),
         product.getProductName(), String.valueOf(product.getProductCode())));
@@ -141,8 +142,6 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
       binding.btnTotal.setText(String.format(getString(R.string.lbl_sale_total),String.valueOf(getTotalSale())));
       binding.lblMsgTicketEmpty.setVisibility(View.VISIBLE);
       binding.viewPagerProducts.setVisibility(View.GONE);
-      binding.txtSaleClientName.setVisibility(View.GONE);
-      binding.txtSaleProductName.setVisibility(View.GONE);
       binding.btnNameClient.setText(getString(R.string.lbl_sale_select_name));
       binding.btnNameProduct.setText(getString(R.string.lbl_sale_select_product));
     }
@@ -200,10 +199,16 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
         new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which) {
-            if(adapterViewPagerSale!=null && adapterViewPagerSale.getCount()>0){
+
+            if(adapterViewPagerSale!=null && adapterViewPagerSale.getCount() > 0){
               adapterViewPagerSale.removeView(binding.viewPagerProducts,binding.viewPagerProducts.getCurrentItem());
             }else{
               Toast.makeText(SaleViewClass.this,getString(R.string.msg_sale_empty_products),Toast.LENGTH_LONG).show();
+            }
+
+            if(adapterViewPagerSale.getCount() == 0){
+              binding.lblMsgTicketEmpty.setVisibility(View.VISIBLE);
+              binding.btnNameProduct.setText(R.string.lbl_sale_select_product);
             }
           }
         }
