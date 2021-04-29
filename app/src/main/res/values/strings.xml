@@ -30,7 +30,8 @@
     <string name="msg_zero_clients">No se encontraron clientes.</string>
     <string name="msg_zero_products">No se encontraron productos.</string>
     <string name="msg_camera_scan">Escanea el código QR o de barras.</string>
-    <string name="msg_cerrar_sesion">Decea cerrar la sesión </string>
+    <string name="Titulo_cerrar_sesion">Cerrar sesión </string>
+    <string name="msg_cerrar_sesion">¿Realmente desea cerrar sesion? </string>
 
 
 
