@@ -3,13 +3,6 @@ package com.epacheco.reports.view.clientView.clientAddView;
 import android.Manifest;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
-
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.FragmentActivity;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -18,11 +11,14 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentActivity;
 
 import com.epacheco.reports.Model.ClientModel.ClientAddModel.ClientAddModelClass;
 import com.epacheco.reports.Pojo.Client.Client;
@@ -260,7 +256,28 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
 
 
     txt_client_name.setText(getName(uri));
-    txt_client_phone.setText(getPhone(uri));
+    String telefono = getPhone(uri);
+    Log.e("phone","sin replace y sin substring : " +telefono);
+    Log.e("phone","sin replace y sin substring : " +telefono.length());
+
+    if (telefono != null){
+      telefono = telefono.replace(" ", "");
+
+      if(telefono.length() > 10 ){
+
+        Log.e("phone"," sin substring : " +telefono.length());
+        String phone = telefono.substring(telefono.length()-10);
+        Log.e("phone ", "valor : "+ phone);
+        txt_client_phone.setText(phone);
+
+      }else {
+      Log.e("phone"," sin substring : " +telefono.length());
+      Log.e("phone ", "valor : "+ telefono);
+      txt_client_phone.setText(telefono);
+      }
+    }
+
+
 
   }
 
