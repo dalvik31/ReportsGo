@@ -2,7 +2,7 @@ package com.epacheco.reports.Pojo.ClientDetail;
 
 
 import com.epacheco.reports.R;
-import com.epacheco.reports.Tools.ReportsApplication;
+import com.epacheco.reports.tools.ReportsApplication;
 
 public class ClientDetail {
 
@@ -99,7 +99,7 @@ public class ClientDetail {
     stringBuilder.append("** ");
     stringBuilder.append("Fecha del movimiento: ");
     stringBuilder.append("\n");
-    stringBuilder.append(com.epacheco.reports.Tools.Tools.getFormatDateHour(datePayment));
+    stringBuilder.append(com.epacheco.reports.tools.Tools.getFormatDateHour(datePayment));
     stringBuilder.append(" **");
     stringBuilder.append("\n");
     stringBuilder.append("Cantidad de pago: ");

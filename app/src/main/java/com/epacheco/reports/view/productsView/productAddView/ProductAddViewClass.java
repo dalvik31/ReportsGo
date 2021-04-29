@@ -28,20 +28,17 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentActivity;
 
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.RadioGroup;
 
 import com.bumptech.glide.Glide;
 import com.epacheco.reports.BuildConfig;
 import com.epacheco.reports.Model.ProductsModel.ProductsAddModel.ProductsAddModelClass;
 import com.epacheco.reports.Pojo.Product.Product;
 import com.epacheco.reports.R;
-import com.epacheco.reports.Tools.ReportsApplication;
-import com.epacheco.reports.Tools.ReportsDialogGlobal;
-import com.epacheco.reports.Tools.ReportsProgressDialog;
-import com.epacheco.reports.Tools.ScreenManager;
+import com.epacheco.reports.tools.ReportsApplication;
+import com.epacheco.reports.tools.ReportsDialogGlobal;
+import com.epacheco.reports.tools.ReportsProgressDialog;
+import com.epacheco.reports.tools.ScreenManager;
 import com.epacheco.reports.view.productsView.scanCode.ScannedBarcodeActivity;
 import com.epacheco.reports.databinding.ActivityProductAddViewClassBinding;
 import java.io.File;
@@ -146,10 +143,10 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
         showProgress(getString(R.string.msg_save_image));
         productsAddModelClass.uploadImage( ((BitmapDrawable) binding.imgProduct.getDrawable()).getBitmap());
       }else{
-        com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_error_empty_inputs));
+        com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_error_empty_inputs));
       }
     }else{
-      com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_error_empty_img_url));
+      com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_error_empty_img_url));
     }
   }
 
@@ -257,20 +254,20 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
   @Override
   public void errorUploadImage(String error) {
     hideProgress();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   @Override
   public void successAddProduct() {
     hideProgress();
     finish();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_success_product));
+    com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_success_product));
   }
 
   @Override
   public void errorAddProduct(String error) {
     hideProgress();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   @Override
@@ -318,7 +315,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
       }
 
     }else{
-      com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_name_empty));
+      com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_name_empty));
     }
   }
 
@@ -346,30 +343,30 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
   public void errorGetProduct(String error) {
     hideProgress();
     finish();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   @Override
   public void successModifyProduct() {
     hideProgress();
     finish();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_product_modify_success));
+    com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_product_modify_success));
   }
 
   @Override
   public void errorModifyProduct(String error) {
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   @Override
   public void successRemoveProduct() {
     finish();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_product_remove_success));
+    com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_product_remove_success));
   }
 
   @Override
   public void errorRemoveProduct(String error) {
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_product_modify_success));
+    com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_product_modify_success));
   }
 
   /**METODOS PARA ABRIR LA CAMARA Y LA GALERIA CON MENSAJES DE EXPLICACION*/
@@ -407,7 +404,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
    *
    * */
   private void checkPermissionsCamera() {
-    if(com.epacheco.reports.Tools.Tools.checkPermissionsCamera(this)){
+    if(com.epacheco.reports.tools.Tools.checkPermissionsCamera(this)){
       if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
         createDialogPermisionCamera(); /**Si el usuario no ha aceptado los permisos, creamos un dialogo explicandole por que necesitamos utilizar la camara*/
       }else{
@@ -428,7 +425,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
    *
    * */
   private void checkPermissionsGallery() {
-    if (com.epacheco.reports.Tools.Tools.checkPermissionsGallery(this)) {
+    if (com.epacheco.reports.tools.Tools.checkPermissionsGallery(this)) {
       if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
         createDialogPermisionGallery();
       }else{
