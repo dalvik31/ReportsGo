@@ -176,6 +176,8 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
     myProduct.setInStock(productStock);
     myProduct.setUrlImage(getImgUrlUpload());
     myProduct.setColor(orderColor);
+
+
     myProduct.setTalla(orderSize);
     selectTypeProduct(myProduct);
     myProduct.setTipo_de_empaque(binding.EtxtTipoDeEmpaque.getText().toString());
