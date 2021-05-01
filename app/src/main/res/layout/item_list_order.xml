@@ -25,6 +25,16 @@
     android:layout_height="wrap_content"
     android:layout_toStartOf="@+id/container_img_buttons">
 
+    <TextView
+        android:id="@+id/txttitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="titulo"
+        android:gravity="center|start"
+        style="@style/TextView_Title_Black"
+        android:padding="10dp"
+        android:textSize="25sp"
+        />
 
     <TextView
       android:id="@+id/lbl_order_name"
@@ -35,6 +45,7 @@
       style="@style/TextView_Title_Black"
       android:padding="10dp"
       android:textSize="25sp"
+        android:layout_below="@+id/txttitle"
       android:layout_toStartOf="@+id/ImageView_delete_item"/>
     <ImageView
       android:id="@+id/ImageView_delete_item"

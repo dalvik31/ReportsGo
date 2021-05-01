@@ -1,13 +1,19 @@
 package com.epacheco.reports.view.orderView;
 
 import android.content.DialogInterface;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentActivity;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.epacheco.reports.Model.OrderModel.OrderModelClass;
@@ -150,6 +156,9 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
     Calendar currentDate = Calendar.getInstance();
     String dateFormat = getFormatter().format(currentDate.getTime());
     OrderList orderList= new OrderList();
+
+
+
     orderList.setNameOrder(dateFormat);
     orderList.setDateOrder(String.valueOf(System.currentTimeMillis()));
     orderModelClass.createOrder(orderList);
@@ -157,7 +166,48 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
 
 
 
-  public SimpleDateFormat getFormatter() {
+  public AlertDialog createLoginDialogo() {
+    AlertDialog.Builder builder = new AlertDialog.Builder(getMyActivity());
+
+    LayoutInflater inflater = getMyActivity().getLayoutInflater();
+
+    View v = inflater.inflate(R.layout.layout_dialog_agregar_titulo_pedido, null);
+
+    builder.setView(v);
+
+    final EditText EtxtNameOrder = v.findViewById(R.id.EtxtNameOrder);
+    Button acept = (Button) v.findViewById(R.id.button_acept);
+    Button cancel = (Button) v.findViewById(R.id.button_cancel);
+
+    acept.setOnClickListener(
+            new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                if (EtxtNameOrder.getText().toString().isEmpty()){
+
+                }
+              }
+            }
+    );
+
+    cancel.setOnClickListener(
+            new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+
+              }
+            }
+
+    );
+
+    return builder.create();
+  }
+
+
+
+
+
+    public SimpleDateFormat getFormatter() {
     if(formatter==null){
       formatter = new SimpleDateFormat("EEEE dd / MMMM / yyyy", Locale.getDefault());
     }
