@@ -90,7 +90,16 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
       showProgress("Buscando producto");
       productsAddModelClass.getProduct(productId);
       binding.btnModifyProduct.setVisibility(View.VISIBLE);
-
+      if(binding.txtOrderColor.getText().toString().isEmpty() && binding.txtOrderSize.getText().toString().isEmpty() && binding.txtOrderGendero.getText().toString().isEmpty()){
+        binding.txtOrderColor.setHint("Cadena vacia");
+        binding.txtOrderSize.setHint("Cadena vacia");
+        binding.txtOrderGendero.setHint("Cadena vacia");
+      }
+      if ( binding.EtOtroProducto.getText().toString().isEmpty()){
+      binding.EtOtroProducto.setHint("Cadena vacia");
+      }else if (binding.EtxtTipoDeEmpaque.getText().toString().isEmpty()){
+        binding.EtxtTipoDeEmpaque.setHint("Cadena vacia");
+      }
     }else{
       uploadImageAgain = true;
 
@@ -130,6 +139,10 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
         binding.cardVOtro.setVisibility(buttonView.isChecked() ? View.VISIBLE : View.GONE);
       }
     });
+
+
+
+
   }
 
   private void inicializateElements() {
