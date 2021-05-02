@@ -74,7 +74,7 @@ public class OrderControllerClass implements OrderControllerInterface{
 
       final DatabaseReference usersRef = myRef.child(mAuth.getUid()).child(Constants.CLIENT_ORDERS_TABLE_FIREBASE);
 
-      usersRef.orderByChild("nameOrder").equalTo(orderList.getNameOrder()).addListenerForSingleValueEvent(new ValueEventListener() {
+      usersRef.orderByChild("msjOrder").equalTo(orderList.getMsjOrder()).addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot snapshot) {
 

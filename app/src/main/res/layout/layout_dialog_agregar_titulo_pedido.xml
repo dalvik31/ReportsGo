@@ -23,29 +23,7 @@
         android:layout_margin="10dp"
         android:hint="Ingresa un nombre para tu lista de pedidos"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center">
 
-        <Button
-            android:id="@+id/button_acept"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Aceptar "
-            android:layout_margin="10dp"
-            android:background="#F1BFBF"/>
-
-        <Button
-            android:id="@+id/button_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cancelar"
-            android:layout_margin="10dp"
-            android:background="#F1BFBF"/>
-
-    </LinearLayout>
 
 
 </LinearLayout>

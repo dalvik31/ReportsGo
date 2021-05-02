@@ -33,7 +33,8 @@ public class AdapterOrders extends RecyclerView.Adapter<AdapterOrders.HolderOrde
   @Override
   public void onBindViewHolder(@NonNull HolderOrder holderOrder, int i) {
     final OrderList myOrder = orderList.get(i);
-    holderOrder.txtNameOrder.setText(myOrder.getNameOrder());
+    holderOrder.txttitle.setText(myOrder.getNameOrder());
+    holderOrder.txtNameOrder.setText(myOrder.getMsjOrder());
     holderOrder.imageViewRemoveItem.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -61,11 +62,12 @@ public class AdapterOrders extends RecyclerView.Adapter<AdapterOrders.HolderOrde
   }
 
   class HolderOrder extends RecyclerView.ViewHolder{
-    private TextView txtNameOrder;
+    private TextView txtNameOrder , txttitle;
     private ImageView imageViewRemoveItem;
     private CardView containerOrderItem;
     HolderOrder(@NonNull View itemView) {
       super(itemView);
+      txttitle = itemView.findViewById(R.id.txttitle);
       txtNameOrder = itemView.findViewById(R.id.lbl_order_name);
       imageViewRemoveItem= itemView.findViewById(R.id.ImageView_delete_item);
       containerOrderItem= itemView.findViewById(R.id.cardView_container_item_order);

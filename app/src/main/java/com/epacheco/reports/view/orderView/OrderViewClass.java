@@ -1,5 +1,6 @@
 package com.epacheco.reports.view.orderView;
 
+import android.content.Context;
 import android.content.DialogInterface;
 
 import androidx.appcompat.app.AlertDialog;
@@ -8,14 +9,19 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import android.os.IBinder;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.epacheco.reports.Controller.OrderController.OrderControllerClass;
 import com.epacheco.reports.Model.OrderModel.OrderModelClass;
 import com.epacheco.reports.Pojo.Order.OrderList;
 import com.epacheco.reports.R;
@@ -153,54 +159,53 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
   }
 
   public void createListOrder(View view){
-    Calendar currentDate = Calendar.getInstance();
-    String dateFormat = getFormatter().format(currentDate.getTime());
-    OrderList orderList= new OrderList();
-
-
-
-    orderList.setNameOrder(dateFormat);
-    orderList.setDateOrder(String.valueOf(System.currentTimeMillis()));
-    orderModelClass.createOrder(orderList);
+    createLoginDialogo();
   }
 
 
 
-  public AlertDialog createLoginDialogo() {
-    AlertDialog.Builder builder = new AlertDialog.Builder(getMyActivity());
+ public AlertDialog createLoginDialogo() {
 
-    LayoutInflater inflater = getMyActivity().getLayoutInflater();
+     AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    LayoutInflater inflater = this.getLayoutInflater();
 
     View v = inflater.inflate(R.layout.layout_dialog_agregar_titulo_pedido, null);
 
     builder.setView(v);
 
     final EditText EtxtNameOrder = v.findViewById(R.id.EtxtNameOrder);
-    Button acept = (Button) v.findViewById(R.id.button_acept);
-    Button cancel = (Button) v.findViewById(R.id.button_cancel);
 
-    acept.setOnClickListener(
-            new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                if (EtxtNameOrder.getText().toString().isEmpty()){
+    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            if (EtxtNameOrder.getText().toString().isEmpty()){
+                EtxtNameOrder.setError(getString(R.string.errorTittleorder));
+                String error = getString((R.string.errorTittleorder));
+                Toast.makeText(OrderViewClass.this,error,Toast.LENGTH_LONG).show();
+                createLoginDialogo();
 
-                }
-              }
+            }else {
+                Calendar currentDate = Calendar.getInstance();
+                String dateFormat = getFormatter().format(currentDate.getTime());
+                OrderList orderList= new OrderList();
+                orderList.setNameOrder(EtxtNameOrder.getText().toString());
+                orderList.setMsjOrder(dateFormat);
+                orderList.setDateOrder(String.valueOf(System.currentTimeMillis()));
+                orderModelClass.createOrder(orderList);
+                IBinder token = EtxtNameOrder.getWindowToken(); ( ( InputMethodManager ) getSystemService( Context.INPUT_METHOD_SERVICE ) ).hideSoftInputFromWindow( token, 0 );
+
             }
-    );
+        }
+    });
+    builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            IBinder token = EtxtNameOrder.getWindowToken(); ( ( InputMethodManager ) getSystemService( Context.INPUT_METHOD_SERVICE ) ).hideSoftInputFromWindow( token, 0 );
+        }
+    });
+    return builder.show();
 
-    cancel.setOnClickListener(
-            new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
 
-              }
-            }
-
-    );
-
-    return builder.create();
   }
 
 
