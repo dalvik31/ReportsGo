@@ -8,6 +8,7 @@ public class OrderList {
   private String dateOrder;
   private String nameOrder;
   private String msjOrder;
+  private int imageStationbackground;
 
 
   private HashMap<String,Object> orderLists;
@@ -35,6 +36,15 @@ public class OrderList {
   public void setMsjOrder(String msjOrder) {
     this.msjOrder = msjOrder;
   }
+
+  public int getImageStationbackground() {
+    return imageStationbackground;
+  }
+
+  public void setImageStationbackground(int imageStationbackground) {
+    this.imageStationbackground = imageStationbackground;
+  }
+
   public HashMap<String, Object> getOrderLists() {
     return orderLists;
   }
