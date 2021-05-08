@@ -1,16 +1,23 @@
 package com.epacheco.reports.view.orderView.orderDetailView;
 
 import android.content.DialogInterface;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentActivity;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.epacheco.reports.Model.OrderModel.OrderDetailModel.OrderDetailModelClass;
+import com.epacheco.reports.Model.OrderModel.OrderModelClass;
 import com.epacheco.reports.Pojo.OrderDetail.OrderDetail;
 import com.epacheco.reports.R;
 import com.epacheco.reports.Tools.ReportsApplication;
@@ -19,9 +26,11 @@ import com.epacheco.reports.Tools.ReportsProgressDialog;
 import com.epacheco.reports.Tools.ScreenManager;
 import com.epacheco.reports.databinding.ActivityOrderDetailViewBinding;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class OrderDetailView extends AppCompatActivity implements OrderDetailInterface, onItemOrderDetailClic,onItemOrderBuy{
+public class OrderDetailView extends AppCompatActivity implements AdapterOrdersDetail.OnClicListener,OrderDetailInterface, onItemOrderDetailClic,onItemOrderBuy {
 
   private final String TAG = OrderDetailView.class.getSimpleName();
   public static final String ORDER_ID = "orderId";
@@ -33,6 +42,7 @@ public class OrderDetailView extends AppCompatActivity implements OrderDetailInt
 
 
   private ActivityOrderDetailViewBinding binding;
+  private OrderModelClass orderModelClass;
   private FirebaseAuth mAuth;
   private String listOrderId;
   private ReportsProgressDialog progressbar;
@@ -40,11 +50,13 @@ public class OrderDetailView extends AppCompatActivity implements OrderDetailInt
   private String clientId;
   private String productId;
   private Bundle extras;
+  private ListView List_move_order;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     binding = DataBindingUtil.setContentView(OrderDetailView.this,R.layout.activity_order_detail_view);
+    List_move_order = findViewById(R.id.List_move_order);
     initElements();
   }
 
@@ -91,7 +103,7 @@ public class OrderDetailView extends AppCompatActivity implements OrderDetailInt
       binding.recyclerListOrderElelments.setVisibility(View.VISIBLE);
       binding.recyclerListOrderElelments.setHasFixedSize(true);
       binding.recyclerListOrderElelments.setLayoutManager(new LinearLayoutManager(this));
-      AdapterOrdersDetail adapterOrders = new AdapterOrdersDetail(orderDetailList);
+      AdapterOrdersDetail adapterOrders = new AdapterOrdersDetail(orderDetailList,this);
       adapterOrders.setOnItemOrderDetailClic(this);
       adapterOrders.setOnItemOrderBuy(this);
       binding.recyclerListOrderElelments.setAdapter(adapterOrders);
@@ -101,6 +113,8 @@ public class OrderDetailView extends AppCompatActivity implements OrderDetailInt
     }
     checkIdClient();
   }
+
+
 
   @Override
   public void errorGetListDetail(String error) {
@@ -183,4 +197,31 @@ public class OrderDetailView extends AppCompatActivity implements OrderDetailInt
       Log.e(TAG,"extra nulo");
     }
   }
+
+  @Override
+  public void onItemClick() {
+
+    createMoveDialogo();
+
+  }
+
+  public AlertDialog createMoveDialogo() {
+
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+     LayoutInflater inflater = this.getLayoutInflater();
+    View v = inflater.inflate(R.layout.layout_list_move_order, null);
+    builder.setView(v);
+    builder.setTitle("Mover Pedido");
+    builder.setMessage("Selecciona la lista a la cual quieres mover el pedido.");
+    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+      @Override
+      public void onClick(DialogInterface dialog, int which) {
+
+
+
+      }
+    });
+    return builder.show();
+  }
+
 }
