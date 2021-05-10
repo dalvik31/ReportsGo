@@ -1,239 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout  xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <RelativeLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  tools:context=".view.clientView.clienDetailView.ClientDetailViewClass">
-    <ScrollView
-     android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_alignParentTop="true"
-      android:layout_above="@+id/btn_detail_payments">
-      <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-  <com.google.android.material.appbar.AppBarLayout
-    android:id="@+id/appBarLayout"
-    android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize">
-    <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
-
-      <Button
-        android:id="@+id/btn_add_client"
-        style="@style/AppTheme.ButtonGralTransparentInverse"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:text="@string/btn_detail"
-        android:onClick="goDetailPayments"/>
-
-
-      <androidx.appcompat.widget.Toolbar
-        android:id="@+id/app_bar"
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toStartOf="@+id/btn_add_client"
-        android:theme="@style/AppThemeSearchView"
-        app:title="@string/lbl_detail_client">
-      </androidx.appcompat.widget.Toolbar>
+        tools:context=".view.clientView.clienDetailView.ClientDetailViewClass">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/btn_detail_payments"
+            android:layout_alignParentTop="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/appBarLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <Button
+                            android:id="@+id/btn_add_client"
+                            style="@style/AppTheme.ButtonGralTransparentInverse"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentEnd="true"
+                            android:onClick="goDetailPayments"
+                            android:text="@string/btn_detail" />
+
+
+                        <androidx.appcompat.widget.Toolbar
+                            android:id="@+id/app_bar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toStartOf="@+id/btn_add_client"
+                            android:theme="@style/AppThemeSearchView"
+                            app:title="@string/lbl_detail_client"/>
+                    </RelativeLayout>
+                </com.google.android.material.appbar.AppBarLayout>
+
+              <include
+                  android:id="@+id/layoutClientInfo"
+                  layout="@layout/custom_client_info"/>
+
+                <LinearLayout
+                    android:id="@+id/container_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layoutClientInfo"
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:weightSum="1">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5">
+
+                        <TextView
+                            android:id="@+id/lbl_client_amount"
+                            style="@style/TextView_Text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/lbl_client_amount" />
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/txt_client_amount"
+                            style="@style/Edittext_custom_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/lbl_client_amount"
+                            android:hint="@string/lbl_client_amount_hint"
+                            android:inputType="numberDecimal" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5">
+
+                        <TextView
+                            android:id="@+id/lbl_client_concepto"
+                            style="@style/TextView_Text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/lbl_client_concept" />
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/txt_client_concept"
+                            style="@style/Edittext_custom_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/lbl_client_concepto"
+                            android:hint="@string/lbl_client_concept_hint"
+                            android:inputType="textPersonName" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/lbl_client_limit"
+                    style="@style/TextView_Text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/container_amount"
+                    android:gravity="center"
+                    android:text="@string/txt_client_limit_format" />
+
+                <Button
+                    android:id="@+id/btn_abonar"
+                    style="@style/AppTheme.ButtonGralGreen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lbl_client_limit"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:onClick="addClientDetailAbono"
+                    android:text="@string/btn_abonar" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btn_abonar"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <Button
+                        android:id="@+id/btn_generate_order"
+                        style="@style/AppTheme.ButtonGralBlack"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight=".5"
+                        android:onClick="goNewOrder"
+                        android:text="@string/btn_generate_order" />
+
+                    <Button
+                        android:id="@+id/btn_generate_ticket"
+                        style="@style/AppTheme.ButtonGralBlack"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight=".5"
+                        android:onClick="goSaleActivity"
+                        android:text="@string/btn_generate_ticket" />
+
+
+                </LinearLayout>
+            </RelativeLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/btn_detail_payments"
+            style="@style/AppTheme.ButtonGralBlack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="0dp"
+            android:onClick="registerWithEmailAndPassword"
+            android:text="@string/btn_detail_payments"
+            android:visibility="gone" />
+
+
     </RelativeLayout>
-  </com.google.android.material.appbar.AppBarLayout>
-
-  <TextView
-    android:id="@+id/lbl_date_name"
-    style="@style/TextView_Text"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="@string/lbl_date_client"
-    android:textColor="@color/colorWhite"
-    android:layout_below="@+id/appBarLayout"
-    android:gravity="center"
-    android:background="@android:color/holo_red_light"/>
-
-  <LinearLayout
-    android:id="@+id/container_name"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:layout_below="@+id/lbl_date_name"
-    android:orientation="horizontal"
-    android:weightSum="1">
-    <RelativeLayout
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_weight=".5">
-      <TextView
-        android:id="@+id/lbl_client_name"
-        style="@style/TextView_Text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/lbl_client_name"
-        android:padding="10dp"/>
-      <TextView
-        android:id="@+id/lbl_client_detail"
-        style="@style/TextView_Text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/lbl_detail_client"
-        android:layout_below="@+id/lbl_client_name"
-        android:padding="10dp"/>
-    </RelativeLayout>
-    <RelativeLayout
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_weight=".5">
-      <TextView
-        android:id="@+id/lbl_client_lastname"
-        style="@style/TextView_Text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="end"
-        android:padding="10dp"
-        android:text="@string/lbl_amount_client"/>
-
-      <TextView
-        android:id="@+id/lbl_client_account_amount"
-        style="@style/TextView_Title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:layout_below="@+id/lbl_client_lastname"
-        android:padding="10dp"
-        android:gravity="end|center"
-        android:textStyle="bold"/>
-    </RelativeLayout>
-
-  </LinearLayout>
-
-    <LinearLayout
-      android:id="@+id/container_amount"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_margin="5dp"
-      android:layout_below="@+id/container_name"
-      android:orientation="horizontal"
-      android:weightSum="1"
-      android:padding="10dp">
-      <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight=".5">
-        <TextView
-          android:id="@+id/lbl_client_amount"
-          style="@style/TextView_Text"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="@string/lbl_client_amount"/>
-        <androidx.appcompat.widget.AppCompatEditText
-          android:id="@+id/txt_client_amount"
-          style="@style/Edittext_custom_text"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_below="@+id/lbl_client_amount"
-          android:hint="@string/lbl_client_amount_hint"
-          android:inputType="numberDecimal"/>
-      </RelativeLayout>
-      <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight=".5">
-        <TextView
-          android:id="@+id/lbl_client_concepto"
-          style="@style/TextView_Text"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="@string/lbl_client_concept"/>
-        <androidx.appcompat.widget.AppCompatEditText
-          android:id="@+id/txt_client_concept"
-          style="@style/Edittext_custom_text"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_below="@+id/lbl_client_concepto"
-          android:hint="@string/lbl_client_concept_hint"
-          android:inputType="textPersonName"/>
-      </RelativeLayout>
-    </LinearLayout>
-        <TextView
-          android:id="@+id/lbl_client_limit"
-          style="@style/TextView_Text"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="@string/txt_client_limit_format"
-          android:layout_below="@+id/container_amount"
-          android:gravity="center"/>
-
-      <Button
-      android:id="@+id/btn_abonar"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-        android:layout_below="@+id/lbl_client_limit"
-      style="@style/AppTheme.ButtonGralGreen"
-      android:layout_marginEnd="20dp"
-      android:layout_marginStart="20dp"
-      android:layout_marginTop="20dp"
-      android:layout_marginBottom="10dp"
-      android:text="@string/btn_abonar"
-      android:onClick="addClientDetailAbono"/>
-
-
-
-
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      android:layout_below="@+id/btn_abonar"
-      android:weightSum="1">
-      <Button
-        android:id="@+id/btn_generate_order"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight=".5"
-        style="@style/AppTheme.ButtonGralBlack"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
-        android:text="@string/btn_generate_order"
-        android:onClick="goNewOrder"/>
-
-      <Button
-        android:id="@+id/btn_generate_ticket"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight=".5"
-        style="@style/AppTheme.ButtonGralBlack"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
-        android:text="@string/btn_generate_ticket"
-        android:onClick="goSaleActivity"/>
-
-
-    </LinearLayout>
-      </RelativeLayout>
-    </ScrollView>
-    <Button
-      android:id="@+id/btn_detail_payments"
-      style="@style/AppTheme.ButtonGralBlack"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="20dp"
-      android:layout_marginBottom="0dp"
-      android:layout_marginStart="20dp"
-      android:layout_marginEnd="20dp"
-      android:visibility="gone"
-      android:layout_alignParentBottom="true"
-      android:onClick="registerWithEmailAndPassword"
-      android:text="@string/btn_detail_payments"/>
-
-
-  </RelativeLayout>
 
 </layout>

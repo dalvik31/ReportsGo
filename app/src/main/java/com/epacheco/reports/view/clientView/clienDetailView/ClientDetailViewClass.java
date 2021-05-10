@@ -61,19 +61,19 @@ public class ClientDetailViewClass extends AppCompatActivity implements ClientDe
   public void successGetClientDetail(ClientDetail clientDetail) {
     clientDebt = String.valueOf(clientDetail.getDebt());
     setClientDetail(clientDetail);
-    binding.lblClientAccountAmount.setText(String.format(getString(R.string.txt_client_amount_format),clientDebt));
+    binding.layoutClientInfo.lblClientAccountAmount.setText(String.format(getString(R.string.txt_client_amount_format),clientDebt));
   }
 
   @Override
   public void errorGetClientDetail(String error) {
-    binding.lblClientAccountAmount.setText(R.string.txt_client_amount_empty);
+    binding.layoutClientInfo.lblClientAccountAmount.setText(R.string.txt_client_amount_empty);
   }
 
   @Override
   public void successGetClient(Client client) {
-    binding.lblClientName.setText(String.format(getString(R.string.txt_client_name_format),client.getName(),client.getLastNanme()));
-    binding.lblClientDetail.setText(client.getDetail());
-    binding.lblDateName.setText(String.format(getString(R.string.txt_client_date_format), com.epacheco.reports.Tools.Tools.getFormatDate(client.getDateClient())));
+    binding.layoutClientInfo.lblClientName.setText(String.format(getString(R.string.txt_client_name_format),client.getName(),client.getLastNanme()));
+    binding.layoutClientInfo.lblClientDetail.setText(client.getDetail());
+    binding.layoutClientInfo.lblDateName.setText(String.format(getString(R.string.txt_client_date_format), com.epacheco.reports.Tools.Tools.getFormatDate(client.getDateClient())));
     binding.lblClientLimit.setText(String.format(getString(R.string.txt_client_limit_format),String.valueOf(client.getLimit())));
     setClientInformation(client);
 
