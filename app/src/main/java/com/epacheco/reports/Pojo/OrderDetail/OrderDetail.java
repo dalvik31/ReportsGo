@@ -80,10 +80,6 @@ public class OrderDetail {
     this.orderClient = orderClient;
   }
 
-  public Product getOrderProduct(){
-    return orderProduct;
-  }
-
   public void setOrderProduct(Product orderProduct){
     this.orderProduct = orderProduct;
 

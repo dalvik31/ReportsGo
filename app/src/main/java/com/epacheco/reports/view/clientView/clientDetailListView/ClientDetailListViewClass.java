@@ -87,10 +87,11 @@ public class ClientDetailListViewClass extends AppCompatActivity implements Clie
     setClientSelected(client);
     binding.progressDownloadclientDetailPayments.setVisibility(View.VISIBLE);
     clientDetailListModelClass.getClientDetailList(client.getId());
-    binding.lblClientAccountAmount.setText(String.format(getString(R.string.txt_client_amount_format),String.valueOf(clientDebt)));
+    binding.layoutClientInfo.lblDateName.setText(String.format(getString(R.string.txt_client_date_format), com.epacheco.reports.Tools.Tools.getFormatDate(client.getDateClient())));
+    binding.layoutClientInfo.lblClientAccountAmount.setText(String.format(getString(R.string.txt_client_amount_format),String.valueOf(clientDebt)));
 
-    binding.lblClientName.setText(String.format(getString(R.string.txt_client_name_format),client.getName(),client.getLastNanme()));
-    binding.lblClientDetail.setText(client.getDetail());
+    binding.layoutClientInfo.lblClientName.setText(String.format(getString(R.string.txt_client_name_format),client.getName(),client.getLastNanme()));
+    binding.layoutClientInfo.lblClientDetail.setText(client.getDetail());
 
   }
 
@@ -125,5 +126,8 @@ public class ClientDetailListViewClass extends AppCompatActivity implements Clie
   private void hideProgress(){
     progressbar.hideProgress();
     binding.progressDownloadclientDetailPayments.setVisibility(View.GONE);
+  }
+  public void goProfileActivity(View v) {
+    ScreenManager.goProfileActivity(this);
   }
 }
