@@ -11,8 +11,7 @@ import com.epacheco.reports.Model.ClientModel.ClientDetailListModel.ClientDetail
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.ClientDetail.ClientDetail;
 import com.epacheco.reports.R;
-import com.epacheco.reports.Tools.ReportsProgressDialog;
-import com.epacheco.reports.Tools.ScreenManager;
+import com.epacheco.reports.tools.ReportsProgressDialog;
 import com.epacheco.reports.databinding.ActivityClientDetailListViewBinding;
 import java.util.List;
 
@@ -69,7 +68,7 @@ public class ClientDetailListViewClass extends AppCompatActivity implements Clie
       adapterClients.notifyDataSetChanged();
     }else{
       finish();
-      com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_zero_elements));
+      com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_zero_elements));
     }
    }
 
@@ -100,7 +99,7 @@ public class ClientDetailListViewClass extends AppCompatActivity implements Clie
   public void errorGetClient(String error) {
     hideProgress();
     finish();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_error_sistema));
+    com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_error_sistema));
   }
 
   public void shareListClienDetailPayments(View v){

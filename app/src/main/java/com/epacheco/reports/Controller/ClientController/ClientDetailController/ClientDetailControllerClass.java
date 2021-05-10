@@ -5,7 +5,7 @@ import androidx.annotation.Nullable;
 import com.epacheco.reports.Model.ClientModel.ClientDetailModel.ClientDetailModelIterface;
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.ClientDetail.ClientDetail;
-import com.epacheco.reports.Tools.Constants;
+import com.epacheco.reports.tools.Constants;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

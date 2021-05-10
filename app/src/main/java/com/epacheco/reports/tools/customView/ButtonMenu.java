@@ -1,20 +1,21 @@
-package com.epacheco.reports.Tools.CustomView;
+package com.epacheco.reports.tools.customView;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.epacheco.reports.R;
+import com.epacheco.reports.databinding.CustomBotonMenuBinding;
 
 public class ButtonMenu extends RelativeLayout {
-  private View rootView;
-  private ImageView imgButton;
-  private TextView lblTitle;
-  private TextView lblSubTitle;
+  private CustomBotonMenuBinding binding;
 
   public ButtonMenu(Context context) {
     super(context);
@@ -34,14 +35,11 @@ public class ButtonMenu extends RelativeLayout {
 
   private void init(Context context,@Nullable AttributeSet set){
     if(set==null) return;
-    rootView = inflate(context, R.layout.custom_boton_menu, this);
+    binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.custom_boton_menu, this, true);
     TypedArray ta = getContext().obtainStyledAttributes(set, R.styleable.ButtonMenu);
-    imgButton = rootView.findViewById(R.id.img_product);
-    lblTitle = rootView.findViewById(R.id.lbl_title_action);
-    lblSubTitle = rootView.findViewById(R.id.lbl_subtitle_action);
-    imgButton.setImageResource(ta.getResourceId(R.styleable.ButtonMenu_image ,0));
-    lblTitle.setText(ta.getText(R.styleable.ButtonMenu_title));
-    lblSubTitle.setText(ta.getText(R.styleable.ButtonMenu_subTitle));
+    binding.imgProduct.setImageResource(ta.getResourceId(R.styleable.ButtonMenu_image ,0));
+    binding.lblTitleAction.setText(ta.getText(R.styleable.ButtonMenu_title));
+    binding.lblSubtitleAction.setText(ta.getText(R.styleable.ButtonMenu_subTitle));
     ta.recycle();
   }
 

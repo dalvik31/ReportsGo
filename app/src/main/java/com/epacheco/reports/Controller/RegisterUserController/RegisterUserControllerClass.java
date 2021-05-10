@@ -5,7 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import com.epacheco.reports.Model.RegisterUserModel.RegisterUserModelClass;
 import com.epacheco.reports.R;
-import com.epacheco.reports.Tools.ReportsApplication;
+import com.epacheco.reports.tools.ReportsApplication;
 import com.facebook.AccessToken;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;

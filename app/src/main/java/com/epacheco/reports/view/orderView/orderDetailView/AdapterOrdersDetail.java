@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.epacheco.reports.Pojo.OrderDetail.OrderDetail;
 import com.epacheco.reports.R;
-import com.epacheco.reports.Tools.ReportsApplication;
+import com.epacheco.reports.tools.ReportsApplication;
 import java.util.List;
 
 public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetail.HolderOrder>{

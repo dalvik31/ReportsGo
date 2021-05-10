@@ -17,10 +17,10 @@ import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.ClientDetail.ClientDetail;
 import com.epacheco.reports.Pojo.Product.Product;
 import com.epacheco.reports.R;
-import com.epacheco.reports.Tools.ReportsApplication;
-import com.epacheco.reports.Tools.ReportsDialogGlobal;
-import com.epacheco.reports.Tools.ReportsProgressDialog;
-import com.epacheco.reports.Tools.ScreenManager;
+import com.epacheco.reports.tools.ReportsApplication;
+import com.epacheco.reports.tools.ReportsDialogGlobal;
+import com.epacheco.reports.tools.ReportsProgressDialog;
+import com.epacheco.reports.tools.ScreenManager;
 import com.epacheco.reports.view.clientView.clientAddView.ClientAddViewClass;
 import com.epacheco.reports.view.clientView.clientView.ClientsViewClass;
 import com.epacheco.reports.view.productsView.productAddView.ProductAddViewClass;
@@ -69,7 +69,7 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
 
   public void addView(Product product) {
    if(adapterViewPagerSale!=null && adapterViewPagerSale.getProductList()!=null && adapterViewPagerSale.getProductList().size()>0 && adapterViewPagerSale.getProductList().contains(product)){
-      com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.lbl_stock_product_exist));
+      com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.lbl_stock_product_exist));
       return;
     }
     LayoutInflater inflater = getLayoutInflater();
@@ -106,7 +106,7 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
   @Override
   public void errrorGetClient(String error) {
     hideProgress();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   @Override
@@ -128,7 +128,7 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
   @Override
   public void errorGetProduct(String error) {
     hideProgress();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   @Override
@@ -137,7 +137,7 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
     if(adapterViewPagerSale!=null){
       adapterViewPagerSale.removeAllView(binding.viewPagerProducts);
 
-      com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_client_detail_created));
+      com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_client_detail_created));
       setTotalSale(0);
       binding.btnTotal.setText(String.format(getString(R.string.lbl_sale_total),String.valueOf(getTotalSale())));
       binding.lblMsgTicketEmpty.setVisibility(View.VISIBLE);
@@ -152,7 +152,7 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
   @Override
   public void errorAddClientDetail(String error) {
     hideProgress();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   @Override
@@ -165,7 +165,7 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
   public void errorGetClientDetail(String error) {
     hideProgress();
     if(error!=null && !error.isEmpty()){
-      com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+      com.epacheco.reports.tools.Tools.showToasMessage(this,error);
      }else{
       binding.btnNameClient.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_product_name_and_debt_format), getObjClient().getName(), getObjClient().getLastNanme(),String.valueOf(0)));
 
