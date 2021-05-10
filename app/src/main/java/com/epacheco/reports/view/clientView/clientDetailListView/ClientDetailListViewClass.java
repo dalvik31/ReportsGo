@@ -13,6 +13,8 @@ import com.epacheco.reports.Pojo.ClientDetail.ClientDetail;
 import com.epacheco.reports.R;
 import com.epacheco.reports.tools.ReportsProgressDialog;
 import com.epacheco.reports.databinding.ActivityClientDetailListViewBinding;
+import com.epacheco.reports.tools.ScreenManager;
+
 import java.util.List;
 
 public class ClientDetailListViewClass extends AppCompatActivity implements ClientDetailListViewInterface {
@@ -87,7 +89,7 @@ public class ClientDetailListViewClass extends AppCompatActivity implements Clie
     setClientSelected(client);
     binding.progressDownloadclientDetailPayments.setVisibility(View.VISIBLE);
     clientDetailListModelClass.getClientDetailList(client.getId());
-    binding.layoutClientInfo.lblDateName.setText(String.format(getString(R.string.txt_client_date_format), com.epacheco.reports.Tools.Tools.getFormatDate(client.getDateClient())));
+    binding.layoutClientInfo.lblDateName.setText(String.format(getString(R.string.txt_client_date_format), com.epacheco.reports.tools.Tools.getFormatDate(client.getDateClient())));
     binding.layoutClientInfo.lblClientAccountAmount.setText(String.format(getString(R.string.txt_client_amount_format),String.valueOf(clientDebt)));
 
     binding.layoutClientInfo.lblClientName.setText(String.format(getString(R.string.txt_client_name_format),client.getName(),client.getLastNanme()));
