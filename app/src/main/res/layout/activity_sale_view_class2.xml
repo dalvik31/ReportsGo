@@ -119,18 +119,7 @@
               android:layout_height="match_parent"
               android:gravity="center"
               android:orientation="vertical">
-              <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/txt_sale_client_name"
-                style="@style/TextView_Text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="start"
-                android:layout_gravity="center"
-                android:text="@string/lbl_change_client"
-                android:visibility="gone"
-                android:onClick="goClientsActivity"
-                android:textColor="@android:color/holo_green_dark"
-                android:inputType="number"/>
+
               <Button
                 android:id="@+id/btn_name_client"
                 style="@style/AppTheme.ButtonGralTransparent"
@@ -204,17 +193,6 @@
               android:layout_height="match_parent"
               android:gravity="center"
               android:orientation="vertical">
-              <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/txt_sale_product_name"
-                style="@style/TextView_Text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="start"
-                android:layout_gravity="start"
-                android:onClick="goProductsActivity"
-                android:text="@string/lbl_change_product"
-                android:textColor="@android:color/holo_green_dark"
-                android:visibility="gone"/>
               <Button
                 android:id="@+id/btn_name_product"
                 style="@style/AppTheme.ButtonGralTransparent"
