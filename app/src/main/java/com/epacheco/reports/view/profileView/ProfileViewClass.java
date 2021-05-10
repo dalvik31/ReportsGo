@@ -57,8 +57,8 @@ public class ProfileViewClass extends AppCompatActivity implements ProfileViewIn
 
   public void closeSesion(View v){
 
-    ReportsDialogGlobal.showDialogAccept(this, getString(R.string.msg_cerrar_sesion),
-            null,
+    ReportsDialogGlobal.showDialogAccept(this, getString(R.string.Titulo_cerrar_sesion),
+            getString(R.string.msg_cerrar_sesion),
             new DialogInterface.OnClickListener() {
               @Override
               public void onClick(DialogInterface dialog, int which) {
