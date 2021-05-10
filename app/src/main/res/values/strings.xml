@@ -78,7 +78,7 @@
     <string name="lbl_client_concept_hint">Abono</string>
     <string name="lbl_client_concept">Concepto</string>
     <string name="btn_abonar">Abonar</string>
-    <string name="btn_generate_order">Nuevo pedido</string>
+    <string name="btn_generate_order">GENERAR PEDIDO</string>
     <string name="btn_generate_ticket">Nuevo ticket</string>
     <string name="btn_detail_payments">Detalle de pagos</string>
     <string name="lbl_modify_client">Modificar cliente</string>
