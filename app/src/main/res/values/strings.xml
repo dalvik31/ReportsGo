@@ -30,7 +30,8 @@
     <string name="msg_zero_clients">No se encontraron clientes.</string>
     <string name="msg_zero_products">No se encontraron productos.</string>
     <string name="msg_camera_scan">Escanea el código QR o de barras.</string>
-    <string name="msg_cerrar_sesion">Decea cerrar la sesión </string>
+    <string name="Titulo_cerrar_sesion">Cerrar sesión </string>
+    <string name="msg_cerrar_sesion">¿Realmente desea cerrar sesion? </string>
 
 
 
@@ -78,7 +79,7 @@
     <string name="lbl_client_concept_hint">Abono</string>
     <string name="lbl_client_concept">Concepto</string>
     <string name="btn_abonar">Abonar</string>
-    <string name="btn_generate_order">Nuevo pedido</string>
+    <string name="btn_generate_order">GENERAR PEDIDO</string>
     <string name="btn_generate_ticket">Nuevo ticket</string>
     <string name="btn_detail_payments">Detalle de pagos</string>
     <string name="lbl_modify_client">Modificar cliente</string>

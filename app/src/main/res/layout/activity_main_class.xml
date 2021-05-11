@@ -1,92 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  >
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-  <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background_view"
-    tools:context=".view.mainAcitivityView.MainActivityViewClass">
-    <View
-      android:layout_width="130dp"
-      android:layout_height="match_parent"
-      android:background="@color/colorPrimaryTransparent"/>
-    <com.google.android.material.appbar.AppBarLayout
-      android:id="@+id/appBarLayout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-      <RelativeLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/background_view"
+        tools:context=".view.mainAcitivityView.MainActivityViewClass">
 
+        <View
+            android:layout_width="130dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryTransparent" />
 
-        <ImageView
-          android:id="@+id/img_profile"
-          android:layout_width="?attr/actionBarSize"
-          android:layout_height="?attr/actionBarSize"
-          android:layout_alignParentTop="true"
-          android:layout_centerHorizontal="true"
-          app:srcCompat="@drawable/icon_person"
-          android:padding="12dp"
-          android:layout_alignParentEnd="true"
-          android:onClick="goProfileActivity"/>
+        <com.epacheco.reports.tools.customView.ToolbarGlobal
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:imageProfile="@drawable/icon_person"
+            app:toolbarTitle="@string/lbl_menu_option" />
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/appBarLayout">
 
-        <androidx.appcompat.widget.Toolbar
-          android:id="@+id/app_bar"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:theme="@style/AppThemeSearchView"
-          android:layout_toStartOf="@+id/img_profile"
-          app:title="@string/lbl_menu_option">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        </androidx.appcompat.widget.Toolbar>
-      </RelativeLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+                <com.epacheco.reports.tools.customView.ButtonMenu
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="goClientsActivity"
+                    app:image="@drawable/ic_vector_clients"
+                    app:subTitle="@string/lbl_menu_option_client_subttitle"
+                    app:title="@string/lbl_menu_option_client" />
 
+                <com.epacheco.reports.tools.customView.ButtonMenu
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="goSaleActivity"
+                    app:image="@drawable/ic_vector_sale"
+                    app:subTitle="@string/lbl_menu_option_sell_subtitle"
+                    app:title="@string/lbl_menu_option_sell" />
 
-    <ScrollView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_below="@id/appBarLayout">
+                <com.epacheco.reports.tools.customView.ButtonMenu
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="goProductsActivity"
+                    app:image="@drawable/ic_vector_cart"
+                    app:subTitle="@string/lbl_menu_option_products_subtitle"
+                    app:title="@string/lbl_menu_option_products" />
 
-      <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <com.epacheco.reports.Tools.CustomView.ButtonMenu
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:image="@drawable/ic_vector_clients"
-          android:onClick="goClientsActivity"
-          app:subTitle="@string/lbl_menu_option_client_subttitle"
-          app:title="@string/lbl_menu_option_client"/>
-        <com.epacheco.reports.Tools.CustomView.ButtonMenu
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:image="@drawable/ic_vector_sale"
-          android:onClick="goSaleActivity"
-          app:subTitle="@string/lbl_menu_option_sell_subtitle"
-          app:title="@string/lbl_menu_option_sell"/>
-        <com.epacheco.reports.Tools.CustomView.ButtonMenu
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:image="@drawable/ic_vector_cart"
-          app:subTitle="@string/lbl_menu_option_products_subtitle"
-          app:title="@string/lbl_menu_option_products"
-          android:onClick="goProductsActivity"/>
-
-        <com.epacheco.reports.Tools.CustomView.ButtonMenu
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:image="@drawable/ic_vector_order"
-          app:subTitle="@string/lbl_menu_option_order_subtitle"
-          app:title="@string/lbl_menu_option_order"
-          android:onClick="goOrderActivity"/>
-      </LinearLayout>
-    </ScrollView>
-  </RelativeLayout>
+                <com.epacheco.reports.tools.customView.ButtonMenu
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="goOrderActivity"
+                    app:image="@drawable/ic_vector_order"
+                    app:subTitle="@string/lbl_menu_option_order_subtitle"
+                    app:title="@string/lbl_menu_option_order" />
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
 
 </layout>

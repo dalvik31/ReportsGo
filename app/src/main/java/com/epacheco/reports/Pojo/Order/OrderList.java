@@ -7,7 +7,7 @@ import java.util.List;
 public class OrderList {
   private String dateOrder;
   private String nameOrder;
-  private HashMap<String,Object> orderLists;
+  private HashMap<String,OrderDetail> orderLists;
 
   public String getDateOrder() {
     return dateOrder;
@@ -25,11 +25,7 @@ public class OrderList {
     this.nameOrder = nameOrder;
   }
 
-  public HashMap<String, Object> getOrderLists() {
+  public HashMap<String, OrderDetail> getOrderLists() {
     return orderLists;
-  }
-
-  public void setOrderLists(HashMap<String, Object> orderLists) {
-    this.orderLists = orderLists;
   }
 }

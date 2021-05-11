@@ -9,7 +9,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -23,8 +22,8 @@ import androidx.fragment.app.FragmentActivity;
 import com.epacheco.reports.Model.ClientModel.ClientAddModel.ClientAddModelClass;
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.R;
-import com.epacheco.reports.Tools.ReportsDialogGlobal;
-import com.epacheco.reports.Tools.ReportsProgressDialog;
+import com.epacheco.reports.tools.ReportsDialogGlobal;
+import com.epacheco.reports.tools.ReportsProgressDialog;
 import com.epacheco.reports.databinding.ActivityClientAddViewClassBinding;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -82,7 +81,7 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
       showProgress(getString(R.string.msg_client_save));
       clientAddModelClass.addClient(getObjClient());
     }else{
-      com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_name_empty));
+      com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_name_empty));
     }
 
   }
@@ -101,13 +100,13 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
   @Override
   public void succesAddClient() {
     hideProgress();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_client_created));
+    com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_client_created));
     finish();
   }
 
   @Override
   public void errorAddClient(String error) {
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   @Override
@@ -127,7 +126,7 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
     if(error.isEmpty()){
       finish();
     }else{
-      com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+      com.epacheco.reports.tools.Tools.showToasMessage(this,error);
       finish();
     }
 
@@ -136,24 +135,24 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
   @Override
   public void successModifyClient() {
     hideProgress();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_client_modify));
+    com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_client_modify));
     finish();
   }
 
   @Override
   public void errorModifyClient(String error) {
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   @Override
   public void succesRemoveClient() {
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_client_delete));
+    com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_client_delete));
     finish();
   }
 
   @Override
   public void errorRemoveClient(String error) {
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   public Client getObjClient() {
@@ -208,7 +207,7 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
       showProgress(getString(R.string.msg_client_save));
       clientAddModelClass.modifyClient(getObjClient());
     }else{
-      com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_name_empty));
+      com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_name_empty));
     }
   }
 

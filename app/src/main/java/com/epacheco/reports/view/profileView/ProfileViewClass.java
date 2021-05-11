@@ -10,8 +10,8 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.epacheco.reports.R;
-import com.epacheco.reports.Tools.ReportsDialogGlobal;
-import com.epacheco.reports.Tools.ScreenManager;
+import com.epacheco.reports.tools.ReportsDialogGlobal;
+import com.epacheco.reports.tools.ScreenManager;
 import com.epacheco.reports.databinding.ActivityProfileViewClassBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,9 +38,9 @@ public class ProfileViewClass extends AppCompatActivity implements ProfileViewIn
     if(getFirebaseUser().getPhotoUrl()!=null && !getFirebaseUser().getPhotoUrl().toString().isEmpty()){
 
 
-      Glide.with(this).load(com.epacheco.reports.Tools.Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl())).apply(
+      Glide.with(this).load(com.epacheco.reports.tools.Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl())).apply(
           RequestOptions.circleCropTransform()).into(binding.imageviewAccountProfile);
-      Glide.with(this).load(com.epacheco.reports.Tools.Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl()))  .into(binding.imgBackground);
+      Glide.with(this).load(com.epacheco.reports.tools.Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl()))  .into(binding.imgBackground);
     }
     binding.lblUserEmail.setText(getFirebaseUser().getEmail());
 
@@ -57,8 +57,8 @@ public class ProfileViewClass extends AppCompatActivity implements ProfileViewIn
 
   public void closeSesion(View v){
 
-    ReportsDialogGlobal.showDialogAccept(this, getString(R.string.msg_cerrar_sesion),
-            null,
+    ReportsDialogGlobal.showDialogAccept(this, getString(R.string.Titulo_cerrar_sesion),
+            getString(R.string.msg_cerrar_sesion),
             new DialogInterface.OnClickListener() {
               @Override
               public void onClick(DialogInterface dialog, int which) {

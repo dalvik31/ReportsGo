@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide;
 
 import com.epacheco.reports.Pojo.ClientDetail.ClientDetail;
 import com.epacheco.reports.R;
-import com.epacheco.reports.Tools.ReportsApplication;
+import com.epacheco.reports.tools.ReportsApplication;
 
 import java.util.List;
 
@@ -69,7 +69,7 @@ public class AdapterClientDetailPayments extends  RecyclerView.Adapter<AdapterCl
 
         holderClientDetailPayments.txtDetailName.setTextColor(clientDetail.isPay() ? ContextCompat.getColor(ReportsApplication.getMyApplicationContext(), android.R.color.holo_green_dark): ContextCompat.getColor(ReportsApplication.getMyApplicationContext(), android.R.color.holo_red_dark));
         holderClientDetailPayments.txt_amount.setTextColor(clientDetail.isPay() ? ContextCompat.getColor(ReportsApplication.getMyApplicationContext(), android.R.color.holo_green_dark): ContextCompat.getColor(ReportsApplication.getMyApplicationContext(), android.R.color.holo_red_dark));
-        holderClientDetailPayments.txt_date.setText(com.epacheco.reports.Tools.Tools.getFormatDate(clientDetail.getDatePayment()));
+        holderClientDetailPayments.txt_date.setText(com.epacheco.reports.tools.Tools.getFormatDate(clientDetail.getDatePayment()));
 
 
 

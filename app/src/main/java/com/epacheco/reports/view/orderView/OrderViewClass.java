@@ -13,10 +13,10 @@ import com.bumptech.glide.request.RequestOptions;
 import com.epacheco.reports.Model.OrderModel.OrderModelClass;
 import com.epacheco.reports.Pojo.Order.OrderList;
 import com.epacheco.reports.R;
-import com.epacheco.reports.Tools.ReportsApplication;
-import com.epacheco.reports.Tools.ReportsDialogGlobal;
-import com.epacheco.reports.Tools.ReportsProgressDialog;
-import com.epacheco.reports.Tools.ScreenManager;
+import com.epacheco.reports.tools.ReportsApplication;
+import com.epacheco.reports.tools.ReportsDialogGlobal;
+import com.epacheco.reports.tools.ReportsProgressDialog;
+import com.epacheco.reports.tools.ScreenManager;
 import com.epacheco.reports.view.clientView.clientAddView.ClientAddViewClass;
 import com.epacheco.reports.databinding.ActivityOrderViewClassBinding;
 import com.epacheco.reports.view.productsView.productAddView.ProductAddViewClass;
@@ -112,8 +112,8 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
     super.onStart();
     if(mAuth.getCurrentUser()!=null ){
       if( mAuth.getCurrentUser().getPhotoUrl()!=null){
-        Glide.with(ReportsApplication.getMyApplicationContext()).load(com.epacheco.reports.Tools.Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl()))  .apply(
-            RequestOptions.circleCropTransform()).into(binding.imgProfile);
+        Glide.with(ReportsApplication.getMyApplicationContext()).load(com.epacheco.reports.tools.Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl()))  .apply(
+            RequestOptions.circleCropTransform()).into(binding.appBarLayout.getImageView());
       }
     }
   }
@@ -123,27 +123,27 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
     binding.recyclerListOrder.setAdapter(null);
     binding.recyclerListOrder.removeAllViews();
     binding.lblZeroOrders.setVisibility(View.VISIBLE);
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   @Override
   public void successCreateOrderList() {
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_success_list_order));
+    com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_success_list_order));
   }
 
   @Override
   public void errorCreateOrderList(String error) {
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   @Override
   public void successRemoveOrderList() {
-    com.epacheco.reports.Tools.Tools.showSnackMessage(binding.CoordinatorLayoutContainerOrders,getString(R.string.msg_item_removed));
+    com.epacheco.reports.tools.Tools.showSnackMessage(binding.CoordinatorLayoutContainerOrders,getString(R.string.msg_item_removed));
   }
 
   @Override
   public void errorRemoveOrderList(String error) {
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   public void createListOrder(View view){

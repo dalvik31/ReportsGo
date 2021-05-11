@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.epacheco.reports.Model.ForgotPasswordModel.ForgotPasswordModel;
 import com.epacheco.reports.R;
-import com.epacheco.reports.Tools.ReportsApplication;
+import com.epacheco.reports.tools.ReportsApplication;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
