@@ -257,22 +257,15 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
 
     txt_client_name.setText(getName(uri));
     String telefono = getPhone(uri);
-    Log.e("phone","sin replace y sin substring : " +telefono);
-    Log.e("phone","sin replace y sin substring : " +telefono.length());
 
     if (telefono != null){
       telefono = telefono.replace(" ", "");
 
       if(telefono.length() > 10 ){
-
-        Log.e("phone"," sin substring : " +telefono.length());
         String phone = telefono.substring(telefono.length()-10);
-        Log.e("phone ", "valor : "+ phone);
         txt_client_phone.setText(phone);
 
       }else {
-      Log.e("phone"," sin substring : " +telefono.length());
-      Log.e("phone ", "valor : "+ telefono);
       txt_client_phone.setText(telefono);
       }
     }
