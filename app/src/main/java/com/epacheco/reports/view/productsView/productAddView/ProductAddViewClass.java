@@ -29,7 +29,6 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.text.TextUtils;
 import android.widget.CompoundButton;
-
 import com.bumptech.glide.Glide;
 import com.epacheco.reports.BuildConfig;
 import com.epacheco.reports.Model.ProductsModel.ProductsAddModel.ProductsAddModelClass;
@@ -88,6 +87,23 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
       productsAddModelClass.getProduct(productId);
       binding.btnModifyProduct.setVisibility(View.VISIBLE);
 
+      if(binding.txtOrderColor.getText().toString() == null && binding.txtOrderSize.getText().toString() == null && binding.txtOrderGendero.getText().toString() == null){
+        binding.txtOrderColor.setHint("Cadena vacia");
+        binding.txtOrderSize.setHint("Cadena vacia");
+        binding.txtOrderGendero.setHint("Cadena vacia");
+      }
+
+
+      if(binding.txtOrderColor.getText().toString().isEmpty() && binding.txtOrderSize.getText().toString().isEmpty() && binding.txtOrderGendero.getText().toString().isEmpty()){
+        binding.txtOrderColor.setHint("Cadena vacia");
+        binding.txtOrderSize.setHint("Cadena vacia");
+        binding.txtOrderGendero.setHint("Cadena vacia");
+      }
+      if ( binding.EtOtroProducto.getText().toString().isEmpty()){
+      binding.EtOtroProducto.setHint("Cadena vacia");
+      }if (binding.EtxtTipoDeEmpaque.getText().toString().isEmpty()){
+        binding.EtxtTipoDeEmpaque.setHint("Cadena vacia");
+      }
     }else{
       uploadImageAgain = true;
 
@@ -286,7 +302,6 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
     binding.txtProductDescription.setText(product.getProductDescription());
     typeSelected = product.getProductType();
     binding.txtOrderGendero.setText(typeSelected);
-
     binding.txtProductPriceBuy.setText(String.valueOf(product.getProductPriceBuy()));
     binding.txtProductPriceSale.setText(String.valueOf(product.getProductPriceSale()));
     binding.txtProductCode.setText(String.valueOf(product.getProductCode()));
