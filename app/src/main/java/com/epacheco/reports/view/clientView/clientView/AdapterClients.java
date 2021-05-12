@@ -1,32 +1,22 @@
 package com.epacheco.reports.view.clientView.clientView;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.ClientDetail.ClientDetail;
 import com.epacheco.reports.R;
-import com.epacheco.reports.Tools.ReportsApplication;
-import com.epacheco.reports.view.clientView.clientAddView.ClientAddViewClass;
-import com.google.android.material.snackbar.Snackbar;
+import com.epacheco.reports.tools.ReportsApplication;
 
 import java.util.ArrayList;
 import java.util.Map;
