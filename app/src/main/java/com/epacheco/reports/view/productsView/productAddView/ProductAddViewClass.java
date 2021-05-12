@@ -86,6 +86,14 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
       showProgress("Buscando producto");
       productsAddModelClass.getProduct(productId);
       binding.btnModifyProduct.setVisibility(View.VISIBLE);
+
+      if(binding.txtOrderColor.getText().toString() == null && binding.txtOrderSize.getText().toString() == null && binding.txtOrderGendero.getText().toString() == null){
+        binding.txtOrderColor.setHint("Cadena vacia");
+        binding.txtOrderSize.setHint("Cadena vacia");
+        binding.txtOrderGendero.setHint("Cadena vacia");
+      }
+
+
       if(binding.txtOrderColor.getText().toString().isEmpty() && binding.txtOrderSize.getText().toString().isEmpty() && binding.txtOrderGendero.getText().toString().isEmpty()){
         binding.txtOrderColor.setHint("Cadena vacia");
         binding.txtOrderSize.setHint("Cadena vacia");
@@ -291,15 +299,38 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
     binding.txtProductName.setText(product.getProductName());
     binding.txtProductDescription.setText(product.getProductDescription());
     typeSelected = product.getProductType();
-    binding.txtOrderGendero.setText(typeSelected);
     binding.txtProductPriceBuy.setText(String.valueOf(product.getProductPriceBuy()));
     binding.txtProductPriceSale.setText(String.valueOf(product.getProductPriceSale()));
     binding.txtProductCode.setText(String.valueOf(product.getProductCode()));
     binding.txtProductStock.setText(String.valueOf(product.getInStock()));
-    binding.EtOtroProducto.setText(String.valueOf(product.getEspecificaciones_otro()));
-    binding.txtOrderSize.setText(String.valueOf(product.getTalla()));
-    binding.txtOrderColor.setText(String.valueOf(product.getColor()));
-    binding.EtxtTipoDeEmpaque.setText(String.valueOf(product.getTipo_de_empaque()));
+
+
+    if(product.getProductType() == null){
+      binding.txtOrderGendero.setHint("Cadena vacia");
+    }else {
+      binding.txtOrderGendero.setText(typeSelected);
+    }
+    if (product.getColor() == null){
+      binding.txtOrderColor.setHint("Cadena vacia");
+    }else {
+      binding.txtOrderColor.setText(String.valueOf(product.getColor()));
+    }
+    if (product.getTalla() == null){
+      binding.txtOrderSize.setHint("Cadena vacia");
+    }else {
+      binding.txtOrderSize.setText(String.valueOf(product.getTalla()));
+    }
+    if (product.getTipo_de_empaque() == null){
+      binding.txtOrderSize.setHint("Cadena vacia");
+    }else {
+      binding.txtOrderSize.setText(String.valueOf(product.getTipo_de_empaque()));
+    }
+    if (product.getEspecificaciones_otro() == null){
+      binding.txtOrderSize.setHint("Cadena vacia");
+    }else {
+      binding.txtOrderSize.setText(String.valueOf(product.getEspecificaciones_otro()));
+    }
+
     setImgUrlUpload(product.getUrlImage());
     Glide.with(ReportsApplication.getMyApplicationContext()).load(product.getUrlImage()).into(binding.imgProduct);
 
