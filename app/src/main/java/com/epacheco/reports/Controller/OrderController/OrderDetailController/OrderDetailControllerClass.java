@@ -22,6 +22,7 @@ import java.util.Collections;
 public class OrderDetailControllerClass implements OrderDetailControllerInterface {
   private FirebaseAuth mAuth;
   private OrderDetailModelClass orderDetailModelClass;
+  private boolean isMoveOrder;
 
   public OrderDetailControllerClass(OrderDetailModelClass orderDetailModelClass) {
     this.orderDetailModelClass = orderDetailModelClass;
@@ -65,6 +66,32 @@ public class OrderDetailControllerClass implements OrderDetailControllerInterfac
   }
 
   @Override
+  public void moveOrder(String idOrder, OrderDetail orderDetail) {
+
+    if(orderDetailModelClass!=null && mAuth!=null&& mAuth.getUid()!=null){
+      FirebaseDatabase database = FirebaseDatabase.getInstance();
+      DatabaseReference myRef = database.getReference("Reports");
+      String idRemove = orderDetail.getOrderListId();
+      orderDetail.setOrderListId(idOrder);
+      DatabaseReference usersRef = myRef.child(mAuth.getUid()).child(Constants.CLIENT_ORDERS_TABLE_FIREBASE);
+      usersRef.child(orderDetail.getOrderListId()).child("orderLists").child(orderDetail.getOrderId()).setValue(orderDetail, new CompletionListener() {
+        @Override
+        public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+          if (databaseError != null) {
+            orderDetailModelClass.errorMoveOrder(databaseError.getMessage());
+          } else {
+            isMoveOrder = true;
+            removeOrderDetail(idRemove, orderDetail.getOrderId());
+          }
+        }
+
+      });
+    }
+
+  }
+
+
+  @Override
   public void removeOrderDetail(String orderIdList,String orderItemId) {
     if(orderDetailModelClass!=null && mAuth!=null&& mAuth.getUid()!=null){
       FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -74,7 +101,10 @@ public class OrderDetailControllerClass implements OrderDetailControllerInterfac
           .addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-              orderDetailModelClass.successremoveOrderDetail();
+              if(isMoveOrder)
+              orderDetailModelClass.successMoveOrder();
+              else
+                orderDetailModelClass.successremoveOrderDetail();
             }
           })
           .addOnFailureListener(new OnFailureListener() {

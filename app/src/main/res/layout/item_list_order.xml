@@ -55,7 +55,7 @@
           android:layout_alignParentEnd="true"
           android:layout_centerInParent="true"
           android:padding="10dp"
-          android:src="@drawable/ic_vector_remove_red" />
+          app:srcCompat="@drawable/ic_vector_remove_red" />
 
     </RelativeLayout>
 

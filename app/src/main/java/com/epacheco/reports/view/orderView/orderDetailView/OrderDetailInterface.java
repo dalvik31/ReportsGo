@@ -13,4 +13,8 @@ public interface OrderDetailInterface {
 
   void successremoveOrderDetail();
   void errorremoveOrderDetail(String error);
+
+  void successMoveOrder();
+  void errorMoveOrder(String error);
+
 }

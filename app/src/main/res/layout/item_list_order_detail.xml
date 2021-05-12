@@ -105,6 +105,14 @@
           android:padding="10dp"
           />
 
+      <ImageView
+          android:id="@+id/Imagen_mover_pedido"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_toEndOf="@+id/ImageView_delete_item"
+          app:srcCompat="@drawable/ic_baseline_drive_file_move_24"
+          android:padding="5dp"/>
+
       <androidx.appcompat.widget.AppCompatCheckBox
           android:id="@+id/AppCompatCheckBox_buy_order"
           android:layout_width="wrap_content"
@@ -120,7 +128,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:gravity="center|start"
-          android:layout_toEndOf="@+id/ImageView_delete_item"
+          android:layout_toEndOf="@+id/Imagen_mover_pedido"
           android:layout_toStartOf="@+id/AppCompatCheckBox_buy_order"
           style="@style/TextView_Title_Black"
           android:layout_centerInParent="true"

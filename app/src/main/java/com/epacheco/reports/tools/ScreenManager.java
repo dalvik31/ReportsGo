@@ -1,7 +1,10 @@
 package com.epacheco.reports.tools;
 
 import android.content.Intent;
+
 import androidx.fragment.app.FragmentActivity;
+
+import com.epacheco.reports.Pojo.Order.OrderList;
 import com.epacheco.reports.view.clientView.clienDetailView.ClientDetailViewClass;
 import com.epacheco.reports.view.clientView.clientAddView.ClientAddViewClass;
 import com.epacheco.reports.view.clientView.clientDetailListView.ClientDetailListViewClass;
@@ -18,6 +21,8 @@ import com.epacheco.reports.view.profileView.ProfileViewClass;
 import com.epacheco.reports.view.registerUserView.RegisterUserViewClass;
 import com.epacheco.reports.view.saleView.SaleViewClass;
 import com.epacheco.reports.view.searchElementsView.SearchElementView;
+
+import java.util.ArrayList;
 
 public class ScreenManager {
   public static void goRegisterActivity(FragmentActivity myActivity){
@@ -111,10 +116,11 @@ public class ScreenManager {
 
 
 
-  public static void goOrderDetailActivity(FragmentActivity myActivity,String orderId,String nameOrder,String idClient){
+  public static void goOrderDetailActivity(FragmentActivity myActivity, String orderId, String nameOrder, String idClient, ArrayList<OrderList> myList){
     Intent orderDetailActivity = new Intent(myActivity, OrderDetailView.class);
     orderDetailActivity.putExtra(OrderDetailView.ORDER_ID,orderId);
     orderDetailActivity.putExtra(OrderDetailView.ORDER_NAME,nameOrder);
+    orderDetailActivity.putParcelableArrayListExtra(OrderViewClass.ORDERLIST, myList);
     if(idClient!=null)orderDetailActivity.putExtra(OrderDetailView.CLIENT_ID,idClient);
     myActivity.startActivity(orderDetailActivity);
 

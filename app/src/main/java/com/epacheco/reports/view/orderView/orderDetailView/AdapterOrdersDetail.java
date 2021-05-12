@@ -1,10 +1,13 @@
 package com.epacheco.reports.view.orderView.orderDetailView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,6 +19,8 @@ import android.widget.TextView;
 import com.epacheco.reports.Pojo.OrderDetail.OrderDetail;
 import com.epacheco.reports.R;
 import com.epacheco.reports.tools.ReportsApplication;
+import com.epacheco.reports.view.productsView.productsView.AdapterProducts;
+
 import java.util.List;
 
 public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetail.HolderOrder>{
@@ -23,9 +28,17 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
   private List<OrderDetail> orderList;
   private onItemOrderDetailClic onItemOrderDetailClic;
   private onItemOrderBuy onItemOrderBuy;
+  private OnClicListener itemClic;
+  private Activity contexto;
 
-   AdapterOrdersDetail(List<OrderDetail> orderList) {
+  public interface OnClicListener{
+    void onItemClick(OrderDetail order);
+  }
+
+   AdapterOrdersDetail(List<OrderDetail> orderList , Activity contexto) {
     this.orderList = orderList;
+     this.contexto = contexto;
+     this.itemClic = (OnClicListener) contexto;
   }
 
   @NonNull
@@ -46,12 +59,17 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
     holderOrder.txtClientOrder.setText(myOrder.getOrderClient()!=null ? myOrder.getOrderClient().getName():"Cliente Desconocido");
     holderOrder.txtDescOrder.setText(myOrder.getOrderDescription());
     holderOrder.txtColor.setText(myOrder.getOrderColor());
-
     holderOrder.imageViewRemoveItem.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
         clicItemList(true,myOrder.getOrderListId(),myOrder.getOrderId());
 
+      }
+    });
+    holderOrder.Imagen_mover_pedido.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        itemClic.onItemClick(myOrder);
       }
     });
     holderOrder.containerOrderItem.setOnClickListener(new OnClickListener() {
@@ -85,7 +103,7 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
 
   class HolderOrder extends RecyclerView.ViewHolder{
     private TextView txtNameOrder,txtSizeOrder,txtGenderOrder,txtDescOrder,txtClientOrder,txtColor;
-    private ImageView imageViewRemoveItem;
+    private ImageView imageViewRemoveItem,Imagen_mover_pedido;
     private CardView containerOrderItem;
     private AppCompatCheckBox checkBuyOrder;
     HolderOrder(@NonNull View itemView) {
@@ -99,6 +117,7 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
       imageViewRemoveItem= itemView.findViewById(R.id.ImageView_delete_item);
       containerOrderItem= itemView.findViewById(R.id.cardView_container_item_order);
       txtColor = itemView.findViewById(R.id.txtColor);
+      Imagen_mover_pedido = itemView.findViewById(R.id.Imagen_mover_pedido);
     }
   }
 
