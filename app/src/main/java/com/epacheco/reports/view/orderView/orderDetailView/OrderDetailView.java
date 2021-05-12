@@ -67,7 +67,7 @@ public class OrderDetailView extends AppCompatActivity implements AdapterOrdersD
     extras = getIntent().getExtras();
     if (extras != null) {
       myArrayList = extras.getParcelableArrayList(OrderViewClass.ORDERLIST);
-      binding.appBar.setTitle(extras.getString(ORDER_NAME));
+      binding.appBarLayout.setTitle(extras.getString(ORDER_NAME));
       listOrderId = extras.getString(ORDER_ID);
       showProgress(getString(R.string.msg_search_orders_details));
       orderDetailModelClass.getDetailOrderList(listOrderId);
@@ -84,7 +84,7 @@ public class OrderDetailView extends AppCompatActivity implements AdapterOrdersD
     if (mAuth.getCurrentUser() != null) {
       if (mAuth.getCurrentUser().getPhotoUrl() != null) {
         Glide.with(ReportsApplication.getMyApplicationContext()).load(
-                com.epacheco.reports.tools.Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl())).apply(RequestOptions.circleCropTransform()).into(binding.imgProfile);
+                com.epacheco.reports.tools.Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl())) .apply(RequestOptions.circleCropTransform()).into(binding.appBarLayout.getImageView());
       }
     }
   }

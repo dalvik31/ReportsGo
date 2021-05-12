@@ -13,7 +13,7 @@ public class OrderList implements Parcelable {
   private String msjOrder;
   private int imageStationbackground;
 
-  private HashMap<String,Object> orderLists;
+  private HashMap<String,OrderDetail> orderLists;
 
   public OrderList(Parcel in) {
     dateOrder = in.readString();
@@ -56,11 +56,11 @@ public class OrderList implements Parcelable {
     this.nameOrder = nameOrder;
   }
 
-  public HashMap<String, Object> getOrderLists() {
+  public HashMap<String, OrderDetail> getOrderLists() {
     return orderLists;
   }
 
-  public void setOrderLists(HashMap<String, Object> orderLists) {
+  public void setOrderLists(HashMap<String, OrderDetail> orderLists) {
     this.orderLists = orderLists;
   }
 
