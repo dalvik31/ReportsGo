@@ -22,6 +22,7 @@ import com.epacheco.reports.databinding.ActivityOrderViewClassBinding;
 import com.epacheco.reports.view.productsView.productAddView.ProductAddViewClass;
 import com.google.firebase.auth.FirebaseAuth;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -29,6 +30,7 @@ import java.util.Locale;
 public class OrderViewClass extends AppCompatActivity implements OrderViewIterface, onItemOrderClic{
 
   private final String TAG = OrderViewClass.class.getSimpleName();
+  public static final String ORDERLIST = "ORDER_LIST";
   private OrderModelClass orderModelClass;
   private SimpleDateFormat formatter;
   private ActivityOrderViewClassBinding binding;
@@ -37,6 +39,7 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
   private String idClient;
   private String idProduct;
   private boolean idListSelected;
+  ArrayList<OrderList> orderList1;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -93,7 +96,10 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
   @Override
   public void successGetOrderList(List<OrderList> orderLists) {
     hideProgress();
+
+
     if(orderLists.size()>0){
+      orderList1 = (ArrayList<OrderList>) orderLists;
       binding.lblZeroOrders.setVisibility(View.GONE);
       binding.recyclerListOrder.setVisibility(View.VISIBLE);
       binding.recyclerListOrder.setHasFixedSize(true);
@@ -176,7 +182,7 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
   @Override
   public void onItemOrderClic(boolean removeElement, final String orderId,String nameOrder) {
     if(idListSelected && idClient != null){
-      ScreenManager.goOrderDetailActivity(this,orderId,nameOrder,idClient);
+      ScreenManager.goOrderDetailActivity(this,orderId,nameOrder,idClient,null);
       finish();
       idListSelected= false;
 
@@ -197,8 +203,12 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
             }
         );
       }
-      else
-        ScreenManager.goOrderDetailActivity(this,orderId,nameOrder,null);
+      else{
+        if (orderList1 != null ){
+          ScreenManager.goOrderDetailActivity(this,orderId,nameOrder,null,orderList1);
+        }
+
+      }
     }
 
   }

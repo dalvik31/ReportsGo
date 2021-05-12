@@ -32,7 +32,7 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
   private Activity contexto;
 
   public interface OnClicListener{
-    void onItemClick();
+    void onItemClick(OrderDetail order);
   }
 
    AdapterOrdersDetail(List<OrderDetail> orderList , Activity contexto) {
@@ -59,7 +59,6 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
     holderOrder.txtClientOrder.setText(myOrder.getOrderClient()!=null ? myOrder.getOrderClient().getName():"Cliente Desconocido");
     holderOrder.txtDescOrder.setText(myOrder.getOrderDescription());
     holderOrder.txtColor.setText(myOrder.getOrderColor());
-
     holderOrder.imageViewRemoveItem.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -67,10 +66,10 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
 
       }
     });
-    holderOrder.ImageView_move_order.setOnClickListener(new OnClickListener() {
+    holderOrder.Imagen_mover_pedido.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-        itemClic.onItemClick();
+        itemClic.onItemClick(myOrder);
       }
     });
     holderOrder.containerOrderItem.setOnClickListener(new OnClickListener() {
@@ -104,7 +103,7 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
 
   class HolderOrder extends RecyclerView.ViewHolder{
     private TextView txtNameOrder,txtSizeOrder,txtGenderOrder,txtDescOrder,txtClientOrder,txtColor;
-    private ImageView imageViewRemoveItem,ImageView_move_order;
+    private ImageView imageViewRemoveItem,Imagen_mover_pedido;
     private CardView containerOrderItem;
     private AppCompatCheckBox checkBuyOrder;
     HolderOrder(@NonNull View itemView) {
@@ -118,7 +117,7 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
       imageViewRemoveItem= itemView.findViewById(R.id.ImageView_delete_item);
       containerOrderItem= itemView.findViewById(R.id.cardView_container_item_order);
       txtColor = itemView.findViewById(R.id.txtColor);
-      ImageView_move_order = itemView.findViewById(R.id.ImageView_move_order);
+      Imagen_mover_pedido = itemView.findViewById(R.id.Imagen_mover_pedido);
     }
   }
 

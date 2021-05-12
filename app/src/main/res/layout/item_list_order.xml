@@ -40,7 +40,7 @@
       android:id="@+id/ImageView_delete_item"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:src="@drawable/ic_vector_remove_red"
+      app:srcCompat="@drawable/ic_vector_remove_red"
       android:layout_alignParentEnd="true"
       android:layout_centerInParent="true"
       android:padding="10dp"

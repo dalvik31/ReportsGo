@@ -255,5 +255,6 @@
     <string name="msg_recovery_password_hint">Ingresa tu email de recuperación</string>
     <string name="btn_send_email">Enviar email</string>
     <string name="name_app_splash">Reports\nGO</string>
+    <string name="msg_item_order_move">Pedido movido a otra lista</string>
 
 </resources>
