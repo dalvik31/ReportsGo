@@ -241,6 +241,8 @@
     <string name="title_message_delete_elemnt">Borrar elemento.</string>
     <string name="body_message_delete_elemnt">¿Realmente deseas eliminar este elemento.</string>
     <string name="lbl_size_number">Numérica</string>
+    <string name="errorTittleorder">Falta titulo de la lista</string>
+
 
 
 
