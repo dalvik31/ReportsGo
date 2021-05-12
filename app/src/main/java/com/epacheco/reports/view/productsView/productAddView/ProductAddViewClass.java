@@ -208,6 +208,14 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
         binding.txtOrderGendero.setError(getString(R.string.msg_error_empty_type_name));
         inputsValidate = false;
       }
+      if(binding.txtOrderColor.getText().toString().isEmpty()){
+        binding.txtOrderColor.setError(getString(R.string.msg_error_empty_inputs));
+        inputsValidate = false;
+      }
+      if (binding.txtOrderSize.getText().toString().isEmpty()){
+        binding.txtOrderSize.setError(getString(R.string.msg_error_empty_inputs));
+        inputsValidate = false;
+      }
     }
 
     if(binding.txtProductPriceBuy.getText().toString().isEmpty()) {
@@ -278,14 +286,24 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
     binding.txtProductDescription.setText(product.getProductDescription());
     typeSelected = product.getProductType();
     binding.txtOrderGendero.setText(typeSelected);
+
     binding.txtProductPriceBuy.setText(String.valueOf(product.getProductPriceBuy()));
     binding.txtProductPriceSale.setText(String.valueOf(product.getProductPriceSale()));
     binding.txtProductCode.setText(String.valueOf(product.getProductCode()));
     binding.txtProductStock.setText(String.valueOf(product.getInStock()));
-    binding.EtOtroProducto.setText(String.valueOf(product.getEspecificaciones_otro()));
-    binding.txtOrderSize.setText(String.valueOf(product.getTalla()));
-    binding.txtOrderColor.setText(String.valueOf(product.getColor()));
-    binding.EtxtTipoDeEmpaque.setText(String.valueOf(product.getTipo_de_empaque()));
+    if(TextUtils.isEmpty(product.getEspecificaciones_otro()))binding.EtOtroProducto.setHint(R.string.EtxtOther_product);
+    else binding.EtOtroProducto.setText(String.valueOf(product.getEspecificaciones_otro()));
+
+    if(TextUtils.isEmpty(product.getTalla())) binding.txtOrderSize.setHint(R.string.lbl_title_create_order_size_hint);
+    else  binding.txtOrderSize.setText(String.valueOf(product.getTalla()));
+
+    if(TextUtils.isEmpty(product.getColor()))binding.txtOrderColor.setHint(R.string.lbl_title_create_order_color_hint);
+    else binding.txtOrderColor.setText(String.valueOf(product.getColor()));
+
+    if(TextUtils.isEmpty(product.getTipo_de_empaque()))binding.EtxtTipoDeEmpaque.setHint(R.string.EtxtTipo_de_empaque);
+    else binding.EtxtTipoDeEmpaque.setText(String.valueOf(product.getTipo_de_empaque()));
+
+
     setImgUrlUpload(product.getUrlImage());
     Glide.with(ReportsApplication.getMyApplicationContext()).load(product.getUrlImage()).into(binding.imgProduct);
 
@@ -576,18 +594,19 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
    * */
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
     switch (requestCode) {
       case REQUEST_IMAGE_CAPTURE:
         if (resultCode == RESULT_OK) {
           //Bitmap obtenido en la toma de la foto.
           Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
           try {
-            takenImage = rotateImageIfRequired(takenImage,photoFile.getAbsolutePath());
+            takenImage = rotateImageIfRequired(takenImage, photoFile.getAbsolutePath());
           } catch (IOException e) {
-            Log.e("Error","Ocurrio un error al girar la imagen");
+            Log.e("Error", "Ocurrio un error al girar la imagen");
             e.printStackTrace();
           }
-          if(takenImage==null) return;
+          if (takenImage == null) return;
 
           setImgSelected(true);
           uploadImageAgain = true;
@@ -604,7 +623,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
         }
         break;
       case ScannedBarcodeActivity.SCANBAR_ACTIVITY:
-        if(data==null) return;
+        if (data == null) return;
         binding.txtProductCode.setText(data.getStringExtra(ScannedBarcodeActivity.CODE_SCANNER));
         break;
     }

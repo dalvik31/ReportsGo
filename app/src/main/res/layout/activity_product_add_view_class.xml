@@ -185,15 +185,6 @@
 
         </LinearLayout>
 
-
-
-
-        -------------------------------
-
-
-
-
-
         <LinearLayout
             android:id="@+id/Lly_cards"
             android:layout_width="match_parent"
