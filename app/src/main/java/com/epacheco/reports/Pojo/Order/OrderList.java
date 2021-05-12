@@ -10,8 +10,7 @@ public class OrderList {
   private String msjOrder;
   private int imageStationbackground;
 
-
-  private HashMap<String,Object> orderLists;
+  private HashMap<String,OrderDetail> orderLists;
 
   public String getDateOrder() {
     return dateOrder;
@@ -45,11 +44,8 @@ public class OrderList {
     this.imageStationbackground = imageStationbackground;
   }
 
-  public HashMap<String, Object> getOrderLists() {
+  public HashMap<String, OrderDetail> getOrderLists() {
     return orderLists;
   }
 
-  public void setOrderLists(HashMap<String, Object> orderLists) {
-    this.orderLists = orderLists;
-  }
 }

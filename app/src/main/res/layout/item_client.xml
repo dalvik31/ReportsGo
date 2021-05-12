@@ -31,7 +31,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_alignParentStart="true"
-          android:gravity="center"
+          android:gravity="start"
           android:padding="10dp"
           android:text="Nombre" />
 
@@ -41,7 +41,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_alignParentStart="true"
-          android:gravity="center"
+          android:gravity="start"
           android:padding="10dp"
           android:text="Descripcion" />
     </LinearLayout>

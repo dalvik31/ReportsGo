@@ -35,7 +35,7 @@ public class ForgotPasswordAcitivity extends AppCompatActivity implements Forgot
     public void recoveryEmail(View v){
         String email = binding.txtEmail.getText().toString();
         if(email.isEmpty()){
-            com.epacheco.reports.Tools.Tools.showSnackMessage(binding.CoordinatorLayoutContainerForgot,getString(R.string.lbl_email));
+            com.epacheco.reports.tools.Tools.showSnackMessage(binding.CoordinatorLayoutContainerForgot,getString(R.string.lbl_email));
             return;
         }
         forgotPasswordModel.sendRecoveryPassword(email);
