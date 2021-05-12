@@ -5,8 +5,8 @@ import androidx.annotation.Nullable;
 import com.epacheco.reports.Model.OrderModel.OrderModelClass;
 import com.epacheco.reports.Pojo.Order.OrderList;
 import com.epacheco.reports.R;
-import com.epacheco.reports.Tools.Constants;
-import com.epacheco.reports.Tools.ReportsApplication;
+import com.epacheco.reports.tools.Constants;
+import com.epacheco.reports.tools.ReportsApplication;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -74,7 +74,7 @@ public class OrderControllerClass implements OrderControllerInterface{
 
       final DatabaseReference usersRef = myRef.child(mAuth.getUid()).child(Constants.CLIENT_ORDERS_TABLE_FIREBASE);
 
-      usersRef.orderByChild("nameOrder").equalTo(orderList.getNameOrder()).addListenerForSingleValueEvent(new ValueEventListener() {
+      usersRef.orderByChild("msjOrder").equalTo(orderList.getMsjOrder()).addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot snapshot) {
 

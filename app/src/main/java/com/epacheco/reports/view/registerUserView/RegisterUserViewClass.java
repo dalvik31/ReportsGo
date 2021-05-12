@@ -13,10 +13,10 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.epacheco.reports.Model.RegisterUserModel.RegisterUserModelClass;
 import com.epacheco.reports.R;
-import com.epacheco.reports.Tools.Constants;
-import com.epacheco.reports.Tools.ReportsDialogGlobal;
-import com.epacheco.reports.Tools.ReportsProgressDialog;
-import com.epacheco.reports.Tools.ScreenManager;
+import com.epacheco.reports.tools.Constants;
+import com.epacheco.reports.tools.ReportsDialogGlobal;
+import com.epacheco.reports.tools.ReportsProgressDialog;
+import com.epacheco.reports.tools.ScreenManager;
 import com.epacheco.reports.databinding.ActivityRegisterClassBinding;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -137,14 +137,14 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
 
   public void registerWithEmailAndPassword(View v){
 
-    com.epacheco.reports.Tools.Tools.setLongPreference(Constants.TIMER_SAVED,System.currentTimeMillis());
+    com.epacheco.reports.tools.Tools.setLongPreference(Constants.TIMER_SAVED,System.currentTimeMillis());
     String email = binding.txtEmail.getText().toString();
     String password = binding.txtPassword.getText().toString();
     if(email.isEmpty()){
-      com.epacheco.reports.Tools.Tools.showSnackMessage(binding.CoordinatorLayoutContainerLogin,getString(R.string.lbl_email));
+      com.epacheco.reports.tools.Tools.showSnackMessage(binding.CoordinatorLayoutContainerLogin,getString(R.string.lbl_email));
       return;
     }else if(password.isEmpty()){
-      com.epacheco.reports.Tools.Tools.showSnackMessage(binding.CoordinatorLayoutContainerLogin,getString(R.string.lbl_password));
+      com.epacheco.reports.tools.Tools.showSnackMessage(binding.CoordinatorLayoutContainerLogin,getString(R.string.lbl_password));
       return;
     }
     progressbar.showProgress(this,getString(R.string.msg_process));
@@ -153,14 +153,14 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
 
   public void loginWithEmailAndPassword(View v){
 
-    com.epacheco.reports.Tools.Tools.setLongPreference(Constants.TIMER_SAVED,System.currentTimeMillis());
+    com.epacheco.reports.tools.Tools.setLongPreference(Constants.TIMER_SAVED,System.currentTimeMillis());
     String email = binding.txtEmail.getText().toString();
     String password = binding.txtPassword.getText().toString();
     if(email.isEmpty()){
-      com.epacheco.reports.Tools.Tools.showSnackMessage(binding.CoordinatorLayoutContainerLogin,getString(R.string.lbl_email));
+      com.epacheco.reports.tools.Tools.showSnackMessage(binding.CoordinatorLayoutContainerLogin,getString(R.string.lbl_email));
       return;
     }else if(password.isEmpty()){
-      com.epacheco.reports.Tools.Tools.showSnackMessage(binding.CoordinatorLayoutContainerLogin,getString(R.string.lbl_password));
+      com.epacheco.reports.tools.Tools.showSnackMessage(binding.CoordinatorLayoutContainerLogin,getString(R.string.lbl_password));
       return;
     }
     progressbar.showProgress(this,getString(R.string.msg_process));
@@ -175,13 +175,13 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
         String userName = binding.txtEmail.getText().toString();
         if(!userName.isEmpty()){
           if(isChecked){
-            com.epacheco.reports.Tools.Tools.setStringPreference(Constants.USERNAME_SAVE,userName);
+            com.epacheco.reports.tools.Tools.setStringPreference(Constants.USERNAME_SAVE,userName);
           }else {
-            com.epacheco.reports.Tools.Tools.setStringPreference(Constants.USERNAME_SAVE,"");
+            com.epacheco.reports.tools.Tools.setStringPreference(Constants.USERNAME_SAVE,"");
           }
         }else{
           binding.AppCompatCheckBoxSaveUser.setChecked(false);
-          com.epacheco.reports.Tools.Tools.showSnackMessage(binding.CoordinatorLayoutContainerLogin,getString(R.string.lbl_email));
+          com.epacheco.reports.tools.Tools.showSnackMessage(binding.CoordinatorLayoutContainerLogin,getString(R.string.lbl_email));
         }
 
       }
@@ -190,7 +190,7 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
 
 
   private void getSaveData(){
-    String userName = com.epacheco.reports.Tools.Tools.getStringPreference(Constants.USERNAME_SAVE);
+    String userName = com.epacheco.reports.tools.Tools.getStringPreference(Constants.USERNAME_SAVE);
     if(!userName.isEmpty()){
       binding.txtEmail.setText(userName);
       binding.AppCompatCheckBoxSaveUser.setChecked(true);
@@ -210,7 +210,7 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
   @Override
   public void errorRegisterUserEmail(String error) {
     progressbar.hideProgress();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   @Override
@@ -223,7 +223,7 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
   @Override
   public void errorLoginUserEmail(String error) {
     progressbar.hideProgress();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   @Override
@@ -248,7 +248,7 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
   @Override
   public void errorLoginUserTwitter(String error) {
     progressbar.hideProgress();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   @Override
@@ -261,7 +261,7 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
   @Override
   public void errorLoginFacebook(String error) {
     progressbar.hideProgress();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
 

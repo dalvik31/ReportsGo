@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.epacheco.reports.Pojo.OrderDetail.OrderDetail;
 import com.epacheco.reports.R;
-import com.epacheco.reports.Tools.ReportsApplication;
+import com.epacheco.reports.tools.ReportsApplication;
 import com.epacheco.reports.view.productsView.productsView.AdapterProducts;
 
 import java.util.List;
@@ -120,7 +120,6 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
       Imagen_mover_pedido = itemView.findViewById(R.id.Imagen_mover_pedido);
     }
   }
-
 
 
   public com.epacheco.reports.view.orderView.orderDetailView.onItemOrderDetailClic getOnItemOrderDetailClic() {

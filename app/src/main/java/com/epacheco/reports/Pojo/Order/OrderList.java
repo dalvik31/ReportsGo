@@ -10,6 +10,9 @@ import java.util.List;
 public class OrderList implements Parcelable {
   private String dateOrder;
   private String nameOrder;
+  private String msjOrder;
+  private int imageStationbackground;
+
   private HashMap<String,Object> orderLists;
 
   public OrderList(Parcel in) {
@@ -70,6 +73,22 @@ public class OrderList implements Parcelable {
   public void writeToParcel(Parcel dest, int flags) {
     dest.writeString(dateOrder);
     dest.writeString(nameOrder);
+  }
+
+  public String getMsjOrder() {
+    return msjOrder;
+  }
+
+  public void setMsjOrder(String msjOrder) {
+    this.msjOrder = msjOrder;
+  }
+
+  public int getImageStationbackground() {
+    return imageStationbackground;
+  }
+
+  public void setImageStationbackground(int imageStationbackground) {
+    this.imageStationbackground = imageStationbackground;
   }
 
   @Override

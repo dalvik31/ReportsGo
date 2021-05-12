@@ -1,7 +1,6 @@
 package com.epacheco.reports.view.clientView.clientView;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
@@ -16,19 +15,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.epacheco.reports.Model.ClientModel.ClientModel.ClientModelClass;
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.R;
-import com.epacheco.reports.Tools.ReportsApplication;
-import com.epacheco.reports.Tools.ReportsProgressDialog;
-import com.epacheco.reports.Tools.ScreenManager;
+import com.epacheco.reports.tools.ReportsApplication;
+import com.epacheco.reports.tools.ReportsProgressDialog;
+import com.epacheco.reports.tools.ScreenManager;
 import com.epacheco.reports.view.clientView.clientAddView.ClientAddViewClass;
 import com.epacheco.reports.databinding.ActivityClientsViewBinding;
 import com.google.android.material.snackbar.Snackbar;
@@ -63,7 +60,7 @@ public class ClientsViewClass extends AppCompatActivity implements ClientViewInt
 
     if( FirebaseAuth.getInstance().getCurrentUser()!=null ){
       if(  FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()!=null){
-        Glide.with(ReportsApplication.getMyApplicationContext()).load(com.epacheco.reports.Tools.Tools.getFormatUrlImage( FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()))  .apply(
+        Glide.with(ReportsApplication.getMyApplicationContext()).load(com.epacheco.reports.tools.Tools.getFormatUrlImage( FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()))  .apply(
             RequestOptions.circleCropTransform()).into(binding.imgProfile);
       }
     }

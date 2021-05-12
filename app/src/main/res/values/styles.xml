@@ -170,6 +170,13 @@
   </declare-styleable>
 
 
+  <declare-styleable name="ToolbarGlobal">
+    <attr name="imageProfile" format="integer"/>
+    <attr name="toolbarTitle" format="string"/>
+    <attr name="toolbarSubtitle" format="string"/>
+  </declare-styleable>
+
+
   <declare-styleable name="Pinview">
     <attr name="pinBackground" format="reference"/>
     <attr name="pinLength" format="integer"/>

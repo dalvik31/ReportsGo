@@ -28,20 +28,16 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentActivity;
 
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.RadioGroup;
-
 import com.bumptech.glide.Glide;
 import com.epacheco.reports.BuildConfig;
 import com.epacheco.reports.Model.ProductsModel.ProductsAddModel.ProductsAddModelClass;
 import com.epacheco.reports.Pojo.Product.Product;
 import com.epacheco.reports.R;
-import com.epacheco.reports.Tools.ReportsApplication;
-import com.epacheco.reports.Tools.ReportsDialogGlobal;
-import com.epacheco.reports.Tools.ReportsProgressDialog;
-import com.epacheco.reports.Tools.ScreenManager;
+import com.epacheco.reports.tools.ReportsApplication;
+import com.epacheco.reports.tools.ReportsDialogGlobal;
+import com.epacheco.reports.tools.ReportsProgressDialog;
+import com.epacheco.reports.tools.ScreenManager;
 import com.epacheco.reports.view.productsView.scanCode.ScannedBarcodeActivity;
 import com.epacheco.reports.databinding.ActivityProductAddViewClassBinding;
 import java.io.File;
@@ -91,6 +87,23 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
       productsAddModelClass.getProduct(productId);
       binding.btnModifyProduct.setVisibility(View.VISIBLE);
 
+      if(binding.txtOrderColor.getText().toString() == null && binding.txtOrderSize.getText().toString() == null && binding.txtOrderGendero.getText().toString() == null){
+        binding.txtOrderColor.setHint("Cadena vacia");
+        binding.txtOrderSize.setHint("Cadena vacia");
+        binding.txtOrderGendero.setHint("Cadena vacia");
+      }
+
+
+      if(binding.txtOrderColor.getText().toString().isEmpty() && binding.txtOrderSize.getText().toString().isEmpty() && binding.txtOrderGendero.getText().toString().isEmpty()){
+        binding.txtOrderColor.setHint("Cadena vacia");
+        binding.txtOrderSize.setHint("Cadena vacia");
+        binding.txtOrderGendero.setHint("Cadena vacia");
+      }
+      if ( binding.EtOtroProducto.getText().toString().isEmpty()){
+      binding.EtOtroProducto.setHint("Cadena vacia");
+      }if (binding.EtxtTipoDeEmpaque.getText().toString().isEmpty()){
+        binding.EtxtTipoDeEmpaque.setHint("Cadena vacia");
+      }
     }else{
       uploadImageAgain = true;
 
@@ -146,10 +159,10 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
         showProgress(getString(R.string.msg_save_image));
         productsAddModelClass.uploadImage( ((BitmapDrawable) binding.imgProduct.getDrawable()).getBitmap());
       }else{
-        com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_error_empty_inputs));
+        com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_error_empty_inputs));
       }
     }else{
-      com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_error_empty_img_url));
+      com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_error_empty_img_url));
     }
   }
 
@@ -211,6 +224,14 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
         binding.txtOrderGendero.setError(getString(R.string.msg_error_empty_type_name));
         inputsValidate = false;
       }
+      if(binding.txtOrderColor.getText().toString().isEmpty()){
+        binding.txtOrderColor.setError(getString(R.string.msg_error_empty_inputs));
+        inputsValidate = false;
+      }
+      if (binding.txtOrderSize.getText().toString().isEmpty()){
+        binding.txtOrderSize.setError(getString(R.string.msg_error_empty_inputs));
+        inputsValidate = false;
+      }
     }
 
     if(binding.txtProductPriceBuy.getText().toString().isEmpty()) {
@@ -257,20 +278,20 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
   @Override
   public void errorUploadImage(String error) {
     hideProgress();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   @Override
   public void successAddProduct() {
     hideProgress();
     finish();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_success_product));
+    com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_success_product));
   }
 
   @Override
   public void errorAddProduct(String error) {
     hideProgress();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   @Override
@@ -285,10 +306,19 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
     binding.txtProductPriceSale.setText(String.valueOf(product.getProductPriceSale()));
     binding.txtProductCode.setText(String.valueOf(product.getProductCode()));
     binding.txtProductStock.setText(String.valueOf(product.getInStock()));
-    binding.EtOtroProducto.setText(String.valueOf(product.getEspecificaciones_otro()));
-    binding.txtOrderSize.setText(String.valueOf(product.getTalla()));
-    binding.txtOrderColor.setText(String.valueOf(product.getColor()));
-    binding.EtxtTipoDeEmpaque.setText(String.valueOf(product.getTipo_de_empaque()));
+    if(TextUtils.isEmpty(product.getEspecificaciones_otro()))binding.EtOtroProducto.setHint(R.string.EtxtOther_product);
+    else binding.EtOtroProducto.setText(String.valueOf(product.getEspecificaciones_otro()));
+
+    if(TextUtils.isEmpty(product.getTalla())) binding.txtOrderSize.setHint(R.string.lbl_title_create_order_size_hint);
+    else  binding.txtOrderSize.setText(String.valueOf(product.getTalla()));
+
+    if(TextUtils.isEmpty(product.getColor()))binding.txtOrderColor.setHint(R.string.lbl_title_create_order_color_hint);
+    else binding.txtOrderColor.setText(String.valueOf(product.getColor()));
+
+    if(TextUtils.isEmpty(product.getTipo_de_empaque()))binding.EtxtTipoDeEmpaque.setHint(R.string.EtxtTipo_de_empaque);
+    else binding.EtxtTipoDeEmpaque.setText(String.valueOf(product.getTipo_de_empaque()));
+
+
     setImgUrlUpload(product.getUrlImage());
     Glide.with(ReportsApplication.getMyApplicationContext()).load(product.getUrlImage()).into(binding.imgProduct);
 
@@ -318,7 +348,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
       }
 
     }else{
-      com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_name_empty));
+      com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_name_empty));
     }
   }
 
@@ -346,30 +376,30 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
   public void errorGetProduct(String error) {
     hideProgress();
     finish();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   @Override
   public void successModifyProduct() {
     hideProgress();
     finish();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_product_modify_success));
+    com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_product_modify_success));
   }
 
   @Override
   public void errorModifyProduct(String error) {
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   @Override
   public void successRemoveProduct() {
     finish();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_product_remove_success));
+    com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_product_remove_success));
   }
 
   @Override
   public void errorRemoveProduct(String error) {
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_product_modify_success));
+    com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_product_modify_success));
   }
 
   /**METODOS PARA ABRIR LA CAMARA Y LA GALERIA CON MENSAJES DE EXPLICACION*/
@@ -407,7 +437,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
    *
    * */
   private void checkPermissionsCamera() {
-    if(com.epacheco.reports.Tools.Tools.checkPermissionsCamera(this)){
+    if(com.epacheco.reports.tools.Tools.checkPermissionsCamera(this)){
       if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
         createDialogPermisionCamera(); /**Si el usuario no ha aceptado los permisos, creamos un dialogo explicandole por que necesitamos utilizar la camara*/
       }else{
@@ -428,7 +458,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
    *
    * */
   private void checkPermissionsGallery() {
-    if (com.epacheco.reports.Tools.Tools.checkPermissionsGallery(this)) {
+    if (com.epacheco.reports.tools.Tools.checkPermissionsGallery(this)) {
       if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
         createDialogPermisionGallery();
       }else{
@@ -579,18 +609,19 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
    * */
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
     switch (requestCode) {
       case REQUEST_IMAGE_CAPTURE:
         if (resultCode == RESULT_OK) {
           //Bitmap obtenido en la toma de la foto.
           Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
           try {
-            takenImage = rotateImageIfRequired(takenImage,photoFile.getAbsolutePath());
+            takenImage = rotateImageIfRequired(takenImage, photoFile.getAbsolutePath());
           } catch (IOException e) {
-            Log.e("Error","Ocurrio un error al girar la imagen");
+            Log.e("Error", "Ocurrio un error al girar la imagen");
             e.printStackTrace();
           }
-          if(takenImage==null) return;
+          if (takenImage == null) return;
 
           setImgSelected(true);
           uploadImageAgain = true;
@@ -607,7 +638,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
         }
         break;
       case ScannedBarcodeActivity.SCANBAR_ACTIVITY:
-        if(data==null) return;
+        if (data == null) return;
         binding.txtProductCode.setText(data.getStringExtra(ScannedBarcodeActivity.CODE_SCANNER));
         break;
     }

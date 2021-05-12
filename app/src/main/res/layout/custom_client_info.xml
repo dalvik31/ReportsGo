@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:id="@+id/containerClient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appBarLayout"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/lbl_date_name"
+            style="@style/TextView_Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:background="@android:color/holo_red_light"
+            android:gravity="center"
+            android:text="@string/lbl_date_client"
+            android:textColor="@color/colorWhite" />
+
+        <LinearLayout
+            android:id="@+id/container_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lbl_date_name"
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5">
+
+                <TextView
+                    android:id="@+id/lbl_client_name"
+                    style="@style/TextView_Text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="@string/lbl_client_name" />
+
+                <TextView
+                    android:id="@+id/lbl_client_detail"
+                    style="@style/TextView_Text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lbl_client_name"
+                    android:padding="10dp"
+                    android:text="@string/lbl_detail_client" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5">
+
+                <TextView
+                    android:id="@+id/lbl_client_lastname"
+                    style="@style/TextView_Text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:padding="10dp"
+                    android:text="@string/lbl_amount_client" />
+
+                <TextView
+                    android:id="@+id/lbl_client_account_amount"
+                    style="@style/TextView_Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lbl_client_lastname"
+                    android:layout_marginTop="0dp"
+                    android:gravity="end|center"
+                    android:padding="10dp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</layout>
+

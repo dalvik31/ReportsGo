@@ -1,4 +1,4 @@
-package com.epacheco.reports.Tools;
+package com.epacheco.reports.tools;
 
 import android.content.Intent;
 
@@ -140,7 +140,7 @@ public class ScreenManager {
     orderCreateActivity.putExtra(OrderDetailView.ORDER_ID,orderId);
     if(idClient!=null)orderCreateActivity.putExtra(OrderDetailView.CLIENT_ID,idClient);
     myActivity.startActivity(orderCreateActivity);
-    myActivity.finish();
+
   }
 
   public static void goOrderCreateActivityProduct(FragmentActivity myActivity,String orderId,String idProduct){
