@@ -28,11 +28,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentActivity;
 
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.RadioGroup;
-
 import com.bumptech.glide.Glide;
 import com.epacheco.reports.BuildConfig;
 import com.epacheco.reports.Model.ProductsModel.ProductsAddModel.ProductsAddModelClass;
@@ -97,7 +93,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
       }
       if ( binding.EtOtroProducto.getText().toString().isEmpty()){
       binding.EtOtroProducto.setHint("Cadena vacia");
-      }else if (binding.EtxtTipoDeEmpaque.getText().toString().isEmpty()){
+      }if (binding.EtxtTipoDeEmpaque.getText().toString().isEmpty()){
         binding.EtxtTipoDeEmpaque.setHint("Cadena vacia");
       }
     }else{
