@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.graphics.drawable.Drawable;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,10 +55,15 @@ public class AdapterOrders extends RecyclerView.Adapter<AdapterOrders.HolderOrde
     final OrderList myOrder = orderList.get(i);
     holderOrder.txttitle.setText(myOrder.getNameOrder());
     holderOrder.txtNameOrder.setText(myOrder.getMsjOrder());
-    String fechaEntera = holderOrder.txtNameOrder.getText().toString();
-    String[] fechaDividida = fechaEntera.split("/");
-    getStationImage(fechaDividida[1]);
-    Log.e("Fecha ","Completa : "+fechaDividida[1]);
+
+    if(!TextUtils.isEmpty(myOrder.getDateOrder())){
+      long date = Long.parseLong(myOrder.getDateOrder());
+      Calendar calendar = Calendar.getInstance();
+      calendar.setTimeInMillis(date);
+      int month = calendar.get(Calendar.MONTH);
+      getStationImage(month);
+    }
+
     holderOrder.relativItemOrder.setBackgroundResource(imageResourses);
     holderOrder.imageViewRemoveItem.setOnClickListener(new OnClickListener() {
       @Override
@@ -125,17 +131,17 @@ public class AdapterOrders extends RecyclerView.Adapter<AdapterOrders.HolderOrde
   }
 
 
-  private void getStationImage(String mesActual){
-    if (mesActual.equals(" marzo ") || mesActual.equals(" abril ") || mesActual.equals(" mayo ")){
+  private void getStationImage(int mesActual){
+
+    if(mesActual < 5 && mesActual > 1){
       getImagePrimavera();
-    }else if (mesActual.equals(" junio ") || mesActual.equals(" julio ") || mesActual.equals(" agosto ")){
+    }else if(mesActual > 4 && mesActual < 8){
       getImageVerano();
-    }else if(mesActual.equals(" septiembre ") || mesActual.equals(" octubre ") || mesActual.equals(" noviembre ")){
+    }else if(mesActual > 7 && mesActual < 12){
       getImageOtonio();
-    }else if (mesActual.equals(" diciembre ") || mesActual.equals(" enero ") || mesActual.equals(" febrero ") ) {
+    }else{
       getImageInvierno();
     }
-
   }
 
   private void getImageInvierno() {
