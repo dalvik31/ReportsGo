@@ -233,26 +233,37 @@ public class OrderDetailView extends AppCompatActivity implements AdapterOrdersD
     List_move_order.setAdapter(adapter);
 
     List_move_order.setOnItemClickListener((parent, view, position, id) -> {
-      orderDetailModelClass.moveOrder(adapter.getItem(position).getDateOrder(),orderDetail);
+
+      ReportsDialogGlobal.showDialogAcceptAnCancel(this, "Mover Pedido", "¿ Deceas mover el pedido a esta lista ?",
+              new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+          orderDetailModelClass.moveOrder(adapter.getItem(position).getDateOrder(),orderDetail);
+          finish();
+        }
+      }, new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+
+        }
+      });
+
       Log.e(TAG, "getNameOrder :  " + adapter.getItem(position).getNameOrder());
+
 
     });
     builder.setView(v);
     builder.setTitle("Mover Pedido");
     builder.setMessage("Selecciona la lista a la cual quieres mover el pedido.");
-    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-      @Override
-      public void onClick(DialogInterface dialog, int which) {
-
-      }
-    });
     builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
       @Override
       public void onClick(DialogInterface dialog, int which) {
 
       }
     });
-    return builder.show();
+
+
+    return  builder.show();
   }
 
 
