@@ -51,9 +51,7 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
   private FirebaseAuth mAuth;
   private String idClient;
   private String idProduct;
-  private int mesActual;
   private boolean idListSelected;
-  private int imageResourses;
   ArrayList<OrderList> orderList1;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -198,8 +196,6 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
           orderList.setNameOrder(EtxtNameOrder.getText().toString());
           orderList.setMsjOrder(dateFormat);
           orderList.setDateOrder(String.valueOf(System.currentTimeMillis()));
-          obtenerMes();
-          orderList.setImageStationbackground(imageResourses);
           orderModelClass.createOrder(orderList);
           IBinder token = EtxtNameOrder.getWindowToken(); ( ( InputMethodManager ) getSystemService( Context.INPUT_METHOD_SERVICE ) ).hideSoftInputFromWindow( token, 0 );
 
@@ -269,84 +265,8 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
 
   }
 
-  public void obtenerMes() {
-    Calendar calendar = Calendar.getInstance();
-    //metodo para obtener ek mes actual en string ejemp : "mayo"
-    //String mes = calendar.getDisplayName(Calendar.MONTH,Calendar.LONG, Locale.getDefault());
-    int mes = calendar.get(Calendar.MONTH);
-    mesActual = mes;
-    Log.e("mes actual ", "es igual a : "+mesActual);
-    getStationImage(mesActual);
-  }
 
 
-  private void getStationImage(int mesActual){
-    if (mesActual >=2 && mesActual <5){
-      getImagePrimavera();
-    }else if (mesActual >=5 && mesActual < 8){
-      getImageVerano();
-    }else if(mesActual >= 8 && mesActual < 11){
-      getImageOtonio();
-    }else if (mesActual >= 0 && mesActual <= 1 || mesActual >= 11 ) {
-      getImageInvierno();
-    }
-
-  }
-
-  private void getImageInvierno() {
-
-    int [] imageInvierno = new int[4];
-    imageInvierno[0] = R.drawable.imagen_invierno1;
-    imageInvierno[1] = R.drawable.imagen_invierno2;
-    imageInvierno[2] = R.drawable.imagen_invierno3;
-    imageInvierno[3] = R.drawable.imagen_invierno4;
-    int min = 0;
-    int max = 3;
-    final int random = new Random().nextInt((max - min) + 1) + min;
-    imageResourses = imageInvierno[random];
-
-
-  }
-
-  private void getImageOtonio() {
-
-    int [] imageOtoño = new int[4];
-    imageOtoño[0] = R.drawable.imagen_otonio1;
-    imageOtoño[1] = R.drawable.imagen_otonio2;
-    imageOtoño[2] = R.drawable.imagen_otonio3;
-    imageOtoño[3] = R.drawable.imagen_otonio4;
-    int min = 0;
-    int max = 3;
-    final int random = new Random().nextInt((max - min) + 1) + min;
-    imageResourses = imageOtoño[random];
-
-  }
-
-  private void getImagePrimavera(){
-
-    int [] imagePrimavera = new int[4];
-    imagePrimavera[0] = R.drawable.imagen_primavera1;
-    imagePrimavera[1] = R.drawable.imagen_primavera2;
-    imagePrimavera[2] = R.drawable.imagen_primavera3;
-    imagePrimavera[3] = R.drawable.imagen_primavera4;
-    int min = 0;
-    int max = 3;
-    final int random = new Random().nextInt((max - min) + 1) + min;
-    imageResourses = imagePrimavera[random];
-  }
-
-  private void getImageVerano(){
-
-    int [] imageVerano = new int[4];
-    imageVerano[0] = R.drawable.imagen_verano1;
-    imageVerano[1] = R.drawable.imagen_verano2;
-    imageVerano[2] = R.drawable.imagen_verano3;
-    imageVerano[3] = R.drawable.imagen_verano4;
-    int min = 0;
-    int max = 3;
-    final int random = new Random().nextInt((max - min) + 1) + min;
-    imageResourses = imageVerano[random];
-  }
 
 
 
