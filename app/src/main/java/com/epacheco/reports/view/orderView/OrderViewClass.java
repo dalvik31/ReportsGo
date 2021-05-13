@@ -179,6 +179,7 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
     View v = inflater.inflate(R.layout.layout_dialog_agregar_titulo_pedido, null);
 
     builder.setView(v);
+    builder.setTitle("Nombre de la lista de pedidos");
 
     final EditText EtxtNameOrder = v.findViewById(R.id.EtxtNameOrder);
 
