@@ -11,7 +11,6 @@ public class OrderList implements Parcelable {
   private String dateOrder;
   private String nameOrder;
   private String msjOrder;
-  private int imageStationbackground;
 
   private HashMap<String,OrderDetail> orderLists;
 
@@ -83,13 +82,6 @@ public class OrderList implements Parcelable {
     this.msjOrder = msjOrder;
   }
 
-  public int getImageStationbackground() {
-    return imageStationbackground;
-  }
-
-  public void setImageStationbackground(int imageStationbackground) {
-    this.imageStationbackground = imageStationbackground;
-  }
 
   @Override
   public String toString() {
