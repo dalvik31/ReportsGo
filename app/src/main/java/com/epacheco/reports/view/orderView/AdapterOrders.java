@@ -1,10 +1,13 @@
 package com.epacheco.reports.view.orderView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.drawable.Drawable;
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +22,7 @@ import com.epacheco.reports.R;
 import com.google.android.material.progressindicator.ProgressIndicator;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -28,6 +32,8 @@ public class AdapterOrders extends RecyclerView.Adapter<AdapterOrders.HolderOrde
 
   private List<OrderList> orderList;
   private onItemOrderClic onItemOrderClic;
+  private int imageResourses;
+  private String mes;
 
 
   AdapterOrders(List<OrderList> orderList) {
@@ -42,12 +48,17 @@ public class AdapterOrders extends RecyclerView.Adapter<AdapterOrders.HolderOrde
     return new HolderOrder(v);
   }
 
+  @RequiresApi(api = Build.VERSION_CODES.N)
   @Override
   public void onBindViewHolder(@NonNull HolderOrder holderOrder, int i) {
     final OrderList myOrder = orderList.get(i);
-    holderOrder.relativItemOrder.setBackgroundResource(myOrder.getImageStationbackground());
     holderOrder.txttitle.setText(myOrder.getNameOrder());
     holderOrder.txtNameOrder.setText(myOrder.getMsjOrder());
+    String fechaEntera = holderOrder.txtNameOrder.getText().toString();
+    String[] fechaDividida = fechaEntera.split("/");
+    getStationImage(fechaDividida[1]);
+    Log.e("Fecha ","Completa : "+fechaDividida[1]);
+    holderOrder.relativItemOrder.setBackgroundResource(imageResourses);
     holderOrder.imageViewRemoveItem.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -111,6 +122,75 @@ public class AdapterOrders extends RecyclerView.Adapter<AdapterOrders.HolderOrde
   public void setOnItemOrderClic(
           com.epacheco.reports.view.orderView.onItemOrderClic onItemOrderClic) {
     this.onItemOrderClic = onItemOrderClic;
+  }
+
+
+  private void getStationImage(String mesActual){
+    if (mesActual.equals(" marzo ") || mesActual.equals(" abril ") || mesActual.equals(" mayo ")){
+      getImagePrimavera();
+    }else if (mesActual.equals(" junio ") || mesActual.equals(" julio ") || mesActual.equals(" agosto ")){
+      getImageVerano();
+    }else if(mesActual.equals(" septiembre ") || mesActual.equals(" octubre ") || mesActual.equals(" noviembre ")){
+      getImageOtonio();
+    }else if (mesActual.equals(" diciembre ") || mesActual.equals(" enero ") || mesActual.equals(" febrero ") ) {
+      getImageInvierno();
+    }
+
+  }
+
+  private void getImageInvierno() {
+
+    int [] imageInvierno = new int[4];
+    imageInvierno[0] = R.drawable.imagen_invierno1;
+    imageInvierno[1] = R.drawable.imagen_invierno2;
+    imageInvierno[2] = R.drawable.imagen_invierno3;
+    imageInvierno[3] = R.drawable.imagen_invierno4;
+    int min = 0;
+    int max = 3;
+    final int random = new Random().nextInt((max - min) + 1) + min;
+    imageResourses = imageInvierno[random];
+
+
+  }
+
+  private void getImageOtonio() {
+
+    int [] imageOtoño = new int[4];
+    imageOtoño[0] = R.drawable.imagen_otonio1;
+    imageOtoño[1] = R.drawable.imagen_otonio2;
+    imageOtoño[2] = R.drawable.imagen_otonio3;
+    imageOtoño[3] = R.drawable.imagen_otonio4;
+    int min = 0;
+    int max = 3;
+    final int random = new Random().nextInt((max - min) + 1) + min;
+    imageResourses = imageOtoño[random];
+
+  }
+
+  private void getImagePrimavera(){
+
+    int [] imagePrimavera = new int[4];
+    imagePrimavera[0] = R.drawable.imagen_primavera1;
+    imagePrimavera[1] = R.drawable.imagen_primavera2;
+    imagePrimavera[2] = R.drawable.imagen_primavera3;
+    imagePrimavera[3] = R.drawable.imagen_primavera4;
+    int min = 0;
+    int max = 3;
+    final int random = new Random().nextInt((max - min) + 1) + min;
+    imageResourses = imagePrimavera[random];
+  }
+
+  private void getImageVerano(){
+
+    int [] imageVerano = new int[4];
+    imageVerano[0] = R.drawable.imagen_verano1;
+    imageVerano[1] = R.drawable.imagen_verano2;
+    imageVerano[2] = R.drawable.imagen_verano3;
+    imageVerano[3] = R.drawable.imagen_verano4;
+    int min = 0;
+    int max = 3;
+    final int random = new Random().nextInt((max - min) + 1) + min;
+    imageResourses = imageVerano[random];
   }
 
 
