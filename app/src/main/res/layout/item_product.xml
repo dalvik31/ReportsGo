@@ -107,7 +107,7 @@
         android:layout_gravity="end"
         android:layout_toStartOf="@+id/btn_detail"
         app:srcCompat="@drawable/ic_vector_modify"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
       <ImageView
         android:id="@+id/btn_detail"
         android:layout_width="?attr/actionBarSize"

@@ -24,10 +24,11 @@
 
           <Button
             android:id="@+id/btn_total"
-            style="@style/AppTheme.ButtonGralTransparentInverse"
+            style="@style/AppTheme.ButtonTotal"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/lbl_sale_total"
+              android:layout_marginEnd="10dp"
             android:visibility="visible"
             android:clickable="false"
             android:focusable="false"/>
@@ -80,10 +81,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:text="@string/lbl_sale_name_client"
+            android:hint="@string/lbl_sale_name_client"
             android:drawablePadding="5dp"
             android:drawableStart="@drawable/ic_vector_search_client_red"
-            android:padding="5dp"/>
+            android:padding="5dp"
+              android:onClick="goClientsActivity"/>
           <LinearLayout
             android:id="@+id/container_client"
             android:layout_width="match_parent"
@@ -118,18 +120,7 @@
               android:layout_height="match_parent"
               android:gravity="center"
               android:orientation="vertical">
-              <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/txt_sale_client_name"
-                style="@style/TextView_Text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="start"
-                android:layout_gravity="center"
-                android:text="@string/lbl_change_client"
-                android:visibility="gone"
-                android:onClick="goClientsActivity"
-                android:textColor="@android:color/holo_green_dark"
-                android:inputType="number"/>
+
               <Button
                 android:id="@+id/btn_name_client"
                 style="@style/AppTheme.ButtonGralTransparent"
@@ -167,7 +158,8 @@
             android:padding="5dp"
             android:drawablePadding="5dp"
             android:drawableStart="@drawable/ic_vector_product_red"
-            android:text="@string/lbl_sale_name_product"/>
+            android:hint="@string/lbl_sale_name_product"
+              android:onClick="goProductsActivity"/>
 
           <LinearLayout
             android:id="@+id/container_product"
@@ -202,17 +194,6 @@
               android:layout_height="match_parent"
               android:gravity="center"
               android:orientation="vertical">
-              <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/txt_sale_product_name"
-                style="@style/TextView_Text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="start"
-                android:layout_gravity="start"
-                android:onClick="goProductsActivity"
-                android:text="@string/lbl_change_product"
-                android:textColor="@android:color/holo_green_dark"
-                android:visibility="gone"/>
               <Button
                 android:id="@+id/btn_name_product"
                 style="@style/AppTheme.ButtonGralTransparent"
@@ -245,8 +226,10 @@
         android:layout_below="@+id/container_select"
         android:padding="10dp"
         android:gravity="center"
-        android:text="@string/lbl_sale_ticket_empty_"
-        android:textSize="28dp"/>
+        android:hint="@string/lbl_sale_ticket_empty_"
+        android:textSize="28dp"
+          android:onClick="goProductsActivity"
+          />
     </RelativeLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

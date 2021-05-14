@@ -1,21 +1,38 @@
 package com.epacheco.reports.view.clientView.clientAddView;
 
+import android.Manifest;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentActivity;
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
+
 import com.epacheco.reports.Model.ClientModel.ClientAddModel.ClientAddModelClass;
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.R;
-import com.epacheco.reports.Tools.ReportsDialogGlobal;
-import com.epacheco.reports.Tools.ReportsProgressDialog;
+import com.epacheco.reports.tools.ReportsDialogGlobal;
+import com.epacheco.reports.tools.ReportsProgressDialog;
 import com.epacheco.reports.databinding.ActivityClientAddViewClassBinding;
+import com.google.android.material.snackbar.Snackbar;
 
 public class ClientAddViewClass extends AppCompatActivity implements ClientAddViewInterface{
 
   public final static String CLIENT_ID = "clientId";
+  static final int PICK_CONTACT_REQUEST=1;
+  private static final int READ_CONTACTS_PERMISSION = 2;
+  public static Uri contactUri;
 
   private ClientAddModelClass clientAddModelClass;
   private ActivityClientAddViewClassBinding binding;
@@ -24,12 +41,16 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
   private double limitSendClient;
   private String clientId;
   private ReportsProgressDialog progressbar;
+  private EditText txt_client_name;
+  private EditText txt_client_phone;
+  private RelativeLayout Rltv_Contact;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     binding = DataBindingUtil.setContentView(this,R.layout.activity_client_add_view_class);
     inicializateElements();
     validateModifyClient();
+    Rltv_Contact = findViewById(R.id.Rltv_Contact);
   }
 
 
@@ -42,11 +63,15 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
       clientAddModelClass.getClient(clientId);
       binding.btnModifyClient.setVisibility(View.VISIBLE);
       binding.btnAddClient.setVisibility(View.GONE);
+      binding.btnSearchContacts.setVisibility(View.GONE);
+      binding.btnContact.setVisibility(View.VISIBLE);
     }else{
       binding.btnCreateAccoount.setVisibility(View.VISIBLE);
+      binding.btnSearchContacts.setVisibility(View.VISIBLE);
       binding.containerModify.setVisibility(View.GONE);
       binding.btnModifyClient.setVisibility(View.GONE);
       binding.btnAddClient.setVisibility(View.VISIBLE);
+      binding.btnContact.setVisibility(View.GONE);
     }
   }
 
@@ -56,7 +81,7 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
       showProgress(getString(R.string.msg_client_save));
       clientAddModelClass.addClient(getObjClient());
     }else{
-      com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_name_empty));
+      com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_name_empty));
     }
 
   }
@@ -75,13 +100,13 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
   @Override
   public void succesAddClient() {
     hideProgress();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_client_created));
+    com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_client_created));
     finish();
   }
 
   @Override
   public void errorAddClient(String error) {
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   @Override
@@ -101,7 +126,7 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
     if(error.isEmpty()){
       finish();
     }else{
-      com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+      com.epacheco.reports.tools.Tools.showToasMessage(this,error);
       finish();
     }
 
@@ -110,24 +135,24 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
   @Override
   public void successModifyClient() {
     hideProgress();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_client_modify));
+    com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_client_modify));
     finish();
   }
 
   @Override
   public void errorModifyClient(String error) {
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   @Override
   public void succesRemoveClient() {
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_client_delete));
+    com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_client_delete));
     finish();
   }
 
   @Override
   public void errorRemoveClient(String error) {
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   public Client getObjClient() {
@@ -182,7 +207,7 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
       showProgress(getString(R.string.msg_client_save));
       clientAddModelClass.modifyClient(getObjClient());
     }else{
-      com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_name_empty));
+      com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_name_empty));
     }
   }
 
@@ -210,4 +235,133 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
     binding.progressUploadProduct.setVisibility(View.GONE);
   }
 
+
+  protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    super.onActivityResult(requestCode, resultCode, intent);
+    if (requestCode == PICK_CONTACT_REQUEST) {
+      if (resultCode == RESULT_OK) {
+
+        contactUri = intent.getData();
+
+        renderContact(contactUri);
+      }
+    }
+  }
+
+  private void renderContact(Uri uri) {
+
+   txt_client_name = findViewById(R.id.txt_client_name);
+   txt_client_phone = findViewById(R.id.txt_client_phone);
+
+
+    txt_client_name.setText(getName(uri));
+    String telefono = getPhone(uri);
+
+    if (telefono != null){
+      telefono = telefono.replace(" ", "");
+
+      if(telefono.length() > 10 ){
+        String phone = telefono.substring(telefono.length()-10);
+        txt_client_phone.setText(phone);
+
+      }else {
+      txt_client_phone.setText(telefono);
+      }
+    }
+
+
+
+  }
+
+  private String getName(Uri uri) {
+
+    String name = null;
+
+    ContentResolver contentResolver = getContentResolver();
+
+    Cursor c = contentResolver.query(
+            uri, new String[]{ContactsContract.Contacts.DISPLAY_NAME}, null, null, null);
+
+    if(c.moveToFirst()){
+      name = c.getString(0);
+    }
+
+    c.close();
+
+    return name;
+  }
+
+  private String getPhone(Uri uri) {
+    String id = null;
+    String phone = null;
+
+    Cursor contactCursor = getContentResolver().query(
+            uri, new String[]{ContactsContract.Contacts._ID},
+            null, null, null);
+
+
+    if (contactCursor.moveToFirst()) {
+      id = contactCursor.getString(0);
+    }
+    contactCursor.close();
+
+    String selectionArgs =
+            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ? AND " +
+                    ContactsContract.CommonDataKinds.Phone.TYPE+"= " +
+                    ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE;
+
+    Cursor phoneCursor = getContentResolver().query(
+            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+            new String[] { ContactsContract.CommonDataKinds.Phone.NUMBER },
+            selectionArgs
+            ,
+            new String[] { id },
+            null
+    );
+    if (phoneCursor.moveToFirst()) {
+      phone = phoneCursor.getString(0);
+    }
+    phoneCursor.close();
+
+    return phone;
+  }
+
+  public void initPickContacts(View v){
+
+    requestContactPermission();
+
+  }
+  private void requestContactPermission() {
+
+
+    if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
+
+      Snackbar.make(Rltv_Contact, "Requiere aceptar permiso para acceder a contactos ", Snackbar.LENGTH_INDEFINITE).setAction("ACEPTAR", new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+          ActivityCompat.requestPermissions(ClientAddViewClass.this, new String[]{Manifest.permission.READ_CONTACTS}, READ_CONTACTS_PERMISSION );
+        }
+      }).show();
+    }else{
+
+      ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, READ_CONTACTS_PERMISSION );
+    }
+
+  }
+
+  private void Obtener_contacto(){
+    Intent i = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+    startActivityForResult(i, PICK_CONTACT_REQUEST);
+  }
+
+
+  @Override
+  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+    if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+      Obtener_contacto();
+    }
+  }
 }

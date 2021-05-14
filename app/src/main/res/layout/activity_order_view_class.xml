@@ -1,93 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout   xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
-  <androidx.coordinatorlayout.widget.CoordinatorLayout
-    android:id="@+id/CoordinatorLayout_containerOrders"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-<RelativeLayout
-
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  tools:context=".view.orderView.OrderViewClass">
-  <com.google.android.material.appbar.AppBarLayout
-    android:id="@+id/appBarLayout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
-
-
-      <ImageView
-        android:id="@+id/img_profile"
-        android:layout_width="?attr/actionBarSize"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        app:srcCompat="@drawable/ic_vector_account"
-        android:padding="12dp"
-        android:layout_alignParentEnd="true"
-        android:onClick="goProfileActivity"/>
-
-
-      <androidx.appcompat.widget.Toolbar
-        android:id="@+id/app_bar"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/CoordinatorLayout_containerOrders"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppThemeSearchView"
-        android:layout_toStartOf="@+id/img_profile"
-        app:title="@string/lbl_title_orders">
-
-      </androidx.appcompat.widget.Toolbar>
-    </RelativeLayout>
-  </com.google.android.material.appbar.AppBarLayout>
-  <ProgressBar
-    android:id="@+id/progress_download_orders"
-    style="?android:attr/progressBarStyleHorizontal"
-    android:indeterminateOnly="true"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/appBarLayout"
-    android:layout_marginTop="-5dp"
-    android:theme="@style/AppTheme.ProgressBar"/>
-  <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/recyclerListOrder"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:listitem="@layout/item_list_order"
-    android:visibility="visible"
-    android:layout_below="@+id/progress_download_orders"
-    />
+        android:layout_height="match_parent">
 
 
-  <TextView
-    android:id="@+id/lbl_zero_orders"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    style="@style/TextView_Title"
-    android:text="@string/msg_zero_orders"
-    android:layout_centerInParent="true"
-    android:textColor="@color/colorPrimary"
-    android:textSize="28sp"
-    android:visibility="visible"
-    android:gravity="center"/>
-  <com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/floating_action_button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="20dp"
-    app:srcCompat="@drawable/ic_vector_add"
-    android:layout_alignParentBottom="true"
-    android:layout_alignParentEnd="true"
-    app:backgroundTint="@color/colorPrimary"
-    android:onClick="createListOrder"
-    />
-</RelativeLayout>
-  </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".view.orderView.OrderViewClass">
+
+          <com.epacheco.reports.tools.customView.ToolbarGlobal
+              android:id="@+id/appBarLayout"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              app:imageProfile="@drawable/icon_person"
+              app:toolbarTitle="@string/lbl_title_orders" />
+
+            <ProgressBar
+                android:id="@+id/progress_download_orders"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/appBarLayout"
+                android:layout_marginTop="-5dp"
+                android:indeterminateOnly="true"
+                android:theme="@style/AppTheme.ProgressBar" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerListOrder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/progress_download_orders"
+                android:visibility="visible"
+                tools:listitem="@layout/item_list_order" />
+
+
+            <TextView
+                android:id="@+id/lbl_zero_orders"
+                style="@style/TextView_Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="@string/msg_zero_orders"
+                android:textColor="@color/colorPrimary"
+                android:textSize="28sp"
+                android:visibility="visible" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floating_action_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="20dp"
+                android:onClick="createListOrder"
+                app:backgroundTint="@color/colorPrimary"
+                app:srcCompat="@drawable/ic_vector_add" />
+        </RelativeLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

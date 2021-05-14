@@ -30,6 +30,9 @@
     <string name="msg_zero_clients">No se encontraron clientes.</string>
     <string name="msg_zero_products">No se encontraron productos.</string>
     <string name="msg_camera_scan">Escanea el código QR o de barras.</string>
+    <string name="Titulo_cerrar_sesion">Cerrar sesión </string>
+    <string name="msg_cerrar_sesion">¿Realmente desea cerrar sesion? </string>
+
 
 
     <!--Activity Principal-->
@@ -46,10 +49,12 @@
     <string name="msg_search_client">Buscando clientes</string>
     <string name="lbl_search_client">Buscar cliente</string>
     <string name="lbl_search_clients">Buscando cliente</string>
+    <string name="lbl_search_products">Buscando producto</string>
     <string name="lbl_add_client">Crear nuevo cliente</string>
     <string name="lbl_detail_client">Detalle de cliente</string>
     <string name="lbl_detail_name_client">%s - %s</string>
     <string name="btn_save">guardar</string>
+    <string name="btn_conatctos">contactos</string>
     <string name="btn_ok">aceptar</string>
     <string name="btn_cancel">Cancelar</string>
     <string name="btn_modify">modificar</string>
@@ -74,7 +79,7 @@
     <string name="lbl_client_concept_hint">Abono</string>
     <string name="lbl_client_concept">Concepto</string>
     <string name="btn_abonar">Abonar</string>
-    <string name="btn_generate_order">Nuevo pedido</string>
+    <string name="btn_generate_order">GENERAR PEDIDO</string>
     <string name="btn_generate_ticket">Nuevo ticket</string>
     <string name="btn_detail_payments">Detalle de pagos</string>
     <string name="lbl_modify_client">Modificar cliente</string>
@@ -93,6 +98,7 @@
     <string name="txt_client_amount_format_minum">- $ %s</string>
     <string name="txt_client_date_format">Cliente desde el %s</string>
     <string name="txt_client_name_format"> %s %s</string>
+    <string name="txt_client_name_format1"> %s</string>
     <string name="txt_client_limit_format">Limite de credito %s</string>
     <string name="txt_client_amount_empty">0.0</string>
     <string name="lbl_change_client">Cambiar cliente</string>
@@ -167,10 +173,21 @@
     <string name="msg_save_product">Guardando información del producto</string>
     <string name="msg_product_modify_success">Producto modificado</string>
     <string name="msg_product_remove_success">Producto eliminado</string>
-    <string name="lbl_modify_product">Modificar producto</string>
+    <string name="lbl_modify_product">Detalle del producto</string>
     <string name="lbl_stock_product">%s en existencia</string>
     <string name="lbl_stock_product_exist">Ya agregaste este producto</string>
     <string name="lbl_stock_product_empty">No hay productos en tu inventario.\nCambia el valor de cantidad</string>
+
+    <string name="EtxtOther_product">Especificaciones del producto</string>
+        <string name="TxtOther_product">Otro ...</string>
+        <string name="ChkBx_ropa">Ropa</string>
+        <string name="ChkBx_otro">Otro</string>
+        <string name="ChkBx_dulces">Dulces</string>
+       <string name="TxtTipo_de_producto">Tipo de mercancia</string>
+    <string name="Etxtcantidad">Cantidad en peso o paquetes</string>
+    <string name="TxtCantidad">Cantidad</string>
+    <string name="TxtTipo_de_empaque">Tipo de empaquetado</string>
+    <string name="EtxtTipo_de_empaque">(Bolsa con xx kilos , Caja con xx pzs)</string>
 
 
     <!--Vista Venta-->
@@ -215,14 +232,18 @@
     <string name="lbl_title_create_order_gender">Género</string>
     <string name="lbl_title_create_order_gender_hint">Para que género</string>
     <string name="lbl_title_create_order_description">Descripción</string>
-    <string name="lbl_title_create_order_description_hint">Detalles importantes de la prenda</string>
+    <string name="lbl_title_create_order_description_hint">Detalles importantes del producto</string>
     <string name="lbl_order_buy">Comprado</string>
     <string name="lbl_order_buy_update">Pedido actualizado</string>
     <string name="title_message_select_order">Selecciona una lista.</string>
+    <string name="body_message_select_order2">Elige la lista en la cual se agregara el pedido.</string>
     <string name="body_message_select_order">Elige la lista en la cual se agregara el pedido del cliente.</string>
     <string name="title_message_delete_elemnt">Borrar elemento.</string>
     <string name="body_message_delete_elemnt">¿Realmente deseas eliminar este elemento.</string>
     <string name="lbl_size_number">Numérica</string>
+    <string name="errorTittleorder">Falta titulo de la lista</string>
+
+
 
 
     <!--Errores FIREBASE-->
@@ -236,5 +257,7 @@
     <string name="title_activity_forgot_password">Recupera tu contraseña</string>
     <string name="msg_recovery_password_hint">Ingresa tu email de recuperación</string>
     <string name="btn_send_email">Enviar email</string>
+    <string name="name_app_splash">Reports\nGO</string>
+    <string name="msg_item_order_move">Pedido movido a otra lista</string>
 
 </resources>

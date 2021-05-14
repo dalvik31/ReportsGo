@@ -16,6 +16,9 @@ public interface OrderDetailModelInterface {
   void successOrderBuyElement();
   void errorOrderBuyElement(String error);
 
+  void successMoveOrder();
+  void errorMoveOrder(String error);
+  void moveOrder(String idOrder ,OrderDetail orderDetail);
 
   //Methods controller
   void getDetailOrderList(String orderIdList);

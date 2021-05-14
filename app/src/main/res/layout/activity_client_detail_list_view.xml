@@ -2,115 +2,71 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-<RelativeLayout
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  tools:context=".view.clientView.clientDetailListView.ClientDetailListViewClass">
-  <com.google.android.material.appbar.AppBarLayout
-    android:id="@+id/appBarLayout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
-
-      <ImageView
-        android:id="@+id/img_profile"
-        android:layout_width="?attr/actionBarSize"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_toStartOf="@+id/btn_add"
-        android:scaleType="center"
-        app:srcCompat="@drawable/ic_vector_account"/>
-      <ImageView
-        android:id="@+id/btn_add"
-        android:layout_width="?attr/actionBarSize"
-        android:layout_height="?attr/actionBarSize"
-        app:srcCompat="@drawable/ic_vector_share"
-        android:scaleType="center"
-        android:layout_alignParentEnd="true"
-        android:onClick="shareListClienDetailPayments"/>
-      <androidx.appcompat.widget.Toolbar
-        android:id="@+id/app_bar"
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppThemeSearchView"
-        android:layout_toStartOf="@+id/img_profile"
-        app:title="Detalle de pagos">
+        android:layout_height="match_parent"
+        tools:context=".view.clientView.clientDetailListView.ClientDetailListViewClass">
 
-      </androidx.appcompat.widget.Toolbar>
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/img_profile"
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_toStartOf="@+id/btn_add"
+                    android:padding="12dp"
+                    android:onClick="goProfileActivity"
+                    app:srcCompat="@drawable/icon_person" />
+
+
+                <ImageView
+                    android:id="@+id/btn_add"
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_alignParentEnd="true"
+                    android:onClick="shareListClienDetailPayments"
+                    android:scaleType="center"
+                    app:srcCompat="@drawable/ic_vector_share" />
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/app_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/img_profile"
+                    android:theme="@style/AppThemeSearchView"
+                    app:title="Detalle de pagos">
+
+                </androidx.appcompat.widget.Toolbar>
+            </RelativeLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_downloadclient_detail_payments"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/appBarLayout"
+            android:layout_marginTop="-5dp"
+            android:indeterminateOnly="true" />
+
+        <include
+            android:id="@+id/layoutClientInfo"
+            layout="@layout/custom_client_info" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerListClientFDetailPayments"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/layoutClientInfo"
+            android:scrollbars="vertical"
+            tools:listitem="@layout/item_client_detail_payment" />
     </RelativeLayout>
-  </com.google.android.material.appbar.AppBarLayout>
-
-  <ProgressBar
-    android:id="@+id/progress_downloadclient_detail_payments"
-    style="?android:attr/progressBarStyleHorizontal"
-    android:indeterminateOnly="true"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/appBarLayout"
-    android:layout_marginTop="-5dp"/>
-  <LinearLayout
-    android:id="@+id/container_name"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:layout_below="@+id/progress_downloadclient_detail_payments"
-    android:orientation="horizontal"
-    android:weightSum="1">
-  <RelativeLayout
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_weight=".5">
-    <TextView
-      android:id="@+id/lbl_client_name"
-      style="@style/TextView_Text"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:padding="10dp"/>
-    <TextView
-      android:id="@+id/lbl_client_detail"
-      style="@style/TextView_Text"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@+id/lbl_client_name"
-      android:padding="10dp"/>
-  </RelativeLayout>
-  <RelativeLayout
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_weight=".5">
-    <TextView
-      android:id="@+id/lbl_client_lastname"
-      style="@style/TextView_Text"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:gravity="end"
-      android:padding="10dp"
-      android:text="@string/lbl_amount_client"/>
-
-    <TextView
-      android:id="@+id/lbl_client_account_amount"
-      style="@style/TextView_Title"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="0dp"
-      android:layout_below="@+id/lbl_client_lastname"
-      android:padding="10dp"
-      android:gravity="end|center"
-      android:text=""
-      android:textStyle="bold"/>
-  </RelativeLayout>
-  </LinearLayout>
-
-  <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/recyclerListClientFDetailPayments"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:listitem="@layout/item_client_detail_payment"
-    android:layout_below="@+id/container_name"
-    android:scrollbars="vertical"
-    />
-</RelativeLayout>
 </layout>

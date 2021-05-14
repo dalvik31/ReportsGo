@@ -92,7 +92,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             setResult(RESULT_OK, intent);
             finish();
           }else{
-            com.epacheco.reports.Tools.Tools.showToasMessage(ScannedBarcodeActivity.this,getString(R.string.msg_error_sistema));
+            com.epacheco.reports.tools.Tools.showToasMessage(ScannedBarcodeActivity.this,getString(R.string.msg_error_sistema));
           }
         }
       }

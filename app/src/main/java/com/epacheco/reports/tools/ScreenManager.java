@@ -1,7 +1,10 @@
-package com.epacheco.reports.Tools;
+package com.epacheco.reports.tools;
 
 import android.content.Intent;
+
 import androidx.fragment.app.FragmentActivity;
+
+import com.epacheco.reports.Pojo.Order.OrderList;
 import com.epacheco.reports.view.clientView.clienDetailView.ClientDetailViewClass;
 import com.epacheco.reports.view.clientView.clientAddView.ClientAddViewClass;
 import com.epacheco.reports.view.clientView.clientDetailListView.ClientDetailListViewClass;
@@ -18,6 +21,8 @@ import com.epacheco.reports.view.profileView.ProfileViewClass;
 import com.epacheco.reports.view.registerUserView.RegisterUserViewClass;
 import com.epacheco.reports.view.saleView.SaleViewClass;
 import com.epacheco.reports.view.searchElementsView.SearchElementView;
+
+import java.util.ArrayList;
 
 public class ScreenManager {
   public static void goRegisterActivity(FragmentActivity myActivity){
@@ -99,12 +104,33 @@ public class ScreenManager {
     myActivity.startActivity(orderActivity);
   }
 
-  public static void goOrderDetailActivity(FragmentActivity myActivity,String orderId,String nameOrder,String idClient){
+  public static void goOrderActivityProduct(FragmentActivity myActivity,String productId){
+    Intent orderActivity = new Intent(myActivity, OrderViewClass.class);
+    if(productId!=null)orderActivity.putExtra(ProductAddViewClass.PRODUCT_ID ,productId);
+    myActivity.startActivity(orderActivity);
+  }
+
+
+
+
+
+  public static void goOrderDetailActivity(FragmentActivity myActivity, String orderId, String nameOrder, String idClient, ArrayList<OrderList> myList){
     Intent orderDetailActivity = new Intent(myActivity, OrderDetailView.class);
     orderDetailActivity.putExtra(OrderDetailView.ORDER_ID,orderId);
     orderDetailActivity.putExtra(OrderDetailView.ORDER_NAME,nameOrder);
+    orderDetailActivity.putParcelableArrayListExtra(OrderViewClass.ORDERLIST, myList);
     if(idClient!=null)orderDetailActivity.putExtra(OrderDetailView.CLIENT_ID,idClient);
     myActivity.startActivity(orderDetailActivity);
+
+  }
+
+  public static void goOrderDetailActivityProduct(FragmentActivity myActivity,String orderId,String nameOrder,String idProduct){
+    Intent orderDetailActivity = new Intent(myActivity, OrderDetailView.class);
+    orderDetailActivity.putExtra(OrderDetailView.ORDER_ID,orderId);
+    orderDetailActivity.putExtra(OrderDetailView.ORDER_NAME,nameOrder);
+    if(idProduct!=null)orderDetailActivity.putExtra(OrderDetailView.PRODUCT_ID,idProduct);
+    myActivity.startActivity(orderDetailActivity);
+    myActivity.finish();
   }
 
   public static void goOrderCreateActivity(FragmentActivity myActivity,String orderId,String idClient){
@@ -112,7 +138,17 @@ public class ScreenManager {
     orderCreateActivity.putExtra(OrderDetailView.ORDER_ID,orderId);
     if(idClient!=null)orderCreateActivity.putExtra(OrderDetailView.CLIENT_ID,idClient);
     myActivity.startActivity(orderCreateActivity);
+
   }
+
+  public static void goOrderCreateActivityProduct(FragmentActivity myActivity,String orderId,String idProduct){
+    Intent orderCreateActivity = new Intent(myActivity, OrderCreateView.class);
+    orderCreateActivity.putExtra(OrderDetailView.ORDER_ID,orderId);
+    if(idProduct!=null)orderCreateActivity.putExtra(OrderDetailView.PRODUCT_ID,idProduct);
+    myActivity.startActivity(orderCreateActivity);
+    myActivity.finish();
+  }
+
 
   public static void goForgotPasswordActivity(FragmentActivity myActivity){
     Intent forgotPasswordActivity = new Intent(myActivity, ForgotPasswordAcitivity.class);

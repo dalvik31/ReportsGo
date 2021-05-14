@@ -64,6 +64,28 @@ public class OrderDetailModelClass implements OrderDetailModelInterface {
   }
 
   @Override
+  public void successMoveOrder() {
+    if(orderDetailView!= null){
+      orderDetailView.successMoveOrder();
+    }
+  }
+
+  @Override
+  public void errorMoveOrder(String error) {
+    if(orderDetailView!= null){
+      orderDetailView.errorMoveOrder(error);
+    }
+  }
+
+  @Override
+  public void moveOrder(String idOrder, OrderDetail orderDetail) {
+    if(orderDetailControllerClass!=null){
+      orderDetailControllerClass.moveOrder(idOrder,orderDetail);
+    }
+  }
+
+
+  @Override
   public void getDetailOrderList(String orderIdList) {
     if(orderDetailControllerClass!=null){
       orderDetailControllerClass.getDetailOrderList(orderIdList);

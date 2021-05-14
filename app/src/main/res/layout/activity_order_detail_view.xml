@@ -10,32 +10,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
-      android:id="@+id/appBarLayout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-      <RelativeLayout
+    <com.epacheco.reports.tools.customView.ToolbarGlobal
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-          android:id="@+id/img_profile"
-          android:layout_width="?attr/actionBarSize"
-          android:layout_height="?attr/actionBarSize"
-          android:layout_toStartOf="@+id/btn_add"
-          android:padding="12dp"
-          app:srcCompat="@drawable/ic_vector_account"
-          android:layout_alignParentEnd="true"
-          android:onClick="goProfileActivity"/>
-        <androidx.appcompat.widget.Toolbar
-          android:id="@+id/app_bar"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:theme="@style/AppThemeSearchView"
-          android:layout_toStartOf="@+id/img_profile">
-        </androidx.appcompat.widget.Toolbar>
-      </RelativeLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+        android:layout_height="wrap_content"
+        app:imageProfile="@drawable/icon_person"
+        app:toolbarTitle="@string/lbl_title_orders" />
     <ProgressBar
       android:id="@+id/progress_downloadOrderElements"
       style="?android:attr/progressBarStyleHorizontal"
