@@ -53,7 +53,7 @@ public class OrderCreateControllerClass implements OrderCreateControllerInterfac
       FirebaseDatabase database = FirebaseDatabase.getInstance();
       DatabaseReference myRef = database.getReference("Reports");
 
-      DatabaseReference usersRef = myRef.child(mAuth.getUid()).child(Constants.CLIENT_ORDERS_TABLE_FIREBASE);
+      DatabaseReference usersRef = myRef.child(mAuth.getUid()).child(Constants.CLIENT_TABLE_FIREBASE);
       String paramName = idClient!=null && !idClient.isEmpty() ? idClient : "";
 
       usersRef.orderByChild("id").equalTo(paramName).addValueEventListener(new ValueEventListener() {

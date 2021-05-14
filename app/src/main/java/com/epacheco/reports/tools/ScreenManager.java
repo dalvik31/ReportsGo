@@ -104,11 +104,9 @@ public class ScreenManager {
     myActivity.startActivity(orderActivity);
   }
 
-  public static void goOrderActivityProduct(FragmentActivity myActivity,String clientId){
-    //Intent orderActivity = new Intent(myActivity, TestPin.class);
-    //myActivity.startActivity(orderActivity);
+  public static void goOrderActivityProduct(FragmentActivity myActivity,String productId){
     Intent orderActivity = new Intent(myActivity, OrderViewClass.class);
-    if(clientId!=null)orderActivity.putExtra(ProductAddViewClass.PRODUCT_ID ,clientId);
+    if(productId!=null)orderActivity.putExtra(ProductAddViewClass.PRODUCT_ID ,productId);
     myActivity.startActivity(orderActivity);
   }
 

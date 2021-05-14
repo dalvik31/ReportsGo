@@ -32,6 +32,7 @@ import com.epacheco.reports.tools.ReportsProgressDialog;
 import com.epacheco.reports.tools.ScreenManager;
 import com.epacheco.reports.view.clientView.clientAddView.ClientAddViewClass;
 import com.epacheco.reports.databinding.ActivityOrderViewClassBinding;
+import com.epacheco.reports.view.orderView.orderDetailView.OrderDetailView;
 import com.epacheco.reports.view.productsView.productAddView.ProductAddViewClass;
 import com.google.firebase.auth.FirebaseAuth;
 import java.text.SimpleDateFormat;
@@ -77,6 +78,7 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
       idProduct = extras.getString(ProductAddViewClass.PRODUCT_ID);
       Log.e(TAG,"idProduct : "+idProduct);
       selectListOrder1(getString(R.string.body_message_select_order2));
+      extras.remove(OrderDetailView.PRODUCT_ID);
     }
   }
 

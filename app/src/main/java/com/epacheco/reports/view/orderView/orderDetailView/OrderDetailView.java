@@ -214,6 +214,7 @@ public class OrderDetailView extends AppCompatActivity implements AdapterOrdersD
       productId = extras.getString(PRODUCT_ID);
       Log.e(TAG, "productId :  " + productId);
       ScreenManager.goOrderCreateActivityProduct(this, listOrderId, productId);
+      extras.remove(OrderDetailView.PRODUCT_ID);
     } else {
       Log.e(TAG, "extra nulo");
     }
