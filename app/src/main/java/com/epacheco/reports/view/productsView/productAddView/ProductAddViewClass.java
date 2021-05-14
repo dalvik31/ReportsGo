@@ -578,9 +578,8 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
     photoFile = getPhotoFileUri(photoFileName);
     Uri fileProvider = FileProvider.getUriForFile(this, MY_PROVIDER, photoFile);
     intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
-    if (intent.resolveActivity(getPackageManager()) != null) {
-      startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
-    }
+    startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+
   }
 
 
