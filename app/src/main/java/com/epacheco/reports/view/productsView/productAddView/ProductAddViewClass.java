@@ -342,6 +342,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
     if(validateInputs()){
       createProduct(getNewProduct());
       if(uploadImageAgain){
+        showProgress(getString(R.string.msg_save_image));
         productsAddModelClass.uploadImage(((BitmapDrawable) binding.imgProduct.getDrawable()).getBitmap());
       }else{
         productsAddModelClass.modifyProduct(getNewProduct());
