@@ -10,6 +10,8 @@ public class SalesDetail {
     private String idClient;
     private String nameClient;
     private int auxStock;
+    private boolean isCancelSale;
+    private String saleDate;
 
     public String getImgProduct() {
         return imgProduct;
@@ -81,5 +83,21 @@ public class SalesDetail {
 
     public void setAuxStock(int auxStock) {
         this.auxStock = auxStock;
+    }
+
+    public boolean isCancelSale() {
+        return isCancelSale;
+    }
+
+    public void setCancelSale(boolean cancelSale) {
+        isCancelSale = cancelSale;
+    }
+
+    public String getSaleDate() {
+        return saleDate;
+    }
+
+    public void setSaleDate(String saleDate) {
+        this.saleDate = saleDate;
     }
 }
