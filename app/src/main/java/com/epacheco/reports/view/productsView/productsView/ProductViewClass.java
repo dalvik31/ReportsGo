@@ -107,6 +107,7 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
   public void successDownloadProducts(List<Product> productList) {
     if(productList.size()>0){
       binding.lblZeroProducts.setVisibility(View.GONE);
+      binding.imgEmptyClients.setVisibility(View.GONE);
       binding.recyclerListClient.setVisibility(View.VISIBLE);
       binding.progressDownloadclient.setVisibility(View.GONE);
       progressbar.hideProgress();
@@ -118,6 +119,7 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
       binding.recyclerListClient.setAdapter(adapterClients);
     }else{
       binding.lblZeroProducts.setVisibility(View.VISIBLE);
+      binding.imgEmptyClients.setVisibility(View.VISIBLE);
       binding.recyclerListClient.setVisibility(View.GONE);
     }
 
@@ -125,9 +127,10 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
 
   @Override
   public void errorDownloadProducts(String error) {
-    if(!error.isEmpty()) com.epacheco.reports.tools.Tools.showToasMessage(this,error);
+   // if(!error.isEmpty()) com.epacheco.reports.tools.Tools.showToasMessage(this,error);
 
     binding.lblZeroProducts.setVisibility(View.VISIBLE);
+    binding.imgEmptyClients.setVisibility(View.VISIBLE);
     binding.recyclerListClient.setVisibility(View.GONE);
     binding.progressDownloadclient.setVisibility(View.GONE);
     progressbar.hideProgress();

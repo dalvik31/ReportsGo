@@ -103,6 +103,7 @@ public class OrderDetailView extends AppCompatActivity implements AdapterOrdersD
     hideProgress();
     if (orderDetailList.size() > 0) {
       binding.lblZeroOrdersElements.setVisibility(View.GONE);
+      binding.imgEmptyOrders.setVisibility(View.GONE);
       binding.recyclerListOrderElelments.setVisibility(View.VISIBLE);
       binding.recyclerListOrderElelments.setHasFixedSize(true);
       binding.recyclerListOrderElelments.setLayoutManager(new LinearLayoutManager(this));
@@ -112,6 +113,7 @@ public class OrderDetailView extends AppCompatActivity implements AdapterOrdersD
       binding.recyclerListOrderElelments.setAdapter(adapterOrders);
     } else {
       binding.lblZeroOrdersElements.setVisibility(View.VISIBLE);
+      binding.imgEmptyOrders.setVisibility(View.VISIBLE);
       binding.recyclerListOrderElelments.setVisibility(View.GONE);
     }
     checkIdClient();
@@ -123,6 +125,7 @@ public class OrderDetailView extends AppCompatActivity implements AdapterOrdersD
     hideProgress();
     binding.recyclerListOrderElelments.removeAllViews();
     binding.lblZeroOrdersElements.setVisibility(View.VISIBLE);
+    binding.imgEmptyOrders.setVisibility(View.VISIBLE);
     checkIdClient();
   }
 

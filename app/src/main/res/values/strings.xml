@@ -34,15 +34,16 @@
     <string name="msg_cerrar_sesion">¿Realmente desea cerrar sesion? </string>
 
 
-
     <!--Activity Principal-->
     <string name="lbl_menu_option_client">Clientes</string>
     <string name="lbl_menu_option_products">Productos</string>
     <string name="lbl_menu_option_sell">Ventas</string>
     <string name="lbl_menu_option_order">Pedidos</string>
+    <string name="lbl_menu_option_activity">Actividad financiera</string>
     <string name="lbl_menu_option">Selecciona una operación</string>
     <string name="lbl_menu_option_sell_subtitle">Selecciona un cliente y genera un ticket con varios productos.</string>
     <string name="lbl_menu_option_order_subtitle">Crea pedidos y asígnalos a tus clientes, guardalos y consultalos más tarde.</string>
+    <string name="lbl_menu_option_activity_subtitle">Revisa las ganancias generadas por dia o por un rango de fechas.</string>
     <string name="lbl_menu_option_client_subttitle">Agrega clientes para llevar el control de su crédito.</string>
     <string name="lbl_menu_option_products_subtitle">Lleva el control de tu inventario, de una manera rápida y sencilla.</string>
     <!--Fragment Clientes-->
@@ -179,11 +180,11 @@
     <string name="lbl_stock_product_empty">No hay productos en tu inventario.\nCambia el valor de cantidad</string>
 
     <string name="EtxtOther_product">Especificaciones del producto</string>
-        <string name="TxtOther_product">Otro ...</string>
-        <string name="ChkBx_ropa">Ropa</string>
-        <string name="ChkBx_otro">Otro</string>
-        <string name="ChkBx_dulces">Dulces</string>
-       <string name="TxtTipo_de_producto">Tipo de mercancia</string>
+    <string name="TxtOther_product">Otro ...</string>
+    <string name="ChkBx_ropa">Ropa</string>
+    <string name="ChkBx_otro">Otro</string>
+    <string name="ChkBx_dulces">Dulces</string>
+    <string name="TxtTipo_de_producto">Tipo de mercancia</string>
     <string name="Etxtcantidad">Cantidad en peso o paquetes</string>
     <string name="TxtCantidad">Cantidad</string>
     <string name="TxtTipo_de_empaque">Tipo de empaquetado</string>
@@ -205,7 +206,7 @@
     <string name="lbl_title_total_price">Precio total:\n</string>
     <string name="txt_product_name_and_code_format"> %s\n%s</string>
     <string name="txt_product_name_and_debt_format">%s %s\nDebe: $ %s</string>
-    <string name="lbl_sale_ticket_empty_">Agrega productos para generar un nuevo ticket, si prefieres puedes elegir un cliente o dejarlo asi.</string>
+    <string name="lbl_sale_ticket_empty_">Agrega productos para generar un nuevo ticket.</string>
 
 
     <!--Vista Pedidos-->
@@ -244,8 +245,6 @@
     <string name="errorTittleorder">Falta titulo de la lista</string>
 
 
-
-
     <!--Errores FIREBASE-->
     <string name="msg_firebase_delete_user">No se encontro información del usuario.</string>
     <string name="msg_firebase_without_password">Contraseña incorrecta o el usuario inicio con una red social.</string>
@@ -260,4 +259,15 @@
     <string name="name_app_splash">Reports\nGO</string>
     <string name="msg_item_order_move">Pedido movido a otra lista</string>
 
+    <!--Activity finance-->
+    <string name="lbl_title_finance_activity">Actividad financiera</string>
+    <string name="lbl_date_selected">%s - %s</string>
+    <string name="lbl_title_price">Venta</string>
+    <string name="lbl_title_investment">Inversión</string>
+    <string name="lbl_title_profit">Ganancia</string>
+    <string name="lbl_price_zero">$0</string>
+    <string name="lbl_price_sales">$ %s</string>
+    <string name="lbl_number_product_sales">%s productos vendidos</string>
+    <string name="lbl_empty_sales">No hay ventas en este periodo</string>
+    <string name="txt_product_cant"># %s</string>
 </resources>

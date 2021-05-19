@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.epacheco.reports.tools.customView.ToolbarGlobal
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:imageProfile="@drawable/icon_person"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:toolbarTitle="@string/lbl_title_finance_activity" />
+
+
+        <TextView
+            android:id="@+id/tvNumberProduct"
+            style="@style/TextView_Title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/tw__solid_white"
+            android:background="@android:color/holo_orange_light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+            tools:text="25 productos vendidos" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            style="@style/TextView_Title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/btnSelectDate"
+            app:layout_constraintEnd_toStartOf="@+id/btnSelectDate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvNumberProduct"
+            tools:text="15 / mayo / 2021" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnSelectDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:onClick="goSelectDate"
+            app:backgroundTint="@color/colorPrimary"
+            app:layout_anchorGravity="bottom|end"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvNumberProduct"
+            app:srcCompat="@drawable/ic_vector_activity"
+            app:tint="@color/colorWhite" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            style="@style/TextView_Title_Black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/lbl_title_price"
+            app:layout_constraintEnd_toStartOf="@+id/glFirst"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnSelectDate" />
+
+        <TextView
+            android:id="@+id/tvInvestment"
+            style="@style/TextView_Title_Black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/lbl_title_investment"
+            app:layout_constraintEnd_toStartOf="@+id/glSecond"
+            app:layout_constraintStart_toStartOf="@+id/glFirst"
+            app:layout_constraintTop_toBottomOf="@+id/btnSelectDate" />
+
+        <TextView
+            android:id="@+id/tvProfit"
+            style="@style/TextView_Title_Black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/lbl_title_profit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvInvestment"
+            app:layout_constraintTop_toBottomOf="@+id/btnSelectDate" />
+
+        <TextView
+            android:id="@+id/tvNumberInvestment"
+            style="@style/TextView_Title_Black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toStartOf="@+id/glSecond"
+            app:layout_constraintStart_toStartOf="@+id/glFirst"
+            app:layout_constraintTop_toBottomOf="@+id/tvInvestment"
+            android:text="@string/lbl_price_zero" />
+
+
+
+        <TextView
+            android:id="@+id/tvNumberPrice"
+            style="@style/TextView_Title_Black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintEnd_toStartOf="@+id/glFirst"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPrice"
+            android:layout_marginTop="10dp"
+            android:text="@string/lbl_price_zero" />
+
+        <TextView
+            android:id="@+id/tvNumberProfit"
+            style="@style/TextView_Title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/glSecond"
+            app:layout_constraintTop_toBottomOf="@+id/tvProfit"
+            android:text="@string/lbl_price_zero" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glFirst"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.33"/>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glSecond"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.66"/>
+
+        <View
+            android:id="@+id/separator"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintTop_toBottomOf="@+id/tvNumberInvestment"
+            android:layout_marginTop="10dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvListSales"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/separator"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"
+           />
+
+        <ImageView
+            android:id="@+id/imgEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/separator"
+            app:srcCompat="@drawable/ic_sales_empty"
+            android:scaleType="centerInside" />
+
+        <TextView
+            android:id="@+id/tvEmptyData"
+            style="@style/TextView_Title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgEmpty"
+            android:text="@string/lbl_empty_sales"
+            android:layout_marginTop="20dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

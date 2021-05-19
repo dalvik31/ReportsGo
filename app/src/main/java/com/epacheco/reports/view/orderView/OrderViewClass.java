@@ -114,6 +114,7 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
     if(orderLists.size()>0){
       orderList1 = (ArrayList<OrderList>) orderLists;
       binding.lblZeroOrders.setVisibility(View.GONE);
+      binding.imgEmptyOrders.setVisibility(View.GONE);
       binding.recyclerListOrder.setVisibility(View.VISIBLE);
       binding.recyclerListOrder.setHasFixedSize(true);
       binding.recyclerListOrder.setLayoutManager(new LinearLayoutManager(this));
@@ -122,6 +123,7 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
       binding.recyclerListOrder.setAdapter(adapterOrders);
     }else{
       binding.lblZeroOrders.setVisibility(View.VISIBLE);
+      binding.imgEmptyOrders.setVisibility(View.VISIBLE);
       binding.recyclerListOrder.setVisibility(View.GONE);
     }
   }
@@ -142,7 +144,8 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
     binding.recyclerListOrder.setAdapter(null);
     binding.recyclerListOrder.removeAllViews();
     binding.lblZeroOrders.setVisibility(View.VISIBLE);
-    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
+    binding.imgEmptyOrders.setVisibility(View.VISIBLE);
+    //com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   @Override
