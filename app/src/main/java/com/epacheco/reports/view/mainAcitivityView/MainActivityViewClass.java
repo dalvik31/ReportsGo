@@ -4,6 +4,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.format.Time;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -13,10 +15,13 @@ import com.epacheco.reports.R;
 import com.epacheco.reports.tools.Constants;
 import com.epacheco.reports.tools.ReportsApplication;
 import com.epacheco.reports.tools.ScreenManager;
+import com.epacheco.reports.tools.Tools;
 import com.epacheco.reports.view.searchElementsView.SearchElementView;
 
 import com.epacheco.reports.databinding.ActivityMainClassBinding;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Calendar;
 
 public class MainActivityViewClass extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -68,6 +73,11 @@ public class MainActivityViewClass extends AppCompatActivity {
 
     public void goOrderActivity(View v) {
         ScreenManager.goOrderActivity(this, null);
+    }
+
+    public void goFinanceActivity(View v) {
+
+       ScreenManager.goFinanceActivity(this);
     }
 
 

@@ -6,9 +6,11 @@ public class Constants {
   //FireBase tables
   public final static String CLIENT_TABLE_FIREBASE = "Clients";
   public final static String CLIENT_PRODUCTS_TABLE_FIREBASE = "Products";
+  public final static String CLIENT_SALES_TABLE_FIREBASE = "Sales";
   public final static String CLIENT_ORDERS_TABLE_FIREBASE = "Orders";
   public final static String CLIENT_DETAIL_TABLE_FIREBASE = "clientsDetails";
   public final static String CLIENT_IMAGES_TABLE_FIREBASE = "Images";
+  public final static String ID_GENERIC_SALES = "Generic";
 
   //SharedPreferences
   public final static String USERNAME_SAVE = "userNameSave";

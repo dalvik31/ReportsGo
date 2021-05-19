@@ -1,66 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-  android:layout_width="match_parent"
-  android:layout_height="match_parent">
-  <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <com.epacheco.reports.tools.customView.ToolbarGlobal
-        android:id="@+id/appBarLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:imageProfile="@drawable/icon_person"
-        app:toolbarTitle="@string/lbl_title_orders" />
-    <ProgressBar
-      android:id="@+id/progress_downloadOrderElements"
-      style="?android:attr/progressBarStyleHorizontal"
-      android:indeterminateOnly="true"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@+id/appBarLayout"
-      android:layout_marginTop="-5dp"
-      android:theme="@style/AppTheme.ProgressBar"/>
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/recyclerListOrderElelments"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_marginTop="-11dp"
-      android:layout_below="@+id/progress_downloadOrderElements"
-      android:visibility="visible"
-      tools:listitem="@layout/item_list_order_detail"/>
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.epacheco.reports.tools.customView.ToolbarGlobal
+                android:id="@+id/appBarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:imageProfile="@drawable/icon_person"
+                app:toolbarTitle="@string/lbl_title_orders" />
+
+            <ProgressBar
+                android:id="@+id/progress_downloadOrderElements"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/appBarLayout"
+                android:layout_marginTop="-5dp"
+                android:indeterminateOnly="true"
+                android:theme="@style/AppTheme.ProgressBar" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerListOrderElelments"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/progress_downloadOrderElements"
+                android:layout_marginTop="-11dp"
+                android:visibility="visible"
+                tools:listitem="@layout/item_list_order_detail" />
 
 
-    <TextView
-      android:id="@+id/lbl_zero_orders_elements"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      style="@style/TextView_Title"
-      android:text="@string/msg_zero_orders_elements"
-      android:layout_centerInParent="true"
-      android:textColor="@color/colorPrimary"
-      android:textSize="28sp"
-      android:visibility="visible"
-      android:gravity="center"/>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-      android:id="@+id/floating_action_button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_margin="20dp"
-      app:srcCompat="@drawable/ic_vector_add"
-      android:layout_alignParentBottom="true"
-      android:layout_alignParentEnd="true"
-      android:onClick="goCreateOrder"
-      app:backgroundTint="@color/colorPrimary"
-      />
-  </RelativeLayout>
+            <ImageView
+                android:id="@+id/imgEmptyOrders"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:srcCompat="@drawable/ic_vector_empty_orders" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/lbl_zero_orders_elements"
+                style="@style/TextView_Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="@string/msg_zero_orders_elements"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                android:layout_marginTop="20dp"
+                android:visibility="visible"
+                android:layout_below="@+id/imgEmptyOrders"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floating_action_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="20dp"
+                android:onClick="goCreateOrder"
+                app:backgroundTint="@color/colorPrimary"
+                app:srcCompat="@drawable/ic_vector_add"
+                app:tint="@color/colorWhite" />
+        </RelativeLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
