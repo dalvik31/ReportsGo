@@ -104,19 +104,28 @@ public class ClientsViewClass extends AppCompatActivity implements ClientViewInt
   @Override
   public void successDownloadClients(ArrayList<Client> listCliets) {
     hideProgress();
-    binding.recyclerListClient.setHasFixedSize(true);
-    binding.recyclerListClient.setLayoutManager(new LinearLayoutManager(this));
-    AdapterClients adapterClients = new AdapterClients(listCliets,this);
-    adapterClients.setOnItemClientClic(this);
-    binding.recyclerListClient.setAdapter(adapterClients);
-    binding.lblZeroClients.setVisibility(View.GONE);
-    binding.recyclerListClient.setVisibility(View.VISIBLE);
+    if(listCliets!=null && !listCliets.isEmpty()){
+      binding.recyclerListClient.setHasFixedSize(true);
+      binding.recyclerListClient.setLayoutManager(new LinearLayoutManager(this));
+      AdapterClients adapterClients = new AdapterClients(listCliets,this);
+      adapterClients.setOnItemClientClic(this);
+      binding.recyclerListClient.setAdapter(adapterClients);
+      binding.lblZeroClients.setVisibility(View.GONE);
+      binding.imgEmptyClients.setVisibility(View.GONE);
+      binding.recyclerListClient.setVisibility(View.VISIBLE);
+    }else{
+      binding.lblZeroClients.setVisibility(View.VISIBLE);
+      binding.imgEmptyClients.setVisibility(View.VISIBLE);
+      binding.recyclerListClient.setVisibility(View.GONE);
+    }
+
   }
 
   @Override
   public void errorDownloadClients(String error) {
     hideProgress();
     binding.lblZeroClients.setVisibility(View.VISIBLE);
+    binding.imgEmptyClients.setVisibility(View.VISIBLE);
     binding.recyclerListClient.setVisibility(View.GONE);
   }
 

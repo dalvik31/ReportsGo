@@ -17,6 +17,7 @@ import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.ClientDetail.ClientDetail;
 import com.epacheco.reports.Pojo.Product.Product;
 import com.epacheco.reports.R;
+import com.epacheco.reports.tools.Constants;
 import com.epacheco.reports.tools.ReportsApplication;
 import com.epacheco.reports.tools.ReportsDialogGlobal;
 import com.epacheco.reports.tools.ReportsProgressDialog;
@@ -114,6 +115,7 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
     hideProgress();
     addView(product);
     binding.lblMsgTicketEmpty.setVisibility(View.GONE);
+    binding.imgEmptyOrders.setVisibility(View.GONE);
     binding.viewPagerProducts.setVisibility(View.VISIBLE);
     binding.btnNameProduct.setText(String.format(
         ReportsApplication.getMyApplicationContext().getString(R.string.txt_product_name_and_code_format),
@@ -141,6 +143,7 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
       setTotalSale(0);
       binding.btnTotal.setText(String.format(getString(R.string.lbl_sale_total),String.valueOf(getTotalSale())));
       binding.lblMsgTicketEmpty.setVisibility(View.VISIBLE);
+      binding.imgEmptyOrders.setVisibility(View.VISIBLE);
       binding.viewPagerProducts.setVisibility(View.GONE);
       binding.btnNameClient.setText(getString(R.string.lbl_sale_select_name));
       binding.btnNameProduct.setText(getString(R.string.lbl_sale_select_product));
@@ -208,6 +211,7 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
 
             if(adapterViewPagerSale.getCount() == 0){
               binding.lblMsgTicketEmpty.setVisibility(View.VISIBLE);
+              binding.imgEmptyOrders.setVisibility(View.VISIBLE);
               binding.btnNameProduct.setText(R.string.lbl_sale_select_product);
             }
           }
@@ -231,10 +235,14 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
         clientDetail.setProductId(product.getProductId());
         clientDetail.setUpdateStock(product.getInStock() -product.getAuxStock());
         clientDetail.setConcept(product.getProductName()+" --- "+product.getProductDescription());
+        clientDetail.setProductName(product.getProductName());
+        clientDetail.setProductPriceBuy(product.getProductPriceBuy());
+        clientDetail.setProductPriceSale(product.getProductPriceSale());
+        clientDetail.setAuxStock(product.getAuxStock());
         listDetail.add(clientDetail);
       }
 
-      saleModelClass.addClientDetail(listDetail ,getObjClient()!=null && !getObjClient().getId().isEmpty() ?getObjClient().getId() : mAuth.getUid() );
+      saleModelClass.addClientDetail(listDetail ,getObjClient());
     }else{
       Toast.makeText(this,getString(R.string.msg_sale_empty_products),Toast.LENGTH_LONG).show();
     }

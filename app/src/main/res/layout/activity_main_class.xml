@@ -62,6 +62,13 @@
                     app:image="@drawable/ic_vector_order"
                     app:subTitle="@string/lbl_menu_option_order_subtitle"
                     app:title="@string/lbl_menu_option_order" />
+                <com.epacheco.reports.tools.customView.ButtonMenu
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="goFinanceActivity"
+                    app:image="@drawable/ic_vector_activity"
+                    app:subTitle="@string/lbl_menu_option_activity_subtitle"
+                    app:title="@string/lbl_menu_option_activity" />
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>

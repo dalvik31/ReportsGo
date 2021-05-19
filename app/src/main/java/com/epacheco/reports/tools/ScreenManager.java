@@ -9,6 +9,7 @@ import com.epacheco.reports.view.clientView.clienDetailView.ClientDetailViewClas
 import com.epacheco.reports.view.clientView.clientAddView.ClientAddViewClass;
 import com.epacheco.reports.view.clientView.clientDetailListView.ClientDetailListViewClass;
 import com.epacheco.reports.view.clientView.clientView.ClientsViewClass;
+import com.epacheco.reports.view.financeActivityView.FinanceAcitivityView;
 import com.epacheco.reports.view.forgotPassword.ForgotPasswordAcitivity;
 import com.epacheco.reports.view.mainAcitivityView.MainActivityViewClass;
 import com.epacheco.reports.view.orderView.orderCreateView.OrderCreateView;
@@ -149,9 +150,13 @@ public class ScreenManager {
     myActivity.finish();
   }
 
-
   public static void goForgotPasswordActivity(FragmentActivity myActivity){
     Intent forgotPasswordActivity = new Intent(myActivity, ForgotPasswordAcitivity.class);
+    myActivity.startActivity(forgotPasswordActivity);
+  }
+
+  public static void goFinanceActivity(FragmentActivity myActivity){
+    Intent forgotPasswordActivity = new Intent(myActivity, FinanceAcitivityView.class);
     myActivity.startActivity(forgotPasswordActivity);
   }
 }

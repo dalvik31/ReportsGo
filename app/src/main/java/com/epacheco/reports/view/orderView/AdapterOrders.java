@@ -64,12 +64,11 @@ public class AdapterOrders extends RecyclerView.Adapter<AdapterOrders.HolderOrde
       getStationImage(month);
     }
 
-    holderOrder.relativItemOrder.setBackgroundResource(imageResourses);
+    holderOrder.relativItemOrder.setImageResource(imageResourses);
     holderOrder.imageViewRemoveItem.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
         clicItemList(true,myOrder.getDateOrder(),myOrder.getNameOrder());
-
       }
     });
     holderOrder.containerOrderItem.setOnClickListener(new OnClickListener() {
@@ -107,7 +106,7 @@ public class AdapterOrders extends RecyclerView.Adapter<AdapterOrders.HolderOrde
     private TextView txtNameOrder , txttitle;
     private ImageView imageViewRemoveItem;
     private CardView containerOrderItem;
-    private RelativeLayout relativItemOrder;
+    private ImageView relativItemOrder;
     private final ProgressIndicator progressIndicator;
     HolderOrder(@NonNull View itemView) {
       super(itemView);

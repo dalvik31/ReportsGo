@@ -7,11 +7,14 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 
+import com.epacheco.reports.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.fragment.app.FragmentActivity;
 import androidx.core.content.ContextCompat;
+
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -19,11 +22,14 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class Tools {
   private final static String TAG = Tools.class.getSimpleName();
   private static final String PREFERENCE_FILE_KEY = "reportsPreference";
   private static SharedPreferences preferences = com.epacheco.reports.tools.ReportsApplication.getMyApplicationContext().getSharedPreferences(PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
+  private static final String DATE_FORMAT_4 = "yyyy-MM-dd";
+  private static final String DATE_FORMAT_3 = "dd / MMMM";
   private static final String DATE_FORMAT_2 = "dd / MMMM / yyyy";
   private static final String DATE_FORMAT_1 = "HH:mm  -- dd / MMMM / yyyy";
 
@@ -39,12 +45,26 @@ public class Tools {
       return "-- ---- ----";
     }
 
-    Calendar cal = Calendar.getInstance();
-    DateFormat simple = new SimpleDateFormat(DATE_FORMAT_2, Locale.getDefault());
+    Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+    DateFormat simple = new SimpleDateFormat(DATE_FORMAT_4, Locale.US);
     cal.setTimeInMillis(Long.parseLong(epochDate));
     return simple.format(cal.getTime());
   }
 
+
+  public static String getFormatDateToDates(String firstEpochDate, String secondEpochDate) {
+    if ( (TextUtils.isEmpty(firstEpochDate)) || ((TextUtils.isEmpty(secondEpochDate)))) {
+      return "-- ---- ----";
+    }
+
+    Calendar cal = Calendar.getInstance();
+    DateFormat simple = new SimpleDateFormat(DATE_FORMAT_3, Locale.US);
+    cal.setTimeInMillis(Long.parseLong(firstEpochDate));
+    String firsDate = simple.format(cal.getTime());
+    cal.setTimeInMillis(Long.parseLong(secondEpochDate));
+    String secondDate = simple.format(cal.getTime());
+    return String.format(ReportsApplication.getMyApplicationContext().getString(R.string.lbl_date_selected),firsDate,secondDate);
+  }
 
   public static String getFormatDateHour(String epochDate){
     if(epochDate==null || epochDate.isEmpty()){
@@ -153,4 +173,13 @@ public class Tools {
     return true;
   }
 
+  public static long getDateTodayLong(){
+    Calendar today = Calendar.getInstance();
+    today.setTimeInMillis(System.currentTimeMillis());
+    today.set(Calendar.HOUR, 0 );
+    today.set(Calendar.MINUTE, 0 );
+    today.set(Calendar.SECOND, 0 );
+    today.set(Calendar.MILLISECOND, 0 );
+    return today.getTimeInMillis();
+  }
 }

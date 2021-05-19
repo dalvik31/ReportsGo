@@ -15,6 +15,10 @@ public class ClientDetail {
   private String urlImage;
   private String productId;
   private int updateStock;
+  private String productName;
+  private double productPriceBuy;
+  private double productPriceSale;
+  private int auxStock;
   public ClientDetail() {
   }
 
@@ -90,6 +94,38 @@ public class ClientDetail {
     this.updateStock = updateStock;
   }
 
+  public String getProductName() {
+    return productName;
+  }
+
+  public void setProductName(String productName) {
+    this.productName = productName;
+  }
+
+  public double getProductPriceBuy() {
+    return productPriceBuy;
+  }
+
+  public void setProductPriceBuy(double productPriceBuy) {
+    this.productPriceBuy = productPriceBuy;
+  }
+
+  public double getProductPriceSale() {
+    return productPriceSale;
+  }
+
+  public void setProductPriceSale(double productPriceSale) {
+    this.productPriceSale = productPriceSale;
+  }
+
+  public int getAuxStock() {
+    return auxStock;
+  }
+
+  public void setAuxStock(int auxStock) {
+    this.auxStock = auxStock;
+  }
+
   @Override
   public String toString() {
     StringBuilder stringBuilder = new StringBuilder();
@@ -120,5 +156,8 @@ public class ClientDetail {
     stringBuilder.append("\n");
     return stringBuilder.toString();
   }
+
+
+
 }
 
