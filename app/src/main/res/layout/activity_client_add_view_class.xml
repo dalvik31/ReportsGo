@@ -195,7 +195,7 @@
 
 
       </LinearLayout>
-      <Button
+      <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_create_accoount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -208,7 +208,7 @@
         android:layout_below="@+id/container_information"
         android:onClick="addClient"/>
 
-      <Button
+      <androidx.appcompat.widget.AppCompatButton
           android:id="@+id/btn_search_contacts"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -233,7 +233,7 @@
         android:layout_below="@+id/btn_create_accoount"
         android:visibility="gone"
         android:weightSum="1">
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
           android:id="@+id/btn_delete_accoount"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
@@ -245,7 +245,7 @@
           android:layout_marginBottom="10dp"
           android:text="@string/btn_delete"
           android:onClick="deleteAccount"/>
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
           android:id="@+id/btn_modify_accoount"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
@@ -259,7 +259,7 @@
           android:onClick="modifyAccount"/>
       </LinearLayout>
 
-      <Button
+      <androidx.appcompat.widget.AppCompatButton
           android:id="@+id/btn_contact"
           android:visibility="gone"
           android:layout_width="match_parent"

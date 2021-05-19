@@ -31,9 +31,30 @@ public class FinanceActitvityModel implements FinanceActivityModelInterface{
     }
 
     @Override
+    public void successCancelSale() {
+        if (financeAcitivityView != null) {
+            financeAcitivityView.successCancelSale();
+        }
+    }
+
+    @Override
+    public void errorCancelSale(String error) {
+        if (financeAcitivityView != null) {
+            financeAcitivityView.errorCancelSale(error);
+        }
+    }
+
+    @Override
     public void getSales(long firstDate, long secondDate) {
         if (financeActivityController != null) {
             financeActivityController.getSales(firstDate,secondDate);
+        }
+    }
+
+    @Override
+    public void cancelSale(String saleiId) {
+        if (financeActivityController != null) {
+            financeActivityController.cancelSale(saleiId);
         }
     }
 }

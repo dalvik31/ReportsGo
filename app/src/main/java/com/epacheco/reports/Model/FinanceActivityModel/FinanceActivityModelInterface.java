@@ -7,6 +7,9 @@ import java.util.List;
 public interface FinanceActivityModelInterface {
     void successGetSales(List<SalesDetail> salesDetails);
     void errorGetSales(String error);
+    void successCancelSale();
+    void errorCancelSale(String error);
 
     void getSales(long firstDate, long secondDate);
+    void cancelSale(String saleiId);
 }
