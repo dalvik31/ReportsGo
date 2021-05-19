@@ -517,7 +517,7 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
-                            <Button
+                            <androidx.appcompat.widget.AppCompatButton
                                 android:id="@+id/btn_delete_accoount"
                                 style="@style/AppTheme.ButtonGralBlack"
                                 android:layout_width="0dp"
@@ -530,7 +530,7 @@
                                 android:onClick="removeProduct"
                                 android:text="@string/btn_delete" />
 
-                            <Button
+                            <androidx.appcompat.widget.AppCompatButton
                                 android:id="@+id/btn_modify_accoount"
                                 style="@style/AppTheme.ButtonGral"
                                 android:layout_width="0dp"
@@ -544,7 +544,7 @@
                                 android:text="@string/btn_modify" />
                         </LinearLayout>
 
-                        <Button
+                        <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/btn_generate_order"
                             style="@style/AppTheme.ButtonGralBlack"
                             android:layout_width="match_parent"
@@ -559,7 +559,7 @@
 
                     </LinearLayout>
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_create_product"
                         style="@style/AppTheme.ButtonGral"
                         android:layout_width="match_parent"

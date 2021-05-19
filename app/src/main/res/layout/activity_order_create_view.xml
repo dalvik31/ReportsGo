@@ -70,6 +70,7 @@
                   android:layout_margin="10dp"
                   android:layout_gravity="start|center"
                   app:fabSize="mini"
+                  app:tint="@color/colorWhite"
                   app:srcCompat="@drawable/ic_vector_search_client"
                   app:backgroundTint="@color/colorPrimary"
                   android:onClick="searchClient"
@@ -397,7 +398,7 @@
           </androidx.cardview.widget.CardView>
 
 
-          <Button
+          <androidx.appcompat.widget.AppCompatButton
               android:id="@+id/btn_create_accoount"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"

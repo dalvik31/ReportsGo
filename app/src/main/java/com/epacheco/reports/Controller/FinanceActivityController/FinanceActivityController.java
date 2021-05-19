@@ -1,5 +1,6 @@
 package com.epacheco.reports.Controller.FinanceActivityController;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -55,7 +56,12 @@ public class FinanceActivityController implements FinanceActivityControllerInter
 
                     for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                         SalesDetail sale = postSnapshot.getValue(SalesDetail.class);
-                        salesDetails.add(sale);
+                        if(sale!=null){
+                            if(TextUtils.isEmpty(sale.getSaleDate())){
+                                sale.setSaleDate(postSnapshot.getKey());
+                            }
+                            salesDetails.add(sale);
+                        }
                     }
 
                     financeActitvityModel.successGetSales(salesDetails);
