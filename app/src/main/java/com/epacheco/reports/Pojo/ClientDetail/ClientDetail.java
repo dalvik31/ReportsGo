@@ -2,7 +2,7 @@ package com.epacheco.reports.Pojo.ClientDetail;
 
 
 import com.epacheco.reports.R;
-import com.epacheco.reports.Tools.ReportsApplication;
+import com.epacheco.reports.tools.ReportsApplication;
 
 public class ClientDetail {
 
@@ -15,6 +15,10 @@ public class ClientDetail {
   private String urlImage;
   private String productId;
   private int updateStock;
+  private String productName;
+  private double productPriceBuy;
+  private double productPriceSale;
+  private int auxStock;
   public ClientDetail() {
   }
 
@@ -90,6 +94,38 @@ public class ClientDetail {
     this.updateStock = updateStock;
   }
 
+  public String getProductName() {
+    return productName;
+  }
+
+  public void setProductName(String productName) {
+    this.productName = productName;
+  }
+
+  public double getProductPriceBuy() {
+    return productPriceBuy;
+  }
+
+  public void setProductPriceBuy(double productPriceBuy) {
+    this.productPriceBuy = productPriceBuy;
+  }
+
+  public double getProductPriceSale() {
+    return productPriceSale;
+  }
+
+  public void setProductPriceSale(double productPriceSale) {
+    this.productPriceSale = productPriceSale;
+  }
+
+  public int getAuxStock() {
+    return auxStock;
+  }
+
+  public void setAuxStock(int auxStock) {
+    this.auxStock = auxStock;
+  }
+
   @Override
   public String toString() {
     StringBuilder stringBuilder = new StringBuilder();
@@ -99,7 +135,7 @@ public class ClientDetail {
     stringBuilder.append("** ");
     stringBuilder.append("Fecha del movimiento: ");
     stringBuilder.append("\n");
-    stringBuilder.append(com.epacheco.reports.Tools.Tools.getFormatDateHour(datePayment));
+    stringBuilder.append(com.epacheco.reports.tools.Tools.getFormatDateHour(datePayment));
     stringBuilder.append(" **");
     stringBuilder.append("\n");
     stringBuilder.append("Cantidad de pago: ");
@@ -120,5 +156,8 @@ public class ClientDetail {
     stringBuilder.append("\n");
     return stringBuilder.toString();
   }
+
+
+
 }
 

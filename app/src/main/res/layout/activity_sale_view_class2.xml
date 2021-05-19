@@ -1,276 +1,275 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto">
-
-  <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.SaleView2.SaleViewClass">
-
-    <com.google.android.material.appbar.AppBarLayout
-      android:id="@+id/appBarLayout"
-      android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize">
-      <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <RelativeLayout
-          android:id="@+id/containers_buttons"
-          android:layout_width="wrap_content"
-          android:layout_height="match_parent"
-          android:layout_alignParentEnd="true">
-
-          <Button
-            android:id="@+id/btn_total"
-            style="@style/AppTheme.ButtonGralTransparentInverse"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/lbl_sale_total"
-            android:visibility="visible"
-            android:clickable="false"
-            android:focusable="false"/>
-
-        </RelativeLayout>
-
-
-        <androidx.appcompat.widget.Toolbar
-          android:id="@+id/app_bar"
-          android:layout_width="wrap_content"
-          android:layout_height="match_parent"
-          android:layout_alignParentStart="true"
-          android:layout_toStartOf="@+id/containers_buttons"
-          android:theme="@style/AppThemeSearchView"
-          app:title="@string/lbl_generate_sale">
-        </androidx.appcompat.widget.Toolbar>
-      </RelativeLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_below="@+id/appBarLayout"
-      android:paddingStart="5dp"
-      android:paddingEnd="5dp">
-      <ProgressBar
-        android:id="@+id/progress_downloadclient"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:indeterminateOnly="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-5dp"
-        android:visibility="gone"
-        android:theme="@style/AppTheme.ProgressBar"/>
+        android:layout_height="match_parent"
+        tools:context=".view.SaleView2.SaleViewClass">
 
-
-      <LinearLayout
-        android:id="@+id/container_select"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1">
-        <RelativeLayout
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_weight=".5">
-          <TextView
-            android:id="@+id/lbl_sale_client_name"
-            style="@style/TextView_Text"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:text="@string/lbl_sale_name_client"
-            android:drawablePadding="5dp"
-            android:drawableStart="@drawable/ic_vector_search_client_red"
-            android:padding="5dp"/>
-          <LinearLayout
-            android:id="@+id/container_client"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lbl_sale_client_name"
-            android:weightSum="1"
-            android:padding="5dp">
-
+            android:layout_height="?attr/actionBarSize">
 
             <RelativeLayout
-              android:layout_width="0dp"
-              android:layout_height="match_parent"
-              android:layout_weight=".2">
-              <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fbtn_search_client"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_gravity="start|center"
-                android:onClick="goClientsActivity"
-                app:backgroundTint="@color/colorPrimary"
-                app:fabSize="mini"
-                android:visibility="gone"
-                app:srcCompat="@drawable/ic_vector_search_client"/>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:id="@+id/containers_buttons"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true">
+
+                    <Button
+                        android:id="@+id/btn_total"
+                        style="@style/AppTheme.ButtonTotal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:text="@string/lbl_sale_total"
+                        android:visibility="visible" />
+
+                </RelativeLayout>
+
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/app_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@+id/containers_buttons"
+                    android:theme="@style/AppThemeSearchView"
+                    app:title="@string/lbl_generate_sale"></androidx.appcompat.widget.Toolbar>
             </RelativeLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/appBarLayout"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp">
+
+            <ProgressBar
+                android:id="@+id/progress_downloadclient"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-5dp"
+                android:indeterminateOnly="true"
+                android:theme="@style/AppTheme.ProgressBar"
+                android:visibility="gone" />
 
 
             <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:gravity="center"
-              android:orientation="vertical">
-              <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/txt_sale_client_name"
-                style="@style/TextView_Text"
+                android:id="@+id/container_select"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="start"
-                android:layout_gravity="center"
-                android:text="@string/lbl_change_client"
-                android:visibility="gone"
-                android:onClick="goClientsActivity"
-                android:textColor="@android:color/holo_green_dark"
-                android:inputType="number"/>
-              <Button
-                android:id="@+id/btn_name_client"
-                style="@style/AppTheme.ButtonGralTransparent"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5">
+
+                    <TextView
+                        android:id="@+id/lbl_sale_client_name"
+                        style="@style/TextView_Text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:drawableStart="@drawable/ic_vector_search_client_red"
+                        android:drawablePadding="5dp"
+                        android:hint="@string/lbl_sale_name_client"
+                        android:onClick="goClientsActivity"
+                        android:padding="5dp" />
+
+                    <LinearLayout
+                        android:id="@+id/container_client"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/lbl_sale_client_name"
+                        android:padding="5dp"
+                        android:weightSum="1">
+
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight=".2">
+
+                            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                                android:id="@+id/fbtn_search_client"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start|center"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:onClick="goClientsActivity"
+                                android:visibility="gone"
+                                app:backgroundTint="@color/colorPrimary"
+                                app:fabSize="mini"
+                                app:srcCompat="@drawable/ic_vector_search_client" />
+                        </RelativeLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <Button
+                                android:id="@+id/btn_name_client"
+                                style="@style/AppTheme.ButtonGralTransparent"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="start|center"
+                                android:onClick="goClientsActivity"
+                                android:text="@string/lbl_sale_select_name"
+                                android:visibility="visible" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/txt_sale_client_amount"
+                                style="@style/Edittext_custom"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:hint="@string/lbl_product_price_sale_hint"
+                                android:inputType="number"
+                                android:visibility="gone" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5">
+
+                    <TextView
+                        android:id="@+id/lbl_sale_product_name"
+                        style="@style/TextView_Text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="0dp"
+                        android:drawableStart="@drawable/ic_vector_product_red"
+                        android:drawablePadding="5dp"
+                        android:hint="@string/lbl_sale_name_product"
+                        android:onClick="goProductsActivity"
+                        android:padding="5dp" />
+
+                    <LinearLayout
+                        android:id="@+id/container_product"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/lbl_sale_product_name"
+                        android:padding="5dp"
+                        android:weightSum="1">
+
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight=".2">
+
+                            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                                android:id="@+id/fbtn_search_product"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start|center"
+                                android:layout_margin="10dp"
+                                android:onClick="goProductsActivity"
+                                android:visibility="gone"
+                                app:backgroundTint="@color/colorPrimary"
+                                app:fabSize="mini"
+                                app:srcCompat="@drawable/ic_vector_search" />
+                        </RelativeLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <Button
+                                android:id="@+id/btn_name_product"
+                                style="@style/AppTheme.ButtonGralTransparent"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="start|center"
+                                android:onClick="goProductsActivity"
+                                android:text="@string/lbl_sale_select_product"
+                                android:visibility="visible" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager_Products"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:onClick="goClientsActivity"
-                android:gravity="start|center"
-                android:text="@string/lbl_sale_select_name"
-                android:visibility="visible"/>
-              <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/txt_sale_client_amount"
-                style="@style/Edittext_custom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:visibility="gone"
-                android:hint="@string/lbl_product_price_sale_hint"
-                android:inputType="number"/>
-            </LinearLayout>
-          </LinearLayout>
+                android:layout_below="@+id/container_select"
+                android:visibility="visible" />
 
-        </RelativeLayout>
-
-        <RelativeLayout
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_weight=".5">
-          <TextView
-            android:id="@+id/lbl_sale_product_name"
-            style="@style/TextView_Text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_alignParentStart="true"
-            android:padding="5dp"
-            android:drawablePadding="5dp"
-            android:drawableStart="@drawable/ic_vector_product_red"
-            android:text="@string/lbl_sale_name_product"/>
-
-          <LinearLayout
-            android:id="@+id/container_product"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lbl_sale_product_name"
-            android:weightSum="1"
-            android:padding="5dp">
-
-
-            <RelativeLayout
-              android:layout_width="0dp"
-              android:layout_height="match_parent"
-              android:layout_weight=".2">
-              <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fbtn_search_product"
+            <ImageView
+                android:id="@+id/imgEmptyOrders"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_gravity="start|center"
-                app:fabSize="mini"
-                android:visibility="gone"
-                app:srcCompat="@drawable/ic_vector_search"
-                app:backgroundTint="@color/colorPrimary"
-                android:onClick="goProductsActivity"
-                />
-            </RelativeLayout>
+                android:layout_centerInParent="true"
+                app:srcCompat="@drawable/ic_vector_sale_emmpty" />
 
-
-            <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:gravity="center"
-              android:orientation="vertical">
-              <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/txt_sale_product_name"
+            <TextView
+                android:id="@+id/lbl_msg_ticket_empty"
                 style="@style/TextView_Text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="start"
-                android:layout_gravity="start"
+                android:layout_below="@+id/imgEmptyOrders"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:hint="@string/lbl_sale_ticket_empty_"
                 android:onClick="goProductsActivity"
-                android:text="@string/lbl_change_product"
-                android:textColor="@android:color/holo_green_dark"
-                android:visibility="gone"/>
-              <Button
-                android:id="@+id/btn_name_product"
-                style="@style/AppTheme.ButtonGralTransparent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/lbl_sale_select_product"
-                android:visibility="visible"
-                android:gravity="start|center"
-                android:onClick="goProductsActivity"/>
-
-            </LinearLayout>
-          </LinearLayout>
+                android:padding="10dp"
+                android:textSize="20dp" />
         </RelativeLayout>
 
-      </LinearLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabtn_remove_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="20dp"
+            android:onClick="removeProduct"
+            app:tint="@color/colorWhite"
+            app:backgroundTint="@color/colorPrimary"
+            app:fabSize="mini"
+            app:srcCompat="@drawable/ic_vector_remove" />
 
-      <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager_Products"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/container_select"
-        android:visibility="visible"/>
-
-      <TextView
-        android:id="@+id/lbl_msg_ticket_empty"
-        style="@style/TextView_Text"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="-1dp"
-        android:layout_below="@+id/container_select"
-        android:padding="10dp"
-        android:gravity="center"
-        android:text="@string/lbl_sale_ticket_empty_"
-        android:textSize="28dp"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabtn_generar_ticket"
+            app:tint="@color/colorWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="20dp"
+            android:onClick="generateTicket"
+            app:backgroundTint="@android:color/holo_green_dark"
+            app:srcCompat="@drawable/ic_vector_ok" />
     </RelativeLayout>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-      android:id="@+id/fabtn_remove_product"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_margin="20dp"
-      android:layout_alignParentBottom="true"
-      android:layout_alignParentStart="true"
-      app:fabSize="mini"
-
-      app:srcCompat="@drawable/ic_vector_remove"
-      android:onClick="removeProduct"
-      app:backgroundTint="@color/colorPrimary"/>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-      android:id="@+id/fabtn_generar_ticket"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_margin="20dp"
-      android:layout_alignParentBottom="true"
-      android:layout_alignParentEnd="true"
-      app:srcCompat="@drawable/ic_vector_ok"
-      android:onClick="generateTicket"
-      app:backgroundTint="@android:color/holo_green_dark"/>
-  </RelativeLayout>
 
 </layout>

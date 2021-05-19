@@ -2,6 +2,7 @@ package com.epacheco.reports.view.saleView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+
 import androidx.databinding.DataBindingUtil;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
@@ -16,16 +17,18 @@ import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.ClientDetail.ClientDetail;
 import com.epacheco.reports.Pojo.Product.Product;
 import com.epacheco.reports.R;
-import com.epacheco.reports.Tools.ReportsApplication;
-import com.epacheco.reports.Tools.ReportsDialogGlobal;
-import com.epacheco.reports.Tools.ReportsProgressDialog;
-import com.epacheco.reports.Tools.ScreenManager;
+import com.epacheco.reports.tools.Constants;
+import com.epacheco.reports.tools.ReportsApplication;
+import com.epacheco.reports.tools.ReportsDialogGlobal;
+import com.epacheco.reports.tools.ReportsProgressDialog;
+import com.epacheco.reports.tools.ScreenManager;
 import com.epacheco.reports.view.clientView.clientAddView.ClientAddViewClass;
 import com.epacheco.reports.view.clientView.clientView.ClientsViewClass;
 import com.epacheco.reports.view.productsView.productAddView.ProductAddViewClass;
 import com.epacheco.reports.view.productsView.productsView.ProductViewClass;
 import com.epacheco.reports.databinding.ActivitySaleViewClass2Binding;
 import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +70,7 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
 
   public void addView(Product product) {
    if(adapterViewPagerSale!=null && adapterViewPagerSale.getProductList()!=null && adapterViewPagerSale.getProductList().size()>0 && adapterViewPagerSale.getProductList().contains(product)){
-      com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.lbl_stock_product_exist));
+      com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.lbl_stock_product_exist));
       return;
     }
     LayoutInflater inflater = getLayoutInflater();
@@ -98,13 +101,13 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
     binding.btnNameClient.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_name_format), client.getName(), client.getLastNanme()));
     setObjClient(client);
     saleModelClass.getClientDetail(getObjClient().getId());
-    binding.txtSaleClientName.setVisibility(View.VISIBLE);
+
   }
 
   @Override
   public void errrorGetClient(String error) {
     hideProgress();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   @Override
@@ -112,8 +115,8 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
     hideProgress();
     addView(product);
     binding.lblMsgTicketEmpty.setVisibility(View.GONE);
+    binding.imgEmptyOrders.setVisibility(View.GONE);
     binding.viewPagerProducts.setVisibility(View.VISIBLE);
-    binding.txtSaleProductName.setVisibility(View.VISIBLE);
     binding.btnNameProduct.setText(String.format(
         ReportsApplication.getMyApplicationContext().getString(R.string.txt_product_name_and_code_format),
         product.getProductName(), String.valueOf(product.getProductCode())));
@@ -127,7 +130,7 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
   @Override
   public void errorGetProduct(String error) {
     hideProgress();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   @Override
@@ -136,13 +139,12 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
     if(adapterViewPagerSale!=null){
       adapterViewPagerSale.removeAllView(binding.viewPagerProducts);
 
-      com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.msg_client_detail_created));
+      com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.msg_client_detail_created));
       setTotalSale(0);
       binding.btnTotal.setText(String.format(getString(R.string.lbl_sale_total),String.valueOf(getTotalSale())));
       binding.lblMsgTicketEmpty.setVisibility(View.VISIBLE);
+      binding.imgEmptyOrders.setVisibility(View.VISIBLE);
       binding.viewPagerProducts.setVisibility(View.GONE);
-      binding.txtSaleClientName.setVisibility(View.GONE);
-      binding.txtSaleProductName.setVisibility(View.GONE);
       binding.btnNameClient.setText(getString(R.string.lbl_sale_select_name));
       binding.btnNameProduct.setText(getString(R.string.lbl_sale_select_product));
     }
@@ -153,7 +155,7 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
   @Override
   public void errorAddClientDetail(String error) {
     hideProgress();
-    com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+    com.epacheco.reports.tools.Tools.showToasMessage(this,error);
   }
 
   @Override
@@ -166,7 +168,7 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
   public void errorGetClientDetail(String error) {
     hideProgress();
     if(error!=null && !error.isEmpty()){
-      com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+      com.epacheco.reports.tools.Tools.showToasMessage(this,error);
      }else{
       binding.btnNameClient.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_product_name_and_debt_format), getObjClient().getName(), getObjClient().getLastNanme(),String.valueOf(0)));
 
@@ -200,10 +202,17 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
         new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which) {
-            if(adapterViewPagerSale!=null && adapterViewPagerSale.getCount()>0){
+
+            if(adapterViewPagerSale!=null && adapterViewPagerSale.getCount() > 0){
               adapterViewPagerSale.removeView(binding.viewPagerProducts,binding.viewPagerProducts.getCurrentItem());
             }else{
               Toast.makeText(SaleViewClass.this,getString(R.string.msg_sale_empty_products),Toast.LENGTH_LONG).show();
+            }
+
+            if(adapterViewPagerSale.getCount() == 0){
+              binding.lblMsgTicketEmpty.setVisibility(View.VISIBLE);
+              binding.imgEmptyOrders.setVisibility(View.VISIBLE);
+              binding.btnNameProduct.setText(R.string.lbl_sale_select_product);
             }
           }
         }
@@ -226,10 +235,14 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
         clientDetail.setProductId(product.getProductId());
         clientDetail.setUpdateStock(product.getInStock() -product.getAuxStock());
         clientDetail.setConcept(product.getProductName()+" --- "+product.getProductDescription());
+        clientDetail.setProductName(product.getProductName());
+        clientDetail.setProductPriceBuy(product.getProductPriceBuy());
+        clientDetail.setProductPriceSale(product.getProductPriceSale());
+        clientDetail.setAuxStock(product.getAuxStock());
         listDetail.add(clientDetail);
       }
 
-      saleModelClass.addClientDetail(listDetail ,getObjClient()!=null && !getObjClient().getId().isEmpty() ?getObjClient().getId() : mAuth.getUid() );
+      saleModelClass.addClientDetail(listDetail ,getObjClient());
     }else{
       Toast.makeText(this,getString(R.string.msg_sale_empty_products),Toast.LENGTH_LONG).show();
     }

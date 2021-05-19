@@ -4,29 +4,32 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import androidx.databinding.DataBindingUtil;
-import android.os.Handler;
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import android.os.Handler;
 import android.view.View;
 import android.widget.SearchView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.epacheco.reports.Model.ProductsModel.ProductsModel.ProductsModelClass;
 import com.epacheco.reports.Pojo.Product.Product;
 import com.epacheco.reports.R;
-import com.epacheco.reports.Tools.ReportsApplication;
-import com.epacheco.reports.Tools.ReportsDialogGlobal;
-import com.epacheco.reports.Tools.ReportsProgressDialog;
-import com.epacheco.reports.Tools.ScreenManager;
+import com.epacheco.reports.tools.ReportsApplication;
+import com.epacheco.reports.tools.ReportsDialogGlobal;
+import com.epacheco.reports.tools.ReportsProgressDialog;
+import com.epacheco.reports.tools.ScreenManager;
+import com.epacheco.reports.databinding.ActivityProductViewClassBinding;
 import com.epacheco.reports.view.productsView.productAddView.ProductAddViewClass;
 import com.epacheco.reports.view.productsView.scanCode.ScannedBarcodeActivity;
-import com.epacheco.reports.databinding.ActivityProductViewClassBinding;
 import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.List;
 
 public class ProductViewClass extends AppCompatActivity implements ProductsViewInterface, SearchView.OnQueryTextListener, onItemProductClic{
@@ -63,7 +66,7 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
     super.onStart();
     if(mAuth.getCurrentUser()!=null ){
       if( mAuth.getCurrentUser().getPhotoUrl()!=null){
-        Glide.with(ReportsApplication.getMyApplicationContext()).load(com.epacheco.reports.Tools.Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl()))  .apply(
+        Glide.with(ReportsApplication.getMyApplicationContext()).load(com.epacheco.reports.tools.Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl()))  .apply(
             RequestOptions.circleCropTransform()).into(binding.imgProfile);
       }
     }
@@ -86,16 +89,12 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
         @Override
         public void run() {
           showProgress(getString(R.string.msg_search_product));
-          if(productName.matches("[0-9]+")){
-            productsModelClass.downloadPorducts(null,productName);
-          }else{
-            productsModelClass.downloadPorducts(productName,null);
+          productsModelClass.downloadPorducts(productName);
           }
-        }
-      }, 1000);
+        }, 1000);
     }else{
       showProgress(getString(R.string.msg_search_product));
-      productsModelClass.downloadPorducts( null,null);
+      productsModelClass.downloadPorducts( null);
     }
   }
 
@@ -108,16 +107,19 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
   public void successDownloadProducts(List<Product> productList) {
     if(productList.size()>0){
       binding.lblZeroProducts.setVisibility(View.GONE);
+      binding.imgEmptyClients.setVisibility(View.GONE);
       binding.recyclerListClient.setVisibility(View.VISIBLE);
       binding.progressDownloadclient.setVisibility(View.GONE);
       progressbar.hideProgress();
       binding.recyclerListClient.setHasFixedSize(true);
-      binding.recyclerListClient.setLayoutManager(new LinearLayoutManager(this));
+      //binding.recyclerListClient.setLayoutManager(new LinearLayoutManager(this));*/
+      binding.recyclerListClient.setLayoutManager(new GridLayoutManager(this,2));
       AdapterProducts adapterClients = new AdapterProducts(productList);
       adapterClients.setOnItemProductClic(this);
       binding.recyclerListClient.setAdapter(adapterClients);
     }else{
       binding.lblZeroProducts.setVisibility(View.VISIBLE);
+      binding.imgEmptyClients.setVisibility(View.VISIBLE);
       binding.recyclerListClient.setVisibility(View.GONE);
     }
 
@@ -125,9 +127,10 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
 
   @Override
   public void errorDownloadProducts(String error) {
-    if(!error.isEmpty()) com.epacheco.reports.Tools.Tools.showToasMessage(this,error);
+   // if(!error.isEmpty()) com.epacheco.reports.tools.Tools.showToasMessage(this,error);
 
     binding.lblZeroProducts.setVisibility(View.VISIBLE);
+    binding.imgEmptyClients.setVisibility(View.VISIBLE);
     binding.recyclerListClient.setVisibility(View.GONE);
     binding.progressDownloadclient.setVisibility(View.GONE);
     progressbar.hideProgress();
@@ -142,7 +145,7 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
       finish();
     }else{
       if(!inExistence){
-       com.epacheco.reports.Tools.Tools.showToasMessage(this,getString(R.string.lbl_stock_product_empty));
+       com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.lbl_stock_product_empty));
       }
       ScreenManager.goAddProductActivity(this,productId);
     }
@@ -165,6 +168,7 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
     ScreenManager.goAddProductActivity(this,null);
   }
 
+
   public void openQRorBarCode(View view){
     checkPermissionsCamera();
   }
@@ -174,7 +178,7 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
    *
    * */
   private void checkPermissionsCamera() {
-    if(com.epacheco.reports.Tools.Tools.checkPermissionsCamera(this)){
+    if(com.epacheco.reports.tools.Tools.checkPermissionsCamera(this)){
       if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
         createDialogPermisionCamera(); /**Si el usuario no ha aceptado los permisos, creamos un dialogo explicandole por que necesitamos utilizar la camara*/
       }else{
@@ -258,3 +262,5 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
     return handler;
   }
 }
+
+

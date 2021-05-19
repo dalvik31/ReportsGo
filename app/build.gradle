@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     defaultConfig {
         applicationId "com.epacheco.reports"
         minSdkVersion 19
-        targetSdkVersion 29
-        versionCode 10
-        versionName "1.0.10"
+        targetSdkVersion 30
+        versionCode 12
+        versionName "1.1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
@@ -87,6 +87,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.3.0-alpha03'
     //Se agrega para animacion lottie
     implementation 'com.airbnb.android:lottie:3.4.0'
+    //Se agrega libreria para date range picker
 }
 
 

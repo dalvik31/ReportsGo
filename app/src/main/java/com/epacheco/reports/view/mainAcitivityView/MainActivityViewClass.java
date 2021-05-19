@@ -4,22 +4,29 @@ import androidx.databinding.DataBindingUtil;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.format.Time;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.epacheco.reports.R;
-import com.epacheco.reports.Tools.Constants;
-import com.epacheco.reports.Tools.ReportsApplication;
-import com.epacheco.reports.Tools.ScreenManager;
+import com.epacheco.reports.tools.Constants;
+import com.epacheco.reports.tools.ReportsApplication;
+import com.epacheco.reports.tools.ScreenManager;
+import com.epacheco.reports.tools.Tools;
 import com.epacheco.reports.view.searchElementsView.SearchElementView;
 
 import com.epacheco.reports.databinding.ActivityMainClassBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Calendar;
+
 public class MainActivityViewClass extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private ActivityMainClassBinding binding;
+    private ImageView img_profile;
 
 
     @Override
@@ -27,7 +34,9 @@ public class MainActivityViewClass extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main_class);
         mAuth = FirebaseAuth.getInstance();
+        img_profile = findViewById(R.id.img_profile);
     }
+
 
 
     @Override
@@ -36,9 +45,11 @@ public class MainActivityViewClass extends AppCompatActivity {
         if (mAuth.getCurrentUser().getPhotoUrl() != null) {
             Glide
                     .with(ReportsApplication.getMyApplicationContext())
-                    .load(com.epacheco.reports.Tools.Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl()))
+                    .load(com.epacheco.reports.tools.Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl()))
                     .apply(RequestOptions.circleCropTransform())
-                    .into(binding.imgProfile);
+                    .into(binding.appBarLayout.getImageView());
+        }else {
+            img_profile.setImageResource(R.drawable.icon_person);
         }
 
     }
@@ -64,6 +75,11 @@ public class MainActivityViewClass extends AppCompatActivity {
         ScreenManager.goOrderActivity(this, null);
     }
 
+    public void goFinanceActivity(View v) {
+
+       ScreenManager.goFinanceActivity(this);
+    }
+
 
     public void goSearchElement(View view) {
         switch (view.getId()) {
@@ -78,7 +94,7 @@ public class MainActivityViewClass extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-        com.epacheco.reports.Tools.Tools.setLongPreference(Constants.TIMER_SAVED, System.currentTimeMillis());
+        com.epacheco.reports.tools.Tools.setLongPreference(Constants.TIMER_SAVED, System.currentTimeMillis());
         super.onStop();
     }
 }

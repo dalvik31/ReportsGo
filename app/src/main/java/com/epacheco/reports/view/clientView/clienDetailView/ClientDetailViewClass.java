@@ -9,7 +9,7 @@ import com.epacheco.reports.Model.ClientModel.ClientDetailModel.ClientDetailMode
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.ClientDetail.ClientDetail;
 import com.epacheco.reports.R;
-import com.epacheco.reports.Tools.ScreenManager;
+import com.epacheco.reports.tools.ScreenManager;
 import com.epacheco.reports.databinding.ActivityClientDetailViewClassBinding;
 
 public class ClientDetailViewClass extends AppCompatActivity implements ClientDetailViewInterface {
@@ -47,13 +47,13 @@ public class ClientDetailViewClass extends AppCompatActivity implements ClientDe
   @Override
   public void successAddClientDetail() {
     binding.txtClientAmount.setText("");
-    com.epacheco.reports.Tools.Tools.showToasMessage(this, getString(R.string.msg_client_detail_created));
+    com.epacheco.reports.tools.Tools.showToasMessage(this, getString(R.string.msg_client_detail_created));
   }
 
   @Override
   public void errorAddClientDetail(String error) {
 
-    if(!error.isEmpty()) com.epacheco.reports.Tools.Tools.showToasMessage(this, getString(R.string.msg_error_sistema));
+    if(!error.isEmpty()) com.epacheco.reports.tools.Tools.showToasMessage(this, getString(R.string.msg_error_sistema));
   }
 
 
@@ -61,19 +61,19 @@ public class ClientDetailViewClass extends AppCompatActivity implements ClientDe
   public void successGetClientDetail(ClientDetail clientDetail) {
     clientDebt = String.valueOf(clientDetail.getDebt());
     setClientDetail(clientDetail);
-    binding.lblClientAccountAmount.setText(String.format(getString(R.string.txt_client_amount_format),clientDebt));
+    binding.layoutClientInfo.lblClientAccountAmount.setText(String.format(getString(R.string.txt_client_amount_format),clientDebt));
   }
 
   @Override
   public void errorGetClientDetail(String error) {
-    binding.lblClientAccountAmount.setText(R.string.txt_client_amount_empty);
+    binding.layoutClientInfo.lblClientAccountAmount.setText(R.string.txt_client_amount_empty);
   }
 
   @Override
   public void successGetClient(Client client) {
-    binding.lblClientName.setText(String.format(getString(R.string.txt_client_name_format),client.getName(),client.getLastNanme()));
-    binding.lblClientDetail.setText(client.getDetail());
-    binding.lblDateName.setText(String.format(getString(R.string.txt_client_date_format), com.epacheco.reports.Tools.Tools.getFormatDate(client.getDateClient())));
+    binding.layoutClientInfo.lblClientName.setText(String.format(getString(R.string.txt_client_name_format),client.getName(),client.getLastNanme()));
+    binding.layoutClientInfo.lblClientDetail.setText(client.getDetail());
+    binding.layoutClientInfo.lblDateName.setText(String.format(getString(R.string.txt_client_date_format), com.epacheco.reports.tools.Tools.getFormatDate(client.getDateClient())));
     binding.lblClientLimit.setText(String.format(getString(R.string.txt_client_limit_format),String.valueOf(client.getLimit())));
     setClientInformation(client);
 
@@ -83,7 +83,7 @@ public class ClientDetailViewClass extends AppCompatActivity implements ClientDe
   @Override
   public void errorGetClient(String error) {
     finish();
-    if(!error.isEmpty()) com.epacheco.reports.Tools.Tools.showToasMessage(this, error);
+    if(!error.isEmpty()) com.epacheco.reports.tools.Tools.showToasMessage(this, error);
   }
 
 
@@ -92,7 +92,7 @@ public class ClientDetailViewClass extends AppCompatActivity implements ClientDe
       createClienDetail();
       clientDetailModelClass.addClientDetail(getClientDetail(),getClientInformation().getId());
     } else {
-      com.epacheco.reports.Tools.Tools.showToasMessage(this, getString(R.string.msg_amount_empty));
+      com.epacheco.reports.tools.Tools.showToasMessage(this, getString(R.string.msg_amount_empty));
     }
   }
 

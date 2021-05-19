@@ -5,7 +5,8 @@ import androidx.annotation.Nullable;
 import com.epacheco.reports.Model.OrderModel.CreateOrderModel.OrderCreateModelClass;
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.OrderDetail.OrderDetail;
-import com.epacheco.reports.Tools.Constants;
+import com.epacheco.reports.Pojo.Product.Product;
+import com.epacheco.reports.tools.Constants;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -77,4 +78,41 @@ public class OrderCreateControllerClass implements OrderCreateControllerInterfac
       });
     }
   }
+
+  @Override
+  public void getProduct(String idProduct) {
+    if(orderCreateModelClass!=null && mAuth.getUid()!=null){
+      FirebaseDatabase database = FirebaseDatabase.getInstance();
+      DatabaseReference myRef = database.getReference("Reports");
+
+      DatabaseReference usersRef = myRef.child(mAuth.getUid()).child(Constants.CLIENT_PRODUCTS_TABLE_FIREBASE);
+      String paramName = idProduct!=null && !idProduct.isEmpty() ? idProduct : "";
+
+      usersRef.orderByChild("productId").equalTo(paramName).addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+          Product myProduct = null;
+          for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+            myProduct = postSnapshot.getValue(Product.class);
+          }
+          if(myProduct!=null){
+            orderCreateModelClass.succesGetProduct(myProduct);
+          }else{
+            orderCreateModelClass.errorGetProduct("");
+          }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+          orderCreateModelClass.errorGetProduct(databaseError.getMessage());
+        }
+      });
+    }
+
+
+
+  }
+
+
 }

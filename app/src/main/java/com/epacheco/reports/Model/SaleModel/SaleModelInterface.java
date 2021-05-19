@@ -21,6 +21,6 @@ public interface SaleModelInterface {
   //Controller methods
   void getCLient(String clientId);
   void getProduct(String productId);
-  void addClientDetail( List<ClientDetail>  clientDetail,String idClient);
+  void addClientDetail( List<ClientDetail>  clientDetail,Client client);
   void getClientDetail(String id);
 }

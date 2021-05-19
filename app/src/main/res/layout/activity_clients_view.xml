@@ -1,102 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools">
-  <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.mainAcitivityView.MainActivityViewClass">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.appbar.AppBarLayout
-      android:id="@+id/appBarLayout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-      <RelativeLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".view.mainAcitivityView.MainActivityViewClass">
 
-        <ImageView
-          android:id="@+id/img_profile"
-          android:layout_width="?attr/actionBarSize"
-          android:layout_height="?attr/actionBarSize"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-          android:padding="12dp"
-          app:srcCompat="@drawable/ic_vector_account"
-          android:onClick="goProfileActivity"
-          android:layout_alignParentEnd="true"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/img_profile"
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+
+                    android:layout_alignParentEnd="true"
+                    android:onClick="goProfileActivity"
+                    android:padding="12dp"
+                    app:srcCompat="@drawable/icon_person" />
 
 
-        <ImageView
-          android:id="@+id/btn_add"
-          android:layout_width="?attr/actionBarSize"
-          android:layout_height="?attr/actionBarSize"
-          app:srcCompat="@drawable/ic_vector_add"
-          android:scaleType="center"
-          android:layout_toStartOf="@+id/img_profile"
-          android:onClick="goAddClientActivity"
-          android:visibility="gone"/>
-        <androidx.appcompat.widget.Toolbar
-          android:id="@+id/app_bar"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:theme="@style/AppThemeSearchView"
-          android:layout_toStartOf="@+id/btn_add">
+                <ImageView
+                    android:id="@+id/btn_add"
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_toStartOf="@+id/img_profile"
+                    android:onClick="goAddClientActivity"
+                    android:scaleType="center"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/ic_vector_add" />
 
-          <SearchView
-            android:id="@+id/searchView"
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/app_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/btn_add"
+                    android:theme="@style/AppThemeSearchView">
+
+                    <SearchView
+                        android:id="@+id/searchView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:iconifiedByDefault="false"
+
+                        android:queryBackground="@android:color/transparent"
+                        android:queryHint="@string/lbl_search_client" />
+                </androidx.appcompat.widget.Toolbar>
+            </RelativeLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_downloadclient"
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:iconifiedByDefault="false"
-            android:queryHint="@string/lbl_search_client"
+            android:layout_below="@+id/appBarLayout"
+            android:layout_marginTop="-5dp"
+            android:indeterminateOnly="true"
+            android:theme="@style/AppTheme.ProgressBar" />
 
-            android:layout_centerHorizontal="true"
-            android:queryBackground="@android:color/transparent"
-            />
-        </androidx.appcompat.widget.Toolbar>
-      </RelativeLayout>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <ProgressBar
-      android:id="@+id/progress_downloadclient"
-      style="?android:attr/progressBarStyleHorizontal"
-      android:indeterminateOnly="true"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@+id/appBarLayout"
-      android:layout_marginTop="-5dp"
-      android:theme="@style/AppTheme.ProgressBar"/>
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/recyclerListClient"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_marginTop="-4dp"
-      android:layout_below="@+id/progress_downloadclient"
-      tools:listitem="@layout/item_client"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerListClient"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/progress_downloadclient"
+            android:layout_marginTop="-4dp"
+            tools:listitem="@layout/item_client" />
 
 
-    <TextView
-      android:id="@+id/lbl_zero_clients"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      style="@style/TextView_Title"
-      android:text="@string/msg_zero_clients"
-      android:layout_centerInParent="true"
-      android:textColor="@color/colorPrimary"
-      android:textSize="28sp"
-      android:visibility="gone"/>
+        <ImageView
+            android:id="@+id/imgEmptyClients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:srcCompat="@drawable/ic_vector_clients_empty" />
+        <TextView
+            android:id="@+id/lbl_zero_clients"
+            style="@style/TextView_Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/msg_zero_clients"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:visibility="visible"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/imgEmptyClients"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-      android:id="@+id/floating_action_button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_margin="20dp"
-      app:srcCompat="@drawable/ic_vector_add"
-      android:layout_alignParentBottom="true"
-      android:layout_alignParentEnd="true"
-      app:backgroundTint="@color/colorPrimary"
-      android:onClick="goAddClientActivity"
-      />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floating_action_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="20dp"
+            android:onClick="goAddClientActivity"
+            app:tint="@color/colorWhite"
+            app:backgroundTint="@color/colorPrimary"
+            app:srcCompat="@drawable/ic_vector_add" />
 
-  </RelativeLayout
-  >
+    </RelativeLayout>
 </layout>

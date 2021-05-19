@@ -4,6 +4,7 @@ import androidx.fragment.app.FragmentActivity;
 import com.epacheco.reports.Controller.OrderController.OrderCreateController.OrderCreateControllerClass;
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.OrderDetail.OrderDetail;
+import com.epacheco.reports.Pojo.Product.Product;
 import com.epacheco.reports.view.orderView.orderCreateView.OrderCreateView;
 
 public class OrderCreateModelClass implements  com.epacheco.reports.Model.OrderModel.CreateOrderModel.OrderCreateModelInterface {
@@ -50,6 +51,20 @@ public class OrderCreateModelClass implements  com.epacheco.reports.Model.OrderM
   }
 
   @Override
+  public void succesGetProduct(Product product) {
+    if(orderCreateView!=null){
+      orderCreateView.succesGetProduct(product);
+    }
+  }
+
+  @Override
+  public void errorGetProduct(String error) {
+    if(orderCreateView!=null){
+      orderCreateView.errorGetProduct(error);
+    }
+  }
+
+  @Override
   public void createNewOrder(OrderDetail orderDetail) {
     if(orderCreateControllerClass!=null){
       orderCreateControllerClass.createNewOrder(orderDetail);
@@ -62,4 +77,14 @@ public class OrderCreateModelClass implements  com.epacheco.reports.Model.OrderM
       orderCreateControllerClass.getClient(idClient);
     }
   }
+
+  @Override
+  public void getProduct(String idProduct) {
+    if(orderCreateControllerClass!=null){
+      orderCreateControllerClass.getProduct(idProduct);
+    }
+
+  }
+
+
 }

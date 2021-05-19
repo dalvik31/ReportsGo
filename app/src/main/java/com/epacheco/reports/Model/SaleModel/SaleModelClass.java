@@ -93,9 +93,9 @@ public class SaleModelClass implements SaleModelInterface {
   }
 
   @Override
-  public void addClientDetail( List<ClientDetail>  clientDetail, String idClient) {
+  public void addClientDetail( List<ClientDetail>  clientDetail, Client client) {
     if(saleControllerClass!=null){
-      saleControllerClass.addClientDetail(clientDetail,idClient);
+      saleControllerClass.addClientDetail(clientDetail,client);
     }
   }
 
