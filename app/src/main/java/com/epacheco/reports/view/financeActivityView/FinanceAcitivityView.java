@@ -29,11 +29,10 @@ import java.util.List;
 import java.util.TimeZone;
 
 
-public class FinanceAcitivityView extends AppCompatActivity implements FinanceActivityInterface {
+public class FinanceAcitivityView extends AppCompatActivity implements FinanceActivityInterface, AdapterSales.onItemClic {
     private FirebaseAuth mAuth;
     private ActivityFinanceAcitivityViewBinding binding;
     private Calendar min;
-    private Calendar max;
     private FinanceActitvityModel financeActitvityModel;
 
     @Override
@@ -48,7 +47,6 @@ public class FinanceAcitivityView extends AppCompatActivity implements FinanceAc
 
     private void initDate() {
         min = Calendar.getInstance();
-        max = Calendar.getInstance();
         min.set(Calendar.YEAR, min.get(Calendar.YEAR) - 1);
         binding.tvDate.setText(Tools.getFormatDate(String.valueOf(System.currentTimeMillis())));
 
@@ -101,7 +99,7 @@ public class FinanceAcitivityView extends AppCompatActivity implements FinanceAc
     public void successGetSales(List<SalesDetail> salesDetails) {
         if (salesDetails != null && !salesDetails.isEmpty()) {
             getSalesFinance(salesDetails);
-            AdapterSales adapterSales = new AdapterSales(salesDetails);
+            AdapterSales adapterSales = new AdapterSales(this,salesDetails);
             binding.rvListSales.setHasFixedSize(true);
             binding.rvListSales.setLayoutManager(new LinearLayoutManager(this));
             binding.rvListSales.setAdapter(adapterSales);
@@ -121,15 +119,27 @@ public class FinanceAcitivityView extends AppCompatActivity implements FinanceAc
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void successCancelSale() {
+        Toast.makeText(this, getString(R.string.msg_cancel_sale_succes), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void errorCancelSale(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    }
+
     private void getSalesFinance(List<SalesDetail> salesDetails) {
         if(salesDetails != null){
             double price = 0;
             double investment = 0;
             int numberProducts = 0;
             for (SalesDetail salesDetail : salesDetails) {
-                price += salesDetail.getProductPriceSale();
-                investment += salesDetail.getProductPricreBuy();
-                numberProducts += salesDetail.getAuxStock();
+                if(!salesDetail.isCancelSale()){
+                    price += salesDetail.getProductPriceSale();
+                    investment += salesDetail.getProductPricreBuy();
+                    numberProducts += salesDetail.getAuxStock();
+                }
             }
             binding.tvNumberProduct.setText(String.format(getString(R.string.lbl_number_product_sales), String.valueOf(numberProducts)));
             binding.tvNumberPrice.setText(String.format(getString(R.string.lbl_price_sales), String.valueOf(price)));
@@ -143,5 +153,10 @@ public class FinanceAcitivityView extends AppCompatActivity implements FinanceAc
 
         }
 
+    }
+
+    @Override
+    public void onItemClicSale(String idSale) {
+        financeActitvityModel.cancelSale(idSale);
     }
 }

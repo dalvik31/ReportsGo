@@ -179,6 +179,7 @@ public class SaleControllerClass implements SaleControllerInterface {
         String clientId = client != null && !TextUtils.isEmpty(client.getId()) ? client.getId() : Constants.ID_GENERIC_SALES;
         String clienName = client != null && !TextUtils.isEmpty(client.getName()) ? client.getName() : Constants.ID_GENERIC_SALES;
         for (final ClientDetail clientDetail1 : clientDetail) {
+            String saleId = String.valueOf(System.currentTimeMillis());
             SalesDetail salesDetail = new SalesDetail();
             salesDetail.setIdClient(clientId);
             salesDetail.setNameClient(clienName);
@@ -189,10 +190,12 @@ public class SaleControllerClass implements SaleControllerInterface {
             salesDetail.setProductId(clientDetail1.getProductId());
             salesDetail.setSaleId(Tools.getFormatDate(String.valueOf(System.currentTimeMillis())));
             salesDetail.setAuxStock(clientDetail1.getAuxStock());
+            salesDetail.setCancelSale(false);
+            salesDetail.setSaleDate(saleId);
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             final DatabaseReference myRef = database.getReference("Reports");
             DatabaseReference usersRef = myRef.child(Objects.requireNonNull(mAuth.getUid())).child(Constants.CLIENT_SALES_TABLE_FIREBASE);
-            usersRef.child(String.valueOf(System.currentTimeMillis())).setValue(salesDetail);
+            usersRef.child(saleId).setValue(salesDetail);
         }
         saleModelClass.successAddClientDetail();
 

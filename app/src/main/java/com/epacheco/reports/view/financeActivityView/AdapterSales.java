@@ -1,5 +1,7 @@
 package com.epacheco.reports.view.financeActivityView;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +22,14 @@ import java.util.List;
 
 public class AdapterSales extends RecyclerView.Adapter<AdapterSales.HolderSale>{
     private List<SalesDetail> salesDetailList;
+    private onItemClic itemClicSale;
+    interface onItemClic{
+        void onItemClicSale(String idSale);
+    }
 
-    public AdapterSales(List<SalesDetail> salesDetailList) {
+    public AdapterSales(Context context, List<SalesDetail> salesDetailList) {
         this.salesDetailList = salesDetailList;
+        itemClicSale = (onItemClic) context;
     }
 
     @NonNull
@@ -42,7 +49,23 @@ public class AdapterSales extends RecyclerView.Adapter<AdapterSales.HolderSale>{
         holder.tvPriceSale.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_amount_format),String.valueOf(salesDetail.getProductPriceSale())));
         holder.tvProductName.setText(salesDetail.getProductName());
         holder.tvProductDate.setText(salesDetail.getSaleId());
+        holder.tvSaleCancel.setVisibility(salesDetail.isCancelSale() ? View.VISIBLE : View.GONE);
         Glide.with(ReportsApplication.getMyApplicationContext()).load(salesDetail.getImgProduct()).into(holder.imgProduct);
+        holder.container.setOnLongClickListener(v -> {
+            com.epacheco.reports.tools.ReportsDialogGlobal.showDialogAcceptAnCancel(v.getContext(), v.getContext().getString(R.string.title_message_cancel_sale),
+                    "¿Realmente deseas cancelar la compra?",
+                    (dialog, which) -> {
+                        itemClicSale.onItemClicSale(salesDetail.getSaleDate());
+                    },
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }
+            );
+            return false;
+        });
     }
 
     @Override
@@ -53,7 +76,8 @@ public class AdapterSales extends RecyclerView.Adapter<AdapterSales.HolderSale>{
     class HolderSale extends RecyclerView.ViewHolder{
 
         private ImageView imgProduct;
-        private TextView tvProductName, tvClientName, tvPriceSale, tvPriceBuy, tvProductDate,tvProductCant;
+        private TextView tvProductName, tvClientName, tvPriceSale, tvPriceBuy, tvProductDate,tvProductCant,tvSaleCancel;
+        private View container;
 
         public HolderSale(@NonNull  View itemView) {
             super(itemView);
@@ -64,6 +88,8 @@ public class AdapterSales extends RecyclerView.Adapter<AdapterSales.HolderSale>{
             tvPriceBuy = itemView.findViewById(R.id.tvPriceBuy);
             tvProductDate = itemView.findViewById(R.id.tvPriceSDate);
             tvProductCant = itemView.findViewById(R.id.tvProductCant);
+            tvSaleCancel = itemView.findViewById(R.id.tvSaleCancel);
+            container = itemView;
         }
     }
 }

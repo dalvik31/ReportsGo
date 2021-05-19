@@ -270,4 +270,7 @@
     <string name="lbl_number_product_sales">%s productos vendidos</string>
     <string name="lbl_empty_sales">No hay ventas en este periodo</string>
     <string name="txt_product_cant"># %s</string>
+    <string name="title_message_cancel_sale">Cancelar venta.</string>
+    <string name="msg_cancel_sale_succes">Venta cancelada.</string>
+    <string name="msg_cancel_sale_item">COMPRA CANCELADA</string>
 </resources>
