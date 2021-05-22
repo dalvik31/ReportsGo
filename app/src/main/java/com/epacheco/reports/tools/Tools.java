@@ -51,6 +51,16 @@ public class Tools {
     return simple.format(cal.getTime());
   }
 
+  public static String getFormatDateSimple(String epochDate) {
+    if (epochDate == null || epochDate.isEmpty()) {
+      return "-- ---- ----";
+    }
+
+    Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+    DateFormat simple = new SimpleDateFormat(DATE_FORMAT_2, Locale.US);
+    cal.setTimeInMillis(Long.parseLong(epochDate));
+    return simple.format(cal.getTime());
+  }
 
   public static String getFormatDateToDates(String firstEpochDate, String secondEpochDate) {
     if ( (TextUtils.isEmpty(firstEpochDate)) || ((TextUtils.isEmpty(secondEpochDate)))) {

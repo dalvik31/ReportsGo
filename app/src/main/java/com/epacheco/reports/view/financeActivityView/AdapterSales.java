@@ -44,13 +44,22 @@ public class AdapterSales extends RecyclerView.Adapter<AdapterSales.HolderSale>{
     public void onBindViewHolder(@NonNull AdapterSales.HolderSale holder, int position) {
         final SalesDetail salesDetail = salesDetailList.get(position);
         holder.tvClientName.setText(salesDetail.getNameClient());
+        holder.tvProductCant.setVisibility(salesDetail.getAuxStock() > 0 ? View.VISIBLE : View.GONE);
         holder.tvProductCant.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_product_cant),String.valueOf(salesDetail.getAuxStock())));
+        holder.tvPriceBuy.setVisibility(!salesDetail.getProductName().contains("Abono") ? View.VISIBLE : View.GONE);
         holder.tvPriceBuy.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_amount_format),String.valueOf(salesDetail.getProductPricreBuy())));
         holder.tvPriceSale.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_amount_format),String.valueOf(salesDetail.getProductPriceSale())));
         holder.tvProductName.setText(salesDetail.getProductName());
         holder.tvProductDate.setText(salesDetail.getSaleId());
+        holder.tvIsCreditSale.setVisibility(salesDetail.isCreditSale() ? View.VISIBLE : View.GONE);
         holder.tvSaleCancel.setVisibility(salesDetail.isCancelSale() ? View.VISIBLE : View.GONE);
-        Glide.with(ReportsApplication.getMyApplicationContext()).load(salesDetail.getImgProduct()).into(holder.imgProduct);
+        holder.tvIsCreditSale.setVisibility(salesDetail.isCreditSale() ? View.VISIBLE : View.GONE);
+        if(salesDetail.getProductName().contains("Abono")){
+            holder.imgProduct.setImageResource(R.drawable.ic_drawable_abono);
+        }else{
+            Glide.with(ReportsApplication.getMyApplicationContext()).load(salesDetail.getImgProduct()).into(holder.imgProduct);
+
+        }
         holder.container.setOnLongClickListener(v -> {
             com.epacheco.reports.tools.ReportsDialogGlobal.showDialogAcceptAnCancel(v.getContext(), v.getContext().getString(R.string.title_message_cancel_sale),
                     "¿Realmente deseas cancelar la compra?",
@@ -76,7 +85,7 @@ public class AdapterSales extends RecyclerView.Adapter<AdapterSales.HolderSale>{
     class HolderSale extends RecyclerView.ViewHolder{
 
         private ImageView imgProduct;
-        private TextView tvProductName, tvClientName, tvPriceSale, tvPriceBuy, tvProductDate,tvProductCant,tvSaleCancel;
+        private TextView tvProductName, tvClientName, tvPriceSale, tvPriceBuy, tvProductDate,tvProductCant,tvSaleCancel,tvIsCreditSale;
         private View container;
 
         public HolderSale(@NonNull  View itemView) {
@@ -89,6 +98,7 @@ public class AdapterSales extends RecyclerView.Adapter<AdapterSales.HolderSale>{
             tvProductDate = itemView.findViewById(R.id.tvPriceSDate);
             tvProductCant = itemView.findViewById(R.id.tvProductCant);
             tvSaleCancel = itemView.findViewById(R.id.tvSaleCancel);
+            tvIsCreditSale = itemView.findViewById(R.id.tvIsCreditSale);
             container = itemView;
         }
     }

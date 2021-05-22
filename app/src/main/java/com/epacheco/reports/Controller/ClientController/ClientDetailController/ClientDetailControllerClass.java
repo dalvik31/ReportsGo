@@ -1,11 +1,15 @@
 package com.epacheco.reports.Controller.ClientController.ClientDetailController;
 
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.epacheco.reports.Model.ClientModel.ClientDetailModel.ClientDetailModelIterface;
 import com.epacheco.reports.Pojo.Client.Client;
 import com.epacheco.reports.Pojo.ClientDetail.ClientDetail;
+import com.epacheco.reports.Pojo.Sales.SalesDetail;
 import com.epacheco.reports.tools.Constants;
+import com.epacheco.reports.tools.Tools;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -13,6 +17,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.DatabaseReference.CompletionListener;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.List;
+import java.util.Objects;
 
 public class ClientDetailControllerClass implements ClientDetailControllerIterface {
   private FirebaseAuth mAuth;
@@ -70,7 +77,7 @@ public class ClientDetailControllerClass implements ClientDetailControllerIterfa
             clientDetailModelIterface.errorAddClientDetail(databaseError.getMessage());
 
           } else {
-            clientDetailModelIterface.successAddClientDetail();
+            updateCreateSale(clientDetail,id);
           }
         }
 
@@ -109,6 +116,40 @@ public class ClientDetailControllerClass implements ClientDetailControllerIterfa
             }
           });
     }
+  }
+
+  private void updateCreateSale(ClientDetail clientDetail, String id) {
+      String saleId = String.valueOf(System.currentTimeMillis());
+      SalesDetail salesDetail = new SalesDetail();
+      salesDetail.setIdClient(id);
+      salesDetail.setNameClient(clientDetail.getProductName());
+      salesDetail.setImgProduct("");
+      salesDetail.setProductName("Abono");
+      salesDetail.setProductPricreBuy(0);
+      salesDetail.setProductPriceSale(clientDetail.getAmount());
+      salesDetail.setProductId("");
+      salesDetail.setSaleId(Tools.getFormatDate(String.valueOf(System.currentTimeMillis())));
+      salesDetail.setAuxStock(0);
+      salesDetail.setCancelSale(false);
+      salesDetail.setSaleDate(saleId);
+      salesDetail.setCreditSale(false);
+      FirebaseDatabase database = FirebaseDatabase.getInstance();
+      final DatabaseReference myRef = database.getReference("Reports");
+      DatabaseReference usersRef = myRef.child(Objects.requireNonNull(mAuth.getUid())).child(Constants.CLIENT_SALES_TABLE_FIREBASE);
+      usersRef.child(saleId).setValue(salesDetail);
+    updateLimitCredit(id,clientDetail.getProductPriceBuy() + clientDetail.getAmount());
+    clientDetailModelIterface.successAddClientDetail();
+
+  }
+
+  private void updateLimitCredit(String id, double total){
+    if (clientDetailModelIterface != null && mAuth.getUid() != null&& !TextUtils.isEmpty(id)) {
+      FirebaseDatabase database = FirebaseDatabase.getInstance();
+      final DatabaseReference myRef = database.getReference("Reports");
+      DatabaseReference usersRef = myRef.child(mAuth.getUid()).child(Constants.CLIENT_TABLE_FIREBASE);
+      usersRef.child(id).child("limit").setValue(total);
+    }
+
   }
 /*
   @Override

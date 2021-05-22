@@ -39,7 +39,7 @@
     <string name="lbl_menu_option_products">Productos</string>
     <string name="lbl_menu_option_sell">Ventas</string>
     <string name="lbl_menu_option_order">Pedidos</string>
-    <string name="lbl_menu_option_activity">Actividad financiera</string>
+    <string name="lbl_menu_option_activity">Finanzas</string>
     <string name="lbl_menu_option">Selecciona una operación</string>
     <string name="lbl_menu_option_sell_subtitle">Selecciona un cliente y genera un ticket con varios productos.</string>
     <string name="lbl_menu_option_order_subtitle">Crea pedidos y asígnalos a tus clientes, guardalos y consultalos más tarde.</string>
@@ -64,14 +64,14 @@
     <string name="btn_close">cerrar</string>
     <string name="btn_detail">detalle</string>
     <string name="lbl_client_name">Nombre</string>
-    <string name="lbl_client_name_hint">Juan</string>
+    <string name="lbl_client_name_hint"></string>
     <string name="lbl_client_lastname">Apellido</string>
     <string name="lbl_client_lastname_hint">Perez</string>
-    <string name="lbl_client_detail">Detalle</string>
+    <string name="lbl_client_detail">Referencia del cliente.</string>
     <string name="lbl_client_detail_hint">El dueño de la farmacia.</string>
     <string name="lbl_client_phone">Celular</string>
-    <string name="lbl_client_phone_hint">555–555–5555</string>
-    <string name="lbl_client_limit">Limite de credito</string>
+    <string name="lbl_client_phone_hint">55–5555–5555</string>
+    <string name="lbl_client_limit">Límite de crédito</string>
     <string name="lbl_client_limit_hint">$2,000</string>
     <string name="lbl_date_client">Cliente desde 19/Ago/2019</string>
     <string name="lbl_amount_client">Debe:</string>
@@ -81,7 +81,7 @@
     <string name="lbl_client_concept">Concepto</string>
     <string name="btn_abonar">Abonar</string>
     <string name="btn_generate_order">GENERAR PEDIDO</string>
-    <string name="btn_generate_ticket">Nuevo ticket</string>
+    <string name="btn_generate_ticket">Abrir venta</string>
     <string name="btn_detail_payments">Detalle de pagos</string>
     <string name="lbl_modify_client">Modificar cliente</string>
     <string name="msg_name_empty">Ingresa un nombre</string>
@@ -114,15 +114,15 @@
     <string name="lbl_search_product">Buscar producto</string>
     <string name="lbl_add_product">Crear nuevo producto</string>
     <string name="lbl_product_name">Nombre</string>
-    <string name="lbl_product_name_hint">Pantalon mezclilla</string>
+    <string name="lbl_product_name_hint">Nombre del producto</string>
     <string name="lbl_product_description">Descripción</string>
-    <string name="lbl_product_description_hint">No tiene botón, y esta roto de la bolsa</string>
+    <string name="lbl_product_description_hint">Describe las características del producto</string>
     <string name="lbl_product_type">Tipo</string>
     <string name="lbl_bar_and_qr_code">CÓDIGO NO DETECTADO</string>
     <string name="msg_save_image">Guardando imagen</string>
     <string name="lbl_product_type_hint">Hombre</string>
     <string name="lbl_product_price_buy">Precio compra</string>
-    <string name="lbl_product_stock">Cantidad</string>
+    <string name="lbl_product_stock">Cantidad de producto en tu inventario</string>
     <string name="lbl_product_stock_hint">2</string>
     <string name="lbl_product_price_buy_hint">$100</string>
     <string name="lbl_product_price_sale">Precio venta</string>
@@ -169,7 +169,7 @@
     <string name="msg_error_empty_price_sale">Falta precio venta</string>
     <string name="msg_error_empty_code">Falta código venta</string>
     <string name="msg_error_empty_inputs">Falta campos obligatorios</string>
-    <string name="msg_error_empty_img_url">Falta imagen o paso algo al guardarla.\nIntenta mas tarde</string>
+    <string name="msg_error_empty_img_url">Falta imagen o pasó algo al guardarla.\nIntenta mas tarde</string>
     <string name="msg_success_product">Producto agregado</string>
     <string name="msg_save_product">Guardando información del producto</string>
     <string name="msg_product_modify_success">Producto modificado</string>
@@ -192,7 +192,7 @@
 
 
     <!--Vista Venta-->
-    <string name="lbl_generate_sale">Nuevo ticket</string>
+    <string name="lbl_generate_sale">Ventas</string>
     <string name="msg_generate_sale">Generando ticket</string>
     <string name="lbl_sale_total">Total: $ %s</string>
     <string name="lbl_sale_select_name">Buscar  cliente</string>
@@ -207,8 +207,11 @@
     <string name="txt_product_name_and_code_format"> %s\n%s</string>
     <string name="txt_product_name_and_debt_format">%s %s\nDebe: $ %s</string>
     <string name="lbl_sale_ticket_empty_">Agrega productos para generar un nuevo ticket.</string>
-
-
+    <string name="title_credit_sale">Generar venta</string>
+    <string name="body_type_operation_sale">Tipo de operación.</string>
+    <string name="body_type_operation_sale_credit">A crédito</string>
+    <string name="body_type_operation_sale_contado">De contado</string>
+    <string name="msg_sale_update">Venta generada</string>
     <!--Vista Pedidos-->
     <string name="msg_success_list_order">Lista creada</string>
     <string name="msg_name_list_required">Nombre requerido</string>
@@ -228,7 +231,7 @@
     <string name="lbl_title_create_order_name_hint">Qué pidieron</string>
     <string name="lbl_title_create_order_size">Talla</string>
     <string name="lbl_title_create_order_size_hint">Que talla</string>
-    <string name="lbl_title_create_order_color">Color</string>
+    <string name="lbl_title_create_order_color">Color(es)</string>
     <string name="lbl_title_create_order_color_hint">Que color</string>
     <string name="lbl_title_create_order_gender">Género</string>
     <string name="lbl_title_create_order_gender_hint">Para que género</string>
@@ -260,7 +263,7 @@
     <string name="msg_item_order_move">Pedido movido a otra lista</string>
 
     <!--Activity finance-->
-    <string name="lbl_title_finance_activity">Actividad financiera</string>
+    <string name="lbl_title_finance_activity">Finanzas</string>
     <string name="lbl_date_selected">%s - %s</string>
     <string name="lbl_title_price">Venta</string>
     <string name="lbl_title_investment">Inversión</string>

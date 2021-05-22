@@ -19,6 +19,7 @@ public class ClientDetail {
   private double productPriceBuy;
   private double productPriceSale;
   private int auxStock;
+  private boolean isCreditSale;
   public ClientDetail() {
   }
 
@@ -124,6 +125,14 @@ public class ClientDetail {
 
   public void setAuxStock(int auxStock) {
     this.auxStock = auxStock;
+  }
+
+  public boolean isCreditSale() {
+    return isCreditSale;
+  }
+
+  public void setCreditSale(boolean creditSale) {
+    isCreditSale = creditSale;
   }
 
   @Override

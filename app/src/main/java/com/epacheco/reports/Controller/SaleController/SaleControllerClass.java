@@ -178,7 +178,9 @@ public class SaleControllerClass implements SaleControllerInterface {
     private void updateCreateSale(final List<ClientDetail> clientDetail, Client client) {
         String clientId = client != null && !TextUtils.isEmpty(client.getId()) ? client.getId() : Constants.ID_GENERIC_SALES;
         String clienName = client != null && !TextUtils.isEmpty(client.getName()) ? client.getName() : Constants.ID_GENERIC_SALES;
+        boolean isCreditSale = false;
         for (final ClientDetail clientDetail1 : clientDetail) {
+            isCreditSale = clientDetail1.isCreditSale();
             String saleId = String.valueOf(System.currentTimeMillis());
             SalesDetail salesDetail = new SalesDetail();
             salesDetail.setIdClient(clientId);
@@ -192,12 +194,30 @@ public class SaleControllerClass implements SaleControllerInterface {
             salesDetail.setAuxStock(clientDetail1.getAuxStock());
             salesDetail.setCancelSale(false);
             salesDetail.setSaleDate(saleId);
+            salesDetail.setCreditSale(clientDetail1.isCreditSale());
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             final DatabaseReference myRef = database.getReference("Reports");
             DatabaseReference usersRef = myRef.child(Objects.requireNonNull(mAuth.getUid())).child(Constants.CLIENT_SALES_TABLE_FIREBASE);
             usersRef.child(saleId).setValue(salesDetail);
         }
+        updateLimitCredit(clientDetail,client,isCreditSale);
         saleModelClass.successAddClientDetail();
+
+    }
+
+    private void updateLimitCredit(final List<ClientDetail> clientDetail,Client client, boolean isCreditSale){
+
+        if (saleModelClass != null && mAuth.getUid() != null && client!=null && !TextUtils.isEmpty(client.getId()) && isCreditSale) {
+
+            double total = 0;
+            for (final ClientDetail clientDetail1 : clientDetail) {
+                total += (clientDetail1.getProductPriceSale() * clientDetail1.getCantProduct());
+            }
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            final DatabaseReference myRef = database.getReference("Reports");
+            DatabaseReference usersRef = myRef.child(mAuth.getUid()).child(Constants.CLIENT_TABLE_FIREBASE);
+            usersRef.child(client.getId()).child("limit").setValue(client.getLimit() - total);
+        }
 
     }
 
