@@ -215,7 +215,7 @@ public class Tools {
      * Metodo que permite comprimir imagenes y transformarlas a bitmap
      */
     public static byte[] getImage(Context ctx, String path, int width, int height) {
-        if(path == null) return null;
+       // if(path == null) return null;
         final File file_thumb_path = new File(path);
 
         Bitmap thumb_bitmap = null;
@@ -230,12 +230,12 @@ public class Tools {
             e.printStackTrace();
         }
 
-        if (thumb_bitmap != null) {
+        //if (thumb_bitmap != null) return null;
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             thumb_bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
             thumb_byte = baos.toByteArray();
 
-        }
+
 
         return thumb_byte;
 

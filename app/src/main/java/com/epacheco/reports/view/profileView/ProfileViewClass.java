@@ -8,8 +8,11 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -20,8 +23,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.epacheco.reports.BuildConfig;
@@ -36,9 +41,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
-public class ProfileViewClass extends AppCompatActivity implements ProfileViewInterface{
+public class ProfileViewClass extends AppCompatActivity implements ProfileViewInterface {
     private FirebaseAuth mAuth;
     private ActivityProfileViewClassBinding binding;
     private FirebaseUser firebaseUser;
@@ -57,7 +66,7 @@ public class ProfileViewClass extends AppCompatActivity implements ProfileViewIn
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_profile_view_class);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_profile_view_class);
         mAuth = FirebaseAuth.getInstance();
         profileModelClass = new ProfileModelClass(this);
         inicializateElements();
@@ -65,32 +74,32 @@ public class ProfileViewClass extends AppCompatActivity implements ProfileViewIn
     }
 
     private void chargeInformation() {
-        if(getFirebaseUser().getDisplayName()!=null && !getFirebaseUser().getDisplayName().isEmpty()){
+        if (getFirebaseUser().getDisplayName() != null && !getFirebaseUser().getDisplayName().isEmpty()) {
             binding.lblUserName.setText(getFirebaseUser().getDisplayName());
-        }else{
+        } else {
             binding.lblUserName.setText(getFirebaseUser().getEmail().split("@")[0]);
         }
-        if(getFirebaseUser().getPhotoUrl()!=null && !getFirebaseUser().getPhotoUrl().toString().isEmpty()){
+        if (getFirebaseUser().getPhotoUrl() != null && !getFirebaseUser().getPhotoUrl().toString().isEmpty()) {
 
 
             Glide.with(this).load(com.epacheco.reports.tools.Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl())).apply(
                     RequestOptions.circleCropTransform()).into(binding.imageviewAccountProfile);
-            Glide.with(this).load(com.epacheco.reports.tools.Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl()))  .into(binding.imgBackground);
+            Glide.with(this).load(com.epacheco.reports.tools.Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl())).into(binding.imgBackground);
         }
         binding.lblUserEmail.setText(getFirebaseUser().getEmail());
 
     }
 
-    private void inicializateElements(){
-        if(mAuth.getCurrentUser()==null){
+    private void inicializateElements() {
+        if (mAuth.getCurrentUser() == null) {
             finish();
-        }else{
+        } else {
             setFirebaseUser(mAuth.getCurrentUser());
 
         }
     }
 
-    public void closeSesion(View v){
+    public void closeSesion(View v) {
 
         ReportsDialogGlobal.showDialogAccept(this, getString(R.string.Titulo_cerrar_sesion),
                 getString(R.string.msg_cerrar_sesion),
@@ -116,17 +125,17 @@ public class ProfileViewClass extends AppCompatActivity implements ProfileViewIn
 
     @Override
     public void errorGetProfile(String error) {
-        com.epacheco.reports.tools.Tools.showToasMessage(this,error);
+        com.epacheco.reports.tools.Tools.showToasMessage(this, error);
     }
 
     @Override
     public void successUpdateProfile() {
-        com.epacheco.reports.tools.Tools.showToasMessage(this,"Imagen actualizada correctamente");
+        com.epacheco.reports.tools.Tools.showToasMessage(this, "Imagen actualizada correctamente");
     }
 
     @Override
     public void errorUpdateProfile(String error) {
-        com.epacheco.reports.tools.Tools.showToasMessage(this,error);
+        com.epacheco.reports.tools.Tools.showToasMessage(this, error);
     }
 
     public FirebaseUser getFirebaseUser() {
@@ -144,7 +153,7 @@ public class ProfileViewClass extends AppCompatActivity implements ProfileViewIn
      * para elegir entre la camara o la galeria.
      */
 
-    public void updateImagen(View v){
+    public void updateImagen(View v) {
         final CharSequence[] options = {getString(R.string.lbl_take_photo), getString(R.string.lbl_select_gallery), getString(R.string.btn_cancel)};
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.lbl_select_image_title));
@@ -217,6 +226,7 @@ public class ProfileViewClass extends AppCompatActivity implements ProfileViewIn
                 }
         );
     }
+
     /**
      * 5.- Creamos el dialogo donde le explicamos el por que necesitamos acceder a la galeria
      */
@@ -238,7 +248,6 @@ public class ProfileViewClass extends AppCompatActivity implements ProfileViewIn
                 }
         );
     }
-
 
 
     /**
@@ -271,6 +280,7 @@ public class ProfileViewClass extends AppCompatActivity implements ProfileViewIn
             }
         }
     }
+
     /**
      * 7.- Creamos el metodo que abrira la camara
      * Para esto es necesario agregar un archivo xml en el directorio
@@ -340,37 +350,96 @@ public class ProfileViewClass extends AppCompatActivity implements ProfileViewIn
                     Glide.with(this).load(takenImage).apply(
                             RequestOptions.circleCropTransform()).into(binding.imageviewAccountProfile);
                     binding.imgBackground.setImageBitmap(takenImage);
-                    profileModelClass.updateProfile(photoFile.getAbsolutePath(),this);
+                    profileModelClass.updateProfile(photoFile.getAbsolutePath(), this);
 
                 }
                 break;
             case REQUEST_IMAGE_GALLERY:
                 if (resultCode == RESULT_OK) {
-                    /**Si el usuario selecciono la imagen de la galeria la pintamos en el imageView*/
+
+
                     Uri selectedImage = data.getData();
-                    binding.imageviewAccountProfile.setImageURI(selectedImage);
+                    String tempPath = getPathFromInputStreamUri(this, selectedImage);
                     Glide.with(this).load(selectedImage).apply(
                             RequestOptions.circleCropTransform()).into(binding.imageviewAccountProfile);
                     binding.imgBackground.setImageURI(selectedImage);
-                    profileModelClass.updateProfile( getRealPathFromURI(selectedImage),this);
+                    profileModelClass.updateProfile(tempPath, this);
                 }
                 break;
         }
     }
 
-    public String getRealPathFromURI(Uri contentUri) {
 
-        // can post image
-        String[] proj = {MediaStore.Images.Media.DATA};
-        Cursor cursor = getContentResolver().query(contentUri,
-                proj, // Which columns to return
-                null,       // WHERE clause; which rows to return (all rows)
-                null,       // WHERE clause selection arguments (none)
-                null); // Order-by clause (ascending by name)
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
+    public String getPathFromInputStreamUri(Context context, Uri uri) {
+        InputStream inputStream = null;
+        String filePath = null;
 
-        return cursor.getString(column_index);
+        if (uri.getAuthority() != null) {
+            try {
+                inputStream = context.getContentResolver().openInputStream(uri);
+                File photoFile = createTemporalFileFrom(inputStream);
+
+                filePath = photoFile.getPath();
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (inputStream != null) {
+                        inputStream.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return filePath;
+    }
+
+    private File createTemporalFileFrom(InputStream inputStream) throws IOException {
+        File targetFile = null;
+
+        if (inputStream != null) {
+            int read;
+            byte[] buffer = new byte[8 * 1024];
+
+            targetFile = createTemporalFile();
+            OutputStream outputStream = new FileOutputStream(targetFile);
+
+            while ((read = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, read);
+            }
+            outputStream.flush();
+
+            try {
+                outputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return targetFile;
+    }
+
+
+    private File createTemporalFile() {
+        return new File(getDirectoryName(), "tempPicture.jpg");
+    }
+
+    private String getDirectoryName() {
+        PackageManager m = getPackageManager();
+        String s = getPackageName();
+        try {
+            PackageInfo p = m.getPackageInfo(s, 0);
+            return p.applicationInfo.dataDir;
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.w("yourtag", "Error Package name not found ", e);
+        }
+
+        return "";
     }
 
     /**
