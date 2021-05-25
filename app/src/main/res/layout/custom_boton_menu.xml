@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView_account_details"
@@ -33,8 +34,10 @@
                 android:layout_toEndOf="@+id/img_product"
                 android:gravity="center"
                 android:padding="10dp"
-                android:textSize="28sp"
-                android:textStyle="bold" />
+                android:textSize="24sp"
+                tools:text="Titulo"
+                android:textStyle="bold"
+                android:maxLines="1"/>
 
             <TextView
                 android:id="@+id/lbl_subtitle_action"
@@ -45,7 +48,10 @@
                 android:layout_toStartOf="@+id/img_arrow"
                 android:layout_toEndOf="@+id/img_product"
                 android:gravity="center"
-                android:padding="10dp" />
+                android:maxLines="2"
+                android:padding="10dp"
+                android:layout_below="@+id/lbl_title_action"
+                tools:text="subtitulo" />
 
             <ImageView
                 android:id="@+id/img_arrow"

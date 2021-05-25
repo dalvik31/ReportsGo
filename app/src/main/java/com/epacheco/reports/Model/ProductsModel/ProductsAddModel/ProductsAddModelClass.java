@@ -1,5 +1,6 @@
 package com.epacheco.reports.Model.ProductsModel.ProductsAddModel;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import androidx.fragment.app.FragmentActivity;
 import com.epacheco.reports.Controller.ProductsController.ProductsAddController.ProductsAddControllerClass;
@@ -99,9 +100,9 @@ public class ProductsAddModelClass implements ProductsAddModelInterface {
   }
 
   @Override
-  public void uploadImage(Bitmap imgUpload) {
+  public void uploadImage(Context ctx,String imgUpload) {
     if(productsAddControllerClass!=null){
-      productsAddControllerClass.uploadImage(imgUpload);
+      productsAddControllerClass.uploadImage(ctx,imgUpload);
     }
   }
 

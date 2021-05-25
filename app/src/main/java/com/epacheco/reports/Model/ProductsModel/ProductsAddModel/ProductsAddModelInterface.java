@@ -1,5 +1,6 @@
 package com.epacheco.reports.Model.ProductsModel.ProductsAddModel;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import androidx.fragment.app.FragmentActivity;
 import com.epacheco.reports.Pojo.Product.Product;
@@ -25,7 +26,7 @@ public interface ProductsAddModelInterface {
 
   //Controller methods
   void addProduct(Product product);
-  void uploadImage(Bitmap imgUpload);
+  void uploadImage(Context ctx, String imgUpload);
   void getProduct(String idProduct);
   void modifyProduct(Product product);
   void removeProduct(String idProduct);

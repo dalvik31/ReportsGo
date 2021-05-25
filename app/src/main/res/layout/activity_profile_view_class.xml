@@ -1,168 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout  xmlns:android="http://schemas.android.com/apk/res/android">
-
-<RelativeLayout
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  tools:context=".view.profileView.ProfileViewClass"
-  android:orientation="vertical">
-
-  <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background_view"
-    android:orientation="vertical">
-    <ImageView
-      android:id="@+id/img_background"
-      android:layout_width="match_parent"
-      android:layout_height="200dp"
-      android:background="@color/colorPrimary"
-      android:scaleType="centerCrop"/>
-
-
-    <androidx.cardview.widget.CardView
-      android:id="@+id/cardView_account_details"
-      android:layout_width="match_parent"
-      android:layout_height="300dp"
-      android:layout_marginTop="90dp"
-      android:layout_marginLeft="10dp"
-      android:layout_marginRight="10dp"
-      android:background="@color/colorAccent"
-      app:cardCornerRadius="5dp"
-      app:cardElevation="5dp"
-      app:cardUseCompatPadding="true">
-      <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-          android:id="@+id/lbl_user_name"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="@string/lbl_client_name"
-          android:gravity="center"
-          android:layout_gravity="bottom"
-          android:layout_marginTop="20dp"
-          android:padding="10dp"
-          android:layout_above="@+id/lbl_user_email"
-          style="@style/TextView_Title"/>
-        <TextView
-          android:id="@+id/lbl_user_email"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="@string/lbl_client_name"
-          android:gravity="center"
-          android:padding="10dp"
-          android:layout_alignParentBottom="true"
-          style="@style/TextView_Text"/>
-      </RelativeLayout>
-
-
-
-    </androidx.cardview.widget.CardView>
-
-
-  </RelativeLayout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
 
-      <ImageView
-        android:id="@+id/imageview_account_profile"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/icon_person"
-        android:layout_marginTop="20dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".view.profileView.ProfileViewClass">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background_view"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_background"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/colorPrimary"
+                android:scaleType="centerCrop" />
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView_account_details"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="90dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/colorAccent"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                app:cardUseCompatPadding="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/lbl_user_name"
+                        style="@style/TextView_Title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/lbl_user_email"
+                        android:layout_gravity="bottom"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="@string/lbl_client_name" />
+
+                    <TextView
+                        android:id="@+id/lbl_user_email"
+                        style="@style/TextView_Text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="@string/lbl_client_name" />
+                </RelativeLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageview_account_profile"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:scaleType="centerCrop"
+                android:onClick="updateImagen"
+                app:srcCompat="@drawable/icon_person" />
+
+        </RelativeLayout>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_create_accoount"
+            style="@style/AppTheme.ButtonGral"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:onClick="closeSesion"
+            android:text="@string/lbl_logout"
+            android:theme="@style/AppTheme.ButtonGral" />
     </RelativeLayout>
-
-
-  <androidx.appcompat.widget.AppCompatButton
-    android:id="@+id/btn_create_accoount"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    style="@style/AppTheme.ButtonGral"
-    android:theme="@style/AppTheme.ButtonGral"
-    android:layout_alignParentBottom="true"
-    android:layout_marginEnd="20dp"
-    android:layout_marginStart="20dp"
-    android:layout_marginTop="20dp"
-    android:layout_marginBottom="10dp"
-    android:text="@string/lbl_logout"
-    android:onClick="closeSesion"
-      android:background="@drawable/bordes_redondos"/>
-  </RelativeLayout>
 </layout>
 
 
+    <!--
 
-<!--
+    Layout que crea un diseño como de perfil de usuario con un cardview
+     algo asi: http://i.stack.imgur.com/hMjBd.jpg  (FUNCIONA)
 
-Layout que crea un diseño como de perfil de usuario con un cardview
- algo asi: http://i.stack.imgur.com/hMjBd.jpg  (FUNCIONA)
-
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    android:id="@+id/frame"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center_vertical"
-    android:background="@color/colorAccent">
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/malam"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="match_parent"
-            android:layout_height="230dp"
-            android:scaleType="centerCrop"
-            android:background="@android:color/holo_blue_dark"/>
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/white_card"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="120dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        app:cardCornerRadius="0dp"
-        app:elevation="10dp">
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:translationY="32dp"
-        app:layout_anchor="@id/white_card"
-        app:layout_anchorGravity="center_horizontal"
-        android:layout_gravity="center_horizontal">
-    <ImageView
-        android:id="@+id/robot_dialog_icon"
+    <?xml version="1.0" encoding="utf-8"?>
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/frame"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"/>
-    </android.support.v7.widget.CardView>
+        android:layout_gravity="center_vertical"
+        android:background="@color/colorAccent">
 
-</android.support.design.widget.CoordinatorLayout>
+        <android.support.v7.widget.CardView
+            android:id="@+id/malam"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:scaleType="centerCrop"
+                android:background="@android:color/holo_blue_dark"/>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/white_card"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="120dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            app:cardCornerRadius="0dp"
+            app:elevation="10dp">
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:translationY="32dp"
+            app:layout_anchor="@id/white_card"
+            app:layout_anchorGravity="center_horizontal"
+            android:layout_gravity="center_horizontal">
+        <ImageView
+            android:id="@+id/robot_dialog_icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"/>
+        </android.support.v7.widget.CardView>
+
+    </android.support.design.widget.CoordinatorLayout>
 
 
 
 
 
--->
+    -->

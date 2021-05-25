@@ -12,6 +12,7 @@ public class SalesDetail {
     private int auxStock;
     private boolean isCancelSale;
     private String saleDate;
+    private boolean isCreditSale;
 
     public String getImgProduct() {
         return imgProduct;
@@ -99,5 +100,13 @@ public class SalesDetail {
 
     public void setSaleDate(String saleDate) {
         this.saleDate = saleDate;
+    }
+
+    public boolean isCreditSale() {
+        return isCreditSale;
+    }
+
+    public void setCreditSale(boolean creditSale) {
+        isCreditSale = creditSale;
     }
 }

@@ -32,6 +32,16 @@ public class ReportsDialogGlobal {
     dialog.show();
   }
 
+  public static void showDialogAcceptAnCancelTextButtons(Context context, String title, String message,String textButtonAccept, String textButtonCancel, DialogInterface.OnClickListener onClickListener, DialogInterface.OnClickListener onCancelListener) {
+
+    AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+    dialog.setTitle(title);
+    dialog.setMessage(message);
+    dialog.setPositiveButton(textButtonAccept, onClickListener);
+    dialog.setNegativeButton(textButtonCancel, onCancelListener);
+    dialog.show();
+  }
+
 
   public static void showDialogOk(Context context, String title, String message) {
 

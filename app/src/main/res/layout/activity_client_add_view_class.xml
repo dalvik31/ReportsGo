@@ -100,8 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
-            android:layout_below="@+id/lbl_client_name"
-            android:hint="@string/lbl_client_name_hint"/>
+            android:layout_below="@+id/lbl_client_name" />
         </RelativeLayout>
         <RelativeLayout
           android:layout_width="0dp"
@@ -119,8 +118,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/lbl_client_lastname"
-            android:inputType="textPersonName|textCapWords"
-            android:hint="@string/lbl_client_lastname_hint"/>
+            android:inputType="textPersonName|textCapWords" />
         </RelativeLayout>
       </LinearLayout>
       <TextView
@@ -138,8 +136,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:layout_below="@+id/lbl_client_detail"
-        android:hint="@string/lbl_client_detail_hint"
-        android:inputType="textMultiLine|textPersonName|textCapWords"
+        android:inputType="textMultiLine|textPersonName|textCapCharacters"
         android:lines="5"/>
 
       <LinearLayout
@@ -190,6 +187,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/lbl_client_limit"
             android:inputType="numberDecimal"
+              android:maxLength="10"
             android:hint="@string/lbl_client_limit_hint"/>
         </RelativeLayout>
 
