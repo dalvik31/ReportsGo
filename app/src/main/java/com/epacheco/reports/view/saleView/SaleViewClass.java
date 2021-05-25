@@ -261,7 +261,7 @@ public class SaleViewClass extends AppCompatActivity implements SaleViewInterfac
         for (Product product : adapterViewPagerSale.getProductList()) {
             ClientDetail clientDetail = new ClientDetail();
             clientDetail.setDatePayment(String.valueOf(System.currentTimeMillis()));
-            clientDetail.setDebt((isCreditSale ? getDebtClient() : 0) + getTotalSale());
+            clientDetail.setDebt((isCreditSale ? getDebtClient() + getTotalSale() : getDebtClient()));
             clientDetail.setCantProduct(product.getAuxStock());
             clientDetail.setUrlImage(product.getUrlImage());
             clientDetail.setAmount(product.getAuxPrice());
