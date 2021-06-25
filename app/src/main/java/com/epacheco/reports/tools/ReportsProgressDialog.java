@@ -29,7 +29,7 @@ public class ReportsProgressDialog {
     m_Dialog = new Dialog(myActivity);
     m_Dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
     m_Dialog.setContentView(R.layout.custom_progress_dialog);
-    progressLottie = m_Dialog.findViewById(R.id.lottie_anim_view);
+    progressLottie = m_Dialog.findViewById(R.id.lottieSplash);
     m_Dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
     m_Dialog.setCancelable(false);
     m_Dialog.setCanceledOnTouchOutside(false);

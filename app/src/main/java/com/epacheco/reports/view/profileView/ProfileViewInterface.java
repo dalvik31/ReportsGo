@@ -7,4 +7,7 @@ public interface ProfileViewInterface {
   FragmentActivity getMyActivity();
   void successGetProfile(FirebaseUser firebaseUser);
   void errorGetProfile(String error);
+
+  void successUpdateProfile();
+  void errorUpdateProfile(String error);
 }

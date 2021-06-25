@@ -142,6 +142,8 @@ public class ClientDetailViewClass extends AppCompatActivity implements ClientDe
     clientDetail.setPay(true);
     clientDetail.setUrlImage(null);
     clientDetail.setCantProduct(0);
+    clientDetail.setProductName(getClientInformation().getName());
+    clientDetail.setProductPriceBuy(getClientInformation().getLimit());
     clientDetail.setDebt(clientDetail.getDebt() - amountPayment);
   }
 

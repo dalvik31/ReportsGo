@@ -1,5 +1,7 @@
 package com.epacheco.reports.Model.ProfileModel;
 
+import android.content.Context;
+
 import androidx.fragment.app.FragmentActivity;
 import com.epacheco.reports.Controller.ProfileController.ProfileControllerClass;
 import com.epacheco.reports.view.profileView.ProfileViewClass;
@@ -34,9 +36,30 @@ public class ProfileModelClass implements ProfileModelInterface {
   }
 
   @Override
+  public void successUpdateProfile() {
+    if(profileViewClass!=null){
+      profileViewClass.successUpdateProfile();
+    }
+  }
+
+  @Override
+  public void errorUpdateProfile(String error) {
+    if(profileViewClass!=null){
+      profileViewClass.errorUpdateProfile(error);
+    }
+  }
+
+  @Override
   public void getProfile() {
     if(profileControllerClass!=null){
       profileControllerClass.getProfile();
+    }
+  }
+
+  @Override
+  public void updateProfile(String imgUrl, Context context) {
+    if(profileControllerClass!=null){
+      profileControllerClass.updateProfile(imgUrl,context);
     }
   }
 }

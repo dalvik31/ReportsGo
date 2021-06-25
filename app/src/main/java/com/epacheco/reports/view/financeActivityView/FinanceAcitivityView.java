@@ -48,7 +48,7 @@ public class FinanceAcitivityView extends AppCompatActivity implements FinanceAc
     private void initDate() {
         min = Calendar.getInstance();
         min.set(Calendar.YEAR, min.get(Calendar.YEAR) - 1);
-        binding.tvDate.setText(Tools.getFormatDate(String.valueOf(System.currentTimeMillis())));
+        binding.tvDate.setText(Tools.getFormatDateSimple(String.valueOf(System.currentTimeMillis())));
 
         financeActitvityModel.getSales(System.currentTimeMillis(), 0);
     }
@@ -87,7 +87,7 @@ public class FinanceAcitivityView extends AppCompatActivity implements FinanceAc
             int offsetFromUTC = timeZoneUTC.getOffset(new Date().getTime()) * -1;
             Date firstDate = new Date(startDate + offsetFromUTC);
             Date secondDate = new Date(endDate + offsetFromUTC);
-            financeActitvityModel.getSales(firstDate.getTime(),startDate == endDate ? 0 : secondDate.getTime());
+            financeActitvityModel.getSales(firstDate.getTime(), startDate == endDate ? 0 : secondDate.getTime());
             binding.tvDate.setText(Tools.getFormatDateToDates(String.valueOf(firstDate.getTime()), String.valueOf(secondDate.getTime())));
 
         });
@@ -99,14 +99,14 @@ public class FinanceAcitivityView extends AppCompatActivity implements FinanceAc
     public void successGetSales(List<SalesDetail> salesDetails) {
         if (salesDetails != null && !salesDetails.isEmpty()) {
             getSalesFinance(salesDetails);
-            AdapterSales adapterSales = new AdapterSales(this,salesDetails);
+            AdapterSales adapterSales = new AdapterSales(this, salesDetails);
             binding.rvListSales.setHasFixedSize(true);
             binding.rvListSales.setLayoutManager(new LinearLayoutManager(this));
             binding.rvListSales.setAdapter(adapterSales);
             binding.rvListSales.setVisibility(View.VISIBLE);
             binding.imgEmpty.setVisibility(View.GONE);
             binding.tvEmptyData.setVisibility(View.GONE);
-        }else{
+        } else {
             getSalesFinance(null);
             binding.rvListSales.setVisibility(View.GONE);
             binding.imgEmpty.setVisibility(View.VISIBLE);
@@ -130,14 +130,16 @@ public class FinanceAcitivityView extends AppCompatActivity implements FinanceAc
     }
 
     private void getSalesFinance(List<SalesDetail> salesDetails) {
-        if(salesDetails != null){
+        if (salesDetails != null) {
             double price = 0;
             double investment = 0;
             int numberProducts = 0;
             for (SalesDetail salesDetail : salesDetails) {
-                if(!salesDetail.isCancelSale()){
-                    price += salesDetail.getProductPriceSale();
-                    investment += salesDetail.getProductPricreBuy();
+                if (!salesDetail.isCancelSale()) {
+                    if(!salesDetail.isCreditSale()){
+                        price += salesDetail.getProductPriceSale();
+                        investment += salesDetail.getProductPricreBuy();
+                    }
                     numberProducts += salesDetail.getAuxStock();
                 }
             }
@@ -145,7 +147,7 @@ public class FinanceAcitivityView extends AppCompatActivity implements FinanceAc
             binding.tvNumberPrice.setText(String.format(getString(R.string.lbl_price_sales), String.valueOf(price)));
             binding.tvNumberInvestment.setText(String.format(getString(R.string.lbl_price_sales), String.valueOf(investment)));
             binding.tvNumberProfit.setText(String.format(getString(R.string.lbl_price_sales), String.valueOf(price - investment)));
-        }else{
+        } else {
             binding.tvNumberProduct.setText((String.format(getString(R.string.lbl_number_product_sales), String.valueOf(0))));
             binding.tvNumberPrice.setText(R.string.lbl_price_zero);
             binding.tvNumberInvestment.setText(R.string.lbl_price_zero);

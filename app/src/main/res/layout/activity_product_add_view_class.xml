@@ -167,6 +167,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/lbl_product_price_buy"
                                 android:hint="@string/lbl_product_price_buy_hint"
+                                android:maxLength="10"
                                 android:inputType="numberDecimal" />
                         </RelativeLayout>
 
@@ -189,6 +190,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/lbl_product_price_sale"
                                 android:hint="@string/lbl_product_price_sale_hint"
+                                android:maxLength="10"
                                 android:inputType="numberDecimal" />
                         </RelativeLayout>
 
@@ -444,10 +446,6 @@
 
 
                     </LinearLayout>
-
-
-                    ---------------------
-
 
                     <RelativeLayout
                         android:id="@+id/Rltv_stock"
