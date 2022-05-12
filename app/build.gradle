@@ -6,8 +6,8 @@ android {
         applicationId "com.epacheco.reports"
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 15
-        versionName "1.1.4"
+        versionCode 16
+        versionName "1.1.6"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
@@ -16,12 +16,6 @@ android {
 
     signingConfigs {
         release {
-            // You need to specify either an absolute path or include the
-            // keystore file in the same directory as the build.gradle file.
-            storeFile file("reports_keystore_release.jks")
-            storePassword "Emma3103"
-            keyAlias "reports"
-            keyPassword "Emma3103"
         }
 
     }
