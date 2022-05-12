@@ -10,16 +10,16 @@
 
 
   <com.epacheco.reports.view.testPin.OtpEditText
-    android:id="@+id/pin"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:cursorVisible="false"
-    app:hint=""
-    app:inputType="number"
-    app:forceKeyboard="true"
-    app:password="false"
-    app:pinBackground="@drawable/big2"
-    app:pinHeight="40dp"
-    app:pinLength="4"
-    app:pinWidth="40dp"/>
+      android:id="@+id/pin"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:cursorVisible="false"
+      app:forceKeyboard="true"
+      app:hint=""
+      app:inputType="number"
+      app:password="false"
+      app:pinBackground="@drawable/big2"
+      app:pinHeight="40dp"
+      app:pinLength="4"
+      app:pinWidth="40dp" />
 </RelativeLayout>

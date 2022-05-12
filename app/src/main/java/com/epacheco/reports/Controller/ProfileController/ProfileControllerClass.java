@@ -22,8 +22,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import timber.log.Timber;
-
 public class ProfileControllerClass implements ProfileControllerInterface {
 
     private ProfileModelClass profileModelClass;
