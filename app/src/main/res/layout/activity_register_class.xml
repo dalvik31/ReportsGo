@@ -171,7 +171,7 @@
                             android:layout_centerInParent="true"
                             android:layout_toStartOf="@+id/lbl_forgot_password"
                             android:text="@string/lbl_remember_user"
-                            android:theme="@style/checkBoxStyle" />
+                            style="@style/checkBoxStyle" />
 
                         <TextView
                             android:id="@+id/lbl_forgot_password"
