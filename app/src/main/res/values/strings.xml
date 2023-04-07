@@ -40,12 +40,12 @@
     <string name="lbl_menu_option_sell">Ventas</string>
     <string name="lbl_menu_option_order">Pedidos</string>
     <string name="lbl_menu_option_activity">Finanzas</string>
-    <string name="lbl_menu_option">Selecciona una operación</string>
-    <string name="lbl_menu_option_sell_subtitle">Selecciona un cliente y genera un ticket con varios productos.</string>
-    <string name="lbl_menu_option_order_subtitle">Crea pedidos y asígnalos a tus clientes, guardalos y consultalos más tarde.</string>
+    <string name="lbl_menu_option">¿Qué vamos a hacer hoy?</string>
+    <string name="lbl_menu_option_sell_subtitle">Genera ventas con clientes y genera tickets.</string>
+    <string name="lbl_menu_option_order_subtitle">Crea pedidos relacionados a tus clientes y productos.</string>
     <string name="lbl_menu_option_activity_subtitle">Revisa las ganancias generadas por dia o por un rango de fechas.</string>
-    <string name="lbl_menu_option_client_subttitle">Agrega clientes para llevar el control de su crédito.</string>
-    <string name="lbl_menu_option_products_subtitle">Lleva el control de tu inventario, de una manera rápida y sencilla.</string>
+    <string name="lbl_menu_option_client_subttitle">Lleva el control de tus clientes.</string>
+    <string name="lbl_menu_option_products_subtitle">Crea un inventario de productos y administrarlo de manera sencilla.</string>
     <!--Fragment Clientes-->
     <string name="msg_search_client">Buscando clientes</string>
     <string name="lbl_search_client">Buscar cliente</string>
@@ -54,7 +54,7 @@
     <string name="lbl_add_client">Crear nuevo cliente</string>
     <string name="lbl_detail_client">Detalle de cliente</string>
     <string name="lbl_detail_name_client">%s - %s</string>
-    <string name="btn_save">guardar</string>
+    <string name="btn_save">Guardar</string>
     <string name="btn_conatctos">contactos</string>
     <string name="btn_ok">aceptar</string>
     <string name="btn_cancel">Cancelar</string>
@@ -62,21 +62,21 @@
     <string name="btn_sale">vender</string>
     <string name="btn_delete">eliminar</string>
     <string name="btn_close">cerrar</string>
-    <string name="btn_detail">detalle</string>
+    <string name="btn_detail">Información</string>
     <string name="lbl_client_name">Nombre</string>
     <string name="lbl_client_name_hint"></string>
     <string name="lbl_client_lastname">Apellido</string>
     <string name="lbl_client_lastname_hint">Perez</string>
-    <string name="lbl_client_detail">Referencia del cliente.</string>
+    <string name="lbl_client_detail">Información del cliente.</string>
     <string name="lbl_client_detail_hint">El dueño de la farmacia.</string>
     <string name="lbl_client_phone">Celular</string>
-    <string name="lbl_client_phone_hint">55–5555–5555</string>
+    <string name="lbl_client_phone_hint">000-000-0000</string>
     <string name="lbl_client_limit">Límite de crédito</string>
-    <string name="lbl_client_limit_hint">$2,000</string>
-    <string name="lbl_date_client">Cliente desde 19/Ago/2019</string>
+    <string name="lbl_client_limit_hint">$0,0</string>
+    <string name="lbl_date_client">Cliente desde el  22/Mayo/2021</string>
     <string name="lbl_amount_client">Debe:</string>
     <string name="lbl_client_amount">Monto</string>
-    <string name="lbl_client_amount_hint">$2,000</string>
+    <string name="lbl_client_amount_hint">$0,0</string>
     <string name="lbl_client_concept_hint">Abono</string>
     <string name="lbl_client_concept">Concepto</string>
     <string name="btn_abonar">Abonar</string>
@@ -257,10 +257,12 @@
     <!--Activity Forgot password-->
     <string name="msg_email_send_success">Se envío un email a tu correo.</string>
     <string name="title_activity_forgot_password">Recupera tu contraseña</string>
-    <string name="msg_recovery_password_hint">Ingresa tu email de recuperación</string>
-    <string name="btn_send_email">Enviar email</string>
+    <string name="msg_recovery_password_hint">Email</string>
+    <string name="btn_send_email">Enviar</string>
     <string name="name_app_splash">Reports\nGO</string>
     <string name="msg_item_order_move">Pedido movido a otra lista</string>
+    <string name="msg_cardview_item_message">“Introduce el correo electrónico con el que iniciaste sesión y enviaremos un enlace para que puedas cambiar tu contraseña y puedas recuperar tu cuenta“</string>
+
 
     <!--Activity finance-->
     <string name="lbl_title_finance_activity">Finanzas</string>
@@ -276,4 +278,6 @@
     <string name="title_message_cancel_sale">Cancelar venta.</string>
     <string name="msg_cancel_sale_succes">Venta cancelada.</string>
     <string name="msg_cancel_sale_item">COMPRA CANCELADA</string>
+
+
 </resources>

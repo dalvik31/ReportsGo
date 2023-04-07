@@ -49,10 +49,10 @@
                         android:layout_marginBottom="10dp"
                         android:clickable="true"
                         android:focusable="true"
+                        android:foreground="?selectableItemBackground"
                         android:onClick="registerFacebook"
                         android:text="@string/btn_continue_facebook"
                         app:drawableLeftCompat="@drawable/ic_vector_facebook_logo"
-
                         />
 
                     <androidx.appcompat.widget.AppCompatButton
@@ -66,9 +66,11 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="20dp"
                         android:layout_marginBottom="10dp"
+                        android:foreground="?selectableItemBackground"
                         android:onClick="registerGoogle"
                         android:text="@string/btn_continue_google"
                         app:drawableLeftCompat="@drawable/ic_vector_google_logo" />
+
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_continue_twitter"
@@ -81,6 +83,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="20dp"
                         android:layout_marginBottom="10dp"
+                        android:foreground="?selectableItemBackground"
                         android:onClick="registerTwitter"
                         android:text="@string/btn_continue_twitter"
                         app:drawableLeftCompat="@drawable/ic_vector_twitter_logo" />
@@ -197,6 +200,7 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginEnd="20dp"
                         android:layout_marginBottom="10dp"
+                        android:foreground="?selectableItemBackground"
                         android:onClick="loginWithEmailAndPassword"
                         android:text="@string/lbl_login" />
 
@@ -211,6 +215,7 @@
                         android:layout_marginEnd="20dp"
                         android:layout_marginBottom="10dp"
                         android:onClick="registerWithEmailAndPassword"
+                        android:foreground="?selectableItemBackground"
                         android:text="@string/lbl_sign_up"
                         android:textColor="@color/colorPrimary"
                         android:theme="@style/AppTheme.ButtonGralTransparent" />

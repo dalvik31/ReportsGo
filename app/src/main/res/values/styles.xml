@@ -103,6 +103,7 @@
   <style name="AppTheme.ButtonGral" parent="Widget.AppCompat.Button.Borderless">
     <item name="android:textColor">@color/colorWhite</item>
     <item name="android:background">@color/colorPrimary</item>
+    <item name="android:foreground">?selectableItemBackground</item>
   </style>
 
   <!--Style para boton contactos -->
