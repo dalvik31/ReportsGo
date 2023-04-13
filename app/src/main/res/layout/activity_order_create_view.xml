@@ -399,7 +399,7 @@
 
 
           <androidx.appcompat.widget.AppCompatButton
-              android:id="@+id/btn_create_accoount"
+              android:id="@+id/btn_search_contacts"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               style="@style/AppTheme.ButtonGral"

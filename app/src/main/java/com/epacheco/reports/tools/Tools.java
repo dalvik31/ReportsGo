@@ -55,7 +55,8 @@ public class Tools {
         }
 
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        DateFormat simple = new SimpleDateFormat(DATE_FORMAT_4, Locale.US);
+        //AQUI SE MODIFICA LA FECHA DEL DETALLE DEL CLIENTE
+        DateFormat simple = new SimpleDateFormat(DATE_FORMAT_2, Locale.US);
         cal.setTimeInMillis(Long.parseLong(epochDate));
         return simple.format(cal.getTime());
     }

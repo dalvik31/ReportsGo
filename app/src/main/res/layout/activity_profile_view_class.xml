@@ -88,7 +88,7 @@
 
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_create_accoount"
+            android:id="@+id/btn_search_contacts"
             style="@style/AppTheme.ButtonGral"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

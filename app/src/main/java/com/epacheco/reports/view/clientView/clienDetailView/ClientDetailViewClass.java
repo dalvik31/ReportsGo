@@ -74,6 +74,16 @@ public class ClientDetailViewClass extends AppCompatActivity implements ClientDe
     binding.layoutClientInfo.lblClientName.setText(String.format(getString(R.string.txt_client_name_format),client.getName(),client.getLastNanme()));
     binding.layoutClientInfo.lblClientDetail.setText(client.getDetail());
     binding.layoutClientInfo.lblDateName.setText(String.format(getString(R.string.txt_client_date_format), com.epacheco.reports.tools.Tools.getFormatDate(client.getDateClient())));
+    //PARA EL LIMITE DE CREDITO DEL CLIENTE
+        /*if(client.getLimit() > 0 && client.getLimit() < 100){
+      textMostrarPromedio.setBackgroundColor(getColor(android.R.color.holo_red_dark));
+    }else if(result > 5 && result < 8){
+      textMostrarPromedio.setBackgroundColor(getColor(android.R.color.holo_orange_light));
+    }else{
+      textMostrarPromedio.setBackgroundColor(getColor(android.R.color.holo_green_dark));
+
+    }*/
+
     binding.lblClientLimit.setText(String.format(getString(R.string.txt_client_limit_format),String.valueOf(client.getLimit())));
     setClientInformation(client);
 

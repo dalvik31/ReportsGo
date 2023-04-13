@@ -37,7 +37,8 @@
             style="@style/AppTheme.ButtonGralTransparentInverse"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/btn_modify"
+              android:textAllCaps="false"
+              android:text="@string/btn_modify"
             android:visibility="gone"
             android:onClick="modifyAccount"/>
 
@@ -198,34 +199,35 @@
 
       </LinearLayout>
       <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_create_accoount"
+        android:id="@+id/btn_search_contacts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/AppTheme.ButtonGral"
+          style="@style/AppTheme.ButtonContact"
           android:foreground="?selectableItemBackground"
           android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
-        android:text="@string/btn_save"
+          android:text="@string/btn_conatctos"
         android:layout_below="@+id/container_information"
-        android:onClick="addClient"/>
+          android:onClick="initPickContacts"
+          />
 
       <androidx.appcompat.widget.AppCompatButton
-          android:id="@+id/btn_search_contacts"
+          android:id="@+id/btn_create_accoount"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_below="@+id/btn_create_accoount"
-          style="@style/AppTheme.ButtonContact"
+          android:layout_below="@+id/btn_search_contacts"
+          style="@style/AppTheme.ButtonGral"
           android:foreground="?selectableItemBackground"
           android:layout_marginEnd="20dp"
           android:layout_marginStart="20dp"
           android:layout_marginTop="20dp"
           android:layout_marginBottom="10dp"
           android:gravity="center"
-          android:text="@string/btn_conatctos"
+          android:text="@string/btn_save"
           android:layout_centerHorizontal="true"
-          android:onClick="initPickContacts"
+          android:onClick="addClient"
           />
 
 
@@ -234,7 +236,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@+id/btn_create_accoount"
+        android:layout_below="@+id/btn_search_contacts"
         android:visibility="gone"
         android:weightSum="1">
         <androidx.appcompat.widget.AppCompatButton
@@ -243,7 +245,8 @@
           android:layout_height="wrap_content"
           android:layout_weight=".5"
           style="@style/AppTheme.ButtonGralBlack"
-          android:layout_marginEnd="20dp"
+            android:foreground="?selectableItemBackground"
+            android:layout_marginEnd="20dp"
           android:layout_marginStart="20dp"
           android:layout_marginTop="20dp"
           android:layout_marginBottom="10dp"
@@ -255,7 +258,8 @@
           android:layout_height="wrap_content"
           android:layout_weight=".5"
           style="@style/AppTheme.ButtonGral"
-          android:layout_marginEnd="20dp"
+            android:foreground="?selectableItemBackground"
+            android:layout_marginEnd="20dp"
           android:layout_marginStart="20dp"
           android:layout_marginTop="20dp"
           android:layout_marginBottom="10dp"
@@ -269,6 +273,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           style="@style/AppTheme.ButtonContact"
+          android:foreground="?selectableItemBackground"
           android:layout_marginEnd="20dp"
           android:layout_marginStart="20dp"
           android:layout_marginTop="20dp"
