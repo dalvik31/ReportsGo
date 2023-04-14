@@ -78,6 +78,23 @@
       tools:context=".view.clientView.clientAddView.ClientAddViewClass"
       >
 
+
+   <!--   <androidx.cardview.widget.CardView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:fontFamily="sans-serif-condensed"
+            android:padding="20dp"
+            android:text=" “Importar información de un cliente desde tus contactos “" />
+
+      </androidx.cardview.widget.CardView> -->
+
+
       <LinearLayout
         android:id="@+id/container_name"
         android:layout_width="match_parent"
@@ -85,6 +102,8 @@
         android:layout_margin="5dp"
         android:orientation="horizontal"
         android:weightSum="1">
+
+
         <RelativeLayout
           android:layout_width="0dp"
           android:layout_height="wrap_content"
