@@ -48,8 +48,8 @@
                 android:layout_toStartOf="@+id/img_arrow"
                 android:layout_toEndOf="@+id/img_product"
                 android:gravity="center"
-                android:maxLines="2"
-                android:padding="10dp"
+                android:maxLines="4"
+                android:padding="8dp"
                 android:layout_below="@+id/lbl_title_action"
                 tools:text="subtitulo" />
 
