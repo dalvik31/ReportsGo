@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
@@ -116,6 +117,12 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
     binding.txtClientName.setText(client.getName());
     binding.txtClientLastname.setText(client.getLastNanme());
     binding.txtClientDetail.setText(client.getDetail());
+
+    /**
+     * En esta linea se agrega el limite de credito que tiene el cliente
+     *
+     */
+
     binding.txtClientLimit.setText(String.valueOf(client.getLimit()));
     binding.txtClientPhone.setText(client.getPhone());
 
@@ -185,6 +192,15 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
 
 
 
+  //PARA EL LIMITE DE CREDITO DEL CLIENTE
+        /*if(client.getLimit() > 0 && client.getLimit() < 100){
+      textMostrarPromedio.setBackgroundColor(getColor(android.R.color.holo_red_dark));
+    }else if(result > 5 && result < 8){
+      textMostrarPromedio.setBackgroundColor(getColor(android.R.color.holo_orange_light));
+    }else{
+      textMostrarPromedio.setBackgroundColor(getColor(android.R.color.holo_green_dark));
+
+    }*/
 
   private boolean validateItems(){
     boolean validateItems = false;
@@ -192,11 +208,29 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
       nameSendClient = binding.txtClientName.getText().toString();
       validateItems = true;
     }
+    /**
+     * Se valida que el limite de credio del cliente
+     */
     if(binding.txtClientLimit.getText()!=null && !binding.txtClientLimit.getText().toString().isEmpty()){
       limitSendClient = Double.parseDouble(binding.txtClientLimit.getText().toString());
     }else{
       limitSendClient = 1200;
     }
+
+            /*if(Integer.parseInt(String.valueOf(binding.txtClientLimit.getText())) > 0 && Integer.parseInt(String.valueOf(binding.txtClientLimit.getText()))< 100){
+              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                binding.txtClientLimit.setTextColor(getColor(android.R.color.holo_red_dark));
+              }
+            }else if(Integer.parseInt(String.valueOf(binding.txtClientLimit.getText())) > 101 && Integer.parseInt(String.valueOf(binding.txtClientLimit.getText()))< 500){
+              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                binding.txtClientLimit.setTextColor(getColor(android.R.color.holo_orange_light));
+              }
+            }else{
+              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                binding.txtClientLimit.setTextColor(getColor(android.R.color.holo_green_dark));
+              }
+            }*/
+
 
     return validateItems;
   }

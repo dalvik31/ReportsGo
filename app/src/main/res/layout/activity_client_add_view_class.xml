@@ -72,6 +72,7 @@
     android:layout_height="wrap_content"
     android:layout_below="@+id/progress_uploadProduct">
 
+
     <RelativeLayout
     android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -79,68 +80,63 @@
       >
 
 
-   <!--   <androidx.cardview.widget.CardView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="20sp"
-            android:gravity="center"
-            android:fontFamily="sans-serif-condensed"
-            android:padding="20dp"
-            android:text=" “Importar información de un cliente desde tus contactos “" />
-
-      </androidx.cardview.widget.CardView> -->
 
 
-      <LinearLayout
-        android:id="@+id/container_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="horizontal"
-        android:weightSum="1">
-
-
-        <RelativeLayout
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_weight=".5">
-          <TextView
-            android:id="@+id/lbl_client_name"
-            style="@style/TextView_Text"
+        <LinearLayout
+            android:id="@+id/container_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/lbl_client_name"/>
-          <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/txt_client_name"
-            style="@style/Edittext_custom_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:layout_below="@+id/lbl_client_name" />
-        </RelativeLayout>
-        <RelativeLayout
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_weight=".5">
-          <TextView
-            android:id="@+id/lbl_client_lastname"
-            style="@style/TextView_Text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/lbl_client_lastname"/>
-          <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/txt_client_lastname"
-            style="@style/Edittext_custom_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lbl_client_lastname"
-            android:inputType="textPersonName|textCapWords" />
-        </RelativeLayout>
-      </LinearLayout>
+            android:layout_below="@+id/btn_search_contacts"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5">
+
+                <TextView
+                    android:id="@+id/lbl_client_name"
+                    style="@style/TextView_Text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_client_name" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/txt_client_name"
+                    style="@style/Edittext_custom_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lbl_client_name"
+                    android:layout_marginTop="0dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5">
+
+                <TextView
+                    android:id="@+id/lbl_client_lastname"
+                    style="@style/TextView_Text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_client_lastname" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/txt_client_lastname"
+                    style="@style/Edittext_custom_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lbl_client_lastname"
+                    android:inputType="textPersonName|textCapWords" />
+            </RelativeLayout>
+        </LinearLayout>
 
       <TextView
           android:id="@+id/lbl_client_detail"
@@ -217,37 +213,57 @@
 
 
       </LinearLayout>
-      <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_search_contacts"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-          style="@style/AppTheme.ButtonContact"
-          android:foreground="?selectableItemBackground"
-          android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
-          android:text="@string/btn_conatctos"
-        android:layout_below="@+id/container_information"
-          android:onClick="initPickContacts"
-          />
 
-      <androidx.appcompat.widget.AppCompatButton
-          android:id="@+id/btn_create_accoount"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_below="@+id/btn_search_contacts"
-          style="@style/AppTheme.ButtonGral"
-          android:foreground="?selectableItemBackground"
-          android:layout_marginEnd="20dp"
-          android:layout_marginStart="20dp"
-          android:layout_marginTop="20dp"
-          android:layout_marginBottom="10dp"
-          android:gravity="center"
-          android:text="@string/btn_save"
-          android:layout_centerHorizontal="true"
-          android:onClick="addClient"
-          />
+
+
+         <androidx.cardview.widget.CardView
+             android:id="@+id/car_view_message"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+             android:layout_marginTop="20dp"
+             android:layout_marginStart="20dp"
+             android:layout_marginEnd="20dp"
+             >
+
+             <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:textSize="20sp"
+                 android:gravity="center"
+                 android:fontFamily="sans-serif-condensed"
+                 android:padding="20dp"
+                 android:text=" “Importar información de un cliente desde tus contactos “" />
+
+           </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_search_contacts"
+            style="@style/AppTheme.ButtonContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_below="@id/car_view_message"
+            android:foreground="?selectableItemBackground"
+            android:onClick="initPickContacts"
+            android:text="@string/btn_conatctos" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_create_accoount"
+            style="@style/AppTheme.ButtonGral"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/container_information"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:foreground="?selectableItemBackground"
+            android:gravity="center"
+            android:onClick="addClient"
+            android:text="@string/btn_save" />
 
 
       <LinearLayout
@@ -255,7 +271,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@+id/btn_search_contacts"
+        android:layout_below="@+id/btn_create_accoount"
         android:visibility="gone"
         android:weightSum="1">
         <androidx.appcompat.widget.AppCompatButton

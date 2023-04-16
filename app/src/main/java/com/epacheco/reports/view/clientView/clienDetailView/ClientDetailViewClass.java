@@ -3,6 +3,8 @@ package com.epacheco.reports.view.clientView.clienDetailView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentActivity;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import com.epacheco.reports.Model.ClientModel.ClientDetailModel.ClientDetailModelClass;
@@ -11,6 +13,7 @@ import com.epacheco.reports.Pojo.ClientDetail.ClientDetail;
 import com.epacheco.reports.R;
 import com.epacheco.reports.tools.ScreenManager;
 import com.epacheco.reports.databinding.ActivityClientDetailViewClassBinding;
+import com.epacheco.reports.tools.Tools;
 
 public class ClientDetailViewClass extends AppCompatActivity implements ClientDetailViewInterface {
 
@@ -73,18 +76,27 @@ public class ClientDetailViewClass extends AppCompatActivity implements ClientDe
   public void successGetClient(Client client) {
     binding.layoutClientInfo.lblClientName.setText(String.format(getString(R.string.txt_client_name_format),client.getName(),client.getLastNanme()));
     binding.layoutClientInfo.lblClientDetail.setText(client.getDetail());
-    binding.layoutClientInfo.lblDateName.setText(String.format(getString(R.string.txt_client_date_format), com.epacheco.reports.tools.Tools.getFormatDate(client.getDateClient())));
+    binding.layoutClientInfo.lblDateName.setText(String.format(getString(R.string.txt_client_date_format), Tools.getFormatDate(client.getDateClient())));
     //PARA EL LIMITE DE CREDITO DEL CLIENTE
-        /*if(client.getLimit() > 0 && client.getLimit() < 100){
-      textMostrarPromedio.setBackgroundColor(getColor(android.R.color.holo_red_dark));
-    }else if(result > 5 && result < 8){
-      textMostrarPromedio.setBackgroundColor(getColor(android.R.color.holo_orange_light));
-    }else{
-      textMostrarPromedio.setBackgroundColor(getColor(android.R.color.holo_green_dark));
+        if(client.getLimit() > 0 && client.getLimit() < 100){
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            binding.lblClientLimit.setTextColor(getColor(android.R.color.holo_red_dark));
+            binding.lblClientLimit.setText(String.format(getString(R.string.txt_client_limit_format),String.valueOf(client.getLimit())));
+          }
+    }else if(client.getLimit() > 101 && client.getLimit() < 500){
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            binding.lblClientLimit.setTextColor(getColor(android.R.color.holo_orange_light));
+            binding.lblClientLimit.setText(String.format(getString(R.string.txt_client_limit_format),String.valueOf(client.getLimit())));
+          }
+        }else{
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            binding.lblClientLimit.setTextColor(getColor(android.R.color.holo_green_dark));
+            binding.lblClientLimit.setText(String.format(getString(R.string.txt_client_limit_format),String.valueOf(client.getLimit())));
+          }
 
-    }*/
+        }
 
-    binding.lblClientLimit.setText(String.format(getString(R.string.txt_client_limit_format),String.valueOf(client.getLimit())));
+    //binding.lblClientLimit.setText(String.format(getString(R.string.txt_client_limit_format),String.valueOf(client.getLimit())));
     setClientInformation(client);
 
     clientDetailModelClass.getClientDetail(client.getId());
