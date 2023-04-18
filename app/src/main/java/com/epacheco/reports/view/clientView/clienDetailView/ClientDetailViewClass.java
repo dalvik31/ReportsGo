@@ -1,5 +1,6 @@
 package com.epacheco.reports.view.clientView.clienDetailView;
 
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentActivity;
 import androidx.appcompat.app.AppCompatActivity;
@@ -78,16 +79,16 @@ public class ClientDetailViewClass extends AppCompatActivity implements ClientDe
     binding.layoutClientInfo.lblClientDetail.setText(client.getDetail());
     binding.layoutClientInfo.lblDateName.setText(String.format(getString(R.string.txt_client_date_format), Tools.getFormatDate(client.getDateClient())));
     //PARA EL LIMITE DE CREDITO DEL CLIENTE
-        if(client.getLimit() > 0 && client.getLimit() < 100){
-          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            binding.lblClientLimit.setTextColor(getColor(android.R.color.holo_red_dark));
-            binding.lblClientLimit.setText(String.format(getString(R.string.txt_client_limit_format),String.valueOf(client.getLimit())));
-          }
-    }else if(client.getLimit() > 101 && client.getLimit() < 500){
+        if(client.getLimit() >= 0 && client.getLimit() <= 100){
+          binding.lblClientLimit.setTextColor(ContextCompat.getColor(this,android.R.color.holo_red_dark));
+          binding.lblClientLimit.setText(String.format(getString(R.string.txt_client_limit_format),String.valueOf(client.getLimit())));
+
+    }else if(client.getLimit() >= 101 && client.getLimit() <= 500){
           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             binding.lblClientLimit.setTextColor(getColor(android.R.color.holo_orange_light));
-            binding.lblClientLimit.setText(String.format(getString(R.string.txt_client_limit_format),String.valueOf(client.getLimit())));
           }
+          binding.lblClientLimit.setText(String.format(getString(R.string.txt_client_limit_format),String.valueOf(client.getLimit())));
+
         }else{
           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             binding.lblClientLimit.setTextColor(getColor(android.R.color.holo_green_dark));
