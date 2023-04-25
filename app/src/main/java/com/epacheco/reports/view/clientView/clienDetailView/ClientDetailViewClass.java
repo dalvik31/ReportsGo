@@ -77,7 +77,10 @@ public class ClientDetailViewClass extends AppCompatActivity implements ClientDe
     binding.layoutClientInfo.lblClientName.setText(String.format(getString(R.string.txt_client_name_format),client.getName(),client.getLastNanme()));
     binding.layoutClientInfo.lblClientDetail.setText(client.getDetail());
     binding.layoutClientInfo.lblDateName.setText(String.format(getString(R.string.txt_client_date_format), Tools.getFormatDate(client.getDateClient())));
-    //PARA EL LIMITE DE CREDITO DEL CLIENTE
+    /**
+     *PARA EL LIMITE DE CREDITO DEL CLIENTE
+     */
+
         if(client.getLimit() > 0 && client.getLimit() < 100){
           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             binding.lblClientLimit.setTextColor(getColor(android.R.color.holo_red_dark));

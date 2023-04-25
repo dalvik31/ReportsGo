@@ -208,28 +208,11 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
       nameSendClient = binding.txtClientName.getText().toString();
       validateItems = true;
     }
-    /**
-     * Se valida que el limite de credio del cliente
-     */
     if(binding.txtClientLimit.getText()!=null && !binding.txtClientLimit.getText().toString().isEmpty()){
       limitSendClient = Double.parseDouble(binding.txtClientLimit.getText().toString());
     }else{
       limitSendClient = 1200;
     }
-
-            /*if(Integer.parseInt(String.valueOf(binding.txtClientLimit.getText())) > 0 && Integer.parseInt(String.valueOf(binding.txtClientLimit.getText()))< 100){
-              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                binding.txtClientLimit.setTextColor(getColor(android.R.color.holo_red_dark));
-              }
-            }else if(Integer.parseInt(String.valueOf(binding.txtClientLimit.getText())) > 101 && Integer.parseInt(String.valueOf(binding.txtClientLimit.getText()))< 500){
-              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                binding.txtClientLimit.setTextColor(getColor(android.R.color.holo_orange_light));
-              }
-            }else{
-              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                binding.txtClientLimit.setTextColor(getColor(android.R.color.holo_green_dark));
-              }
-            }*/
 
 
     return validateItems;
