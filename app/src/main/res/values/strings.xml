@@ -40,7 +40,7 @@
     <string name="lbl_menu_option_sell">Ventas</string>
     <string name="lbl_menu_option_order">Pedidos</string>
     <string name="lbl_menu_option_activity">Finanzas</string>
-    <string name="lbl_menu_option">¿Qué vamos a hacer hoy?</string>
+    <string name="lbl_menu_option">¿Qué vamos a hacer mañana?</string>
     <string name="lbl_menu_option_sell_subtitle">Genera ventas con clientes y genera tickets.</string>
     <string name="lbl_menu_option_order_subtitle">Crea pedidos relacionados a tus clientes y productos.</string>
     <string name="lbl_menu_option_activity_subtitle">Revisa las ganancias generadas por dia o por un rango de fechas.</string>
