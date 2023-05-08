@@ -176,6 +176,8 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
         } else {
             com.epacheco.reports.tools.Tools.showToasMessage(this, getString(R.string.msg_error_empty_img_url));
         }
+
+        checkSamePrice();
     }
 
     private void showProgress(String message) {
@@ -986,4 +988,35 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
         setCameraCode(true);
         checkPermissionsCamera();
     }
+
+
+    /**
+     * 5.- Creamos el dialogo  para alertar que el precio de compra es igual que el precio de venta
+     */
+    private void createDialogSamePrice() {
+
+        ReportsDialogGlobal.showDialogAccept(this, getString(R.string.msg_alert_same_price_title),
+                getString(R.string.msg_alert_same_price_body), new OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                }
+        );
+    }
+
+    private void checkSamePrice(){
+
+        /**
+         *
+         */
+
+        if(binding.txtProductPriceBuy.getText().toString().equals(binding.txtProductPriceSale.getText().toString())){
+            createDialogSamePrice();
+        }
+
+    }
+
+
+
 }
