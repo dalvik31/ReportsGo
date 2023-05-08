@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:gravity="start"
         android:layout_gravity="start"
-        android:hint="Ingresa un nombre para tu lista de pedidos"/>
+        android:hint="Nombre para la lista de pedidos"/>
 
 
 
