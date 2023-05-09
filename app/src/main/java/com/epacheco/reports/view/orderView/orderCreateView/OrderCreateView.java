@@ -329,7 +329,7 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
   public void createSelectedSizeDialog(View view){
     if(sizeNumeric){
       AlertDialog.Builder b = new Builder(this);
-      b.setTitle(getString(R.string.lbl_select_dialog_title));
+      b.setTitle(getString(R.string.lbl_select_image_title));
       String[] types = {
           getString(R.string.lbl_select_product_size_2),
           getString(R.string.lbl_select_product_size_4),

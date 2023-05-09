@@ -841,7 +841,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
     public void createSelectedSizeDialog(View view) {
         if (sizeNumeric) {
             AlertDialog.Builder b = new Builder(this);
-            b.setTitle(getString(R.string.lbl_select_image_title));
+            b.setTitle(getString(R.string.lbl_select_dialog_title));
             String[] types = {
                     getString(R.string.lbl_select_product_size_2),
                     getString(R.string.lbl_select_product_size_4),
@@ -946,7 +946,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
             b.show();
         } else {
             AlertDialog.Builder b = new Builder(this);
-            b.setTitle(getString(R.string.lbl_select_image_title));
+            b.setTitle(getString(R.string.lbl_select_dialog_title));
             String[] types = {getString(R.string.lbl_select_product_size_ch), getString(R.string.lbl_select_product_size_me), getString(R.string.lbl_select_product_size_gra), getString(R.string.lbl_select_product_size_ex)};
             b.setItems(types, new OnClickListener() {
 
