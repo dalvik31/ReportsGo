@@ -33,21 +33,24 @@ xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/lbl_product_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="40dp"
             android:textColor="@color/colorWhite"
             android:maxLines="2"
+            android:textStyle="bold"
             android:drawableStart="@drawable/ic_vector_products"
             android:padding="2dp"
-            android:drawablePadding="10dp"
+            android:drawablePadding="5dp"
             android:text="Name"
             />
+
+
                <TextView
                    android:id="@+id/lbl_product_price"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:text="Precio"
                    android:gravity="end"
-                   android:textStyle="bold"
+                   android:textSize="15sp"
                    android:layout_marginEnd="5dp"
                    android:padding="1dp"
                    android:textColor="@color/colorWhite"/>
@@ -60,8 +63,8 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                android:layout_height="wrap_content"
                android:text="@string/lbl_stock_product"
                android:background="@color/background_txt_product_stock"
-               android:textColor="@color/colorAccent"
-               android:gravity="end"
+               android:textColor="@color/colorWhite"
+               android:gravity="center"
                />
 
 
