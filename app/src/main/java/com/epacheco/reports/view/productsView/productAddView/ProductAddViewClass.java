@@ -176,6 +176,8 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
         } else {
             com.epacheco.reports.tools.Tools.showToasMessage(this, getString(R.string.msg_error_empty_img_url));
         }
+
+        checkSamePrice();
     }
 
     private void showProgress(String message) {
@@ -839,7 +841,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
     public void createSelectedSizeDialog(View view) {
         if (sizeNumeric) {
             AlertDialog.Builder b = new Builder(this);
-            b.setTitle(getString(R.string.lbl_select_image_title));
+            b.setTitle(getString(R.string.lbl_select_dialog_title));
             String[] types = {
                     getString(R.string.lbl_select_product_size_2),
                     getString(R.string.lbl_select_product_size_4),
@@ -944,7 +946,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
             b.show();
         } else {
             AlertDialog.Builder b = new Builder(this);
-            b.setTitle(getString(R.string.lbl_select_image_title));
+            b.setTitle(getString(R.string.lbl_select_dialog_title));
             String[] types = {getString(R.string.lbl_select_product_size_ch), getString(R.string.lbl_select_product_size_me), getString(R.string.lbl_select_product_size_gra), getString(R.string.lbl_select_product_size_ex)};
             b.setItems(types, new OnClickListener() {
 
@@ -986,4 +988,35 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
         setCameraCode(true);
         checkPermissionsCamera();
     }
+
+
+    /**
+     * 5.- Creamos el dialogo  para alertar que el precio de compra es igual que el precio de venta
+     */
+    private void createDialogSamePrice() {
+
+        ReportsDialogGlobal.showDialogAccept(this, getString(R.string.msg_alert_same_price_title),
+                getString(R.string.msg_alert_same_price_body), new OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                }
+        );
+    }
+
+    private void checkSamePrice(){
+
+        /**
+         *
+         */
+
+        if(binding.txtProductPriceBuy.getText().toString().equals(binding.txtProductPriceSale.getText().toString())){
+            createDialogSamePrice();
+        }
+
+    }
+
+
+
 }
