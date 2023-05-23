@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/cardView_container_item_order"
+    android:layout_margin="5dp"
+    card_view:cardCornerRadius="12dp"
+    card_view:cardElevation="10dp"
+    android:backgroundTint="@color/colorWhiteTransparent"
+    card_view:contentPadding="4dp"
+    android:padding="20dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:padding="5dp"
+        android:layout_height="150dp">
+
+        <TextView
+            android:id="@+id/lbl_order_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textAlignment="inherit"
+            android:textColor="@color/colorBlackTransparent"
+            android:textSize="25sp"
+            android:layout_margin="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="Nombre"/>
+
+        <TextView
+            android:id="@+id/lbl_order_descripcion"
+            style="@style/TextView_Title_Black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/ImageView_delete_item"
+            android:layout_weight=".9"
+            android:gravity="center|start"
+            android:padding="6dp"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/lbl_order_name" />
+
+        <TextView
+            android:id="@+id/lbl_order_client"
+            style="@style/TextView_Title_Black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toStartOf="@+id/AppCompatCheckBox_buy_order"
+            android:layout_toEndOf="@+id/Imagen_mover_pedido"
+            android:gravity="center|start"
+            android:textColor="@color/colorPrimary"
+            card_view:layout_constraintEnd_toStartOf="@+id/Imagen_mover_pedido"
+            card_view:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/Imagen_mover_pedido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+
+            app:srcCompat="@drawable/ic_baseline_drive_file_move_24"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/ImageView_delete_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
+            android:padding="10dp"
+            app:srcCompat="@drawable/ic_vector_remove_red"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent" />
+
+
+        <TextView
+            android:id="@+id/txtColor"
+            style="@style/TextView_Title"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".1"
+            android:textSize="15dp"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/Imagen_mover_pedido" />
+
+
+     <!--  <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/AppCompatCheckBox_buy_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_order_buy"
+            android:theme="@style/checkBoxStyle"
+            android:layout_centerInParent="true"
+            android:layout_alignParentEnd="true"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            android:padding="10dp"/> -->
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
+
