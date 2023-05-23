@@ -276,14 +276,16 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
 
     if (telefono != null){
       telefono = telefono.replace(" ", "");
+      txt_client_phone.setText(telefono);
 
-      if(telefono.length() > 10 ){
+      /*if(telefono.length() > 10 ){
         String phone = telefono.substring(telefono.length()-10);
         txt_client_phone.setText(phone);
 
-      }else {
-      txt_client_phone.setText(telefono);
       }
+      else {
+      txt_client_phone.setText(telefono);
+      }*/
     }
 
 
