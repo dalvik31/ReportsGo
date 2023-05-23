@@ -285,4 +285,7 @@
     <string name="msg_cancel_sale_item">COMPRA CANCELADA</string>
 
 
+    <!--Activity new order-->
+    <string name="lbl_title_dialog_new_order">Crear lista de pedidos</string>
+
 </resources>
