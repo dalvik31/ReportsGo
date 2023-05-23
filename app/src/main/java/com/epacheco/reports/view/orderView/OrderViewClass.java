@@ -186,7 +186,7 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
 
     final EditText EtxtNameOrder = v.findViewById(R.id.EtxtNameOrder);
 
-    builder.setPositiveButton("Crear", new DialogInterface.OnClickListener() {
+    builder.setPositiveButton(R.string.btn_create_dialog_new_order, new DialogInterface.OnClickListener() {
       @Override
       public void onClick(DialogInterface dialog, int which) {
         if (EtxtNameOrder.getText().toString().isEmpty()){

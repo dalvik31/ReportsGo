@@ -285,7 +285,9 @@
     <string name="msg_cancel_sale_item">COMPRA CANCELADA</string>
 
 
-    <!--Activity new order-->
+    <!--Activity dialog new order-->
     <string name="lbl_title_dialog_new_order">Crear lista de pedidos</string>
+    <string name="msg_hint_dialog_new_order">Nombre para la lista de pedidos</string>
+    <string name="btn_create_dialog_new_order">Crear</string>
 
 </resources>
