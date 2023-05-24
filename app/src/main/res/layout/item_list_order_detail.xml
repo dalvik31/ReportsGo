@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/cardView_container_item_order"
@@ -16,7 +17,7 @@
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:padding="5dp"
-      android:layout_height="150dp">
+      android:layout_height="220dp">
 
     <TextView
         android:id="@+id/lbl_order_name"
@@ -27,7 +28,7 @@
         android:gravity="center"
         android:singleLine="true"
         android:textAlignment="inherit"
-        android:textColor="@color/colorBlackTransparent"
+        style="@style/TextView_Title_Black"
         android:textSize="25sp"
         android:layout_margin="5dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,15 +37,48 @@
 
     <TextView
         android:id="@+id/lbl_order_descripcion"
-        style="@style/TextView_Title_Black"
+        android:textColor="@color/colorBlackTransparent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toStartOf="@+id/ImageView_delete_item"
         android:layout_weight=".9"
+        android:textSize="20dp"
         android:gravity="center|start"
         android:padding="6dp"
         card_view:layout_constraintStart_toStartOf="parent"
         card_view:layout_constraintTop_toBottomOf="@+id/lbl_order_name" />
+
+    <TextView
+        android:id="@+id/txtColor"
+        style="@style/TextView_Title"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".1"
+        android:textSize="15dp"
+        android:padding="6dp"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toBottomOf="@+id/lbl_order_descripcion" />
+
+    <TextView
+        android:id="@+id/lbl_order_gender"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        style="@style/TextView_Title"
+        android:textSize="15dp"
+        android:padding="6dp"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toBottomOf="@+id/txtColor"/>
+
+    <TextView
+        android:id="@+id/lbl_order_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextView_Title"
+        android:textSize="15dp"
+        android:text="Cantidad"
+        android:padding="6dp"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toBottomOf="@+id/lbl_order_gender"/>
 
     <TextView
         android:id="@+id/lbl_order_client"
@@ -78,20 +112,8 @@
         android:layout_centerInParent="true"
         android:padding="10dp"
         app:srcCompat="@drawable/ic_vector_remove_red"
-        card_view:layout_constraintBottom_toBottomOf="parent"
-        card_view:layout_constraintStart_toStartOf="parent" />
-
-
-    <TextView
-        android:id="@+id/txtColor"
-        style="@style/TextView_Title"
-        android:layout_width="75dp"
-        android:layout_height="wrap_content"
-        android:layout_weight=".1"
-        android:textSize="15dp"
-        card_view:layout_constraintEnd_toEndOf="parent"
-        card_view:layout_constraintTop_toBottomOf="@+id/Imagen_mover_pedido" />
-
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toBottomOf="@+id/lbl_order_size" />
 
     <androidx.appcompat.widget.AppCompatCheckBox
            android:id="@+id/AppCompatCheckBox_buy_order"

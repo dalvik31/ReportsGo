@@ -54,8 +54,8 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
     final OrderDetail myOrder = orderList.get(i);
     if(myOrder.isOrderBuy()) holderOrder.containerOrderItem.setCardBackgroundColor(ContextCompat.getColor(ReportsApplication.getMyApplicationContext(),R.color.colorBackgrounditemBuy));
     holderOrder.txtNameOrder.setText(myOrder.getOrderName());
-    //holderOrder.txtSizeOrder.setText(myOrder.getOrderSize());
-    //holderOrder.txtGenderOrder.setText(myOrder.getOrderGender());
+    holderOrder.txtSizeOrder.setText(myOrder.getOrderSize());
+    holderOrder.txtGenderOrder.setText(myOrder.getOrderGender());
     holderOrder.txtClientOrder.setText(myOrder.getOrderClient()!=null ? myOrder.getOrderClient().getName():"Cliente Desconocido");
     holderOrder.txtDescOrder.setText(myOrder.getOrderDescription());
     holderOrder.txtColor.setText(myOrder.getOrderColor());
@@ -109,8 +109,8 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
     HolderOrder(@NonNull View itemView) {
       super(itemView);
       txtNameOrder = itemView.findViewById(R.id.lbl_order_name);
-      //txtSizeOrder = itemView.findViewById(R.id.lbl_order_size);
-      //txtGenderOrder = itemView.findViewById(R.id.lbl_order_gender);
+      txtSizeOrder = itemView.findViewById(R.id.lbl_order_size);
+      txtGenderOrder = itemView.findViewById(R.id.lbl_order_gender);
       txtDescOrder = itemView.findViewById(R.id.lbl_order_descripcion);
       checkBuyOrder = itemView.findViewById(R.id.AppCompatCheckBox_buy_order);
       txtClientOrder = itemView.findViewById(R.id.lbl_order_client);
