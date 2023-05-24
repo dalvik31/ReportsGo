@@ -82,20 +82,16 @@ public class ClientDetailViewClass extends AppCompatActivity implements ClientDe
      */
 
         if(client.getLimit() > 0 && client.getLimit() < 100){
-          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            binding.lblClientLimit.setTextColor(getColor(android.R.color.holo_red_dark));
+           binding.lblClientLimit.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
             binding.lblClientLimit.setText(String.format(getString(R.string.txt_client_limit_format),String.valueOf(client.getLimit())));
-          }
+
     }else if(client.getLimit() > 101 && client.getLimit() < 500){
-          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            binding.lblClientLimit.setTextColor(getColor(android.R.color.holo_orange_light));
+            binding.lblClientLimit.setTextColor(getResources().getColor(android.R.color.holo_orange_light));
             binding.lblClientLimit.setText(String.format(getString(R.string.txt_client_limit_format),String.valueOf(client.getLimit())));
-          }
+
         }else{
-          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            binding.lblClientLimit.setTextColor(getColor(android.R.color.holo_green_dark));
+            binding.lblClientLimit.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
             binding.lblClientLimit.setText(String.format(getString(R.string.txt_client_limit_format),String.valueOf(client.getLimit())));
-          }
 
         }
 
