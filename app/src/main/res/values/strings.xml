@@ -131,7 +131,7 @@
     <string name="msg_permissions_title">Solicitud de permisos</string>
     <string name="msg_permissions_camera_body">Necesitamos acceder a la cámara del dispositivo, para poder hacer más intuitivo el uso de la aplicación.</string>
     <string name="msg_permissions_galler_body">Necesitamos acceder a tu galería, para poder hacer más intuitivo el uso de la aplicación.</string>
-    <string name="lbl_select_image_title">Selecciona una opción</string>
+    <string name="lbl_select_image_title">Elige una imagen para tu producto</string>
     <string name="lbl_select_dialog_title">Selecciona una talla</string>
     <string name="lbl_select_product_type_empty">Ninguno</string>
     <string name="lbl_select_product_type_child">Niño</string>
@@ -166,8 +166,8 @@
     <string name="lbl_select_product_size_44">44</string>
 
 
-    <string name="lbl_take_photo">Toma una foto</string>
-    <string name="lbl_select_gallery">Abre tu galería</string>
+   <string name="lbl_take_photo">Tomar foto</string>
+    <string name="lbl_select_gallery">Abrir galería</string>
     <string name="msg_error_empty_product_name">Falta nombre del producto</string>
     <string name="msg_error_empty_type_name">Falta tipo del producto</string>
     <string name="msg_error_empty_price_buy">Falta precio compra</string>
@@ -284,5 +284,10 @@
     <string name="msg_cancel_sale_succes">Venta cancelada.</string>
     <string name="msg_cancel_sale_item">COMPRA CANCELADA</string>
 
+
+    <!--Activity dialog new order-->
+    <string name="lbl_title_dialog_new_order">Crear lista de pedidos</string>
+    <string name="msg_hint_dialog_new_order">Nombre para la lista de pedidos</string>
+    <string name="btn_create_dialog_new_order">Crear</string>
 
 </resources>
