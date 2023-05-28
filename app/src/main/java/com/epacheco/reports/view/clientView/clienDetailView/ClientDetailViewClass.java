@@ -81,11 +81,11 @@ public class ClientDetailViewClass extends AppCompatActivity implements ClientDe
      *PARA EL LIMITE DE CREDITO DEL CLIENTE
      */
 
-        if(client.getLimit() > 0 && client.getLimit() < 100){
+        if(client.getLimit() >= 0 && client.getLimit() <= 100){
            binding.lblClientLimit.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
             binding.lblClientLimit.setText(String.format(getString(R.string.txt_client_limit_format),String.valueOf(client.getLimit())));
 
-    }else if(client.getLimit() > 101 && client.getLimit() < 500){
+    }else if(client.getLimit() >= 101 && client.getLimit() <= 500){
             binding.lblClientLimit.setTextColor(getResources().getColor(android.R.color.holo_orange_light));
             binding.lblClientLimit.setText(String.format(getString(R.string.txt_client_limit_format),String.valueOf(client.getLimit())));
 
