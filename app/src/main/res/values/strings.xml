@@ -224,7 +224,7 @@
     <string name="msg_search_orders_details">Buscando pedidos.</string>
     <string name="msg_item_removed">Lista eliminada.</string>
     <string name="msg_item_order_removed">Pedido eliminado.</string>
-    <string name="msg_zero_orders_elements">No se encontraron pedidos en esta lista. %1$s</string>
+    <string name="msg_zero_orders_elements">No se encontraron pedidos en esta lista %1$s</string>
     <string name="lbl_title_orders">Listas de pedidos</string>
     <string name="lbl_title_create_order">Nuevo pedido</string>
     <string name="lbl_title_create_order_name">Nombre</string>
