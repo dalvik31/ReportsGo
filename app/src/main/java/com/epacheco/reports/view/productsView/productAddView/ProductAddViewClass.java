@@ -110,12 +110,6 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
                 binding.txtOrderSize.setHint("Cadena vacia");
                 binding.txtOrderGendero.setHint("Cadena vacia");
             }
-            if (binding.EtOtroProducto.getText().toString().isEmpty()) {
-                binding.EtOtroProducto.setHint("Cadena vacia");
-            }
-            if (binding.EtxtTipoDeEmpaque.getText().toString().isEmpty()) {
-                binding.EtxtTipoDeEmpaque.setHint("Cadena vacia");
-            }
         } else {
             uploadImageAgain = true;
 
@@ -134,27 +128,6 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
         }
 
 
-        binding.CheckRopa.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                binding.cardVRopa.setVisibility(buttonView.isChecked() ? View.VISIBLE : View.GONE);
-            }
-        });
-
-        binding.CheckDulces.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                binding.cardVDulces.setVisibility(buttonView.isChecked() ? View.VISIBLE : View.GONE);
-            }
-        });
-
-        binding.CheckOtro.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                binding.cardVOtro.setVisibility(buttonView.isChecked() ? View.VISIBLE : View.GONE);
-            }
-        });
     }
 
     private void inicializateElements() {
@@ -205,18 +178,12 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
         myProduct.setColor(orderColor);
         myProduct.setTalla(orderSize);
         selectTypeProduct(myProduct);
-        myProduct.setTipo_de_empaque(binding.EtxtTipoDeEmpaque.getText().toString());
-        myProduct.setEspecificaciones_otro(binding.EtOtroProducto.getText().toString());
     }
 
     private void selectTypeProduct(Product myProduct) {
-        if (binding.CheckRopa.isChecked()) {
+       // if (binding.CheckRopa.isChecked()) {
             myProduct.setTypeProduct(binding.CheckRopa.getText().toString());
-        } else if (binding.CheckDulces.isChecked()) {
-            myProduct.setTypeProduct(binding.CheckDulces.getText().toString());
-        } else {
-            myProduct.setTypeProduct(binding.CheckOtro.getText().toString());
-        }
+       // }
     }
 
     public void goNewOrder1(View view) {
@@ -232,9 +199,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
             inputsValidate = false;
         }
 
-
-        if (binding.CheckRopa.isChecked()) {
-            if (typeSelected.equals(getString(R.string.lbl_select_product_type_empty))) {
+         if (typeSelected.equals(getString(R.string.lbl_select_product_type_empty))) {
                 binding.txtOrderGendero.setError(getString(R.string.msg_error_empty_type_name));
                 inputsValidate = false;
             }
@@ -246,7 +211,6 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
                 binding.txtOrderSize.setError(getString(R.string.msg_error_empty_inputs));
                 inputsValidate = false;
             }
-        }
 
         if (binding.txtProductPriceBuy.getText().toString().isEmpty()) {
             binding.txtProductPriceBuy.setError(getString(R.string.msg_error_empty_price_buy));
@@ -320,9 +284,6 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
         binding.txtProductPriceSale.setText(String.valueOf(product.getProductPriceSale()));
         binding.txtProductCode.setText(String.valueOf(product.getProductCode()));
         binding.txtProductStock.setText(String.valueOf(product.getInStock()));
-        if (TextUtils.isEmpty(product.getEspecificaciones_otro()))
-            binding.EtOtroProducto.setHint(R.string.EtxtOther_product);
-        else binding.EtOtroProducto.setText(String.valueOf(product.getEspecificaciones_otro()));
 
         if (TextUtils.isEmpty(product.getTalla()))
             binding.txtOrderSize.setHint(R.string.lbl_title_create_order_size_hint);
@@ -331,10 +292,6 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
         if (TextUtils.isEmpty(product.getColor()))
             binding.txtOrderColor.setHint(R.string.lbl_title_create_order_color_hint);
         else binding.txtOrderColor.setText(String.valueOf(product.getColor()));
-
-        if (TextUtils.isEmpty(product.getTipo_de_empaque()))
-            binding.EtxtTipoDeEmpaque.setHint(R.string.EtxtTipo_de_empaque);
-        else binding.EtxtTipoDeEmpaque.setText(String.valueOf(product.getTipo_de_empaque()));
 
 
         setImgUrlUpload(product.getUrlImage());
@@ -346,13 +303,6 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
     private void configShowTypeProduct(Product product) {
         if (!TextUtils.isEmpty(product.getTypeProduct())) {
             String typeProduct = product.getTypeProduct();
-            if (typeProduct.equals(binding.CheckDulces.getText().toString())) {
-                binding.CheckDulces.setChecked(true);
-            } else if (typeProduct.equals(binding.CheckOtro.getText().toString())) {
-                binding.CheckOtro.setChecked(true);
-            } else {
-                binding.CheckRopa.setChecked(true);
-            }
         }
     }
 

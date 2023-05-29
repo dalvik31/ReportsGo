@@ -184,7 +184,7 @@
     <string name="ChkBx_ropa">Ropa</string>
     <string name="ChkBx_otro">Otro</string>
     <string name="ChkBx_dulces">Dulces</string>
-    <string name="TxtTipo_de_producto">Tipo de mercancia</string>
+    <string name="TxtTipo_de_producto">Mercancia</string>
     <string name="Etxtcantidad">Cantidad en peso o paquetes</string>
     <string name="TxtCantidad">Cantidad</string>
     <string name="TxtTipo_de_empaque">Tipo de empaquetado</string>
