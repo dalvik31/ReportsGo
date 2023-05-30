@@ -48,7 +48,6 @@
               style="@style/TextView_Text"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-
               android:text="@string/lbl_sale_select_name"
               android:padding="10dp"/>
           <LinearLayout
