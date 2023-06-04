@@ -184,7 +184,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
 
     private void selectTypeProduct(Product myProduct) {
        // if (binding.CheckRopa.isChecked()) {
-            myProduct.setTypeProduct(binding.CheckRopa.getText().toString());
+            //myProduct.setTypeProduct(binding.CheckRopa.getText().toString());
        // }
     }
 
