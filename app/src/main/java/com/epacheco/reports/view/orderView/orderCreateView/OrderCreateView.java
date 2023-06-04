@@ -83,26 +83,6 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
       }
     });
 
-    binding.CheckRopa.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-      @Override
-      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        binding.cardVRopa.setVisibility(buttonView.isChecked() ? View.VISIBLE : View.GONE);
-      }
-    });
-
-    binding.CheckDulces.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-      @Override
-      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        binding.cardVDulces.setVisibility(buttonView.isChecked() ? View.VISIBLE : View.GONE);
-      }
-    });
-
-    binding.CheckOtro.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-      @Override
-      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        binding.cardVOtro.setVisibility(buttonView.isChecked() ? View.VISIBLE : View.GONE);
-      }
-    });
 
   }
 
@@ -122,13 +102,6 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
         orderSize = "Cantidad" ;
       }else {orderSize = "Talla "+orderSize;}
 
-      if (orderGender.isEmpty()){
-        orderGender = binding.EtxtDulcesCantidad.getText().toString();
-      }
-
-      if(orderGender.isEmpty()){
-        orderGender =  binding.EtOtroProducto.getText().toString();
-      }
       orderDetail.setOrderName(nameOrder);
       orderDetail.setOrderDescription(descrptionOrder);
       orderDetail.setOrderId(String.valueOf(System.currentTimeMillis()));
@@ -195,31 +168,14 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
     binding.txtOrderSize.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_name_format1),product.getTalla()));
     binding.txtOrderColor.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_name_format1),product.getColor()));
     binding.txtOrderGender.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_name_format1),product.getProductType()));
-    binding.EtxtDulcesCantidad.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_name_format1),product.getTipo_de_empaque()));
-    binding.EtOtroProducto.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_name_format1),product.getEspecificaciones_otro()));
     configShowTypeProduct(product);
   }
 
   private void configShowTypeProduct(Product product) {
     if(!TextUtils.isEmpty(product.getTypeProduct())){
       String typeProduct = product.getTypeProduct();
-      if(typeProduct.equals(binding.CheckDulces.getText().toString())){
-        binding.CheckDulces.setChecked(true);
-        binding.cardVDulces.setVisibility(View.VISIBLE);
-        binding.cardVOtro.setVisibility(View.GONE);
-        binding.cardVRopa.setVisibility(View.GONE);
-
-      }else if(typeProduct.equals(binding.CheckOtro.getText().toString())){
-        binding.CheckOtro.setChecked(true);
-        binding.cardVDulces.setVisibility(View.GONE);
-        binding.cardVOtro.setVisibility(View.VISIBLE);
-        binding.cardVRopa.setVisibility(View.GONE);
-      }else{
-        binding.CheckRopa.setChecked(true);
-        binding.cardVDulces.setVisibility(View.GONE);
-        binding.cardVOtro.setVisibility(View.GONE);
         binding.cardVRopa.setVisibility(View.VISIBLE);
-      }
+
     }
   }
 

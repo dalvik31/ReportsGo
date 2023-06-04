@@ -160,50 +160,6 @@
           </RelativeLayout>
 
 
-          <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              style="@style/TextView_Text"
-              android:text="@string/TxtTipo_de_producto"
-              android:padding="5dp"/>
-
-          <RadioGroup
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="horizontal"
-              android:weightSum="1"
-              android:layout_margin="10dp">
-
-            <RadioButton
-                android:id="@+id/CheckRopa"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                style="@style/TextView_Text"
-                android:layout_weight=".3"
-                android:checked="true"
-                android:text="@string/ChkBx_ropa"
-                />
-            <RadioButton
-                android:id="@+id/CheckDulces"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                style="@style/TextView_Text"
-                android:layout_weight=".3"
-                android:layout_marginStart="10dp"
-                android:text="@string/ChkBx_dulces"/>
-            <RadioButton
-                android:id="@+id/CheckOtro"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                style="@style/TextView_Text"
-                android:layout_weight=".3"
-                android:layout_marginStart="10dp"
-                android:text="@string/ChkBx_otro"/>
-
-          </RadioGroup>
-
-
-
           <androidx.cardview.widget.CardView
               android:id="@+id/cardVRopa"
               android:layout_width="match_parent"
@@ -245,7 +201,6 @@
                       android:layout_height="wrap_content"
                       android:layout_weight=".5"
                       android:gravity="end">
-
 
                     <androidx.appcompat.widget.AppCompatCheckBox
                         android:id="@+id/AppCompatCheckBox_numeric"
@@ -319,83 +274,6 @@
 
             </LinearLayout>
           </androidx.cardview.widget.CardView>
-
-
-          <androidx.cardview.widget.CardView
-              android:id="@+id/cardV_Dulces"
-              xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:card_view="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              card_view:cardCornerRadius="10dp"
-              card_view:cardElevation="10dp"
-              android:orientation="vertical"
-              android:visibility="gone"
-              android:layout_margin="5dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-              <TextView
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  style="@style/TextView_Text"
-                  android:text="@string/TxtCantidad"/>
-              <EditText
-                  android:id="@+id/Etxt_dulces_cantidad"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  style="@style/Edittext_custom_text"
-                  android:hint="@string/Etxtcantidad"
-                  android:maxLength="28"
-                  android:lines="3"/>
-
-
-            </LinearLayout>
-
-          </androidx.cardview.widget.CardView>
-
-
-          <androidx.cardview.widget.CardView
-              android:id="@+id/cardVOtro"
-              xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:card_view="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              card_view:cardCornerRadius="10dp"
-              card_view:cardElevation="10dp"
-              android:orientation="vertical"
-              android:visibility="gone"
-              android:layout_margin="5dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-              <TextView
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  style="@style/TextView_Text"
-                  android:text="@string/TxtOther_product"
-                  />
-
-              <EditText
-                  android:id="@+id/Et_otro_producto"
-                  android:layout_marginTop="0dp"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  style="@style/Edittext_custom_text"
-                  android:maxLength="28"
-                  android:hint="@string/EtxtOther_product"/>
-
-
-            </LinearLayout>
-
-          </androidx.cardview.widget.CardView>
-
 
           <androidx.appcompat.widget.AppCompatButton
               android:id="@+id/btn_search_contacts"
