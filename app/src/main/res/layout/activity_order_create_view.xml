@@ -198,12 +198,13 @@
                       android:text="@string/lbl_title_create_order_size" />
 
                   <LinearLayout
+
                       android:layout_width="0dp"
                       android:layout_height="wrap_content"
                       android:layout_weight=".5"
                       android:gravity="end">
 
-                    <androidx.appcompat.widget.AppCompatCheckBox
+                     <androidx.appcompat.widget.AppCompatCheckBox
                         android:id="@+id/AppCompatCheckBox_numeric"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
