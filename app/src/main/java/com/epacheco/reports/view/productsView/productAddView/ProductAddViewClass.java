@@ -166,18 +166,32 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
 
 
     public void createNewProduct(View view) {
-        if (isImgSelected()) {
-            if (validateInputs()) {
-                showProgress(getString(R.string.msg_save_image));
-                productsAddModelClass.uploadImage(this,myPathImage);
-            } else {
-                com.epacheco.reports.tools.Tools.showToasMessage(this, getString(R.string.msg_error_empty_inputs));
-            }
-        } else {
-            com.epacheco.reports.tools.Tools.showToasMessage(this, getString(R.string.msg_error_empty_img_url));
+
+        if(binding.txtProductPriceBuy.getText().toString().equals(binding.txtProductPriceSale.getText().toString())){
+
+            ReportsDialogGlobal.showDialogAcceptAnCancel(this, "Mismo monto", "¿Realmente deseas agregar este producto con el precio de compra igual al precio de venta ?",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (isImgSelected()) {
+                                if (validateInputs()) {
+                                    showProgress(getString(R.string.msg_save_image));
+                                    productsAddModelClass.uploadImage(ProductAddViewClass.this,myPathImage);
+                                } else {
+                                    com.epacheco.reports.tools.Tools.showToasMessage(ProductAddViewClass.this, getString(R.string.msg_error_empty_inputs));
+                                }
+                            } else {
+                                com.epacheco.reports.tools.Tools.showToasMessage(ProductAddViewClass.this, getString(R.string.msg_error_empty_img_url));
+                            }
+
+                        }
+                    }, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
         }
 
-        checkSamePrice();
     }
 
     private void showProgress(String message) {
@@ -988,35 +1002,6 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
         setCameraCode(true);
         checkPermissionsCamera();
     }
-
-
-    /**
-     * 5.- Creamos el dialogo  para alertar que el precio de compra es igual que el precio de venta
-     */
-    private void createDialogSamePrice() {
-
-        ReportsDialogGlobal.showDialogAccept(this, getString(R.string.msg_alert_same_price_title),
-                getString(R.string.msg_alert_same_price_body), new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                }
-        );
-    }
-
-    private void checkSamePrice(){
-
-        /**
-         *
-         */
-
-        if(binding.txtProductPriceBuy.getText().toString().equals(binding.txtProductPriceSale.getText().toString())){
-            createDialogSamePrice();
-        }
-
-    }
-
 
 
 }
