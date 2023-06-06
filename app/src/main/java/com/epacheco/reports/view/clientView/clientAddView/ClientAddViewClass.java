@@ -64,15 +64,13 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
       clientAddModelClass.getClient(clientId);
       binding.btnModifyClient.setVisibility(View.VISIBLE);
       binding.btnAddClient.setVisibility(View.GONE);
-      binding.btnSearchContacts.setVisibility(View.GONE);
-      binding.btnContact.setVisibility(View.VISIBLE);
+      binding.btnSearchContacts.setVisibility(View.VISIBLE);
     }else{
       binding.btnCreateAccoount.setVisibility(View.VISIBLE);
       binding.btnSearchContacts.setVisibility(View.VISIBLE);
       binding.containerModify.setVisibility(View.GONE);
       binding.btnModifyClient.setVisibility(View.GONE);
       binding.btnAddClient.setVisibility(View.VISIBLE);
-      binding.btnContact.setVisibility(View.GONE);
     }
   }
 
