@@ -164,6 +164,18 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
 
     }
 
+    public void validateImage(){
+        if (isImgSelected()) {
+            if (validateInputs()) {
+                showProgress(getString(R.string.msg_save_image));
+                productsAddModelClass.uploadImage(ProductAddViewClass.this,myPathImage);
+            } else {
+                com.epacheco.reports.tools.Tools.showToasMessage(ProductAddViewClass.this, getString(R.string.msg_error_empty_inputs));
+            }
+        } else {
+            com.epacheco.reports.tools.Tools.showToasMessage(ProductAddViewClass.this, getString(R.string.msg_error_empty_img_url));
+        }
+    }
 
     public void createNewProduct(View view) {
 
@@ -173,16 +185,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            if (isImgSelected()) {
-                                if (validateInputs()) {
-                                    showProgress(getString(R.string.msg_save_image));
-                                    productsAddModelClass.uploadImage(ProductAddViewClass.this,myPathImage);
-                                } else {
-                                    com.epacheco.reports.tools.Tools.showToasMessage(ProductAddViewClass.this, getString(R.string.msg_error_empty_inputs));
-                                }
-                            } else {
-                                com.epacheco.reports.tools.Tools.showToasMessage(ProductAddViewClass.this, getString(R.string.msg_error_empty_img_url));
-                            }
+                            validateImage();
 
                         }
                     }, new DialogInterface.OnClickListener() {
@@ -190,6 +193,9 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
                         public void onClick(DialogInterface dialog, int which) {
                         }
                     });
+        }else{
+            validateImage();
+
         }
 
     }
