@@ -120,6 +120,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
 
                 }
             });
+
             binding.containerModify.setVisibility(View.GONE);
             binding.btnCreateProduct.setVisibility(View.VISIBLE);
             binding.btnAddProduct.setVisibility(View.VISIBLE);
@@ -956,11 +957,6 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
     }
 
     private void checkSamePrice(){
-
-        /**
-         *
-         */
-
         if(binding.txtProductPriceBuy.getText().toString().equals(binding.txtProductPriceSale.getText().toString())){
             createDialogSamePrice();
         }
