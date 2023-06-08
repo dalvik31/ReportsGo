@@ -191,6 +191,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
                     }, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            binding.txtProductPriceSale.setText(" ");
                         }
                     });
         }else{
