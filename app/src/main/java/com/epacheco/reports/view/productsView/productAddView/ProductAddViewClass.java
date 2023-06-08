@@ -87,6 +87,14 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
     }
 
     private void validateModifyProduct() {
+        binding.AppCompatCheckBoxNumeric.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                sizeNumeric = isChecked;
+
+            }
+        });
+
         if (productId != null && !productId.isEmpty()) {
             uploadImageAgain = false;
             binding.appBar.setTitle(R.string.lbl_modify_product);
@@ -112,15 +120,6 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
             }
         } else {
             uploadImageAgain = true;
-
-            binding.AppCompatCheckBoxNumeric.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    sizeNumeric = isChecked;
-
-                }
-            });
-
             binding.containerModify.setVisibility(View.GONE);
             binding.btnCreateProduct.setVisibility(View.VISIBLE);
             binding.btnAddProduct.setVisibility(View.VISIBLE);
