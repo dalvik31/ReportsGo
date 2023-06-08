@@ -54,11 +54,31 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
     final OrderDetail myOrder = orderList.get(i);
     if(myOrder.isOrderBuy()) holderOrder.containerOrderItem.setCardBackgroundColor(ContextCompat.getColor(ReportsApplication.getMyApplicationContext(),R.color.colorBackgrounditemBuy));
     holderOrder.txtNameOrder.setText(myOrder.getOrderName());
-    holderOrder.txtSizeOrder.setText(myOrder.getOrderSize());
-    holderOrder.txtGenderOrder.setText(myOrder.getOrderGender());
+    if(myOrder.getOrderSize().equals("Cantidad")){
+      holderOrder.txtSizeOrder.setVisibility(View.GONE);
+    }else{
+      holderOrder.txtSizeOrder.setText(myOrder.getOrderSize());
+    }
+
+    if(myOrder.getOrderGender().isEmpty()){
+      holderOrder.txtGenderOrder.setVisibility(View.GONE);
+    }else{
+      holderOrder.txtGenderOrder.setText(myOrder.getOrderGender());
+    }
+
+    if(myOrder.getOrderDescription().isEmpty()){
+      holderOrder.txtDescOrder.setVisibility(View.GONE);
+    }else{
+      holderOrder.txtDescOrder.setText(myOrder.getOrderDescription());
+    }
+
     holderOrder.txtClientOrder.setText(myOrder.getOrderClient()!=null ? myOrder.getOrderClient().getName():"Cliente Desconocido");
-    holderOrder.txtDescOrder.setText(myOrder.getOrderDescription());
-    holderOrder.txtColor.setText(myOrder.getOrderColor());
+
+    if(myOrder.getOrderColor().isEmpty()){
+      holderOrder.txtColor.setVisibility(View.GONE);
+    }else{
+      holderOrder.txtColor.setText(myOrder.getOrderColor());
+    }
     holderOrder.imageViewRemoveItem.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
