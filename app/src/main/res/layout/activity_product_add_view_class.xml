@@ -585,6 +585,7 @@
                     app:srcCompat="@drawable/ic_vector_add_photo"
                     app:tint="@color/colorWhite" />
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
         </ScrollView>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

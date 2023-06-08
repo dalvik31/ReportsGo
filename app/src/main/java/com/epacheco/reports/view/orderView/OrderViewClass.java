@@ -182,11 +182,11 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
     View v = inflater.inflate(R.layout.layout_dialog_agregar_titulo_pedido, null);
 
     builder.setView(v);
-    builder.setTitle("Nombre de la lista de pedidos");
+    builder.setTitle(R.string.lbl_title_dialog_new_order);
 
     final EditText EtxtNameOrder = v.findViewById(R.id.EtxtNameOrder);
 
-    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+    builder.setPositiveButton(R.string.btn_create_dialog_new_order, new DialogInterface.OnClickListener() {
       @Override
       public void onClick(DialogInterface dialog, int which) {
         if (EtxtNameOrder.getText().toString().isEmpty()){

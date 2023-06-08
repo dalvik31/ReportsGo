@@ -75,6 +75,8 @@ public class OrderDetailView extends AppCompatActivity implements AdapterOrdersD
 
     }
 
+    binding.lblZeroOrdersElements.setText(getString(R.string.msg_zero_orders_elements,extras.getString(ORDER_NAME)) );
+
   }
 
 
