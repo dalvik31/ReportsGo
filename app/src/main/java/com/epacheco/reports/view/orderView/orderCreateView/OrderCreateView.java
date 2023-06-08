@@ -173,9 +173,6 @@ public class OrderCreateView extends AppCompatActivity implements OrderCreateVie
 
   private void configShowTypeProduct(Product product) {
     if(!TextUtils.isEmpty(product.getTypeProduct())){
-      String typeProduct = product.getTypeProduct();
-        binding.cardVRopa.setVisibility(View.VISIBLE);
-
     }
   }
 
