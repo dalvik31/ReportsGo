@@ -33,7 +33,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/progress_downloadOrderElements"
-                android:layout_marginTop="-11dp"
                 android:visibility="visible"
                 tools:listitem="@layout/item_list_order_detail" />
 
