@@ -3,6 +3,8 @@ package com.epacheco.reports.view.productsView.productsView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,29 +38,39 @@ public class AdapterProducts extends RecyclerView.Adapter<AdapterProducts.Holder
   public void onBindViewHolder(@NonNull HolderProducts holderProducts, int i) {
     final Product myProduct = productList.get(i);
     Glide.with(ReportsApplication.getMyApplicationContext()).load(myProduct.getUrlImage()).into(holderProducts.imgProduct);
-   // holderProducts.txtProId.setText(String.valueOf(myProduct.getProductCode()));
     holderProducts.txtProName.setText(myProduct.getProductName());
-    //holderProducts.txtProDesc.setText(myProduct.getProductDescription());
     holderProducts.txtProPrice.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_amount_format),String.valueOf(myProduct.getProductPriceSale())));
-    holderProducts.txtProStock.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.lbl_stock_product),String.valueOf(myProduct.getInStock())));
-  /*  holderProducts.imgModify.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        getOnItemProductClic().onItemProductClic(v,myProduct.getProductId(),myProduct.getInStock()>0);
+    //holderProducts.txtProStock.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.lbl_stock_product),String.valueOf(myProduct.getInStock())));
+
+
+    if(myProduct.getInStock() >= 1 && myProduct.getInStock() <= 5){
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        holderProducts.txtProStock.setBackground(ReportsApplication.getMyApplicationContext().getDrawable(R.drawable.rounded_background_red));
+        //holderProducts.txtProStock.setBackgroundTintList(ContextCompat.getColorStateList(ReportsApplication.getMyApplicationContext(), R.color.background_txt_product_stock));
       }
-    });*/
+      holderProducts.txtProStock.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.lbl_stock_product),String.valueOf(myProduct.getInStock())));
+
+    }else if(myProduct.getInStock() >= 6 && myProduct.getInStock() <= 10){
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        holderProducts.txtProStock.setBackground(ReportsApplication.getMyApplicationContext().getDrawable(R.drawable.rounded_background_yellow));
+      }
+      holderProducts.txtProStock.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.lbl_stock_product),String.valueOf(myProduct.getInStock())));
+
+    }else{
+
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        holderProducts.txtProStock.setBackground(ReportsApplication.getMyApplicationContext().getDrawable(R.drawable.rounded_background_green));
+      }
+      holderProducts.txtProStock.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.lbl_stock_product),String.valueOf(myProduct.getInStock())));
+
+    }
+
     holderProducts.cardviewProduct.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
         getOnItemProductClic().onItemProductClic(v,myProduct.getProductId(),myProduct.getInStock()>0);
       }
     });
-    /*holderProducts.imgDetails.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        getOnItemProductClic().onItemProductClic(v,myProduct.getProductId(),myProduct.getInStock()>0);
-      }
-    });*/
 
    holderProducts.backStockEmpty.setVisibility(myProduct.getInStock()>0 ? View.GONE : View.VISIBLE);
    }
