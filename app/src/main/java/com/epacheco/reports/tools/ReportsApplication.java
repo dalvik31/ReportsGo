@@ -1,8 +1,8 @@
 package com.epacheco.reports.tools;
 
+import android.app.Application;
 import android.content.Context;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.multidex.MultiDexApplication;
 import android.util.Log;
 import com.epacheco.reports.R;
 import com.facebook.FacebookSdk;
@@ -13,7 +13,7 @@ import com.twitter.sdk.android.core.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterConfig;
 
-public class ReportsApplication  extends MultiDexApplication {
+public class ReportsApplication  extends Application {
   private static Context myApplicationContext;
   private static ReportsApplication instance;
 

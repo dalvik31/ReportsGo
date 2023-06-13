@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.epacheco.reports">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -25,7 +32,8 @@
             android:theme="@style/AppThemeNoActionBar" />
         <activity
             android:name=".view.splash.SplashActivity"
-            android:theme="@style/AppThemeNoActionBar">
+            android:theme="@style/AppThemeNoActionBar"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -44,18 +52,7 @@
             android:name=".view.orderView.orderDetailView.OrderDetailView"
             android:theme="@style/AppThemeNoActionBar"
             android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".view.testPin.TestPin"
-            android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".view.testNFC.TestNfcView">
-            <intent-filter>
-                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data android:mimeType="application/com.epacheco.reports" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".view.orderView.OrderViewClass"
             android:theme="@style/AppThemeNoActionBar"
@@ -77,7 +74,8 @@
             android:theme="@style/AppThemeNoActionBar"
             android:windowSoftInputMode="stateHidden" />
 
-        <service android:name=".fireBasePush.FireBaseMessagingService">
+        <service android:name=".fireBasePush.FireBaseMessagingService"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

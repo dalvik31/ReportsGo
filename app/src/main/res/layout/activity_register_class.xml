@@ -51,11 +51,11 @@
                         android:focusable="true"
                         android:foreground="?selectableItemBackground"
                         android:onClick="registerFacebook"
-                        android:text="@string/btn_continue_facebook"
-                        app:drawableLeftCompat="@drawable/ic_vector_facebook_logo"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
-                        />
+                        android:text="@string/btn_continue_facebook"
+                        android:visibility="gone"
+                        app:drawableLeftCompat="@drawable/ic_vector_facebook_logo" />
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_continue_google"
@@ -70,10 +70,10 @@
                         android:layout_marginBottom="10dp"
                         android:foreground="?selectableItemBackground"
                         android:onClick="registerGoogle"
-                        android:text="@string/btn_continue_google"
-                        app:drawableLeftCompat="@drawable/ic_vector_google_logo"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
+                        android:text="@string/btn_continue_google"
+                        app:drawableLeftCompat="@drawable/ic_vector_google_logo"
 
                         />
 
@@ -91,10 +91,11 @@
                         android:layout_marginBottom="10dp"
                         android:foreground="?selectableItemBackground"
                         android:onClick="registerTwitter"
-                        android:text="@string/btn_continue_twitter"
-                        app:drawableLeftCompat="@drawable/ic_vector_twitter_logo"
                         android:paddingStart="20dp"
-                        android:paddingEnd="20dp"/>
+                        android:paddingEnd="20dp"
+                        android:text="@string/btn_continue_twitter"
+                        android:visibility="gone"
+                        app:drawableLeftCompat="@drawable/ic_vector_twitter_logo" />
 
                     <RelativeLayout
                         android:id="@+id/container_separator"
@@ -176,13 +177,13 @@
 
                         <androidx.appcompat.widget.AppCompatCheckBox
                             android:id="@+id/AppCompatCheckBox_save_user"
+                            style="@style/checkBoxStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:layout_centerInParent="true"
                             android:layout_toStartOf="@+id/lbl_forgot_password"
-                            android:text="@string/lbl_remember_user"
-                            style="@style/checkBoxStyle" />
+                            android:text="@string/lbl_remember_user" />
 
                         <TextView
                             android:id="@+id/lbl_forgot_password"
@@ -222,8 +223,8 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         android:layout_marginBottom="10dp"
-                        android:onClick="registerWithEmailAndPassword"
                         android:foreground="?selectableItemBackground"
+                        android:onClick="registerWithEmailAndPassword"
                         android:text="@string/lbl_sign_up"
                         android:textColor="@color/colorPrimary"
                         android:theme="@style/AppTheme.ButtonGralTransparent" />
