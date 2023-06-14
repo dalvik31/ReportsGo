@@ -9,8 +9,10 @@ import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.epacheco.reports.R;
+import com.epacheco.reports.databinding.ActivityProductViewClassBinding;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -31,6 +33,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_scan_barcode);
+    setTitle("Escanear producto");
 
     initViews();
   }
@@ -117,4 +120,6 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
     super.onBackPressed();
     finish();
   }
+
+
 }
