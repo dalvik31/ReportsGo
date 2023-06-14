@@ -230,8 +230,8 @@
                                             android:text="@string/lbl_title_create_order_size" />
 
                                         <LinearLayout
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="match_parent"
                                             android:layout_weight=".5"
                                             android:gravity="end">
 
@@ -240,7 +240,8 @@
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="match_parent"
                                                 android:text="@string/lbl_size_number"
-                                                android:theme="@style/checkBoxStyle" />
+                                                android:theme="@style/checkBoxStyle"
+                                                />
                                         </LinearLayout>
                                     </LinearLayout>
 
