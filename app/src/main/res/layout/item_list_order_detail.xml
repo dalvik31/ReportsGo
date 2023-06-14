@@ -129,6 +129,7 @@
         android:layout_centerInParent="true"
         android:gravity="center|end"
         android:padding="10dp"
+        android:theme="@style/checkBoxStyle"
         android:text="@string/lbl_order_buy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/ImageView_delete_item"
