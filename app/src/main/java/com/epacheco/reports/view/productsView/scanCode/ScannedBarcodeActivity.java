@@ -33,7 +33,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_scan_barcode);
-    setTitle("Escanear producto");
+    setTitle(R.string.toolbar_scan);
 
     initViews();
   }
