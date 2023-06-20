@@ -3,7 +3,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
@@ -52,14 +52,14 @@
                     android:layout_alignParentStart="true"
                     android:layout_toStartOf="@+id/containers_buttons"
                     android:theme="@style/AppThemeSearchView"
-                    app:title="@string/lbl_add_product"></androidx.appcompat.widget.Toolbar>
+                    card_view:title="@string/lbl_add_product"></androidx.appcompat.widget.Toolbar>
             </RelativeLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            card_view:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
@@ -84,7 +84,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="10dp"
                     android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/ic_vector_image" />
+                    card_view:srcCompat="@drawable/ic_vector_image" />
 
 
                 <RelativeLayout
@@ -256,7 +256,87 @@
                                         android:onClick="createSelectedSizeDialog" />
                                 </RelativeLayout>
 
-                                <RelativeLayout
+
+                                <LinearLayout
+                                    android:id="@+id/RelativeLayout_container_color"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/container_description"
+                                    android:weightSum="1">
+
+                                    <RelativeLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight=".6">
+
+                                        <TextView
+                                            android:id="@+id/lbl_order_color"
+                                            style="@style/TextView_Text"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/lbl_title_create_order_color" />
+
+                                        <androidx.appcompat.widget.AppCompatEditText
+                                            android:id="@+id/txt_order_color"
+                                            style="@style/Edittext_custom_text"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@+id/lbl_order_color"
+                                            android:layout_marginTop="0dp"
+                                            android:hint="@string/lbl_title_create_order_color_hint" />
+
+                                    </RelativeLayout>
+
+                                    <RelativeLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight=".4">
+
+                                        <TextView
+                                            android:id="@+id/textView2"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            style="@style/TextView_Text"
+                                            android:layout_alignParentStart="true"
+                                            android:layout_alignParentEnd="true"
+                                            android:gravity="center"
+                                            android:text="Elige un color"/>
+
+                                        <TextView
+                                            android:id="@+id/txtChooseColor"
+                                            style="@style/Edittext_custom_text"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@+id/textView2"
+                                            android:layout_alignParentEnd="true"
+                                            android:layout_marginStart="10dp"
+                                            android:layout_marginTop="10dp"
+                                            android:layout_marginEnd="10dp"
+                                            android:layout_marginBottom="10dp"
+                                            android:padding="5dp"
+                                            android:onClick="openColorPicker"
+                                            android:text="Color" />
+
+                                        <View
+                                            android:id="@+id/view_color_choose"
+                                            android:layout_width="60dp"
+                                            android:layout_height="30dp"
+                                            android:layout_below="@+id/textView2"
+                                            android:layout_alignParentStart="true"
+                                            android:layout_marginStart="10dp"
+                                            android:layout_marginTop="10dp"
+                                            android:layout_marginBottom="10dp"
+                                            android:onClick="openColorPicker"
+                                            android:layout_alignStart="@id/txtChooseColor"
+                                            android:background="@color/colorWhite" />
+
+                                    </RelativeLayout>
+
+
+                                </LinearLayout>
+
+
+                                <!--<RelativeLayout
                                     android:id="@+id/RelativeLayout_container_color"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content">
@@ -276,7 +356,7 @@
                                         android:layout_below="@+id/lbl_order_color"
                                         android:layout_marginTop="0dp"
                                         android:hint="@string/lbl_title_create_order_color_hint" />
-                                </RelativeLayout>
+                                </RelativeLayout>-->
 
                                 <RelativeLayout
                                     android:id="@+id/RelativeLayout_container_gender"
@@ -355,10 +435,10 @@
                             android:layout_margin="10dp"
                             android:layout_weight=".2"
                             android:onClick="openQRorBarCode"
-                            app:backgroundTint="@color/colorWhite"
-                            app:layout_anchor="@id/img_product"
-                            app:layout_anchorGravity="bottom|end"
-                            app:srcCompat="@drawable/ic_vector_bar_code_scanner_red" />
+                            card_view:backgroundTint="@color/colorWhite"
+                            card_view:layout_anchor="@id/img_product"
+                            card_view:layout_anchorGravity="bottom|end"
+                            card_view:srcCompat="@drawable/ic_vector_bar_code_scanner_red" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -439,11 +519,11 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:onClick="selectImage"
-                    app:backgroundTint="@color/colorPrimary"
-                    app:layout_anchor="@id/img_product"
-                    app:layout_anchorGravity="bottom|end"
-                    app:srcCompat="@drawable/ic_vector_add_photo"
-                    app:tint="@color/colorWhite" />
+                    card_view:backgroundTint="@color/colorPrimary"
+                    card_view:layout_anchor="@id/img_product"
+                    card_view:layout_anchorGravity="bottom|end"
+                    card_view:srcCompat="@drawable/ic_vector_add_photo"
+                    card_view:tint="@color/colorWhite" />
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         </ScrollView>
