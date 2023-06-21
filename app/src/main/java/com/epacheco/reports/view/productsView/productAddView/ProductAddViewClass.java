@@ -354,7 +354,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
 
         public boolean validarColor(String color) {
 
-            /*if(color.matches("\\d+(?:\\.\\d+)?"))
+            if(color.matches("\\d+(?:\\.\\d+)?"))
             {
                 System.out.println("Matches");
                 return true;
@@ -363,9 +363,9 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
             {
                 System.out.println("No Match");
                 return false;
-            }*/
+            }
 
-            if (color == null) {
+            /*if (color == null) {
                 return false;
             }
             int length = color.length();
@@ -385,7 +385,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
                     return false;
                 }
             }
-            return true;
+            return true;*/
         }
 
     /*public boolean validarColor(String color) {
