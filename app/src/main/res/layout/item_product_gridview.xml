@@ -60,7 +60,7 @@
             android:id="@+id/txt_product_stock"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_background_red"
+            android:background="@drawable/rounded_background"
             android:gravity="center"
             android:layout_margin="7dp"
             android:text="@string/lbl_stock_product"

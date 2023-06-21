@@ -2,8 +2,11 @@ package com.epacheco.reports.view.productsView.productsView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,24 +49,16 @@ public class AdapterProducts extends RecyclerView.Adapter<AdapterProducts.Holder
     //holderProducts.txtProStock.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.lbl_stock_product),String.valueOf(myProduct.getInStock())));
 
 
-    if(myProduct.getInStock() >= 1 && myProduct.getInStock() <= 5){
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        holderProducts.txtProStock.setBackground(ReportsApplication.getMyApplicationContext().getDrawable(R.drawable.rounded_background_red));
-        //holderProducts.txtProStock.setBackgroundTintList(ContextCompat.getColorStateList(ReportsApplication.getMyApplicationContext(), R.color.background_txt_product_stock));
-      }
+    if(myProduct.getInStock() >= 0 && myProduct.getInStock() <= 5){
+      holderProducts.txtProStock.setBackgroundTintList(ContextCompat.getColorStateList(ReportsApplication.getMyApplicationContext(), R.color.background_txt_product_stock));
       holderProducts.txtProStock.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.lbl_stock_product),String.valueOf(myProduct.getInStock())));
 
     }else if(myProduct.getInStock() >= 6 && myProduct.getInStock() <= 10){
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        holderProducts.txtProStock.setBackground(ReportsApplication.getMyApplicationContext().getDrawable(R.drawable.rounded_background_yellow));
-      }
+      holderProducts.txtProStock.setBackgroundTintList(ContextCompat.getColorStateList(ReportsApplication.getMyApplicationContext(), R.color.colorYelowTransparent));
       holderProducts.txtProStock.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.lbl_stock_product),String.valueOf(myProduct.getInStock())));
 
     }else{
-
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        holderProducts.txtProStock.setBackground(ReportsApplication.getMyApplicationContext().getDrawable(R.drawable.rounded_background_green));
-      }
+      holderProducts.txtProStock.setBackgroundTintList(ContextCompat.getColorStateList(ReportsApplication.getMyApplicationContext(), R.color.colorgreenTransparent));
       holderProducts.txtProStock.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.lbl_stock_product),String.valueOf(myProduct.getInStock())));
 
     }

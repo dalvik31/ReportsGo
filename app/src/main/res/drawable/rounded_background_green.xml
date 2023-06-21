@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/colorgreenTransparent" /> <!-- Color de fondo del TextView -->
-    <corners android:radius="10dp" /> <!-- Radio de las esquinas para dar el efecto redondeado -->
-</shape>
