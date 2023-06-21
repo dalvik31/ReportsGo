@@ -89,8 +89,6 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_add_view_class);
         inicializateElements();
         validateModifyProduct();
-        defaultColor = ContextCompat.getColor(ProductAddViewClass.this,R.color.colorWhite);
-
     }
 
     private void validateModifyProduct() {
@@ -338,73 +336,27 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
         if (esColorValido) {
             Log.e("Es numero", "Es un numero");
             binding.viewColorChoose.setBackgroundColor(Integer.parseInt(product.getColor()));
+            defaultColor = Integer.parseInt(product.getColor());
             //Log.e("Color obtenido", product.getColor());
         } else {
             Log.e("No es numero", "No es un numero");
             Log.e("Color obtenido", product.getColor());
-
+            defaultColor = ContextCompat.getColor(ProductAddViewClass.this,R.color.colorWhite);
         }
 
         setImgUrlUpload(product.getUrlImage());
         Glide.with(ReportsApplication.getMyApplicationContext()).load(product.getUrlImage()).into(binding.imgProduct);
 
         configShowTypeProduct(product);
-
     }
-
-        public boolean validarColor(String color) {
-
-            if(color.matches("\\d+(?:\\.\\d+)?"))
-            {
-                System.out.println("Matches");
-                return true;
-            }
-            else
-            {
-                System.out.println("No Match");
-                return false;
-            }
-
-            /*if (color == null) {
-                return false;
-            }
-            int length = color.length();
-            if (length == 0) {
-                return false;
-            }
-            int i = 0;
-            if (color.charAt(0) == '-') {
-                if (length == 1) {
-                    return false;
-                }
-                i = 1;
-            }
-            for (; i < length; i++) {
-                char c = color.charAt(i);
-                if (c < '0' || c > '9') {
-                    return false;
-                }
-            }
-            return true;*/
+        public boolean validarColor(String str) {
+            return str.matches("-?\\d+(\\.\\d+)?");
         }
-
-    /*public boolean validarColor(String color) {
-        if(color.isEmpty()) return false;
-        try {
-            Integer.parseInt(color);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }*/
-
     public void openColorPicker(View view){
         AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, defaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
             @Override
             public void onCancel(AmbilWarnaDialog dialog) {
-
             }
-
             @Override
             public void onOk(AmbilWarnaDialog dialog, int color) {
                 defaultColor = color;
