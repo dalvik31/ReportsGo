@@ -138,17 +138,14 @@ public class ProductViewClass extends AppCompatActivity implements ProductsViewI
 
   @Override
   public void onItemProductClic(View v, String productId, boolean inExistence) {
-    if(isSearch() && inExistence){
+
       Intent intent = new Intent();
       intent.putExtra(ProductAddViewClass.PRODUCT_ID,productId);
       setResult(RESULT_OK, intent);
-      finish();
-    }else{
-      if(!inExistence){
-       com.epacheco.reports.tools.Tools.showToasMessage(this,getString(R.string.lbl_stock_product_empty));
-      }
       ScreenManager.goAddProductActivity(this,productId);
-    }
+
+
+
   }
 
 

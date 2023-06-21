@@ -34,31 +34,26 @@ public class AdapterProducts extends RecyclerView.Adapter<AdapterProducts.Holder
 
   @Override
   public void onBindViewHolder(@NonNull HolderProducts holderProducts, int i) {
+    float transparency = 0.5f;
     final Product myProduct = productList.get(i);
     Glide.with(ReportsApplication.getMyApplicationContext()).load(myProduct.getUrlImage()).into(holderProducts.imgProduct);
-   // holderProducts.txtProId.setText(String.valueOf(myProduct.getProductCode()));
     holderProducts.txtProName.setText(myProduct.getProductName());
-    //holderProducts.txtProDesc.setText(myProduct.getProductDescription());
     holderProducts.txtProPrice.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_amount_format),String.valueOf(myProduct.getProductPriceSale())));
     holderProducts.txtProStock.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.lbl_stock_product),String.valueOf(myProduct.getInStock())));
-  /*  holderProducts.imgModify.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        getOnItemProductClic().onItemProductClic(v,myProduct.getProductId(),myProduct.getInStock()>0);
-      }
-    });*/
+
+    if(myProduct.getInStock() == 0){
+      holderProducts.cardviewProduct.setAlpha(transparency);
+    }else{
+      holderProducts.cardviewProduct.setAlpha(1.0f);
+    }
+
     holderProducts.cardviewProduct.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
         getOnItemProductClic().onItemProductClic(v,myProduct.getProductId(),myProduct.getInStock()>0);
       }
     });
-    /*holderProducts.imgDetails.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        getOnItemProductClic().onItemProductClic(v,myProduct.getProductId(),myProduct.getInStock()>0);
-      }
-    });*/
+
 
    holderProducts.backStockEmpty.setVisibility(myProduct.getInStock()>0 ? View.GONE : View.VISIBLE);
    }

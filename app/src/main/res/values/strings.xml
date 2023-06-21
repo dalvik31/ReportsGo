@@ -291,4 +291,8 @@
     <string name="msg_hint_dialog_new_order">Nombre para la lista de pedidos</string>
     <string name="btn_create_dialog_new_order">Crear</string>
 
+    <!--Activity custom dialog product detail-->
+    <string name="lbl_title_dialog_product">Sin inventario</string>
+    <string name="msg_dialog_product">No hay productos en tu inventario. Cambia el valor de cantidad.</string>
+
 </resources>
