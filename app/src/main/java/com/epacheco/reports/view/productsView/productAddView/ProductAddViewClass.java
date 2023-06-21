@@ -34,7 +34,6 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.text.TextUtils;
 import android.widget.CompoundButton;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.epacheco.reports.BuildConfig;
@@ -45,6 +44,7 @@ import com.epacheco.reports.tools.ReportsApplication;
 import com.epacheco.reports.tools.ReportsDialogGlobal;
 import com.epacheco.reports.tools.ReportsProgressDialog;
 import com.epacheco.reports.tools.ScreenManager;
+import com.epacheco.reports.view.productsView.productsView.ProductViewClass;
 import com.epacheco.reports.view.productsView.scanCode.ScannedBarcodeActivity;
 import com.epacheco.reports.databinding.ActivityProductAddViewClassBinding;
 
@@ -131,6 +131,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
             binding.btnModifyAccoount.setVisibility(View.GONE);
             binding.btnModifyProduct.setVisibility(View.GONE);
         }
+
 
     }
 
@@ -321,6 +322,8 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
         binding.txtProductPriceSale.setText(String.valueOf(product.getProductPriceSale()));
         binding.txtProductCode.setText(String.valueOf(product.getProductCode()));
         binding.txtProductStock.setText(String.valueOf(product.getInStock()));
+        validateProductStok(product.getInStock() == 0);
+
 
         if (TextUtils.isEmpty(product.getTalla()))
             binding.txtOrderSize.setHint(R.string.lbl_title_create_order_size_hint);
@@ -999,9 +1002,18 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
 
     }
 
+
     public void openQRorBarCode(View view) {
         setCameraCode(true);
         checkPermissionsCamera();
     }
+
+    public void validateProductStok(boolean showDialog){
+        if(showDialog){
+            ReportsDialogGlobal.showCustomDialog(this);
+
+        }
+    }
+
 
 }
