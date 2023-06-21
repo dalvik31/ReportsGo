@@ -5,7 +5,11 @@ import android.content.Context;
 
 
 import android.content.DialogInterface;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.epacheco.reports.R;
 
@@ -54,7 +58,6 @@ public class ReportsDialogGlobal {
 
 
   public static void showDialogTitle(Context context, String title, String message, DialogInterface.OnClickListener onClickListener, DialogInterface.OnClickListener onCancelListener){
-
     AlertDialog.Builder dialog = new AlertDialog.Builder(context);
     dialog.setTitle(title);
     dialog.setMessage(message);
@@ -66,6 +69,15 @@ public class ReportsDialogGlobal {
     dialog.show();
   }
 
+  public static void showCustomDialog(AppCompatActivity context){
+    AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+    LayoutInflater inflater = context.getLayoutInflater();
+    View view = inflater.inflate(R.layout.item_dialog_layout, null);
+    dialog.setView(view);
+    dialog.setPositiveButton(ReportsApplication.getMyApplicationContext().getString(R.string.btn_ok),null);
+    dialog.show();
+
+  }
 
 
 }
