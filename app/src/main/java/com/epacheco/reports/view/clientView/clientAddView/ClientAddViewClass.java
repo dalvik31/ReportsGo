@@ -43,6 +43,8 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
   private String clientId;
   private ReportsProgressDialog progressbar;
   private EditText txt_client_name;
+  private EditText txt_client_lastname;
+
   private EditText txt_client_phone;
   private RelativeLayout Rltv_Contact;
   @Override
@@ -266,10 +268,23 @@ public class ClientAddViewClass extends AppCompatActivity implements ClientAddVi
   private void renderContact(Uri uri) {
 
    txt_client_name = findViewById(R.id.txt_client_name);
-   txt_client_phone = findViewById(R.id.txt_client_phone);
+    txt_client_lastname = findViewById(R.id.txt_client_lastname);
+    txt_client_phone = findViewById(R.id.txt_client_phone);
 
+    String nombreCompleto = getName(uri);
+    String[] partesNombre = nombreCompleto.split(" ");
+    String nombre = partesNombre[0];
+    String apellido;
 
-    txt_client_name.setText(getName(uri));
+    txt_client_name.setText(nombre);
+    if (partesNombre.length > 1) {
+      apellido = partesNombre[partesNombre.length - 1];
+      txt_client_lastname.setText(apellido);
+
+    }else{
+      txt_client_lastname.setText("");
+    }
+
     String telefono = getPhone(uri);
 
     if (telefono != null){
