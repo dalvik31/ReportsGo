@@ -146,10 +146,10 @@ public class AdapterOrders extends RecyclerView.Adapter<AdapterOrders.HolderOrde
   private void getImageInvierno() {
 
     int [] imageInvierno = new int[4];
-    imageInvierno[0] = R.drawable.imagen_invierno1;
-    imageInvierno[1] = R.drawable.imagen_invierno2;
-    imageInvierno[2] = R.drawable.imagen_invierno3;
-    imageInvierno[3] = R.drawable.imagen_invierno4;
+    imageInvierno[0] = R.drawable.image_invierno_1;
+    imageInvierno[1] = R.drawable.imagen_invierno_2;
+    imageInvierno[2] = R.drawable.imagen_invierno_3;
+    imageInvierno[3] = R.drawable.imagen_invierno_4;
     int min = 0;
     int max = 3;
     final int random = new Random().nextInt((max - min) + 1) + min;
@@ -161,10 +161,10 @@ public class AdapterOrders extends RecyclerView.Adapter<AdapterOrders.HolderOrde
   private void getImageOtonio() {
 
     int [] imageOtoño = new int[4];
-    imageOtoño[0] = R.drawable.imagen_otonio1;
-    imageOtoño[1] = R.drawable.imagen_otonio2;
-    imageOtoño[2] = R.drawable.imagen_otonio3;
-    imageOtoño[3] = R.drawable.imagen_otonio4;
+    imageOtoño[0] = R.drawable.imagen_otonio_1;
+    imageOtoño[1] = R.drawable.imagen_otonio_2;
+    imageOtoño[2] = R.drawable.imagen_otonio_3;
+    imageOtoño[3] = R.drawable.imagen_otonio_4;
     int min = 0;
     int max = 3;
     final int random = new Random().nextInt((max - min) + 1) + min;
@@ -175,10 +175,10 @@ public class AdapterOrders extends RecyclerView.Adapter<AdapterOrders.HolderOrde
   private void getImagePrimavera(){
 
     int [] imagePrimavera = new int[4];
-    imagePrimavera[0] = R.drawable.imagen_primavera1;
-    imagePrimavera[1] = R.drawable.imagen_primavera2;
-    imagePrimavera[2] = R.drawable.imagen_primavera3;
-    imagePrimavera[3] = R.drawable.imagen_primavera4;
+    imagePrimavera[0] = R.drawable.imagen_primavera_1;
+    imagePrimavera[1] = R.drawable.imagen_primavera_2;
+    imagePrimavera[2] = R.drawable.imagen_primavera_3;
+    imagePrimavera[3] = R.drawable.imagen_primavera_4;
     int min = 0;
     int max = 3;
     final int random = new Random().nextInt((max - min) + 1) + min;
@@ -188,10 +188,10 @@ public class AdapterOrders extends RecyclerView.Adapter<AdapterOrders.HolderOrde
   private void getImageVerano(){
 
     int [] imageVerano = new int[4];
-    imageVerano[0] = R.drawable.imagen_verano1;
-    imageVerano[1] = R.drawable.imagen_verano2;
-    imageVerano[2] = R.drawable.imagen_verano3;
-    imageVerano[3] = R.drawable.imagen_verano4;
+    imageVerano[0] = R.drawable.imagen_verano_1;
+    imageVerano[1] = R.drawable.imagen_verano_2;
+    imageVerano[2] = R.drawable.imagen_verano_3;
+    imageVerano[3] = R.drawable.imagen_verano_4;
     int min = 0;
     int max = 3;
     final int random = new Random().nextInt((max - min) + 1) + min;
