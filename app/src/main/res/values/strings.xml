@@ -144,6 +144,7 @@
     <string name="lbl_select_product_size_ex">Extra</string>
     <string name="msg_alert_same_price_title">Mismo monto</string>
     <string name="msg_alert_same_price_body">¿Realmente deseas agregar este producto con el precio de compra igual al precio de venta ?</string>
+    <string name="toolbar_scan">Escanear producto</string>
 
 
 
