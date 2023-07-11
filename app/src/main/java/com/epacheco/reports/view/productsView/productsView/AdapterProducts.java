@@ -2,7 +2,12 @@ package com.epacheco.reports.view.productsView.productsView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,8 +42,27 @@ public class AdapterProducts extends RecyclerView.Adapter<AdapterProducts.Holder
     float transparency = 0.5f;
     final Product myProduct = productList.get(i);
     Glide.with(ReportsApplication.getMyApplicationContext()).load(myProduct.getUrlImage()).into(holderProducts.imgProduct);
+   // holderProducts.txtProId.setText(String.valueOf(myProduct.getProductCode()));
     holderProducts.txtProName.setText(myProduct.getProductName());
+    //holderProducts.txtProDesc.setText(myProduct.getProductDescription());
     holderProducts.txtProPrice.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.txt_client_amount_format),String.valueOf(myProduct.getProductPriceSale())));
+    //holderProducts.txtProStock.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.lbl_stock_product),String.valueOf(myProduct.getInStock())));
+
+
+    if(myProduct.getInStock() >= 0 && myProduct.getInStock() <= 5){
+      holderProducts.txtProStock.setBackgroundTintList(ContextCompat.getColorStateList(ReportsApplication.getMyApplicationContext(), R.color.background_txt_product_stock));
+      holderProducts.txtProStock.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.lbl_stock_product),String.valueOf(myProduct.getInStock())));
+
+    }else if(myProduct.getInStock() >= 6 && myProduct.getInStock() <= 10){
+      holderProducts.txtProStock.setBackgroundTintList(ContextCompat.getColorStateList(ReportsApplication.getMyApplicationContext(), R.color.colorYelowTransparent));
+      holderProducts.txtProStock.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.lbl_stock_product),String.valueOf(myProduct.getInStock())));
+
+    }else{
+      holderProducts.txtProStock.setBackgroundTintList(ContextCompat.getColorStateList(ReportsApplication.getMyApplicationContext(), R.color.colorgreenTransparent));
+      holderProducts.txtProStock.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.lbl_stock_product),String.valueOf(myProduct.getInStock())));
+
+    }
+
     holderProducts.txtProStock.setText(String.format(ReportsApplication.getMyApplicationContext().getString(R.string.lbl_stock_product),String.valueOf(myProduct.getInStock())));
 
     if(myProduct.getInStock() == 0){
@@ -53,7 +77,6 @@ public class AdapterProducts extends RecyclerView.Adapter<AdapterProducts.Holder
         getOnItemProductClic().onItemProductClic(v,myProduct.getProductId(),myProduct.getInStock()>0);
       }
     });
-
 
    holderProducts.backStockEmpty.setVisibility(myProduct.getInStock()>0 ? View.GONE : View.VISIBLE);
    }
