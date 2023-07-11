@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.ExifInterface;
@@ -26,6 +27,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentActivity;
@@ -53,8 +55,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class ProductAddViewClass extends AppCompatActivity implements ProductAddViewInterface {
+import yuku.ambilwarna.AmbilWarnaDialog;
 
+public class ProductAddViewClass extends AppCompatActivity implements ProductAddViewInterface {
+    int defaultColor;
     public final static String PRODUCT_ID = "productId";
     private final static String MY_PROVIDER = BuildConfig.APPLICATION_ID + ".providers.FileProvider";
     private File photoFile;
@@ -160,6 +164,7 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             validateImage();
+
                         }
                     }, new DialogInterface.OnClickListener() {
                         @Override
@@ -184,6 +189,11 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
         binding.progressUploadProduct.setVisibility(View.GONE);
     }
 
+
+    /**
+     *
+     * Se obtiene la informacion del producto
+     */
     private void createProduct(Product product) {
         Product myProduct = getNewProduct();
         String orderSize = binding.txtOrderSize.getText().toString();
@@ -295,6 +305,11 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
         com.epacheco.reports.tools.Tools.showToasMessage(this, error);
     }
 
+
+    /**
+     *
+     * Se muestra la informacion del producto
+     */
     @Override
     public void successGetProduct(Product product) {
         hideProgress();
@@ -306,7 +321,6 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
         binding.txtProductPriceBuy.setText(String.valueOf(product.getProductPriceBuy()));
         binding.txtProductPriceSale.setText(String.valueOf(product.getProductPriceSale()));
         binding.txtProductCode.setText(String.valueOf(product.getProductCode()));
-
         binding.txtProductStock.setText(String.valueOf(product.getInStock()));
         validateProductStok(product.getInStock() == 0);
 
@@ -320,10 +334,41 @@ public class ProductAddViewClass extends AppCompatActivity implements ProductAdd
         else binding.txtOrderColor.setText(String.valueOf(product.getColor()));
 
 
+
+        boolean esColorValido = validarColor(product.getColor());
+        if (esColorValido) {
+            Log.e("Es numero", "Es un numero");
+            binding.viewColorChoose.setBackgroundColor(Integer.parseInt(product.getColor()));
+            defaultColor = Integer.parseInt(product.getColor());
+            //Log.e("Color obtenido", product.getColor());
+        } else {
+            Log.e("No es numero", "No es un numero");
+            Log.e("Color obtenido", product.getColor());
+            defaultColor = ContextCompat.getColor(ProductAddViewClass.this,R.color.colorWhite);
+        }
+
         setImgUrlUpload(product.getUrlImage());
         Glide.with(ReportsApplication.getMyApplicationContext()).load(product.getUrlImage()).into(binding.imgProduct);
 
         configShowTypeProduct(product);
+    }
+        public boolean validarColor(String str) {
+            return str.matches("-?\\d+(\\.\\d+)?");
+        }
+    public void openColorPicker(View view){
+        AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, defaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onCancel(AmbilWarnaDialog dialog) {
+            }
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                defaultColor = color;
+                binding.viewColorChoose.setBackgroundColor(defaultColor);
+                Log.e("Codigo de color", String.valueOf(color));
+                binding.txtOrderColor.setText(String.valueOf(color));
+            }
+        });
+        colorPicker.show();
     }
 
     private void configShowTypeProduct(Product product) {

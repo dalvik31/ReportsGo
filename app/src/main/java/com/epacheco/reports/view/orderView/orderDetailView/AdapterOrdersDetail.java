@@ -98,7 +98,15 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
         clicItemList(false,myOrder.getOrderListId(),myOrder.getOrderId());
       }
     });
+
     holderOrder.checkBuyOrder.setChecked(myOrder.isOrderBuy());
+
+    if(myOrder.isOrderBuy()){
+      holderOrder.Imagen_mover_pedido.setVisibility(View.GONE);
+    }else{
+      holderOrder.Imagen_mover_pedido.setVisibility(View.VISIBLE);
+    }
+
     holderOrder.checkBuyOrder.setOnCheckedChangeListener(new OnCheckedChangeListener() {
       @Override
       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
