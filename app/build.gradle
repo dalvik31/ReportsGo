@@ -81,6 +81,8 @@ dependencies {
     //Se agrega libreria para date range picker
     implementation 'id.zelory:compressor:2.1.1'
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
+
+    implementation 'com.github.yukuku:ambilwarna:2.0.1'
 }
 
 
