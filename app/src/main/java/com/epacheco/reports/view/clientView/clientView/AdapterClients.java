@@ -44,7 +44,7 @@ public class AdapterClients extends RecyclerView.Adapter<AdapterClients.HolderCl
     // create a new view
     context = viewGroup.getContext();
     View v = LayoutInflater.from(viewGroup.getContext())
-        .inflate(R.layout.item_client, viewGroup, false);
+        .inflate(R.layout.item_new_client, viewGroup, false);
     return new HolderClients(v);
   }
 
@@ -86,14 +86,14 @@ public class AdapterClients extends RecyclerView.Adapter<AdapterClients.HolderCl
       }
     });
 
-    holderClients.btnDetail.setOnClickListener(new OnClickListener() {
+    /*holderClients.btnDetail.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
         if (getOnItemClientClic() != null) {
           getOnItemClientClic().onItemClientClic(v, clientSelected.getId());
         }
       }
-    });
+    });*/
 
 
     String clientDeb = "0";

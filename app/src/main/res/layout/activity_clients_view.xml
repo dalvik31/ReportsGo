@@ -70,11 +70,13 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerListClient"
+            app:spanCount="2"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/progress_downloadclient"
             android:layout_marginTop="-4dp"
-            tools:listitem="@layout/item_client" />
+            tools:listitem="@layout/item_new_client" />
 
 
         <ImageView
