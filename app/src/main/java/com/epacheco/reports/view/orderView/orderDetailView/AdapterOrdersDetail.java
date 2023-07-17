@@ -54,31 +54,18 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
     final OrderDetail myOrder = orderList.get(i);
     if(myOrder.isOrderBuy()) holderOrder.containerOrderItem.setCardBackgroundColor(ContextCompat.getColor(ReportsApplication.getMyApplicationContext(),R.color.colorBackgrounditemBuy));
     holderOrder.txtNameOrder.setText(myOrder.getOrderName());
-    if(myOrder.getOrderSize().equals("Cantidad")){
-      holderOrder.txtSizeOrder.setVisibility(View.GONE);
-    }else{
-      holderOrder.txtSizeOrder.setText(myOrder.getOrderSize());
-    }
-
-    if(myOrder.getOrderGender().isEmpty()){
-      holderOrder.txtGenderOrder.setVisibility(View.GONE);
-    }else{
-      holderOrder.txtGenderOrder.setText(myOrder.getOrderGender());
-    }
 
     if(myOrder.getOrderDescription().isEmpty()){
       holderOrder.txtDescOrder.setVisibility(View.GONE);
     }else{
-      holderOrder.txtDescOrder.setText(myOrder.getOrderDescription());
+      holderOrder.txtDescOrder.setText(myOrder.getOrderDescription() + "de " + myOrder.getOrderGender() + " color " + myOrder.getOrderColor() + " " + myOrder.getOrderSize() + ".");
     }
 
-    holderOrder.txtClientOrder.setText(myOrder.getOrderClient()!=null ? myOrder.getOrderClient().getName():"Cliente Desconocido");
+    holderOrder.txtClientName.setText(myOrder.getOrderClient()!=null ? myOrder.getOrderClient().getName():"Cliente Desconocido");
 
-    if(myOrder.getOrderColor().isEmpty()){
-      holderOrder.txtColor.setVisibility(View.GONE);
-    }else{
-      holderOrder.txtColor.setText(myOrder.getOrderColor());
-    }
+
+    holderOrder.txtClientOrder.setText("Cambiar de lista");
+
     holderOrder.imageViewRemoveItem.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -130,21 +117,19 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
   }
 
   class HolderOrder extends RecyclerView.ViewHolder{
-    private TextView txtNameOrder,txtSizeOrder,txtGenderOrder,txtDescOrder,txtClientOrder,txtColor;
+    private TextView txtNameOrder,txtDescOrder,txtClientOrder,txtClientName;
     private ImageView imageViewRemoveItem,Imagen_mover_pedido;
     private CardView containerOrderItem;
     private AppCompatCheckBox checkBuyOrder;
     HolderOrder(@NonNull View itemView) {
       super(itemView);
       txtNameOrder = itemView.findViewById(R.id.lbl_order_name);
-      txtSizeOrder = itemView.findViewById(R.id.lbl_order_size);
-      txtGenderOrder = itemView.findViewById(R.id.lbl_order_gender);
+      txtClientName = itemView.findViewById(R.id.txtClientName);
       txtDescOrder = itemView.findViewById(R.id.lbl_order_descripcion);
       checkBuyOrder = itemView.findViewById(R.id.AppCompatCheckBox_buy_order);
       txtClientOrder = itemView.findViewById(R.id.lbl_order_client);
       imageViewRemoveItem= itemView.findViewById(R.id.ImageView_delete_item);
       containerOrderItem= itemView.findViewById(R.id.cardView_container_item_order);
-      txtColor = itemView.findViewById(R.id.txtColor);
       Imagen_mover_pedido = itemView.findViewById(R.id.Imagen_mover_pedido);
     }
   }
