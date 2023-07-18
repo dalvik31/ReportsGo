@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +32,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class OrderDetailView extends AppCompatActivity implements AdapterOrdersDetail.OnClicListener, OrderDetailInterface, onItemOrderDetailClic, onItemOrderBuy {
 
@@ -57,6 +59,7 @@ public class OrderDetailView extends AppCompatActivity implements AdapterOrdersD
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     binding = DataBindingUtil.setContentView(OrderDetailView.this, R.layout.activity_order_detail_view);
+
     initElements();
   }
 
@@ -244,8 +247,12 @@ public class OrderDetailView extends AppCompatActivity implements AdapterOrdersD
               new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-          orderDetailModelClass.moveOrder(adapter.getItem(position).getDateOrder(),orderDetail);
-          finish();
+          if(Objects.equals(adapter.getItem(position).getDateOrder(), listOrderId)){
+            Toast.makeText(OrderDetailView.this,"No se puede mover el pedido a la misma lista",Toast.LENGTH_SHORT).show();
+          }else{
+            orderDetailModelClass.moveOrder(adapter.getItem(position).getDateOrder(),orderDetail);
+            finish();
+          }
         }
       }, new DialogInterface.OnClickListener() {
         @Override

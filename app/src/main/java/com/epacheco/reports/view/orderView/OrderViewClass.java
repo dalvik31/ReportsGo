@@ -25,6 +25,7 @@ import com.epacheco.reports.Controller.OrderController.OrderControllerClass;
 import com.epacheco.reports.Model.OrderModel.OrderModelClass;
 import com.epacheco.reports.Pojo.Order.OrderList;
 import com.epacheco.reports.R;
+import com.epacheco.reports.tools.Constants;
 import com.epacheco.reports.tools.ScreenManager;
 import com.epacheco.reports.tools.ReportsApplication;
 import com.epacheco.reports.tools.ReportsDialogGlobal;
@@ -243,6 +244,8 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
   public void onItemOrderClic(boolean removeElement, final String orderId,String nameOrder) {
     if(idListSelected && idClient != null){
       ScreenManager.goOrderDetailActivity(this,orderId,nameOrder,idClient,null);
+      /*Bundle bundle = new Bundle();
+      bundle.putString(Constants.ID_LIST_ORDER, binding.editTextNameDestination.getText().toString());*/
       finish();
       idListSelected= false;
 

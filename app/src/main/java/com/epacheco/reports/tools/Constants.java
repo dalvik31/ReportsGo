@@ -16,4 +16,7 @@ public class Constants {
   //SharedPreferences
   public final static String USERNAME_SAVE = "userNameSave";
   public final static String TIMER_SAVED = "timerSaved";
+
+  public final static String ID_LIST_ORDER = "idlistorder";
+
 }
