@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
@@ -29,6 +31,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseUser;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
@@ -50,6 +53,21 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
     super.onCreate(savedInstanceState);
     binding = DataBindingUtil.setContentView(this, R.layout.activity_register_class);
     inicializateElements();
+
+
+//Para probar crashLytics. de esta manera vas a generar un crash por medio de un boton
+    /*Button crashButton = new Button(this);
+    crashButton.setText("Test Crash");
+    crashButton.setOnClickListener(new View.OnClickListener() {
+      public void onClick(View view) {
+        throw new RuntimeException("Test Crash"); // Force a crash
+      }
+    });
+
+    addContentView(crashButton, new ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT));*/
+
   }
 
   private void inicializateElements() {
