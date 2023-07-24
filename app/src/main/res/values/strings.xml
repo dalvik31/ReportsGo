@@ -285,6 +285,12 @@
     <string name="msg_cancel_sale_succes">Venta cancelada.</string>
     <string name="msg_cancel_sale_item">COMPRA CANCELADA</string>
 
+    <!-- String para el banner-->
+    <string name="title_banner">Temporada </string>
+    <string name="title_season_spring">Primavera - Verano </string>
+    <string name="title_season_winter">Otoño - Invierno </string>
+    <string name="msg_banner">Toma esto en cuenta al crear tu lista</string>
+
 
     <!--Activity dialog new order-->
     <string name="lbl_title_dialog_new_order">Crear lista de pedidos</string>

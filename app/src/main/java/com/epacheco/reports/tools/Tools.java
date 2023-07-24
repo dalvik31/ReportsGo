@@ -123,6 +123,18 @@ public class Tools {
         editor.apply();
     }
 
+    public static Boolean getBooleanPreference(String name) {
+        return preferences.getBoolean(name, false);
+    }
+
+    public static void setBooleanPreference(String name, Boolean value) {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(name, value);
+        editor.apply();
+    }
+
+
+
     public static String getStringPreference(String name) {
         return preferences.getString(name, "");
     }

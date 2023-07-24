@@ -16,4 +16,18 @@ public class Constants {
   //SharedPreferences
   public final static String USERNAME_SAVE = "userNameSave";
   public final static String TIMER_SAVED = "timerSaved";
+
+  public final static String PREFS_NAME = "MyPrefs";
+  public final static String LAST_SHOWN_KEY = "lastShown";
+  public final static String COUNTER_KEY = "counter";
+  public final static String LAST_SHOWN_MONTH = "lastShownMonth";
+
+  public final static String LAST_SHOWN_SEASON = "last_showm_season";
+  public final static String SEASON_SPRING_SUMMER = "seasonspringsummer";
+  public final static String SEASON_FALL_WINTER = "seasonfallwinter";
+
+  public final static String CHANGE_SEASON = "CHANGE_SEASON";
+
+
+
 }

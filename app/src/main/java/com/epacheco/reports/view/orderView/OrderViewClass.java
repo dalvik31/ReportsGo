@@ -4,32 +4,36 @@ import android.content.Context;
 import android.content.DialogInterface;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentActivity;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.epacheco.reports.Controller.OrderController.OrderControllerClass;
 import com.epacheco.reports.Model.OrderModel.OrderModelClass;
 import com.epacheco.reports.Pojo.Order.OrderList;
 import com.epacheco.reports.R;
+import com.epacheco.reports.tools.Constants;
 import com.epacheco.reports.tools.ScreenManager;
 import com.epacheco.reports.tools.ReportsApplication;
 import com.epacheco.reports.tools.ReportsDialogGlobal;
 import com.epacheco.reports.tools.ReportsProgressDialog;
-import com.epacheco.reports.tools.ScreenManager;
 import com.epacheco.reports.view.clientView.clientAddView.ClientAddViewClass;
 import com.epacheco.reports.databinding.ActivityOrderViewClassBinding;
 import com.epacheco.reports.view.orderView.orderDetailView.OrderDetailView;
@@ -39,7 +43,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.Random;
+import java.util.prefs.Preferences;
 
 public class OrderViewClass extends AppCompatActivity implements OrderViewIterface, onItemOrderClic{
   public static final String ORDERLIST = "ORDER_LIST";
@@ -54,18 +58,24 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
   private String idProduct;
   private boolean idListSelected;
   ArrayList<OrderList> orderList1;
+  private int counter = 0;
+  private int counterSeason = 0;
+  private int counterSeason2 = 0;
+  private CardView cardView;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     binding = DataBindingUtil.setContentView(this,R.layout.activity_order_view_class);
     inicializateElements();
+    validateDateForBanner();
   }
 
   private void inicializateElements() {
     mAuth = FirebaseAuth.getInstance();
     progressbar = ReportsProgressDialog.getInstance();
     orderModelClass = new OrderModelClass(this);
-    showProgress(getString(R.string.msg_search_orders));
+    //showProgress(getString(R.string.msg_search_orders));
     orderModelClass.getOrders();
 
     Bundle extras = getIntent().getExtras();
@@ -220,9 +230,6 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
   }
 
 
-
-
-
   public SimpleDateFormat getFormatter() {
     if(formatter==null){
       formatter = new SimpleDateFormat("EEEE dd / MMMM / yyyy", Locale.getDefault());
@@ -271,13 +278,145 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
 
   }
 
-
-
-
-
-
-
   public void goProfileActivity(View v){
     ScreenManager.goProfileActivity(this);
   }
+
+   private TextView txtSeason;
+  private ImageView imgSeason;
+
+  private void validateDateForBanner(){
+    txtSeason = binding.itemBannerSeason.txtTitleBanner;
+    imgSeason = binding.itemBannerSeason.imgSeason;
+    Calendar calendar = Calendar.getInstance();
+    int month = calendar.get(Calendar.MONTH);
+    int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+    cardView = binding.itemBannerSeason.bannerItemSeason;
+    com.epacheco.reports.tools.Tools.setIntegerPreference(Constants.PREFS_NAME,MODE_PRIVATE);
+    counter = com.epacheco.reports.tools.Tools.getIntegerPreference(Constants.COUNTER_KEY);
+    counterSeason = com.epacheco.reports.tools.Tools.getIntegerPreference(Constants.COUNTER_KEY);
+
+    //setSeason(day,month);
+    ponerTemporada(day,month);
+
+  }
+
+
+  private void ponerTemporada(int day, int month){
+    //String currentSeason = com.epacheco.reports.tools.Tools.getStringPreference(Constants.CHANGE_SEASON);
+
+    if ((month == 2 && day >= 19) || (month == 8 && day == 23) || (month > 2 && month < 8)) {
+      com.epacheco.reports.tools.Tools.setStringPreference(Constants.CHANGE_SEASON,"Primavera - Verano");
+      txtSeason.setText("Primavera - Verano");
+  /*    imgSeason.setImageResource(R.drawable.img_banner_primavera);
+      int lastShownMonth = com.epacheco.reports.tools.Tools.getIntegerPreference(Constants.LAST_SHOWN_MONTH);
+      if (month != lastShownMonth) {
+        counter = 0;
+      }*/
+
+
+
+    }else {
+      com.epacheco.reports.tools.Tools.setStringPreference(Constants.CHANGE_SEASON,"Otoño - Invierno");
+      txtSeason.setText("Otoño - Invierno");
+        imgSeason.setImageResource(R.drawable.img_banner_invierno);
+       /* int lastShownMonth = com.epacheco.reports.tools.Tools.getIntegerPreference(Constants.LAST_SHOWN_MONTH);
+        if (month != lastShownMonth) {
+          counter = 0;
+        }*/
+
+      }
+
+    /* if( !currentSeason.equals(com.epacheco.reports.tools.Tools.getStringPreference(Constants.CHANGE_SEASON))){
+      com.epacheco.reports.tools.Tools.setIntegerPreference(Constants.COUNTER_KEY,0);
+      counter =0;
+    }*/
+
+    /*if (counter < 2) {
+      cardView.setVisibility(View.VISIBLE);
+      counter++;
+      com.epacheco.reports.tools.Tools.setLongPreference(Constants.LAST_SHOWN_KEY,System.currentTimeMillis());
+      com.epacheco.reports.tools.Tools.setIntegerPreference(Constants.COUNTER_KEY,counter);
+      com.epacheco.reports.tools.Tools.setIntegerPreference(Constants.LAST_SHOWN_MONTH,month);
+    } else {
+      cardView.setVisibility(View.GONE);
+    }*/
+  }
+
+  private void setSeason(int day, int month) {
+    Log.e("fecha" , "La fecha es" +day + month);
+
+    if((month == 2 && day >= 19) || (month == 8 && day == 23) || (month > 2 && month < 8)){
+      txtSeason.setText("Primavera - Verano");
+      imgSeason.setImageResource(R.drawable.img_banner_primavera);
+
+      //int lastShownMonth = preferences.getInt("lastShownMonth", -1);
+      int lastShownMonth = com.epacheco.reports.tools.Tools.getIntegerPreference(Constants.LAST_SHOWN_MONTH);
+      if (month != lastShownMonth) {
+        counter = 0;
+      }
+
+    }else {
+      txtSeason.setText("Otoño - Invierno");
+      imgSeason.setImageResource(R.drawable.img_banner_invierno);
+
+      //int lastShownMonth = preferences.getInt("lastShownMonth", -1);
+      int lastShownMonth = com.epacheco.reports.tools.Tools.getIntegerPreference(Constants.LAST_SHOWN_MONTH);
+      if (month != lastShownMonth) {
+        counter = 0;
+      }
+
+    }
+
+    if (counter < 2 ) {
+      cardView.setVisibility(View.VISIBLE);
+      counter++;
+      /*SharedPreferences.Editor editor = preferences.edit();
+      editor.putLong(LAST_SHOWN_KEY, System.currentTimeMillis());
+      editor.putInt(COUNTER_KEY, counter);
+      editor.putInt("lastShownMonth", month);
+      editor.apply();*/
+      com.epacheco.reports.tools.Tools.setLongPreference(Constants.LAST_SHOWN_KEY,System.currentTimeMillis());
+      com.epacheco.reports.tools.Tools.setIntegerPreference(Constants.COUNTER_KEY,counter);
+      com.epacheco.reports.tools.Tools.setIntegerPreference(Constants.LAST_SHOWN_MONTH,month);
+    } else {
+      cardView.setVisibility(View.GONE);
+    }
+
+  }
+
+  /*private void setSeason(int day, int month) {
+    Log.e("fecha" , "La fecha es" +day + month);
+
+    if((month == 2 && day >= 19) || (month == 8 && day == 23) || (month > 2 && month < 8) ){
+      txtSeason.setText("Primavera - Verano");
+      imgSeason.setImageResource(R.drawable.img_banner_primavera);
+
+      int lastShownMonth = com.epacheco.reports.tools.Tools.getIntegerPreference(Constants.LAST_SHOWN_MONTH);
+      if (month != lastShownMonth) {
+        counter = 0;
+      }
+
+    }else {
+      txtSeason.setText("Otoño - Invierno");
+      imgSeason.setImageResource(R.drawable.img_banner_invierno);
+
+      int lastShownMonth = com.epacheco.reports.tools.Tools.getIntegerPreference(Constants.LAST_SHOWN_MONTH);
+      if (month != lastShownMonth) {
+        counter = 0;
+      }
+    }
+
+      if (counter < 2) {
+        cardView.setVisibility(View.VISIBLE);
+        counter++;
+        com.epacheco.reports.tools.Tools.setLongPreference(Constants.LAST_SHOWN_KEY,System.currentTimeMillis());
+        com.epacheco.reports.tools.Tools.setIntegerPreference(Constants.COUNTER_KEY,counter);
+        com.epacheco.reports.tools.Tools.setIntegerPreference(Constants.LAST_SHOWN_MONTH,month);
+      } else {
+        cardView.setVisibility(View.GONE);
+      }
+  }*/
+
 }
