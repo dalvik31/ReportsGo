@@ -58,9 +58,6 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
   private String idProduct;
   private boolean idListSelected;
   ArrayList<OrderList> orderList1;
-  private int counter = 0;
-  private int counterSeason = 0;
-  private int counterSeason2 = 0;
   private CardView cardView;
 
   @Override
@@ -294,8 +291,6 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
 
     cardView = binding.itemBannerSeason.bannerItemSeason;
     com.epacheco.reports.tools.Tools.setIntegerPreference(Constants.PREFS_NAME,MODE_PRIVATE);
-    counter = com.epacheco.reports.tools.Tools.getIntegerPreference(Constants.COUNTER_KEY);
-    counterSeason = com.epacheco.reports.tools.Tools.getIntegerPreference(Constants.COUNTER_KEY);
 
     //setSeason(day,month);
     ponerTemporada(day,month);
@@ -304,119 +299,29 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
 
 
   private void ponerTemporada(int day, int month){
-    //String currentSeason = com.epacheco.reports.tools.Tools.getStringPreference(Constants.CHANGE_SEASON);
+    String currentSeason = com.epacheco.reports.tools.Tools.getStringPreference(Constants.CHANGE_SEASON);
+    int currentTime = com.epacheco.reports.tools.Tools.getIntegerPreference(Constants.COUNTER_KEY);
 
-    if ((month == 2 && day >= 19) || (month == 8 && day == 23) || (month > 2 && month < 8)) {
-      com.epacheco.reports.tools.Tools.setStringPreference(Constants.CHANGE_SEASON,"Primavera - Verano");
+    if ((month == 2 && day >= 19) || (month == 8 && day <= 23) || (month > 2 && month < 8)) {
       txtSeason.setText("Primavera - Verano");
-  /*    imgSeason.setImageResource(R.drawable.img_banner_primavera);
-      int lastShownMonth = com.epacheco.reports.tools.Tools.getIntegerPreference(Constants.LAST_SHOWN_MONTH);
-      if (month != lastShownMonth) {
-        counter = 0;
-      }*/
-
-
-
+      imgSeason.setImageResource(R.drawable.img_banner_primavera);
+      com.epacheco.reports.tools.Tools.setStringPreference(Constants.CHANGE_SEASON,"Primavera - Verano");
     }else {
       com.epacheco.reports.tools.Tools.setStringPreference(Constants.CHANGE_SEASON,"Otoño - Invierno");
       txtSeason.setText("Otoño - Invierno");
         imgSeason.setImageResource(R.drawable.img_banner_invierno);
-       /* int lastShownMonth = com.epacheco.reports.tools.Tools.getIntegerPreference(Constants.LAST_SHOWN_MONTH);
-        if (month != lastShownMonth) {
-          counter = 0;
-        }*/
-
       }
 
-    /* if( !currentSeason.equals(com.epacheco.reports.tools.Tools.getStringPreference(Constants.CHANGE_SEASON))){
-      com.epacheco.reports.tools.Tools.setIntegerPreference(Constants.COUNTER_KEY,0);
-      counter =0;
-    }*/
-
-    /*if (counter < 2) {
-      cardView.setVisibility(View.VISIBLE);
-      counter++;
-      com.epacheco.reports.tools.Tools.setLongPreference(Constants.LAST_SHOWN_KEY,System.currentTimeMillis());
-      com.epacheco.reports.tools.Tools.setIntegerPreference(Constants.COUNTER_KEY,counter);
-      com.epacheco.reports.tools.Tools.setIntegerPreference(Constants.LAST_SHOWN_MONTH,month);
-    } else {
-      cardView.setVisibility(View.GONE);
-    }*/
-  }
-
-  private void setSeason(int day, int month) {
-    Log.e("fecha" , "La fecha es" +day + month);
-
-    if((month == 2 && day >= 19) || (month == 8 && day == 23) || (month > 2 && month < 8)){
-      txtSeason.setText("Primavera - Verano");
-      imgSeason.setImageResource(R.drawable.img_banner_primavera);
-
-      //int lastShownMonth = preferences.getInt("lastShownMonth", -1);
-      int lastShownMonth = com.epacheco.reports.tools.Tools.getIntegerPreference(Constants.LAST_SHOWN_MONTH);
-      if (month != lastShownMonth) {
-        counter = 0;
-      }
-
-    }else {
-      txtSeason.setText("Otoño - Invierno");
-      imgSeason.setImageResource(R.drawable.img_banner_invierno);
-
-      //int lastShownMonth = preferences.getInt("lastShownMonth", -1);
-      int lastShownMonth = com.epacheco.reports.tools.Tools.getIntegerPreference(Constants.LAST_SHOWN_MONTH);
-      if (month != lastShownMonth) {
-        counter = 0;
-      }
-
+    if(!currentSeason.equals(com.epacheco.reports.tools.Tools.getStringPreference(Constants.CHANGE_SEASON))){
+      currentTime = 0;
+      com.epacheco.reports.tools.Tools.setIntegerPreference(Constants.COUNTER_KEY,currentTime);
     }
-
-    if (counter < 2 ) {
-      cardView.setVisibility(View.VISIBLE);
-      counter++;
-      /*SharedPreferences.Editor editor = preferences.edit();
-      editor.putLong(LAST_SHOWN_KEY, System.currentTimeMillis());
-      editor.putInt(COUNTER_KEY, counter);
-      editor.putInt("lastShownMonth", month);
-      editor.apply();*/
-      com.epacheco.reports.tools.Tools.setLongPreference(Constants.LAST_SHOWN_KEY,System.currentTimeMillis());
-      com.epacheco.reports.tools.Tools.setIntegerPreference(Constants.COUNTER_KEY,counter);
-      com.epacheco.reports.tools.Tools.setIntegerPreference(Constants.LAST_SHOWN_MONTH,month);
-    } else {
-      cardView.setVisibility(View.GONE);
-    }
-
-  }
-
-  /*private void setSeason(int day, int month) {
-    Log.e("fecha" , "La fecha es" +day + month);
-
-    if((month == 2 && day >= 19) || (month == 8 && day == 23) || (month > 2 && month < 8) ){
-      txtSeason.setText("Primavera - Verano");
-      imgSeason.setImageResource(R.drawable.img_banner_primavera);
-
-      int lastShownMonth = com.epacheco.reports.tools.Tools.getIntegerPreference(Constants.LAST_SHOWN_MONTH);
-      if (month != lastShownMonth) {
-        counter = 0;
-      }
-
-    }else {
-      txtSeason.setText("Otoño - Invierno");
-      imgSeason.setImageResource(R.drawable.img_banner_invierno);
-
-      int lastShownMonth = com.epacheco.reports.tools.Tools.getIntegerPreference(Constants.LAST_SHOWN_MONTH);
-      if (month != lastShownMonth) {
-        counter = 0;
-      }
-    }
-
-      if (counter < 2) {
+      if(currentTime < 2){
+        com.epacheco.reports.tools.Tools.setIntegerPreference(Constants.COUNTER_KEY,currentTime +1 );
         cardView.setVisibility(View.VISIBLE);
-        counter++;
-        com.epacheco.reports.tools.Tools.setLongPreference(Constants.LAST_SHOWN_KEY,System.currentTimeMillis());
-        com.epacheco.reports.tools.Tools.setIntegerPreference(Constants.COUNTER_KEY,counter);
-        com.epacheco.reports.tools.Tools.setIntegerPreference(Constants.LAST_SHOWN_MONTH,month);
-      } else {
+      }else{
         cardView.setVisibility(View.GONE);
       }
-  }*/
 
+  }
 }
