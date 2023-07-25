@@ -16,6 +16,7 @@ import android.os.Bundle;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.view.View;
 import android.widget.SearchView;
@@ -108,7 +109,8 @@ public class ClientsViewClass extends AppCompatActivity implements ClientViewInt
     hideProgress();
     if(listCliets!=null && !listCliets.isEmpty()){
       binding.recyclerListClient.setHasFixedSize(true);
-      binding.recyclerListClient.setLayoutManager(new GridLayoutManager(this, 2));
+      binding.recyclerListClient.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+      //binding.recyclerListClient.setLayoutManager(new GridLayoutManager(this, 2));
       AdapterClients adapterClients = new AdapterClients(listCliets,this);
       adapterClients.setOnItemClientClic(this);
       binding.recyclerListClient.setAdapter(adapterClients);
