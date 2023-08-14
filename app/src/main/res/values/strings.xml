@@ -301,4 +301,8 @@
     <string name="lbl_title_dialog_product">Sin inventario</string>
     <string name="msg_dialog_product">No hay productos en tu inventario. Cambia el valor de cantidad.</string>
 
+    <!--Strings para el banner-->
+    <string name="msg_season_spring_summer">Primavera - Verano</string>
+    <string name="msg_season_autumn_winter">Otoño - Invierno</string>
+
 </resources>

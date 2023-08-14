@@ -123,31 +123,8 @@ public class Tools {
         editor.apply();
     }
 
-    public static Boolean getBooleanPreference(String name) {
-        return preferences.getBoolean(name, false);
-    }
-
-    public static void setBooleanPreference(String name, Boolean value) {
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean(name, value);
-        editor.apply();
-    }
-
-
-
     public static String getStringPreference(String name) {
         return preferences.getString(name, "");
-    }
-
-
-    public static void setFloatPreference(String name, float value) {
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putFloat(name, value);
-        editor.apply();
-    }
-
-    public static float getFloatPreference(String name) {
-        return preferences.getFloat(name, 0);
     }
 
     public static void setLongPreference(String name, long value) {
@@ -228,7 +205,7 @@ public class Tools {
      * Metodo que permite comprimir imagenes y transformarlas a bitmap
      */
     public static byte[] getImage(Context ctx, String path, int width, int height) {
-       // if(path == null) return null;
+        // if(path == null) return null;
         final File file_thumb_path = new File(path);
 
         Bitmap thumb_bitmap = null;
@@ -244,10 +221,9 @@ public class Tools {
         }
 
         //if (thumb_bitmap != null) return null;
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            thumb_bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
-            thumb_byte = baos.toByteArray();
-
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        thumb_bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+        thumb_byte = baos.toByteArray();
 
 
         return thumb_byte;
