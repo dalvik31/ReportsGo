@@ -61,8 +61,11 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
       holderOrder.txtDescOrder.setText(myOrder.getOrderDescription() + "de " + myOrder.getOrderGender() + " color " + myOrder.getOrderColor() + " " + myOrder.getOrderSize() + ".");
     }
 
-    holderOrder.txtClientName.setText(myOrder.getOrderClient()!=null ? myOrder.getOrderClient().getName():"Cliente Desconocido");
-
+    if(myOrder.getOrderClient()== null ){
+      holderOrder.txtClientName.setVisibility(View.GONE);
+    }else{
+      holderOrder.txtClientName.setText(myOrder.getOrderClient().getName());
+    }
 
     holderOrder.txtClientOrder.setText("Cambiar de lista");
 
