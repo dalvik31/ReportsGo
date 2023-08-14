@@ -76,6 +76,8 @@
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             android:layout_below="@+id/progress_downloadclient"
             android:layout_marginTop="-4dp"
+            android:layout_marginStart="7dp"
+            android:foregroundGravity="center"
             tools:listitem="@layout/item_new_client" />
 
 
