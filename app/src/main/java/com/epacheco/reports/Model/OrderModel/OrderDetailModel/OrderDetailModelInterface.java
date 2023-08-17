@@ -13,7 +13,7 @@ public interface OrderDetailModelInterface {
   void successremoveOrderDetail();
   void errorremoveOrderDetail(String error);
 
-  void successOrderBuyElement();
+  void successOrderBuyElement(String success);
   void errorOrderBuyElement(String error);
 
   void successMoveOrder();

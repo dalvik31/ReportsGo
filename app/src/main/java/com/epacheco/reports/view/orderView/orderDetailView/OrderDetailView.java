@@ -171,9 +171,9 @@ public class OrderDetailView extends AppCompatActivity implements AdapterOrdersD
   }
 
   @Override
-  public void successOrderBuyElement() {
+  public void successOrderBuyElement(String success) {
     hideProgress();
-    com.epacheco.reports.tools.Tools.showToasMessage(this, getString(R.string.lbl_order_buy_update));
+    com.epacheco.reports.tools.Tools.showToasMessage(this, success);
   }
 
   @Override

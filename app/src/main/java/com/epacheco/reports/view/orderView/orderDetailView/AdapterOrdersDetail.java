@@ -58,7 +58,7 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
     public void onBindViewHolder(@NonNull HolderOrder holderOrder, int i) {
         final OrderDetail myOrder = orderList.get(i);
         if (myOrder.isOrderBuy())
-            holderOrder.containerOrderItem.setCardBackgroundColor(ContextCompat.getColor(ReportsApplication.getMyApplicationContext(), R.color.colorBackgrounditemBuy));
+            holderOrder.containerOrderItem.setCardBackgroundColor(ContextCompat.getColor(ReportsApplication.getMyApplicationContext(), R.color.background_view));
         holderOrder.txtNameOrder.setText(myOrder.getOrderName());
 
         if (myOrder.getOrderDescription().isEmpty()) {
@@ -157,7 +157,6 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
             txtClientName = itemView.findViewById(R.id.txtClientName);
             txtDescOrder = itemView.findViewById(R.id.lbl_order_descripcion);
             btnGetLocation = itemView.findViewById(R.id.btnGetUbication);
-            //checkBuyOrder = itemView.findViewById(R.id.AppCompatCheckBox_buy_order);
             btnRoute = itemView.findViewById(R.id.btnRoute);
             btnMoveOrder = itemView.findViewById(R.id.Imagen_mover_pedido);
             imageViewRemoveItem = itemView.findViewById(R.id.ImageView_delete_item);

@@ -244,7 +244,8 @@
     <string name="lbl_title_create_order_description">Descripción</string>
     <string name="lbl_title_create_order_description_hint">Detalles importantes del producto</string>
     <string name="lbl_order_buy">Comprado</string>
-    <string name="lbl_order_buy_update">Pedido actualizado</string>
+    <string name="lbl_order_buy_update">Pedido Actualizado</string>
+    <string name="lbl_order_update">Pedido Comprado</string>
     <string name="title_message_select_order">Selecciona una lista.</string>
     <string name="body_message_select_order2">Elige la lista en la cual se agregara el pedido.</string>
     <string name="body_message_select_order">Elige la lista en la cual se agregara el pedido del cliente.</string>

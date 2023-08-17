@@ -8,7 +8,7 @@ public interface OrderDetailInterface {
   FragmentActivity getMyActivity();
   void successGetListDetail(List<OrderDetail> orderDetailList);
   void errorGetListDetail(String error);
-  void successOrderBuyElement();
+  void successOrderBuyElement(String success);
   void errorOrderBuyElement(String error);
 
   void successremoveOrderDetail();

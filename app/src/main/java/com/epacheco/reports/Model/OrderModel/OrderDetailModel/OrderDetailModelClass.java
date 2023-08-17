@@ -50,9 +50,9 @@ public class OrderDetailModelClass implements OrderDetailModelInterface {
   }
 
   @Override
-  public void successOrderBuyElement() {
+  public void successOrderBuyElement(String success) {
     if(orderDetailView!= null){
-      orderDetailView.successOrderBuyElement();
+      orderDetailView.successOrderBuyElement(success);
     }
   }
 
