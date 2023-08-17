@@ -87,15 +87,6 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
                 itemClic.onItemClick(myOrder);
             }
         });
-
-        /**
-         *
-         *
-         *
-         *
-         *
-         *
-         */
         holderOrder.containerOrderItem.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,9 +107,6 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
                 Toast.makeText(view.getContext(), R.string.msgGetLocation, Toast.LENGTH_SHORT).show();
             }
         });
-
-
-        //holderOrder.checkBuyOrder.setChecked(myOrder.isOrderBuy());
 
         if (myOrder.isOrderBuy()) {
             holderOrder.btnMoveOrder.setVisibility(View.GONE);
@@ -142,24 +130,6 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
                 }
             }
         });
-
-        /**
-         *
-         *
-         *
-         *
-         *
-         *
-         */
-       /* holderOrder.checkBuyOrder.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (getOnItemOrderBuy() != null) {
-                    myOrder.setOrderBuy(!myOrder.isOrderBuy());
-                    getOnItemOrderBuy().onItemOrderClic(myOrder.getOrderListId(), myOrder.getOrderId(), myOrder);
-                }
-            }
-        });*/
     }
 
 
