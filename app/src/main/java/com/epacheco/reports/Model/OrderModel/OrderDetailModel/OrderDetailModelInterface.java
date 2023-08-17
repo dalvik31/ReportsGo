@@ -19,9 +19,12 @@ public interface OrderDetailModelInterface {
   void successMoveOrder();
   void errorMoveOrder(String error);
   void moveOrder(String idOrder ,OrderDetail orderDetail);
-
+  void successSaveLocationOrder();
+  void errorSaveLocationOrder(String error);
+  void saveLocationOrder(OrderDetail orderDetail);
   //Methods controller
   void getDetailOrderList(String orderIdList);
   void removeOrderDetail(String orderIdList,String orderItemId);
   void orderItemBuy(String orderIdList,String orderItemId,OrderDetail orderDetail);
+
 }

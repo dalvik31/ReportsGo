@@ -61,7 +61,7 @@
         app:srcCompat="@drawable/ic_baseline_drive_file_move"
         card_view:layout_constraintBottom_toBottomOf="parent"
         card_view:layout_constraintStart_toStartOf="parent"
-        card_view:layout_constraintTop_toBottomOf="@+id/lbl_order_descripcion" />
+        card_view:layout_constraintTop_toBottomOf="@+id/txtGetUbication" />
 
     <TextView
         android:id="@+id/txtClientName"
@@ -89,6 +89,20 @@
         card_view:layout_constraintStart_toStartOf="parent"
         card_view:layout_constraintTop_toBottomOf="@+id/txtClientName" />
 
+    <TextView
+        android:id="@+id/txtGetUbication"
+        style="@style/TextView_Title_Black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="5dp"
+        android:drawableLeft="@drawable/ic_location"
+        android:gravity="center|start"
+        android:text="Estoy en la ubicación"
+        android:textColor="@color/colorPrimary"
+        android:textSize="15sp"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toBottomOf="@+id/lbl_order_descripcion" />
 
     <ImageView
         android:id="@+id/ImageView_delete_item"
@@ -100,7 +114,7 @@
         app:srcCompat="@drawable/ic_vector_remove_red"
         card_view:layout_constraintBottom_toBottomOf="parent"
         card_view:layout_constraintEnd_toEndOf="parent"
-        card_view:layout_constraintTop_toBottomOf="@+id/lbl_order_descripcion" />
+        card_view:layout_constraintTop_toBottomOf="@+id/txtGetUbication" />
 
     <androidx.appcompat.widget.AppCompatCheckBox
         android:id="@+id/AppCompatCheckBox_buy_order"

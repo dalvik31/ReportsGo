@@ -16,6 +16,8 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.epacheco.reports.Pojo.OrderDetail.OrderDetail;
 import com.epacheco.reports.R;
 import com.epacheco.reports.tools.ReportsApplication;
@@ -29,7 +31,7 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
   private onItemOrderDetailClic onItemOrderDetailClic;
   private onItemOrderBuy onItemOrderBuy;
   private OnClicListener itemClic;
-  private Activity contexto;
+  private onItemLocationOrder onItemLocationOrder;
 
   public interface OnClicListener{
     void onItemClick(OrderDetail order);
@@ -37,9 +39,8 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
 
    AdapterOrdersDetail(List<OrderDetail> orderList , Activity contexto) {
     this.orderList = orderList;
-     this.contexto = contexto;
      this.itemClic = (OnClicListener) contexto;
-  }
+   }
 
   @NonNull
   @Override
@@ -89,6 +90,16 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
       }
     });
 
+    holderOrder.txtLocation.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        if(getOnClickLocationOrder()!=null){
+          getOnClickLocationOrder().onItemLocataionOrderClic(myOrder);
+        }
+        //Toast.makeText(view.getContext(), "Ubicacion", Toast.LENGTH_SHORT).show();
+      }
+    });
+
     holderOrder.checkBuyOrder.setChecked(myOrder.isOrderBuy());
 
     if(myOrder.isOrderBuy()){
@@ -120,7 +131,7 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
   }
 
   class HolderOrder extends RecyclerView.ViewHolder{
-    private TextView txtNameOrder,txtDescOrder,txtClientOrder,txtClientName;
+    private TextView txtNameOrder,txtDescOrder,txtClientOrder,txtClientName, txtLocation;
     private ImageView imageViewRemoveItem,Imagen_mover_pedido;
     private CardView containerOrderItem;
     private AppCompatCheckBox checkBuyOrder;
@@ -129,6 +140,7 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
       txtNameOrder = itemView.findViewById(R.id.lbl_order_name);
       txtClientName = itemView.findViewById(R.id.txtClientName);
       txtDescOrder = itemView.findViewById(R.id.lbl_order_descripcion);
+      txtLocation  = itemView.findViewById(R.id.txtGetUbication);
       checkBuyOrder = itemView.findViewById(R.id.AppCompatCheckBox_buy_order);
       txtClientOrder = itemView.findViewById(R.id.lbl_order_client);
       imageViewRemoveItem= itemView.findViewById(R.id.ImageView_delete_item);
@@ -154,5 +166,13 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
   public void setOnItemOrderBuy(
       com.epacheco.reports.view.orderView.orderDetailView.onItemOrderBuy onItemOrderBuy) {
     this.onItemOrderBuy = onItemOrderBuy;
+  }
+
+  public com.epacheco.reports.view.orderView.orderDetailView.onItemLocationOrder getOnClickLocationOrder() {
+    return onItemLocationOrder;
+  }
+  public void setOnClickLocationOrder(
+          com.epacheco.reports.view.orderView.orderDetailView.onItemLocationOrder onItemLocationOrder){
+    this.onItemLocationOrder = onItemLocationOrder;
   }
 }

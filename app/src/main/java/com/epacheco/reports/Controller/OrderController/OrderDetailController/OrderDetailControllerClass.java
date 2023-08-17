@@ -121,13 +121,12 @@ public class OrderDetailControllerClass implements OrderDetailControllerInterfac
     if(orderDetailModelClass!=null && mAuth!=null&& mAuth.getUid()!=null){
       FirebaseDatabase database = FirebaseDatabase.getInstance();
       DatabaseReference myRef = database.getReference("Reports");
-      DatabaseReference usersRef = myRef.child(mAuth.getUid()).child(Constants.CLIENT_ORDERS_TABLE_FIREBASE);
+      DatabaseReference usersRef = myRef.child(mAuth.getUid()).child(Constants.CLIENT_LOCATION_ORDERS_TABLE_FIREBASE);
       usersRef.child(orderIdList).child("orderLists").child(orderItemId).setValue(orderDetail, new CompletionListener() {
         @Override
         public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
           if (databaseError != null) {
             orderDetailModelClass.errorOrderBuyElement(databaseError.getMessage());
-
           } else {
             orderDetailModelClass.successOrderBuyElement();
           }
@@ -136,4 +135,41 @@ public class OrderDetailControllerClass implements OrderDetailControllerInterfac
       });
     }
   }
+
+  @Override
+  public void saveLocationOrder(OrderDetail orderDetail) {
+    if(orderDetailModelClass!=null && mAuth!=null&& mAuth.getUid()!=null){
+      FirebaseDatabase database = FirebaseDatabase.getInstance();
+      DatabaseReference myRef = database.getReference("Reports");
+      DatabaseReference usersRefLocation = myRef.child(mAuth.getUid()).child(Constants.CLIENT_LOCATION_ORDERS_TABLE_FIREBASE);
+
+      usersRefLocation.child(orderDetail.getLocationOrder().getLocationId()).setValue(orderDetail.getLocationOrder(), new CompletionListener() {
+        @Override
+        public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+          if (databaseError != null) {
+            orderDetailModelClass.errorSaveLocationOrder(databaseError.getMessage());
+          } else {
+
+            DatabaseReference usersRef = myRef.child(mAuth.getUid()).child(Constants.CLIENT_ORDERS_TABLE_FIREBASE);
+            usersRef.child(orderDetail.getOrderListId()).child("orderLists").child(orderDetail.getOrderId()).child("orderLocation").setValue(orderDetail.getLocationOrder(), new CompletionListener() {
+              @Override
+              public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                if (databaseError != null) {
+                  orderDetailModelClass.errorSaveLocationOrder(databaseError.getMessage());
+                } else {
+                  orderDetailModelClass.successSaveLocationOrder();
+                }
+              }
+
+            });
+
+          }
+        }
+
+      });
+
+    }
+  }
+
+
 }

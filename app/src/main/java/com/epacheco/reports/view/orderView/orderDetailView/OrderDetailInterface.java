@@ -17,4 +17,7 @@ public interface OrderDetailInterface {
   void successMoveOrder();
   void errorMoveOrder(String error);
 
+  void successSaveLocationOrder();
+  void errorSaveLocationOrder(String error);
+
 }
