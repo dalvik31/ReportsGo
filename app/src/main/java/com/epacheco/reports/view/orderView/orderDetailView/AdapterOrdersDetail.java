@@ -35,6 +35,7 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
     private OnClicListener itemClic;
     private onItemLocationOrder onItemLocationOrder;
     private onItemGenerateRout onItemGenerateRout;
+    private Boolean isBuy;
 
     public interface OnClicListener {
         void onItemClick(OrderDetail order);
@@ -86,9 +87,22 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
                 itemClic.onItemClick(myOrder);
             }
         });
+
+        /**
+         *
+         *
+         *
+         *
+         *
+         *
+         */
         holderOrder.containerOrderItem.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (getOnItemOrderBuy() != null) {
+                    myOrder.setOrderBuy(!myOrder.isOrderBuy());
+                    getOnItemOrderBuy().onItemOrderClic(myOrder.getOrderListId(), myOrder.getOrderId(), myOrder);
+                }
                 clicItemList(false, myOrder.getOrderListId(), myOrder.getOrderId());
             }
         });
@@ -104,7 +118,7 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
         });
 
 
-        holderOrder.checkBuyOrder.setChecked(myOrder.isOrderBuy());
+        //holderOrder.checkBuyOrder.setChecked(myOrder.isOrderBuy());
 
         if (myOrder.isOrderBuy()) {
             holderOrder.btnMoveOrder.setVisibility(View.GONE);
@@ -129,7 +143,15 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
             }
         });
 
-        holderOrder.checkBuyOrder.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+        /**
+         *
+         *
+         *
+         *
+         *
+         *
+         */
+       /* holderOrder.checkBuyOrder.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (getOnItemOrderBuy() != null) {
@@ -137,7 +159,7 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
                     getOnItemOrderBuy().onItemOrderClic(myOrder.getOrderListId(), myOrder.getOrderId(), myOrder);
                 }
             }
-        });
+        });*/
     }
 
 
@@ -157,7 +179,7 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
         private ImageView imageViewRemoveItem;
         private CardView containerOrderItem;
         private FloatingActionButton btnMoveOrder, btnGetLocation, btnRoute;
-        private AppCompatCheckBox checkBuyOrder;
+        //private AppCompatCheckBox checkBuyOrder;
 
         HolderOrder(@NonNull View itemView) {
             super(itemView);
@@ -165,7 +187,7 @@ public class AdapterOrdersDetail extends RecyclerView.Adapter<AdapterOrdersDetai
             txtClientName = itemView.findViewById(R.id.txtClientName);
             txtDescOrder = itemView.findViewById(R.id.lbl_order_descripcion);
             btnGetLocation = itemView.findViewById(R.id.btnGetUbication);
-            checkBuyOrder = itemView.findViewById(R.id.AppCompatCheckBox_buy_order);
+            //checkBuyOrder = itemView.findViewById(R.id.AppCompatCheckBox_buy_order);
             btnRoute = itemView.findViewById(R.id.btnRoute);
             btnMoveOrder = itemView.findViewById(R.id.Imagen_mover_pedido);
             imageViewRemoveItem = itemView.findViewById(R.id.ImageView_delete_item);

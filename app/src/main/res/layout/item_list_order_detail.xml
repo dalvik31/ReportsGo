@@ -65,54 +65,6 @@
         card_view:layout_constraintStart_toStartOf="parent"
         card_view:layout_constraintTop_toBottomOf="@+id/txtClientName" />
 
-    <!--<com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:id="@+id/multiple_actions_down"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        fab:fab_addButtonColorNormal="@color/colorPrimary"
-        fab:fab_addButtonColorPressed="@color/colorPrimary"
-        fab:fab_addButtonPlusIconColor="@color/colorWhite"
-        fab:fab_labelStyle="@style/menu_labels_style">
-
-      <com.getbase.floatingactionbutton.FloatingActionButton
-          android:id="@+id/txtGetUbication"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:foregroundGravity="center"
-          android:src="@drawable/ic_location"
-          fab:fab_colorNormal="@color/colorWhite"
-          fab:fab_colorPressed="@color/colorGray"
-          fab:fab_title="Estoy en la ubicación" />
-
-      <com.getbase.floatingactionbutton.FloatingActionButton
-          android:id="@+id/imageButton"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:foregroundGravity="center"
-          android:src="@drawable/ic_navigation"
-          fab:fab_colorNormal="@color/colorWhite"
-          fab:fab_colorPressed="@color/colorGray"
-          fab:fab_title="Cómo llegar" />
-
-      <com.getbase.floatingactionbutton.FloatingActionButton
-          android:id="@+id/Imagen_mover_pedido"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:foregroundGravity="center"
-          android:src="@drawable/ic_baseline_drive_file_move"
-          fab:fab_colorNormal="@color/colorWhite"
-          fab:fab_colorPressed="@color/colorGray"
-          fab:fab_title="Cambiar de lista" />
-
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>-->
-
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/multiple_actions_down"
         android:layout_width="wrap_content"
@@ -173,7 +125,7 @@
         card_view:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatCheckBox
+    <!--<androidx.appcompat.widget.AppCompatCheckBox
         android:id="@+id/AppCompatCheckBox_buy_order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -184,7 +136,7 @@
         android:padding="10dp"
         android:text="@string/lbl_order_buy"
         card_view:layout_constraintEnd_toEndOf="parent"
-        card_view:layout_constraintTop_toTopOf="parent" />
+        card_view:layout_constraintTop_toTopOf="parent" />-->
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
