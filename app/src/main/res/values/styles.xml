@@ -165,6 +165,12 @@
     <item name="colorAccent">@color/colorWhite</item> <!-- Whatever color you want-->
   </style>
 
+  <!--Style para el floatingActionButton-->
+  <style name="menu_labels_style">
+    <item name="android:background">@drawable/fab_label_background</item>
+    <item name="android:textColor">@color/colorAccent</item>
+  </style>
+
   <declare-styleable name="ButtonMenu">
     <attr name="image" format="integer"/>
     <attr name="title" format="string"/>

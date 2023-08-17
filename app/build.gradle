@@ -86,6 +86,9 @@ dependencies {
     //Libreia para los usar los mapas
     implementation 'com.google.android.gms:play-services-location:21.0.1'
 
+    //Libreria para implementar un floatingActionButton desplegable
+    implementation 'com.getbase:floatingactionbutton:1.10.1'
+
 }
 
 

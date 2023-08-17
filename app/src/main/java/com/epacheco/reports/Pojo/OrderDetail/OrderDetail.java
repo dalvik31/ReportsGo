@@ -17,7 +17,7 @@ public class OrderDetail {
   private String orderDescription;
   private Client orderClient;
   private Product orderProduct;
-  private LocationOrders locationOrder;
+  private LocationOrders orderLocation;
 
   private boolean orderBuy;
 
@@ -85,12 +85,16 @@ public class OrderDetail {
     this.orderClient = orderClient;
   }
 
-  public LocationOrders getLocationOrder() {
-    return locationOrder;
+  public Product getOrderProduct() {
+    return orderProduct;
   }
 
-  public void setLocationOrder(LocationOrders locationOrder) {
-    this.locationOrder = locationOrder;
+  public LocationOrders getOrderLocation() {
+    return orderLocation;
+  }
+
+  public void setOrderLocation(LocationOrders orderLocation) {
+    this.orderLocation = orderLocation;
   }
 
   public void setOrderProduct(Product orderProduct){

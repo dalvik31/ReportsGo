@@ -52,7 +52,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class OrderDetailView extends AppCompatActivity implements AdapterOrdersDetail.OnClicListener, OrderDetailInterface, onItemOrderDetailClic, onItemOrderBuy,onItemLocationOrder {
+public class OrderDetailView extends AppCompatActivity implements AdapterOrdersDetail.OnClicListener, OrderDetailInterface, onItemOrderDetailClic, onItemOrderBuy,onItemLocationOrder, onItemGenerateRout {
 
   private final String TAG = OrderDetailView.class.getSimpleName();
   public static final String ORDER_ID = "orderId";
@@ -150,6 +150,7 @@ public class OrderDetailView extends AppCompatActivity implements AdapterOrdersD
       adapterOrders.setOnItemOrderDetailClic(this);
       adapterOrders.setOnItemOrderBuy(this);
       adapterOrders.setOnClickLocationOrder(this);
+      adapterOrders.setOnClickGenerateRoute(this);
       binding.recyclerListOrderElelments.setAdapter(adapterOrders);
     } else {
       binding.lblZeroOrdersElements.setVisibility(View.VISIBLE);
@@ -344,7 +345,6 @@ public class OrderDetailView extends AppCompatActivity implements AdapterOrdersD
 
       Log.e("mensaje", "SE REQUIERE USAR EL PERMISO PARA ACCEDER A LA UBICACION");
     } else {
-
       Log.e("mensaje", "MENSAJE DEL SISTEMA");
       requestPermissionLauncher.launch(new String[]{
               android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION
@@ -372,7 +372,7 @@ public class OrderDetailView extends AppCompatActivity implements AdapterOrdersD
           locationOrders.setLatitude(String.valueOf(location.getLatitude()));
           locationOrders.setLongitude(String.valueOf(location.getLongitude()));
           locationOrders.setDireccion(address);
-          locationSaved.setLocationOrder(locationOrders);
+          locationSaved.setOrderLocation(locationOrders);
           com.epacheco.reports.tools.Tools.showToasMessage(OrderDetailView.this, "Ubicación guardada");
 
           orderDetailModelClass.saveLocationOrder(locationSaved);
@@ -381,4 +381,11 @@ public class OrderDetailView extends AppCompatActivity implements AdapterOrdersD
     });
   }
 
+  @Override
+  public void onItemGenerateLocationClick(OrderDetail orderDetail) {
+    Uri gmmIntentUri = Uri.parse("google.navigation:q="+orderDetail.getOrderLocation().getLatitude()+","+orderDetail.getOrderLocation().getLongitude()+"&mode=d");
+    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+    mapIntent.setPackage("com.google.android.apps.maps");
+    startActivity(mapIntent);
+  }
 }
