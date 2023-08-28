@@ -327,8 +327,6 @@ public class OrderDetailView extends AppCompatActivity implements AdapterOrdersD
             PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
             this, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
             PackageManager.PERMISSION_GRANTED) {
-
-      geocoder = new Geocoder(OrderDetailView.this, Locale.getDefault());
       getLocation();
 
     } else if (shouldShowRequestPermissionRationale(android.Manifest.permission.ACCESS_COARSE_LOCATION) && shouldShowRequestPermissionRationale(android.Manifest.permission.ACCESS_FINE_LOCATION) ) {
@@ -361,6 +359,7 @@ public class OrderDetailView extends AppCompatActivity implements AdapterOrdersD
       public void onSuccess(Location location) {
         if (location != null && locationSaved != null) {
           try {
+            geocoder = new Geocoder(OrderDetailView.this, Locale.getDefault());
             addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
           } catch (IOException e) {
             throw new RuntimeException(e);
