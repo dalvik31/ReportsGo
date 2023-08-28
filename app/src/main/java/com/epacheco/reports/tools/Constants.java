@@ -10,8 +10,15 @@ public class Constants {
     public final static String CLIENT_IMAGES_TABLE_FIREBASE = "Images";
     public final static String CLIENT_IMAGES_PROFILE_TABLE_FIREBASE = "ImagesProfile";
     public final static String ID_GENERIC_SALES = "Genérico";
+    public final static String CLIENT_LOCATION_ORDERS_TABLE_FIREBASE = "Locations";
 
     //SharedPreferences
     public final static String USERNAME_SAVE = "userNameSave";
     public final static String TIMER_SAVED = "timerSaved";
+
+    public final static String PREFS_NAME = "MyPrefs";
+    public final static String COUNTER_KEY = "counter";
+    public final static String CHANGE_SEASON = "CHANGE_SEASON";
+
+
 }

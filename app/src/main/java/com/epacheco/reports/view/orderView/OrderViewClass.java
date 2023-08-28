@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentActivity;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -27,6 +30,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.epacheco.reports.Model.OrderModel.OrderModelClass;
 import com.epacheco.reports.Pojo.Order.OrderList;
 import com.epacheco.reports.R;
+import com.epacheco.reports.tools.Constants;
 import com.epacheco.reports.tools.ScreenManager;
 import com.epacheco.reports.tools.ReportsApplication;
 import com.epacheco.reports.tools.ReportsDialogGlobal;
@@ -41,7 +45,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.Random;
 
 public class OrderViewClass extends AppCompatActivity implements OrderViewIterface, onItemOrderClic {
     public static final String ORDERLIST = "ORDER_LIST";
@@ -56,19 +59,21 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
     private String idProduct;
     private boolean idListSelected;
     ArrayList<OrderList> orderList1;
+    private CardView cardView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_order_view_class);
         inicializateElements();
+        validateDateForBanner();
     }
 
     private void inicializateElements() {
         mAuth = FirebaseAuth.getInstance();
         progressbar = ReportsProgressDialog.getInstance();
         orderModelClass = new OrderModelClass(this);
-        showProgress(getString(R.string.msg_search_orders));
+        //showProgress(getString(R.string.msg_search_orders));
         orderModelClass.getOrders();
 
         Bundle extras = getIntent().getExtras();
@@ -274,4 +279,51 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
     public void goProfileActivity(View v) {
         ScreenManager.goProfileActivity(this);
     }
+
+    private TextView txtSeason;
+    private ImageView imgSeason;
+
+    private void validateDateForBanner() {
+        txtSeason = binding.itemBannerSeason.txtTitleBanner;
+        imgSeason = binding.itemBannerSeason.imgSeason;
+        Calendar calendar = Calendar.getInstance();
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        cardView = binding.itemBannerSeason.bannerItemSeason;
+        com.epacheco.reports.tools.Tools.setIntegerPreference(Constants.PREFS_NAME, MODE_PRIVATE);
+
+        //setSeason(day,month);
+        ponerTemporada(day, month);
+
+    }
+
+
+    private void ponerTemporada(int day, int month) {
+        String currentSeason = com.epacheco.reports.tools.Tools.getStringPreference(Constants.CHANGE_SEASON);
+        int currentTime = com.epacheco.reports.tools.Tools.getIntegerPreference(Constants.COUNTER_KEY);
+
+        if ((month == 2 && day >= 19) || (month == 8 && day <= 23) || (month > 2 && month < 8)) {
+            txtSeason.setText(R.string.msg_season_spring_summer);
+            imgSeason.setImageResource(R.drawable.img_banner_primavera);
+            com.epacheco.reports.tools.Tools.setStringPreference(Constants.CHANGE_SEASON, getString(R.string.msg_season_spring_summer));
+        } else {
+            com.epacheco.reports.tools.Tools.setStringPreference(Constants.CHANGE_SEASON, getString(R.string.msg_season_autumn_winter));
+            txtSeason.setText(R.string.msg_season_autumn_winter);
+            imgSeason.setImageResource(R.drawable.img_banner_invierno);
+        }
+
+        if (!currentSeason.equals(com.epacheco.reports.tools.Tools.getStringPreference(Constants.CHANGE_SEASON))) {
+            currentTime = 0;
+            com.epacheco.reports.tools.Tools.setIntegerPreference(Constants.COUNTER_KEY, currentTime);
+        }
+        if (currentTime < 2) {
+            com.epacheco.reports.tools.Tools.setIntegerPreference(Constants.COUNTER_KEY, currentTime + 1);
+            cardView.setVisibility(View.VISIBLE);
+        } else {
+            cardView.setVisibility(View.GONE);
+        }
+
+    }
+
 }
