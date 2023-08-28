@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -50,6 +51,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Locale;
 
 public class OrderDetailView extends AppCompatActivity implements AdapterOrdersDetail.OnClicListener, OrderDetailInterface, onItemOrderDetailClic, onItemOrderBuy,onItemLocationOrder, onItemGenerateRout {
@@ -62,6 +64,7 @@ public class OrderDetailView extends AppCompatActivity implements AdapterOrdersD
 
 
   private ActivityOrderDetailViewBinding binding;
+  private OrderModelClass orderModelClass;
   private FirebaseAuth mAuth;
   private String listOrderId;
   private ReportsProgressDialog progressbar;
@@ -93,6 +96,7 @@ public class OrderDetailView extends AppCompatActivity implements AdapterOrdersD
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     binding = DataBindingUtil.setContentView(OrderDetailView.this, R.layout.activity_order_detail_view);
+
     fusedLocationClient = LocationServices.getFusedLocationProviderClient(OrderDetailView.this);
     initElements();
   }
@@ -286,21 +290,30 @@ public class OrderDetailView extends AppCompatActivity implements AdapterOrdersD
     ArrayAdapter<OrderList> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, myArrayList);
     List_move_order = v.findViewById(R.id.List_move_order);
     List_move_order.setAdapter(adapter);
+
     List_move_order.setOnItemClickListener((parent, view, position, id) -> {
+
       ReportsDialogGlobal.showDialogAcceptAnCancel(this, "Mover Pedido", "¿ Deceas mover el pedido a esta lista ?",
               new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-          orderDetailModelClass.moveOrder(adapter.getItem(position).getDateOrder(),orderDetail);
-          finish();
+          if(Objects.equals(adapter.getItem(position).getDateOrder(), listOrderId)){
+            Toast.makeText(OrderDetailView.this,R.string.msgToastListOrder,Toast.LENGTH_SHORT).show();
+          }else{
+            orderDetailModelClass.moveOrder(adapter.getItem(position).getDateOrder(),orderDetail);
+            finish();
+          }
         }
       }, new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
+
         }
       });
 
       Log.e(TAG, "getNameOrder :  " + adapter.getItem(position).getNameOrder());
+
+
     });
     builder.setView(v);
     builder.setTitle("Mover Pedido");
@@ -311,6 +324,8 @@ public class OrderDetailView extends AppCompatActivity implements AdapterOrdersD
 
       }
     });
+
+
     return  builder.show();
   }
 

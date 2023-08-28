@@ -256,6 +256,7 @@
     <string name="msgChangeList">Cambiar de lista</string>
     <string name="msgGetLocation">Estoy en la ubicación</string>
     <string name="msgGenerateRoute">¿Cómo llegar?</string>
+    <string name="msgToastListOrder">No se puede mover el pedido a la misma lista</string>
 
     <!--Errores FIREBASE-->
     <string name="msg_firebase_delete_user">No se encontro información del usuario.</string>
