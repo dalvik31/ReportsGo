@@ -248,7 +248,7 @@ public class OrderDetailView extends AppCompatActivity implements AdapterOrdersD
         @Override
         public void onClick(DialogInterface dialog, int which) {
           if(Objects.equals(adapter.getItem(position).getDateOrder(), listOrderId)){
-            Toast.makeText(OrderDetailView.this,"No se puede mover el pedido a la misma lista",Toast.LENGTH_SHORT).show();
+            Toast.makeText(OrderDetailView.this,R.string.msgToastListOrder,Toast.LENGTH_SHORT).show();
           }else{
             orderDetailModelClass.moveOrder(adapter.getItem(position).getDateOrder(),orderDetail);
             finish();
