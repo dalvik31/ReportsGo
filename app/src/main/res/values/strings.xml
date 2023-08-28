@@ -244,7 +244,8 @@
     <string name="lbl_title_create_order_description">Descripción</string>
     <string name="lbl_title_create_order_description_hint">Detalles importantes del producto</string>
     <string name="lbl_order_buy">Comprado</string>
-    <string name="lbl_order_buy_update">Pedido actualizado</string>
+    <string name="lbl_order_buy_update">Pedido Actualizado</string>
+    <string name="lbl_order_update">Pedido Comprado</string>
     <string name="title_message_select_order">Selecciona una lista.</string>
     <string name="body_message_select_order2">Elige la lista en la cual se agregara el pedido.</string>
     <string name="body_message_select_order">Elige la lista en la cual se agregara el pedido del cliente.</string>
@@ -252,6 +253,9 @@
     <string name="body_message_delete_elemnt">¿Realmente deseas eliminar este elemento.</string>
     <string name="lbl_size_number">Numérica</string>
     <string name="errorTittleorder">Falta titulo de la lista</string>
+    <string name="msgChangeList">Cambiar de lista</string>
+    <string name="msgGetLocation">Estoy en la ubicación</string>
+    <string name="msgGenerateRoute">¿Cómo llegar?</string>
     <string name="msgToastListOrder">No se puede mover el pedido a la misma lista</string>
 
     <!--Errores FIREBASE-->

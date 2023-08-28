@@ -6,7 +6,7 @@
 
   <!--Basic colors-->
   <color name="colorWhite">#FFFFFF</color>
-  <color name="colorWhiteTransparent">#80FFFFFF</color>
+  <color name="colorWhiteTransparent">#889F9F9F</color>
   <color name="colorGreenTransparent">#8BB9FFBB</color>
   <color name="colorgreenTransparent">#8DC68F</color>
   <color name="colorYelowTransparent">#FFCF7D</color>
