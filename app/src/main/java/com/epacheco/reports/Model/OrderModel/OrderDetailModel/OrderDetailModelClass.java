@@ -50,9 +50,9 @@ public class OrderDetailModelClass implements OrderDetailModelInterface {
   }
 
   @Override
-  public void successOrderBuyElement() {
+  public void successOrderBuyElement(String success) {
     if(orderDetailView!= null){
-      orderDetailView.successOrderBuyElement();
+      orderDetailView.successOrderBuyElement(success);
     }
   }
 
@@ -84,6 +84,26 @@ public class OrderDetailModelClass implements OrderDetailModelInterface {
     }
   }
 
+  @Override
+  public void successSaveLocationOrder() {
+    if(orderDetailView!= null){
+      orderDetailView.successSaveLocationOrder();
+    }
+  }
+
+  @Override
+  public void errorSaveLocationOrder(String error) {
+    if(orderDetailView!= null){
+      orderDetailView.errorSaveLocationOrder(error);
+    }
+  }
+
+  @Override
+  public void saveLocationOrder(OrderDetail orderDetail) {
+    if(orderDetailControllerClass!=null){
+      orderDetailControllerClass.saveLocationOrder(orderDetail);
+    }
+  }
 
   @Override
   public void getDetailOrderList(String orderIdList) {
@@ -105,4 +125,7 @@ public class OrderDetailModelClass implements OrderDetailModelInterface {
       orderDetailControllerClass.orderItemBuy(orderIdList,orderItemId,orderDetail);
     }
   }
+
+
+
 }

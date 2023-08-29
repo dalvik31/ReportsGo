@@ -16,12 +16,12 @@
             android:layout_height="match_parent"
             tools:context=".view.orderView.OrderViewClass">
 
-          <com.epacheco.reports.tools.customView.ToolbarGlobal
-              android:id="@+id/appBarLayout"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              app:imageProfile="@drawable/icon_person"
-              app:toolbarTitle="@string/lbl_title_orders" />
+            <com.epacheco.reports.tools.customView.ToolbarGlobal
+                android:id="@+id/appBarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:imageProfile="@drawable/icon_person"
+                app:toolbarTitle="@string/lbl_title_orders" />
 
             <ProgressBar
                 android:id="@+id/progress_download_orders"
@@ -33,11 +33,21 @@
                 android:indeterminateOnly="true"
                 android:theme="@style/AppTheme.ProgressBar" />
 
+            <include
+                android:id="@+id/itemBannerSeason"
+                layout="@layout/item_banner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/progress_download_orders"
+                android:layout_margin="10dp"
+                android:visibility="gone"/>
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerListOrder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/progress_download_orders"
+                android:layout_below="@+id/itemBannerSeason"
                 android:visibility="visible"
                 tools:listitem="@layout/item_list_order" />
 
@@ -48,19 +58,20 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 app:srcCompat="@drawable/ic_vector_empty_orders" />
+
             <TextView
                 android:id="@+id/lbl_zero_orders"
                 style="@style/TextView_Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/imgEmptyOrders"
                 android:layout_centerInParent="true"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="@string/msg_zero_orders"
                 android:textColor="@color/colorPrimary"
                 android:textSize="20sp"
-                android:visibility="visible"
-                android:layout_below="@+id/imgEmptyOrders"
-                android:layout_marginTop="20dp"/>
+                android:visibility="visible" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/floating_action_button"
@@ -69,10 +80,10 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_margin="20dp"
-                app:tint="@color/colorWhite"
                 android:onClick="createListOrder"
                 app:backgroundTint="@color/colorPrimary"
-                app:srcCompat="@drawable/ic_vector_add" />
+                app:srcCompat="@drawable/ic_vector_add"
+                app:tint="@color/colorWhite" />
         </RelativeLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -1,6 +1,9 @@
 package com.epacheco.reports.Pojo.OrderDetail;
 
+import android.location.Location;
+
 import com.epacheco.reports.Pojo.Client.Client;
+import com.epacheco.reports.Pojo.Location.LocationOrders;
 import com.epacheco.reports.Pojo.Product.Product;
 
 public class OrderDetail {
@@ -14,6 +17,8 @@ public class OrderDetail {
   private String orderDescription;
   private Client orderClient;
   private Product orderProduct;
+  private LocationOrders orderLocation;
+
   private boolean orderBuy;
 
   public String getOrderListId() {
@@ -80,11 +85,22 @@ public class OrderDetail {
     this.orderClient = orderClient;
   }
 
+  public Product getOrderProduct() {
+    return orderProduct;
+  }
+
+  public LocationOrders getOrderLocation() {
+    return orderLocation;
+  }
+
+  public void setOrderLocation(LocationOrders orderLocation) {
+    this.orderLocation = orderLocation;
+  }
+
   public void setOrderProduct(Product orderProduct){
     this.orderProduct = orderProduct;
 
   }
-
 
   public boolean isOrderBuy() {
     return orderBuy;

@@ -244,7 +244,8 @@
     <string name="lbl_title_create_order_description">Descripción</string>
     <string name="lbl_title_create_order_description_hint">Detalles importantes del producto</string>
     <string name="lbl_order_buy">Comprado</string>
-    <string name="lbl_order_buy_update">Pedido actualizado</string>
+    <string name="lbl_order_buy_update">Pedido Actualizado</string>
+    <string name="lbl_order_update">Pedido Comprado</string>
     <string name="title_message_select_order">Selecciona una lista.</string>
     <string name="body_message_select_order2">Elige la lista en la cual se agregara el pedido.</string>
     <string name="body_message_select_order">Elige la lista en la cual se agregara el pedido del cliente.</string>
@@ -252,7 +253,10 @@
     <string name="body_message_delete_elemnt">¿Realmente deseas eliminar este elemento.</string>
     <string name="lbl_size_number">Numérica</string>
     <string name="errorTittleorder">Falta titulo de la lista</string>
-
+    <string name="msgChangeList">Cambiar de lista</string>
+    <string name="msgGetLocation">Estoy en la ubicación</string>
+    <string name="msgGenerateRoute">¿Cómo llegar?</string>
+    <string name="msgToastListOrder">No se puede mover el pedido a la misma lista</string>
 
     <!--Errores FIREBASE-->
     <string name="msg_firebase_delete_user">No se encontro información del usuario.</string>
@@ -285,6 +289,12 @@
     <string name="msg_cancel_sale_succes">Venta cancelada.</string>
     <string name="msg_cancel_sale_item">COMPRA CANCELADA</string>
 
+    <!-- String para el banner-->
+    <string name="title_banner">Temporada </string>
+    <string name="title_season_spring">Primavera - Verano </string>
+    <string name="title_season_winter">Otoño - Invierno </string>
+    <string name="msg_banner">Toma esto en cuenta al crear tu lista</string>
+
 
     <!--Activity dialog new order-->
     <string name="lbl_title_dialog_new_order">Crear lista de pedidos</string>
@@ -294,5 +304,9 @@
     <!--Activity custom dialog product detail-->
     <string name="lbl_title_dialog_product">Sin inventario</string>
     <string name="msg_dialog_product">No hay productos en tu inventario. Cambia el valor de cantidad.</string>
+
+    <!--Strings para el banner-->
+    <string name="msg_season_spring_summer">Primavera - Verano</string>
+    <string name="msg_season_autumn_winter">Otoño - Invierno</string>
 
 </resources>
