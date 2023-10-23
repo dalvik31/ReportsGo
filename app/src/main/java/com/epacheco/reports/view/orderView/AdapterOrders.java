@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.epacheco.reports.Pojo.Order.OrderList;
@@ -34,7 +35,6 @@ public class AdapterOrders extends RecyclerView.Adapter<AdapterOrders.HolderOrde
   private List<OrderList> orderList;
   private onItemOrderClic onItemOrderClic;
   private int imageResourses;
-  private String mes;
 
 
   AdapterOrders(List<OrderList> orderList) {
@@ -84,9 +84,13 @@ public class AdapterOrders extends RecyclerView.Adapter<AdapterOrders.HolderOrde
       for (Map.Entry<String, OrderDetail> entry : myOrder.getOrderLists().entrySet()) {
         if (((OrderDetail) entry.getValue()).isOrderBuy()) {
           countOrders++;
+          int percent = countOrders *100 / myOrder.getOrderLists().size();
+          holderOrder.textViewProgress.setText(percent + "%");
         }
       }
       holderOrder.progressIndicator.setProgress(countOrders);
+    }else{
+      holderOrder.progressIndicator.setVisibility(View.GONE);
     }
 
   }
@@ -107,7 +111,8 @@ public class AdapterOrders extends RecyclerView.Adapter<AdapterOrders.HolderOrde
     private ImageView imageViewRemoveItem;
     private CardView containerOrderItem;
     private ImageView relativItemOrder;
-    private final ProgressIndicator progressIndicator;
+    private TextView textViewProgress;
+    private final ProgressBar progressIndicator;
     HolderOrder(@NonNull View itemView) {
       super(itemView);
       relativItemOrder = itemView.findViewById(R.id.relativItemOrder);
@@ -116,7 +121,7 @@ public class AdapterOrders extends RecyclerView.Adapter<AdapterOrders.HolderOrde
       imageViewRemoveItem= itemView.findViewById(R.id.ImageView_delete_item);
       containerOrderItem= itemView.findViewById(R.id.cardView_container_item_order);
       progressIndicator = itemView.findViewById(R.id.progressOrder);
-
+      textViewProgress = itemView.findViewById(R.id.txt_progress);
     }
   }
 

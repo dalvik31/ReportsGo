@@ -308,5 +308,7 @@
     <!--Strings para el banner-->
     <string name="msg_season_spring_summer">Primavera - Verano</string>
     <string name="msg_season_autumn_winter">Otoño - Invierno</string>
+    <!--Strings para el progress-->
+    <string name="msgProgress">Tareas completadas</string>
 
 </resources>
