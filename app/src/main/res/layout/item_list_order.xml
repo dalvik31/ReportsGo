@@ -80,9 +80,9 @@
           app:srcCompat="@drawable/ic_vector_remove_red" />
 
 
-      <com.google.android.material.progressindicator.ProgressIndicator
+      <ProgressBar
           android:id="@+id/progressOrder"
-          style="@style/Widget.MaterialComponents.ProgressIndicator.Linear.Determinate"
+          style="@style/Widget.AppCompat.ProgressBar.Horizontal"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_alignParentBottom="true"

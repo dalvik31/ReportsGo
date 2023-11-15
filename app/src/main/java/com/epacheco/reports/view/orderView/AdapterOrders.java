@@ -15,12 +15,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.epacheco.reports.Pojo.Order.OrderList;
 import com.epacheco.reports.Pojo.OrderDetail.OrderDetail;
 import com.epacheco.reports.R;
-import com.google.android.material.progressindicator.ProgressIndicator;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -107,7 +107,7 @@ public class AdapterOrders extends RecyclerView.Adapter<AdapterOrders.HolderOrde
     private ImageView imageViewRemoveItem;
     private CardView containerOrderItem;
     private ImageView relativItemOrder;
-    private final ProgressIndicator progressIndicator;
+    private final ProgressBar progressIndicator;
     HolderOrder(@NonNull View itemView) {
       super(itemView);
       relativItemOrder = itemView.findViewById(R.id.relativItemOrder);
