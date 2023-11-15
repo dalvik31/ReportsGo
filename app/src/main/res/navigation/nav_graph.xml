@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/clientNameFragment">
+
+    <fragment
+        android:id="@+id/clientNameFragment"
+        android:name="com.epacheco.reports.view.clientView.addNewClient.ClientNameFragment"
+        android:label="fragment_client_name"
+        tools:layout="@layout/fragment_client_name" >
+        <action
+            android:id="@+id/action_clientNameFragment_to_clientLastNameFragment"
+            app:destination="@id/clientLastNameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/clientLastNameFragment"
+        android:name="com.epacheco.reports.view.clientView.addNewClient.ClientLastNameFragment"
+        android:label="fragment_client_last_name"
+        tools:layout="@layout/fragment_client_last_name" />
+</navigation>
