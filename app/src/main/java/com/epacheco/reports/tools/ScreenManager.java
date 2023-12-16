@@ -5,6 +5,7 @@ import android.content.Intent;
 import androidx.fragment.app.FragmentActivity;
 
 import com.epacheco.reports.Pojo.Order.OrderList;
+import com.epacheco.reports.view.clientView.addNewClient.AddNewClientActivity;
 import com.epacheco.reports.view.clientView.clienDetailView.ClientDetailViewClass;
 import com.epacheco.reports.view.clientView.clientAddView.ClientAddViewClass;
 import com.epacheco.reports.view.clientView.clientDetailListView.ClientDetailListViewClass;
@@ -38,6 +39,11 @@ public class ScreenManager {
   public static void goAddClientActivity(FragmentActivity myActivity, String idClient){
     Intent addClientActivity = new Intent(myActivity, ClientAddViewClass.class);
     addClientActivity.putExtra(ClientAddViewClass.CLIENT_ID,idClient);
+    myActivity.startActivity(addClientActivity);
+  }
+
+  public static void addClient(FragmentActivity myActivity){
+    Intent addClientActivity = new Intent(myActivity, AddNewClientActivity.class);
     myActivity.startActivity(addClientActivity);
   }
 

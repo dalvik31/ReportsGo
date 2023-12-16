@@ -12,17 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.epacheco.reports.R;
-import com.epacheco.reports.databinding.FragmentClientLastNameBinding;
-import com.epacheco.reports.databinding.FragmentClientNameBinding;
+import com.epacheco.reports.databinding.FragmentClientCreditBinding;
+import com.epacheco.reports.databinding.FragmentClientPhoneBinding;
 
-public class ClientLastNameFragment extends Fragment {
-    private FragmentClientLastNameBinding binding;
-
-    public ClientLastNameFragment() {
+public class ClientCreditFragment extends Fragment {
+    private FragmentClientCreditBinding binding;
+    public ClientCreditFragment() {
     }
 
-    public static ClientLastNameFragment newInstance() {
-        ClientLastNameFragment fragment = new ClientLastNameFragment();
+    public static ClientCreditFragment newInstance() {
+        ClientCreditFragment fragment = new ClientCreditFragment();
         return fragment;
     }
 
@@ -34,7 +33,7 @@ public class ClientLastNameFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentClientLastNameBinding.inflate(inflater, container, false);
+        binding = FragmentClientCreditBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -42,19 +41,11 @@ public class ClientLastNameFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_clientLastNameFragment_to_clientInformationFragment);
-            }
-        });
-
         binding.btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getActivity().onBackPressed();
             }
         });
-
     }
 }

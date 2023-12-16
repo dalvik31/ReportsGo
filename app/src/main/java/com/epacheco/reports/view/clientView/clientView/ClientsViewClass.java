@@ -162,7 +162,7 @@ public class ClientsViewClass extends AppCompatActivity implements ClientViewInt
     ScreenManager.goProfileActivity(this);
   }
   public void goAddClientActivity(View v){
-    ScreenManager.goAddClientActivity(getMyActivity(),null);
+    ScreenManager.addClient(getMyActivity());
 
   }
 

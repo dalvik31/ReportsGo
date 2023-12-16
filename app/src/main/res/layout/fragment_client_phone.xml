@@ -15,7 +15,7 @@ xmlns:tools="http://schemas.android.com/tools">
         android:layout_height="wrap_content"
         android:id="@+id/fragmentClientName"
         android:background="@drawable/bacground_add_client"
-        tools:context=".view.clientView.addNewClient.ClientLastNameFragment">
+        tools:context=".view.clientView.addNewClient.ClientPhoneFragment">
 
         <TextView
             android:id="@+id/textView3"
@@ -32,17 +32,19 @@ xmlns:tools="http://schemas.android.com/tools">
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/txt_client_lastname"
+            android:id="@+id/txt_client_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorWhite"
             android:fontFamily="sans-serif-thin"
             android:gravity="center"
-            android:hint="@string/edit_text_client_last_name"
-            android:maxLines="1"
+            android:hint="@string/edit_text_client_phone_num"
             android:textColor="@color/colorWhite"
+            android:maxLines="1"
+            android:maxLength="20"
             android:textColorHint="@color/colorWhite"
             android:textSize="30sp"
+            android:inputType="phone"
             app:layout_constraintBottom_toTopOf="@+id/btnNext"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
