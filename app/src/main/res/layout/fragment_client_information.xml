@@ -17,6 +17,16 @@ xmlns:tools="http://schemas.android.com/tools">
         android:background="@drawable/bacground_add_client"
         tools:context=".view.clientView.addNewClient.ClientInformationFragment">
 
+        <ImageView
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/cancel_icon"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
@@ -29,7 +39,7 @@ xmlns:tools="http://schemas.android.com/tools">
             android:textSize="45sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/btnCancel" />
 
         <EditText
             android:id="@+id/txt_client_detail"
@@ -71,26 +81,26 @@ xmlns:tools="http://schemas.android.com/tools">
             app:layout_constraintTop_toTopOf="@+id/btnNext" />
 
         <ImageView
-            android:id="@+id/icCancel"
+            android:id="@+id/icBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:src="@drawable/cancel_icon"
-            app:layout_constraintBottom_toBottomOf="@+id/btnCancel"
+            android:src="@drawable/baseline_arrow_back_ios_24"
+            app:layout_constraintBottom_toBottomOf="@+id/btnBack"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btnCancel" />
+            app:layout_constraintTop_toTopOf="@+id/btnBack" />
 
         <TextView
-            android:id="@+id/btnCancel"
+            android:id="@+id/btnBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:textSize="20sp"
             android:fontFamily="sans-serif-thin"
-            android:text="@string/button_cancel"
+            android:text="@string/button_back"
             android:textColor="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/icCancel" />
+            app:layout_constraintStart_toEndOf="@+id/icBack" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
 </layout>

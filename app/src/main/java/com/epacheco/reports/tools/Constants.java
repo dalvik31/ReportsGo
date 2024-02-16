@@ -20,5 +20,12 @@ public class Constants {
     public final static String COUNTER_KEY = "counter";
     public final static String CHANGE_SEASON = "CHANGE_SEASON";
 
+    //Constantes para la creacion de un nuevo cliente
+    public final static String CLIENT_NAME = "CLIENT_NAME";
+    public final static String CLIENT_LAST_NAME = "CLIENT_LAST_NAME";
+    public final static String CLIENT_NUMBER = "CLIENT_NUMBER";
+    public final static String CLIENT_CREDIT = "CLIENT_CREDIT";
+    public final static String CLIENT_INFORMATION = "CLIENT_INFORMATION";
+
 
 }

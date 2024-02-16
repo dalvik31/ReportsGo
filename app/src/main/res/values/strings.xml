@@ -315,10 +315,12 @@
     <string name="edit_text_client_name">Nombre(s)</string>
     <string name="button_next">Siguiente</string>
     <string name="button_cancel">Cancelar</string>
+    <string name="button_back">Atras</string>
     <string name="edit_text_client_last_name">Apellido(s)</string>
     <string name="edit_text_client_information">Información del cliente</string>
     <string name="edit_text_client_phone_num">Celular</string>
     <string name="edit_text_client_credit">Limite de credito</string>
+    <string name="btn_create_client">CREAR</string>
 
 
 </resources>

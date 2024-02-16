@@ -1,5 +1,6 @@
 package com.epacheco.reports.view.clientView.addNewClient;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -11,7 +12,7 @@ import android.os.Bundle;
 
 import com.epacheco.reports.R;
 
-public class AddNewClientActivity extends AppCompatActivity {
+public class AddNewClientActivity extends AppCompatActivity  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,11 @@ public class AddNewClientActivity extends AppCompatActivity {
 
         NavigationUI.setupActionBarWithNavController(this,navController,appBarConfiguration);
 
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
     }
 
     @Override
@@ -33,4 +39,5 @@ public class AddNewClientActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this,R.id.nav_host_fragment);
         return navController.navigateUp()|| super.onSupportNavigateUp();
     }
+
 }

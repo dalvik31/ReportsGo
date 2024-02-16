@@ -14,8 +14,10 @@ import android.view.ViewGroup;
 import com.epacheco.reports.R;
 import com.epacheco.reports.databinding.FragmentClientNameBinding;
 import com.epacheco.reports.databinding.FragmentClientPhoneBinding;
+import com.epacheco.reports.tools.Constants;
 
 public class ClientPhoneFragment extends Fragment {
+    private String clientPhone;
     private FragmentClientPhoneBinding binding;
 
     public ClientPhoneFragment() {
@@ -41,18 +43,43 @@ public class ClientPhoneFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if (getArguments().containsKey(Constants.CLIENT_NUMBER)) {
+            clientPhone = getArguments().getString(Constants.CLIENT_NUMBER);
+            binding.txtClientPhone.setText(clientPhone);
+        }
+
         binding.btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_clientPhoneFragment_to_clientCreditFragment);
+                Bundle bundle = new Bundle();
+                assert getArguments() != null;
+                bundle.putString(Constants.CLIENT_NAME, getArguments().getString(Constants.CLIENT_NAME));
+                bundle.putString(Constants.CLIENT_LAST_NAME, getArguments().getString(Constants.CLIENT_LAST_NAME));
+                bundle.putString(Constants.CLIENT_INFORMATION, getArguments().getString(Constants.CLIENT_INFORMATION));
+                bundle.putString(Constants.CLIENT_NUMBER, getArguments().getString(Constants.CLIENT_NUMBER));
+                Navigation.findNavController(view).navigate(R.id.action_clientPhoneFragment_to_clientCreditFragment,bundle);
+            }
+        });
+
+        binding.btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
             }
         });
 
         binding.btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().onBackPressed();
+
+                AddNewClientActivity actividad = (AddNewClientActivity) getActivity();
+                if (actividad != null) {
+                    actividad.finish();
+                }
+
             }
         });
+
     }
 }
