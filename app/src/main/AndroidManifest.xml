@@ -22,7 +22,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:name=".tools.ReportsApplication"
+        android:name=".compose_reformat.ReportsApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -30,24 +30,23 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
-            android:name=".compose_reformat.MainActivity"
-            android:exported="false"
-            android:theme="@style/AppTheme" />
+            android:name=".compose_reformat.splash.MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.App.Starting">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".view.financeActivityView.FinanceAcitivityView"
             android:theme="@style/AppThemeNoActionBar" />
         <activity
             android:name=".view.splash.SplashActivity"
-            android:exported="true"
-            android:theme="@style/AppThemeNoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppThemeNoActionBar"/>
         <activity
             android:name=".view.forgotPassword.ForgotPasswordAcitivity"
             android:theme="@style/AppThemeNoActionBar" />
