@@ -147,7 +147,6 @@
     <string name="toolbar_scan">Escanear producto</string>
 
 
-
     <string name="lbl_select_product_size_2">2</string>
     <string name="lbl_select_product_size_4">4</string>
     <string name="lbl_select_product_size_6">6</string>
@@ -167,7 +166,7 @@
     <string name="lbl_select_product_size_44">44</string>
 
 
-   <string name="lbl_take_photo">Tomar foto</string>
+    <string name="lbl_take_photo">Tomar foto</string>
     <string name="lbl_select_gallery">Abrir galería</string>
     <string name="msg_error_empty_product_name">Falta nombre del producto</string>
     <string name="msg_error_empty_type_name">Falta tipo del producto</string>

@@ -29,7 +29,6 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.epacheco.reports.BuildConfig;
 import com.epacheco.reports.Model.ProfileModel.ProfileModelClass;
 import com.epacheco.reports.R;
 import com.epacheco.reports.tools.ReportsDialogGlobal;
@@ -55,7 +54,7 @@ public class ProfileViewClass extends AppCompatActivity implements ProfileViewIn
 
 
     //Constantes para abrir la camara
-    private final static String MY_PROVIDER = BuildConfig.APPLICATION_ID + ".providers.FileProvider";
+    private final static String MY_PROVIDER =/* BuildConfig.APPLICATION_ID +*/ ".providers.FileProvider";
     private File photoFile;
 
     private final int MY_PERMISSIONS_REQUEST_CAMERA = 1;

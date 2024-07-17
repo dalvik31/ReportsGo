@@ -83,12 +83,12 @@ public class MainActivityViewClass extends AppCompatActivity {
 
     public void goSearchElement(View view) {
         switch (view.getId()) {
-            case R.id.fbtn_search_client:
+            /*case R.id.fbtn_search_client:
                 ScreenManager.goSearchActivity(this, SearchElementView.FROM_SEARCH_CLIENT);
                 break;
             case R.id.fbtn_search_product:
                 ScreenManager.goSearchActivity(this, SearchElementView.FROM_SEARCH_PRODUCT);
-                break;
+                break;*/
         }
     }
 

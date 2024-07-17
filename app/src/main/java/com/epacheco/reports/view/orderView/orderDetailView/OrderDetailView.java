@@ -29,7 +29,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.epacheco.reports.BuildConfig;
 import com.epacheco.reports.Model.OrderModel.OrderDetailModel.OrderDetailModelClass;
 import com.epacheco.reports.Model.OrderModel.OrderModelClass;
 import com.epacheco.reports.Pojo.Location.LocationOrders;
@@ -351,7 +350,7 @@ public class OrderDetailView extends AppCompatActivity implements AdapterOrdersD
       mySnackbar.setAction("SETTINGS", new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:"+ BuildConfig.APPLICATION_ID)));
+          //startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:"+ BuildConfig.APPLICATION_ID)));
         }
       });
       mySnackbar.show();
