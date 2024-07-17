@@ -1,4 +1,4 @@
-package com.epacheco.reports.compose_reformat.splash
+package com.epacheco.reports.compose_reformat.ui.splash
 
 import android.animation.ObjectAnimator
 import android.os.Bundle
