@@ -24,8 +24,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.ui.general_components.BasicButton
+import com.epacheco.reports.compose_reformat.ui.general_components.EmailTextField
+import com.epacheco.reports.compose_reformat.ui.general_components.PrimaryButton
+import com.epacheco.reports.compose_reformat.ui.general_components.SecondaryButton
 import com.epacheco.reports.compose_reformat.ui.general_components.TextDivider
+import com.epacheco.reports.compose_reformat.ui.general_components.otherEmail
 import com.epacheco.reports.compose_reformat.ui.theme.FacebookBackground
 import com.epacheco.reports.compose_reformat.ui.theme.GoogleBackground
 import com.epacheco.reports.compose_reformat.ui.theme.RedDark
@@ -90,31 +93,21 @@ fun RegisterScreen() {
             )
 
             Spacer(Modifier.padding(top = 24.dp))
-            TextField(
-                value = "email",
-                onValueChange = { },
-                modifier = Modifier.fillMaxWidth(),
-                placeholder = { Text(text = "Email") },
-                maxLines = 1,
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-                colors = TextFieldDefaults.colors(
-                    focusedTextColor = Color(0xFFB2B2B2),
-                    unfocusedContainerColor = Color(0xFFFAFAFA),
-                    focusedContainerColor = Color(0xFFFAFAFA),
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent
-                )
-            )
+            otherEmail()
             Spacer(Modifier.padding(top = 24.dp))
-            BasicButton(
-                textButton = "Action",
+            PrimaryButton(
+                textButton = "INICIA SESION",
                 colorBackground = MaterialTheme.colorScheme.primary
             )
+
+            SecondaryButton(
+                textButton = "REGISTRATE"
+            )
+
             Spacer(Modifier.padding(top = 24.dp))
             TextDivider("Ó")
             Spacer(Modifier.padding(top = 24.dp))
-            BasicButton(
+            PrimaryButton(
                 textButton = "Continua con facebook",
                 iconBtn = R.drawable.ic_vector_facebook_logo,
                 colorBackground = FacebookBackground,
@@ -122,7 +115,7 @@ fun RegisterScreen() {
             ) {
 
             }
-            BasicButton(
+            PrimaryButton(
                 textButton = "Continua con google",
                 iconBtn = R.drawable.ic_vector_google_logo,
                 colorBackground = GoogleBackground,
@@ -130,7 +123,7 @@ fun RegisterScreen() {
             ) {
 
             }
-            BasicButton(
+            PrimaryButton(
                 textButton = "Continua con twitter",
                 iconBtn = R.drawable.ic_vector_twitter_logo,
                 colorBackground = TwitterBackground,

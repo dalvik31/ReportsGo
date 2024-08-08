@@ -22,7 +22,7 @@ import com.epacheco.reports.compose_reformat.ui.theme.TwitterBackground
 import com.epacheco.reports.compose_reformat.ui.theme.White
 
 @Composable
-fun BasicButton(
+fun PrimaryButton(
     textButton: String,
     iconBtn: Int? = null,
     colorBackground: Color = MaterialTheme.colorScheme.primary,
@@ -63,7 +63,7 @@ fun BasicButton(
 @Preview
 @Composable
 private fun showTwitterButton() {
-    BasicButton(
+    PrimaryButton(
         textButton = "Twitter",
         iconBtn = R.drawable.ic_vector_twitter_logo,
         colorBackground = TwitterBackground
@@ -73,7 +73,7 @@ private fun showTwitterButton() {
 @Preview
 @Composable
 private fun showGoogleButton() {
-    BasicButton(
+    PrimaryButton(
         textButton = "Twitter",
         iconBtn = R.drawable.ic_vector_google_logo,
         colorBackground = GoogleBackground
@@ -83,7 +83,7 @@ private fun showGoogleButton() {
 @Preview
 @Composable
 private fun showFacebookButton() {
-    BasicButton(
+    PrimaryButton(
         textButton = "Twitter",
         iconBtn = R.drawable.ic_vector_facebook_logo,
         colorBackground = FacebookBackground
@@ -93,7 +93,7 @@ private fun showFacebookButton() {
 @Preview
 @Composable
 private fun showPrimaryButton() {
-    BasicButton(
+    PrimaryButton(
         textButton = "Action",
         colorBackground = MaterialTheme.colorScheme.primary
     )
@@ -102,7 +102,7 @@ private fun showPrimaryButton() {
 @Preview
 @Composable
 private fun showSecondaryButton() {
-    BasicButton(
+    PrimaryButton(
         textButton = "Action",
         colorBackground = MaterialTheme.colorScheme.primary
     )
