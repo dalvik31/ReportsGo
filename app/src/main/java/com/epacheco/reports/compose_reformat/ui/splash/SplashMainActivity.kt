@@ -9,13 +9,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.epacheco.reports.compose_reformat.ui.register.RegisterScreen
+import com.epacheco.reports.compose_reformat.ui.register.RegisterViewModel
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 class MainActivity : ComponentActivity() {
 
-
+    private val registerViewModel: RegisterViewModel by viewModels()
     private val splashViewModel: SplashViewModel by viewModels()
 
 
@@ -31,18 +33,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    RegisterScreen()
+                    RegisterScreen(registerViewModel)
                 }
             }
         }
-    }
-}
-
-
-
-@Composable
-fun GreetingPreview() {
-    ReportsGoTheme {
-        RegisterScreen()
     }
 }

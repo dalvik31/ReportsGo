@@ -27,10 +27,11 @@ fun PrimaryButton(
     iconBtn: Int? = null,
     colorBackground: Color = MaterialTheme.colorScheme.primary,
     modifier: Modifier = Modifier,
+    enabledButton: Boolean = true,
     onButtonClicked: (() -> Unit)? = null
 ) {
     Button(
-        enabled = true,
+        enabled = enabledButton,
         onClick = {
             onButtonClicked?.let {
                 it.invoke()

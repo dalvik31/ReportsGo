@@ -12,10 +12,11 @@ import androidx.compose.ui.tooling.preview.Preview
 fun SecondaryButton(
     textButton: String,
     modifier: Modifier = Modifier,
+    enabledButton: Boolean = true,
     onButtonClicked: (() -> Unit)? = null
 ) {
     TextButton(
-        enabled = true,
+        enabled = enabledButton,
         onClick = {
             onButtonClicked?.let {
                 it.invoke()

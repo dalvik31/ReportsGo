@@ -2,20 +2,26 @@ package com.epacheco.reports.compose_reformat.ui.register
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -25,10 +31,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ui.general_components.EmailTextField
+import com.epacheco.reports.compose_reformat.ui.general_components.PasswordTextField
 import com.epacheco.reports.compose_reformat.ui.general_components.PrimaryButton
+import com.epacheco.reports.compose_reformat.ui.general_components.ReportsCheckBox
 import com.epacheco.reports.compose_reformat.ui.general_components.SecondaryButton
 import com.epacheco.reports.compose_reformat.ui.general_components.TextDivider
-import com.epacheco.reports.compose_reformat.ui.general_components.otherEmail
 import com.epacheco.reports.compose_reformat.ui.theme.FacebookBackground
 import com.epacheco.reports.compose_reformat.ui.theme.GoogleBackground
 import com.epacheco.reports.compose_reformat.ui.theme.RedDark
@@ -36,7 +43,12 @@ import com.epacheco.reports.compose_reformat.ui.theme.TwitterBackground
 
 
 @Composable
-fun RegisterScreen() {
+fun RegisterScreen(registerViewModel: RegisterViewModel) {
+    val email: String by registerViewModel.email.observeAsState("")
+    val password: String by registerViewModel.password.observeAsState("")
+    val enabledButtonContinue: Boolean by registerViewModel.enabledLoginButton.observeAsState(false)
+    val checkRememberUser: Boolean by registerViewModel.checkRememberUser.observeAsState(false)
+
 
     Column(verticalArrangement = Arrangement.SpaceBetween) {
 
@@ -50,9 +62,9 @@ fun RegisterScreen() {
                 .weight(1f, true)
 
         ) {
-            Spacer(Modifier.padding(top = 24.dp))
+            Spacer(Modifier.padding(top = 48.dp))
             Text(
-                "Reports",
+                stringResource(id = R.string.register_screen_name_app_logo_first),
                 textAlign = TextAlign.Center,
                 fontStyle = FontStyle.Italic,
                 fontWeight = FontWeight.ExtraBold,
@@ -63,7 +75,7 @@ fun RegisterScreen() {
 
             )
             Text(
-                "GO",
+                stringResource(id = R.string.register_screen_name_app_logo_second),
                 textAlign = TextAlign.Center,
                 fontStyle = FontStyle.Italic,
                 fontWeight = FontWeight.ExtraBold,
@@ -74,41 +86,56 @@ fun RegisterScreen() {
 
             )
             Spacer(Modifier.padding(top = 24.dp))
+            EmailTextField(email = email) { registerViewModel.onValueLoginChanged(it, password) }
 
-            TextField(
-                value = "email",
-                onValueChange = { },
-                modifier = Modifier.fillMaxWidth(),
-                placeholder = { Text(text = "Email") },
-                maxLines = 1,
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-                colors = TextFieldDefaults.colors(
-                    focusedTextColor = Color(0xFFB2B2B2),
-                    unfocusedContainerColor = Color(0xFFFAFAFA),
-                    focusedContainerColor = Color(0xFFFAFAFA),
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent
+
+            Spacer(Modifier.padding(top = 24.dp))
+            PasswordTextField(password = password) {
+                registerViewModel.onValueLoginChanged(email, it)
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(end = 8.dp),
+
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                ReportsCheckBox(
+                    isChecked = checkRememberUser,
+                    textCheckBox = stringResource(id = R.string.register_screen_lbl_remember_user)
+                ) {
+                    registerViewModel.onValueCheckRememberUser(checkRememberUser)
+                }
+
+                Text(
+                    text = stringResource(id = R.string.register_screen_lbl_forgot_password),
+                    modifier = Modifier.weight(1f),
+                    textAlign = TextAlign.Right,
+                    color = MaterialTheme.colorScheme.primary,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold
                 )
-            )
 
-            Spacer(Modifier.padding(top = 24.dp))
-            otherEmail()
+            }
+
             Spacer(Modifier.padding(top = 24.dp))
             PrimaryButton(
-                textButton = "INICIA SESION",
-                colorBackground = MaterialTheme.colorScheme.primary
+                textButton = stringResource(id = R.string.register_screen_btn_login).uppercase(),
+                colorBackground = MaterialTheme.colorScheme.primary,
+                enabledButton = enabledButtonContinue
             )
 
             SecondaryButton(
-                textButton = "REGISTRATE"
+                textButton = stringResource(id = R.string.register_screen_btn_sign_up).uppercase(),
+                enabledButton = enabledButtonContinue
             )
 
             Spacer(Modifier.padding(top = 24.dp))
-            TextDivider("Ó")
+            TextDivider(stringResource(id = R.string.register_screen_lbl_or))
             Spacer(Modifier.padding(top = 24.dp))
             PrimaryButton(
-                textButton = "Continua con facebook",
+                textButton = stringResource(id = R.string.register_screen_btn_continue_facebook),
                 iconBtn = R.drawable.ic_vector_facebook_logo,
                 colorBackground = FacebookBackground,
                 modifier = Modifier
@@ -116,7 +143,7 @@ fun RegisterScreen() {
 
             }
             PrimaryButton(
-                textButton = "Continua con google",
+                textButton = stringResource(id = R.string.register_screen_btn_continue_google),
                 iconBtn = R.drawable.ic_vector_google_logo,
                 colorBackground = GoogleBackground,
                 modifier = Modifier
@@ -124,15 +151,14 @@ fun RegisterScreen() {
 
             }
             PrimaryButton(
-                textButton = "Continua con twitter",
+                textButton = stringResource(id = R.string.register_screen_btn_continue_twitter),
                 iconBtn = R.drawable.ic_vector_twitter_logo,
                 colorBackground = TwitterBackground,
                 modifier = Modifier
             ) {
 
             }
-
-
+            Spacer(Modifier.padding(top = 48.dp))
         }
     }
 
@@ -141,6 +167,7 @@ fun RegisterScreen() {
 @Preview
 @Composable
 private fun showRegisterScreenPreview() {
-    RegisterScreen()
+    val viewModel = RegisterViewModel()
+    RegisterScreen(viewModel)
 }
 

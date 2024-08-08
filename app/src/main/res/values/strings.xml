@@ -308,4 +308,20 @@
     <string name="msg_season_spring_summer">Primavera - Verano</string>
     <string name="msg_season_autumn_winter">Otoño - Invierno</string>
 
+
+    <!--REFACTOR RESOURCES COMPOSE -->
+
+    <!--Register Screen-->
+    <string name="register_screen_name_app_logo_first">Reports</string>
+    <string name="register_screen_name_app_logo_second">GO</string>
+    <string name="register_screen_hint_email">Ingresa correo electrónico</string>
+    <string name="register_screen_hint_password">Ingresa contraseña</string>
+    <string name="register_screen_btn_login">Iniciar sesión</string>
+    <string name="register_screen_btn_sign_up">Crear cuenta</string>
+    <string name="register_screen_btn_continue_facebook">Continua con Facebook</string>
+    <string name="register_screen_btn_continue_google">Continua con Google</string>
+    <string name="register_screen_btn_continue_twitter">Continua con Twitter</string>
+    <string name="register_screen_lbl_or">Ó</string>
+    <string name="register_screen_lbl_remember_user">Recordar usuario</string>
+    <string name="register_screen_lbl_forgot_password">Olvidé mi contraseña</string>
 </resources>
