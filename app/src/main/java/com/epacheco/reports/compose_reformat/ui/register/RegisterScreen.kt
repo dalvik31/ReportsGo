@@ -30,12 +30,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.ui.general_components.EmailTextField
-import com.epacheco.reports.compose_reformat.ui.general_components.PasswordTextField
-import com.epacheco.reports.compose_reformat.ui.general_components.PrimaryButton
-import com.epacheco.reports.compose_reformat.ui.general_components.ReportsCheckBox
-import com.epacheco.reports.compose_reformat.ui.general_components.SecondaryButton
-import com.epacheco.reports.compose_reformat.ui.general_components.TextDivider
+import com.epacheco.reports.compose_reformat.general_components.EmailTextField
+import com.epacheco.reports.compose_reformat.general_components.PasswordTextField
+import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
+import com.epacheco.reports.compose_reformat.general_components.ReportsCheckBox
+import com.epacheco.reports.compose_reformat.general_components.SecondaryButton
+import com.epacheco.reports.compose_reformat.general_components.TextDivider
 import com.epacheco.reports.compose_reformat.ui.theme.FacebookBackground
 import com.epacheco.reports.compose_reformat.ui.theme.GoogleBackground
 import com.epacheco.reports.compose_reformat.ui.theme.RedDark
@@ -49,10 +49,7 @@ fun RegisterScreen(registerViewModel: RegisterViewModel) {
     val enabledButtonContinue: Boolean by registerViewModel.enabledLoginButton.observeAsState(false)
     val checkRememberUser: Boolean by registerViewModel.checkRememberUser.observeAsState(false)
 
-
     Column(verticalArrangement = Arrangement.SpaceBetween) {
-
-
         Column(
             verticalArrangement = Arrangement.Center,
             modifier = Modifier
@@ -68,7 +65,7 @@ fun RegisterScreen(registerViewModel: RegisterViewModel) {
                 textAlign = TextAlign.Center,
                 fontStyle = FontStyle.Italic,
                 fontWeight = FontWeight.ExtraBold,
-                color = RedDark,
+                color = MaterialTheme.colorScheme.primary,
                 fontSize = 45.sp,
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
@@ -79,7 +76,7 @@ fun RegisterScreen(registerViewModel: RegisterViewModel) {
                 textAlign = TextAlign.Center,
                 fontStyle = FontStyle.Italic,
                 fontWeight = FontWeight.ExtraBold,
-                color = RedDark,
+                color = MaterialTheme.colorScheme.primary,
                 fontSize = 45.sp,
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
@@ -87,8 +84,6 @@ fun RegisterScreen(registerViewModel: RegisterViewModel) {
             )
             Spacer(Modifier.padding(top = 24.dp))
             EmailTextField(email = email) { registerViewModel.onValueLoginChanged(it, password) }
-
-
             Spacer(Modifier.padding(top = 24.dp))
             PasswordTextField(password = password) {
                 registerViewModel.onValueLoginChanged(email, it)
@@ -96,9 +91,8 @@ fun RegisterScreen(registerViewModel: RegisterViewModel) {
 
             Row(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(end = 8.dp),
-
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 ReportsCheckBox(
@@ -107,10 +101,9 @@ fun RegisterScreen(registerViewModel: RegisterViewModel) {
                 ) {
                     registerViewModel.onValueCheckRememberUser(checkRememberUser)
                 }
-
                 Text(
                     text = stringResource(id = R.string.register_screen_lbl_forgot_password),
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier.weight(1f, fill = false),
                     textAlign = TextAlign.Right,
                     color = MaterialTheme.colorScheme.primary,
                     fontSize = 12.sp,
@@ -164,9 +157,9 @@ fun RegisterScreen(registerViewModel: RegisterViewModel) {
 
 }
 
-@Preview
+@Preview()
 @Composable
-private fun showRegisterScreenPreview() {
+private fun ShowRegisterScreenPreview() {
     val viewModel = RegisterViewModel()
     RegisterScreen(viewModel)
 }

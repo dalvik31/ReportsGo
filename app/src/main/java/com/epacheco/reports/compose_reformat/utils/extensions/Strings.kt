@@ -1,4 +1,4 @@
-package com.epacheco.reports.compose_reformat.ui.utils.extensions
+package com.epacheco.reports.compose_reformat.utils.extensions
 
 import android.util.Patterns
 

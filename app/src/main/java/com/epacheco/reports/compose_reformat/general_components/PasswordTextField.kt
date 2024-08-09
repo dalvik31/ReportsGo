@@ -1,4 +1,4 @@
-package com.epacheco.reports.compose_reformat.ui.general_components
+package com.epacheco.reports.compose_reformat.general_components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding

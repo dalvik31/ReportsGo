@@ -1,4 +1,4 @@
-package com.epacheco.reports.compose_reformat.ui.general_components
+package com.epacheco.reports.compose_reformat.general_components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -49,8 +49,8 @@ fun EmailTextField(email: String, onTextChange: (String) -> Unit) {
             disabledContainerColor = Color.Transparent,
             focusedContainerColor = Color.Transparent,
             unfocusedIndicatorColor = MaterialTheme.colorScheme.primary,
-            focusedTextColor = RedDark,
-            unfocusedTextColor = RedDark,
+            focusedTextColor = MaterialTheme.colorScheme.onSurface,
+            unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
             disabledIndicatorColor = Color.Transparent,
             focusedIndicatorColor = MaterialTheme.colorScheme.primary
         ),
