@@ -63,8 +63,6 @@ fun PasswordTextField(password: String, onTextChange: (String) -> Unit) {
             disabledContainerColor = Color.Transparent,
             focusedContainerColor = Color.Transparent,
             unfocusedIndicatorColor = MaterialTheme.colorScheme.primary,
-            focusedTextColor = RedDark,
-            unfocusedTextColor = RedDark,
             disabledIndicatorColor = Color.Transparent,
             focusedIndicatorColor = MaterialTheme.colorScheme.primary
         ),

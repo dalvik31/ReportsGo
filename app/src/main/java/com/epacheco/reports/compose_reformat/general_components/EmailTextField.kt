@@ -49,22 +49,9 @@ fun EmailTextField(email: String, onTextChange: (String) -> Unit) {
             disabledContainerColor = Color.Transparent,
             focusedContainerColor = Color.Transparent,
             unfocusedIndicatorColor = MaterialTheme.colorScheme.primary,
-            focusedTextColor = MaterialTheme.colorScheme.onSurface,
-            unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
             disabledIndicatorColor = Color.Transparent,
             focusedIndicatorColor = MaterialTheme.colorScheme.primary
-        ),
-        /* trailingIcon = {
-             if (email.isNotEmpty()) {
-                 IconButton(onClick = { onTextChange("") }) {
-                     Icon(
-                         painterResource(id = R.drawable.refactor_ic_cancel),
-                         tint = MaterialTheme.colorScheme.tertiary,
-                         contentDescription = null
-                     )
-                 }
-             }
-         }*/
+        )
 
     )
 }
