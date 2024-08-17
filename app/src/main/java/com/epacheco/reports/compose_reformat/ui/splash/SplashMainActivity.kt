@@ -11,7 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.ui.navigation.AppNavHost
+import com.epacheco.reports.compose_reformat.ui.navigation.ROUTE_HOME
+import com.epacheco.reports.compose_reformat.ui.navigation.ROUTE_LOGIN
 import com.epacheco.reports.compose_reformat.ui.register.RegisterScreen
 import com.epacheco.reports.compose_reformat.ui.register.RegisterViewModel
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
@@ -31,8 +34,20 @@ class MainActivity : ComponentActivity() {
         }
         setContent {
             ReportsGoTheme {
-                AppNavHost(registerViewModel)
+                AppNavHost(
+                    registerViewModel,
+                    startDestination = getStartDestination()
+                )
             }
         }
     }
+
+    private fun getStartDestination(): String {
+        return when (registerViewModel.loginFlow.value) {
+            is Resource.Success -> ROUTE_HOME
+            else -> ROUTE_LOGIN
+        }
+    }
+
 }
+
