@@ -11,15 +11,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.epacheco.reports.compose_reformat.ui.navigation.AppNavHost
 import com.epacheco.reports.compose_reformat.ui.register.RegisterScreen
 import com.epacheco.reports.compose_reformat.ui.register.RegisterViewModel
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-    private val registerViewModel: RegisterViewModel by viewModels()
     private val splashViewModel: SplashViewModel by viewModels()
 
+    private val registerViewModel by viewModels<RegisterViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
@@ -29,12 +31,7 @@ class MainActivity : ComponentActivity() {
         }
         setContent {
             ReportsGoTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    RegisterScreen(registerViewModel)
-                }
+                AppNavHost(registerViewModel)
             }
         }
     }
