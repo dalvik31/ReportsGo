@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ui.theme.GreyLight
 import com.epacheco.reports.compose_reformat.ui.theme.RedDark
+import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 
 @Composable
@@ -81,9 +82,12 @@ fun PasswordTextField(password: String, onTextChange: (String) -> Unit) {
     )
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview
 @Composable
 private fun ShowEmailTextField() {
-    PasswordTextField("") {}
+    ReportsGoTheme {
+        PasswordTextField("") {}
+    }
+
 }
 

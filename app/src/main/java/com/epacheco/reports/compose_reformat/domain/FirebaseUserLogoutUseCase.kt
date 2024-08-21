@@ -7,6 +7,5 @@ class FirebaseUserLogoutUseCase @Inject constructor(private val firebaseAuthRepo
 
      operator fun invoke() {
         return firebaseAuthRepository.logout()
-
     }
 }

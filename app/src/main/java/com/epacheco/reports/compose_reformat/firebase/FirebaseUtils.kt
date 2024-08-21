@@ -1,17 +1,19 @@
 package com.epacheco.reports.compose_reformat.firebase
 
 import com.google.android.gms.tasks.Task
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resumeWithException
 
 
+@OptIn(ExperimentalCoroutinesApi::class)
 suspend fun <T> Task<T>.await(): T {
-    return suspendCancellableCoroutine { cont ->
+    return suspendCancellableCoroutine { suspendCoroutine ->
         addOnCompleteListener {
             if (it.exception != null) {
-                cont.resumeWithException(it.exception!!)
+                suspendCoroutine.resumeWithException(it.exception!!)
             } else {
-                cont.resume(it.result, null)
+                suspendCoroutine.resume(it.result, null)
             }
         }
     }

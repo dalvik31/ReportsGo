@@ -1,29 +1,20 @@
-package com.epacheco.reports.compose_reformat.ui.register
+package com.epacheco.reports.compose_reformat.ui.login
 
-import android.util.Log
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -34,32 +25,24 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.general_components.EmailTextField
 import com.epacheco.reports.compose_reformat.general_components.PasswordTextField
 import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
 import com.epacheco.reports.compose_reformat.general_components.ReportsCheckBox
 import com.epacheco.reports.compose_reformat.general_components.SecondaryButton
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
-import com.epacheco.reports.compose_reformat.ui.navigation.ROUTE_HOME
-import com.epacheco.reports.compose_reformat.ui.navigation.ROUTE_LOGIN
 import com.epacheco.reports.compose_reformat.ui.navigation.ROUTE_PASSWORD
 import com.epacheco.reports.compose_reformat.ui.theme.FacebookBackground
 import com.epacheco.reports.compose_reformat.ui.theme.GoogleBackground
+import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.ui.theme.TwitterBackground
-
 
 @Composable
 fun RegisterScreen(registerViewModel: RegisterViewModel?, navController: NavController) {
-
-    val authResource = registerViewModel?.loginFlow?.collectAsState()
-
-    val email: String by registerViewModel!!.email.observeAsState("")
-    val password: String by registerViewModel!!.password.observeAsState("")
-    val enabledButtonContinue: Boolean by registerViewModel!!.enabledLoginButton.observeAsState(
-        false
-    )
-    val checkRememberUser: Boolean by registerViewModel!!.checkRememberUser.observeAsState(false)
+    val email = registerViewModel?.email?.collectAsState()
+    val password = registerViewModel?.password?.collectAsState()
+    val enabledButtonContinue = registerViewModel?.enabledLoginButton?.collectAsState()
+    val checkRememberUser = registerViewModel?.checkRememberUser?.collectAsState()
 
     Column(verticalArrangement = Arrangement.SpaceBetween) {
         Column(
@@ -95,15 +78,15 @@ fun RegisterScreen(registerViewModel: RegisterViewModel?, navController: NavCont
 
             )
             Spacer(Modifier.padding(top = 24.dp))
-            EmailTextField(email = email) {
+            EmailTextField(email = email?.value ?: "") {
                 registerViewModel?.onValueLoginChanged(
                     it,
-                    password
+                    password?.value ?: ""
                 )
             }
             Spacer(Modifier.padding(top = 24.dp))
-            PasswordTextField(password = password) {
-                registerViewModel?.onValueLoginChanged(email, it)
+            PasswordTextField(password = password?.value ?: "") {
+                registerViewModel?.onValueLoginChanged(email?.value ?: "", it)
             }
 
             Row(
@@ -113,16 +96,18 @@ fun RegisterScreen(registerViewModel: RegisterViewModel?, navController: NavCont
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 ReportsCheckBox(
-                    isChecked = checkRememberUser,
+                    isChecked = checkRememberUser?.value ?: false,
                     textCheckBox = stringResource(id = R.string.register_screen_lbl_remember_user)
                 ) {
-                    registerViewModel?.onValueCheckRememberUser(checkRememberUser)
+                    registerViewModel?.onValueCheckRememberUser(checkRememberUser?.value ?: false)
                 }
                 Text(
                     text = stringResource(id = R.string.register_screen_lbl_forgot_password),
-                    modifier = Modifier.weight(1f, fill = false).clickable {
-                        navController.navigate(ROUTE_PASSWORD)
-                    },
+                    modifier = Modifier
+                        .weight(1f, fill = false)
+                        .clickable {
+                            navController.navigate(ROUTE_PASSWORD)
+                        },
                     textAlign = TextAlign.Right,
                     color = MaterialTheme.colorScheme.primary,
                     fontSize = 12.sp,
@@ -135,15 +120,17 @@ fun RegisterScreen(registerViewModel: RegisterViewModel?, navController: NavCont
             PrimaryButton(
                 textButton = stringResource(id = R.string.register_screen_btn_login).uppercase(),
                 colorBackground = MaterialTheme.colorScheme.primary,
-                enabledButton = enabledButtonContinue
+                enabledButton = enabledButtonContinue?.value ?: false
             ) {
                 registerViewModel?.loginWithEmail()
             }
 
             SecondaryButton(
                 textButton = stringResource(id = R.string.register_screen_btn_sign_up).uppercase(),
-                enabledButton = enabledButtonContinue
-            )
+                enabledButton = enabledButtonContinue?.value ?: false
+            ) {
+                registerViewModel?.createAccount()
+            }
 
             Spacer(Modifier.padding(top = 24.dp))
             TextDivider(stringResource(id = R.string.register_screen_lbl_or))
@@ -175,42 +162,11 @@ fun RegisterScreen(registerViewModel: RegisterViewModel?, navController: NavCont
             Spacer(Modifier.padding(top = 48.dp))
         }
     }
-
-
-
-    authResource?.value?.let {
-        when (it) {
-            is Resource.Failure -> {
-                Log.e("aqui", "Resource.Failure msg: ${it.exception.message}")
-
-            }
-
-            is Resource.Loading -> {
-                Box(modifier = Modifier.fillMaxSize().background(Color.White)) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.align(Alignment.Center),
-                        color = MaterialTheme.colorScheme.primary,
-                    )
-                }
-            }
-
-            is Resource.Success -> {
-                LaunchedEffect(Unit) {
-                    navController.navigate(ROUTE_HOME) {
-                        popUpTo(ROUTE_LOGIN) { inclusive = true }
-                    }
-                }
-            }
-        }
-
-    }
-
-
 }
-
 @Preview()
 @Composable
-private fun ShowRegisterScreenPreview() {
-    RegisterScreen(null, rememberNavController())
+fun ShowRegisterScreenPreview() {
+    ReportsGoTheme {
+        RegisterScreen(null, rememberNavController())
+    }
 }
-

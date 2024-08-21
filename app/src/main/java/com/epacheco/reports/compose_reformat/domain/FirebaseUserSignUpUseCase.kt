@@ -5,9 +5,9 @@ import com.epacheco.reports.compose_reformat.repository.auth.AuthRepository
 import com.google.firebase.auth.FirebaseUser
 import javax.inject.Inject
 
-class FirebaseUserLoginUseCase @Inject constructor(private val firebaseAuthRepository: AuthRepository) {
+class FirebaseUserSignUpUseCase @Inject constructor(private val firebaseAuthRepository: AuthRepository) {
 
     suspend operator fun invoke(userEmail: String, userPassword: String): Resource<FirebaseUser> {
-        return firebaseAuthRepository.login(userEmail, userPassword)
+        return firebaseAuthRepository.signup(userEmail, userPassword)
     }
 }

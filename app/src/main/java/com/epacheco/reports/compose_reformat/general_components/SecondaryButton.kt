@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 @Composable
 fun SecondaryButton(
@@ -36,7 +37,8 @@ fun SecondaryButton(
 @Preview
 @Composable
 private fun showSecondaryButton() {
-    SecondaryButton(
-        textButton = "Action"
-    )
+    ReportsGoTheme {
+        SecondaryButton(textButton = "Action")
+    }
+
 }

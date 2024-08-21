@@ -99,12 +99,3 @@ private fun showPrimaryButton() {
         colorBackground = MaterialTheme.colorScheme.primary
     )
 }
-
-@Preview
-@Composable
-private fun showSecondaryButton() {
-    PrimaryButton(
-        textButton = "Action",
-        colorBackground = MaterialTheme.colorScheme.primary
-    )
-}

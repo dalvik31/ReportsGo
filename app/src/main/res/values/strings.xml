@@ -311,6 +311,10 @@
 
     <!--REFACTOR RESOURCES COMPOSE -->
 
+    <!--General errors-->
+    <string name="general_error">¡Ups! Lo sentimos algo salió mal.</string>
+
+
     <!--Register Screen-->
     <string name="register_screen_name_app_logo_first">Reports</string>
     <string name="register_screen_name_app_logo_second">GO</string>
@@ -324,4 +328,7 @@
     <string name="register_screen_lbl_or">Ó</string>
     <string name="register_screen_lbl_remember_user">Recordar usuario</string>
     <string name="register_screen_lbl_forgot_password">Olvidé mi contraseña</string>
+    <!--Errores FIREBASE-->
+    <string name="msg_firebase_user_not_found">"No existe ningún registro de usuario correspondiente a este identificador. Es posible que el usuario haya sido eliminado."</string>
+
 </resources>

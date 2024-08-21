@@ -14,6 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 @Composable
 fun TextDivider(textDivider: String, primaryColor: Color = MaterialTheme.colorScheme.primary) {
@@ -42,5 +43,8 @@ fun TextDivider(textDivider: String, primaryColor: Color = MaterialTheme.colorSc
 @Preview
 @Composable
 private fun ShowTextDivider() {
-    TextDivider(textDivider = "OR")
+    ReportsGoTheme {
+        TextDivider(textDivider = "DIVIDER")
+    }
+
 }

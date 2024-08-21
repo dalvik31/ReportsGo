@@ -7,7 +7,7 @@ import javax.inject.Inject
 class FirebaseGetUserUseCase @Inject constructor(private val firebaseAuthRepository: AuthRepository) {
 
     operator fun invoke(): FirebaseUser? {
-        return firebaseAuthRepository.currentUser
-
+        return firebaseAuthRepository.getCurrentUser()
     }
+
 }

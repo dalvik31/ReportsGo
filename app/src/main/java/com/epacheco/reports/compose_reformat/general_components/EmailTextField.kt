@@ -61,13 +61,6 @@ fun EmailTextField(email: String, onTextChange: (String) -> Unit) {
 
     )
 }
-@Composable
-fun BoxScope.PokedexCircularProgress() {
-    CircularProgressIndicator(
-        modifier = Modifier.align(Alignment.Center),
-        color = RedDark,
-    )
-}
 
 @Preview
 @Composable

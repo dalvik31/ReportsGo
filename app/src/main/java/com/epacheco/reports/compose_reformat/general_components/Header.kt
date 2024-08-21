@@ -22,6 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -106,6 +107,7 @@ private fun showLeftActionHeader() {
 @Preview
 @Composable
 private fun showBothActionHeader() {
-    Header(title = "Toolbar", onLeftIconClicked = {}, onRightIconClicked = {})
-
+    ReportsGoTheme {
+        Header(title = "Toolbar", onLeftIconClicked = {}, onRightIconClicked = {})
+    }
 }

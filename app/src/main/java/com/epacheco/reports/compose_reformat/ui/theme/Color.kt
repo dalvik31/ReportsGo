@@ -2,7 +2,7 @@ package com.epacheco.reports.compose_reformat.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val RedLight = Color(0xFFF48FB1)
+val RedLight = Color(0xFFF06292)
 val GreyLight = Color(0xFFCCC2DC)
 val PinkLight = Color(0xFFEFB8C8)
 

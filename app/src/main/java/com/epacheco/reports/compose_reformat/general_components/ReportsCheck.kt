@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 @Composable
 fun ReportsCheckBox(
@@ -42,7 +43,10 @@ fun ReportsCheckBox(
 @Preview(showSystemUi = true)
 @Composable
 private fun ShowCheckBox() {
-    ReportsCheckBox(true, "ShowCheckBox") {
+    ReportsGoTheme {
+        ReportsCheckBox(true, "ShowCheckBox") {
 
+        }
     }
+
 }
