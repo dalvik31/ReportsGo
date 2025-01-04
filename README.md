@@ -54,6 +54,7 @@ Ten a la mano lo que invertiste, tus ventas y las ganancias generadas por día o
 
 ## Features
 
+- Se migra código Java a kotlin
 - Nuevas vistas en compose
 - Se agrega localización para encontrar lugares donde comprar tus pedidos
 
