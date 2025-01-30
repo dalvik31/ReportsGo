@@ -13,6 +13,7 @@ fun String.getNameFromEmail(): String = this.substringBefore("@")
 fun String.getTranslateFireBaseErrorMsg(): Int? =
     when {
         this.contains("There is no user record corresponding to this identifier") -> R.string.msg_firebase_user_not_found
+        this.contains("The password is invalid or the user does not have a password") -> R.string.msg_firebase_password_invalid
         else -> null
     }
 

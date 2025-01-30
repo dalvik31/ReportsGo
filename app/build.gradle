@@ -96,8 +96,6 @@ dependencies {
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
     //Dependencia para inicio de sesion con twitter
-    implementation 'com.twitter.sdk.android:twitter-core:3.1.1'
-    implementation 'com.twitter.sdk.android:tweet-ui:3.1.1'
     //Dependencia para inicio de sesion con facebook
     implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
     //Dependencia para subir archivos a firebase
@@ -106,7 +104,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-vision:20.1.3'
     //Dependencia para notificaciones
     implementation 'com.google.firebase:firebase-messaging:23.1.2'
-    implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
+    implementation 'com.google.firebase:firebase-core:21.1.1'
     //Se agrego por un error al inflar el contraint layout con androidx
     implementation 'androidx.constraintlayout:constraintlayout:2.2.0-alpha10'
     //Se agrego por un error al iniciar sesion con google

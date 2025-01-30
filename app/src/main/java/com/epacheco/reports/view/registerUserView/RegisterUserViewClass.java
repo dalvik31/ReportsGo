@@ -1,25 +1,23 @@
 package com.epacheco.reports.view.registerUserView;
 
 import android.content.Intent;
-
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.FragmentActivity;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentActivity;
+
 import com.epacheco.reports.Model.RegisterUserModel.RegisterUserModelClass;
 import com.epacheco.reports.R;
+import com.epacheco.reports.databinding.ActivityRegisterClassBinding;
 import com.epacheco.reports.tools.Constants;
 import com.epacheco.reports.tools.ReportsDialogGlobal;
 import com.epacheco.reports.tools.ReportsProgressDialog;
 import com.epacheco.reports.tools.ScreenManager;
-import com.epacheco.reports.databinding.ActivityRegisterClassBinding;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -31,12 +29,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseUser;
-import com.twitter.sdk.android.core.Result;
-import com.twitter.sdk.android.core.TwitterException;
-import com.twitter.sdk.android.core.TwitterSession;
-import com.twitter.sdk.android.core.identity.TwitterAuthClient;
+
 import java.util.Arrays;
 
 public class RegisterUserViewClass extends AppCompatActivity implements RegisterUserViewInterface {
@@ -44,7 +38,7 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
   private RegisterUserModelClass registerUserModelClass;
   private GoogleSignInClient mGoogleSignInClient;
   private static final int RC_SIGN_IN = 9001;
-  private TwitterAuthClient mTwitterAuthClient;
+  //private TwitterAuthClient mTwitterAuthClient;
   private CallbackManager mCallbackManager;
   private ReportsProgressDialog progressbar;
 
@@ -82,7 +76,7 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
     mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
     //Inicializamos twitter
-    mTwitterAuthClient= new TwitterAuthClient();
+   // mTwitterAuthClient= new TwitterAuthClient();
 
     //Inicializamos facebook
     mCallbackManager = CallbackManager.Factory.create();
@@ -121,7 +115,7 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
 
   public void registerTwitter(View v){
     progressbar.showProgress(this,getString(R.string.msg_process));
-    mTwitterAuthClient.authorize(this, new com.twitter.sdk.android.core.Callback<TwitterSession>() {
+   /* mTwitterAuthClient.authorize(this, new com.twitter.sdk.android.core.Callback<TwitterSession>() {
 
       @Override
       public void success(Result<TwitterSession> twitterSessionResult) {
@@ -139,7 +133,7 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
         }
         e.printStackTrace();
       }
-    });
+    });*/
   }
 
   public void forgotPassword(View v){
@@ -286,7 +280,7 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
-    mTwitterAuthClient.onActivityResult(requestCode, resultCode, data);
+  //  mTwitterAuthClient.onActivityResult(requestCode, resultCode, data);
     if(mCallbackManager.onActivityResult(requestCode, resultCode, data)) {
       return;
     }

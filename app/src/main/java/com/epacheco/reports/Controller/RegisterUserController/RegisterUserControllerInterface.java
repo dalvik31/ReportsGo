@@ -2,7 +2,6 @@ package com.epacheco.reports.Controller.RegisterUserController;
 
 import com.facebook.AccessToken;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.twitter.sdk.android.core.TwitterSession;
 
 public interface RegisterUserControllerInterface {
   //email register methods
@@ -14,7 +13,7 @@ public interface RegisterUserControllerInterface {
   void loginGoogle(GoogleSignInAccount acct);
 
   //twitter login methods
-  void loginTwitter(TwitterSession session);
+  //void loginTwitter(TwitterSession session);
 
   //facebook login methods
   void loginFacebook(AccessToken token);

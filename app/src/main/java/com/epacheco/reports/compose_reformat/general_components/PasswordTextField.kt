@@ -42,8 +42,7 @@ fun PasswordTextField(password: String, onTextChange: (String) -> Unit) {
     val maxLength = 50
     TextField(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 8.dp),
+            .fillMaxWidth(),
         value = password,
         textStyle = TextStyle.Default.copy(fontSize = 16.sp, fontWeight = FontWeight.Bold),
         singleLine = true,
@@ -51,7 +50,7 @@ fun PasswordTextField(password: String, onTextChange: (String) -> Unit) {
         placeholder = {
             Text(
                 text = stringResource(id = R.string.register_screen_hint_password),
-                color =  MaterialTheme.colorScheme.onTertiary,
+                color = MaterialTheme.colorScheme.onTertiary,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -75,7 +74,11 @@ fun PasswordTextField(password: String, onTextChange: (String) -> Unit) {
             IconButton(onClick = {
                 passwordVisibility = !passwordVisibility
             }) {
-                Icon(imageVector = image, contentDescription = "", tint = MaterialTheme.colorScheme.primary)
+                Icon(
+                    imageVector = image,
+                    contentDescription = "",
+                    tint = MaterialTheme.colorScheme.primary
+                )
             }
         }
 

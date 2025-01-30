@@ -43,9 +43,6 @@ class RegisterViewModel @Inject constructor(
     private val _enabledLoginButton = MutableStateFlow(false)
     val enabledLoginButton: StateFlow<Boolean> = _enabledLoginButton
 
-    private val _checkRememberUser = MutableStateFlow(false)
-    val checkRememberUser: StateFlow<Boolean> = _checkRememberUser
-
 
     fun onValueLoginChanged(email: String, password: String) {
         _email.value = email
@@ -54,13 +51,8 @@ class RegisterViewModel @Inject constructor(
             Validations.validateEmailAndPassword(email = email, password = password)
     }
 
-    fun onValueCheckRememberUser(enable: Boolean) {
-        _checkRememberUser.value = !enable
-    }
-
-     fun getCurrentUser()  = viewModelScope.launch {
+    fun getCurrentUser() = viewModelScope.launch {
         _loginFlow.value = Resource.Loading
-         delay(1000)
         val result = firebaseGetUserUseCase()
         if (result != null) _loginFlow.value = Resource.Success(result)
         else goToRegisterFlow()
@@ -91,6 +83,10 @@ class RegisterViewModel @Inject constructor(
 
     fun showToastMsg(msg: Int?) {
         app.showMsgToast(msg)
+    }
+
+    fun isUserLogin(): Boolean {
+        return firebaseGetUserUseCase.invoke() != null
     }
 
 }

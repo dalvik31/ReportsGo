@@ -33,8 +33,7 @@ fun EmailTextField(email: String, onTextChange: (String) -> Unit) {
     val maxLength = 50
     TextField(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 8.dp),
+            .fillMaxWidth(),
         value = email,
         textStyle = TextStyle.Default.copy(fontSize = 16.sp, fontWeight = FontWeight.Bold),
         singleLine = true,

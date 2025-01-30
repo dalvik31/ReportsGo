@@ -42,3 +42,12 @@ private fun showSecondaryButton() {
     }
 
 }
+
+@Preview
+@Composable
+private fun showDisableSecondaryButton() {
+    ReportsGoTheme {
+        SecondaryButton(textButton = "Action", enabledButton = false)
+    }
+
+}

@@ -3,6 +3,7 @@ package com.epacheco.reports.Controller.RegisterUserController;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+
 import com.epacheco.reports.Model.RegisterUserModel.RegisterUserModelClass;
 import com.epacheco.reports.R;
 import com.epacheco.reports.tools.ReportsApplication;
@@ -15,8 +16,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.auth.TwitterAuthProvider;
-import com.twitter.sdk.android.core.TwitterSession;
 
 public class RegisterUserControllerClass implements RegisterUserControllerInterface {
   private FirebaseAuth mAuth;
@@ -102,7 +101,7 @@ public class RegisterUserControllerClass implements RegisterUserControllerInterf
         });
   }
 
-  @Override
+/*  @Override
   public void loginTwitter(TwitterSession session) {
     if(registerUserModelClass!=null){
       AuthCredential credential = TwitterAuthProvider.getCredential(
@@ -126,7 +125,7 @@ public class RegisterUserControllerClass implements RegisterUserControllerInterf
           });
     }
 
-  }
+  }*/
 
   @Override
   public void loginFacebook(AccessToken token) {

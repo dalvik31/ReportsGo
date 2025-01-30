@@ -87,7 +87,6 @@ fun Header(
 @Composable
 private fun showBasicHeader() {
     Header(title = "Toolbar")
-
 }
 
 @Preview
@@ -100,7 +99,7 @@ private fun showRightActionHeader() {
 @Preview
 @Composable
 private fun showLeftActionHeader() {
-    Header(title = "Toolbar", onLeftIconClicked = {})
+    Header(title = "showLeftActionHeader", onLeftIconClicked = {})
 
 }
 

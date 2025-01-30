@@ -61,21 +61,12 @@ fun PrimaryButton(
     }
 }
 
-@Preview
-@Composable
-private fun showTwitterButton() {
-    PrimaryButton(
-        textButton = "Twitter",
-        iconBtn = R.drawable.ic_vector_twitter_logo,
-        colorBackground = TwitterBackground
-    )
-}
 
 @Preview
 @Composable
 private fun showGoogleButton() {
     PrimaryButton(
-        textButton = "Twitter",
+        textButton = "Icon button",
         iconBtn = R.drawable.ic_vector_google_logo,
         colorBackground = GoogleBackground
     )
@@ -85,7 +76,7 @@ private fun showGoogleButton() {
 @Composable
 private fun showFacebookButton() {
     PrimaryButton(
-        textButton = "Twitter",
+        textButton = "Icon button",
         iconBtn = R.drawable.ic_vector_facebook_logo,
         colorBackground = FacebookBackground
     )
@@ -95,7 +86,6 @@ private fun showFacebookButton() {
 @Composable
 private fun showPrimaryButton() {
     PrimaryButton(
-        textButton = "Action",
-        colorBackground = MaterialTheme.colorScheme.primary
+        textButton = "Primary button"
     )
 }

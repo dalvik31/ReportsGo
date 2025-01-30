@@ -330,5 +330,6 @@
     <string name="register_screen_lbl_forgot_password">Olvidé mi contraseña</string>
     <!--Errores FIREBASE-->
     <string name="msg_firebase_user_not_found">"No existe ningún registro de usuario correspondiente a este identificador. Es posible que el usuario haya sido eliminado."</string>
+    <string name="msg_firebase_password_invalid">"La contraseña no es válida o el usuario no tiene contraseña."</string>
 
 </resources>
