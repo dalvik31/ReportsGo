@@ -4,11 +4,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -32,16 +34,18 @@ import com.epacheco.reports.compose_reformat.general_components.PasswordTextFiel
 import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
 import com.epacheco.reports.compose_reformat.general_components.SecondaryButton
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
-import com.epacheco.reports.compose_reformat.ui.navigation.ROUTE_HOME
-import com.epacheco.reports.compose_reformat.ui.navigation.ROUTE_PASSWORD
-import com.epacheco.reports.compose_reformat.ui.navigation.ROUTE_REGISTER
+import com.epacheco.reports.compose_reformat.ui.navigation.NavHostScreens
 import com.epacheco.reports.compose_reformat.ui.theme.FacebookBackground
 import com.epacheco.reports.compose_reformat.ui.theme.GoogleBackground
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.utils.extensions.getTranslateFireBaseErrorMsg
 
 @Composable
-fun RegisterScreen(registerViewModel: RegisterViewModel?, navController: NavController) {
+fun RegisterScreen(
+    modifier: Modifier = Modifier,
+    registerViewModel: RegisterViewModel?,
+    navController: NavController
+) {
     val email = registerViewModel?.email?.collectAsState()
     val password = registerViewModel?.password?.collectAsState()
     val enabledButtonContinue = registerViewModel?.enabledLoginButton?.collectAsState()
@@ -61,8 +65,8 @@ fun RegisterScreen(registerViewModel: RegisterViewModel?, navController: NavCont
 
             is Resource.Success -> {
                 LaunchedEffect(Unit) {
-                    navController.navigate(ROUTE_HOME) {
-                        popUpTo(ROUTE_REGISTER) { inclusive = true }
+                    navController.navigate(NavHostScreens.HOME.route) {
+                        popUpTo(NavHostScreens.REGISTER.route) { inclusive = true }
                     }
                 }
             }
@@ -70,7 +74,11 @@ fun RegisterScreen(registerViewModel: RegisterViewModel?, navController: NavCont
 
     }
 
-    Column(verticalArrangement = Arrangement.SpaceBetween) {
+
+
+    Column(
+        verticalArrangement = Arrangement.SpaceBetween,
+    ) {
         Column(
             verticalArrangement = Arrangement.Center,
             modifier = Modifier
@@ -121,7 +129,7 @@ fun RegisterScreen(registerViewModel: RegisterViewModel?, navController: NavCont
                 modifier = Modifier
                     .align(Alignment.End)
                     .clickable {
-                        navController.navigate(ROUTE_PASSWORD)
+                        navController.navigate(NavHostScreens.PASSWORD.route)
                     },
                 textAlign = TextAlign.Right,
                 color = MaterialTheme.colorScheme.primary,
@@ -169,12 +177,13 @@ fun RegisterScreen(registerViewModel: RegisterViewModel?, navController: NavCont
         }
     }
 
+
 }
 
 @Preview()
 @Composable
 fun ShowRegisterScreenPreview() {
     ReportsGoTheme {
-        RegisterScreen(null, rememberNavController())
+        RegisterScreen(Modifier, null, rememberNavController())
     }
 }

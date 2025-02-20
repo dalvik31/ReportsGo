@@ -4,11 +4,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
-import com.epacheco.reports.compose_reformat.ui.base.ReportsNavHost
+import com.epacheco.reports.compose_reformat.ui.navigation.ReportsNavHost
 import com.epacheco.reports.compose_reformat.ui.login.RegisterScreen
 import com.epacheco.reports.compose_reformat.ui.login.RegisterViewModel
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
@@ -27,7 +30,15 @@ class MainActivity : ComponentActivity() {
             splashViewModel.isSplashShow.value
         }
         setContent {
-            ReportsNavHost(registerViewModel = viewModel)
+            ReportsGoTheme {
+                Scaffold { paddingValues ->
+                    ReportsNavHost(
+                        modifier = Modifier.padding(paddingValues = paddingValues),
+                        registerViewModel = viewModel
+                    )
+                }
+            }
+
         }
     }
 
@@ -38,7 +49,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun ShowRegisterScreenPreview() {
     ReportsGoTheme {
-        RegisterScreen(null, rememberNavController())
+        RegisterScreen(Modifier,null, rememberNavController())
     }
 }
 

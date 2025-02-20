@@ -13,7 +13,7 @@ import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 
 @Composable
-fun RecoveryPassword(registerViewModel: RegisterViewModel?, navController: NavController) {
+fun PasswordScreen(registerViewModel: RegisterViewModel?, navController: NavController) {
     Box(modifier = Modifier.fillMaxSize()) {
         HeaderThin(textHeader = "RecoveryPasswordScreen")
     }
@@ -21,8 +21,8 @@ fun RecoveryPassword(registerViewModel: RegisterViewModel?, navController: NavCo
 
 @Preview()
 @Composable
-fun ShowRegisterScreenPreview() {
+fun PasswordScreenPreview() {
     ReportsGoTheme {
-        RecoveryPassword(null, rememberNavController())
+        PasswordScreen(null, rememberNavController())
     }
 }
