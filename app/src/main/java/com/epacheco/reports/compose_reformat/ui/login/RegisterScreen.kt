@@ -154,7 +154,7 @@ fun RegisterScreen(
             }
 
             Spacer(Modifier.padding(top = 24.dp))
-            TextDivider(stringResource(id = R.string.register_screen_lbl_or))
+            TextDivider(textDivider = stringResource(id = R.string.register_screen_lbl_or))
             Spacer(Modifier.padding(top = 24.dp))
             PrimaryButton(
                 textButton = stringResource(id = R.string.register_screen_btn_continue_facebook),

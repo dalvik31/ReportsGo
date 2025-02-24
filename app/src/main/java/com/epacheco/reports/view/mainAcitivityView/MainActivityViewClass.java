@@ -94,7 +94,7 @@ public class MainActivityViewClass extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-        com.epacheco.reports.tools.Tools.setLongPreference(Constants.TIMER_SAVED, System.currentTimeMillis());
+//        com.epacheco.reports.tools.Tools.setLongPreference(Constants.TIMER_SAVED, System.currentTimeMillis());
         super.onStop();
     }
 }

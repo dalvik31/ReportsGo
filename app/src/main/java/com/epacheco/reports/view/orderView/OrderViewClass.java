@@ -291,10 +291,10 @@ public class OrderViewClass extends AppCompatActivity implements OrderViewIterfa
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         cardView = binding.itemBannerSeason.bannerItemSeason;
-        com.epacheco.reports.tools.Tools.setIntegerPreference(Constants.PREFS_NAME, MODE_PRIVATE);
+       // com.epacheco.reports.tools.Tools.setIntegerPreference(Constants.PREFS_NAME, MODE_PRIVATE);
 
         //setSeason(day,month);
-        ponerTemporada(day, month);
+        //ponerTemporada(day, month);
 
     }
 

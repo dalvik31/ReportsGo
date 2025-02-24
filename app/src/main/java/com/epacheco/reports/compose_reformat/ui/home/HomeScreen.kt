@@ -1,59 +1,44 @@
 package com.epacheco.reports.compose_reformat.ui.home
 
+
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
-import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.epacheco.reports.compose_reformat.general_components.navbar.AnimatedNavigationBar
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.ClientsScreen
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.OrdersScreen
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.FinancesScreen
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.OrdersScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.ProductsScreen
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.ProfileScreen
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.SellsScreen
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.OrdersViewModel
 import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomNavHostScreens
 import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomNavigationItem
 import com.epacheco.reports.compose_reformat.ui.login.RegisterViewModel
+import com.epacheco.reports.compose_reformat.ui.theme.White
 
 @Composable
 fun HomeScreen(registerViewModel: RegisterViewModel?, navController: NavHostController) {
     val bottomNavController = rememberNavController()
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry?.destination
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
-            NavigationBar {
-                BottomNavigationItem().bottomNavigationItems().forEachIndexed { _, navigationItem ->
-                    NavigationBarItem(
-                        selected = navigationItem.route == currentDestination?.route,
-                        label = {
-                            Text(stringResource(navigationItem.label))
-                        },
-                        icon = {
-                            Icon(
-                                ImageVector.vectorResource(navigationItem.icon),
-                                contentDescription = stringResource(navigationItem.label)
-                            )
-                        },
-                        onClick = {
-                            bottomNavController.navigate(navigationItem.route) {
-                                popUpTo(bottomNavController.graph.findStartDestination().id) {
-                                    saveState = true
-                                }
-                                launchSingleTop = true
-                                restoreState = true
-                            }
-                        }
-                    )
-                }
-            }
+            AnimatedNavigationBar(
+                buttons = BottomNavigationItem().bottomNavigationItems(),
+                barColor = MaterialTheme.colorScheme.primary,
+                circleColor = MaterialTheme.colorScheme.primary,
+                selectedColor = White,
+                unselectedColor = Color.Gray,
+                bottomNavController
+            )
         }
     ) { paddingValues ->
         NavHost(
@@ -62,10 +47,7 @@ fun HomeScreen(registerViewModel: RegisterViewModel?, navController: NavHostCont
             modifier = Modifier.padding(paddingValues = paddingValues)
         ) {
             composable(BottomNavHostScreens.ORDERS.route) {
-                OrdersScreen(
-                    registerViewModel,
-                    navController
-                )
+                OrdersScreen()
             }
             composable(BottomNavHostScreens.CLIENTS.route) {
                 ClientsScreen(
@@ -79,6 +61,25 @@ fun HomeScreen(registerViewModel: RegisterViewModel?, navController: NavHostCont
                     navController
                 )
             }
+            composable(BottomNavHostScreens.SELLS.route) {
+                SellsScreen(
+                    registerViewModel,
+                    navController
+                )
+            }
+            composable(BottomNavHostScreens.FINANCES.route) {
+                FinancesScreen(
+                    registerViewModel,
+                    navController
+                )
+            }
+            composable(BottomNavHostScreens.PROFILE.route) {
+                ProfileScreen(
+                    registerViewModel,
+                    navController
+                )
+            }
+
         }
     }
 }

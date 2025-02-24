@@ -14,6 +14,8 @@ val PinkDark = Color(0xFF7D5260)
  * Primary colors
  * */
 val White = Color.White
+val Yellow = Color(0xFFFFCF7D)
+val Green = Color(0xFF8DC68F)
 
 
 /**

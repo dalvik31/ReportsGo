@@ -6,6 +6,7 @@ import com.epacheco.reports.compose_reformat.utils.extensions.getNameFromEmail
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
+
 import javax.inject.Inject
 
 class FirebaseAuthRepository @Inject constructor(private val firebaseAuth: FirebaseAuth) :
@@ -33,7 +34,7 @@ class FirebaseAuthRepository @Inject constructor(private val firebaseAuth: Fireb
             result.user?.updateProfile(
                 UserProfileChangeRequest.Builder().setDisplayName(email.getNameFromEmail()).build()
             )?.await()
-            return Resource.Success(result.user!!)
+            Resource.Success(result.user!!)
         } catch (e: Exception) {
             e.printStackTrace()
             Resource.Failure(e)

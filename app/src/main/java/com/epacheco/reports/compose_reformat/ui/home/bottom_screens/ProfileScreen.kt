@@ -14,12 +14,12 @@ import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 
 @Composable
-fun ProductsScreen(
+fun ProfileScreen(
     registerViewModel: RegisterViewModel?,
     navController: NavController,
 ) {
     Column {
-        TextDivider(textDivider = "Products")
+        TextDivider(textDivider = "Profile")
         PrimaryButton(textButton = "Logout") {
             registerViewModel?.logout()
             navController.navigate(NavHostScreens.REGISTER.route) {
@@ -31,9 +31,9 @@ fun ProductsScreen(
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun ProductsScreenPreview() {
+fun ProfileScreenPreview() {
     ReportsGoTheme {
-        ProductsScreen(registerViewModel = null, rememberNavController())
+        ProfileScreen(registerViewModel = null, rememberNavController())
     }
 
 }

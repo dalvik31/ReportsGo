@@ -7,18 +7,19 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.OrdersScreen
 import com.epacheco.reports.compose_reformat.ui.login.RegisterViewModel
 import com.epacheco.reports.compose_reformat.ui.navigation.NavHostScreens
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 
 @Composable
-fun OrdersScreen(
+fun SellsScreen(
     registerViewModel: RegisterViewModel?,
     navController: NavController,
 ) {
     Column {
-        TextDivider(textDivider = "Orders")
+        TextDivider(textDivider = "Sells")
         PrimaryButton(textButton = "Logout") {
             registerViewModel?.logout()
             navController.navigate(NavHostScreens.REGISTER.route) {
@@ -30,9 +31,9 @@ fun OrdersScreen(
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun HomeScreenPreview() {
+fun SellsScreenPreview() {
     ReportsGoTheme {
-        OrdersScreen(registerViewModel = null, rememberNavController())
+        SellsScreen(registerViewModel = null, rememberNavController())
     }
 
 }

@@ -314,6 +314,10 @@
     <!--General errors-->
     <string name="general_error">¡Ups! Lo sentimos algo salió mal.</string>
 
+    <!--General msg-->
+    <string name="show_more">Show more</string>
+    <string name="show_less">Show less</string>
+
 
     <!--Register Screen-->
     <string name="register_screen_name_app_logo_first">Reports</string>
@@ -340,6 +344,11 @@
     <string name="tab_sells_option">Ventas</string>
     <string name="tab_finances_option">Finanzas</string>
     <string name="tab_products_option">Productos</string>
+
+    <!--ORDERS Fragments-->
+    <string name="title_orders">(%s) Listas de pedidos</string>
+    <string name="search_orders">Buscando listas de pedido</string>
+    <string name="date_order"> %s</string>
 
 
 </resources>
