@@ -4,5 +4,4 @@ data class Order(
     val dateOrder: String = "",
     val nameOrder: String = "",
     val msjOrder: String = ""
-) {
-}
+)

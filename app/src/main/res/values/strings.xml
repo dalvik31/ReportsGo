@@ -346,8 +346,11 @@
     <string name="tab_products_option">Productos</string>
 
     <!--ORDERS Fragments-->
-    <string name="title_orders">(%s) Listas de pedidos</string>
-    <string name="search_orders">Buscando listas de pedido</string>
+    <plurals name="title_orders">
+        <item formatted="true" quantity="one">(%s) Lista de pedidos</item>
+        <item formatted="true" quantity="other">(%s) Listas de pedidos</item>
+    </plurals>
+    <string name="search_orders">Buscando listas de pedidos…</string>
     <string name="date_order"> %s</string>
 
 

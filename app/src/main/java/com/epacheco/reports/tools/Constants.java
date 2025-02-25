@@ -2,6 +2,7 @@ package com.epacheco.reports.tools;
 
 public class Constants {
     //FireBase tables
+    public final static String DATABASE_FIREBASE_NAME = "Reports";
     public final static String CLIENT_TABLE_FIREBASE = "Clients";
     public final static String CLIENT_PRODUCTS_TABLE_FIREBASE = "Products";
     public final static String CLIENT_SALES_TABLE_FIREBASE = "Sales";

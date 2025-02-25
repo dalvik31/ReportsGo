@@ -25,31 +25,3 @@ suspend fun <T> Task<T>.await(): T {
         }
     }
 }
-sealed class RealtimeDatabaseValueResult {
-    class Success(val dataSnapshot: DataSnapshot): RealtimeDatabaseValueResult()
-    class Error(val error: DatabaseError): RealtimeDatabaseValueResult()
-}
-
-/**
- * Perform a addListenerForSingleValueEvent call on a databaseReference in a suspend function way
- * @param onCancellation action to perform if there is a cancellation
- */
-@ExperimentalCoroutinesApi
-suspend fun DatabaseReference.awaitSingleValue(onCancellation: ((cause: Throwable) -> Unit)? = null) = suspendCancellableCoroutine<RealtimeDatabaseValueResult> { continuation ->
-
-    val valueEventListener = object: ValueEventListener{
-        override fun onCancelled(error: DatabaseError) {
-            continuation.resume(RealtimeDatabaseValueResult.Error(error = error), onCancellation)
-        }
-
-        override fun onDataChange(snapshot: DataSnapshot) {
-            continuation.resume(RealtimeDatabaseValueResult.Success(snapshot), onCancellation)
-        }
-    }
-
-    // add listener like you normally do
-    addListenerForSingleValueEvent(valueEventListener)
-
-    // in case the job, coroutine, etc. is cancelled, we remove the current event listener
-    continuation.invokeOnCancellation { removeEventListener(valueEventListener) }
-}
