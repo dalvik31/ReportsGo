@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.epacheco.reports.compose_reformat.general_components.HeaderThin
@@ -13,7 +14,9 @@ import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 
 @Composable
-fun PasswordScreen(registerViewModel: RegisterViewModel?, navController: NavController) {
+fun PasswordScreen(
+    navController: NavController
+) {
     Box(modifier = Modifier.fillMaxSize()) {
         HeaderThin(textHeader = "RecoveryPasswordScreen")
     }
@@ -23,6 +26,6 @@ fun PasswordScreen(registerViewModel: RegisterViewModel?, navController: NavCont
 @Composable
 fun PasswordScreenPreview() {
     ReportsGoTheme {
-        PasswordScreen(null, rememberNavController())
+        PasswordScreen( rememberNavController())
     }
 }

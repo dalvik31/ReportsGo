@@ -13,20 +13,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.epacheco.reports.compose_reformat.general_components.navbar.AnimatedNavigationBar
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.ClientsScreen
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.FinancesScreen
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.ClientsScreen
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.finances.FinancesScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.OrdersScreen
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.ProductsScreen
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.ProfileScreen
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.SellsScreen
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.OrdersViewModel
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products.ProductsScreen
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile.ProfileScreen
 import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomNavHostScreens
 import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomNavigationItem
-import com.epacheco.reports.compose_reformat.ui.login.RegisterViewModel
 import com.epacheco.reports.compose_reformat.ui.theme.White
 
 @Composable
-fun HomeScreen(registerViewModel: RegisterViewModel?, navController: NavHostController) {
+fun HomeScreen(navController: NavHostController) {
     val bottomNavController = rememberNavController()
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -47,36 +44,20 @@ fun HomeScreen(registerViewModel: RegisterViewModel?, navController: NavHostCont
             modifier = Modifier.padding(paddingValues = paddingValues)
         ) {
             composable(BottomNavHostScreens.ORDERS.route) {
-                OrdersScreen()
+                OrdersScreen(navHostController = navController)
             }
             composable(BottomNavHostScreens.CLIENTS.route) {
-                ClientsScreen(
-                    registerViewModel,
-                    navController
-                )
+                ClientsScreen()
             }
             composable(BottomNavHostScreens.PRODUCTS.route) {
-                ProductsScreen(
-                    registerViewModel,
-                    navController
-                )
-            }
-            composable(BottomNavHostScreens.SELLS.route) {
-                SellsScreen(
-                    registerViewModel,
-                    navController
-                )
+                ProductsScreen()
             }
             composable(BottomNavHostScreens.FINANCES.route) {
-                FinancesScreen(
-                    registerViewModel,
-                    navController
-                )
+                FinancesScreen()
             }
             composable(BottomNavHostScreens.PROFILE.route) {
                 ProfileScreen(
-                    registerViewModel,
-                    navController
+                    navController = navController
                 )
             }
 

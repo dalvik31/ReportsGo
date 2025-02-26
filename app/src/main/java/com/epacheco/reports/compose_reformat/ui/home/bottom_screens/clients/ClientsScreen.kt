@@ -1,4 +1,4 @@
-package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders
+package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -17,44 +17,42 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.general_components.ListAnimationItem
 import com.epacheco.reports.compose_reformat.general_components.Loader
+import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.OrdersViewModel
+import com.epacheco.reports.compose_reformat.ui.login.RegisterViewModel
 import com.epacheco.reports.compose_reformat.ui.navigation.NavHostScreens
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 
 @Composable
-fun OrdersScreen(
-    navHostController: NavHostController,
-    ordersViewModel: OrdersViewModel = hiltViewModel<OrdersViewModel>()
+fun ClientsScreen(
+    ordersViewModel: ClientsViewModel = hiltViewModel<ClientsViewModel>()
 ) {
-    val orderResponse = ordersViewModel.ordersFlow.collectAsState()
+    val orderResponse = ordersViewModel.clientsFlow.collectAsState()
 
 
     orderResponse.value?.let {
         when (it) {
             is Resource.Failure -> {
                 it.exception?.let {
-                    Log.e("aqui", "OrdersScreen vamooos: ${it.message}")
-                } ?: run {
-                    navHostController.navigate(NavHostScreens.REGISTER.route) {
-                        popUpTo(NavHostScreens.HOME.route) { inclusive = true }
-                    }
+                    Log.e("aqui", "ClientsScreen vamooos: ${it.message}")
                 }
             }
 
-            Resource.Loading -> Loader(false, stringResource(R.string.search_orders))
+            Resource.Loading -> Loader(false, stringResource(R.string.search_clients))
             is Resource.Success -> {
                 Column {
                     TextDivider(
                         modifier = Modifier.padding(vertical = 8.dp),
                         textDivider = pluralStringResource(
-                            R.plurals.title_orders,
+                            R.plurals.title_clients,
                             count = it.result.size,
                             it.result.size
                         ),
@@ -66,10 +64,11 @@ fun OrdersScreen(
                             .fillMaxWidth()
                             .background(color = Color.Transparent)
                     ) {
-                        items(it.result) { order ->
+                        items(it.result) { client ->
                             ListAnimationItem(
-                                title = order.msjOrder,
-                                body = order.nameOrder,
+                                title = client.phone,
+                                body = client.Name,
+                                content = client.detail
                             )
                         }
                     }
@@ -80,14 +79,13 @@ fun OrdersScreen(
 
     }
 
-
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun HomeScreenPreview() {
+fun ClientsScreenPreiew() {
     ReportsGoTheme {
-        OrdersScreen(rememberNavController())
+        ClientsScreen()
     }
 
 }

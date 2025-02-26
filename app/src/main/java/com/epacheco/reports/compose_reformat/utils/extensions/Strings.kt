@@ -10,11 +10,17 @@ fun String.validatePassword(): Boolean = this.length >= 6
 
 fun String.getNameFromEmail(): String = this.substringBefore("@")
 
-fun String.getTranslateFireBaseErrorMsg(): Int? =
+fun String?.nameProfile(email: String?): String {
+    return if (this.isNullOrEmpty()) {
+        if (email.isNullOrEmpty()) "" else email.getNameFromEmail()
+    } else checkNotNull(this)
+}
+
+fun String.getTranslateFireBaseErrorMsg(): Int =
     when {
         this.contains("There is no user record corresponding to this identifier") -> R.string.msg_firebase_user_not_found
         this.contains("The password is invalid or the user does not have a password") -> R.string.msg_firebase_password_invalid
         this.contains("The email address is already in use by another account") -> R.string.msg_firebase_email_exist_already
-        else -> null
+        else -> R.string.general_error
     }
 

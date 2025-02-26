@@ -1,4 +1,4 @@
-package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders
+package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.finances
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -17,44 +17,36 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.general_components.ListAnimationItem
 import com.epacheco.reports.compose_reformat.general_components.Loader
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
-import com.epacheco.reports.compose_reformat.ui.navigation.NavHostScreens
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 
 @Composable
-fun OrdersScreen(
-    navHostController: NavHostController,
-    ordersViewModel: OrdersViewModel = hiltViewModel<OrdersViewModel>()
+fun FinancesScreen(
+    ordersViewModel: FinancesViewModel = hiltViewModel<FinancesViewModel>()
 ) {
-    val orderResponse = ordersViewModel.ordersFlow.collectAsState()
+    val orderResponse = ordersViewModel.financesFlow.collectAsState()
 
 
     orderResponse.value?.let {
         when (it) {
             is Resource.Failure -> {
                 it.exception?.let {
-                    Log.e("aqui", "OrdersScreen vamooos: ${it.message}")
-                } ?: run {
-                    navHostController.navigate(NavHostScreens.REGISTER.route) {
-                        popUpTo(NavHostScreens.HOME.route) { inclusive = true }
-                    }
+                    Log.e("aqui", "FinancesScreen vamooos: ${it.message}")
                 }
             }
 
-            Resource.Loading -> Loader(false, stringResource(R.string.search_orders))
+            Resource.Loading -> Loader(false, stringResource(R.string.search_finances))
             is Resource.Success -> {
                 Column {
                     TextDivider(
                         modifier = Modifier.padding(vertical = 8.dp),
                         textDivider = pluralStringResource(
-                            R.plurals.title_orders,
+                            R.plurals.title_finances,
                             count = it.result.size,
                             it.result.size
                         ),
@@ -68,8 +60,8 @@ fun OrdersScreen(
                     ) {
                         items(it.result) { order ->
                             ListAnimationItem(
-                                title = order.msjOrder,
-                                body = order.nameOrder,
+                                title = order.saleDate,
+                                body = order.nameClient.plus(" - ").plus(order.nameClient),
                             )
                         }
                     }
@@ -79,15 +71,13 @@ fun OrdersScreen(
         }
 
     }
-
-
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun HomeScreenPreview() {
+fun FinancesScreenPreview() {
     ReportsGoTheme {
-        OrdersScreen(rememberNavController())
+        FinancesScreen()
     }
 
 }

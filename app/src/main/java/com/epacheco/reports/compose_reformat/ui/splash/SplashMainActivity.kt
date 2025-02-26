@@ -14,6 +14,7 @@ import androidx.navigation.compose.rememberNavController
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.OrdersViewModel
 import com.epacheco.reports.compose_reformat.ui.navigation.ReportsNavHost
 import com.epacheco.reports.compose_reformat.ui.login.RegisterScreen
+import com.epacheco.reports.compose_reformat.ui.login.RegisterScreenContent
 import com.epacheco.reports.compose_reformat.ui.login.RegisterViewModel
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,8 +22,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val splashViewModel: SplashViewModel by viewModels()
-
-    private val viewModel by viewModels<RegisterViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
@@ -34,8 +33,7 @@ class MainActivity : ComponentActivity() {
             ReportsGoTheme {
                 Scaffold { paddingValues ->
                     ReportsNavHost(
-                        modifier = Modifier.padding(paddingValues = paddingValues),
-                        registerViewModel = viewModel
+                        modifier = Modifier.padding(paddingValues = paddingValues)
                     )
                 }
             }
@@ -46,11 +44,11 @@ class MainActivity : ComponentActivity() {
 }
 
 
-@Preview()
+@Preview
 @Composable
 fun ShowRegisterScreenPreview() {
     ReportsGoTheme {
-        RegisterScreen(Modifier, null, rememberNavController())
+        RegisterScreenContent(navController = rememberNavController())
     }
 }
 

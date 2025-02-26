@@ -56,8 +56,6 @@
     <string name="lbl_detail_name_client">%s - %s</string>
     <string name="btn_save">Guardar</string>
     <string name="btn_conatctos">contactos</string>
-    <string name="btn_ok">aceptar</string>
-    <string name="btn_cancel">Cancelar</string>
     <string name="btn_modify">Modificar</string>
     <string name="btn_sale">vender</string>
     <string name="btn_delete">eliminar</string>
@@ -315,8 +313,12 @@
     <string name="general_error">¡Ups! Lo sentimos algo salió mal.</string>
 
     <!--General msg-->
+    <string name="btn_ok">Aceptar</string>
+    <string name="btn_cancel">Cancelar</string>
     <string name="show_more">Show more</string>
     <string name="show_less">Show less</string>
+    <string name="loading">Cargando…</string>
+    <string name="msg_error">Error</string>
 
 
     <!--Register Screen-->
@@ -332,6 +334,7 @@
     <string name="register_screen_lbl_or">Ó</string>
     <string name="register_screen_lbl_remember_user">Recordar usuario</string>
     <string name="register_screen_lbl_forgot_password">Olvidé mi contraseña</string>
+
     <!--Errores FIREBASE-->
     <string name="msg_firebase_user_not_found">No existe ningún registro de usuario correspondiente a este identificador. Es posible que el usuario haya sido eliminado.</string>
     <string name="msg_firebase_password_invalid">La contraseña no es válida o el usuario no tiene contraseña.</string>
@@ -353,5 +356,29 @@
     <string name="search_orders">Buscando listas de pedidos…</string>
     <string name="date_order"> %s</string>
 
+    <!--CLIENTS Fragments-->
+    <string name="search_clients">Buscando clientes registrados…</string>
+    <plurals name="title_clients">
+        <item formatted="true" quantity="one">(%s) Cliente</item>
+        <item formatted="true" quantity="other">(%s) Clientes</item>
+    </plurals>
 
+    <!--PRODUCTS Fragments-->
+    <string name="search_products">Buscando productos guardados…</string>
+    <plurals name="title_products">
+        <item formatted="true" quantity="one">(%s) Producto</item>
+        <item formatted="true" quantity="other">(%s) Productos</item>
+    </plurals>
+
+    <!--FINANCES Fragments-->
+    <string name="search_finances">Buscando ventas generadas…</string>
+    <plurals name="title_finances">
+        <item formatted="true" quantity="one">(%s) Venta completada</item>
+        <item formatted="true" quantity="other">(%s) Ventas completadas</item>
+    </plurals>
+
+
+    <!--PROFILE Fragments-->
+    <string name="search_profile">Buscando usuario…</string>
+    <string name="title_profile">Hola, %s!</string>
 </resources>

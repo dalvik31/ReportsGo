@@ -7,11 +7,4 @@ import dagger.hilt.android.HiltAndroidApp
 
 
 @HiltAndroidApp
-class ReportsApp : Application() {
-
-    fun showMsgToast(msg: Int?) {
-        val toastMsg = Toast.makeText(this, msg ?: R.string.general_error, Toast.LENGTH_LONG)
-        toastMsg.cancel()
-        toastMsg.show()
-    }
-}
+class ReportsApp : Application()

@@ -25,11 +25,6 @@ data class BottomNavigationItem(
                 route = BottomNavHostScreens.PRODUCTS.route
             ),
             BottomNavigationItem(
-                label = R.string.tab_sells_option,
-                icon = R.drawable.ic_vector_sale,
-                route = BottomNavHostScreens.SELLS.route
-            ),
-            BottomNavigationItem(
                 label = R.string.tab_finances_option,
                 icon = R.drawable.ic_vector_activity,
                 route = BottomNavHostScreens.FINANCES.route
