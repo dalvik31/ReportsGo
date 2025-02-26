@@ -5,7 +5,7 @@ import com.epacheco.reports.R
 data class BottomNavigationItem(
     val label: Int = R.string.app_name,
     val icon: Int = R.drawable.ic_vector_order,
-    val route: String = ""
+    val route: String = BottomNavHostScreens.ORDERS.route
 ) {
     fun bottomNavigationItems(): List<BottomNavigationItem> {
         return listOf(

@@ -1,8 +1,6 @@
 package com.epacheco.reports.compose_reformat.ui.base
 
 import androidx.lifecycle.ViewModel
-import com.epacheco.reports.compose_reformat.firebase.Resource
-import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 

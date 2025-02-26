@@ -1,8 +1,6 @@
 package com.epacheco.reports.compose_reformat.ui.login
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.epacheco.reports.compose_reformat.ReportsApp
 import com.epacheco.reports.compose_reformat.domain.FirebaseGetUserUseCase
 import com.epacheco.reports.compose_reformat.domain.FirebaseUserLoginUseCase
 import com.epacheco.reports.compose_reformat.domain.FirebaseUserSignUpUseCase
@@ -21,7 +19,6 @@ class RegisterViewModel @Inject constructor(
     private val firebaseUserLoginUseCase: FirebaseUserLoginUseCase,
     private val firebaseGetUserUseCase: FirebaseGetUserUseCase,
     private val firebaseUserSignUpUseCase: FirebaseUserSignUpUseCase,
-    private val app: ReportsApp
 ) : BaseViewModel() {
 
     private val _loginFlow = MutableStateFlow<Resource<FirebaseUser>?>(Resource.Loading)

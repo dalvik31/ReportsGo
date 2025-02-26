@@ -18,24 +18,21 @@ import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ui.theme.FacebookBackground
 import com.epacheco.reports.compose_reformat.ui.theme.GoogleBackground
 import com.epacheco.reports.compose_reformat.ui.theme.GreyLight
-import com.epacheco.reports.compose_reformat.ui.theme.TwitterBackground
 import com.epacheco.reports.compose_reformat.ui.theme.White
 
 @Composable
 fun PrimaryButton(
+    modifier: Modifier = Modifier,
     textButton: String,
     iconBtn: Int? = null,
     colorBackground: Color = MaterialTheme.colorScheme.primary,
-    modifier: Modifier = Modifier,
     enabledButton: Boolean = true,
     onButtonClicked: (() -> Unit)? = null
 ) {
     Button(
         enabled = enabledButton,
         onClick = {
-            onButtonClicked?.let {
-                it.invoke()
-            }
+            onButtonClicked?.invoke()
         }, colors = ButtonDefaults.buttonColors(
             containerColor = colorBackground,
             disabledContentColor = White,
@@ -64,7 +61,7 @@ fun PrimaryButton(
 
 @Preview
 @Composable
-private fun showGoogleButton() {
+private fun GoogleButtonPreview() {
     PrimaryButton(
         textButton = "Icon button",
         iconBtn = R.drawable.ic_vector_google_logo,
@@ -74,7 +71,7 @@ private fun showGoogleButton() {
 
 @Preview
 @Composable
-private fun showFacebookButton() {
+private fun FacebookButtonPreview() {
     PrimaryButton(
         textButton = "Icon button",
         iconBtn = R.drawable.ic_vector_facebook_logo,
@@ -84,7 +81,7 @@ private fun showFacebookButton() {
 
 @Preview
 @Composable
-private fun showPrimaryButton() {
+private fun PrimaryButtonPreview() {
     PrimaryButton(
         textButton = "Primary button"
     )

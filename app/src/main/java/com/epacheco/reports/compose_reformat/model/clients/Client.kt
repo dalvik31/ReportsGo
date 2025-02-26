@@ -1,7 +1,6 @@
 package com.epacheco.reports.compose_reformat.model.clients
 
 import com.epacheco.reports.Pojo.ClientDetail.ClientDetail
-import java.util.HashMap
 
 data class Client(
     val id: String = "",

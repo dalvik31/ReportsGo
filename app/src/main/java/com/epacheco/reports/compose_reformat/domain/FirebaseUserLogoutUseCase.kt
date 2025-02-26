@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 class FirebaseUserLogoutUseCase @Inject constructor(private val firebaseAuthRepository: AuthRepository) {
 
-     operator fun invoke() {
+    operator fun invoke() {
         return firebaseAuthRepository.logout()
     }
 }

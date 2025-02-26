@@ -1,7 +1,6 @@
 package com.epacheco.reports.compose_reformat.repository.products
 
 import com.epacheco.reports.compose_reformat.firebase.Resource
-import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.model.products.Product
 import com.google.firebase.database.DatabaseReference
 

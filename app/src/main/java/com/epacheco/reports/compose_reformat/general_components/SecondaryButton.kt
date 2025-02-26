@@ -19,9 +19,7 @@ fun SecondaryButton(
     TextButton(
         enabled = enabledButton,
         onClick = {
-            onButtonClicked?.let {
-                it.invoke()
-            }
+            onButtonClicked?.invoke()
         }
     ) {
         Text(
@@ -36,7 +34,7 @@ fun SecondaryButton(
 
 @Preview
 @Composable
-private fun showSecondaryButton() {
+private fun SecondaryButtonPreview() {
     ReportsGoTheme {
         SecondaryButton(textButton = "Action")
     }
@@ -45,7 +43,7 @@ private fun showSecondaryButton() {
 
 @Preview
 @Composable
-private fun showDisableSecondaryButton() {
+private fun DisableSecondaryButtonPreview() {
     ReportsGoTheme {
         SecondaryButton(textButton = "Action", enabledButton = false)
     }

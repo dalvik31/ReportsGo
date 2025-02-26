@@ -11,11 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.OrdersViewModel
-import com.epacheco.reports.compose_reformat.ui.navigation.ReportsNavHost
-import com.epacheco.reports.compose_reformat.ui.login.RegisterScreen
 import com.epacheco.reports.compose_reformat.ui.login.RegisterScreenContent
-import com.epacheco.reports.compose_reformat.ui.login.RegisterViewModel
+import com.epacheco.reports.compose_reformat.ui.navigation.ReportsNavHost
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import dagger.hilt.android.AndroidEntryPoint
 
