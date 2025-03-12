@@ -5,6 +5,6 @@ import com.epacheco.reports.compose_reformat.model.clients.Client
 import com.google.firebase.database.DatabaseReference
 
 interface ClientsRepository {
-    suspend fun getClients(): Resource<List<Client>>
+    suspend fun getClients(paramName: String = ""): Resource<List<Client>>
     fun getClientsReference(): DatabaseReference
 }

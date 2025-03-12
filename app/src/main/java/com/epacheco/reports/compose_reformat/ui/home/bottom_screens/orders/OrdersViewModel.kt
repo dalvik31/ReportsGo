@@ -15,16 +15,24 @@ import javax.inject.Inject
 class OrdersViewModel @Inject constructor(private val ordersUseCase: GetOrdersUseCase) :
     BaseViewModel() {
 
-    private val _ordersFlow = MutableStateFlow<Resource<List<Order>>?>(Resource.Loading)
+    private val _ordersFlow = MutableStateFlow<Resource<List<Order>>?>(null)
     val ordersFlow: StateFlow<Resource<List<Order>>?> = _ordersFlow
 
     init {
-        getOrders()
+        //getOrders()
     }
 
     private fun getOrders() = viewModelScope.launch {
-        _ordersFlow.value = Resource.Loading
+        //_ordersFlow.value = Resource.Waiting
         val result = ordersUseCase()
         _ordersFlow.value = result
+    }
+
+    override fun setErrorMsg(msgError: String?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun loading(showLoading: Boolean) {
+        TODO("Not yet implemented")
     }
 }

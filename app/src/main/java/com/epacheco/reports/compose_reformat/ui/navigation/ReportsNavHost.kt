@@ -7,8 +7,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.epacheco.reports.compose_reformat.ui.home.HomeScreen
-import com.epacheco.reports.compose_reformat.ui.login.RegisterScreen
 import com.epacheco.reports.compose_reformat.ui.recovery_password.PasswordScreen
+import com.epacheco.reports.compose_reformat.ui.account.AccountScreen
+import com.epacheco.reports.compose_reformat.ui.splash.SplashScreen
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 @Composable
@@ -20,16 +21,38 @@ fun ReportsNavHost(
         NavHost(
             modifier = modifier,
             navController = navController,
-            startDestination = NavHostScreens.REGISTER.route
+            startDestination = NavHostScreens.SPLASH.route
         ) {
+
+            composable(NavHostScreens.SPLASH.route) {
+                SplashScreen(onNavigateToHome = {
+                    navController.navigate(NavHostScreens.HOME.route) {
+                        popUpTo(NavHostScreens.SPLASH.route) { inclusive = true }
+                    }
+                }, onNavigateToLogin = {
+                    navController.navigate(NavHostScreens.REGISTER.route) {
+                        popUpTo(NavHostScreens.SPLASH.route) { inclusive = true }
+                    }
+                })
+            }
             composable(NavHostScreens.REGISTER.route) {
-                RegisterScreen(navController = navController)
+                AccountScreen(onNavigateToHome = {
+                    navController.navigate(NavHostScreens.HOME.route) {
+                        popUpTo(NavHostScreens.REGISTER.route) { inclusive = true }
+                    }
+                }, onNavigateToPassword = {
+                    navController.navigate(NavHostScreens.PASSWORD.route)
+                })
             }
             composable(NavHostScreens.PASSWORD.route) {
                 PasswordScreen(navController)
             }
             composable(NavHostScreens.HOME.route) {
-                HomeScreen(navController = navController)
+                HomeScreen(navController = navController, onLogout = {
+                    navController.navigate(NavHostScreens.REGISTER.route) {
+                        popUpTo(NavHostScreens.SPLASH.route) { inclusive = true }
+                    }
+                })
             }
         }
 

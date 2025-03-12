@@ -15,16 +15,24 @@ import javax.inject.Inject
 class ClientsViewModel @Inject constructor(private val clientsUseCase: GetClientsUseCase) :
     BaseViewModel() {
 
-    private val _clientsFlow = MutableStateFlow<Resource<List<Client>>?>(Resource.Loading)
+    private val _clientsFlow = MutableStateFlow<Resource<List<Client>>?>(null)
     val clientsFlow: StateFlow<Resource<List<Client>>?> = _clientsFlow
 
     init {
-        getClients()
+       // getClients()
     }
 
     private fun getClients() = viewModelScope.launch {
-        _clientsFlow.value = Resource.Loading
+        //_clientsFlow.value = Resource.Waiting
         val result = clientsUseCase()
         _clientsFlow.value = result
+    }
+
+    override fun setErrorMsg(msgError: String?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun loading(showLoading: Boolean) {
+        TODO("Not yet implemented")
     }
 }

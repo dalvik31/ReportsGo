@@ -12,8 +12,11 @@ import javax.inject.Inject
 class AuthRepositoryImp @Inject constructor(private val firebaseAuth: FirebaseAuth) :
     AuthRepository {
 
-    override fun getCurrentUser(): Resource<FirebaseUser>? =
-        firebaseAuth.currentUser?.let { Resource.Success(it) }
+    override fun getCurrentUser(): Resource<FirebaseUser> {
+        return if (firebaseAuth.currentUser != null) Resource.Success(firebaseAuth.currentUser!!) else Resource.Failure(
+            Exception("Usuario no encontrado")
+        )
+    }
 
     override suspend fun login(email: String, password: String): Resource<FirebaseUser> {
         return try {
@@ -41,8 +44,13 @@ class AuthRepositoryImp @Inject constructor(private val firebaseAuth: FirebaseAu
         }
     }
 
-    override fun logout() {
-        firebaseAuth.signOut()
+    override fun logout(): Resource<Boolean> {
+        return try {
+            firebaseAuth.signOut()
+            Resource.Success(true)
+        } catch (e: Throwable) {
+            Resource.Failure(Exception(e.message))
+        }
     }
 
 }

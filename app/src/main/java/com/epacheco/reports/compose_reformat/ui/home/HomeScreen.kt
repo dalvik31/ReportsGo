@@ -23,8 +23,9 @@ import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomNavigation
 import com.epacheco.reports.compose_reformat.ui.theme.White
 
 @Composable
-fun HomeScreen(navController: NavHostController) {
+fun HomeScreen(navController: NavHostController, onLogout: () -> Unit) {
     val bottomNavController = rememberNavController()
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
@@ -56,9 +57,9 @@ fun HomeScreen(navController: NavHostController) {
                 FinancesScreen()
             }
             composable(BottomNavHostScreens.PROFILE.route) {
-                ProfileScreen(
-                    navController = navController
-                )
+                ProfileScreen(navController, onLogout = {
+                    onLogout.invoke()
+                })
             }
 
         }

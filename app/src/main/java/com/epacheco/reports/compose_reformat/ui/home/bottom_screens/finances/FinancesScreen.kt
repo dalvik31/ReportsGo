@@ -40,7 +40,7 @@ fun FinancesScreen(
                 }
             }
 
-            Resource.Loading -> Loader(false, stringResource(R.string.search_finances))
+            //Resource.Waiting -> Loader(false, stringResource(R.string.search_finances))
             is Resource.Success -> {
                 Column {
                     TextDivider(

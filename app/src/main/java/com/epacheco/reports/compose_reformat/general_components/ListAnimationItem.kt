@@ -47,7 +47,6 @@ fun ListAnimationItem(
                 .fillMaxWidth()
         ) {
 
-
             Row(
                 modifier = Modifier
                     .padding(12.dp)

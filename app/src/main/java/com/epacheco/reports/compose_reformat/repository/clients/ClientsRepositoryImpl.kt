@@ -15,20 +15,24 @@ class ClientsRepositoryImpl @Inject constructor(
 ) : ClientsRepository {
 
 
-    override suspend fun getClients(): Resource<List<Client>> {
+    override suspend fun getClients(paramName: String): Resource<List<Client>> {
         val clientList = mutableListOf<Client>()
         return try {
-            getClientsReference().get().await().children.map { snapShot ->
-                val client = snapShot.getValue(Client::class.java)
-                client?.let {
-                    clientList.add(it)
+            getClientsReference().orderByChild(Constants.CLIENT_ORDER_PARAM_NAME_)
+                .startAt(paramName).endAt(paramName + "\uf8ff").get()
+                .await().children.map { snapShot ->
+                    val client = snapShot.getValue(Client::class.java)
+                    client?.let {
+                        clientList.add(it)
+                    }
                 }
-            }
             Resource.Success(clientList)
         } catch (exception: Exception) {
             Resource.Failure(exception)
         }
+
     }
+
 
     override fun getClientsReference(): DatabaseReference =
         firebaseDatabase.getReference(Constants.DATABASE_FIREBASE_NAME)

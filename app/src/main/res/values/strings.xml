@@ -319,6 +319,7 @@
     <string name="show_less">Show less</string>
     <string name="loading">Cargando…</string>
     <string name="msg_error">Error</string>
+    <string name="msg_success">Éxito</string>
 
 
     <!--Register Screen-->
@@ -369,6 +370,8 @@
         <item formatted="true" quantity="one">(%s) Producto</item>
         <item formatted="true" quantity="other">(%s) Productos</item>
     </plurals>
+    <string name="lbl_price_sale">$%s</string>
+    <string name="lbl_stock_sale">%s en existencia</string>
 
     <!--FINANCES Fragments-->
     <string name="search_finances">Buscando ventas generadas…</string>
@@ -381,4 +384,7 @@
     <!--PROFILE Fragments-->
     <string name="search_profile">Buscando usuario…</string>
     <string name="title_profile">Hola, %s!</string>
+    <string name="last_connection">Última conexión: %s</string>
+    <string name="btn_logout">Cerrar sesión</string>
+    <string name="msg_user_profile_not_found">Usuario no encontrado</string>
 </resources>

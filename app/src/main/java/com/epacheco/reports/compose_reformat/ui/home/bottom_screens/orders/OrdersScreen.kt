@@ -24,7 +24,6 @@ import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.general_components.ListAnimationItem
 import com.epacheco.reports.compose_reformat.general_components.Loader
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
-import com.epacheco.reports.compose_reformat.ui.navigation.NavHostScreens
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 
@@ -41,14 +40,10 @@ fun OrdersScreen(
             is Resource.Failure -> {
                 it.exception?.let {
                     Log.e("aqui", "OrdersScreen vamooos: ${it.message}")
-                } ?: run {
-                    navHostController.navigate(NavHostScreens.REGISTER.route) {
-                        popUpTo(NavHostScreens.HOME.route) { inclusive = true }
-                    }
                 }
             }
 
-            Resource.Loading -> Loader(false, stringResource(R.string.search_orders))
+            //Resource.Waiting -> Loader(false, stringResource(R.string.search_orders))
             is Resource.Success -> {
                 Column {
                     TextDivider(

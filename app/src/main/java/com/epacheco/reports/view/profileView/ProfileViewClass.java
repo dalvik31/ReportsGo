@@ -194,6 +194,7 @@ public class ProfileViewClass extends AppCompatActivity implements ProfileViewIn
      * Hacemos lo mismo que con la camara.
      */
     private void checkPermissionsGallery() {
+        dispatchGalleryPictureIntent();
         if (com.epacheco.reports.tools.Tools.checkPermissionsGallery(this)) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 createDialogPermisionGallery();

@@ -5,9 +5,10 @@ import com.epacheco.reports.compose_reformat.domain.FirebaseGetUserUseCase
 import com.epacheco.reports.compose_reformat.domain.FirebaseUserLogoutUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
-import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,22 +19,60 @@ class ProfileViewModel @Inject constructor(
     private val firebaseGetUserUseCase: FirebaseGetUserUseCase,
 ) :
     BaseViewModel() {
+    private val _uiState = MutableStateFlow(ProfileUiState())
+    val uiState: StateFlow<ProfileUiState> = _uiState
 
-    private val _userFlow = MutableStateFlow<Resource<FirebaseUser>?>(Resource.Loading)
-    val userFlow: StateFlow<Resource<FirebaseUser>?> = _userFlow
+    private val _effectFlow = MutableSharedFlow<ProfileUiEffect>()
+    val effectFlow: SharedFlow<ProfileUiEffect> = _effectFlow
 
     init {
         getProfile()
     }
 
+    fun handleIntent(intent: ProfileUiIntent) {
+        when (intent) {
+            ProfileUiIntent.Logout -> doLogout()
+            ProfileUiIntent.Error -> setErrorMsg()
+        }
+    }
+
     private fun getProfile() = viewModelScope.launch {
-        _userFlow.value = Resource.Loading
-        val result = firebaseGetUserUseCase()
-        _userFlow.value = result
+        loading(true)
+        when (val profileResponse = firebaseGetUserUseCase()) {
+            is Resource.Failure -> {
+                _uiState.value =
+                    _uiState.value.copy(errorMessage = profileResponse.exception.message)
+            }
+
+            is Resource.Success -> {
+                _uiState.value = _uiState.value.copy(userProfile = profileResponse.result)
+            }
+        }
+        loading(false)
     }
 
-    fun logout() {
-        firebaseUserLogoutUseCase()
+
+    private fun doLogout() {
+        viewModelScope.launch {
+            when (val logoutResponse = firebaseUserLogoutUseCase()) {
+                is Resource.Failure -> {
+                    _uiState.value =
+                        _uiState.value.copy(errorMessage = logoutResponse.exception.message)
+                }
+
+                is Resource.Success -> {
+                    _effectFlow.emit(ProfileUiEffect.NavigateToLogin)
+                }
+            }
+        }
     }
 
+
+    override fun setErrorMsg(msgError: String?) {
+        _uiState.value = _uiState.value.copy(errorMessage = msgError)
+    }
+
+    override fun loading(showLoading: Boolean) {
+        _uiState.value = _uiState.value.copy(isLoading = showLoading)
+    }
 }

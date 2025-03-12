@@ -4,7 +4,7 @@ import com.epacheco.reports.Pojo.ClientDetail.ClientDetail
 
 data class Client(
     val id: String = "",
-    val Name: String = "",
+    val name: String = "",
     val lastNanme: String = "",
     val detail: String = "",
     val phone: String = "",

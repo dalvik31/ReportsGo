@@ -15,16 +15,24 @@ import javax.inject.Inject
 class FinancesViewModel @Inject constructor(private val financesUseCase: GetFinancesUseCase) :
     BaseViewModel() {
 
-    private val _financesFlow = MutableStateFlow<Resource<List<Sale>>?>(Resource.Loading)
+    private val _financesFlow = MutableStateFlow<Resource<List<Sale>>?>(null)
     val financesFlow: StateFlow<Resource<List<Sale>>?> = _financesFlow
 
     init {
-        getFinances()
+        //getFinances()
     }
 
     private fun getFinances() = viewModelScope.launch {
-        _financesFlow.value = Resource.Loading
+        //_financesFlow.value = Resource.Waiting
         val result = financesUseCase()
         _financesFlow.value = result
+    }
+
+    override fun setErrorMsg(msgError: String?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun loading(showLoading: Boolean) {
+        TODO("Not yet implemented")
     }
 }

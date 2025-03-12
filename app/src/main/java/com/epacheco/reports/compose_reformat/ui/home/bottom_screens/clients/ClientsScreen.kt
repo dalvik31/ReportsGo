@@ -17,17 +17,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.general_components.ListAnimationItem
 import com.epacheco.reports.compose_reformat.general_components.Loader
-import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.OrdersViewModel
-import com.epacheco.reports.compose_reformat.ui.login.RegisterViewModel
-import com.epacheco.reports.compose_reformat.ui.navigation.NavHostScreens
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 
@@ -46,7 +40,7 @@ fun ClientsScreen(
                 }
             }
 
-            Resource.Loading -> Loader(false, stringResource(R.string.search_clients))
+           // Resource.Waiting -> Loader(false, stringResource(R.string.search_clients))
             is Resource.Success -> {
                 Column {
                     TextDivider(
@@ -67,7 +61,7 @@ fun ClientsScreen(
                         items(it.result) { client ->
                             ListAnimationItem(
                                 title = client.phone,
-                                body = client.Name,
+                                body = client.name.plus(" ").plus(client.lastNanme),
                                 content = client.detail
                             )
                         }
