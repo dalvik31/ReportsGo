@@ -6,5 +6,6 @@ import com.google.firebase.database.DatabaseReference
 
 interface OrdersRepository {
     suspend fun getOrders(): Resource<List<Order>>
+    suspend fun deleteOrder(orderId: String): Resource<Boolean>
     fun getOrdersReference(): DatabaseReference
 }

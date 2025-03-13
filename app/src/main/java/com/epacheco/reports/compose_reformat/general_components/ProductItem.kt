@@ -1,6 +1,7 @@
 package com.epacheco.reports.compose_reformat.general_components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,25 +25,31 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.epacheco.reports.R
+import com.epacheco.reports.compose_reformat.model.products.Product
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.ui.theme.White
 import com.epacheco.reports.compose_reformat.utils.extensions.StockColor
 
 
 @Composable
-fun ProductItem(img: String, title: String, price: Double, stock: Int) {
+fun ProductItem(
+    product: Product,
+    onProductClick: (Product) -> Unit
+) {
 
     Box(
 
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 4.dp)
-
             .background(Color.Black, shape = RoundedCornerShape(10.dp))
+            .clickable {
+                onProductClick.invoke(product)
+            }
     ) {
 
         AsyncImage(
-            model = img,
+            model = product.urlImage,
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -53,7 +60,7 @@ fun ProductItem(img: String, title: String, price: Double, stock: Int) {
 
 
         Text(
-            title,
+            product.productName,
             style = MaterialTheme.typography.titleLarge,
             modifier = Modifier
                 .fillMaxWidth()
@@ -69,7 +76,7 @@ fun ProductItem(img: String, title: String, price: Double, stock: Int) {
                 .align(Alignment.BottomCenter)
         ) {
             Text(
-                stringResource(R.string.lbl_price_sale, price),
+                stringResource(R.string.lbl_price_sale, product.productPriceSale),
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier
                     .padding(horizontal = 10.dp)
@@ -79,12 +86,12 @@ fun ProductItem(img: String, title: String, price: Double, stock: Int) {
             )
 
             Text(
-                stringResource(R.string.lbl_stock_sale, stock),
+                stringResource(R.string.lbl_stock_sale, product.inStock),
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier
                     .padding(horizontal = 10.dp, vertical = 5.dp)
                     .fillMaxWidth()
-                    .background(stock.StockColor(), shape = RoundedCornerShape(20.dp)),
+                    .background(product.inStock.StockColor(), shape = RoundedCornerShape(20.dp)),
                 fontSize = 12.sp,
                 textAlign = TextAlign.Center,
                 color = White,
@@ -99,7 +106,9 @@ fun ProductItem(img: String, title: String, price: Double, stock: Int) {
 @Composable
 fun FavoriteCollectionElementPreview() {
     ReportsGoTheme {
-        ProductItem("IMAG", "TITLE", 3.0, 5)
+        ProductItem(Product()) {
+
+        }
     }
 
 }

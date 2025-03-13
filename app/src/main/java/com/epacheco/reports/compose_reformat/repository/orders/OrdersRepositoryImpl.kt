@@ -30,6 +30,19 @@ class OrdersRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun deleteOrder(orderId: String): Resource<Boolean> {
+        var successDelete = false
+        return try {
+            getOrdersReference().child(orderId).removeValue()
+                .addOnSuccessListener { successDelete = true }
+                .addOnFailureListener { e -> successDelete = false }
+
+            Resource.Success(successDelete)
+        } catch (e: Exception) {
+            Resource.Failure(e)
+        }
+    }
+
     override fun getOrdersReference(): DatabaseReference =
         firebaseDatabase.getReference(Constants.DATABASE_FIREBASE_NAME)
             .child(firebaseAuth.uid ?: "")

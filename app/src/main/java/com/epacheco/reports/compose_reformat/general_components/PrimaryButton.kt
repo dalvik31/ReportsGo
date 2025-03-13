@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ui.theme.FacebookBackground
 import com.epacheco.reports.compose_reformat.ui.theme.GoogleBackground
-import com.epacheco.reports.compose_reformat.ui.theme.GreyLight
+import com.epacheco.reports.compose_reformat.ui.theme.GrayLight
 import com.epacheco.reports.compose_reformat.ui.theme.White
 
 @Composable
@@ -30,13 +30,14 @@ fun PrimaryButton(
     onButtonClicked: (() -> Unit)? = null
 ) {
     Button(
+        modifier = modifier,
         enabled = enabledButton,
         onClick = {
             onButtonClicked?.invoke()
         }, colors = ButtonDefaults.buttonColors(
             containerColor = colorBackground,
             disabledContentColor = White,
-            disabledContainerColor = GreyLight,
+            disabledContainerColor = GrayLight,
         )
     ) {
         iconBtn?.let { icon ->

@@ -53,8 +53,10 @@ object DateUtils {
 
     const val FORMAT_DATE1 = "yyyy-MM-dd"
     const val FORMAT_DATE2 = "dd/MM/yyyy"
+    const val FORMAT_DATE3 = "dd / MMMM / YYYY"
     const val FORMAT_DATE7 = "dd MMM, YYYY"
     const val FORMAT_DATE8 = "dd MMM. YYYY"
+
 
 
 }

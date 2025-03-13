@@ -15,7 +15,7 @@ import androidx.navigation.compose.rememberNavController
 import com.epacheco.reports.compose_reformat.general_components.navbar.AnimatedNavigationBar
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.ClientsScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.finances.FinancesScreen
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.OrdersScreen
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.OrdersMainScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products.ProductsScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile.ProfileScreen
 import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomNavHostScreens
@@ -45,7 +45,7 @@ fun HomeScreen(navController: NavHostController, onLogout: () -> Unit) {
             modifier = Modifier.padding(paddingValues = paddingValues)
         ) {
             composable(BottomNavHostScreens.ORDERS.route) {
-                OrdersScreen(navHostController = navController)
+                OrdersMainScreen()
             }
             composable(BottomNavHostScreens.CLIENTS.route) {
                 ClientsScreen()

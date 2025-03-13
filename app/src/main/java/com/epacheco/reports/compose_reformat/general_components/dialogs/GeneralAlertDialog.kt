@@ -1,7 +1,6 @@
 package com.epacheco.reports.compose_reformat.general_components.dialogs
 
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,7 +20,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -30,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ui.theme.Black
-import com.epacheco.reports.compose_reformat.ui.theme.GreyDark
+import com.epacheco.reports.compose_reformat.ui.theme.GrayDark
 import com.epacheco.reports.compose_reformat.ui.theme.RedBackground
 
 
@@ -39,7 +37,7 @@ fun ReportsAlertDialog(
     imgDialog: Int,
     dialogTitle: String,
     dialogSubTitle: String,
-    confirmButtonText: String,
+    confirmButtonText: String? = null,
     cancelButtonText: String? = null,
     onDismissRequest: (() -> Unit)? = null,
     onConfirmation: () -> Unit,
@@ -140,7 +138,7 @@ fun CustomDialogUI(
                         Text(
                             it.uppercase(),
                             fontWeight = FontWeight.Bold,
-                            color = GreyDark,
+                            color = GrayDark,
                             modifier = Modifier.padding(top = 5.dp, bottom = 5.dp)
                         )
                     }

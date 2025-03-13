@@ -356,6 +356,14 @@
     </plurals>
     <string name="search_orders">Buscando listas de pedidos…</string>
     <string name="date_order"> %s</string>
+    <string name="create_new_list_orders">Crear nueva lista</string>
+    <string name="title_season">Temporada</string>
+    <string name="season_fall_winter">Otoño - Invierno</string>
+    <string name="season_warning">Toma esto en cuenta al crear tu lista</string>
+    <string name="list_orders_empty">No se encontraron listas de pedido.</string>
+    <string name="msg_delete_order_title">Eliminar pedido</string>
+    <string name="msg_delete_order_body">Estas seguro de querer la lista de pedido: %s</string>
+
 
     <!--CLIENTS Fragments-->
     <string name="search_clients">Buscando clientes registrados…</string>
