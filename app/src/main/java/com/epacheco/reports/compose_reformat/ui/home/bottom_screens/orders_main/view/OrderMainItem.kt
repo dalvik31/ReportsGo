@@ -1,4 +1,4 @@
-package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.view
+package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders_main.view
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsAlertDialog
 import com.epacheco.reports.compose_reformat.model.orders.Order
+import com.epacheco.reports.compose_reformat.model.orders.OrderStatus
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE3
 
@@ -45,11 +46,13 @@ import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE3
 fun OrderMainItem(
     order: Order,
     onMainOrderClick: (Order) -> Unit,
-    onDeleteOrderClick: (String) -> Unit
+    onDeleteOrderClick: (String) -> Unit,
+    onUpdateStatusOrderClick: (Order) -> Unit
 
 ) {
 
     var showDialogConfirmDeleteOrder by remember { mutableStateOf(false) }
+    var showDialogConfirmCompleteOrder by remember { mutableStateOf(false) }
 
     Surface(color = Color.Transparent) {
         Card(
@@ -98,6 +101,24 @@ fun OrderMainItem(
                             )
 
                             IconButton({
+                                showDialogConfirmCompleteOrder = true
+                            }) {
+                                Icon(
+                                    painter = painterResource(if (order.orderStatus == OrderStatus.IN_PROGRESS) R.drawable.ic_vector_unchecked else R.drawable.ic_vector_checked),
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.primary
+                                )
+                            }
+                        }
+
+                        Row(
+                            modifier = Modifier
+                                .padding(horizontal = 12.dp, vertical = 12.dp)
+                                .fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                        ) {
+                            IconButton({
                                 showDialogConfirmDeleteOrder = true
                             }) {
                                 Icon(
@@ -106,15 +127,16 @@ fun OrderMainItem(
                                     tint = MaterialTheme.colorScheme.primary
                                 )
                             }
+                            if (order.orderId.isNotEmpty()) {
+                                Text(
+                                    text = DateUtils.format(order.orderId.toLong(), FORMAT_DATE3),
+                                    style = MaterialTheme.typography.bodySmall
+                                )
+                            }
+
+
                         }
 
-                        Text(
-                            modifier = Modifier
-                                .padding(horizontal = 12.dp, vertical = 12.dp)
-                                .align(Alignment.End),
-                            text = DateUtils.format(order.dateOrder.toLong(), FORMAT_DATE3),
-                            style = MaterialTheme.typography.bodySmall
-                        )
                     }
 
                 }
@@ -128,13 +150,28 @@ fun OrderMainItem(
         ReportsAlertDialog(
             imgDialog = R.drawable.ic_vector_remove,
             dialogTitle = stringResource(R.string.msg_delete_order_title),
-            dialogSubTitle = stringResource(R.string.msg_delete_order_title, order.nameOrder),
+            dialogSubTitle = stringResource(R.string.msg_delete_order_list_body, order.nameOrder),
             confirmButtonText = stringResource(R.string.btn_ok),
             cancelButtonText = stringResource(R.string.btn_cancel),
             onDismissRequest = { showDialogConfirmDeleteOrder = false },
             onConfirmation = {
                 showDialogConfirmDeleteOrder = false
-                onDeleteOrderClick.invoke(order.dateOrder)
+                onDeleteOrderClick.invoke(order.orderId)
+            }
+        )
+    }
+
+    if (showDialogConfirmCompleteOrder) {
+        ReportsAlertDialog(
+            imgDialog = R.drawable.ic_notfication,
+            dialogTitle = stringResource(R.string.msg_update_state_order_title),
+            dialogSubTitle = getUpdateStatusList(order),
+            confirmButtonText = stringResource(R.string.btn_ok),
+            cancelButtonText = stringResource(R.string.btn_cancel),
+            onDismissRequest = { showDialogConfirmCompleteOrder = false },
+            onConfirmation = {
+                showDialogConfirmCompleteOrder = false
+                onUpdateStatusOrderClick.invoke(order)
             }
         )
     }
@@ -142,11 +179,21 @@ fun OrderMainItem(
 }
 
 
+@Composable
+private fun getUpdateStatusList(order: Order) =
+    stringResource(
+        when (order.orderStatus) {
+            OrderStatus.IN_PROGRESS -> R.string.msg_complete_order_body
+            OrderStatus.DONE -> R.string.msg_in_progress_order_body
+        }, order.nameOrder
+    )
+
+
 @Preview
 @Composable
 fun OrderMainItemPreview() {
     OrderMainItem(
-        Order(dateOrder = "0", nameOrder = "name"),
+        Order(orderId = "0", nameOrder = "name"),
         onMainOrderClick = {},
-        onDeleteOrderClick = {})
+        onDeleteOrderClick = {}, onUpdateStatusOrderClick = {})
 }

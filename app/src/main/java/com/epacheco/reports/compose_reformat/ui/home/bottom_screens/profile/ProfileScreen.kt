@@ -18,7 +18,6 @@ import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun ProfileScreen(
-    navHostController: NavHostController,
     profileViewModel: ProfileViewModel = hiltViewModel<ProfileViewModel>(),
     onLogout: () -> Unit,
 ) {
@@ -29,10 +28,7 @@ fun ProfileScreen(
         profileViewModel.effectFlow.collectLatest { effect ->
             when (effect) {
                 ProfileUiEffect.NavigateToLogin -> {
-                    navHostController.navigate(NavHostScreens.REGISTER.route) {
-                        popUpTo(NavHostScreens.HOME.route) { inclusive = true }
-                    }
-                    //onLogout()
+                    onLogout()
                 }
             }
         }

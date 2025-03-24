@@ -1,6 +1,8 @@
 package com.epacheco.reports.compose_reformat.model.orders
 
-enum class OrderStatus {
-    IN_PROGRESS,
-    DONE
+import com.epacheco.reports.R
+
+enum class OrderStatus(val orderStatusName: Int) {
+    IN_PROGRESS(R.string.tab_in_progress),
+    DONE(R.string.tab_done)
 }

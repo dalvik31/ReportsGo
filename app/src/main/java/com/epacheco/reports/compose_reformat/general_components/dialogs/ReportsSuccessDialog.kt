@@ -2,22 +2,23 @@ package com.epacheco.reports.compose_reformat.general_components.dialogs
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.window.Dialog
 import com.epacheco.reports.R
 
 
 @Composable
 fun ReportsSuccessDialog(
     dialogSubTitle: String,
+    closeAutomatically: Boolean? = null,
     onConfirmation: () -> Unit,
-) {
-    Dialog(onDismissRequest = { onConfirmation.invoke() }) {
-        CustomDialogUI(
-            imgDialog = R.drawable.ic_vector_ok,
-            dialogTitle = stringResource(R.string.msg_success),
-            dialogSubTitle = dialogSubTitle,
-            confirmButtonText = stringResource(R.string.btn_ok),
-            onConfirmation = onConfirmation
-        )
-    }
+
+    ) {
+    ReportsAlertDialog(
+        imgDialog = R.drawable.ic_vector_ok,
+        dialogTitle = stringResource(R.string.msg_success),
+        dialogSubTitle = dialogSubTitle,
+        closeAutomatically = closeAutomatically,
+        confirmButtonText = if (closeAutomatically == true) null else stringResource(R.string.btn_ok),
+        onConfirmation = onConfirmation
+    )
+
 }

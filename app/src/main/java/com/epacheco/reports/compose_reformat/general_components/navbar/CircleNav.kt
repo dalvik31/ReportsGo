@@ -15,14 +15,14 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.Dp
-import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomNavigationItem
+import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeNavigationItem
 
 @Composable
 fun Circle(
     modifier: Modifier = Modifier,
     color: Color = Color.White,
     radius: Dp,
-    button: BottomNavigationItem,
+    button: BottomHomeNavigationItem,
     iconColor: Color,
 ) {
     Box(

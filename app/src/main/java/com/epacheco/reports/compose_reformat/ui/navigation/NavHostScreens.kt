@@ -1,8 +1,20 @@
 package com.epacheco.reports.compose_reformat.ui.navigation
 
-sealed class NavHostScreens(val route: String) {
-    data object SPLASH : NavHostScreens("splash_screen")
-    data object REGISTER : NavHostScreens("register_screen")
-    data object PASSWORD : NavHostScreens("password_screen")
-    data object HOME : NavHostScreens("home_screen")
+import kotlinx.serialization.Serializable
+
+@Serializable
+sealed interface NavHostScreens {
+
+    @Serializable
+    data object SplashRoute : NavHostScreens
+
+    @Serializable
+    data object RegisterRoute : NavHostScreens
+
+    @Serializable
+    data object PasswordRoute : NavHostScreens
+
+    @Serializable
+    data object HomeRoute : NavHostScreens
+
 }

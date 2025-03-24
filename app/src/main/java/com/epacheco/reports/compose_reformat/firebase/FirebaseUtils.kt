@@ -5,6 +5,7 @@ import com.epacheco.reports.compose_reformat.model.products.Product
 import com.google.android.gms.tasks.Task
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseException
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
@@ -109,3 +110,35 @@ suspend inline fun <reified T> Query.awaitQueryValue() : T = suspendCancellableC
         }
     })
 }
+
+sealed class FlowDataState<out R> {
+    data class Success<out T>(val data: T) : FlowDataState<T>()
+    data class Error(val throwable: Throwable) : FlowDataState<Nothing>()
+}
+
+suspend inline fun <reified T> Query.awaitSingleValueEventList(): Flow<FlowDataState<List<T>>> =
+    callbackFlow {
+        val valueEventListener = object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                try {
+                    val entityList = mutableListOf<T>()
+                    snapshot.children.forEach { dataSnapshot ->
+                        dataSnapshot.getValue(T::class.java)?.let {
+                            entityList.add(it)
+                        }
+                    }
+                    trySend(FlowDataState.Success(entityList)).isSuccess
+                } catch (e: DatabaseException) {
+                    trySend(FlowDataState.Error(e)).isSuccess
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                trySend(FlowDataState.Error(error.toException())).isSuccess
+            }
+        }
+
+        addListenerForSingleValueEvent(valueEventListener)
+
+        awaitClose { removeEventListener(valueEventListener) }
+    }

@@ -2,37 +2,37 @@ package com.epacheco.reports.compose_reformat.ui.home.navigation
 
 import com.epacheco.reports.R
 
-data class BottomNavigationItem(
+data class BottomHomeNavigationItem(
     val label: Int = R.string.app_name,
     val icon: Int = R.drawable.ic_vector_order,
-    val route: String = BottomNavHostScreens.ORDERS.route
+    val bottomHomeRoutes: BottomHomeRoutes = BottomHomeRoutes.MainOrdersBottomHomeRoute
 ) {
-    fun bottomNavigationItems(): List<BottomNavigationItem> {
+    fun bottomNavigationItems(): List<BottomHomeNavigationItem> {
         return listOf(
-            BottomNavigationItem(
+            BottomHomeNavigationItem(
                 label = R.string.tab_order_option,
                 icon = R.drawable.ic_vector_order,
-                route = BottomNavHostScreens.ORDERS.route
+                bottomHomeRoutes = BottomHomeRoutes.MainOrdersBottomHomeRoute
             ),
-            BottomNavigationItem(
+            BottomHomeNavigationItem(
                 label = R.string.tab_clients_option,
                 icon = R.drawable.ic_vector_clients,
-                route = BottomNavHostScreens.CLIENTS.route
+                bottomHomeRoutes = BottomHomeRoutes.ClientBottomHomeRoute
             ),
-            BottomNavigationItem(
+            BottomHomeNavigationItem(
                 label = R.string.tab_products_option,
                 icon = R.drawable.ic_vector_products_red,
-                route = BottomNavHostScreens.PRODUCTS.route
+                bottomHomeRoutes = BottomHomeRoutes.ProductBottomHomeRoute
             ),
-            BottomNavigationItem(
+            BottomHomeNavigationItem(
                 label = R.string.tab_finances_option,
                 icon = R.drawable.ic_vector_activity,
-                route = BottomNavHostScreens.FINANCES.route
+                bottomHomeRoutes = BottomHomeRoutes.FinanceBottomHomeRoute
             ),
-            BottomNavigationItem(
+            BottomHomeNavigationItem(
                 label = R.string.tab_profile_option,
                 icon = R.drawable.ic_vector_account,
-                route = BottomNavHostScreens.PROFILE.route
+                bottomHomeRoutes = BottomHomeRoutes.ProfileBottomHomeRoute
             )
         )
     }

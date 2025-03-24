@@ -27,46 +27,54 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.epacheco.reports.R
+import com.epacheco.reports.compose_reformat.general_components.InputTextField
 import com.epacheco.reports.compose_reformat.ui.theme.Black
-import com.epacheco.reports.compose_reformat.ui.theme.GrayDark
-import com.epacheco.reports.compose_reformat.ui.theme.RedBackground
+import com.epacheco.reports.compose_reformat.ui.theme.White
 
 
 @Composable
-fun ReportsAlertDialog(
+fun ReportsInputDialog(
     imgDialog: Int,
     dialogTitle: String,
-    dialogSubTitle: String,
+    dialogHint: String? = null,
     confirmButtonText: String? = null,
-    cancelButtonText: String? = null,
-    onDismissRequest: (() -> Unit)? = null,
+    input: String? = null,
+    tintColor: Color,
     onConfirmation: () -> Unit,
+    onDismissRequest: (() -> Unit)? = null,
+    onInputChanged: ((String) -> Unit)? = null,
 ) {
     Dialog(onDismissRequest = { onDismissRequest?.invoke() }) {
-        CustomDialogUI(
+        CustomInputDialogUI(
             imgDialog = imgDialog,
             dialogTitle = dialogTitle,
-            dialogSubTitle = dialogSubTitle,
+            dialogHint = dialogHint,
+            input = input,
+            tintColor = tintColor,
             confirmButtonText = confirmButtonText,
-            cancelButtonText = cancelButtonText,
-            onDismissRequest = onDismissRequest,
-            onConfirmation = onConfirmation
-        )
+            onConfirmation = onConfirmation,
+            onInputChanged = onInputChanged,
+
+            )
     }
+
 }
 
 //Layout
 @Composable
-fun CustomDialogUI(
+fun CustomInputDialogUI(
     modifier: Modifier = Modifier,
     imgDialog: Int = R.drawable.ic_notfication,
     dialogTitle: String? = null,
-    dialogSubTitle: String? = null,
+    dialogHint: String? = null,
+    tintColor: Color,
+    input: String? = null,
     confirmButtonText: String? = null,
-    cancelButtonText: String? = null,
-    onDismissRequest: (() -> Unit)? = null,
     onConfirmation: (() -> Unit)? = null,
-) {
+    onInputChanged: ((String) -> Unit)? = null,
+
+    ) {
+
     Card(
         shape = RoundedCornerShape(10.dp),
         modifier = Modifier.padding(10.dp, 5.dp, 10.dp, 10.dp),
@@ -83,7 +91,7 @@ fun CustomDialogUI(
                 contentDescription = null, // decorative
                 contentScale = ContentScale.Fit,
                 colorFilter = ColorFilter.tint(
-                    color = MaterialTheme.colorScheme.primary
+                    color = tintColor
                 ),
                 modifier = Modifier
                     .padding(top = 35.dp)
@@ -92,7 +100,7 @@ fun CustomDialogUI(
 
                 )
 
-            Column(modifier = Modifier.padding(16.dp)) {
+            Column(modifier = Modifier.padding(vertical = 16.dp)) {
 
                 dialogTitle?.let {
                     Text(
@@ -108,17 +116,18 @@ fun CustomDialogUI(
                     )
                 }
 
-                dialogSubTitle?.let {
-                    Text(
-                        text = it,
-                        textAlign = TextAlign.Center,
-                        color = Black,
-                        modifier = Modifier
-                            .padding(top = 10.dp, start = 25.dp, end = 25.dp)
-                            .fillMaxWidth(),
-                        style = MaterialTheme.typography.bodyMedium
-                    )
+                InputTextField(
+                    modifier = Modifier
+                        .padding(top = 10.dp, start = 25.dp, end = 25.dp)
+                        .fillMaxWidth(),
+                    input = input ?: "",
+                    tintColor = tintColor,
+                    hintText = dialogHint ?: ""
+                ) {
+                    onInputChanged?.invoke(it)
+
                 }
+
 
             }
             //.......................................................................
@@ -126,24 +135,9 @@ fun CustomDialogUI(
                 Modifier
                     .fillMaxWidth()
                     .padding(top = 10.dp)
-                    .background(RedBackground),
+                    .background(tintColor),
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
-
-                cancelButtonText?.let {
-                    TextButton(onClick = {
-                        onDismissRequest?.invoke()
-                    }) {
-
-                        Text(
-                            it.uppercase(),
-                            fontWeight = FontWeight.Bold,
-                            color = GrayDark,
-                            modifier = Modifier.padding(top = 5.dp, bottom = 5.dp)
-                        )
-                    }
-                }
-
                 confirmButtonText?.let {
                     TextButton(onClick = {
                         onConfirmation?.invoke()
@@ -151,7 +145,7 @@ fun CustomDialogUI(
                         Text(
                             it.uppercase(),
                             fontWeight = FontWeight.ExtraBold,
-                            color = MaterialTheme.colorScheme.primary,
+                            color = White,
                             modifier = Modifier.padding(top = 5.dp, bottom = 5.dp)
                         )
                     }
@@ -160,21 +154,14 @@ fun CustomDialogUI(
             }
         }
     }
+
+
 }
 
 
 @Preview
 @Composable
-fun ReportsErrorDialogPreview() {
-    ReportsErrorDialog(
-        dialogSubTitle = "Ocurrio un error intenta mas tarde",
-    ) {}
+fun ReportsInputDialogPreview() {
+    OrderInputDialog(onConfirmation = {}, onDismissRequest = {})
 }
 
-@Preview
-@Composable
-fun ReportsSuccessDialogPreview() {
-    ReportsSuccessDialog(
-        dialogSubTitle = "Ocurrio un error intenta mas tarde",
-    ) {}
-}

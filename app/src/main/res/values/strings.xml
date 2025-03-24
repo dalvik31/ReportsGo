@@ -354,6 +354,8 @@
         <item formatted="true" quantity="one">(%s) Lista de pedidos</item>
         <item formatted="true" quantity="other">(%s) Listas de pedidos</item>
     </plurals>
+    <string name="tab_in_progress">EN PROGRESO</string>
+    <string name="tab_done">COMPLETADAS</string>
     <string name="search_orders">Buscando listas de pedidos…</string>
     <string name="date_order"> %s</string>
     <string name="create_new_list_orders">Crear nueva lista</string>
@@ -361,8 +363,19 @@
     <string name="season_fall_winter">Otoño - Invierno</string>
     <string name="season_warning">Toma esto en cuenta al crear tu lista</string>
     <string name="list_orders_empty">No se encontraron listas de pedido.</string>
-    <string name="msg_delete_order_title">Eliminar pedido</string>
-    <string name="msg_delete_order_body">Estas seguro de querer la lista de pedido: %s</string>
+    <string name="list_order_empty">No se encontraron listas de pedido %s.</string>
+    <string name="msg_delete_order_title">Eliminar elemento</string>
+    <string name="msg_delete_order_list_body"><![CDATA[¿Estas seguro de querer eliminar la lista de pedido: <b>%s</b>?]]></string>
+    <string name="btn_create_order_list">Crear lista</string>
+    <string name="title_create_order_list">Crear lista</string>
+    <string name="body_create_order_list">Mi nueva lista</string>
+    <string name="title_list_default_name">Lista con fecha: %s</string>
+    <string name="msg_error_list_already_exist">Ya creaste una lista de pedido con la fecha de hoy, intenta crear una lista mañana o elimina la ultima lista.</string>
+    <string name="msg_update_state_order_title">Actualizar estado</string>
+    <string name="msg_complete_order_body"><![CDATA[¿Estas seguro de querer cambiar el estado de la lista: \"<i>%s</i>\" a <b>completado</b>?]]></string>
+    <string name="msg_in_progress_order_body"><![CDATA[¿Estas seguro de querer cambiar el estado de la lista: \"<i>%s</i>\" a <b>en progreso</b>?]]></string>
+    <string name="msg_order_list_delete_success">Lista eliminada correctamente.</string>
+    <string name="msg_order_list_update_success">Lista actualizada correctamente.</string>
 
 
     <!--CLIENTS Fragments-->

@@ -1,4 +1,4 @@
-package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.view
+package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders_main.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -23,8 +23,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.ui.theme.GrayBackground
 import com.epacheco.reports.compose_reformat.ui.theme.White
+import com.epacheco.reports.compose_reformat.ui.theme.fall
+import com.epacheco.reports.compose_reformat.ui.theme.spring
 
 @Composable
 fun OrderMainBanner() {
@@ -32,7 +33,7 @@ fun OrderMainBanner() {
         modifier = Modifier
             .padding(horizontal = 8.dp)
             .padding(bottom = 4.dp)
-            .padding(top = 16.dp)
+            .padding(top = 8.dp)
             .fillMaxWidth()
             .height(100.dp),
 
@@ -40,7 +41,7 @@ fun OrderMainBanner() {
         Box(
             Modifier
                 .fillMaxSize()
-                .background(GrayBackground)
+                .background(fall)
         ) {
             Image(
                 modifier = Modifier

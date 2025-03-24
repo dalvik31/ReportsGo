@@ -11,13 +11,11 @@ fun ReportsErrorDialog(
     dialogSubTitle: String,
     onConfirmation: () -> Unit,
 ) {
-    Dialog(onDismissRequest = { onConfirmation.invoke() }) {
-        CustomDialogUI(
-            imgDialog = R.drawable.ic_error,
-            dialogTitle = stringResource(R.string.msg_error),
-            dialogSubTitle = dialogSubTitle,
-            confirmButtonText = stringResource(R.string.btn_ok),
-            onConfirmation = onConfirmation
-        )
-    }
+    ReportsAlertDialog(
+        imgDialog = R.drawable.ic_error,
+        dialogTitle = stringResource(R.string.msg_error),
+        dialogSubTitle = dialogSubTitle,
+        confirmButtonText = stringResource(R.string.btn_ok),
+        onConfirmation = onConfirmation
+    )
 }

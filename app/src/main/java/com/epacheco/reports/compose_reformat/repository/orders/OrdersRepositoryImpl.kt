@@ -1,17 +1,28 @@
 package com.epacheco.reports.compose_reformat.repository.orders
 
+import android.util.Log
+import com.epacheco.reports.Pojo.Order.OrderList
+import com.epacheco.reports.R
+import com.epacheco.reports.compose_reformat.ReportsApp
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.firebase.await
 import com.epacheco.reports.compose_reformat.model.orders.Order
+import com.epacheco.reports.compose_reformat.model.orders.OrderStatus
 import com.epacheco.reports.tools.Constants
+import com.epacheco.reports.tools.ReportsApplication
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import java.util.Collections
 import javax.inject.Inject
 
 class OrdersRepositoryImpl @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
-    private val firebaseDatabase: FirebaseDatabase
+    private val firebaseDatabase: FirebaseDatabase,
+    private val application: ReportsApp,
 ) : OrdersRepository {
 
 
@@ -24,6 +35,7 @@ class OrdersRepositoryImpl @Inject constructor(
                     orderList.add(it)
                 }
             }
+            orderList.reverse()
             Resource.Success(orderList)
         } catch (exception: Exception) {
             Resource.Failure(exception)
@@ -43,9 +55,70 @@ class OrdersRepositoryImpl @Inject constructor(
         }
     }
 
+
+    override suspend fun createOrder(
+        newOrder: Order,
+        addCreateRestriction: Boolean
+    ): Resource<Boolean> {
+        var createOrderException: Exception? = null
+        return try {
+            if (addCreateRestriction) {
+                getOrdersReference().orderByChild("orderDate").equalTo(newOrder.orderDate).get()
+                    .await().children.map { snapShot ->
+                        if (snapShot.exists()) {
+                            createOrderException =
+                                Exception(application.getString(R.string.msg_error_list_already_exist))
+                        }
+                    }
+            }
+            createOrderException?.let {
+                Resource.Failure(it)
+            } ?: run {
+                getOrdersReference().child(newOrder.orderId).setValue(
+                    newOrder
+                ) { error, ref ->
+                    error?.let {
+                        createOrderException = it.toException()
+                    }
+                }
+                createOrderException?.let {
+                    Resource.Failure(it)
+                } ?: run {
+                    Resource.Success(true)
+                }
+
+            }
+
+        } catch (exception: Exception) {
+            Resource.Failure(exception)
+        }
+    }
+
+    override suspend fun updateStatusOrder(
+        orderId: String,
+        orderStatus: OrderStatus
+    ): Resource<Boolean> {
+        var createOrderException: Exception? = null
+        return try {
+            getOrdersReference().child(orderId).child("orderStatus").setValue(orderStatus.name)
+                .addOnSuccessListener { }
+                .addOnFailureListener { e -> createOrderException = e }
+            createOrderException?.let {
+                Resource.Failure(it)
+            } ?: run {
+                Resource.Success(true)
+            }
+        } catch (exception: Exception) {
+            Resource.Failure(exception)
+        }
+
+    }
+
+
     override fun getOrdersReference(): DatabaseReference =
         firebaseDatabase.getReference(Constants.DATABASE_FIREBASE_NAME)
             .child(firebaseAuth.uid ?: "")
             .child(Constants.CLIENT_ORDERS_TABLE_FIREBASE)
+
 
 }

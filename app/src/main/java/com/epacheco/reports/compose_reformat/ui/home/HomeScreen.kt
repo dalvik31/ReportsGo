@@ -8,29 +8,30 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.epacheco.reports.compose_reformat.general_components.navbar.AnimatedNavigationBar
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.ClientsScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.finances.FinancesScreen
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.OrdersMainScreen
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders_main.OrderSublistScreen
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders_main.OrdersMainScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products.ProductsScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile.ProfileScreen
-import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomNavHostScreens
-import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomNavigationItem
+import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeNavigationItem
+import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes
 import com.epacheco.reports.compose_reformat.ui.theme.White
 
 @Composable
-fun HomeScreen(navController: NavHostController, onLogout: () -> Unit) {
+fun HomeScreen(onLogout: () -> Unit) {
     val bottomNavController = rememberNavController()
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
             AnimatedNavigationBar(
-                buttons = BottomNavigationItem().bottomNavigationItems(),
+                buttons = BottomHomeNavigationItem().bottomNavigationItems(),
                 barColor = MaterialTheme.colorScheme.primary,
                 circleColor = MaterialTheme.colorScheme.primary,
                 selectedColor = White,
@@ -41,25 +42,31 @@ fun HomeScreen(navController: NavHostController, onLogout: () -> Unit) {
     ) { paddingValues ->
         NavHost(
             navController = bottomNavController,
-            startDestination = BottomNavHostScreens.ORDERS.route,
+            startDestination = BottomHomeRoutes.MainOrdersBottomHomeRoute,
             modifier = Modifier.padding(paddingValues = paddingValues)
         ) {
-            composable(BottomNavHostScreens.ORDERS.route) {
-                OrdersMainScreen()
+            composable<BottomHomeRoutes.MainOrdersBottomHomeRoute> {
+                OrdersMainScreen {
+                    bottomNavController.navigate(BottomHomeRoutes.CreateOrderBottomHomeRoute(it))
+                }
             }
-            composable(BottomNavHostScreens.CLIENTS.route) {
+            composable<BottomHomeRoutes.ClientBottomHomeRoute> {
                 ClientsScreen()
             }
-            composable(BottomNavHostScreens.PRODUCTS.route) {
+            composable<BottomHomeRoutes.ProductBottomHomeRoute> {
                 ProductsScreen()
             }
-            composable(BottomNavHostScreens.FINANCES.route) {
+            composable<BottomHomeRoutes.FinanceBottomHomeRoute> {
                 FinancesScreen()
             }
-            composable(BottomNavHostScreens.PROFILE.route) {
-                ProfileScreen(navController, onLogout = {
+            composable<BottomHomeRoutes.ProfileBottomHomeRoute> {
+                ProfileScreen(onLogout = {
                     onLogout.invoke()
                 })
+            }
+            composable<BottomHomeRoutes.CreateOrderBottomHomeRoute> { backStackEntry ->
+                val editNoteBottomHomeRoutes: BottomHomeRoutes.CreateOrderBottomHomeRoute = backStackEntry.toRoute()
+                OrderSublistScreen(editNoteBottomHomeRoutes.idOrderMain)
             }
 
         }

@@ -1,7 +1,8 @@
 package com.epacheco.reports.compose_reformat.model.orders
 
 data class Order(
-    val dateOrder: String = "",
+    val orderId: String = "",
     val nameOrder: String = "",
-    val msjOrder: String = ""
+    val orderDate: String = "",
+    val orderStatus: OrderStatus = OrderStatus.IN_PROGRESS
 )

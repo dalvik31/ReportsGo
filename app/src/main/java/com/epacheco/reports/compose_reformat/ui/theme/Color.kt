@@ -20,9 +20,6 @@ val Yellow = Color(0xFFFFCF7D)
 val Green = Color(0xFF8DC68F)
 
 
-
-
-
 /**
  * Primary colors trans
  * */
@@ -37,3 +34,7 @@ val GrayBackground = Color(0xFFBDBDBD)
 val FacebookBackground = Color(0xFF1877F2)
 val GoogleBackground = Color(0xFFDB4437)
 val TwitterBackground = Color(0xFF00ACEE)
+
+
+val fall = Color(0xFFD9A05B)
+val spring = Color(0xFF6AA84f)

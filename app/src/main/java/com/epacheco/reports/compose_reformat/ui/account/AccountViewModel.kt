@@ -100,6 +100,7 @@ class AccountViewModel @Inject constructor(
                 _uiState.value = _uiState.value.copy(userInfoRetrieved = true)
             }
         }
+        loading(false)
     }
 
     private fun navigateToPassword() {

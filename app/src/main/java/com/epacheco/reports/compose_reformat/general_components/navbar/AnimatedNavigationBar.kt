@@ -38,11 +38,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomNavigationItem
+import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeNavigationItem
 
 @Composable
 fun AnimatedNavigationBar(
-    buttons: List<BottomNavigationItem>,
+    buttons: List<BottomHomeNavigationItem>,
     barColor: Color,
     circleColor: Color,
     selectedColor: Color,
@@ -121,7 +121,7 @@ fun AnimatedNavigationBar(
                     selected = isSelected,
                     onClick = {
                         selectedItem = index
-                        bottomNavController.navigate(button.route) {
+                        bottomNavController.navigate(button.bottomHomeRoutes) {
                             popUpTo(bottomNavController.graph.findStartDestination().id) {
                                 saveState = true
                             }
