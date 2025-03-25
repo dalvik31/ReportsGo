@@ -7,6 +7,6 @@ import javax.inject.Inject
 
 class UpdateStatusOrderUseCase @Inject constructor(private val ordersRepository: OrdersRepository) {
     suspend operator fun invoke(orderId: String, orderStatus: OrderStatus): Resource<Boolean> {
-        return ordersRepository.updateStatusOrder(orderId, orderStatus)
+        return ordersRepository.updateStatusMainOrder(orderId, orderStatus)
     }
 }

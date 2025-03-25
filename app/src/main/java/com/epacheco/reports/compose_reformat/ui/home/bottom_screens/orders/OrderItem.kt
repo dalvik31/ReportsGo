@@ -1,4 +1,4 @@
-package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders_main.view
+package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsAlertDialog
+import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.model.orders.OrderMain
 import com.epacheco.reports.compose_reformat.model.orders.OrderStatus
 import com.epacheco.reports.compose_reformat.utils.DateUtils
@@ -43,11 +44,11 @@ import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE3
 
 
 @Composable
-fun OrderMainItem(
-    orderMain: OrderMain,
-    onMainOrderClick: (OrderMain) -> Unit,
+fun OrderItem(
+    orderMain: Order,
+    onMainOrderClick: (Order) -> Unit,
     onDeleteOrderClick: (String) -> Unit,
-    onUpdateStatusOrderClick: (OrderMain) -> Unit
+    onUpdateStatusOrderClick: (Order) -> Unit
 
 ) {
 
@@ -57,7 +58,7 @@ fun OrderMainItem(
     Surface(color = Color.Transparent) {
         Card(
             modifier = Modifier
-                .padding(vertical = 8.dp, horizontal = 8.dp)
+                .padding(vertical = 4.dp, horizontal = 8.dp)
                 .fillMaxWidth()
                 .height(100.dp)
                 .clickable {
@@ -180,20 +181,20 @@ fun OrderMainItem(
 
 
 @Composable
-private fun getUpdateStatusList(orderMain: OrderMain) =
+private fun getUpdateStatusList(order: Order) =
     stringResource(
-        when (orderMain.orderStatus) {
+        when (order.orderStatus) {
             OrderStatus.IN_PROGRESS -> R.string.msg_complete_order_body
             OrderStatus.DONE -> R.string.msg_in_progress_order_body
-        }, orderMain.nameOrder
+        }, order.nameOrder
     )
 
 
 @Preview
 @Composable
 fun OrderMainItemPreview() {
-    OrderMainItem(
-        OrderMain(orderId = "0", nameOrder = "name"),
+    OrderItem(
+        Order(),
         onMainOrderClick = {},
         onDeleteOrderClick = {}, onUpdateStatusOrderClick = {})
 }

@@ -20,21 +20,21 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.model.orders.Order
+import com.epacheco.reports.compose_reformat.model.orders.OrderMain
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OrderList(
-    orders: List<Order>,
+    orderMains: List<OrderMain>,
     status: String,
     isRefreshing: Boolean = false,
     onDeleteOrderClick: ((String) -> Unit)? = null,
-    onUpdateStatusOrderClick: ((Order) -> Unit)? = null,
-    onMainOrderClick: ((Order) -> Unit)? = null,
+    onUpdateStatusOrderClick: ((OrderMain) -> Unit)? = null,
+    onOrderClick: ((OrderMain) -> Unit)? = null,
     onRefresh: (() -> Unit)? = null,
     showImgEmptyList: Boolean?,
 ) {
-    if (orders.isEmpty() && showImgEmptyList == false) {
+    if (orderMains.isEmpty() && showImgEmptyList == false) {
         Column(
             Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
@@ -61,11 +61,11 @@ fun OrderList(
                     .fillMaxSize()
                     .background(color = Color.Transparent)
             ) {
-                items(orders) { order ->
+                items(orderMains) { order ->
                     OrderMainItem(
-                        order = order,
+                        orderMain = order,
                         onMainOrderClick = {
-                            onMainOrderClick?.invoke(order)
+                            onOrderClick?.invoke(order)
                         },
                         onDeleteOrderClick = {
                             onDeleteOrderClick?.invoke(order.orderId)

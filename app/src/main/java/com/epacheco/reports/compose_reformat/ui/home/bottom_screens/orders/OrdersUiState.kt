@@ -1,9 +1,10 @@
-package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders_main
+package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders
 
+import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.model.orders.OrderMain
 
-data class OrdersMainUiState(
-    val orderMains: List<OrderMain> = emptyList(),  // List of notes to be displayed
+data class OrdersUiState(
+    val orders: List<Order> = emptyList(),  // List of notes to be displayed
     val isLoading: Boolean = false,       // Loading state
     val errorMessage: String? = null,
     val successOperationMsg: Int? = null,

@@ -10,12 +10,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.Loader
 import com.epacheco.reports.compose_reformat.general_components.dialogs.OrderInputDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsErrorDialog
+import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsInfoDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsSuccessDialog
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders_main.view.OrderMainView
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
+import com.epacheco.reports.compose_reformat.utils.season.Season
+import com.epacheco.reports.compose_reformat.utils.season.SeasonUtils
 import kotlinx.coroutines.flow.collectLatest
 
 
@@ -29,6 +33,8 @@ fun OrdersMainScreen(
 
     var showDialogCreateOrder by remember { mutableStateOf(false) }
 
+    var showInfoDialog by remember { mutableStateOf(false) }
+
 
     LaunchedEffect(Unit) {
         ordersMainViewModel.handleIntent(OrdersMainUiIntent.LoadMainOrders)
@@ -39,19 +45,19 @@ fun OrdersMainScreen(
             when (effect) {
                 is OrdersMainUiEffect.NavigateToElementsMain -> {
 
-                    onNavigateToElementsMain?.invoke(effect.orderParentId)
+                    onNavigateToElementsMain?.invoke(effect.orderMainId)
                 }
             }
         }
     }
 
     OrderMainView(
-        orderMainList = uiState.orders,
+        orderMainMainList = uiState.orderMains,
         showImgEmptyList = uiState.showImgEmptyList,
-        onMainOrderClick = { ordersMainViewModel.handleIntent(OrdersMainUiIntent.GoToListOrders(it.orderId)) },
+        onOrderClick = { ordersMainViewModel.handleIntent(OrdersMainUiIntent.GoToListOrders(it.orderId)) },
         isRefreshing = uiState.isLoading,
         onCreateOrderMainClick = {
-            showDialogCreateOrder = true
+            showInfoDialog = true
         },
         onDeleteOrderClick = {
             ordersMainViewModel.handleIntent(OrdersMainUiIntent.DeleteMainList(it))
@@ -93,6 +99,32 @@ fun OrdersMainScreen(
             })
     }
 
+    if (showInfoDialog) {
+
+        val currentSeason = SeasonUtils.getSeason()
+        ReportsInfoDialog(
+            dialogTitle = stringResource(R.string.season_title),
+            lottieAnimation = when (currentSeason) {
+                Season.FALL -> R.raw.fall
+                Season.SPRING -> R.raw.spring
+            },
+            dialogSubTitle = stringResource(
+                R.string.msg_current_season, when (currentSeason) {
+                    Season.FALL -> stringResource(R.string.season_fall)
+                    Season.SPRING -> stringResource(R.string.season_spring)
+                }
+            ),
+            onDismissRequest = {
+                showInfoDialog = false
+                showDialogCreateOrder = true
+            },
+            onConfirmation = {
+                showInfoDialog = false
+                showDialogCreateOrder = true
+            },
+            confirmButtonText = stringResource(R.string.btn_understood)
+        )
+    }
     if (showDialogCreateOrder) {
         OrderInputDialog(input = input, onInputChanged = { e ->
             ordersMainViewModel.onValueInputListChanged(input = e)
@@ -109,7 +141,7 @@ fun OrdersMainScreen(
 @Composable
 fun HomeScreenPreview() {
     ReportsGoTheme {
-        OrderMainView(onMainOrderClick = {}, onDeleteOrderClick = {})
+        OrderMainView(onOrderClick = {}, onDeleteOrderClick = {})
     }
 
 }

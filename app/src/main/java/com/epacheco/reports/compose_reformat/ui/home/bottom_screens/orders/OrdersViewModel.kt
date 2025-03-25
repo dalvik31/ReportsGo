@@ -1,13 +1,16 @@
-package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders_main
+package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders
 
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ReportsApp
 import com.epacheco.reports.compose_reformat.domain.CreateMainOrderUseCase
+import com.epacheco.reports.compose_reformat.domain.CreateOrderUseCase
 import com.epacheco.reports.compose_reformat.domain.DeleteMainOrderUseCase
 import com.epacheco.reports.compose_reformat.domain.GetMainOrdersUseCase
+import com.epacheco.reports.compose_reformat.domain.GetOrdersUseCase
 import com.epacheco.reports.compose_reformat.domain.UpdateStatusOrderUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
+import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.model.orders.OrderMain
 import com.epacheco.reports.compose_reformat.model.orders.OrderStatus
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
@@ -21,10 +24,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class OrdersMainViewModel @Inject constructor(
-    private val getMainOrdersUseCase: GetMainOrdersUseCase,
+class OrdersViewModel @Inject constructor(
+    private val getOrdersUseCase: GetOrdersUseCase,
     private val deleteMainOrderUseCase: DeleteMainOrderUseCase,
-    private val createMainOrderUseCase: CreateMainOrderUseCase,
+    private val createOrderUseCase: CreateOrderUseCase,
     private val updateStatusOrderUseCase: UpdateStatusOrderUseCase,
     private val app: ReportsApp
 ) :
@@ -33,38 +36,31 @@ class OrdersMainViewModel @Inject constructor(
     private val _inputList = MutableStateFlow("")
     val inputList: StateFlow<String> = _inputList
 
-    private val _uiState = MutableStateFlow(OrdersMainUiState())
-    val uiState: StateFlow<OrdersMainUiState> = _uiState
+    private val _uiState = MutableStateFlow(OrdersUiState())
+    val uiState: StateFlow<OrdersUiState> = _uiState
 
 
-    private val _effectFlow = MutableSharedFlow<OrdersMainUiEffect>()
-    val effectFlow: SharedFlow<OrdersMainUiEffect> = _effectFlow
+    private val _effectFlow = MutableSharedFlow<OrdersUiEffect>()
+    val effectFlow: SharedFlow<OrdersUiEffect> = _effectFlow
 
-    init {
-        handleIntent(OrdersMainUiIntent.LoadMainOrders)
-    }
 
-    fun handleIntent(intent: OrdersMainUiIntent) {
+    fun handleIntent(intent: OrdersUiIntent) {
         when (intent) {
-            is OrdersMainUiIntent.DeleteMainList -> deleteMainOrder(intent.orderId)
-            OrdersMainUiIntent.LoadMainOrders -> loadMainOrders()
-            OrdersMainUiIntent.HideDialogs -> setErrorMsg()
-            OrdersMainUiIntent.CreateOrderMainList -> createMainList()
-            is OrdersMainUiIntent.UpdateStatusMainList -> updateStatusOrder(
-                intent.orderId,
-                intent.orderStatus
-            )
-
-            is OrdersMainUiIntent.GoToListOrders -> navigateToElementsOrderList(intent.orderMainId)
+            is OrdersUiIntent.CreateOrder -> createOrder(intent.mainOrderId)
+            is OrdersUiIntent.DeleteOrder -> TODO()
+            is OrdersUiIntent.GoToCreateOrder -> TODO()
+            OrdersUiIntent.HideDialogs -> setErrorMsg()
+            is OrdersUiIntent.LoadOrders -> loadOrders(intent.mainOrderId)
+            is OrdersUiIntent.UpdateStatusOrder -> TODO()
         }
     }
 
-    private fun loadMainOrders() =
+    private fun loadOrders(mainOrderId: String) =
         viewModelScope.launch {
             loading(true)
-            when (val orderMainResponse = getMainOrdersUseCase()) {
+            when (val orderResponse = getOrdersUseCase(mainOrderId)) {
                 is Resource.Failure -> {
-                    setErrorMsg(orderMainResponse.exception.message)
+                    setErrorMsg(orderResponse.exception.message)
                     _uiState.value = _uiState.value.copy(
                         showImgEmptyList = true
                     )
@@ -72,14 +68,14 @@ class OrdersMainViewModel @Inject constructor(
 
                 is Resource.Success -> _uiState.value =
                     _uiState.value.copy(
-                        orderMains = orderMainResponse.result,
-                        showImgEmptyList = orderMainResponse.result.isEmpty()
+                        orders = orderResponse.result,
+                        showImgEmptyList = orderResponse.result.isEmpty()
                     )
             }
             loading(false)
         }
 
-    private fun deleteMainOrder(orderId: String) =
+    /*private fun deleteMainOrder(orderId: String) =
         viewModelScope.launch {
             loading(true)
             when (val orderMainResponse = deleteMainOrderUseCase(orderId)) {
@@ -91,51 +87,50 @@ class OrdersMainViewModel @Inject constructor(
                 }
             }
             loading(false)
-        }
+        }*/
 
-    private fun updateStatusOrder(orderId: String, orderStatus: OrderStatus) =
-        viewModelScope.launch {
-            loading(true)
-            val newOrderStatus =
-                if (orderStatus == OrderStatus.DONE) OrderStatus.IN_PROGRESS else OrderStatus.DONE
-            when (val orderMainResponse = updateStatusOrderUseCase(orderId, newOrderStatus)) {
-                is Resource.Failure -> setErrorMsg(orderMainResponse.exception.message)
-                is Resource.Success -> {
-                    _uiState.value =
-                        _uiState.value.copy(successOperationMsg = R.string.msg_order_list_update_success)
-                    loadMainOrders()
-                }
-            }
-            loading(false)
-        }
+    /* private fun updateStatusOrder(orderId: String, orderStatus: OrderStatus) =
+         viewModelScope.launch {
+             loading(true)
+             val newOrderStatus =
+                 if (orderStatus == OrderStatus.DONE) OrderStatus.IN_PROGRESS else OrderStatus.DONE
+             when (val orderMainResponse = updateStatusOrderUseCase(orderId, newOrderStatus)) {
+                 is Resource.Failure -> setErrorMsg(orderMainResponse.exception.message)
+                 is Resource.Success -> {
+                     _uiState.value =
+                         _uiState.value.copy(successOperationMsg = R.string.msg_order_list_update_success)
+                     loadMainOrders()
+                 }
+             }
+             loading(false)
+         }*/
 
 
     fun onValueInputListChanged(input: String) {
         _inputList.value = input
     }
 
-    private fun navigateToElementsOrderList(orderMainId: String) {
+    /*private fun navigateToElementsOrderList(orderMainId: String) {
         viewModelScope.launch {
             _effectFlow.emit(OrdersMainUiEffect.NavigateToElementsMain(orderMainId))
         }
-    }
+    }*/
 
-    private fun createMainList() =
+    private fun createOrder(mainOrderId: String) =
         viewModelScope.launch {
             loading(true)
             val orderId = System.currentTimeMillis()
-            when (val orderMainMainResponse = createMainOrderUseCase(
-                OrderMain(
+            when (val orderMainMainResponse = createOrderUseCase(
+                Order(
+                    orderListId = mainOrderId,
                     orderId = orderId.toString(),
                     nameOrder = getNameList(),
-                    orderDate = DateUtils.format(orderId, DateUtils.FORMAT_DATE2),
-
-                    )
+                )
             )) {
                 is Resource.Failure -> setErrorMsg(orderMainMainResponse.exception.message)
                 is Resource.Success -> {
                     _inputList.value = ""
-                    loadMainOrders()
+                    loadOrders(mainOrderId)
                 }
             }
             loading(false)

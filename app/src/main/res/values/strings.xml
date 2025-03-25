@@ -287,9 +287,7 @@
     <string name="msg_cancel_sale_item">COMPRA CANCELADA</string>
 
     <!-- String para el banner-->
-    <string name="title_banner">Temporada </string>
-    <string name="title_season_spring">Primavera - Verano </string>
-    <string name="title_season_winter">Otoño - Invierno </string>
+    <string name="title_banner">Temporada</string>
     <string name="msg_banner">Toma esto en cuenta al crear tu lista</string>
 
 
@@ -313,6 +311,7 @@
     <string name="general_error">¡Ups! Lo sentimos algo salió mal.</string>
 
     <!--General msg-->
+    <string name="btn_understood">Entiendo</string>
     <string name="btn_ok">Aceptar</string>
     <string name="btn_cancel">Cancelar</string>
     <string name="show_more">Show more</string>
@@ -320,6 +319,7 @@
     <string name="loading">Cargando…</string>
     <string name="msg_error">Error</string>
     <string name="msg_success">Éxito</string>
+    <string name="title_information">Información</string>
 
 
     <!--Register Screen-->
@@ -350,19 +350,25 @@
     <string name="tab_products_option">Productos</string>
 
     <!--ORDERS Fragments-->
-    <plurals name="title_orders">
+    <plurals name="title_main_orders">
         <item formatted="true" quantity="one">(%s) Lista de pedidos</item>
         <item formatted="true" quantity="other">(%s) Listas de pedidos</item>
     </plurals>
-    <string name="tab_in_progress">EN PROGRESO</string>
-    <string name="tab_done">COMPLETADAS</string>
+    <plurals name="title_orders">
+        <item formatted="true" quantity="one">(%s) Pedido</item>
+        <item formatted="true" quantity="other">(%s) Pedidos</item>
+    </plurals>
+    <string name="tab_in_progress">(%s) EN PROGRESO</string>
+    <string name="tab_done">(%s) COMPLETADAS</string>
     <string name="search_orders">Buscando listas de pedidos…</string>
     <string name="date_order"> %s</string>
     <string name="create_new_list_orders">Crear nueva lista</string>
+    <string name="create_new_order">Crear nuevo pedido</string>
     <string name="title_season">Temporada</string>
     <string name="season_fall_winter">Otoño - Invierno</string>
     <string name="season_warning">Toma esto en cuenta al crear tu lista</string>
-    <string name="list_orders_empty">No se encontraron listas de pedido.</string>
+    <string name="list__main_orders_empty">No se encontraron listas de pedido.</string>
+    <string name="list_orders_empty">No se encontraron pedidos.</string>
     <string name="list_order_empty">No se encontraron listas de pedido %s.</string>
     <string name="msg_delete_order_title">Eliminar elemento</string>
     <string name="msg_delete_order_list_body"><![CDATA[¿Estas seguro de querer eliminar la lista de pedido: <b>%s</b>?]]></string>
@@ -376,7 +382,10 @@
     <string name="msg_in_progress_order_body"><![CDATA[¿Estas seguro de querer cambiar el estado de la lista: \"<i>%s</i>\" a <b>en progreso</b>?]]></string>
     <string name="msg_order_list_delete_success">Lista eliminada correctamente.</string>
     <string name="msg_order_list_update_success">Lista actualizada correctamente.</string>
-
+    <string name="msg_current_season"><![CDATA[<b>%s</b><br/>Toma esto en cuenta al crear tu lista.]]></string>
+    <string name="season_title">Temporada</string>
+    <string name="season_spring">Primavera - Verano</string>
+    <string name="season_fall">Otoño - Invierno</string>
 
     <!--CLIENTS Fragments-->
     <string name="search_clients">Buscando clientes registrados…</string>
