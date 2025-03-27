@@ -40,22 +40,13 @@ object DateUtils {
         format, Locale.getDefault()
     ).format(date)
 
-    fun formatTransferDate(date: Date): String =
-        format(date, FORMAT_DATE1) + "T00"
-
-    fun parseServerDate(date: String) = parse(date, FORMAT_DATE1)
-
-    fun formatLimitDate(date: Date): String =
-        format(date, FORMAT_DATE2)
-
-    fun formatPixCodeDate(date: Date): String = format(date, FORMAT_DATE8)
 
 
     const val FORMAT_DATE1 = "yyyy-MM-dd"
     const val FORMAT_DATE2 = "dd/MM/yyyy"
     const val FORMAT_DATE3 = "dd / MMMM / YYYY"
-    const val FORMAT_DATE7 = "dd MMM, YYYY"
-    const val FORMAT_DATE8 = "dd MMM. YYYY"
+    const val FORMAT_DATE4 = "dd MMM, YYYY"
+    const val FORMAT_DATE5 = "MMM/YYYY"
 
 
 

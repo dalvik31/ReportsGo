@@ -1,4 +1,4 @@
-package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders_main
+package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -12,21 +12,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.Loader
-import com.epacheco.reports.compose_reformat.general_components.dialogs.OrderInputDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsErrorDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsInfoDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsSuccessDialog
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders_main.view.OrderMainView
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.view.OrderMainView
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
-import com.epacheco.reports.compose_reformat.utils.season.Season
-import com.epacheco.reports.compose_reformat.utils.season.SeasonUtils
+import com.epacheco.reports.compose_reformat.model.orders.Season
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.view.OrderMainInputDialog
+import com.epacheco.reports.compose_reformat.utils.SeasonUtils
 import kotlinx.coroutines.flow.collectLatest
 
 
 @Composable
 fun OrdersMainScreen(
     ordersMainViewModel: OrdersMainViewModel = hiltViewModel<OrdersMainViewModel>(),
-    onNavigateToElementsMain: ((String) -> Unit)? = null,
+    onNavigateToElementsMain: ((String, Season?) -> Unit)? = null,
 ) {
     val uiState by ordersMainViewModel.uiState.collectAsState()
     val input by ordersMainViewModel.inputList.collectAsState()
@@ -44,8 +44,7 @@ fun OrdersMainScreen(
         ordersMainViewModel.effectFlow.collectLatest { effect ->
             when (effect) {
                 is OrdersMainUiEffect.NavigateToElementsMain -> {
-
-                    onNavigateToElementsMain?.invoke(effect.orderMainId)
+                    onNavigateToElementsMain?.invoke(effect.orderMainId, effect.orderSeason)
                 }
             }
         }
@@ -54,7 +53,14 @@ fun OrdersMainScreen(
     OrderMainView(
         orderMainMainList = uiState.orderMains,
         showImgEmptyList = uiState.showImgEmptyList,
-        onOrderClick = { ordersMainViewModel.handleIntent(OrdersMainUiIntent.GoToListOrders(it.orderId)) },
+        onOrderClick = {
+            ordersMainViewModel.handleIntent(
+                OrdersMainUiIntent.GoToListOrders(
+                    it.orderId,
+                    it.orderSeason
+                )
+            )
+        },
         isRefreshing = uiState.isLoading,
         onCreateOrderMainClick = {
             showInfoDialog = true
@@ -126,7 +132,7 @@ fun OrdersMainScreen(
         )
     }
     if (showDialogCreateOrder) {
-        OrderInputDialog(input = input, onInputChanged = { e ->
+        OrderMainInputDialog (input = input, onInputChanged = { e ->
             ordersMainViewModel.onValueInputListChanged(input = e)
         }, onDismissRequest = { showDialogCreateOrder = false }, onConfirmation = {
             showDialogCreateOrder = false

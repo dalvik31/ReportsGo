@@ -1,4 +1,4 @@
-package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders
+package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders_detail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -16,18 +18,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
-import com.epacheco.reports.compose_reformat.general_components.TextDivider
+import com.epacheco.reports.compose_reformat.general_components.Header
 import com.epacheco.reports.compose_reformat.model.orders.Order
-import com.epacheco.reports.compose_reformat.model.orders.OrderMain
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders_main.view.OrderMainItem
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -37,30 +37,29 @@ fun OrdersView(
     showImgEmptyList: Boolean? = null,
     isRefreshing: Boolean = false,
     onRefresh: (() -> Unit)? = null,
+    onBackPressed: (() -> Unit)? = null,
     onOrderClick: ((Order) -> Unit)? = null,
     onCreateOrderClick: (() -> Unit)? = null,
     onDeleteOrderClick: ((String) -> Unit)? = null,
     onUpdateStatusOrderClick: ((Order) -> Unit)? = null
 ) {
     Column {
-        TextDivider(
-            modifier = Modifier.padding(vertical = 8.dp, horizontal = 8.dp),
-            textDivider = pluralStringResource(
+
+        Header(
+            title =pluralStringResource(
                 R.plurals.title_orders,
                 count = orderList.size,
                 orderList.size
             ),
-            fontSize = 14.sp
+            backgroundToolbar = Color.Transparent,
+            titleColor = MaterialTheme.colorScheme.primary,
+            onLeftIconClicked = {onBackPressed?.invoke()},
+            leftImageVector = Icons.Default.ArrowBackIosNew,
+            tintImageLeft = MaterialTheme.colorScheme.primary,
+            onRightIconClicked = {    onCreateOrderClick?.invoke() },
+            tintImageRight = MaterialTheme.colorScheme.primary,
+            rightImageVector = ImageVector.vectorResource(R.drawable.ic_vector_add)
         )
-
-        PrimaryButton(
-            modifier = Modifier.padding(horizontal = 8.dp),
-            textButton = stringResource(id = R.string.create_new_order).uppercase(),
-            iconBtn = R.drawable.ic_vector_add,
-        ) {
-            onCreateOrderClick?.invoke()
-        }
-
 
         if (showImgEmptyList == true) {
             Column(
@@ -91,7 +90,7 @@ fun OrdersView(
                 ) {
                     items(orderList) { order ->
                         OrderItem(
-                            orderMain = order,
+                            order = order,
                             onMainOrderClick = {
                                 onOrderClick?.invoke(order)
                             },

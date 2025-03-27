@@ -15,8 +15,8 @@ import androidx.navigation.toRoute
 import com.epacheco.reports.compose_reformat.general_components.navbar.AnimatedNavigationBar
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.ClientsScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.finances.FinancesScreen
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.OrdersScreen
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders_main.OrdersMainScreen
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders_detail.OrdersScreen
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.OrdersMainScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products.ProductsScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile.ProfileScreen
 import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeNavigationItem
@@ -46,8 +46,13 @@ fun HomeScreen(onLogout: () -> Unit) {
             modifier = Modifier.padding(paddingValues = paddingValues)
         ) {
             composable<BottomHomeRoutes.MainOrdersBottomHomeRoute> {
-                OrdersMainScreen {
-                    bottomNavController.navigate(BottomHomeRoutes.CreateOrderBottomHomeRoute(it))
+                OrdersMainScreen { mainOrderId, orderSeason ->
+                    bottomNavController.navigate(
+                        BottomHomeRoutes.CreateOrderBottomHomeRoute(
+                            mainOrderId,
+                            orderSeason
+                        )
+                    )
                 }
             }
             composable<BottomHomeRoutes.ClientBottomHomeRoute> {
@@ -67,7 +72,12 @@ fun HomeScreen(onLogout: () -> Unit) {
             composable<BottomHomeRoutes.CreateOrderBottomHomeRoute> { backStackEntry ->
                 val editNoteBottomHomeRoutes: BottomHomeRoutes.CreateOrderBottomHomeRoute =
                     backStackEntry.toRoute()
-                OrdersScreen(mainOrderId = editNoteBottomHomeRoutes.idOrderMain)
+                OrdersScreen(
+                    mainOrderId = editNoteBottomHomeRoutes.idOrderMain,
+                    orderSeason = editNoteBottomHomeRoutes.orderSeason,
+                    onBackPressed = {
+                        bottomNavController.popBackStack()
+                    })
             }
 
         }

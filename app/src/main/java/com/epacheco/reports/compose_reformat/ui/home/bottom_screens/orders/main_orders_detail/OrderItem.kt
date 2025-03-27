@@ -1,4 +1,4 @@
-package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders_main.view
+package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders_detail
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
@@ -13,7 +13,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -28,6 +30,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -36,18 +41,23 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsAlertDialog
-import com.epacheco.reports.compose_reformat.model.orders.OrderMain
+import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.model.orders.OrderStatus
+import com.epacheco.reports.compose_reformat.model.orders.Season
+import com.epacheco.reports.compose_reformat.ui.theme.GrayLight
+import com.epacheco.reports.compose_reformat.ui.theme.White
+import com.epacheco.reports.compose_reformat.ui.theme.White60
+import com.epacheco.reports.compose_reformat.ui.theme.fall
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE3
 
 
 @Composable
-fun OrderMainItem(
-    orderMain: OrderMain,
-    onMainOrderClick: (OrderMain) -> Unit,
+fun OrderItem(
+    order: Order,
+    onMainOrderClick: (Order) -> Unit,
     onDeleteOrderClick: (String) -> Unit,
-    onUpdateStatusOrderClick: (OrderMain) -> Unit
+    onUpdateStatusOrderClick: (Order) -> Unit
 
 ) {
 
@@ -57,21 +67,35 @@ fun OrderMainItem(
     Surface(color = Color.Transparent) {
         Card(
             modifier = Modifier
-                .padding(vertical = 8.dp, horizontal = 8.dp)
+                .padding(vertical = 4.dp, horizontal = 8.dp)
+                .alpha(if (order.orderStatus == OrderStatus.IN_PROGRESS) 1f else .8f)
                 .fillMaxWidth()
                 .height(100.dp)
                 .clickable {
-                    onMainOrderClick.invoke(orderMain)
-                }
+                    onMainOrderClick.invoke(order)
+                },
+            colors = CardColors(
+                contentColor = White,
+                containerColor = getCardBackground(order),
+                disabledContentColor = Color.Transparent,
+                disabledContainerColor = Color.Transparent
+            ),
         ) {
 
             Box(modifier = Modifier.fillMaxSize()) {
+
                 Image(
                     modifier = Modifier
+                        .width(120.dp)
                         .alpha(.2f)
-                        .align(Alignment.Center),
-                    painter = painterResource(R.drawable.imagen_otonio_3),
+                        .align(Alignment.CenterEnd)
+                        .graphicsLayer {
+                            rotationZ = 20f
+                        },
+                    painter = painterResource(if (order.orderStatus == OrderStatus.IN_PROGRESS) R.drawable.ic_vector_products else R.drawable.ic_vector_checked),
                     contentDescription = null,
+                    colorFilter = ColorFilter.tint(White60),
+                    contentScale = ContentScale.Crop
                 )
 
                 Row(
@@ -94,7 +118,7 @@ fun OrderMainItem(
                         ) {
                             Text(
                                 modifier = Modifier.padding(horizontal = 12.dp),
-                                text = orderMain.nameOrder.uppercase(),
+                                text = order.nameOrder.uppercase(),
                                 style = MaterialTheme.typography.bodyLarge.copy(
                                     fontWeight = FontWeight.ExtraBold
                                 ), fontSize = 14.sp
@@ -104,9 +128,9 @@ fun OrderMainItem(
                                 showDialogConfirmCompleteOrder = true
                             }) {
                                 Icon(
-                                    painter = painterResource(if (orderMain.orderStatus == OrderStatus.IN_PROGRESS) R.drawable.ic_vector_unchecked else R.drawable.ic_vector_checked),
+                                    painter = painterResource(if (order.orderStatus == OrderStatus.IN_PROGRESS) R.drawable.ic_vector_unchecked else R.drawable.ic_vector_checked),
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.primary
+                                    tint = White
                                 )
                             }
                         }
@@ -124,13 +148,17 @@ fun OrderMainItem(
                                 Icon(
                                     painter = painterResource(R.drawable.ic_vector_remove),
                                     contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.primary
+                                    tint = White
                                 )
                             }
-                            if (orderMain.orderId.isNotEmpty()) {
+                            if (order.orderId.isNotEmpty()) {
                                 Text(
-                                    text = DateUtils.format(orderMain.orderId.toLong(), FORMAT_DATE3),
-                                    style = MaterialTheme.typography.bodySmall
+                                    text = DateUtils.format(
+                                        order.orderId.toLong(),
+                                        FORMAT_DATE3
+                                    ),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    fontWeight = FontWeight.Bold
                                 )
                             }
 
@@ -150,13 +178,16 @@ fun OrderMainItem(
         ReportsAlertDialog(
             imgDialog = R.drawable.ic_vector_remove,
             dialogTitle = stringResource(R.string.msg_delete_order_title),
-            dialogSubTitle = stringResource(R.string.msg_delete_order_list_body, orderMain.nameOrder),
+            dialogSubTitle = stringResource(
+                R.string.msg_delete_order_list_body,
+                order.nameOrder
+            ),
             confirmButtonText = stringResource(R.string.btn_ok),
             cancelButtonText = stringResource(R.string.btn_cancel),
             onDismissRequest = { showDialogConfirmDeleteOrder = false },
             onConfirmation = {
                 showDialogConfirmDeleteOrder = false
-                onDeleteOrderClick.invoke(orderMain.orderId)
+                onDeleteOrderClick.invoke(order.orderId)
             }
         )
     }
@@ -165,13 +196,13 @@ fun OrderMainItem(
         ReportsAlertDialog(
             imgDialog = R.drawable.ic_notfication,
             dialogTitle = stringResource(R.string.msg_update_state_order_title),
-            dialogSubTitle = getUpdateStatusList(orderMain),
+            dialogSubTitle = getUpdateStatusList(order),
             confirmButtonText = stringResource(R.string.btn_ok),
             cancelButtonText = stringResource(R.string.btn_cancel),
             onDismissRequest = { showDialogConfirmCompleteOrder = false },
             onConfirmation = {
                 showDialogConfirmCompleteOrder = false
-                onUpdateStatusOrderClick.invoke(orderMain)
+                onUpdateStatusOrderClick.invoke(order)
             }
         )
     }
@@ -179,21 +210,29 @@ fun OrderMainItem(
 }
 
 
+private fun getCardBackground(orderMain: Order): Color =
+    when (orderMain.orderSeason) {
+        Season.FALL -> fall
+        Season.SPRING -> com.epacheco.reports.compose_reformat.ui.theme.spring
+        null -> GrayLight
+    }
+
+
 @Composable
-private fun getUpdateStatusList(orderMain: OrderMain) =
+private fun getUpdateStatusList(order: Order) =
     stringResource(
-        when (orderMain.orderStatus) {
+        when (order.orderStatus) {
             OrderStatus.IN_PROGRESS -> R.string.msg_complete_order_body
             OrderStatus.DONE -> R.string.msg_in_progress_order_body
-        }, orderMain.nameOrder
+        }, order.nameOrder
     )
 
 
 @Preview
 @Composable
 fun OrderMainItemPreview() {
-    OrderMainItem(
-        OrderMain(orderId = "0", nameOrder = "name"),
+    OrderItem(
+        Order(orderSeason = Season.FALL, nameOrder = "name"),
         onMainOrderClick = {},
         onDeleteOrderClick = {}, onUpdateStatusOrderClick = {})
 }

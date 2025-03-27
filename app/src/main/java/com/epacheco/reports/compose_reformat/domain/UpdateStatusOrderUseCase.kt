@@ -6,7 +6,11 @@ import com.epacheco.reports.compose_reformat.repository.orders.OrdersRepository
 import javax.inject.Inject
 
 class UpdateStatusOrderUseCase @Inject constructor(private val ordersRepository: OrdersRepository) {
-    suspend operator fun invoke(orderId: String, orderStatus: OrderStatus): Resource<Boolean> {
-        return ordersRepository.updateStatusMainOrder(orderId, orderStatus)
+    suspend operator fun invoke(
+        orderId: String,
+        mainOrderId: String,
+        orderStatus: OrderStatus
+    ): Resource<Boolean> {
+        return ordersRepository.updateStatusOrder(orderId, mainOrderId = mainOrderId, orderStatus)
     }
 }

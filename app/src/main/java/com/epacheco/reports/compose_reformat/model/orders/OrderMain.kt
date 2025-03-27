@@ -4,5 +4,6 @@ data class OrderMain(
     val orderId: String = "",
     val nameOrder: String = "",
     val orderDate: String = "",
-    val orderStatus: OrderStatus = OrderStatus.IN_PROGRESS
+    val orderStatus: OrderStatus = OrderStatus.IN_PROGRESS,
+    val orderSeason: Season? = null
 )

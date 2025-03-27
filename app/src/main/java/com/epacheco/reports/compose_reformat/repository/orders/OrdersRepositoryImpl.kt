@@ -21,19 +21,57 @@ class OrdersRepositoryImpl @Inject constructor(
     override suspend fun createOrder(order: Order): Resource<Boolean> {
         var createOrderException: Exception? = null
         return try {
-                getOrdersReference().child(order.orderListId).child("orderLists").child(order.orderId).setValue(
+            getOrdersReference().child(order.orderListId).child("orderLists").child(order.orderId)
+                .setValue(
                     order
                 ) { error, ref ->
                     error?.let {
                         createOrderException = it.toException()
                     }
                 }
-                createOrderException?.let {
-                    Resource.Failure(it)
-                } ?: run {
-                    Resource.Success(true)
-                }
+            createOrderException?.let {
+                Resource.Failure(it)
+            } ?: run {
+                Resource.Success(true)
+            }
 
+        } catch (exception: Exception) {
+            Resource.Failure(exception)
+        }
+    }
+
+    override suspend fun deleteOrder(orderId: String, mainOrderId: String): Resource<Boolean> {
+        var deleteOrderException: Exception? = null
+        return try {
+            getOrdersReference().child(mainOrderId).child("orderLists").child(orderId).removeValue()
+                .addOnFailureListener { e -> deleteOrderException = e }
+
+            deleteOrderException?.let {
+                Resource.Failure(it)
+            } ?: run {
+                Resource.Success(true)
+            }
+        } catch (e: Exception) {
+            Resource.Failure(e)
+        }
+    }
+
+    override suspend fun updateStatusOrder(
+        orderId: String,
+        mainOrderId: String,
+        orderStatus: OrderStatus
+    ): Resource<Boolean> {
+        var updateOrderStatusException: Exception? = null
+        return try {
+            getOrdersReference().child(mainOrderId).child("orderLists").child(orderId)
+                .child("orderStatus").setValue(orderStatus.name)
+                .addOnSuccessListener { }
+                .addOnFailureListener { e -> updateOrderStatusException = e }
+            updateOrderStatusException?.let {
+                Resource.Failure(it)
+            } ?: run {
+                Resource.Success(true)
+            }
         } catch (exception: Exception) {
             Resource.Failure(exception)
         }
@@ -49,7 +87,12 @@ class OrdersRepositoryImpl @Inject constructor(
                         orderMainList.add(it)
                     }
                 }
-            orderMainList.reverse()
+            orderMainList.sortByDescending {
+              it.orderId
+            }
+            orderMainList.sortBy {
+                it.orderStatus != OrderStatus.IN_PROGRESS
+            }
             Resource.Success(orderMainList)
         } catch (exception: Exception) {
             Resource.Failure(exception)
@@ -73,10 +116,10 @@ class OrdersRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun deleteMainOrder(orderId: String): Resource<Boolean> {
+    override suspend fun deleteMainOrder(mainOrderId: String): Resource<Boolean> {
         var successDelete = false
         return try {
-            getOrdersReference().child(orderId).removeValue()
+            getOrdersReference().child(mainOrderId).removeValue()
                 .addOnSuccessListener { successDelete = true }
                 .addOnFailureListener { e -> successDelete = false }
 

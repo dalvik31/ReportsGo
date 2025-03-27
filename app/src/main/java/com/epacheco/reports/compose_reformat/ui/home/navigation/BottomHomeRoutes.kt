@@ -1,5 +1,6 @@
 package com.epacheco.reports.compose_reformat.ui.home.navigation
 
+import com.epacheco.reports.compose_reformat.model.orders.Season
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -8,7 +9,8 @@ sealed interface BottomHomeRoutes {
     data object MainOrdersBottomHomeRoute : BottomHomeRoutes
 
     @Serializable
-    data class CreateOrderBottomHomeRoute(val idOrderMain: String) : BottomHomeRoutes
+    data class CreateOrderBottomHomeRoute(val idOrderMain: String, val orderSeason: Season?) :
+        BottomHomeRoutes
 
     @Serializable
     data object ClientBottomHomeRoute : BottomHomeRoutes

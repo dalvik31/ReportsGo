@@ -1,4 +1,4 @@
-package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders_main.view
+package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -16,15 +16,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
-import com.epacheco.reports.compose_reformat.general_components.TextDivider
+import com.epacheco.reports.compose_reformat.general_components.Header
 import com.epacheco.reports.compose_reformat.model.orders.OrderMain
 import com.epacheco.reports.compose_reformat.model.orders.OrderStatus
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
@@ -45,25 +46,18 @@ fun OrderMainView(
 
     val pagerState = rememberPagerState(initialPage = 0, pageCount = { 2 })
     Column {
-        /*TextDivider(
-            modifier = Modifier.padding(vertical = 8.dp, horizontal = 8.dp),
-            textDivider = pluralStringResource(
+        Header(
+            title = pluralStringResource(
                 R.plurals.title_main_orders,
                 count = orderMainMainList.size,
-                orderMainMainList.size
+                orderMainMainList.size,
             ),
-            fontSize = 14.sp
-        )*/
-        //OrderMainBanner()
-        PrimaryButton(
-            modifier = Modifier.padding(horizontal = 8.dp),
-            textButton = stringResource(id = R.string.create_new_list_orders).uppercase(),
-            iconBtn = R.drawable.ic_vector_add,
-        ) {
-            onCreateOrderMainClick?.invoke()
-        }
-
-
+            backgroundToolbar = Color.Transparent,
+            titleColor = MaterialTheme.colorScheme.primary,
+            onRightIconClicked = { onCreateOrderMainClick?.invoke() },
+            tintImageRight = MaterialTheme.colorScheme.primary,
+            rightImageVector = ImageVector.vectorResource(R.drawable.ic_vector_add)
+        )
 
 
 
@@ -87,14 +81,22 @@ fun OrderMainView(
         } else {
             val tabs = listOf(
                 stringResource(
-                    OrderStatus.IN_PROGRESS.orderStatusName, orderMainMainList.filter { it.orderStatus == OrderStatus.IN_PROGRESS }.size,),
+                    OrderStatus.IN_PROGRESS.orderStatusName,
+                    orderMainMainList.filter { it.orderStatus == OrderStatus.IN_PROGRESS }.size,
+                ),
                 stringResource(
-                    OrderStatus.DONE.orderStatusName, orderMainMainList.filter { it.orderStatus == OrderStatus.DONE }.size,),
+                    OrderStatus.DONE.orderStatusName,
+                    orderMainMainList.filter { it.orderStatus == OrderStatus.DONE }.size,
+                ),
 
                 )
             TabRow(
                 selectedTabIndex = pagerState.currentPage,
-                modifier = Modifier.fillMaxWidth().padding(8.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                containerColor = Color.Transparent,
+                divider = {}
             ) {
                 tabs.forEachIndexed { index, title ->
                     Tab(
@@ -113,7 +115,7 @@ fun OrderMainView(
                 when (page) {
                     0 -> OrderList(
                         orderMainMainList.filter { it.orderStatus == OrderStatus.IN_PROGRESS },
-                        stringResource(OrderStatus.IN_PROGRESS.orderStatusName),
+                        stringResource(R.string.tab_in_progress),
                         isRefreshing = isRefreshing,
                         onDeleteOrderClick = onDeleteOrderClick,
                         onUpdateStatusOrderClick = onUpdateStatusOrderClick,
@@ -124,7 +126,7 @@ fun OrderMainView(
 
                     1 -> OrderList(
                         orderMainMainList.filter { it.orderStatus == OrderStatus.DONE },
-                        stringResource(OrderStatus.DONE.orderStatusName),
+                        stringResource(R.string.tab_done),
                         isRefreshing = isRefreshing,
                         onDeleteOrderClick = onDeleteOrderClick,
                         onUpdateStatusOrderClick = onUpdateStatusOrderClick,

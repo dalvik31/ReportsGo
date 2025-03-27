@@ -1,4 +1,4 @@
-package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders
+package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders_detail
 
 import android.util.Log
 import androidx.compose.runtime.Composable
@@ -12,17 +12,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.epacheco.reports.compose_reformat.general_components.Loader
-import com.epacheco.reports.compose_reformat.general_components.dialogs.OrderInputDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsErrorDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsSuccessDialog
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders_main.view.OrderMainView
+import com.epacheco.reports.compose_reformat.model.orders.Season
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun OrdersScreen(
     ordersViewModel: OrdersViewModel = hiltViewModel<OrdersViewModel>(),
-    mainOrderId: String
+    onBackPressed: (() -> Unit)? = null,
+    mainOrderId: String,
+    orderSeason: Season?
 ) {
 
     val uiState by ordersViewModel.uiState.collectAsState()
@@ -46,16 +47,23 @@ fun OrdersScreen(
     OrdersView(
         orderList = uiState.orders,
         showImgEmptyList = uiState.showImgEmptyList,
+        onBackPressed = { onBackPressed?.invoke() },
         onCreateOrderClick = {
             showDialogCreateOrder = true
         },
         onOrderClick = { Log.e("aqui", "estamooos clic a un pedido: ${it.nameOrder}") },
         isRefreshing = uiState.isLoading,
         onDeleteOrderClick = {
-            Log.e("aqui", "estamooos clic a un pedido para eliminar: ${it}")
+            ordersViewModel.handleIntent(OrdersUiIntent.DeleteOrder(it, mainOrderId))
         },
         onUpdateStatusOrderClick = {
-            Log.e("aqui", "estamooos clic a un pedido para actualizar: ${it}")
+            ordersViewModel.handleIntent(
+                OrdersUiIntent.UpdateStatusOrder(
+                    it.orderId,
+                    mainOrderId,
+                    orderStatus = it.orderStatus
+                )
+            )
         },
         onRefresh = {
             ordersViewModel.handleIntent(OrdersUiIntent.LoadOrders(mainOrderId))
@@ -91,7 +99,7 @@ fun OrdersScreen(
             ordersViewModel.onValueInputListChanged(input = e)
         }, onDismissRequest = { showDialogCreateOrder = false }, onConfirmation = {
             showDialogCreateOrder = false
-            ordersViewModel.handleIntent(OrdersUiIntent.CreateOrder(mainOrderId))
+            ordersViewModel.handleIntent(OrdersUiIntent.CreateOrder(mainOrderId, orderSeason))
         })
     }
 

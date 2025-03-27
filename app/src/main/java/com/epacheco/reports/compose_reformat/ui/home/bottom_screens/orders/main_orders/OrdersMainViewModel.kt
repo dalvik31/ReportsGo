@@ -1,4 +1,4 @@
-package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders_main
+package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders
 
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.R
@@ -6,12 +6,14 @@ import com.epacheco.reports.compose_reformat.ReportsApp
 import com.epacheco.reports.compose_reformat.domain.CreateMainOrderUseCase
 import com.epacheco.reports.compose_reformat.domain.DeleteMainOrderUseCase
 import com.epacheco.reports.compose_reformat.domain.GetMainOrdersUseCase
-import com.epacheco.reports.compose_reformat.domain.UpdateStatusOrderUseCase
+import com.epacheco.reports.compose_reformat.domain.UpdateStatusMainOrderUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.model.orders.OrderMain
 import com.epacheco.reports.compose_reformat.model.orders.OrderStatus
+import com.epacheco.reports.compose_reformat.model.orders.Season
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import com.epacheco.reports.compose_reformat.utils.DateUtils
+import com.epacheco.reports.compose_reformat.utils.SeasonUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,7 +27,7 @@ class OrdersMainViewModel @Inject constructor(
     private val getMainOrdersUseCase: GetMainOrdersUseCase,
     private val deleteMainOrderUseCase: DeleteMainOrderUseCase,
     private val createMainOrderUseCase: CreateMainOrderUseCase,
-    private val updateStatusOrderUseCase: UpdateStatusOrderUseCase,
+    private val updateStatusMainOrderUseCase: UpdateStatusMainOrderUseCase,
     private val app: ReportsApp
 ) :
     BaseViewModel() {
@@ -55,7 +57,10 @@ class OrdersMainViewModel @Inject constructor(
                 intent.orderStatus
             )
 
-            is OrdersMainUiIntent.GoToListOrders -> navigateToElementsOrderList(intent.orderMainId)
+            is OrdersMainUiIntent.GoToListOrders -> navigateToElementsOrderList(
+                intent.orderMainId,
+                intent.orderSeason
+            )
         }
     }
 
@@ -98,7 +103,7 @@ class OrdersMainViewModel @Inject constructor(
             loading(true)
             val newOrderStatus =
                 if (orderStatus == OrderStatus.DONE) OrderStatus.IN_PROGRESS else OrderStatus.DONE
-            when (val orderMainResponse = updateStatusOrderUseCase(orderId, newOrderStatus)) {
+            when (val orderMainResponse = updateStatusMainOrderUseCase(orderId, newOrderStatus)) {
                 is Resource.Failure -> setErrorMsg(orderMainResponse.exception.message)
                 is Resource.Success -> {
                     _uiState.value =
@@ -114,9 +119,9 @@ class OrdersMainViewModel @Inject constructor(
         _inputList.value = input
     }
 
-    private fun navigateToElementsOrderList(orderMainId: String) {
+    private fun navigateToElementsOrderList(orderMainId: String, season: Season?) {
         viewModelScope.launch {
-            _effectFlow.emit(OrdersMainUiEffect.NavigateToElementsMain(orderMainId))
+            _effectFlow.emit(OrdersMainUiEffect.NavigateToElementsMain(orderMainId, season))
         }
     }
 
@@ -127,10 +132,11 @@ class OrdersMainViewModel @Inject constructor(
             when (val orderMainMainResponse = createMainOrderUseCase(
                 OrderMain(
                     orderId = orderId.toString(),
-                    nameOrder = getNameList(),
+                    nameOrder = getNameMainOrder(),
                     orderDate = DateUtils.format(orderId, DateUtils.FORMAT_DATE2),
+                    orderSeason = SeasonUtils.getSeason()
 
-                    )
+                )
             )) {
                 is Resource.Failure -> setErrorMsg(orderMainMainResponse.exception.message)
                 is Resource.Success -> {
@@ -141,10 +147,11 @@ class OrdersMainViewModel @Inject constructor(
             loading(false)
         }
 
-    private fun getNameList(): String = _inputList.value.ifEmpty {
+    private fun getNameMainOrder(): String = _inputList.value.ifEmpty {
         app.getString(
-            R.string.title_list_default_name,
-            DateUtils.format(System.currentTimeMillis(), DateUtils.FORMAT_DATE2)
+            R.string.title_order_main_default_name,
+            (_uiState.value.orderMains.size + 1).toString(),
+            DateUtils.format(System.currentTimeMillis(), DateUtils.FORMAT_DATE5)
         )
     }
 

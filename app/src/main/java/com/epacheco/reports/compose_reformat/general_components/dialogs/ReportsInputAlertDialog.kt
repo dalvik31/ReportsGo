@@ -39,12 +39,12 @@ fun ReportsInputDialog(
     dialogHint: String? = null,
     confirmButtonText: String? = null,
     input: String? = null,
-    tintColor: Color,
+    tintColor: Color = MaterialTheme.colorScheme.primary,
     onConfirmation: () -> Unit,
-    onDismissRequest: (() -> Unit)? = null,
+    onDismissRequest: (() -> Unit),
     onInputChanged: ((String) -> Unit)? = null,
 ) {
-    Dialog(onDismissRequest = { onDismissRequest?.invoke() }) {
+    Dialog(onDismissRequest = { onDismissRequest.invoke() }) {
         CustomInputDialogUI(
             imgDialog = imgDialog,
             dialogTitle = dialogTitle,
@@ -162,6 +162,9 @@ fun CustomInputDialogUI(
 @Preview
 @Composable
 fun ReportsInputDialogPreview() {
-    OrderInputDialog(onConfirmation = {}, onDismissRequest = {})
+    ReportsInputDialog(
+        dialogTitle = "",
+        imgDialog = R.drawable.ic_vector_order,
+        onConfirmation = {}, onDismissRequest = {})
 }
 

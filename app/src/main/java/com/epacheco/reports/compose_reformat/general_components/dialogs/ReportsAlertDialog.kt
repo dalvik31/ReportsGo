@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -103,7 +104,7 @@ fun CustomDialogUI(
 
                 )
 
-            Column(modifier = Modifier.padding(16.dp)) {
+            Column(modifier = Modifier.padding(vertical = 16.dp, horizontal = 8.dp)) {
 
                 dialogTitle?.let {
                     Text(
@@ -125,7 +126,7 @@ fun CustomDialogUI(
                         textAlign = TextAlign.Center,
                         color = Black,
                         modifier = Modifier
-                            .padding(top = 10.dp, start = 25.dp, end = 25.dp)
+                            .padding(top = 10.dp)
                             .fillMaxWidth(),
                         style = MaterialTheme.typography.bodyMedium
                     )
@@ -156,7 +157,7 @@ fun CustomDialogUI(
                 }
 
                 confirmButtonText?.let {
-                    TextButton(onClick = {
+                    TextButton(modifier = Modifier.wrapContentSize(), onClick = {
                         onConfirmation?.invoke()
                     }) {
                         Text(

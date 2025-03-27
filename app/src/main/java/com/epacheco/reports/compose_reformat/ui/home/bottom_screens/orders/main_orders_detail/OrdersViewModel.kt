@@ -1,18 +1,16 @@
-package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders
+package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders_detail
 
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ReportsApp
-import com.epacheco.reports.compose_reformat.domain.CreateMainOrderUseCase
 import com.epacheco.reports.compose_reformat.domain.CreateOrderUseCase
-import com.epacheco.reports.compose_reformat.domain.DeleteMainOrderUseCase
-import com.epacheco.reports.compose_reformat.domain.GetMainOrdersUseCase
+import com.epacheco.reports.compose_reformat.domain.DeleteOrderUseCase
 import com.epacheco.reports.compose_reformat.domain.GetOrdersUseCase
 import com.epacheco.reports.compose_reformat.domain.UpdateStatusOrderUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.model.orders.Order
-import com.epacheco.reports.compose_reformat.model.orders.OrderMain
 import com.epacheco.reports.compose_reformat.model.orders.OrderStatus
+import com.epacheco.reports.compose_reformat.model.orders.Season
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,7 +24,7 @@ import javax.inject.Inject
 @HiltViewModel
 class OrdersViewModel @Inject constructor(
     private val getOrdersUseCase: GetOrdersUseCase,
-    private val deleteMainOrderUseCase: DeleteMainOrderUseCase,
+    private val deleteOrderUseCase: DeleteOrderUseCase,
     private val createOrderUseCase: CreateOrderUseCase,
     private val updateStatusOrderUseCase: UpdateStatusOrderUseCase,
     private val app: ReportsApp
@@ -46,12 +44,15 @@ class OrdersViewModel @Inject constructor(
 
     fun handleIntent(intent: OrdersUiIntent) {
         when (intent) {
-            is OrdersUiIntent.CreateOrder -> createOrder(intent.mainOrderId)
-            is OrdersUiIntent.DeleteOrder -> TODO()
-            is OrdersUiIntent.GoToCreateOrder -> TODO()
+            is OrdersUiIntent.CreateOrder -> createOrder(intent.mainOrderId, intent.orderSeason)
+            is OrdersUiIntent.DeleteOrder -> deleteOrder(intent.orderId, intent.mainOrderId)
             OrdersUiIntent.HideDialogs -> setErrorMsg()
             is OrdersUiIntent.LoadOrders -> loadOrders(intent.mainOrderId)
-            is OrdersUiIntent.UpdateStatusOrder -> TODO()
+            is OrdersUiIntent.UpdateStatusOrder -> updateStatusOrder(
+                intent.orderId,
+                intent.mainOrderId,
+                intent.orderStatus
+            )
         }
     }
 
@@ -75,35 +76,36 @@ class OrdersViewModel @Inject constructor(
             loading(false)
         }
 
-    /*private fun deleteMainOrder(orderId: String) =
+    private fun deleteOrder(orderId: String, mainOrderId: String) =
         viewModelScope.launch {
             loading(true)
-            when (val orderMainResponse = deleteMainOrderUseCase(orderId)) {
+            when (val orderMainResponse = deleteOrderUseCase(orderId, mainOrderId)) {
                 is Resource.Failure -> setErrorMsg(orderMainResponse.exception.message)
                 is Resource.Success -> {
                     _uiState.value =
-                        _uiState.value.copy(successOperationMsg = R.string.msg_order_list_delete_success)
-                    loadMainOrders()
+                        _uiState.value.copy(successOperationMsg = R.string.msg_order_delete_success)
+                    loadOrders(mainOrderId)
                 }
             }
             loading(false)
-        }*/
+        }
 
-    /* private fun updateStatusOrder(orderId: String, orderStatus: OrderStatus) =
-         viewModelScope.launch {
-             loading(true)
-             val newOrderStatus =
-                 if (orderStatus == OrderStatus.DONE) OrderStatus.IN_PROGRESS else OrderStatus.DONE
-             when (val orderMainResponse = updateStatusOrderUseCase(orderId, newOrderStatus)) {
-                 is Resource.Failure -> setErrorMsg(orderMainResponse.exception.message)
-                 is Resource.Success -> {
-                     _uiState.value =
-                         _uiState.value.copy(successOperationMsg = R.string.msg_order_list_update_success)
-                     loadMainOrders()
-                 }
-             }
-             loading(false)
-         }*/
+    private fun updateStatusOrder(orderId: String, mainOrderId: String, orderStatus: OrderStatus) =
+        viewModelScope.launch {
+            loading(true)
+            val newOrderStatus =
+                if (orderStatus == OrderStatus.DONE) OrderStatus.IN_PROGRESS else OrderStatus.DONE
+            when (val orderMainResponse =
+                updateStatusOrderUseCase(orderId, mainOrderId = mainOrderId, newOrderStatus)) {
+                is Resource.Failure -> setErrorMsg(orderMainResponse.exception.message)
+                is Resource.Success -> {
+                    _uiState.value =
+                        _uiState.value.copy(successOperationMsg = R.string.msg_order_update_success)
+                    loadOrders(mainOrderId)
+                }
+            }
+            loading(false)
+        }
 
 
     fun onValueInputListChanged(input: String) {
@@ -116,7 +118,7 @@ class OrdersViewModel @Inject constructor(
         }
     }*/
 
-    private fun createOrder(mainOrderId: String) =
+    private fun createOrder(mainOrderId: String, orderSeason: Season?) =
         viewModelScope.launch {
             loading(true)
             val orderId = System.currentTimeMillis()
@@ -124,7 +126,8 @@ class OrdersViewModel @Inject constructor(
                 Order(
                     orderListId = mainOrderId,
                     orderId = orderId.toString(),
-                    nameOrder = getNameList(),
+                    nameOrder = getNameOrder(),
+                    orderSeason = orderSeason
                 )
             )) {
                 is Resource.Failure -> setErrorMsg(orderMainMainResponse.exception.message)
@@ -136,10 +139,11 @@ class OrdersViewModel @Inject constructor(
             loading(false)
         }
 
-    private fun getNameList(): String = _inputList.value.ifEmpty {
+    private fun getNameOrder(): String = _inputList.value.ifEmpty {
         app.getString(
-            R.string.title_list_default_name,
-            DateUtils.format(System.currentTimeMillis(), DateUtils.FORMAT_DATE2)
+            R.string.title_order_default_name,
+            (_uiState.value.orders.size + 1).toString(),
+            DateUtils.format(DateUtils.now(), DateUtils.FORMAT_DATE5)
         )
     }
 

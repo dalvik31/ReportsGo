@@ -13,6 +13,7 @@ data class Order(
     val orderGender: String = "",
     val orderDescription: String = "",
     val orderStatus: OrderStatus = OrderStatus.IN_PROGRESS,
+    val orderSeason: Season? = null,
     val orderClient: Client = Client(),
     val orderProduct: Product = Product()
 )
