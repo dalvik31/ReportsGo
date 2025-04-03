@@ -25,6 +25,7 @@ val Green = Color(0xFF8DC68F)
  * */
 val Black60 = Color(0x99000000)
 val White60 = Color(0x99FFFFFF)
+val White30 = Color(0x4DFFFFFF)
 val GrayBackground = Color(0xFFBDBDBD)
 
 /**

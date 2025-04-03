@@ -7,7 +7,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -24,6 +23,7 @@ import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile.Prof
 import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeNavigationItem
 import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes
 import com.epacheco.reports.compose_reformat.ui.theme.White
+import com.epacheco.reports.compose_reformat.ui.theme.White30
 import com.epacheco.reports.compose_reformat.utils.extensions.serializableType
 import kotlin.reflect.typeOf
 
@@ -39,7 +39,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                 barColor = MaterialTheme.colorScheme.primary,
                 circleColor = MaterialTheme.colorScheme.primary,
                 selectedColor = White,
-                unselectedColor = Color.Gray,
+                unselectedColor = White30,
                 bottomNavController
             )
         }
