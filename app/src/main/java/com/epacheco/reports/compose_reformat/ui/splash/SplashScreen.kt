@@ -21,7 +21,6 @@ fun SplashScreen(
     val uiState by splashViewMode.uiState.collectAsStateWithLifecycle()
     val coroutineScope = rememberCoroutineScope()
 
-    // Collect effects and handle navigation
     LaunchedEffect(Unit) {
         splashViewMode.effectFlow.collectLatest { effect ->
             when (effect) {
@@ -31,7 +30,6 @@ fun SplashScreen(
         }
     }
 
-    // Send the intent to check user status after a delay
     LaunchedEffect(Unit) {
         coroutineScope.launch {
             delay(3000)
