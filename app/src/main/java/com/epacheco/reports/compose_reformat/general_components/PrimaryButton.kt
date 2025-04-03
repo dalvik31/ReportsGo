@@ -17,8 +17,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.ui.theme.FacebookBackground
-import com.epacheco.reports.compose_reformat.ui.theme.GoogleBackground
+import com.epacheco.reports.compose_reformat.ui.theme.FacebookColor
+import com.epacheco.reports.compose_reformat.ui.theme.GoogleColor
 import com.epacheco.reports.compose_reformat.ui.theme.GrayLight
 import com.epacheco.reports.compose_reformat.ui.theme.White
 
@@ -37,7 +37,7 @@ fun PrimaryButton(
     Button(
         modifier = modifier,
         enabled = enabledButton,
-        onClick =  {
+        onClick = {
             //we avoid make multiples clicks
             val currentState = lifecycleOwner.lifecycle.currentState
             if (currentState.isAtLeast(Lifecycle.State.RESUMED)) {
@@ -76,7 +76,7 @@ private fun GoogleButtonPreview() {
     PrimaryButton(
         textButton = "Icon button",
         iconBtn = R.drawable.ic_vector_google_logo,
-        colorBackground = GoogleBackground
+        colorBackground = GoogleColor
     )
 }
 
@@ -86,7 +86,7 @@ private fun FacebookButtonPreview() {
     PrimaryButton(
         textButton = "Icon button",
         iconBtn = R.drawable.ic_vector_facebook_logo,
-        colorBackground = FacebookBackground
+        colorBackground = FacebookColor
     )
 }
 

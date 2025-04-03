@@ -29,8 +29,8 @@ import com.epacheco.reports.compose_reformat.general_components.PasswordTextFiel
 import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
 import com.epacheco.reports.compose_reformat.general_components.SecondaryButton
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
-import com.epacheco.reports.compose_reformat.ui.theme.FacebookBackground
-import com.epacheco.reports.compose_reformat.ui.theme.GoogleBackground
+import com.epacheco.reports.compose_reformat.ui.theme.FacebookColor
+import com.epacheco.reports.compose_reformat.ui.theme.GoogleColor
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 
@@ -115,7 +115,7 @@ fun AccountView(
             PrimaryButton(
                 textButton = stringResource(id = R.string.register_screen_btn_continue_facebook),
                 iconBtn = R.drawable.ic_vector_facebook_logo,
-                colorBackground = FacebookBackground,
+                colorBackground = FacebookColor,
                 modifier = Modifier
             ) {
 
@@ -124,7 +124,7 @@ fun AccountView(
             PrimaryButton(
                 textButton = stringResource(id = R.string.register_screen_btn_continue_google),
                 iconBtn = R.drawable.ic_vector_google_logo,
-                colorBackground = GoogleBackground,
+                colorBackground = GoogleColor,
                 modifier = Modifier
             ) {
 

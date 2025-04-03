@@ -2,7 +2,6 @@ package com.epacheco.reports.compose_reformat.general_components.dialogs
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.window.Dialog
 import com.epacheco.reports.R
 
 

@@ -28,6 +28,7 @@ import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Header(
+    modifier: Modifier = Modifier,
     title: String? = null,
     titleColor: Color = MaterialTheme.colorScheme.surface,
     backgroundToolbar: Color = MaterialTheme.colorScheme.primary,
@@ -35,7 +36,6 @@ fun Header(
     tintImageRight: Color = MaterialTheme.colorScheme.surface,
     leftImageVector: ImageVector = Icons.Filled.AccountCircle,
     tintImageLeft: Color = MaterialTheme.colorScheme.surface,
-    modifier: Modifier = Modifier,
     onRightIconClicked: (() -> Unit)? = null,
     onLeftIconClicked: (() -> Unit)? = null
 ) {
@@ -85,27 +85,27 @@ fun Header(
 
 @Preview
 @Composable
-private fun showBasicHeader() {
+private fun BasicHeaderPreview() {
     Header(title = "Toolbar")
 }
 
 @Preview
 @Composable
-private fun showRightActionHeader() {
+private fun RightActionHeaderPreview() {
     Header(title = "Toolbar", onRightIconClicked = {})
 
 }
 
 @Preview
 @Composable
-private fun showLeftActionHeader() {
+private fun LeftActionHeaderPreview() {
     Header(title = "showLeftActionHeader", onLeftIconClicked = {})
 
 }
 
 @Preview
 @Composable
-private fun showBothActionHeader() {
+private fun BothActionHeaderPreview() {
     ReportsGoTheme {
         Header(title = "Toolbar", onLeftIconClicked = {}, onRightIconClicked = {})
     }

@@ -15,10 +15,10 @@ import com.epacheco.reports.compose_reformat.general_components.Loader
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsErrorDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsInfoDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsSuccessDialog
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.view.OrderMainView
-import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.model.orders.Season
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.view.OrderMainInputDialog
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.view.OrderMainView
+import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.utils.SeasonUtils
 import kotlinx.coroutines.flow.collectLatest
 
@@ -132,7 +132,7 @@ fun OrdersMainScreen(
         )
     }
     if (showDialogCreateOrder) {
-        OrderMainInputDialog (input = input, onInputChanged = { e ->
+        OrderMainInputDialog(input = input, onInputChanged = { e ->
             ordersMainViewModel.onValueInputListChanged(input = e)
         }, onDismissRequest = { showDialogCreateOrder = false }, onConfirmation = {
             showDialogCreateOrder = false

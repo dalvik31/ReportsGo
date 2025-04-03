@@ -19,5 +19,5 @@ data class Order(
     val orderSizeNumeric: Boolean = false,
     val orderStatus: OrderStatus = OrderStatus.IN_PROGRESS,
     var orderSeason: Season? = null,
-   // val orderProduct: Product = Product()
+    // val orderProduct: Product = Product()
 ) : Parcelable

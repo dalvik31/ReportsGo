@@ -47,7 +47,7 @@ import com.epacheco.reports.compose_reformat.model.orders.Season
 import com.epacheco.reports.compose_reformat.ui.theme.GrayLight
 import com.epacheco.reports.compose_reformat.ui.theme.White
 import com.epacheco.reports.compose_reformat.ui.theme.White60
-import com.epacheco.reports.compose_reformat.ui.theme.fall
+import com.epacheco.reports.compose_reformat.ui.theme.FallColor
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE3
 
@@ -212,8 +212,8 @@ fun OrderItem(
 
 private fun getCardBackground(orderMain: Order): Color =
     when (orderMain.orderSeason) {
-        Season.FALL -> fall
-        Season.SPRING -> com.epacheco.reports.compose_reformat.ui.theme.spring
+        Season.FALL -> FallColor
+        Season.SPRING -> com.epacheco.reports.compose_reformat.ui.theme.SpringColor
         null -> GrayLight
     }
 

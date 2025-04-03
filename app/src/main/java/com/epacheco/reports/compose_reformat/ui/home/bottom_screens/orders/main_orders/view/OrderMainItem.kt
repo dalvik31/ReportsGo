@@ -48,8 +48,8 @@ import com.epacheco.reports.compose_reformat.model.orders.Season
 import com.epacheco.reports.compose_reformat.ui.theme.GrayLight
 import com.epacheco.reports.compose_reformat.ui.theme.White
 import com.epacheco.reports.compose_reformat.ui.theme.White60
-import com.epacheco.reports.compose_reformat.ui.theme.fall
-import com.epacheco.reports.compose_reformat.ui.theme.spring
+import com.epacheco.reports.compose_reformat.ui.theme.FallColor
+import com.epacheco.reports.compose_reformat.ui.theme.SpringColor
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE3
 
@@ -87,7 +87,8 @@ fun OrderMainItem(
                     modifier = Modifier
                         .width(200.dp)
                         .alpha(.2f)
-                        .align(Alignment.CenterEnd).graphicsLayer {
+                        .align(Alignment.CenterEnd)
+                        .graphicsLayer {
                             rotationZ = 20f
                         },
 
@@ -208,19 +209,10 @@ fun OrderMainItem(
 
 private fun getCardBackground(orderMain: OrderMain): Color =
     when (orderMain.orderSeason) {
-        Season.FALL -> fall
-        Season.SPRING -> spring
+        Season.FALL -> FallColor
+        Season.SPRING -> SpringColor
         null -> GrayLight
     }
-
-
-private fun getImageSeasonBackground(orderMain: OrderMain): Int =
-    when (orderMain.orderSeason) {
-        Season.FALL -> R.drawable.leaf_fall
-        Season.SPRING -> R.drawable.spring
-        null -> R.drawable.ic_icon_trans
-    }
-
 
 @Composable
 private fun getUpdateStatusList(orderMain: OrderMain) =

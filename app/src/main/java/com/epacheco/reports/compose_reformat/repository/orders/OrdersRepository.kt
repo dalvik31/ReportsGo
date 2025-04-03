@@ -19,7 +19,6 @@ interface OrdersRepository {
     ): Resource<Boolean>
 
 
-
     //Main orders
     suspend fun getMainOrders(): Resource<List<OrderMain>>
     suspend fun deleteMainOrder(mainOrderId: String): Resource<Boolean>

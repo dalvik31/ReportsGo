@@ -1,6 +1,5 @@
 package com.epacheco.reports.compose_reformat.model.products
 
-import android.graphics.Color
 import kotlinx.serialization.Serializable
 
 @Serializable

@@ -38,7 +38,6 @@ fun ProductItem(
 ) {
 
     Box(
-
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 4.dp)

@@ -46,17 +46,17 @@ fun OrdersView(
     Column {
 
         Header(
-            title =pluralStringResource(
+            title = pluralStringResource(
                 R.plurals.title_orders,
                 count = orderList.size,
                 orderList.size
             ),
             backgroundToolbar = Color.Transparent,
             titleColor = MaterialTheme.colorScheme.primary,
-            onLeftIconClicked = {onBackPressed?.invoke()},
+            onLeftIconClicked = { onBackPressed?.invoke() },
             leftImageVector = Icons.Default.ArrowBackIosNew,
             tintImageLeft = MaterialTheme.colorScheme.primary,
-            onRightIconClicked = {    onCreateOrderClick?.invoke() },
+            onRightIconClicked = { onCreateOrderClick?.invoke() },
             tintImageRight = MaterialTheme.colorScheme.primary,
             rightImageVector = ImageVector.vectorResource(R.drawable.ic_vector_add)
         )

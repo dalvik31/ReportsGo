@@ -23,7 +23,7 @@ import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile.Prof
 import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeNavigationItem
 import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes
 import com.epacheco.reports.compose_reformat.ui.theme.White
-import com.epacheco.reports.compose_reformat.ui.theme.White30
+import com.epacheco.reports.compose_reformat.ui.theme.White40
 import com.epacheco.reports.compose_reformat.utils.extensions.serializableType
 import kotlin.reflect.typeOf
 
@@ -39,7 +39,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                 barColor = MaterialTheme.colorScheme.primary,
                 circleColor = MaterialTheme.colorScheme.primary,
                 selectedColor = White,
-                unselectedColor = White30,
+                unselectedColor = White40,
                 bottomNavController
             )
         }

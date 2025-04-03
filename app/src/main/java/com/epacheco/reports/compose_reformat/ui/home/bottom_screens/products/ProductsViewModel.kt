@@ -1,6 +1,5 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products
 
-import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.compose_reformat.domain.GetProductsUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
@@ -27,14 +26,6 @@ class ProductsViewModel @Inject constructor(private val productsUseCase: GetProd
 
     private fun getProducts() = viewModelScope.launch {
         //_productsFlow.value = Resource.Waiting
-
-       productsUseCase().collect {
-            it?.let {
-                _productsFlow.value = Resource.Success(it)
-            } ?: run {
-                Resource.Failure(Exception("Mi expetion"))
-            }
-        }
 
     }
 

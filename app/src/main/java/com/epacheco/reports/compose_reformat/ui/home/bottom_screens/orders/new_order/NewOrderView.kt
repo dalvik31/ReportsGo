@@ -94,7 +94,7 @@ fun NewOrderView(
     Column {
 
         Header(
-            stringResource(orderToEdit?.let { R.string.modify_order_title }
+            title = stringResource(orderToEdit?.let { R.string.modify_order_title }
                 ?: run { R.string.create_new_order_title }),
             backgroundToolbar = Color.Transparent,
             onRightIconClicked = {

@@ -6,7 +6,10 @@ import com.epacheco.reports.compose_reformat.repository.orders.OrdersRepository
 import javax.inject.Inject
 
 class CreateMainOrderUseCase @Inject constructor(private val ordersRepository: OrdersRepository) {
-    suspend operator fun invoke(orderMain: OrderMain, addCreateRestriction: Boolean = false): Resource<Boolean> {
+    suspend operator fun invoke(
+        orderMain: OrderMain,
+        addCreateRestriction: Boolean = false
+    ): Resource<Boolean> {
         return ordersRepository.createMainOrder(orderMain, addCreateRestriction)
     }
 }
