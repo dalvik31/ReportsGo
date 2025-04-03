@@ -1,7 +1,9 @@
 package com.epacheco.reports.compose_reformat.utils.extensions
 
+import android.content.Context
 import android.util.Patterns
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import com.epacheco.reports.R
 
 
@@ -16,16 +18,19 @@ fun String?.nameProfile(email: String?): String {
         if (email.isNullOrEmpty()) "" else email.getNameFromEmail()
     } else checkNotNull(this)
 }
+
 fun String.toColor(): Color {
     return Color(android.graphics.Color.parseColor(this))
 }
 
 
-fun String.getTranslateFireBaseErrorMsg(): Int =
-    when {
-        this.contains("There is no user record corresponding to this identifier") -> R.string.msg_firebase_user_not_found
-        this.contains("The password is invalid or the user does not have a password") -> R.string.msg_firebase_password_invalid
-        this.contains("The email address is already in use by another account") -> R.string.msg_firebase_email_exist_already
-        else -> R.string.general_error
-    }
+fun String.getTranslateFireBaseErrorMsg(ctx: Context): String =
+    ctx.getString(
+        when {
+            this.contains("There is no user record corresponding to this identifier") -> R.string.msg_firebase_user_not_found
+            this.contains("The password is invalid or the user does not have a password") -> R.string.msg_firebase_password_invalid
+            this.contains("The email address is already in use by another account") -> R.string.msg_firebase_email_exist_already
+            else -> R.string.general_error
+        }
+    )
 

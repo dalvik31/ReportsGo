@@ -52,7 +52,7 @@ fun AccountScreen(
             accountViewModel.handleIntent(AccountUiIntent.SignUp)
         },
         onPasswordClicked = {
-            accountViewModel.handleIntent(AccountUiIntent.Password)
+            accountViewModel.handleIntent(AccountUiIntent.ChangePassword)
         }
     )
 
@@ -68,7 +68,7 @@ fun AccountScreen(
         ReportsErrorDialog(
             dialogSubTitle = msgError,
             onConfirmation = {
-                accountViewModel.handleIntent(AccountUiIntent.Error)
+                accountViewModel.handleIntent(AccountUiIntent.HideMsgError)
             })
     }
 

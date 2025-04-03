@@ -1,12 +1,14 @@
 package com.epacheco.reports.compose_reformat.ui.account
 
 import androidx.lifecycle.viewModelScope
+import com.epacheco.reports.compose_reformat.ReportsApp
 import com.epacheco.reports.compose_reformat.domain.FirebaseGetUserUseCase
 import com.epacheco.reports.compose_reformat.domain.FirebaseUserLoginUseCase
 import com.epacheco.reports.compose_reformat.domain.FirebaseUserSignUpUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import com.epacheco.reports.compose_reformat.utils.Validations
+import com.epacheco.reports.compose_reformat.utils.extensions.getTranslateFireBaseErrorMsg
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,6 +22,7 @@ class AccountViewModel @Inject constructor(
     private val firebaseUserLoginUseCase: FirebaseUserLoginUseCase,
     private val firebaseGetUserUseCase: FirebaseGetUserUseCase,
     private val firebaseUserSignUpUseCase: FirebaseUserSignUpUseCase,
+    private val app: ReportsApp
 ) : BaseViewModel() {
 
     private val _uiState = MutableStateFlow(AccountUiState())
@@ -43,11 +46,11 @@ class AccountViewModel @Inject constructor(
 
     fun handleIntent(intent: AccountUiIntent) {
         when (intent) {
-            AccountUiIntent.Error -> setErrorMsg()
             AccountUiIntent.SignUp -> doSignUp()
-            AccountUiIntent.Password -> navigateToPassword()
+            AccountUiIntent.ChangePassword -> navigateToPassword()
             AccountUiIntent.SignIn -> doSignIn()
             AccountUiIntent.GetProfile -> getProfile()
+            AccountUiIntent.HideMsgError -> setErrorMsg()
         }
     }
 
@@ -60,7 +63,7 @@ class AccountViewModel @Inject constructor(
             }
 
             is Resource.Success -> {
-                _uiState.value = _uiState.value.copy(userInfoRetrieved = true)
+
             }
         }
         loading(false)
@@ -76,14 +79,14 @@ class AccountViewModel @Inject constructor(
     private fun doSignIn() = viewModelScope.launch {
         loading(true)
         when (val signInResponse = firebaseUserLoginUseCase(email.value, password.value)) {
-            is Resource.Failure -> {
-                _uiState.value =
-                    _uiState.value.copy(errorMessage = signInResponse.exception.message)
-            }
+            is Resource.Failure -> setErrorMsg(
+                signInResponse.exception.message?.getTranslateFireBaseErrorMsg(
+                    app
+                )
+            )
 
-            is Resource.Success -> {
-                navigateToHome()
-            }
+
+            is Resource.Success -> navigateToHome()
         }
         loading(false)
     }
@@ -91,14 +94,13 @@ class AccountViewModel @Inject constructor(
     private fun doSignUp() = viewModelScope.launch {
         loading(true)
         when (val signInResponse = firebaseUserSignUpUseCase(email.value, password.value)) {
-            is Resource.Failure -> {
-                _uiState.value =
-                    _uiState.value.copy(errorMessage = signInResponse.exception.message)
-            }
+            is Resource.Failure -> setErrorMsg(
+                signInResponse.exception.message?.getTranslateFireBaseErrorMsg(
+                    app
+                )
+            )
+            is Resource.Success -> navigateToHome()
 
-            is Resource.Success -> {
-                _uiState.value = _uiState.value.copy(userInfoRetrieved = true)
-            }
         }
         loading(false)
     }
