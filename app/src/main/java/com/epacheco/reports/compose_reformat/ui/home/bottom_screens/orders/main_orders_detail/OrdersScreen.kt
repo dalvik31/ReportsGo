@@ -14,6 +14,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.epacheco.reports.compose_reformat.general_components.Loader
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsErrorDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsSuccessDialog
+import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.model.orders.Season
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import kotlinx.coroutines.flow.collectLatest
@@ -22,14 +23,16 @@ import kotlinx.coroutines.flow.collectLatest
 fun OrdersScreen(
     ordersViewModel: OrdersViewModel = hiltViewModel<OrdersViewModel>(),
     onBackPressed: (() -> Unit)? = null,
+    onNavigateToCreateOrder: ((String, Season?) -> Unit)? = null,
+    onNavigateToEditOrder: ((Order) -> Unit)? = null,
     mainOrderId: String,
     orderSeason: Season?
 ) {
 
     val uiState by ordersViewModel.uiState.collectAsState()
-    val input by ordersViewModel.inputList.collectAsState()
+    // val input by ordersViewModel.inputList.collectAsState()
 
-    var showDialogCreateOrder by remember { mutableStateOf(false) }
+    //var showDialogCreateOrder by remember { mutableStateOf(false) }
 
 
     LaunchedEffect(Unit) {
@@ -39,7 +42,11 @@ fun OrdersScreen(
     LaunchedEffect(ordersViewModel) {
         ordersViewModel.effectFlow.collectLatest { effect ->
             when (effect) {
-                is OrdersUiEffect.NavigateToCreateOrder -> TODO()
+                is OrdersUiEffect.NavigateToCreateOrder -> onNavigateToCreateOrder?.invoke(
+                    mainOrderId,
+                    orderSeason
+                )
+
             }
         }
     }
@@ -49,9 +56,11 @@ fun OrdersScreen(
         showImgEmptyList = uiState.showImgEmptyList,
         onBackPressed = { onBackPressed?.invoke() },
         onCreateOrderClick = {
-            showDialogCreateOrder = true
+            onNavigateToCreateOrder?.invoke(mainOrderId, orderSeason)
         },
-        onOrderClick = { Log.e("aqui", "estamooos clic a un pedido: ${it.nameOrder}") },
+        onOrderClick = {
+            onNavigateToEditOrder?.invoke(it)
+        },
         isRefreshing = uiState.isLoading,
         onDeleteOrderClick = {
             ordersViewModel.handleIntent(OrdersUiIntent.DeleteOrder(it, mainOrderId))
@@ -94,14 +103,14 @@ fun OrdersScreen(
             })
     }
 
-    if (showDialogCreateOrder) {
+    /*if (showDialogCreateOrder) {
         OrderInputDialog(input = input, onInputChanged = { e ->
             ordersViewModel.onValueInputListChanged(input = e)
         }, onDismissRequest = { showDialogCreateOrder = false }, onConfirmation = {
             showDialogCreateOrder = false
             ordersViewModel.handleIntent(OrdersUiIntent.CreateOrder(mainOrderId, orderSeason))
         })
-    }
+    }*/
 
 }
 

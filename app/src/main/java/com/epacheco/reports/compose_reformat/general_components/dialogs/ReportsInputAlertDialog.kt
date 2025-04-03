@@ -120,7 +120,7 @@ fun CustomInputDialogUI(
                     modifier = Modifier
                         .padding(top = 10.dp, start = 25.dp, end = 25.dp)
                         .fillMaxWidth(),
-                    input = input ?: "",
+                    inputText = input ?: "",
                     tintColor = tintColor,
                     hintText = dialogHint ?: ""
                 ) {

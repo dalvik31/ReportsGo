@@ -1,6 +1,7 @@
 package com.epacheco.reports.compose_reformat.utils.extensions
 
 import android.util.Patterns
+import androidx.compose.ui.graphics.Color
 import com.epacheco.reports.R
 
 
@@ -15,6 +16,10 @@ fun String?.nameProfile(email: String?): String {
         if (email.isNullOrEmpty()) "" else email.getNameFromEmail()
     } else checkNotNull(this)
 }
+fun String.toColor(): Color {
+    return Color(android.graphics.Color.parseColor(this))
+}
+
 
 fun String.getTranslateFireBaseErrorMsg(): Int =
     when {

@@ -1,6 +1,8 @@
 package com.epacheco.reports.compose_reformat.model.clients
 
 import com.epacheco.reports.Pojo.ClientDetail.ClientDetail
+import kotlinx.serialization.Serializable
+
 
 data class Client(
     val id: String = "",

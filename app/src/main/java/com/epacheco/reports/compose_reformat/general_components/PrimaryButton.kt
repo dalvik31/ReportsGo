@@ -8,17 +8,25 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ui.theme.FacebookBackground
 import com.epacheco.reports.compose_reformat.ui.theme.GoogleBackground
 import com.epacheco.reports.compose_reformat.ui.theme.GrayLight
 import com.epacheco.reports.compose_reformat.ui.theme.White
+import com.epacheco.reports.compose_reformat.utils.extensions.singleClick
 
 @Composable
 fun PrimaryButton(
@@ -29,11 +37,18 @@ fun PrimaryButton(
     enabledButton: Boolean = true,
     onButtonClicked: (() -> Unit)? = null
 ) {
+
+    val lifecycleOwner = LocalLifecycleOwner.current
     Button(
         modifier = modifier,
         enabled = enabledButton,
-        onClick = {
-            onButtonClicked?.invoke()
+        onClick =  {
+            //we avoid make multiples clicks
+            val currentState = lifecycleOwner.lifecycle.currentState
+            if (currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+                onButtonClicked?.invoke()
+            }
+
         }, colors = ButtonDefaults.buttonColors(
             containerColor = colorBackground,
             disabledContentColor = White,

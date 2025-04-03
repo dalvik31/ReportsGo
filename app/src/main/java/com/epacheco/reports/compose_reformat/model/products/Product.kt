@@ -1,5 +1,9 @@
 package com.epacheco.reports.compose_reformat.model.products
 
+import android.graphics.Color
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Product(
     val productDate: String = "",
     val productId: String = "",
@@ -15,6 +19,7 @@ data class Product(
     val auxStock: Int = 0,
     val talla: String = "",
     val color: String = "",
+    val colorProductCode: String? = null,
     val tipo_de_empaque: String = "",
     val especificaciones_otro: String = "",
     val typeProduct: String = "",

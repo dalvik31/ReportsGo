@@ -57,7 +57,7 @@ fun OrdersMainScreen(
             ordersMainViewModel.handleIntent(
                 OrdersMainUiIntent.GoToListOrders(
                     it.orderId,
-                    it.orderSeason
+                    it.orderSeason,
                 )
             )
         },

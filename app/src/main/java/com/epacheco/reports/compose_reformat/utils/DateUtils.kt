@@ -12,7 +12,7 @@ object DateUtils {
 
     fun format(timestamp: Long, format: String) = apply(Date(timestamp), format)
 
-    fun now() = Calendar.getInstance().time
+    fun now() = Calendar.getInstance().time.time
 
     fun parse(timestamp: Long) = Date(timestamp)
 
@@ -44,9 +44,9 @@ object DateUtils {
 
     const val FORMAT_DATE1 = "yyyy-MM-dd"
     const val FORMAT_DATE2 = "dd/MM/yyyy"
-    const val FORMAT_DATE3 = "dd / MMMM / YYYY"
+    const val FORMAT_DATE3 = "dd / MMMM / YYYY - HH:MM"
     const val FORMAT_DATE4 = "dd MMM, YYYY"
-    const val FORMAT_DATE5 = "MMM/YYYY"
+    const val FORMAT_DATE5 = "MM/YY - HH:MM"
 
 
 

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -87,9 +88,10 @@ fun OrderMainItem(
                         .width(200.dp)
                         .alpha(.2f)
                         .align(Alignment.CenterEnd).graphicsLayer {
-                            rotationZ = 200f
+                            rotationZ = 20f
                         },
-                    painter = painterResource(R.drawable.ic_vector_order),
+
+                    painter = painterResource(if (orderMain.orderStatus == OrderStatus.IN_PROGRESS) R.drawable.ic_vector_order else R.drawable.ic_vector_checked),
                     contentDescription = null,
                     colorFilter = ColorFilter.tint(White60),
                     contentScale = ContentScale.Crop
@@ -134,10 +136,8 @@ fun OrderMainItem(
 
                         Row(
                             modifier = Modifier
-                                .padding(horizontal = 12.dp, vertical = 12.dp)
-                                .fillMaxWidth(),
+                                .padding(horizontal = 12.dp, vertical = 12.dp),
                             verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween,
                         ) {
                             IconButton({
                                 showDialogConfirmDeleteOrder = true
@@ -148,6 +148,7 @@ fun OrderMainItem(
                                     tint = White
                                 )
                             }
+                            Spacer(modifier = Modifier.weight(1f))
                             if (orderMain.orderId.isNotEmpty()) {
                                 Text(
                                     text = DateUtils.format(

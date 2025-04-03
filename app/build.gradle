@@ -3,6 +3,8 @@ apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'kotlin-parcelize'
+
 
 apply plugin: 'org.jetbrains.kotlin.plugin.serialization'
 
@@ -166,6 +168,7 @@ dependencies {
     //Serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
 
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.21'
 
 }
 

@@ -1,5 +1,6 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders_detail
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ReportsApp
@@ -67,11 +68,15 @@ class OrdersViewModel @Inject constructor(
                     )
                 }
 
-                is Resource.Success -> _uiState.value =
-                    _uiState.value.copy(
-                        orders = orderResponse.result,
-                        showImgEmptyList = orderResponse.result.isEmpty()
-                    )
+                is Resource.Success -> {
+                    Log.e("aqui","estamooooos: ${orderResponse.result}")
+                    _uiState.value =
+
+                        _uiState.value.copy(
+                            orders = orderResponse.result,
+                            showImgEmptyList = orderResponse.result.isEmpty()
+                        )
+                }
             }
             loading(false)
         }

@@ -150,7 +150,6 @@ class OrdersMainViewModel @Inject constructor(
     private fun getNameMainOrder(): String = _inputList.value.ifEmpty {
         app.getString(
             R.string.title_order_main_default_name,
-            (_uiState.value.orderMains.size + 1).toString(),
             DateUtils.format(System.currentTimeMillis(), DateUtils.FORMAT_DATE5)
         )
     }

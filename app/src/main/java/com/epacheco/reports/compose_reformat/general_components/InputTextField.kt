@@ -28,22 +28,25 @@ import com.epacheco.reports.compose_reformat.ui.theme.Yellow
 @Composable
 fun InputTextField(
     modifier: Modifier = Modifier,
-    input: String,
+    inputText: String,
     hintText: String,
-    tintColor: Color,
+    tintColor: Color = MaterialTheme.colorScheme.primary,
+    enabled: Boolean = true,
+    singleLine: Boolean = true,
+    maxLength: Int = 50,
     onTextChange: (String) -> Unit
 ) {
-    val maxLength = 50
+
     TextField(
         modifier = modifier
             .fillMaxWidth(),
-        value = input,
+        value = inputText,
         textStyle = TextStyle.Default.copy(
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             color = Black
         ),
-        singleLine = true,
+        singleLine = singleLine,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
         placeholder = {
             Text(
@@ -61,21 +64,21 @@ fun InputTextField(
             disabledContainerColor = Color.Transparent,
             focusedContainerColor = Color.Transparent,
             unfocusedIndicatorColor = tintColor,
-            disabledIndicatorColor = Color.Transparent,
+            disabledIndicatorColor = tintColor,
             focusedIndicatorColor = tintColor,
             cursorColor = tintColor
-        )
+        ), enabled = enabled
 
     )
 }
 
 @Preview
 @Composable
-private fun ShowEmailTextField() {
+private fun InputTextFieldPreview() {
     ReportsGoTheme {
         Box(modifier = Modifier.fillMaxSize()) {
             InputTextField(
-                input = "",
+                inputText = "",
                 hintText = "lalla",
                 tintColor = MaterialTheme.colorScheme.primary
             ) {}

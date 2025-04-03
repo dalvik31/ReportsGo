@@ -4,6 +4,9 @@ package com.epacheco.reports.Pojo.ClientDetail;
 import com.epacheco.reports.R;
 import com.epacheco.reports.tools.ReportsApplication;
 
+import kotlinx.serialization.Serializable;
+
+@Serializable
 public class ClientDetail {
 
   private String datePayment;

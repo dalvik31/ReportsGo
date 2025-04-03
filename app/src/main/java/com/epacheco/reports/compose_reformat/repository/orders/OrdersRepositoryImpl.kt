@@ -1,5 +1,6 @@
 package com.epacheco.reports.compose_reformat.repository.orders
 
+import android.util.Log
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ReportsApp
 import com.epacheco.reports.compose_reformat.firebase.Resource
@@ -53,6 +54,25 @@ class OrdersRepositoryImpl @Inject constructor(
             }
         } catch (e: Exception) {
             Resource.Failure(e)
+        }
+    }
+
+    override suspend fun updateOrder(order: Order): Resource<Boolean> {
+        var updateOrderException: Exception? = null
+
+        Log.e("aqui","vamooooos: ${order}")
+        return try {
+            getOrdersReference().child(order.orderListId).child("orderLists").child(order.orderId)
+               .setValue(order)
+                .addOnSuccessListener { }
+                .addOnFailureListener { e -> updateOrderException = e }
+            updateOrderException?.let {
+                Resource.Failure(it)
+            } ?: run {
+                Resource.Success(true)
+            }
+        } catch (exception: Exception) {
+            Resource.Failure(exception)
         }
     }
 

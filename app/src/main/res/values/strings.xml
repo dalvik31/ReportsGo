@@ -54,11 +54,9 @@
     <string name="lbl_add_client">Crear nuevo cliente</string>
     <string name="lbl_detail_client">Detalle de cliente</string>
     <string name="lbl_detail_name_client">%s - %s</string>
-    <string name="btn_save">Guardar</string>
     <string name="btn_conatctos">contactos</string>
     <string name="btn_modify">Modificar</string>
     <string name="btn_sale">vender</string>
-    <string name="btn_delete">eliminar</string>
     <string name="btn_close">cerrar</string>
     <string name="btn_detail">Información</string>
     <string name="lbl_client_name">Nombre</string>
@@ -314,6 +312,9 @@
     <string name="btn_understood">Entiendo</string>
     <string name="btn_ok">Aceptar</string>
     <string name="btn_cancel">Cancelar</string>
+    <string name="btn_delete">Eliminar</string>
+    <string name="btn_save">Guardar</string>
+    <string name="btn_update">Actualizar</string>
     <string name="show_more">Show more</string>
     <string name="show_less">Show less</string>
     <string name="loading">Cargando…</string>
@@ -379,7 +380,7 @@
     <string name="btn_create_order_list">Crear lista</string>
     <string name="title_create_order_list">Crear lista</string>
     <string name="body_create_order_list">Mi nueva lista</string>
-    <string name="title_order_main_default_name">Lista %s: %s</string>
+    <string name="title_order_main_default_name">Lista | %s</string>
     <string name="title_order_default_name">Pedido %s: %s</string>
     <string name="msg_error_list_already_exist">Ya creaste una lista de pedido con la fecha de hoy, intenta crear una lista mañana o elimina la ultima lista.</string>
     <string name="msg_update_state_order_title">Actualizar estado</string>
@@ -387,7 +388,22 @@
     <string name="msg_in_progress_main_order_body"><![CDATA[¿Estas seguro de querer cambiar el estado de la lista: \"<i>%s</i>\" a <b>en progreso</b>?]]></string>
     <string name="msg_complete_order_body"><![CDATA[¿Estas seguro de querer cambiar el estado del pedido: \"<i>%s</i>\" a <b>completado</b>?]]></string>
     <string name="msg_in_progress_order_body"><![CDATA[¿Estas seguro de querer cambiar el estado del pedido: \"<i>%s</i>\" a <b>en progreso</b>?]]></string>
-
+    <!--ORDER Fragments-->
+    <string name="create_new_order_title">Crear nuevo pedido</string>
+    <string name="order_detail_title">Detalles del pedido</string>
+    <string name="new_order_status_title">Ya he comprado este pedido</string>
+    <string name="new_order_name_title">Nombre</string>
+    <string name="new_order_name_desc">¿Qué pidieron?</string>
+    <string name="new_order_description_title">Descripción</string>
+    <string name="new_order_description_desc">Detalles inportantes del producto</string>
+    <string name="new_order_size_title">Talla</string>
+    <string name="new_order_number_sizes">Numérica</string>
+    <string name="new_order_size_desc">¿Que talla?</string>
+    <string name="new_order_color_title">Color</string>
+    <string name="new_order_color_desc">¿Qué color lo pidieron?</string>
+    <string name="new_order_write_color">Selecciona el color</string>
+    <string name="new_order_gender_title">¿Qué género?</string>
+    <string name="new_order_gender_desc">¿Para caballero, dama, niño(a)?</string>
     <string name="msg_order_list_delete_success">Lista eliminada correctamente.</string>
     <string name="msg_order_list_update_success">Lista actualizada correctamente.</string>
     <string name="msg_order_delete_success">Pedido eliminado correctamente.</string>
@@ -396,6 +412,71 @@
     <string name="season_title">Temporada</string>
     <string name="season_spring">Primavera - Verano</string>
     <string name="season_fall">Otoño - Invierno</string>
+    <string name="order_empty_inputs_error">Faltan campos por completar</string>
+    <string-array name="colors_code_array">
+        <item>#090000</item>
+        <item>#929292</item>
+        <item>#FFFFFF</item>
+        <item>#FF0000</item>
+        <item>#FF6D00</item>
+        <item>#FFD600</item>
+        <item>#00C853</item>
+        <item>#2962FF</item>
+        <item>#6200EA</item>
+        <item>#AA00FF</item>
+        <item>#E95AFF</item>
+    </string-array>
+    <string-array name="colors_name_array">
+        <item>Negro</item>
+        <item>Gris</item>
+        <item>Blanco</item>
+        <item>Rojo</item>
+        <item>Naranja</item>
+        <item>Amarillo</item>
+        <item>Verde</item>
+        <item>Azul</item>
+        <item>Morado</item>
+        <item>Fiusha</item>
+        <item>Rosa</item>
+    </string-array>
+    <string-array name="sizes_array">
+        <item>SSS</item>
+        <item>Extra chico</item>
+        <item>Chico</item>
+        <item>Mediano</item>
+        <item>Grande</item>
+        <item>Extra grande</item>
+        <item>XXL</item>
+    </string-array>
+    <string-array name="number_sizes_array">
+        <item>2</item>
+        <item>4</item>
+        <item>6</item>
+        <item>8</item>
+        <item>10</item>
+        <item>12</item>
+        <item>14</item>
+        <item>16</item>
+        <item>28</item>
+        <item>30</item>
+        <item>32</item>
+        <item>34</item>
+        <item>36</item>
+        <item>38</item>
+        <item>40</item>
+        <item>42</item>
+        <item>44</item>
+        <item>46</item>
+    </string-array>
+    <string-array name="gender_array">
+        <item>Caballero</item>
+        <item>Dama</item>
+        <item>Niño</item>
+        <item>Niña</item>
+        <item>Abuelo</item>
+        <item>Abuela</item>
+    </string-array>
+
 
     <!--CLIENTS Fragments-->
     <string name="search_clients">Buscando clientes registrados…</string>
