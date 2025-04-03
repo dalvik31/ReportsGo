@@ -7,11 +7,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.Loader
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsErrorDialog
-import com.epacheco.reports.compose_reformat.ui.navigation.NavHostScreens
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import kotlinx.coroutines.flow.collectLatest
 
@@ -19,7 +17,7 @@ import kotlinx.coroutines.flow.collectLatest
 @Composable
 fun ProfileScreen(
     profileViewModel: ProfileViewModel = hiltViewModel<ProfileViewModel>(),
-    onLogout: () -> Unit,
+    onNavigateToRegister: () -> Unit,
 ) {
 
     val uiState by profileViewModel.uiState.collectAsState()
@@ -28,7 +26,7 @@ fun ProfileScreen(
         profileViewModel.effectFlow.collectLatest { effect ->
             when (effect) {
                 ProfileUiEffect.NavigateToLogin -> {
-                    onLogout()
+                    onNavigateToRegister()
                 }
             }
         }

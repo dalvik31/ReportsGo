@@ -390,6 +390,7 @@
     <string name="msg_in_progress_order_body"><![CDATA[¿Estas seguro de querer cambiar el estado del pedido: \"<i>%s</i>\" a <b>en progreso</b>?]]></string>
     <!--ORDER Fragments-->
     <string name="create_new_order_title">Crear nuevo pedido</string>
+    <string name="modify_order_title">Modificar pedido</string>
     <string name="order_detail_title">Detalles del pedido</string>
     <string name="new_order_status_title">Ya he comprado este pedido</string>
     <string name="new_order_name_title">Nombre</string>

@@ -42,9 +42,6 @@ class OrdersMainViewModel @Inject constructor(
     private val _effectFlow = MutableSharedFlow<OrdersMainUiEffect>()
     val effectFlow: SharedFlow<OrdersMainUiEffect> = _effectFlow
 
-    init {
-        handleIntent(OrdersMainUiIntent.LoadMainOrders)
-    }
 
     fun handleIntent(intent: OrdersMainUiIntent) {
         when (intent) {
@@ -69,7 +66,6 @@ class OrdersMainViewModel @Inject constructor(
             loading(true)
             when (val orderMainResponse = getMainOrdersUseCase()) {
                 is Resource.Failure -> {
-                    setErrorMsg(orderMainResponse.exception.message)
                     _uiState.value = _uiState.value.copy(
                         showImgEmptyList = true
                     )

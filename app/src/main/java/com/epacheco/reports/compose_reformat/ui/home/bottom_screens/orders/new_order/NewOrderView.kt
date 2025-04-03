@@ -1,6 +1,5 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.new_order
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
@@ -20,7 +18,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -97,7 +94,8 @@ fun NewOrderView(
     Column {
 
         Header(
-            stringResource(R.string.create_new_order_title),
+            stringResource(orderToEdit?.let { R.string.modify_order_title }
+                ?: run { R.string.create_new_order_title }),
             backgroundToolbar = Color.Transparent,
             onRightIconClicked = {
                 onBackPressed?.invoke()
@@ -272,7 +270,8 @@ fun NewOrderView(
             InputTextField(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 24.dp).clickable {
+                    .padding(horizontal = 24.dp)
+                    .clickable {
                         genderPickerOpen = true
                     },
                 hintText = stringResource(R.string.new_order_gender_desc),
@@ -382,7 +381,7 @@ fun GetBtnSelectColor(colorWrote: String) {
         Icon(
             imageVector = ImageVector.vectorResource(R.drawable.ic_color_picker),
             contentDescription = "close",
-            tint = getTintColor(colorWrote)
+            tint = getTintColor(colorPosition)
         )
     } else {
         Image(
@@ -400,19 +399,13 @@ fun colourSaver() = Saver<MutableState<Color>, String>(
 )
 
 @Composable
-fun colorPosition(colorWrote: String): Int {
-    return stringArrayResource(R.array.colors_name_array).indexOfLast { it == colorWrote }
+fun colorPosition(currentColor: String): Int {
+    return stringArrayResource(R.array.colors_name_array).indexOfLast { it == currentColor }
 }
 
 @Composable
-fun getNameColor(colorWrote: String): String {
-    val colorPosition = colorPosition(colorWrote)
-    return if (colorPosition > 0) stringArrayResource(R.array.colors_name_array)[colorPosition] else ""
-}
-
-@Composable
-fun getTintColor(colorWrote: String): Color {
-    return stringArrayResource(R.array.colors_code_array)[colorPosition(colorWrote)].toColor()
+fun getTintColor(position: Int): Color {
+    return stringArrayResource(R.array.colors_code_array)[position].toColor()
 }
 
 

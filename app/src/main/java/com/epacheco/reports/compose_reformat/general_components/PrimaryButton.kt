@@ -8,11 +8,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -26,7 +21,7 @@ import com.epacheco.reports.compose_reformat.ui.theme.FacebookBackground
 import com.epacheco.reports.compose_reformat.ui.theme.GoogleBackground
 import com.epacheco.reports.compose_reformat.ui.theme.GrayLight
 import com.epacheco.reports.compose_reformat.ui.theme.White
-import com.epacheco.reports.compose_reformat.utils.extensions.singleClick
+
 
 @Composable
 fun PrimaryButton(

@@ -48,7 +48,7 @@ fun ReportsNavHost(
                 PasswordScreen(navController)
             }
             composable<NavHostScreens.HomeRoute> {
-                HomeScreen(onLogout = {
+                HomeScreen(onNavigateToRegister = {
                     navController.navigate(NavHostScreens.RegisterRoute) {
                         popUpTo(NavHostScreens.HomeRoute) { inclusive = true }
                     }
