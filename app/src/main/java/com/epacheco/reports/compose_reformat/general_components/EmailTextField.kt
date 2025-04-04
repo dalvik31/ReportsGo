@@ -22,10 +22,10 @@ import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 
 @Composable
-fun EmailTextField(email: String, onTextChange: (String) -> Unit) {
+fun EmailTextField(modifier: Modifier = Modifier,email: String, onTextChange: (String) -> Unit) {
     val maxLength = 50
     TextField(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth(),
         value = email,
         textStyle = TextStyle.Default.copy(fontSize = 16.sp, fontWeight = FontWeight.Bold),
@@ -59,7 +59,7 @@ fun EmailTextField(email: String, onTextChange: (String) -> Unit) {
 private fun ShowEmailTextField() {
     ReportsGoTheme {
         Box(modifier = Modifier.fillMaxSize()) {
-            EmailTextField("") {}
+            EmailTextField(email = "") {}
         }
     }
 }

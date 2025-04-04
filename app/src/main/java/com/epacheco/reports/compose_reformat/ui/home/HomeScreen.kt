@@ -99,7 +99,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                         )
                     },
                     onBackPressed = {
-                        bottomNavController.popBackStack()
+                        bottomNavController.navigateUp()
                     })
             }
 
@@ -113,7 +113,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                     mainOrderId = orderMainRoute.idOrderMain,
                     orderToEdit = orderMainRoute.orderToEdit,
                     onBackPressed = {
-                        bottomNavController.popBackStack()
+                        bottomNavController.navigateUp()
                     })
             }
         }

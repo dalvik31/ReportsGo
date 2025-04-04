@@ -323,6 +323,13 @@
     <string name="title_information">Información</string>
 
 
+    <!--Recovery Password Screen-->
+    <string name="recovery_password_screen_title">Recuperar contraseña</string>
+    <string name="recovery_password_body">Si no recuerdas tu contraseña, puedes ingresar el correo con el que creaste tu cuenta y te haremos llegar una liga para que puedas recuperar tu contraseña.</string>
+    <string name="recovery_password_hint_email">Ingresa correo electrónico</string>
+    <string name="recovery_password_send_email">Enviar correo electrónico</string>
+    <string name="recovery_password_success">Se envio un email al correo que ingresaste, revisa tu bandeja de entrada</string>
+
     <!--Register Screen-->
     <string name="register_screen_name_app_logo_first">Reports</string>
     <string name="register_screen_name_app_logo_second">GO</string>

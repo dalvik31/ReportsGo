@@ -1,22 +1,62 @@
 package com.epacheco.reports.compose_reformat.ui.recovery_password
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.epacheco.reports.compose_reformat.general_components.TextDivider
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.epacheco.reports.compose_reformat.general_components.Loader
+import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsErrorDialog
+import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsSuccessDialog
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 
 @Composable
 fun PasswordScreen(
-    navController: NavController = rememberNavController()
+    recoverPasswordViewModel: RecoverPasswordViewModel = hiltViewModel<RecoverPasswordViewModel>(),
+    onBackPressed: (() -> Unit)? = null,
 ) {
-    Box(modifier = Modifier.fillMaxSize()) {
-        TextDivider(textDivider = "RecoveryPasswordScreen")
+    val uiState by recoverPasswordViewModel.uiState.collectAsState()
+    val inputEmail by recoverPasswordViewModel.inputEmail.collectAsState()
+    val inputEmailIsValid by recoverPasswordViewModel.enabledButton.collectAsState()
+
+    RecoveryPasswordView(
+        inputEmail = inputEmail,
+        onInputEmailChanged = {
+            recoverPasswordViewModel.onInputEmailChanged(it)
+        },
+        inputEmailIsValid = inputEmailIsValid,
+        onBackPressed = {
+            onBackPressed?.invoke()
+        }, onSendEmail = {
+            recoverPasswordViewModel.handleIntent(RecoveryPasswordUiIntent.RecoveryPassword)
+        })
+
+    // Loading Overlay
+    if (uiState.isLoading) {
+        Loader(false)
+    }
+
+
+    //Message error
+    uiState.errorMessage?.let { msgError ->
+        ReportsErrorDialog(
+            dialogSubTitle = msgError,
+            onConfirmation = {
+                recoverPasswordViewModel.handleIntent(RecoveryPasswordUiIntent.HideDialogs)
+            })
+    }
+
+    //Message success
+    uiState.successOperationMsg?.let { msgSuccessOperation ->
+        ReportsSuccessDialog(
+            dialogSubTitle = stringResource(msgSuccessOperation),
+            closeAutomatically = true,
+            onConfirmation = {
+                recoverPasswordViewModel.handleIntent(RecoveryPasswordUiIntent.HideDialogs)
+                onBackPressed?.invoke()
+            })
     }
 }
 
@@ -24,6 +64,6 @@ fun PasswordScreen(
 @Composable
 fun PasswordScreenPreview() {
     ReportsGoTheme {
-        PasswordScreen()
+        RecoveryPasswordViewPreview()
     }
 }

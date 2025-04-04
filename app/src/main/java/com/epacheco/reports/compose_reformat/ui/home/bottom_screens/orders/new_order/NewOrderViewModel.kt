@@ -74,8 +74,6 @@ class NewOrderViewModel @Inject constructor(
             NewOrderUiIntent.HideDialogs -> setErrorMsg()
             is NewOrderUiIntent.UpdateOrder -> if (validInputs()) updateOrder(intent.order)
             else setErrorMsg(app.getString(R.string.order_empty_inputs_error))
-
-            is NewOrderUiIntent.UpdateStatusOrder -> TODO()
         }
     }
 

@@ -31,10 +31,10 @@ class AccountViewModel @Inject constructor(
     private val _effectFlow = MutableSharedFlow<AccountUiEffect>()
     val effectFlow: SharedFlow<AccountUiEffect> = _effectFlow
 
-    private val _email = MutableStateFlow("eeph34@gmail.com")
+    private val _email = MutableStateFlow("")
     val email: StateFlow<String> = _email
 
-    private val _password = MutableStateFlow("123456")
+    private val _password = MutableStateFlow("")
     val password: StateFlow<String> = _password
 
     private val _enabledLoginButton = MutableStateFlow(false)

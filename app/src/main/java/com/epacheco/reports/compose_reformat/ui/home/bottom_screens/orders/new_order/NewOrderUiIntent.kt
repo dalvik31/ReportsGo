@@ -7,12 +7,6 @@ import com.epacheco.reports.compose_reformat.model.orders.Season
 sealed class NewOrderUiIntent {
     data class CreateOrder(val mainOrderId: String, val orderSeason: Season?) : NewOrderUiIntent()
     data class DeleteOrder(val orderId: String, val mainOrderId: String) : NewOrderUiIntent()
-    data class UpdateStatusOrder(
-        val orderId: String,
-        val mainOrderId: String,
-        val orderStatus: OrderStatus
-    ) : NewOrderUiIntent()
-
     data class UpdateOrder(val order: Order) : NewOrderUiIntent()
     data object HideDialogs : NewOrderUiIntent()
 }

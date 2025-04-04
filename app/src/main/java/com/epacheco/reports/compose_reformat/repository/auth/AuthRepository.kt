@@ -7,5 +7,6 @@ interface AuthRepository {
     fun getCurrentUser(): Resource<FirebaseUser>
     suspend fun login(email: String, password: String): Resource<FirebaseUser>
     suspend fun signup(email: String, password: String): Resource<FirebaseUser>
+    suspend fun recoveryPassword(email: String): Resource<Boolean>
     fun logout(): Resource<Boolean>
 }

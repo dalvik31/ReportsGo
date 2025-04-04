@@ -1,6 +1,8 @@
 package com.epacheco.reports.compose_reformat.general_components
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -34,39 +36,41 @@ fun PrimaryButton(
 ) {
 
     val lifecycleOwner = LocalLifecycleOwner.current
-    Button(
-        modifier = modifier,
-        enabled = enabledButton,
-        onClick = {
-            //we avoid make multiples clicks
-            val currentState = lifecycleOwner.lifecycle.currentState
-            if (currentState.isAtLeast(Lifecycle.State.RESUMED)) {
-                onButtonClicked?.invoke()
+    Box(modifier = modifier){
+        Button(
+            enabled = enabledButton,
+            onClick = {
+                //we avoid make multiples clicks
+                val currentState = lifecycleOwner.lifecycle.currentState
+                if (currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+                    onButtonClicked?.invoke()
+                }
+
+            }, colors = ButtonDefaults.buttonColors(
+                containerColor = colorBackground,
+                disabledContentColor = White,
+                disabledContainerColor = GrayLight,
+            )
+        ) {
+            iconBtn?.let { icon ->
+                Icon(
+                    painterResource(id = icon),
+                    contentDescription = "Login google",
+                    modifier = Modifier.size(20.dp),
+                    tint = White
+                )
             }
 
-        }, colors = ButtonDefaults.buttonColors(
-            containerColor = colorBackground,
-            disabledContentColor = White,
-            disabledContainerColor = GrayLight,
-        )
-    ) {
-        iconBtn?.let { icon ->
-            Icon(
-                painterResource(id = icon),
-                contentDescription = "Login google",
-                modifier = Modifier.size(20.dp),
-                tint = White
+            Text(
+                color = White,
+                text = textButton,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center
             )
+
         }
-
-        Text(
-            color = White,
-            text = textButton,
-            modifier = modifier.fillMaxWidth(),
-            textAlign = TextAlign.Center
-        )
-
     }
+
 }
 
 

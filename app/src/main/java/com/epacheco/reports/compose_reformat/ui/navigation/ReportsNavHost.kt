@@ -45,7 +45,9 @@ fun ReportsNavHost(
                 })
             }
             composable<NavHostScreens.PasswordRoute> {
-                PasswordScreen(navController)
+                PasswordScreen(onBackPressed = {
+                    navController.navigateUp()
+                })
             }
             composable<NavHostScreens.HomeRoute> {
                 HomeScreen(onNavigateToRegister = {

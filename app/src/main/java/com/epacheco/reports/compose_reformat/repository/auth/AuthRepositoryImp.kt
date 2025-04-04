@@ -44,6 +44,26 @@ class AuthRepositoryImp @Inject constructor(private val firebaseAuth: FirebaseAu
         }
     }
 
+    override suspend fun recoveryPassword(email: String): Resource<Boolean> {
+        var recoveryPasswordException: Exception? = null
+        return try {
+            firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    recoveryPasswordException =
+                        Exception("No pudimos enviar el correo de recuperación")
+                }
+            }
+            recoveryPasswordException?.let {
+                Resource.Failure(it)
+            } ?: run {
+                Resource.Success(true)
+            }
+
+        } catch (e: Throwable) {
+            Resource.Failure(Exception(e.message))
+        }
+    }
+
     override fun logout(): Resource<Boolean> {
         return try {
             firebaseAuth.signOut()
