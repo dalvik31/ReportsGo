@@ -128,6 +128,7 @@ class OrdersMainViewModel @Inject constructor(
             when (val orderMainMainResponse = createMainOrderUseCase(
                 OrderMain(
                     orderId = orderId.toString(),
+                    dateOrder = orderId.toString(),
                     nameOrder = getNameMainOrder(),
                     orderDate = DateUtils.format(orderId, DateUtils.FORMAT_DATE2),
                     orderSeason = SeasonUtils.getSeason()

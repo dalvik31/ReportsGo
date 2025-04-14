@@ -15,7 +15,7 @@ interface OrdersRepository {
     suspend fun updateStatusOrder(
         orderId: String,
         mainOrderId: String,
-        orderStatus: OrderStatus
+        orderBuy: Boolean
     ): Resource<Boolean>
 
 

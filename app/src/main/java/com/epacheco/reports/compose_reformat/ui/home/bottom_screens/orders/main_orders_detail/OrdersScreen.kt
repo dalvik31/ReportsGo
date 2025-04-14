@@ -61,7 +61,7 @@ fun OrdersScreen(
                 OrdersUiIntent.UpdateStatusOrder(
                     it.orderId,
                     mainOrderId,
-                    orderStatus = it.orderStatus
+                    orderBuy = !it.orderBuy
                 )
             )
         },

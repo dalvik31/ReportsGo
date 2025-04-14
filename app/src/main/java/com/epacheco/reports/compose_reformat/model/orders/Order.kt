@@ -10,14 +10,14 @@ import kotlinx.serialization.Serializable
 data class Order(
     var orderListId: String = "",
     val orderId: String = "",
-    val nameOrder: String = "",
+    val orderName: String = "",
     val orderSize: String = "",
     val orderColor: String = "",
     val orderColorCode: String? = null,
     val orderGender: String = "",
     val orderDescription: String = "",
     val orderSizeNumeric: Boolean = false,
-    val orderStatus: OrderStatus = OrderStatus.IN_PROGRESS,
+    val orderBuy: Boolean = false,
     var orderSeason: Season? = null,
     // val orderProduct: Product = Product()
 ) : Parcelable

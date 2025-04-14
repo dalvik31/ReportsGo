@@ -40,7 +40,7 @@ class OrdersViewModel @Inject constructor(
             is OrdersUiIntent.UpdateStatusOrder -> updateStatusOrder(
                 intent.orderId,
                 intent.mainOrderId,
-                intent.orderStatus
+                intent.orderBuy
             )
         }
     }
@@ -57,7 +57,6 @@ class OrdersViewModel @Inject constructor(
                 }
 
                 is Resource.Success -> {
-                    Log.e("aqui", "estamooooos: ${orderResponse.result}")
                     _uiState.value =
 
                         _uiState.value.copy(
@@ -83,13 +82,12 @@ class OrdersViewModel @Inject constructor(
             loading(false)
         }
 
-    private fun updateStatusOrder(orderId: String, mainOrderId: String, orderStatus: OrderStatus) =
+    private fun updateStatusOrder(orderId: String, mainOrderId: String, orderBuy: Boolean) =
         viewModelScope.launch {
             loading(true)
-            val newOrderStatus =
-                if (orderStatus == OrderStatus.DONE) OrderStatus.IN_PROGRESS else OrderStatus.DONE
+
             when (val orderMainResponse =
-                updateStatusOrderUseCase(orderId, mainOrderId = mainOrderId, newOrderStatus)) {
+                updateStatusOrderUseCase(orderId, mainOrderId = mainOrderId, orderBuy)) {
                 is Resource.Failure -> setErrorMsg(orderMainResponse.exception.message)
                 is Resource.Success -> {
                     _uiState.value =

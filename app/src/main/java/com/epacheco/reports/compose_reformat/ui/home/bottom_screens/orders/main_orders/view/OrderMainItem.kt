@@ -150,15 +150,14 @@ fun OrderMainItem(
                                 )
                             }
                             Spacer(modifier = Modifier.weight(1f))
-                            if (orderMain.orderId.isNotEmpty()) {
-                                Text(
-                                    text = DateUtils.format(
-                                        orderMain.orderId.toLong(),
-                                        FORMAT_DATE3
-                                    ),
-                                    style = MaterialTheme.typography.bodySmall
-                                )
-                            }
+
+                            Text(
+                                text = DateUtils.format(
+                                    orderMain.orderId.ifEmpty { orderMain.dateOrder }.toLong(),
+                                    FORMAT_DATE3
+                                ),
+                                style = MaterialTheme.typography.bodySmall
+                            )
 
 
                         }
@@ -185,7 +184,7 @@ fun OrderMainItem(
             onDismissRequest = { showDialogConfirmDeleteOrder = false },
             onConfirmation = {
                 showDialogConfirmDeleteOrder = false
-                onDeleteOrderClick.invoke(orderMain.orderId)
+                onDeleteOrderClick.invoke(orderMain.dateOrder.ifEmpty { orderMain.orderId })
             }
         )
     }

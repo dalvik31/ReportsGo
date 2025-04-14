@@ -56,7 +56,7 @@ fun OrdersMainScreen(
         onOrderClick = {
             ordersMainViewModel.handleIntent(
                 OrdersMainUiIntent.GoToListOrders(
-                    it.orderId,
+                    it.orderId.ifEmpty { it.dateOrder },
                     it.orderSeason,
                 )
             )
@@ -71,7 +71,7 @@ fun OrdersMainScreen(
         onUpdateStatusOrderClick = {
             ordersMainViewModel.handleIntent(
                 OrdersMainUiIntent.UpdateStatusMainList(
-                    it.orderId,
+                    it.orderId.ifEmpty { it.dateOrder },
                     orderStatus = it.orderStatus
                 )
             )

@@ -137,14 +137,14 @@ class NewOrderViewModel @Inject constructor(
     private fun getNewOrder(): Order =
         Order(
             orderId = DateUtils.now().toString(),
-            nameOrder = _inputProductName.value,
+            orderName = _inputProductName.value,
             orderDescription = _inputProductDescription.value,
             orderSize = _inputProductSize.value,
             orderGender = _inputProductGender.value,
             orderColor = _inputProductColor.value,
             orderSizeNumeric = _isProductSizeNumeric.value,
             orderColorCode = _inputProductColorCode.value,
-            orderStatus = if (_inputProductStatus.value) OrderStatus.DONE else OrderStatus.IN_PROGRESS
+            orderBuy = _inputProductStatus.value
         )
 
 

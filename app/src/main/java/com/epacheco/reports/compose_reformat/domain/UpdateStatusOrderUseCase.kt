@@ -9,8 +9,12 @@ class UpdateStatusOrderUseCase @Inject constructor(private val ordersRepository:
     suspend operator fun invoke(
         orderId: String,
         mainOrderId: String,
-        orderStatus: OrderStatus
+        orderBuy: Boolean
     ): Resource<Boolean> {
-        return ordersRepository.updateStatusOrder(orderId, mainOrderId = mainOrderId, orderStatus)
+        return ordersRepository.updateStatusOrder(
+            orderId,
+            mainOrderId = mainOrderId,
+            orderBuy = orderBuy
+        )
     }
 }

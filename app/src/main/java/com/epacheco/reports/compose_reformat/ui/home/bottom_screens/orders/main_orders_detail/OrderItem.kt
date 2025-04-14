@@ -68,7 +68,7 @@ fun OrderItem(
         Card(
             modifier = Modifier
                 .padding(vertical = 4.dp, horizontal = 8.dp)
-                .alpha(if (order.orderStatus == OrderStatus.IN_PROGRESS) 1f else .8f)
+                .alpha(if (order.orderBuy) .8f else 1f)
                 .fillMaxWidth()
                 .height(100.dp)
                 .clickable {
@@ -92,7 +92,7 @@ fun OrderItem(
                         .graphicsLayer {
                             rotationZ = 20f
                         },
-                    painter = painterResource(if (order.orderStatus == OrderStatus.IN_PROGRESS) R.drawable.ic_vector_products else R.drawable.ic_vector_checked),
+                    painter = painterResource(if (order.orderBuy) R.drawable.ic_vector_checked else R.drawable.ic_vector_products),
                     contentDescription = null,
                     colorFilter = ColorFilter.tint(White60),
                     contentScale = ContentScale.Crop
@@ -111,6 +111,7 @@ fun OrderItem(
                 ) {
                     Column(Modifier.fillMaxSize(), Arrangement.SpaceBetween) {
 
+
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             verticalAlignment = Alignment.CenterVertically,
@@ -118,7 +119,7 @@ fun OrderItem(
                         ) {
                             Text(
                                 modifier = Modifier.padding(horizontal = 12.dp),
-                                text = order.nameOrder.uppercase(),
+                                text = order.orderName.uppercase(),
                                 style = MaterialTheme.typography.bodyLarge.copy(
                                     fontWeight = FontWeight.ExtraBold
                                 ), fontSize = 14.sp
@@ -128,7 +129,7 @@ fun OrderItem(
                                 showDialogConfirmCompleteOrder = true
                             }) {
                                 Icon(
-                                    painter = painterResource(if (order.orderStatus == OrderStatus.IN_PROGRESS) R.drawable.ic_vector_unchecked else R.drawable.ic_vector_checked),
+                                    painter = painterResource(if (order.orderBuy) R.drawable.ic_vector_checked else R.drawable.ic_vector_unchecked),
                                     contentDescription = null,
                                     tint = White
                                 )
@@ -180,7 +181,7 @@ fun OrderItem(
             dialogTitle = stringResource(R.string.msg_delete_order_title),
             dialogSubTitle = stringResource(
                 R.string.msg_delete_order_list_body,
-                order.nameOrder
+                order.orderName
             ),
             confirmButtonText = stringResource(R.string.btn_ok),
             cancelButtonText = stringResource(R.string.btn_cancel),
@@ -221,10 +222,8 @@ private fun getCardBackground(orderMain: Order): Color =
 @Composable
 private fun getUpdateStatusList(order: Order) =
     stringResource(
-        when (order.orderStatus) {
-            OrderStatus.IN_PROGRESS -> R.string.msg_complete_order_body
-            OrderStatus.DONE -> R.string.msg_in_progress_order_body
-        }, order.nameOrder
+        if (order.orderBuy) R.string.msg_complete_order_body else R.string.msg_in_progress_order_body,
+        order.orderListId
     )
 
 
@@ -232,7 +231,7 @@ private fun getUpdateStatusList(order: Order) =
 @Composable
 fun OrderMainItemPreview() {
     OrderItem(
-        Order(orderSeason = Season.FALL, nameOrder = "name"),
+        Order(orderSeason = Season.FALL, orderName = "name"),
         onMainOrderClick = {},
         onDeleteOrderClick = {}, onUpdateStatusOrderClick = {})
 }

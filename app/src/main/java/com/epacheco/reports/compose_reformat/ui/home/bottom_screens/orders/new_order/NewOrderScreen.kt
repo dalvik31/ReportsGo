@@ -36,8 +36,8 @@ fun NewOrderScreen(
 
     LaunchedEffect(orderToEdit) {
         orderToEdit?.let {
-            newOrderViewModel.onInputNameChanged(it.nameOrder)
-            newOrderViewModel.onInputStatusChanged(it.orderStatus == OrderStatus.DONE)
+            newOrderViewModel.onInputNameChanged(it.orderName)
+            newOrderViewModel.onInputStatusChanged(it.orderBuy)
             newOrderViewModel.onInputGenderChanged(it.orderGender)
             newOrderViewModel.onInputColorChanged(it.orderColor)
             newOrderViewModel.onInputSizeChanged(it.orderSize)

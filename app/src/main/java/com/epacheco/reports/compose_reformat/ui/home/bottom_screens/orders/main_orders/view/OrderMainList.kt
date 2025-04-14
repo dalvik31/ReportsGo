@@ -68,7 +68,7 @@ fun OrderList(
                             onOrderClick?.invoke(order)
                         },
                         onDeleteOrderClick = {
-                            onDeleteOrderClick?.invoke(order.orderId)
+                            onDeleteOrderClick?.invoke(it)
                         },
                         onUpdateStatusOrderClick = {
                             onUpdateStatusOrderClick?.invoke(order)

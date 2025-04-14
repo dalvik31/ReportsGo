@@ -8,7 +8,7 @@ sealed class OrdersUiIntent {
     data class UpdateStatusOrder(
         val orderId: String,
         val mainOrderId: String,
-        val orderStatus: OrderStatus
+        val orderBuy: Boolean
     ) :
         OrdersUiIntent()
 
