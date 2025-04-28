@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class FirebaseUploadImgProfileUseCase @Inject constructor(private val userRepositoryImp: UserRepositoryImp) {
 
-    suspend operator fun invoke(imageUri: Uri): Resource<String> {
+    suspend operator fun invoke(imageUri: Uri): Resource<Uri> {
         return userRepositoryImp.uploadProfileImage(imageUri)
     }
 

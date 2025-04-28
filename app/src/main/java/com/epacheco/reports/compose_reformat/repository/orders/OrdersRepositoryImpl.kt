@@ -18,56 +18,31 @@ class OrdersRepositoryImpl @Inject constructor(
     private val firebaseDatabase: FirebaseDatabase,
     private val application: ReportsApp,
 ) : OrdersRepository {
-    override suspend fun createOrder(order: Order): Resource<Boolean> {
-        var createOrderException: Exception? = null
+    override suspend fun createOrder(order: Order): Resource<Any> {
         return try {
             getOrdersReference().child(order.orderListId).child("orderLists").child(order.orderId)
-                .setValue(
-                    order
-                ) { error, ref ->
-                    error?.let {
-                        createOrderException = it.toException()
-                    }
-                }
-            createOrderException?.let {
-                Resource.Failure(it)
-            } ?: run {
-                Resource.Success(true)
-            }
+                .setValue(order)
+            Resource.Success(Any())
 
         } catch (exception: Exception) {
             Resource.Failure(exception)
         }
     }
 
-    override suspend fun deleteOrder(orderId: String, mainOrderId: String): Resource<Boolean> {
-        var deleteOrderException: Exception? = null
+    override suspend fun deleteOrder(orderId: String, mainOrderId: String): Resource<Any> {
         return try {
             getOrdersReference().child(mainOrderId).child("orderLists").child(orderId).removeValue()
-                .addOnFailureListener { e -> deleteOrderException = e }
-
-            deleteOrderException?.let {
-                Resource.Failure(it)
-            } ?: run {
-                Resource.Success(true)
-            }
+            Resource.Success(Any())
         } catch (e: Exception) {
             Resource.Failure(e)
         }
     }
 
-    override suspend fun updateOrder(order: Order): Resource<Boolean> {
-        var updateOrderException: Exception? = null
+    override suspend fun updateOrder(order: Order): Resource<Any> {
         return try {
             getOrdersReference().child(order.orderListId).child("orderLists").child(order.orderId)
                 .setValue(order)
-                .addOnSuccessListener { }
-                .addOnFailureListener { e -> updateOrderException = e }
-            updateOrderException?.let {
-                Resource.Failure(it)
-            } ?: run {
-                Resource.Success(true)
-            }
+            Resource.Success(Any())
         } catch (exception: Exception) {
             Resource.Failure(exception)
         }
@@ -76,19 +51,12 @@ class OrdersRepositoryImpl @Inject constructor(
     override suspend fun updateStatusOrder(
         orderId: String,
         mainOrderId: String,
-        orderBuy:Boolean
-    ): Resource<Boolean> {
-        var updateOrderStatusException: Exception? = null
+        orderBuy: Boolean
+    ): Resource<Any> {
         return try {
             getOrdersReference().child(mainOrderId).child("orderLists").child(orderId)
                 .child("orderBuy").setValue(orderBuy)
-                .addOnSuccessListener { }
-                .addOnFailureListener { e -> updateOrderStatusException = e }
-            updateOrderStatusException?.let {
-                Resource.Failure(it)
-            } ?: run {
-                Resource.Success(true)
-            }
+            Resource.Success(Any())
         } catch (exception: Exception) {
             Resource.Failure(exception)
         }
@@ -133,17 +101,10 @@ class OrdersRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun deleteMainOrder(mainOrderId: String): Resource<Boolean> {
-        var deleteMainOrderException: Exception? = null
+    override suspend fun deleteMainOrder(mainOrderId: String): Resource<Any> {
         return try {
             getOrdersReference().child(mainOrderId).removeValue()
-                .addOnFailureListener { e -> deleteMainOrderException = e }
-
-            deleteMainOrderException?.let {
-                Resource.Failure(it)
-            } ?: run {
-                Resource.Success(true)
-            }
+            Resource.Success(Any())
         } catch (e: Exception) {
             Resource.Failure(e)
         }
@@ -153,35 +114,21 @@ class OrdersRepositoryImpl @Inject constructor(
     override suspend fun createMainOrder(
         newOrderMain: OrderMain,
         addCreateRestriction: Boolean
-    ): Resource<Boolean> {
-        var createOrderException: Exception? = null
+    ): Resource<Any> {
         return try {
             if (addCreateRestriction) {
                 getOrdersReference().orderByChild("orderDate").equalTo(newOrderMain.orderDate).get()
                     .await().children.map { snapShot ->
                         if (snapShot.exists()) {
-                            createOrderException =
-                                Exception(application.getString(R.string.msg_error_list_already_exist))
+                           return  Resource.Failure(Exception(application.getString(R.string.msg_error_list_already_exist)))
                         }
                     }
             }
-            createOrderException?.let {
-                Resource.Failure(it)
-            } ?: run {
-                getOrdersReference().child(newOrderMain.orderId).setValue(
-                    newOrderMain
-                ) { error, ref ->
-                    error?.let {
-                        createOrderException = it.toException()
-                    }
-                }
-                createOrderException?.let {
-                    Resource.Failure(it)
-                } ?: run {
-                    Resource.Success(true)
-                }
+            getOrdersReference().child(newOrderMain.orderId).setValue(
+                newOrderMain
+            )
+            Resource.Success(true)
 
-            }
 
         } catch (exception: Exception) {
             Resource.Failure(exception)
@@ -191,17 +138,10 @@ class OrdersRepositoryImpl @Inject constructor(
     override suspend fun updateStatusMainOrder(
         orderId: String,
         orderStatus: OrderStatus
-    ): Resource<Boolean> {
-        var createOrderException: Exception? = null
+    ): Resource<Any> {
         return try {
             getOrdersReference().child(orderId).child("orderStatus").setValue(orderStatus.name)
-                .addOnSuccessListener { }
-                .addOnFailureListener { e -> createOrderException = e }
-            createOrderException?.let {
-                Resource.Failure(it)
-            } ?: run {
-                Resource.Success(true)
-            }
+            Resource.Success(Any())
         } catch (exception: Exception) {
             Resource.Failure(exception)
         }

@@ -518,5 +518,4 @@
     <string name="last_connection">Última conexión: %s</string>
     <string name="btn_logout">Cerrar sesión</string>
     <string name="msg_user_profile_not_found">Usuario no encontrado</string>
-    <string name="msg_user_error_update_profile">Usuario no encontrado</string>
 </resources>

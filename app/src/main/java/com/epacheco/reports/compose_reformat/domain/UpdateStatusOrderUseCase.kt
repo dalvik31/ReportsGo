@@ -10,7 +10,7 @@ class UpdateStatusOrderUseCase @Inject constructor(private val ordersRepository:
         orderId: String,
         mainOrderId: String,
         orderBuy: Boolean
-    ): Resource<Boolean> {
+    ): Resource<Any> {
         return ordersRepository.updateStatusOrder(
             orderId,
             mainOrderId = mainOrderId,

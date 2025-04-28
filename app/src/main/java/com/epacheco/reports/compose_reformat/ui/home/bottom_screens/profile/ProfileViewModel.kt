@@ -3,16 +3,13 @@ package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile
 import android.net.Uri
 import androidx.core.net.toUri
 import androidx.lifecycle.viewModelScope
-import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ReportsApp
 import com.epacheco.reports.compose_reformat.domain.FirebaseGetUserUseCase
+import com.epacheco.reports.compose_reformat.domain.FirebaseUpdateImgProfileUseCase
 import com.epacheco.reports.compose_reformat.domain.FirebaseUploadImgProfileUseCase
 import com.epacheco.reports.compose_reformat.domain.FirebaseUserLogoutUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.UserProfileChangeRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,6 +24,7 @@ class ProfileViewModel @Inject constructor(
     private val firebaseUserLogoutUseCase: FirebaseUserLogoutUseCase,
     private val firebaseGetUserUseCase: FirebaseGetUserUseCase,
     private val firebaseUploadImgProfileUseCase: FirebaseUploadImgProfileUseCase,
+    private val updateImgProfileUseCase: FirebaseUpdateImgProfileUseCase,
     private val app: ReportsApp
 ) :
     BaseViewModel() {
@@ -52,7 +50,6 @@ class ProfileViewModel @Inject constructor(
         loading(true)
         when (val profileResponse = firebaseGetUserUseCase()) {
             is Resource.Failure -> {
-
                 _uiState.update { it.copy(errorMessage = profileResponse.exception.message) }
             }
 
@@ -68,22 +65,18 @@ class ProfileViewModel @Inject constructor(
         loading(false)
     }
 
-    private fun uploadProfile(url: Uri) {
-        val user = FirebaseAuth.getInstance().currentUser
-
-        val profileUpdates = UserProfileChangeRequest.Builder()
-            .setPhotoUri(url)
-            .build()
-
-        user!!.updateProfile(profileUpdates)
-            .addOnCompleteListener { task: Task<Void?> ->
-                if (task.isSuccessful) {
+    private fun updateProfile(url: Uri) {
+        viewModelScope.launch {
+            loading(true)
+            when (val updateImgProfileResponse = updateImgProfileUseCase(url)) {
+                is Resource.Failure ->
+                    setErrorMsg(updateImgProfileResponse.exception.message)
+                is Resource.Success -> {
                     getProfile()
-                } else {
-                    setErrorMsg(app.getString(R.string.msg_user_error_update_profile))
-
                 }
             }
+            loading(false)
+        }
     }
 
     private fun doLogout() {
@@ -107,14 +100,12 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             imageUri?.let {
                 loading(true)
-
                 when (val uploadImageResponse = firebaseUploadImgProfileUseCase(imageUri)) {
                     is Resource.Failure ->
                         setErrorMsg(uploadImageResponse.exception.message)
 
                     is Resource.Success -> {
-                        uploadProfile(uploadImageResponse.result.toUri())
-                        //Log.e("aqui", "vqmooos url imagen: ${uploadImageResponse.result.toString()}")
+                        updateProfile(uploadImageResponse.result)
                     }
                 }
                 loading(false)

@@ -5,7 +5,7 @@ import com.epacheco.reports.compose_reformat.repository.orders.OrdersRepository
 import javax.inject.Inject
 
 class DeleteOrderUseCase @Inject constructor(private val ordersRepository: OrdersRepository) {
-    suspend operator fun invoke(orderId: String, mainOrderId: String): Resource<Boolean> {
+    suspend operator fun invoke(orderId: String, mainOrderId: String): Resource<Any> {
         return ordersRepository.deleteOrder(orderId, mainOrderId)
     }
 }

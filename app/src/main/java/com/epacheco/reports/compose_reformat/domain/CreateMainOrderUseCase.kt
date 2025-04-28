@@ -9,7 +9,7 @@ class CreateMainOrderUseCase @Inject constructor(private val ordersRepository: O
     suspend operator fun invoke(
         orderMain: OrderMain,
         addCreateRestriction: Boolean = false
-    ): Resource<Boolean> {
+    ): Resource<Any> {
         return ordersRepository.createMainOrder(orderMain, addCreateRestriction)
     }
 }

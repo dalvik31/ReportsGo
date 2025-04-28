@@ -6,6 +6,6 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.storage.StorageReference
 
 interface UserRepository {
-    suspend fun uploadProfileImage(imageUri: Uri): Resource<String>
+    suspend fun uploadProfileImage(imageUri: Uri): Resource<Uri>
     fun getStorageReference(): StorageReference?
 }

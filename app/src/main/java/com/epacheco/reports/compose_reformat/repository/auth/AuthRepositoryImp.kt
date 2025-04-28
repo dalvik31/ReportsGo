@@ -1,20 +1,24 @@
 package com.epacheco.reports.compose_reformat.repository.auth
 
+import android.net.Uri
+import com.epacheco.reports.R
+import com.epacheco.reports.compose_reformat.ReportsApp
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.firebase.await
 import com.epacheco.reports.compose_reformat.utils.extensions.getNameFromEmail
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
-
 import javax.inject.Inject
 
-class AuthRepositoryImp @Inject constructor(private val firebaseAuth: FirebaseAuth) :
+class AuthRepositoryImp @Inject constructor(
+    private val firebaseAuth: FirebaseAuth,
+    private val app: ReportsApp
+) :
     AuthRepository {
-
     override fun getCurrentUser(): Resource<FirebaseUser> {
         return if (firebaseAuth.currentUser != null) Resource.Success(firebaseAuth.currentUser!!) else Resource.Failure(
-            Exception("Usuario no encontrado")
+            Exception(app.getString(R.string.msg_user_profile_not_found))
         )
     }
 
@@ -38,38 +42,38 @@ class AuthRepositoryImp @Inject constructor(private val firebaseAuth: FirebaseAu
                 UserProfileChangeRequest.Builder().setDisplayName(email.getNameFromEmail()).build()
             )?.await()
             Resource.Success(result.user!!)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            Resource.Failure(e)
+        } catch (customException: Exception) {
+            Resource.Failure(customException)
         }
     }
 
-    override suspend fun recoveryPassword(email: String): Resource<Boolean> {
-        var recoveryPasswordException: Exception? = null
+    override suspend fun recoveryPassword(email: String): Resource<Any> {
         return try {
-            firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    recoveryPasswordException =
-                        Exception("No pudimos enviar el correo de recuperación")
-                }
-            }
-            recoveryPasswordException?.let {
-                Resource.Failure(it)
-            } ?: run {
-                Resource.Success(true)
-            }
-
-        } catch (e: Throwable) {
-            Resource.Failure(Exception(e.message))
+            firebaseAuth.sendPasswordResetEmail(email).await()
+            Resource.Success(Any())
+        } catch (customException: Exception) {
+            Resource.Failure(customException)
         }
     }
 
-    override fun logout(): Resource<Boolean> {
+    override suspend fun updateImgProfile(uriImg: Uri?): Resource<Any> {
+        return try {
+            val profileImgUpdate = UserProfileChangeRequest.Builder()
+                .setPhotoUri(uriImg)
+                .build()
+            firebaseAuth.currentUser?.updateProfile(profileImgUpdate)?.await()
+            Resource.Success(Any())
+        } catch (customException: Exception) {
+            Resource.Failure(customException)
+        }
+    }
+
+    override fun logout(): Resource<Any> {
         return try {
             firebaseAuth.signOut()
-            Resource.Success(true)
-        } catch (e: Throwable) {
-            Resource.Failure(Exception(e.message))
+            Resource.Success(Any())
+        } catch (customException: Exception) {
+            Resource.Failure(customException)
         }
     }
 

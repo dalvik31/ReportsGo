@@ -8,7 +8,7 @@ import javax.inject.Inject
 class UpdateOrderUseCase @Inject constructor(private val ordersRepository: OrdersRepository) {
     suspend operator fun invoke(
         order: Order
-    ): Resource<Boolean> {
+    ): Resource<Any> {
         return ordersRepository.updateOrder(order)
     }
 }
