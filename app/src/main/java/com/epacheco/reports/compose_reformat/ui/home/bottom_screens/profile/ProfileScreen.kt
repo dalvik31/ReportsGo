@@ -1,32 +1,40 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.Loader
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsErrorDialog
+import com.epacheco.reports.compose_reformat.general_components.dialogs.picture_picker.PickerPictureDialog
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import kotlinx.coroutines.flow.collectLatest
 
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun ProfileScreen(
     profileViewModel: ProfileViewModel = hiltViewModel<ProfileViewModel>(),
-    onNavigateToRegister: () -> Unit,
+    onNavigateToLogin: () -> Unit,
 ) {
 
     val uiState by profileViewModel.uiState.collectAsState()
+
+    var showProfilePictureDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(profileViewModel) {
         profileViewModel.effectFlow.collectLatest { effect ->
             when (effect) {
                 ProfileUiEffect.NavigateToLogin -> {
-                    onNavigateToRegister()
+                    onNavigateToLogin()
                 }
             }
         }
@@ -34,14 +42,17 @@ fun ProfileScreen(
 
     ProfileView(
         firebaseUser = uiState.userProfile,
+        imageProfile = uiState.imgUser,
         loading = uiState.isLoading,
         onLogoutClicked = {
             profileViewModel.handleIntent(ProfileUiIntent.Logout)
+        }, onUpdateProfilePictureClicked = {
+            showProfilePictureDialog = true
         })
 
     // Loading Overlay
     if (uiState.isLoading) {
-        Loader(false, stringResource(R.string.search_profile))
+        Loader(false)
     }
 
     //Message error
@@ -50,6 +61,14 @@ fun ProfileScreen(
             dialogSubTitle = msgError,
             onConfirmation = {
                 profileViewModel.handleIntent(ProfileUiIntent.Error)
+            })
+    }
+
+    if (showProfilePictureDialog) {
+        PickerPictureDialog(
+            onDismissRequest = { showProfilePictureDialog = false },
+            onImageSelected = {
+                profileViewModel.handleIntent(ProfileUiIntent.UploadProfileImage(it))
             })
     }
 

@@ -168,7 +168,6 @@ dependencies {
     //Serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
 
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.21'
 
 }
 

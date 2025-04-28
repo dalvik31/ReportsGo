@@ -1,5 +1,6 @@
 package com.epacheco.reports.compose_reformat.general_components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -23,7 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil3.compose.AsyncImage
+import coil3.compose.rememberAsyncImagePainter
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.model.products.Product
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
@@ -47,8 +48,8 @@ fun ProductItem(
             }
     ) {
 
-        AsyncImage(
-            model = product.urlImage,
+        Image(
+            painter = rememberAsyncImagePainter(product.urlImage),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier

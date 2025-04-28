@@ -69,7 +69,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                 FinancesScreen()
             }
             composable<BottomHomeRoutes.ProfileBottomHomeRoute> {
-                ProfileScreen(onNavigateToRegister = {
+                ProfileScreen(onNavigateToLogin = {
                     onNavigateToRegister.invoke()
                 })
             }

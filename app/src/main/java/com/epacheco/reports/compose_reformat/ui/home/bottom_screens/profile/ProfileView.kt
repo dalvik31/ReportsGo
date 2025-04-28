@@ -1,8 +1,9 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile
 
-import android.webkit.URLUtil
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,7 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil3.compose.AsyncImage
+import coil3.compose.rememberAsyncImagePainter
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
@@ -46,12 +47,17 @@ import com.google.firebase.auth.FirebaseUser
 @Composable
 fun ProfileView(
     firebaseUser: FirebaseUser? = null,
+    imageProfile: Uri? = null,
+    onUpdateProfilePictureClicked: (() -> Unit)? = null,
     onLogoutClicked: (() -> Unit)? = null,
     loading: Boolean
 ) {
 
     Column(Modifier.fillMaxSize()) {
-        HeaderProfile(firebaseUser)
+        HeaderProfile(
+            imageProfile,
+            onUpdateProfilePictureClicked = onUpdateProfilePictureClicked
+        )
         BodyProfile(firebaseUser, loading)
         FooterProfile(onLogoutClicked)
     }
@@ -59,18 +65,22 @@ fun ProfileView(
 }
 
 @Composable
-private fun HeaderProfile(firebaseUser: FirebaseUser?) {
+private fun HeaderProfile(
+    selectedImageUri: Uri?,
+    onUpdateProfilePictureClicked: (() -> Unit)? = null,
+) {
     Column(modifier = Modifier.fillMaxWidth()) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            BackgroundTopImg(firebaseUser?.photoUrl.toString())
+            BackgroundTopImg(selectedImageUri)
             ProfileTopImg(
                 modifier = Modifier
                     .size(120.dp)
                     .align(Alignment.Center),
-                firebaseUser?.photoUrl.toString()
+                selectedImageUri,
+                onUpdateProfilePictureClicked = onUpdateProfilePictureClicked
             )
         }
     }
@@ -148,17 +158,17 @@ private fun FooterProfile(onLogoutClicked: (() -> Unit)?) {
 }
 
 @Composable
-private fun BackgroundTopImg(imgProfile: String) {
+private fun BackgroundTopImg(imgProfile: Uri?) {
     Box(
         modifier = Modifier
             .height(250.dp)
             .fillMaxWidth()
     ) {
-        if (URLUtil.isValidUrl(imgProfile)) {
 
-            AsyncImage(
-                model = imgProfile,
-                contentDescription = "",
+        imgProfile?.let {
+            Image(
+                painter = rememberAsyncImagePainter(imgProfile),
+                contentDescription = null,
                 modifier = Modifier
                     .fillMaxSize()
                     .blur(
@@ -168,8 +178,7 @@ private fun BackgroundTopImg(imgProfile: String) {
                     ),
                 contentScale = ContentScale.FillWidth
             )
-
-        } else {
+        } ?: run {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -177,40 +186,51 @@ private fun BackgroundTopImg(imgProfile: String) {
             )
         }
 
+
     }
 
 }
 
 @Composable
-private fun ProfileTopImg(modifier: Modifier, imgProfile: String) {
+private fun ProfileTopImg(
+    modifier: Modifier,
+    imgProfile: Uri?,
+    onUpdateProfilePictureClicked: (() -> Unit)? = null,
+) {
 
     Surface(
         color = Color.Transparent,
         modifier = modifier,
 
         ) {
-        if (URLUtil.isValidUrl(imgProfile)) {
-            AsyncImage(
-                model = imgProfile,
+        imgProfile?.let {
+            Image(
+                painter = rememberAsyncImagePainter(imgProfile),
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(10.dp)
-                    .clip(CircleShape),
+                    .clip(CircleShape)
+                    .clickable {
+                        onUpdateProfilePictureClicked?.invoke()
+                    },
                 contentScale = ContentScale.Crop,
             )
-        } else {
+        } ?: run {
             Image(
                 painter = painterResource(id = R.drawable.icon_person),
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(10.dp)
-                    .clip(shape = RoundedCornerShape(40.dp)),
+                    .clip(shape = RoundedCornerShape(40.dp))
+                    .clickable {
+                        onUpdateProfilePictureClicked?.invoke()
+                    },
                 contentScale = ContentScale.Crop,
             )
-
         }
+
     }
 
 }

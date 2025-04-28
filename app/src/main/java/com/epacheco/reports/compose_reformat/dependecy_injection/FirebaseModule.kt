@@ -10,8 +10,11 @@ import com.epacheco.reports.compose_reformat.repository.orders.OrdersRepository
 import com.epacheco.reports.compose_reformat.repository.orders.OrdersRepositoryImpl
 import com.epacheco.reports.compose_reformat.repository.products.ProductsRepository
 import com.epacheco.reports.compose_reformat.repository.products.ProductsRepositoryImpl
+import com.epacheco.reports.compose_reformat.repository.user.UserRepository
+import com.epacheco.reports.compose_reformat.repository.user.UserRepositoryImp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,7 +31,13 @@ class FirebaseModule {
     internal fun provideFirebaseDatabase(): FirebaseDatabase = FirebaseDatabase.getInstance()
 
     @Provides
+    internal fun provideFirebaseStorage(): FirebaseStorage = FirebaseStorage.getInstance()
+
+    @Provides
     fun providesFirebaseAuthRepository(impl: AuthRepositoryImp): AuthRepository = impl
+
+    @Provides
+    fun providesFirebaseUserRepository(impl: UserRepositoryImp): UserRepository = impl
 
     @Provides
     fun providesFirebaseOrderRepository(
