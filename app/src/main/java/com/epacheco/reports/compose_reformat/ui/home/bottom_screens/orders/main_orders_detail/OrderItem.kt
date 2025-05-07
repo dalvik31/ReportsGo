@@ -4,18 +4,26 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -29,6 +37,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.graphicsLayer
@@ -36,11 +45,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsAlertDialog
+import com.epacheco.reports.compose_reformat.general_components.navbar.Circle
 import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.model.orders.OrderStatus
 import com.epacheco.reports.compose_reformat.model.orders.Season
@@ -48,8 +59,11 @@ import com.epacheco.reports.compose_reformat.ui.theme.GrayLight
 import com.epacheco.reports.compose_reformat.ui.theme.White
 import com.epacheco.reports.compose_reformat.ui.theme.White60
 import com.epacheco.reports.compose_reformat.ui.theme.FallColor
+import com.epacheco.reports.compose_reformat.ui.theme.GrayDark
+import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE3
+import com.epacheco.reports.compose_reformat.utils.extensions.getNameSeason
 
 
 @Composable
@@ -65,112 +79,137 @@ fun OrderItem(
     var showDialogConfirmCompleteOrder by remember { mutableStateOf(false) }
 
     Surface(color = Color.Transparent) {
-        Card(
-            modifier = Modifier
-                .padding(vertical = 4.dp, horizontal = 8.dp)
-                .alpha(if (order.orderBuy) .8f else 1f)
-                .fillMaxWidth()
-                .height(100.dp)
-                .clickable {
-                    onMainOrderClick.invoke(order)
-                },
-            colors = CardColors(
-                contentColor = White,
-                containerColor = getCardBackground(order),
-                disabledContentColor = Color.Transparent,
-                disabledContainerColor = Color.Transparent
-            ),
-        ) {
+        Box(contentAlignment = Alignment.Center) {
 
-            Box(modifier = Modifier.fillMaxSize()) {
 
-                Image(
-                    modifier = Modifier
-                        .width(120.dp)
-                        .alpha(.2f)
-                        .align(Alignment.CenterEnd)
-                        .graphicsLayer {
-                            rotationZ = 20f
-                        },
-                    painter = painterResource(if (order.orderBuy) R.drawable.ic_vector_checked else R.drawable.ic_vector_products),
-                    contentDescription = null,
-                    colorFilter = ColorFilter.tint(White60),
-                    contentScale = ContentScale.Crop
-                )
+            Card(
+                modifier = Modifier
+                    .padding(vertical = 4.dp, horizontal = 8.dp)
+                    .fillMaxWidth()
+                    .height(intrinsicSize = IntrinsicSize.Min)
+                    .clickable {
+                        onMainOrderClick.invoke(order)
+                    }
+            ) {
 
-                Row(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .animateContentSize(
-                            animationSpec = spring(
-                                dampingRatio = Spring.DampingRatioMediumBouncy,
-                                stiffness = Spring.StiffnessLow
+
+                Box(modifier = Modifier.fillMaxSize()) {
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .animateContentSize(
+                                animationSpec = spring(
+                                    dampingRatio = Spring.DampingRatioMediumBouncy,
+                                    stiffness = Spring.StiffnessLow
+                                )
                             )
-                        )
 
-                ) {
-                    Column(Modifier.fillMaxSize(), Arrangement.SpaceBetween) {
+                    ) {
+                        Column(Modifier.fillMaxSize()) {
 
-
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
                             Text(
-                                modifier = Modifier.padding(horizontal = 12.dp),
-                                text = order.orderName.uppercase(),
-                                style = MaterialTheme.typography.bodyLarge.copy(
-                                    fontWeight = FontWeight.ExtraBold
-                                ), fontSize = 14.sp
+                                text = stringResource(order.orderSeason?.name?.getNameSeason() ?: R.string.lbl_empty),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(20.dp)
+                                    .background(getCardBackground(order))
+                                    .wrapContentHeight(align = Alignment.CenterVertically),
+                                color = Color.White, textAlign = TextAlign.Center,
+                                style = MaterialTheme.typography.bodySmall.copy(
+                                    fontWeight = FontWeight.Bold
+                                ),
+                                fontSize = 14.sp,
                             )
 
-                            IconButton({
-                                showDialogConfirmCompleteOrder = true
-                            }) {
-                                Icon(
-                                    painter = painterResource(if (order.orderBuy) R.drawable.ic_vector_checked else R.drawable.ic_vector_unchecked),
-                                    contentDescription = null,
-                                    tint = White
-                                )
-                            }
-                        }
 
-                        Row(
-                            modifier = Modifier
-                                .padding(horizontal = 12.dp, vertical = 12.dp)
-                                .fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                        ) {
-                            IconButton({
-                                showDialogConfirmDeleteOrder = true
-                            }) {
-                                Icon(
-                                    painter = painterResource(R.drawable.ic_vector_remove),
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 8.dp, vertical = 4.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.Absolute.SpaceBetween
+                            ) {
+                                Image(
+                                    modifier = Modifier
+                                        .weight(.12f)
+                                        .clip(CircleShape)
+                                        .background(MaterialTheme.colorScheme.onTertiary)
+                                        .padding(8.dp),
+                                    painter = painterResource(R.drawable.ic_vector_products),
                                     contentDescription = null,
-                                    tint = White
+                                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
+                                    contentScale = ContentScale.Crop
                                 )
-                            }
-                            if (order.orderId.isNotEmpty()) {
+
                                 Text(
-                                    text = DateUtils.format(
-                                        order.orderId.toLong(),
-                                        FORMAT_DATE3
-                                    ),
-                                    style = MaterialTheme.typography.bodySmall,
-                                    fontWeight = FontWeight.Bold
+                                    modifier = Modifier
+                                        .padding(horizontal = 12.dp)
+                                        .weight(.76f),
+                                    text = order.orderName.uppercase(),
+                                    textAlign = TextAlign.Start,
+                                    style = MaterialTheme.typography.bodyLarge.copy(
+                                        fontWeight = FontWeight.ExtraBold
+                                    ), fontSize = 14.sp
                                 )
+
+                                IconButton(modifier = Modifier.weight(.12f), onClick = {
+                                    showDialogConfirmCompleteOrder = true
+                                }) {
+                                    Icon(
+                                        painter = painterResource(if (order.orderBuy) R.drawable.ic_vector_checked else R.drawable.ic_vector_unchecked),
+                                        contentDescription = null,
+                                    )
+                                }
                             }
 
+                            Row(
+                                modifier = Modifier
+                                    .padding(horizontal = 8.dp)
+                                    .fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                IconButton(onClick = {
+                                    showDialogConfirmDeleteOrder = true
+                                }) {
+                                    Icon(
+                                        painter = painterResource(R.drawable.ic_vector_remove),
+                                        contentDescription = null,
+                                    )
+                                }
+                                if (order.orderId.isNotEmpty()) {
+                                    Text(
+                                        text = DateUtils.format(
+                                            order.orderId.toLong(),
+                                            FORMAT_DATE3
+                                        ),
+                                        style = MaterialTheme.typography.bodySmall,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                }
+
+
+                            }
 
                         }
 
                     }
 
                 }
+
             }
+            Image(
+                modifier = Modifier
+                    .height(120.dp)
+                    .fillMaxWidth()
+                    .alpha(0.5f),
+                painter = painterResource(if (order.orderBuy) R.drawable.buyit else R.drawable.ic_icon_trans),
+                contentDescription = null,
+                contentScale = ContentScale.Crop
+            )
         }
+
 
     }
 
@@ -219,6 +258,7 @@ private fun getCardBackground(orderMain: Order): Color =
     }
 
 
+
 @Composable
 private fun getUpdateStatusList(order: Order) =
     stringResource(
@@ -230,8 +270,16 @@ private fun getUpdateStatusList(order: Order) =
 @Preview
 @Composable
 fun OrderMainItemPreview() {
-    OrderItem(
-        Order(orderSeason = Season.FALL, orderName = "name"),
-        onMainOrderClick = {},
-        onDeleteOrderClick = {}, onUpdateStatusOrderClick = {})
+    ReportsGoTheme {
+        OrderItem(
+            Order(
+                orderSeason = Season.FALL,
+                orderName = "name",
+                orderId = "1746568014",
+                orderBuy = true
+            ),
+            onMainOrderClick = {},
+            onDeleteOrderClick = {}, onUpdateStatusOrderClick = {})
+    }
+
 }

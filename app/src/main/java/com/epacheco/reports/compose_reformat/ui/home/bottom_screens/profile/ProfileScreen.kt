@@ -79,7 +79,7 @@ fun ProfileScreen(
 @Composable
 fun ProfileScreenPreview() {
     ReportsGoTheme {
-        ProfileView(null, loading = true)
+        ProfileView(null, loading = false)
     }
 
 }

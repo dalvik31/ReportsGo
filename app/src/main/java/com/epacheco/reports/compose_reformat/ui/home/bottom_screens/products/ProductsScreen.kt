@@ -1,9 +1,21 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.epacheco.reports.compose_reformat.general_components.Loader
+import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsErrorDialog
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.OrdersMainUiIntent
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile.ProfileUiEffect
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile.ProfileUiIntent
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
+import kotlinx.coroutines.flow.collectLatest
 
 
 @Composable
@@ -11,77 +23,44 @@ fun ProductsScreen(
     ordersViewModel: ProductsViewModel = hiltViewModel<ProductsViewModel>()
 ) {
 
+    val uiState by ordersViewModel.uiState.collectAsState()
 
-    /*   result
+    LaunchedEffect(Unit) {
+        ordersViewModel.handleIntent(ProductsUiIntent.LoadProducts)
+    }
+    LaunchedEffect(ordersViewModel) {
+        ordersViewModel.effectFlow.collectLatest { effect ->
+            when (effect) {
+                ProductsUiEffect.NavigateToAddProduct -> {
 
-       when(result){
-           is Resource.Failure -> Log.e("aqui","estamoss: ${result.exception}")
-           is Resource.Success -> TODO()
-           Resource.Waiting -> TODO()
-           null -> TODO()
-       }
-           if (result()) {
-               EmptyLocations()
-           } else {
-               LazyColumnFor(
-                   modifier = Modifier.padding(innerPadding),
-                   items = result.value.data.orEmpty()
-               ) { location ->
-                   Row(modifier = Modifier.padding(8.dp)) {
-                       Text(text = location.label, style = MaterialTheme.typography.h3)
-                   }
-               }
-           }*/
+                }
 
-    /* val orderResponse = ordersViewModel.productsFlow.collectAsState()
-     val data by remember { ordersViewModel.productsFlow }.collectAsStateWithLifecycle(null)
+                is ProductsUiEffect.NavigateToEditProduct -> {
 
+                }
+            }
+        }
+    }
 
+    ProductsView(productList = uiState.listProducts, isRefreshing = uiState.isLoading, onRefresh = {
+        ordersViewModel.handleIntent(ProductsUiIntent.LoadProducts)
+    }) {
+        Log.e("aqui", "vamoooos: ${it.productName}")
+    }
 
-     data?.let {
-         when (it) {
-             is Resource.Failure -> {
-                 it.exception?.let {
-                     Log.e("aqui", "ProductsScreen ${it.message}")
-                 }
-             }
+    // Loading Overlay
+    if (uiState.isLoading) {
+        Loader(false)
+    }
 
-             Resource.Waiting -> Loader(false, stringResource(R.string.search_products))
-             is Resource.Success -> {
-                 Column {
-                     TextDivider(
-                         modifier = Modifier.padding(vertical = 8.dp),
-                         textDivider = pluralStringResource(
-                             R.plurals.title_products,
-                             count = it.result.size,
-                             it.result.size
-                         ),
-                         fontSize = 14.sp
-                     )
-
-                     LazyVerticalGrid(
-                         columns = GridCells.Fixed(2),
-                         modifier = Modifier
-                             .fillMaxSize()
-                             .background(color = Color.Transparent),
-                         verticalArrangement = Arrangement.spacedBy(4.dp),
-                         contentPadding = PaddingValues(horizontal = 8.dp)
-                     ) {
-                         items(it.result) { product ->
-                             ProductItem(
-                                 img = product.urlImage,
-                                 title = product.productName,
-                                 price = product.productPriceSale,
-                                 stock = product.inStock
-                             )
-                         }
-                     }
-                 }
-             }
-
-         }
-
-     }*/
+    //Message error
+    uiState.errorMessage?.let { msgError ->
+        ReportsErrorDialog(
+            dialogSubTitle = msgError,
+            onConfirmation = {
+                ordersViewModel.handleIntent(ProductsUiIntent.Error)
+            })
+    }
 
 }
 

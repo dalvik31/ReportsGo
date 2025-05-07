@@ -309,6 +309,7 @@
     <string name="general_error">¡Ups! Lo sentimos algo salió mal.</string>
 
     <!--General msg-->
+    <string name="lbl_empty" />
     <string name="btn_understood">Entiendo</string>
     <string name="btn_ok">Aceptar</string>
     <string name="btn_cancel">Cancelar</string>
@@ -497,12 +498,14 @@
 
     <!--PRODUCTS Fragments-->
     <string name="search_products">Buscando productos guardados…</string>
+    <string name="search_product">Buscar producto</string>
     <plurals name="title_products">
         <item formatted="true" quantity="one">(%s) Producto</item>
         <item formatted="true" quantity="other">(%s) Productos</item>
     </plurals>
     <string name="lbl_price_sale">$%s</string>
     <string name="lbl_stock_sale">%s en existencia</string>
+    <string name="lbl_search_product_hint">Nombre del producto</string>
 
     <!--FINANCES Fragments-->
     <string name="search_finances">Buscando ventas generadas…</string>

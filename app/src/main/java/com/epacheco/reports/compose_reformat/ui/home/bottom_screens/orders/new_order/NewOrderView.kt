@@ -37,6 +37,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
+import com.epacheco.reports.compose_reformat.general_components.EmailTextField
 import com.epacheco.reports.compose_reformat.general_components.Header
 import com.epacheco.reports.compose_reformat.general_components.InputTextField
 import com.epacheco.reports.compose_reformat.general_components.PrimaryButton

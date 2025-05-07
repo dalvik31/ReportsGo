@@ -1,9 +1,10 @@
 package com.epacheco.reports.compose_reformat.general_components
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -18,32 +19,22 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.ui.theme.Black
-import com.epacheco.reports.compose_reformat.ui.theme.GrayLight
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 
 @Composable
-fun InputTextField(
-    modifier: Modifier = Modifier,
-    inputText: String,
-    hintText: String,
-    enabled: Boolean = true,
-    singleLine: Boolean = true,
-    maxLength: Int = 50,
-    onTextChange: (String) -> Unit
-) {
-
+fun SearchBarElement(modifier: Modifier = Modifier,searchText: String, onTextChange: (String) -> Unit) {
+    val maxLength = 50
     TextField(
         modifier = modifier
             .fillMaxWidth(),
-        value = inputText,
+        value = searchText,
         textStyle = TextStyle.Default.copy(fontSize = 16.sp, fontWeight = FontWeight.Bold),
-        singleLine = singleLine,
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
         placeholder = {
             Text(
-                text = hintText,
+                text = stringResource(id = R.string.lbl_search_product_hint),
                 color = MaterialTheme.colorScheme.onTertiary,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold
@@ -59,21 +50,39 @@ fun InputTextField(
             unfocusedIndicatorColor = MaterialTheme.colorScheme.primary,
             disabledIndicatorColor = Color.Transparent,
             focusedIndicatorColor = MaterialTheme.colorScheme.primary
-        ), enabled = enabled
+        ),
+        leadingIcon = {
+            Icon(imageVector = Icons.Filled.Search, contentDescription = null)
+        }
 
     )
 }
+/*
+@Composable
+fun SearchBarElement(modifier: Modifier = Modifier) {
+    TextField(
+        value = "",
+        onValueChange = {
+
+        },
+        modifier = modifier
+            .fillMaxWidth()
+            .heightIn(min = 56.dp),
+        placeholder = {
+            Text(text = stringResource(R.string.search_product))
+        },
+        leadingIcon = {
+            Icon(imageVector = Icons.Filled.Search, contentDescription = null)
+        }
+    )
+}*/
+
 
 @Preview
 @Composable
-private fun InputTextFieldPreview() {
+fun CustomSearchBarPreview() {
     ReportsGoTheme {
-        Box(modifier = Modifier.fillMaxSize()) {
-            InputTextField(
-                inputText = "",
-                hintText = "lalla",
-            ) {}
-        }
+        SearchBarElement(searchText = "searchText", onTextChange = {})
     }
-}
 
+}

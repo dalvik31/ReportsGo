@@ -52,7 +52,7 @@ fun ProductItem(
             painter = rememberAsyncImagePainter(product.urlImage),
             contentDescription = null,
             contentScale = ContentScale.Crop,
-            modifier = Modifier
+            modifier = Modifier.fillMaxWidth()
                 .height(200.dp)
                 .clip(shape = RoundedCornerShape(10.dp))
                 .alpha(0.8f),

@@ -47,7 +47,7 @@ fun PickerDialog(
                     Row(verticalAlignment = Alignment.CenterVertically) {
 
                         Icon(
-                            modifier = Modifier.width(16.dp),
+                            modifier = Modifier.width(8.dp),
                             imageVector = ImageVector.vectorResource(R.drawable.new_ic_vector_comdin),
                             contentDescription = "back",
                             tint = MaterialTheme.colorScheme.primary
@@ -62,7 +62,7 @@ fun PickerDialog(
                                     onDismiss()
                                 },
                             color = Black,
-                            style = MaterialTheme.typography.headlineMedium,
+                            style = MaterialTheme.typography.headlineSmall,
                             maxLines = 2,
                             overflow = TextOverflow.Ellipsis,
                         )

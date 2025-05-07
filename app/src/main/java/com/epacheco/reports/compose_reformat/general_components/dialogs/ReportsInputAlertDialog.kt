@@ -121,7 +121,6 @@ fun CustomInputDialogUI(
                         .padding(top = 10.dp, start = 25.dp, end = 25.dp)
                         .fillMaxWidth(),
                     inputText = input ?: "",
-                    tintColor = tintColor,
                     hintText = dialogHint ?: ""
                 ) {
                     onInputChanged?.invoke(it)

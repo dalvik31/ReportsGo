@@ -14,8 +14,8 @@ class ProductsRepositoryImpl @Inject constructor(
     private val firebaseDatabase: FirebaseDatabase
 ) : ProductsRepository {
     override suspend fun getProducts(): Resource<List<Product>> {
-        val productList = mutableListOf<Product>()
         return try {
+            val productList = mutableListOf<Product>()
             getProductsReference().get().await().children.map { snapShot ->
                 val product = snapShot.getValue(Product::class.java)
                 product?.let {
