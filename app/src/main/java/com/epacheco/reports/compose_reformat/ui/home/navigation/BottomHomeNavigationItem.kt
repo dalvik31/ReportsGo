@@ -24,11 +24,15 @@ data class BottomHomeNavigationItem(
                 icon = R.drawable.ic_vector_products_red,
                 bottomHomeRoutes = BottomHomeRoutes.ProductBottomHomeRoute
             ),
-            BottomHomeNavigationItem(
+
+            /**
+             * Pending 07/05/2025
+             * */
+            /*BottomHomeNavigationItem(
                 label = R.string.tab_finances_option,
                 icon = R.drawable.ic_vector_activity,
                 bottomHomeRoutes = BottomHomeRoutes.FinanceBottomHomeRoute
-            ),
+            ),*/
             BottomHomeNavigationItem(
                 label = R.string.tab_profile_option,
                 icon = R.drawable.ic_vector_account,
