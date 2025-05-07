@@ -1,4 +1,4 @@
-package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.new_order
+package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.edit_order
 
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.R
@@ -8,7 +8,6 @@ import com.epacheco.reports.compose_reformat.domain.DeleteOrderUseCase
 import com.epacheco.reports.compose_reformat.domain.UpdateOrderUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.model.orders.Order
-import com.epacheco.reports.compose_reformat.model.orders.OrderStatus
 import com.epacheco.reports.compose_reformat.model.orders.Season
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import com.epacheco.reports.compose_reformat.utils.DateUtils
@@ -21,7 +20,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class NewOrderViewModel @Inject constructor(
+class EditOrderViewModel @Inject constructor(
     private val deleteOrderUseCase: DeleteOrderUseCase,
     private val createOrderUseCase: CreateOrderUseCase,
     private val updateOrderUseCase: UpdateOrderUseCase,
@@ -53,26 +52,26 @@ class NewOrderViewModel @Inject constructor(
     private val _inputProductGender = MutableStateFlow("")
     val inputProductGender: StateFlow<String> = _inputProductGender
 
-    private val _uiState = MutableStateFlow(NewOrderUiState())
-    val uiState: StateFlow<NewOrderUiState> = _uiState
+    private val _uiState = MutableStateFlow(EditOrderUiState())
+    val uiState: StateFlow<EditOrderUiState> = _uiState
 
 
-    private val _effectFlow = MutableSharedFlow<NewOrderUiEffect>()
-    val effectFlow: SharedFlow<NewOrderUiEffect> = _effectFlow
+    private val _effectFlow = MutableSharedFlow<EditOrderUiEffect>()
+    val effectFlow: SharedFlow<EditOrderUiEffect> = _effectFlow
 
 
-    fun handleIntent(intent: NewOrderUiIntent) {
+    fun handleIntent(intent: EditOrderUiIntent) {
         when (intent) {
-            is NewOrderUiIntent.CreateOrder -> {
+            is EditOrderUiIntent.CreateOrder -> {
                 if (validInputs())
                     createOrder(intent.mainOrderId, intent.orderSeason) else
                     setErrorMsg(app.getString(R.string.order_empty_inputs_error))
 
             }
 
-            is NewOrderUiIntent.DeleteOrder -> deleteOrder(intent.orderId, intent.mainOrderId)
-            NewOrderUiIntent.HideDialogs -> setErrorMsg()
-            is NewOrderUiIntent.UpdateOrder -> if (validInputs()) updateOrder(intent.order)
+            is EditOrderUiIntent.DeleteOrder -> deleteOrder(intent.orderId, intent.mainOrderId)
+            EditOrderUiIntent.HideDialogs -> setErrorMsg()
+            is EditOrderUiIntent.UpdateOrder -> if (validInputs()) updateOrder(intent.order)
             else setErrorMsg(app.getString(R.string.order_empty_inputs_error))
         }
     }
@@ -89,7 +88,7 @@ class NewOrderViewModel @Inject constructor(
                 is Resource.Failure -> setErrorMsg(orderMainMainResponse.exception.message)
                 is Resource.Success -> {
                     if (validInputs()) {
-                        _effectFlow.emit(NewOrderUiEffect.NavigateBack)
+                        _effectFlow.emit(EditOrderUiEffect.NavigateBack)
                     } else {
                     }
 
@@ -106,7 +105,7 @@ class NewOrderViewModel @Inject constructor(
                 is Resource.Success -> {
                     _uiState.value =
                         _uiState.value.copy(successOperationMsg = R.string.msg_order_delete_success)
-                    _effectFlow.emit(NewOrderUiEffect.NavigateBack)
+                    _effectFlow.emit(EditOrderUiEffect.NavigateBack)
                 }
             }
             loading(false)
@@ -128,7 +127,7 @@ class NewOrderViewModel @Inject constructor(
                 is Resource.Success -> {
                     _uiState.value =
                         _uiState.value.copy(successOperationMsg = R.string.msg_order_update_success)
-                    _effectFlow.emit(NewOrderUiEffect.NavigateBack)
+                    _effectFlow.emit(EditOrderUiEffect.NavigateBack)
                 }
             }
             loading(false)

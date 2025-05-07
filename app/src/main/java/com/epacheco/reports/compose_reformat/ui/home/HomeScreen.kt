@@ -17,7 +17,7 @@ import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.Clie
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.finances.FinancesScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.OrdersMainScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders_detail.OrdersScreen
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.new_order.NewOrderScreen
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.edit_order.NewOrderScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products.ProductsScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile.ProfileScreen
 import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeNavigationItem
