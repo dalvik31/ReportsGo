@@ -1,4 +1,4 @@
-package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.edit_order
+package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.new_order
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -16,39 +16,39 @@ import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun NewOrderScreen(
-    editOrderViewModel: EditOrderViewModel = hiltViewModel<EditOrderViewModel>(),
+    newOrderViewModel: NewOrderViewModel = hiltViewModel<NewOrderViewModel>(),
     onBackPressed: (() -> Unit)? = null,
     orderToEdit: Order? = null,
     mainOrderId: String,
     orderSeason: Season?
 ) {
 
-    val uiState by editOrderViewModel.uiState.collectAsState()
-    val inputName by editOrderViewModel.inputProductName.collectAsState()
-    val inputDescription by editOrderViewModel.inputProductDescription.collectAsState()
-    val inputSize by editOrderViewModel.inputProductSize.collectAsState()
-    val inputColor by editOrderViewModel.inputProductColor.collectAsState()
-    val inputColorCode by editOrderViewModel.inputProductColorCode.collectAsState()
-    val inputGender by editOrderViewModel.inputProductGender.collectAsState()
-    val inputOrderStatus by editOrderViewModel.inputProductStatus.collectAsState()
-    val isNumericSize by editOrderViewModel.isProductSizeNumeric.collectAsState()
+    val uiState by newOrderViewModel.uiState.collectAsState()
+    val inputName by newOrderViewModel.inputProductName.collectAsState()
+    val inputDescription by newOrderViewModel.inputProductDescription.collectAsState()
+    val inputSize by newOrderViewModel.inputProductSize.collectAsState()
+    val inputColor by newOrderViewModel.inputProductColor.collectAsState()
+    val inputColorCode by newOrderViewModel.inputProductColorCode.collectAsState()
+    val inputGender by newOrderViewModel.inputProductGender.collectAsState()
+    val inputOrderStatus by newOrderViewModel.inputProductStatus.collectAsState()
+    val isNumericSize by newOrderViewModel.isProductSizeNumeric.collectAsState()
 
     LaunchedEffect(orderToEdit) {
         orderToEdit?.let {
-            editOrderViewModel.onInputNameChanged(it.orderName)
-            editOrderViewModel.onInputStatusChanged(it.orderBuy)
-            editOrderViewModel.onInputGenderChanged(it.orderGender)
-            editOrderViewModel.onInputColorChanged(it.orderColor)
-            editOrderViewModel.onInputSizeChanged(it.orderSize)
-            editOrderViewModel.onInputDescriptionChanged(it.orderDescription)
-            editOrderViewModel.onInputColorCodeChanged(it.orderColorCode)
-            editOrderViewModel.onIsNumericSizeChanged(it.orderSizeNumeric)
+            newOrderViewModel.onInputNameChanged(it.orderName)
+            newOrderViewModel.onInputStatusChanged(it.orderBuy)
+            newOrderViewModel.onInputGenderChanged(it.orderGender)
+            newOrderViewModel.onInputColorChanged(it.orderColor)
+            newOrderViewModel.onInputSizeChanged(it.orderSize)
+            newOrderViewModel.onInputDescriptionChanged(it.orderDescription)
+            newOrderViewModel.onInputColorCodeChanged(it.orderColorCode)
+            newOrderViewModel.onIsNumericSizeChanged(it.orderSizeNumeric)
         }
     }
-    LaunchedEffect(editOrderViewModel) {
-        editOrderViewModel.effectFlow.collectLatest { effect ->
+    LaunchedEffect(newOrderViewModel) {
+        newOrderViewModel.effectFlow.collectLatest { effect ->
             when (effect) {
-                EditOrderUiEffect.NavigateBack -> {
+                NewOrderUiEffect.NavigateBack -> {
                     onBackPressed?.invoke()
                 }
             }
@@ -56,39 +56,39 @@ fun NewOrderScreen(
     }
 
     NewOrderView(onInputStatus = inputOrderStatus, onInputStatusChanged = {
-        editOrderViewModel.onInputStatusChanged(it)
+        newOrderViewModel.onInputStatusChanged(it)
     }, onInputIsNumericSize = isNumericSize, onInputIsNumericSizeChanged = {
-        editOrderViewModel.onIsNumericSizeChanged(it)
+        newOrderViewModel.onIsNumericSizeChanged(it)
     }, inputName = inputName, onInputNameChanged = {
-        editOrderViewModel.onInputNameChanged(it)
+        newOrderViewModel.onInputNameChanged(it)
     },
         inputDescription = inputDescription, onInputDescriptionChanged = {
-            editOrderViewModel.onInputDescriptionChanged(it)
+            newOrderViewModel.onInputDescriptionChanged(it)
         },
         inputSize = inputSize, onInputSizeChanged = {
-            editOrderViewModel.onInputSizeChanged(it)
+            newOrderViewModel.onInputSizeChanged(it)
         },
         inputColor = inputColor, onInputColorChanged = {
-            editOrderViewModel.onInputColorChanged(it)
+            newOrderViewModel.onInputColorChanged(it)
         },
         inputColorCode = inputColorCode,
         onInputColorCodeChanged = {
-            editOrderViewModel.onInputColorCodeChanged(it)
+            newOrderViewModel.onInputColorCodeChanged(it)
         },
         inputGender = inputGender, onInputGenderChanged = {
-            editOrderViewModel.onInputGenderChanged(it)
+            newOrderViewModel.onInputGenderChanged(it)
         }, onCreateOrder = {
-            editOrderViewModel.handleIntent(EditOrderUiIntent.CreateOrder(mainOrderId, orderSeason))
+            newOrderViewModel.handleIntent(NewOrderUiIntent.CreateOrder(mainOrderId, orderSeason))
         },
         orderToEdit = orderToEdit,
         onUpdateOrder = {
             orderToEdit?.let {
-                editOrderViewModel.handleIntent(EditOrderUiIntent.UpdateOrder(it))
+                newOrderViewModel.handleIntent(NewOrderUiIntent.UpdateOrder(it))
             }
         }, onDeleteOrder = {
             orderToEdit?.let {
-                editOrderViewModel.handleIntent(
-                    EditOrderUiIntent.DeleteOrder(
+                newOrderViewModel.handleIntent(
+                    NewOrderUiIntent.DeleteOrder(
                         it.orderId,
                         it.orderListId
                     )
@@ -104,7 +104,7 @@ fun NewOrderScreen(
         ReportsErrorDialog(
             dialogSubTitle = msgError,
             onConfirmation = {
-                editOrderViewModel.handleIntent(EditOrderUiIntent.HideDialogs)
+                newOrderViewModel.handleIntent(NewOrderUiIntent.HideDialogs)
             })
     }
 
@@ -114,7 +114,7 @@ fun NewOrderScreen(
             dialogSubTitle = stringResource(msgSuccessOperation),
             closeAutomatically = true,
             onConfirmation = {
-                editOrderViewModel.handleIntent(EditOrderUiIntent.HideDialogs)
+                newOrderViewModel.handleIntent(NewOrderUiIntent.HideDialogs)
             })
     }
 

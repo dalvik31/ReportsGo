@@ -30,6 +30,9 @@ sealed interface BottomHomeRoutes {
     data object ProductBottomHomeRoute : BottomHomeRoutes
 
     @Serializable
+    data class CreateProductBottomHomeRoute(val productId: String?) : BottomHomeRoutes
+
+    @Serializable
     data object ProfileBottomHomeRoute : BottomHomeRoutes
 
     @Serializable

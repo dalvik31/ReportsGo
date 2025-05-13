@@ -3,6 +3,7 @@ package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile
 import android.net.Uri
 import androidx.core.net.toUri
 import androidx.lifecycle.viewModelScope
+import coil3.Bitmap
 import com.epacheco.reports.compose_reformat.ReportsApp
 import com.epacheco.reports.compose_reformat.domain.FirebaseGetUserUseCase
 import com.epacheco.reports.compose_reformat.domain.FirebaseUpdateImgProfileUseCase
@@ -10,13 +11,20 @@ import com.epacheco.reports.compose_reformat.domain.FirebaseUploadImgProfileUseC
 import com.epacheco.reports.compose_reformat.domain.FirebaseUserLogoutUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
+import com.epacheco.reports.compose_reformat.utils.extensions.compress
 import dagger.hilt.android.lifecycle.HiltViewModel
+import id.zelory.compressor.Compressor
+import id.zelory.compressor.constraint.format
+import id.zelory.compressor.constraint.quality
+import id.zelory.compressor.constraint.resolution
+import id.zelory.compressor.constraint.size
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -42,7 +50,7 @@ class ProfileViewModel @Inject constructor(
         when (intent) {
             ProfileUiIntent.Logout -> doLogout()
             ProfileUiIntent.Error -> setErrorMsg()
-            is ProfileUiIntent.UploadProfileImage -> uploadProfileImage(intent.imageUri)
+            is ProfileUiIntent.UploadProfileImage -> uploadProfileImage(intent.imageFile)
         }
     }
 
@@ -71,6 +79,7 @@ class ProfileViewModel @Inject constructor(
             when (val updateImgProfileResponse = updateImgProfileUseCase(url)) {
                 is Resource.Failure ->
                     setErrorMsg(updateImgProfileResponse.exception.message)
+
                 is Resource.Success -> {
                     getProfile()
                 }
@@ -96,11 +105,12 @@ class ProfileViewModel @Inject constructor(
     }
 
 
-    private fun uploadProfileImage(imageUri: Uri?) {
+    private fun uploadProfileImage(imageFile: File?) {
         viewModelScope.launch {
-            imageUri?.let {
+            imageFile?.let {
                 loading(true)
-                when (val uploadImageResponse = firebaseUploadImgProfileUseCase(imageUri)) {
+                when (val uploadImageResponse =
+                    firebaseUploadImgProfileUseCase(imageFile.compress(app))) {
                     is Resource.Failure ->
                         setErrorMsg(uploadImageResponse.exception.message)
 

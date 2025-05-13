@@ -1,6 +1,7 @@
 package com.epacheco.reports.compose_reformat.general_components.dialogs.picture_picker
 
 import android.Manifest
+import android.graphics.Bitmap
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -8,16 +9,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import java.io.File
 
 
 @Composable
 fun PickerPictureDialog(
-    onImageSelected: ((Uri?) -> Unit)? = null,
+    onImageSelected: ((File?) -> Unit)? = null,
     onDismissRequest: ((() -> Unit))? = null,
 ) {
     Dialog(onDismissRequest = { onDismissRequest?.invoke() }) {
@@ -32,10 +37,12 @@ fun PickerPictureDialog(
 @Composable
 fun PickerPictureDialogScreen(
     permissionsViewModel: PermissionsViewModel = hiltViewModel<PermissionsViewModel>(),
-    onImageSelected: ((Uri?) -> Unit)? = null,
+    onImageSelected: ((File?) -> Unit)? = null,
     onDismissRequest: ((() -> Unit))? = null,
 ) {
-    var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
+
+
+    val coroutineScope = rememberCoroutineScope()
 
     var hasGalleryPermission by remember {
         mutableStateOf(
@@ -53,8 +60,11 @@ fun PickerPictureDialogScreen(
     val galleryLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
-        selectedImageUri = uri
-        onImageSelected?.invoke(uri)
+        uri?.let {
+            coroutineScope.launch {
+                onImageSelected?.invoke(permissionsViewModel.getUriToFile(uri))
+            }
+        }
         onDismissRequest?.invoke()
     }
 
@@ -62,10 +72,14 @@ fun PickerPictureDialogScreen(
         contract = ActivityResultContracts.TakePicturePreview()
     ) { bitmap ->
         bitmap?.let {
-            val uri = permissionsViewModel.saveBitmapToUri(it)
-            selectedImageUri = uri
-            onImageSelected?.invoke(uri)
-            onDismissRequest?.invoke()
+            /*val uri = permissionsViewModel.saveBitmapToUri(it)
+            selectedImageUri = uri*/
+
+            coroutineScope.launch {
+                onImageSelected?.invoke(permissionsViewModel.getBitmapToFile(bitmap))
+                onDismissRequest?.invoke()
+            }
+
         }
     }
 

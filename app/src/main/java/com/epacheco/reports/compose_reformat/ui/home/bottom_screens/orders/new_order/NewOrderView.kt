@@ -1,4 +1,4 @@
-package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.edit_order
+package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.new_order
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

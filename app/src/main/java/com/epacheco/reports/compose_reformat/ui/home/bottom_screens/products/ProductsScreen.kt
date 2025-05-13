@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.epacheco.reports.compose_reformat.general_components.Loader
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsErrorDialog
+import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.OrdersMainUiIntent
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile.ProfileUiEffect
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile.ProfileUiIntent
@@ -20,7 +21,8 @@ import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun ProductsScreen(
-    ordersViewModel: ProductsViewModel = hiltViewModel<ProductsViewModel>()
+    ordersViewModel: ProductsViewModel = hiltViewModel<ProductsViewModel>(),
+    onNavigateToProductDetail: ((String?) -> Unit)? = null,
 ) {
 
     val uiState by ordersViewModel.uiState.collectAsState()
@@ -28,24 +30,21 @@ fun ProductsScreen(
     LaunchedEffect(Unit) {
         ordersViewModel.handleIntent(ProductsUiIntent.LoadProducts)
     }
-    LaunchedEffect(ordersViewModel) {
+    /*LaunchedEffect(ordersViewModel) {
         ordersViewModel.effectFlow.collectLatest { effect ->
             when (effect) {
-                ProductsUiEffect.NavigateToAddProduct -> {
-
-                }
-
-                is ProductsUiEffect.NavigateToEditProduct -> {
-
+                is ProductsUiEffect.NavigateToProductDetail ->{
+                    onNavigateToProductDetail?.invoke(effect.productId)
                 }
             }
         }
-    }
+    }*/
 
     ProductsView(productList = uiState.listProducts, isRefreshing = uiState.isLoading, onRefresh = {
         ordersViewModel.handleIntent(ProductsUiIntent.LoadProducts)
     }) {
-        Log.e("aqui", "vamoooos: ${it.productName}")
+        onNavigateToProductDetail?.invoke(it)
+        Log.e("aqui", "vamoooos: ${it}")
     }
 
     // Loading Overlay

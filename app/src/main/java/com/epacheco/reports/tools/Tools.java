@@ -210,15 +210,11 @@ public class Tools {
 
         Bitmap thumb_bitmap = null;
         byte[] thumb_byte = null;
-        try {
-            thumb_bitmap = new Compressor(ctx)
-                    .setMaxWidth(width)
-                    .setMaxHeight(height)
-                    .setQuality(75)
-                    .compressToBitmap(file_thumb_path);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        /*  thumb_bitmap = new Compressor
+                  .setMaxWidth(width)
+                  .setMaxHeight(height)
+                  .setQuality(75)
+                  .compressToBitmap(file_thumb_path);*/
 
         //if (thumb_bitmap != null) return null;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -229,4 +225,7 @@ public class Tools {
         return thumb_byte;
 
     }
+
+
+
 }

@@ -37,7 +37,7 @@ fun ProductsView(
     productList: List<Product> = emptyList(),
     isRefreshing: Boolean = false,
     onRefresh: (() -> Unit)? = null,
-    onProductClick: (Product) -> Unit
+    onGoProductDetailClick: (String?) -> Unit
 ) {
     Column {
         Header(
@@ -49,7 +49,7 @@ fun ProductsView(
             backgroundToolbar = Color.Transparent,
             titleColor = MaterialTheme.colorScheme.primary,
             onRightIconClicked = {
-                //onCreateOrderMainClick?.invoke()
+                onGoProductDetailClick.invoke(null)
             },
             tintImageRight = MaterialTheme.colorScheme.primary,
             rightImageVector = ImageVector.vectorResource(R.drawable.ic_vector_add)
@@ -73,7 +73,7 @@ fun ProductsView(
             ) {
                 items(productList) { product ->
                     ProductItem(product) {
-                        onProductClick.invoke(product)
+                        onGoProductDetailClick.invoke(product.productName)
                     }
                 }
             }

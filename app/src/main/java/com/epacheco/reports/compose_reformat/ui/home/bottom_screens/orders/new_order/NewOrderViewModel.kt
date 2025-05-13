@@ -1,4 +1,4 @@
-package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.edit_order
+package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.new_order
 
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.R
@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class EditOrderViewModel @Inject constructor(
+class NewOrderViewModel @Inject constructor(
     private val deleteOrderUseCase: DeleteOrderUseCase,
     private val createOrderUseCase: CreateOrderUseCase,
     private val updateOrderUseCase: UpdateOrderUseCase,
@@ -52,26 +52,26 @@ class EditOrderViewModel @Inject constructor(
     private val _inputProductGender = MutableStateFlow("")
     val inputProductGender: StateFlow<String> = _inputProductGender
 
-    private val _uiState = MutableStateFlow(EditOrderUiState())
-    val uiState: StateFlow<EditOrderUiState> = _uiState
+    private val _uiState = MutableStateFlow(NewOrderUiState())
+    val uiState: StateFlow<NewOrderUiState> = _uiState
 
 
-    private val _effectFlow = MutableSharedFlow<EditOrderUiEffect>()
-    val effectFlow: SharedFlow<EditOrderUiEffect> = _effectFlow
+    private val _effectFlow = MutableSharedFlow<NewOrderUiEffect>()
+    val effectFlow: SharedFlow<NewOrderUiEffect> = _effectFlow
 
 
-    fun handleIntent(intent: EditOrderUiIntent) {
+    fun handleIntent(intent: NewOrderUiIntent) {
         when (intent) {
-            is EditOrderUiIntent.CreateOrder -> {
+            is NewOrderUiIntent.CreateOrder -> {
                 if (validInputs())
                     createOrder(intent.mainOrderId, intent.orderSeason) else
                     setErrorMsg(app.getString(R.string.order_empty_inputs_error))
 
             }
 
-            is EditOrderUiIntent.DeleteOrder -> deleteOrder(intent.orderId, intent.mainOrderId)
-            EditOrderUiIntent.HideDialogs -> setErrorMsg()
-            is EditOrderUiIntent.UpdateOrder -> if (validInputs()) updateOrder(intent.order)
+            is NewOrderUiIntent.DeleteOrder -> deleteOrder(intent.orderId, intent.mainOrderId)
+            NewOrderUiIntent.HideDialogs -> setErrorMsg()
+            is NewOrderUiIntent.UpdateOrder -> if (validInputs()) updateOrder(intent.order)
             else setErrorMsg(app.getString(R.string.order_empty_inputs_error))
         }
     }
@@ -88,7 +88,7 @@ class EditOrderViewModel @Inject constructor(
                 is Resource.Failure -> setErrorMsg(orderMainMainResponse.exception.message)
                 is Resource.Success -> {
                     if (validInputs()) {
-                        _effectFlow.emit(EditOrderUiEffect.NavigateBack)
+                        _effectFlow.emit(NewOrderUiEffect.NavigateBack)
                     } else {
                     }
 
@@ -105,7 +105,7 @@ class EditOrderViewModel @Inject constructor(
                 is Resource.Success -> {
                     _uiState.value =
                         _uiState.value.copy(successOperationMsg = R.string.msg_order_delete_success)
-                    _effectFlow.emit(EditOrderUiEffect.NavigateBack)
+                    _effectFlow.emit(NewOrderUiEffect.NavigateBack)
                 }
             }
             loading(false)
@@ -127,7 +127,7 @@ class EditOrderViewModel @Inject constructor(
                 is Resource.Success -> {
                     _uiState.value =
                         _uiState.value.copy(successOperationMsg = R.string.msg_order_update_success)
-                    _effectFlow.emit(EditOrderUiEffect.NavigateBack)
+                    _effectFlow.emit(NewOrderUiEffect.NavigateBack)
                 }
             }
             loading(false)

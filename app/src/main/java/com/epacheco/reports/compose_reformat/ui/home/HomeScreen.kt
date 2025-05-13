@@ -17,8 +17,9 @@ import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.Clie
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.finances.FinancesScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.OrdersMainScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders_detail.OrdersScreen
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.edit_order.NewOrderScreen
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.new_order.NewOrderScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products.ProductsScreen
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products.new_product.NewProductScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile.ProfileScreen
 import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeNavigationItem
 import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes
@@ -63,7 +64,13 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                 ClientsScreen()
             }
             composable<BottomHomeRoutes.ProductBottomHomeRoute> {
-                ProductsScreen()
+                ProductsScreen(onNavigateToProductDetail = { productId ->
+                    bottomNavController.navigate(
+                        BottomHomeRoutes.CreateProductBottomHomeRoute(
+                            productId = productId
+                        )
+                    )
+                })
             }
             composable<BottomHomeRoutes.FinanceBottomHomeRoute> {
                 FinancesScreen()
@@ -103,6 +110,12 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                     })
             }
 
+
+            composable<BottomHomeRoutes.CreateProductBottomHomeRoute> { backStackEntry ->
+                val createProductRoute: BottomHomeRoutes.CreateProductBottomHomeRoute =
+                    backStackEntry.toRoute()
+                NewProductScreen(productToEdit = createProductRoute.productId)
+            }
 
             composable<BottomHomeRoutes.CreateOrderBottomHomeRoute>(typeMap = mapOf(typeOf<Order?>() to serializableType<Order?>())) { backStackEntry ->
                 val orderMainRoute: BottomHomeRoutes.CreateOrderBottomHomeRoute =
