@@ -24,6 +24,9 @@ class ProductsViewModel @Inject constructor(
 ) :
     BaseViewModel() {
 
+    private val _inputProductName = MutableStateFlow("")
+    val inputProductName: StateFlow<String> = _inputProductName
+
     private val _uiState = MutableStateFlow(ProductsUiState())
     val uiState: StateFlow<ProductsUiState> = _uiState
 
@@ -56,6 +59,9 @@ class ProductsViewModel @Inject constructor(
 
     }
 
+    fun onInputNameChanged(inputName: String) {
+        _inputProductName.value = inputName
+    }
 
     override fun setErrorMsg(msgError: String?) {
         _uiState.update { it.copy(errorMessage = msgError) }

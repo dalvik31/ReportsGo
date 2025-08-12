@@ -70,7 +70,7 @@ fun InputTextField(
         enabled = enable,
         colors = TextFieldDefaults.colors(
             unfocusedContainerColor = Color.Transparent,
-            disabledContainerColor =Color.Transparent,
+            disabledContainerColor = Color.Transparent,
             focusedContainerColor = Color.Transparent,
             unfocusedIndicatorColor = RedLight,
             focusedIndicatorColor = RedLight,

@@ -25,6 +25,7 @@ fun ProductsScreen(
     onNavigateToProductDetail: ((String?) -> Unit)? = null,
 ) {
 
+    val inputName by ordersViewModel.inputProductName.collectAsState()
     val uiState by ordersViewModel.uiState.collectAsState()
 
     LaunchedEffect(Unit) {
@@ -40,9 +41,16 @@ fun ProductsScreen(
         }
     }*/
 
-    ProductsView(productList = uiState.listProducts, isRefreshing = uiState.isLoading, onRefresh = {
-        ordersViewModel.handleIntent(ProductsUiIntent.LoadProducts)
-    }) {
+    ProductsView(
+        productList = uiState.listProducts,
+        inputName = inputName,
+        onInputNameChanged = {
+            ordersViewModel.onInputNameChanged(it)
+        },
+        isRefreshing = uiState.isLoading,
+        onRefresh = {
+            ordersViewModel.handleIntent(ProductsUiIntent.LoadProducts)
+        }) {
         onNavigateToProductDetail?.invoke(it)
         Log.e("aqui", "vamoooos: ${it}")
     }
