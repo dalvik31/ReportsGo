@@ -57,8 +57,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
 import com.epacheco.reports.R
+import com.epacheco.reports.compose_reformat.general_components.InputTextField
 import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
-import com.epacheco.reports.compose_reformat.general_components.ShowBasicTextField
 import com.epacheco.reports.compose_reformat.model.clients.Client
 import com.epacheco.reports.compose_reformat.model.clients.ClientDetailCmps
 import com.epacheco.reports.compose_reformat.ui.theme.Black
@@ -345,7 +345,7 @@ fun GetPayment() {
                     contentDescription = "close payment"
                 )
             }
-            ShowBasicTextField(textLabel = "Ingresa el monto a abonar", keyboard = KeyboardType.Number){
+            InputTextField(textHint = "Ingresa el monto a abonar", textValue = value.value, keyboardType = KeyboardType.Number){
                 value.value = it
             }
 

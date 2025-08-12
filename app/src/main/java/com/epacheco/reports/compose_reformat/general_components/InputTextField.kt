@@ -31,9 +31,9 @@ fun InputTextField(
     textHint: String = stringResource(id = R.string.lbl_empty),
     capitalization: KeyboardCapitalization = KeyboardCapitalization.Unspecified,
     keyboardType: KeyboardType = KeyboardType.Text,
-    onTextChange: (String) -> Unit = {},
     singleLine: Boolean = true,
-    enable: Boolean = true
+    enable: Boolean = true,
+    onTextChange: (String) -> Unit = {},
 ) {
     OutlinedTextField(
         value = textValue,
