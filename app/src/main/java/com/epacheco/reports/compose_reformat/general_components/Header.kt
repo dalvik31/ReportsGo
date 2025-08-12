@@ -83,27 +83,31 @@ fun Header(
     )
 }
 
-@Preview
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 private fun BasicHeaderPreview() {
-    Header(title = "Toolbar")
+    ReportsGoTheme {
+        Header(title = "Toolbar")
+    }
 }
 
-@Preview
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 private fun RightActionHeaderPreview() {
-    Header(title = "Toolbar", onRightIconClicked = {})
-
+    ReportsGoTheme {
+        Header(title = "Toolbar", onRightIconClicked = {})
+    }
 }
 
-@Preview
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 private fun LeftActionHeaderPreview() {
-    Header(title = "showLeftActionHeader", onLeftIconClicked = {})
-
+    ReportsGoTheme {
+        Header(title = "showLeftActionHeader", onLeftIconClicked = {})
+    }
 }
 
-@Preview
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 private fun BothActionHeaderPreview() {
     ReportsGoTheme {

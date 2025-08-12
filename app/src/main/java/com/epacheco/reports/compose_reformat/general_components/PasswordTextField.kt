@@ -8,8 +8,8 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -19,48 +19,62 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
+import com.epacheco.reports.compose_reformat.ui.theme.RedLight
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 
 @Composable
-fun PasswordTextField(password: String, onTextChange: (String) -> Unit) {
+fun PasswordTextField(
+    password: String,
+    passwordHint: String = stringResource(id = R.string.lbl_empty),
+    onTextChange: (String) -> Unit
+) {
     var passwordVisibility by rememberSaveable {
         mutableStateOf(false)
     }
     val maxLength = 50
-    TextField(
+    OutlinedTextField(
         modifier = Modifier
             .fillMaxWidth(),
         value = password,
-        textStyle = TextStyle.Default.copy(fontSize = 16.sp, fontWeight = FontWeight.Bold),
-        singleLine = true,
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-        placeholder = {
+        onValueChange = { newValue ->
+
+            if (newValue.length <= maxLength) onTextChange.invoke(newValue)
+        },
+        label = {
             Text(
-                text = stringResource(id = R.string.register_screen_hint_password),
-                color = MaterialTheme.colorScheme.onTertiary,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold
+                text = passwordHint,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Light,
+                style = androidx.compose.ui.text.TextStyle(
+                    color = MaterialTheme.colorScheme.onSurface,
+                    textAlign = TextAlign.Center
+                )
             )
         },
-        onValueChange = {
-            if (it.length <= maxLength) onTextChange(it)
-        },
+        textStyle = androidx.compose.ui.text.TextStyle(
+            color = MaterialTheme.colorScheme.primary,
+            fontWeight = FontWeight.Light,
+            background = Color.Transparent,
+            fontSize = 16.sp
+        ),
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         colors = TextFieldDefaults.colors(
             unfocusedContainerColor = Color.Transparent,
             disabledContainerColor = Color.Transparent,
             focusedContainerColor = Color.Transparent,
-            unfocusedIndicatorColor = MaterialTheme.colorScheme.primary,
-            disabledIndicatorColor = Color.Transparent,
-            focusedIndicatorColor = MaterialTheme.colorScheme.primary
+            unfocusedIndicatorColor = RedLight,
+            focusedIndicatorColor = RedLight,
+            disabledIndicatorColor = RedLight,
         ),
         visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
         trailingIcon = {

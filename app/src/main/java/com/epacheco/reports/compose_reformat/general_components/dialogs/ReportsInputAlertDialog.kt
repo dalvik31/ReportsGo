@@ -22,20 +22,18 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.InputTextField
-import com.epacheco.reports.compose_reformat.ui.theme.Black
+import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.ui.theme.White
 
 
 @Composable
 fun ReportsInputDialog(
     imgDialog: Int,
-    dialogTitle: String,
     dialogHint: String? = null,
     confirmButtonText: String? = null,
     input: String? = null,
@@ -45,124 +43,77 @@ fun ReportsInputDialog(
     onInputChanged: ((String) -> Unit)? = null,
 ) {
     Dialog(onDismissRequest = { onDismissRequest.invoke() }) {
-        CustomInputDialogUI(
-            imgDialog = imgDialog,
-            dialogTitle = dialogTitle,
-            dialogHint = dialogHint,
-            input = input,
-            tintColor = tintColor,
-            confirmButtonText = confirmButtonText,
-            onConfirmation = onConfirmation,
-            onInputChanged = onInputChanged,
-
-            )
-    }
-
-}
-
-//Layout
-@Composable
-fun CustomInputDialogUI(
-    modifier: Modifier = Modifier,
-    imgDialog: Int = R.drawable.ic_notfication,
-    dialogTitle: String? = null,
-    dialogHint: String? = null,
-    tintColor: Color,
-    input: String? = null,
-    confirmButtonText: String? = null,
-    onConfirmation: (() -> Unit)? = null,
-    onInputChanged: ((String) -> Unit)? = null,
-
-    ) {
-
-    Card(
-        shape = RoundedCornerShape(10.dp),
-        modifier = Modifier.padding(10.dp, 5.dp, 10.dp, 10.dp),
-        elevation = androidx.compose.material3.CardDefaults.cardElevation(8.dp)
-    ) {
-        Column(
-            modifier
-                .background(Color.White)
+        Card(
+            shape = RoundedCornerShape(10.dp),
+            modifier = Modifier.padding(10.dp, 5.dp, 10.dp, 10.dp),
+            elevation = androidx.compose.material3.CardDefaults.cardElevation(8.dp)
         ) {
+            Column {
 
-            //.......................................................................
-            Image(
-                painter = painterResource(id = imgDialog),
-                contentDescription = null, // decorative
-                contentScale = ContentScale.Fit,
-                colorFilter = ColorFilter.tint(
-                    color = tintColor
-                ),
-                modifier = Modifier
-                    .padding(top = 35.dp)
-                    .height(70.dp)
-                    .fillMaxWidth(),
+                Image(
+                    painter = painterResource(id = imgDialog),
+                    contentDescription = null, // decorative
+                    contentScale = ContentScale.Fit,
+                    colorFilter = ColorFilter.tint(
+                        color = tintColor
+                    ),
+                    modifier = Modifier
+                        .padding(top = 35.dp)
+                        .height(70.dp)
+                        .fillMaxWidth(),
 
-                )
-
-            Column(modifier = Modifier.padding(vertical = 16.dp)) {
-
-                dialogTitle?.let {
-                    Text(
-                        text = it,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .padding(top = 5.dp)
-                            .fillMaxWidth(),
-                        color = Black,
-                        style = MaterialTheme.typography.headlineMedium,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis,
                     )
-                }
 
                 InputTextField(
                     modifier = Modifier
-                        .padding(top = 10.dp, start = 25.dp, end = 25.dp)
+                        .padding(all = 24.dp)
                         .fillMaxWidth(),
-                    inputText = input ?: "",
-                    hintText = dialogHint ?: ""
+                    textValue = input ?: "",
+                    textHint = dialogHint ?: "",
+                    onTextChange = { onInputChanged?.invoke(it) }
+                )
+                //.......................................................................
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp)
+                        .background(MaterialTheme.colorScheme.primary),
+                    horizontalArrangement = Arrangement.SpaceAround
                 ) {
-                    onInputChanged?.invoke(it)
 
-                }
-
-
-            }
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(top = 10.dp)
-                    .background(tintColor),
-                horizontalArrangement = Arrangement.SpaceAround
-            ) {
-                confirmButtonText?.let {
-                    TextButton(onClick = {
-                        onConfirmation?.invoke()
-                    }) {
-                        Text(
-                            it.uppercase(),
-                            fontWeight = FontWeight.ExtraBold,
-                            color = White,
-                            modifier = Modifier.padding(top = 5.dp, bottom = 5.dp)
-                        )
+                    confirmButtonText?.let {
+                        TextButton(onClick = {
+                            onConfirmation.invoke()
+                        }) {
+                            Text(
+                                it.uppercase(),
+                                fontWeight = FontWeight.ExtraBold,
+                                color = White,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 5.dp, bottom = 5.dp)
+                            )
+                        }
                     }
-                }
 
+
+                }
             }
         }
     }
-
-
 }
-
 
 @Preview
 @Composable
 fun ReportsInputDialogPreview() {
-    ReportsInputDialog(
-        dialogTitle = "",
-        imgDialog = R.drawable.ic_vector_order,
-        onConfirmation = {}, onDismissRequest = {})
+    ReportsGoTheme {
+        ReportsInputDialog(
+            imgDialog = R.drawable.ic_vector_order,
+            dialogHint = "Nombre de la lista",
+            onConfirmation = {}, onDismissRequest = {}, confirmButtonText = "Crear lista"
+        )
+    }
+
 }
 

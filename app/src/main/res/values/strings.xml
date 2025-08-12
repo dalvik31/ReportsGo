@@ -331,7 +331,7 @@
 
     <!--Recovery Password Screen-->
     <string name="recovery_password_screen_title">Recuperar contraseña</string>
-    <string name="recovery_password_body">Si no recuerdas tu contraseña, puedes ingresar el correo con el que creaste tu cuenta y te haremos llegar una liga para que puedas recuperar tu contraseña.</string>
+    <string name="recovery_password_body">Si no recuerdas tus datos para iniciar sesión, puedes ingresar el correo eléctronico con el que creaste tu cuenta y te enviaremos un mensaje para que puedas reestablecer tu contraseña.</string>
     <string name="recovery_password_hint_email">Ingresa correo electrónico</string>
     <string name="recovery_password_send_email">Enviar correo electrónico</string>
     <string name="recovery_password_success">Se envio un email al correo que ingresaste, revisa tu bandeja de entrada</string>
@@ -339,8 +339,8 @@
     <!--Register Screen-->
     <string name="register_screen_name_app_logo_first">Reports</string>
     <string name="register_screen_name_app_logo_second">GO</string>
-    <string name="register_screen_hint_email">Ingresa correo electrónico</string>
-    <string name="register_screen_hint_password">Ingresa contraseña</string>
+    <string name="register_screen_hint_email">Correo electrónico</string>
+    <string name="register_screen_hint_password">Contraseña</string>
     <string name="register_screen_btn_login">Iniciar sesión</string>
     <string name="register_screen_btn_sign_up">Crear cuenta</string>
     <string name="register_screen_btn_continue_facebook">Continua con Facebook</string>
@@ -391,8 +391,7 @@
     <string name="msg_delete_main_order_list_body"><![CDATA[¿Estas seguro de querer eliminar la lista de pedido: <b>%s</b>?]]></string>
     <string name="msg_delete_order_list_body"><![CDATA[¿Estas seguro de querer eliminar el pedido: <b>%s</b>?]]></string>
     <string name="btn_create_order_list">Crear lista</string>
-    <string name="title_create_order_list">Crear lista</string>
-    <string name="body_create_order_list">Mi nueva lista</string>
+    <string name="title_create_order_list">Nombre de la lista</string>
     <string name="title_order_main_default_name">Lista | %s</string>
     <string name="title_order_default_name">Pedido %s: %s</string>
     <string name="msg_error_list_already_exist">Ya creaste una lista de pedido con la fecha de hoy, intenta crear una lista mañana o elimina la ultima lista.</string>

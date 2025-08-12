@@ -20,9 +20,8 @@ fun OrderMainInputDialog(
 
     ReportsInputDialog(
         imgDialog = R.drawable.ic_vector_order,
-        dialogTitle = stringResource(R.string.title_create_order_list),
-        confirmButtonText = stringResource(R.string.btn_ok),
-        dialogHint = stringResource(R.string.body_create_order_list),
+        confirmButtonText = stringResource(R.string.btn_create_order_list),
+        dialogHint = stringResource(R.string.title_create_order_list),
         input = input,
         tintColor = tintColor,
         onConfirmation = onConfirmation,
