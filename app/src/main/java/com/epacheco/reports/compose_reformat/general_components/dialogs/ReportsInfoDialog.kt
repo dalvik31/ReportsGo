@@ -37,10 +37,8 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.ui.theme.Black
-import com.epacheco.reports.compose_reformat.ui.theme.RedBackground
+import com.epacheco.reports.compose_reformat.ui.theme.White
 
-//Layout
 @Composable
 fun ReportsInfoDialog(
     imgDialog: Int? = null,
@@ -75,10 +73,7 @@ fun ReportsInfoDialog(
             modifier = Modifier.padding(10.dp, 5.dp, 10.dp, 10.dp),
             elevation = androidx.compose.material3.CardDefaults.cardElevation(8.dp)
         ) {
-            Column(
-                Modifier
-                    .background(Color.White)
-            ) {
+            Column {
 
                 lottieComposition?.let {
                     LottieAnimation(
@@ -92,20 +87,17 @@ fun ReportsInfoDialog(
                         contentScale = ContentScale.Crop
                     )
                 } ?: run {
-
-                    val backgroundColor =
-                        imgDialog?.let {
-                            val painter = painterResource(id = it)
-                            Image(
-                                painter = painter,
-                                contentDescription = null, // decorative
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(120.dp)
-                                    .background(color = background ?: Color.Unspecified),
-                            )
-                        }
-
+                    imgDialog?.let {
+                        val painter = painterResource(id = it)
+                        Image(
+                            painter = painter,
+                            contentDescription = null, // decorative
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(120.dp)
+                                .background(color = background ?: Color.Unspecified),
+                        )
+                    }
                 }
 
                 Column(modifier = Modifier.padding(vertical = 16.dp, horizontal = 8.dp)) {
@@ -117,7 +109,6 @@ fun ReportsInfoDialog(
                             modifier = Modifier
                                 .padding(top = 5.dp)
                                 .fillMaxWidth(),
-                            color = Black,
                             style = MaterialTheme.typography.headlineMedium,
                             maxLines = 2,
                             overflow = TextOverflow.Ellipsis,
@@ -128,8 +119,6 @@ fun ReportsInfoDialog(
                         Text(
                             text = AnnotatedString.fromHtml(it),
                             textAlign = TextAlign.Center,
-                            color = Black,
-
                             modifier = Modifier
                                 .padding(top = 10.dp)
                                 .fillMaxWidth(),
@@ -138,12 +127,12 @@ fun ReportsInfoDialog(
                     }
 
                 }
-                //.......................................................................
+
                 Row(
                     Modifier
                         .fillMaxWidth()
                         .padding(top = 10.dp)
-                        .background(RedBackground),
+                        .background(MaterialTheme.colorScheme.primary),
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
 
@@ -153,9 +142,12 @@ fun ReportsInfoDialog(
                         }) {
                             Text(
                                 it.uppercase(),
+                                textAlign = TextAlign.Center,
                                 fontWeight = FontWeight.ExtraBold,
-                                color = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier.padding(top = 5.dp, bottom = 5.dp)
+                                color = White,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 5.dp, bottom = 5.dp)
                             )
                         }
                     }
@@ -178,6 +170,7 @@ fun ReportsInfoDialogPreview() {
         onConfirmation = {},
         onDismissRequest = {},
         imgDialog = R.drawable.ic_vector_sale_emmpty,
-        lottieAnimation = R.raw.fall
+        lottieAnimation = R.raw.fall,
+        confirmButtonText = "Aceptar"
     )
 }

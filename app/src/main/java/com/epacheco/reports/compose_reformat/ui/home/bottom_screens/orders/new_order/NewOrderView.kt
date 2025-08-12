@@ -33,6 +33,7 @@ import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -126,11 +127,15 @@ fun NewOrderView(
                         onCheckedChange = { onInputStatusChanged?.invoke(!onInputStatus) }
                     )
                     Text(
-                        modifier = Modifier.padding(horizontal = 8.dp),
+                        modifier = Modifier
+                            .padding(horizontal = 8.dp)
+                            .clickable {
+                                onInputStatusChanged?.invoke(!onInputStatus)
+                            },
                         text = stringResource(R.string.new_order_status_title),
                         color = MaterialTheme.colorScheme.primary,
                         fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Light
                     )
 
                 }
@@ -143,17 +148,17 @@ fun NewOrderView(
                 text = stringResource(R.string.new_order_name_title),
                 color = MaterialTheme.colorScheme.primary,
                 fontSize = 16.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.W400
             )
             Spacer(modifier = Modifier.padding(8.dp))
             InputTextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 24.dp),
-                hintText = stringResource(R.string.new_order_name_desc),
+                modifier = Modifier.padding(horizontal = 24.dp),
+                textHint = stringResource(R.string.new_order_name_desc),
+                textValue = inputName ?: "",
                 onTextChange = { onInputNameChanged?.invoke(it) },
-                inputText = inputName ?: "",
-            )
+                capitalization = KeyboardCapitalization.Sentences,
+
+                )
             Spacer(modifier = Modifier.padding(8.dp))
 
             Text(
@@ -161,18 +166,16 @@ fun NewOrderView(
                 text = stringResource(R.string.new_order_description_title),
                 color = MaterialTheme.colorScheme.primary,
                 fontSize = 16.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.W400
             )
             Spacer(modifier = Modifier.padding(8.dp))
             InputTextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 24.dp),
+                modifier = Modifier.padding(horizontal = 24.dp),
+                textHint = stringResource(R.string.new_order_description_desc),
+                textValue = inputDescription ?: "",
                 singleLine = false,
-                maxLength = 200,
-                hintText = stringResource(R.string.new_order_description_desc),
                 onTextChange = { onInputDescriptionChanged?.invoke(it) },
-                inputText = inputDescription ?: ""
+                capitalization = KeyboardCapitalization.Sentences
             )
             Spacer(modifier = Modifier.padding(8.dp))
 
@@ -184,7 +187,7 @@ fun NewOrderView(
                     text = stringResource(R.string.new_order_size_title),
                     color = MaterialTheme.colorScheme.primary,
                     fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.W400
                 )
                 Spacer(Modifier.weight(1f))
 
@@ -193,7 +196,7 @@ fun NewOrderView(
                     text = stringResource(R.string.new_order_number_sizes),
                     color = MaterialTheme.colorScheme.primary,
                     fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.W400
                 )
 
                 Checkbox(
@@ -207,9 +210,9 @@ fun NewOrderView(
             }
 
             Spacer(modifier = Modifier.padding(8.dp))
+
             InputTextField(
                 modifier = Modifier
-                    .fillMaxWidth()
                     .padding(horizontal = 24.dp)
                     .clickable {
                         if (onInputIsNumericSize) {
@@ -217,10 +220,9 @@ fun NewOrderView(
                         } else sizePickerOpen = true
 
                     },
-                hintText = stringResource(R.string.new_order_size_desc),
-                onTextChange = { },
-                inputText = inputSize ?: "",
-                enabled = false
+                textHint = stringResource(R.string.new_order_size_desc),
+                textValue = inputSize ?: "",
+                enable = false
             )
             Spacer(modifier = Modifier.padding(8.dp))
             Text(
@@ -228,7 +230,7 @@ fun NewOrderView(
                 text = stringResource(R.string.new_order_color_title),
                 color = MaterialTheme.colorScheme.primary,
                 fontSize = 16.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.W400
             )
             Spacer(modifier = Modifier.padding(8.dp))
 
@@ -237,14 +239,15 @@ fun NewOrderView(
                 verticalAlignment = Alignment.CenterVertically
             ) {
 
+
                 InputTextField(
                     modifier = Modifier
-                        .fillMaxWidth()
                         .padding(horizontal = 24.dp)
                         .weight(1f),
-                    hintText = stringResource(R.string.new_order_color_desc),
+                    textHint = stringResource(R.string.new_order_color_desc),
+                    textValue = inputColor ?: "",
                     onTextChange = { onInputColorChanged?.invoke(it) },
-                    inputText = inputColor ?: ""
+                    capitalization = KeyboardCapitalization.Sentences,
                 )
                 IconButton(
                     modifier = Modifier
@@ -264,21 +267,21 @@ fun NewOrderView(
                 text = stringResource(R.string.new_order_gender_title),
                 color = MaterialTheme.colorScheme.primary,
                 fontSize = 16.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Light
             )
             Spacer(modifier = Modifier.padding(8.dp))
+
             InputTextField(
                 modifier = Modifier
-                    .fillMaxWidth()
                     .padding(horizontal = 24.dp)
                     .clickable {
                         genderPickerOpen = true
                     },
-                hintText = stringResource(R.string.new_order_gender_desc),
-                onTextChange = {},
-                inputText = inputGender ?: "",
-                enabled = false
+                textHint = stringResource(R.string.new_order_gender_desc),
+                textValue = inputGender ?: "",
+                enable = false
             )
+
             Spacer(modifier = Modifier.padding(8.dp))
 
             Row(
@@ -409,7 +412,7 @@ fun getTintColor(position: Int): Color {
 }
 
 
-@Preview
+@Preview(showSystemUi = true)
 @Composable
 fun NewOrderViewPreview() {
     ReportsGoTheme {

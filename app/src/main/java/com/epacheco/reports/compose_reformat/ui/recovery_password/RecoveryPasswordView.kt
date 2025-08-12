@@ -19,12 +19,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.general_components.EmailTextField
 import com.epacheco.reports.compose_reformat.general_components.Header
+import com.epacheco.reports.compose_reformat.general_components.InputTextField
 import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
@@ -69,9 +70,13 @@ fun RecoveryPasswordView(
             }
 
         }
-        EmailTextField(modifier = Modifier.padding(24.dp), email = inputEmail ?: "") {
-            onInputEmailChanged?.invoke(it)
-        }
+
+        InputTextField(
+            modifier = Modifier.padding(all = 24.dp),
+            textHint = stringResource(R.string.register_screen_hint_email),
+            textValue = inputEmail ?: "",
+            onTextChange = {  onInputEmailChanged?.invoke(it)},
+            keyboardType = KeyboardType.Email)
 
         PrimaryButton(
             modifier = Modifier.padding(24.dp),
@@ -84,7 +89,7 @@ fun RecoveryPasswordView(
 }
 
 
-@Preview
+@Preview(showSystemUi = true)
 @Composable
 fun RecoveryPasswordViewPreview() {
     ReportsGoTheme {

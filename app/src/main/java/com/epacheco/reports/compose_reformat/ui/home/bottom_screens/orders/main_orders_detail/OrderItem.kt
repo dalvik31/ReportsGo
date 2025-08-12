@@ -262,7 +262,7 @@ private fun getCardBackground(orderMain: Order): Color =
 @Composable
 private fun getUpdateStatusList(order: Order) =
     stringResource(
-        if (order.orderBuy) R.string.msg_complete_order_body else R.string.msg_in_progress_order_body,
+        if (order.orderBuy) R.string.msg_in_progress_order_body else R.string.msg_complete_order_body ,
         order.orderListId
     )
 

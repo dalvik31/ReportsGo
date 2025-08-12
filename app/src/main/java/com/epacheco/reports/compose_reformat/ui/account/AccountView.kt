@@ -19,12 +19,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.general_components.EmailTextField
+import com.epacheco.reports.compose_reformat.general_components.InputTextField
 import com.epacheco.reports.compose_reformat.general_components.PasswordTextField
 import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
 import com.epacheco.reports.compose_reformat.general_components.SecondaryButton
@@ -60,18 +61,27 @@ fun AccountView(
         ) {
             Spacer(Modifier.padding(top = 24.dp))
             Image(
-                modifier = Modifier.fillMaxWidth().height(100.dp).align(Alignment.CenterHorizontally),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp)
+                    .align(Alignment.CenterHorizontally),
                 painter = painterResource(R.drawable.logo_reports_go),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
             )
             Spacer(Modifier.padding(top = 48.dp))
-            EmailTextField(email = email ?: "") {
-                onEmailChanged?.invoke(it, password ?: "")
-
-            }
+            InputTextField(
+                textHint = stringResource(R.string.register_screen_hint_email),
+                textValue = email ?: "",
+                onTextChange = { onEmailChanged?.invoke(it, password ?: "") },
+                keyboardType = KeyboardType.Email,
+            )
             Spacer(Modifier.padding(top = 24.dp))
-            PasswordTextField(password = password ?: "") {
+
+            PasswordTextField(
+                password = password ?: "",
+                passwordHint = stringResource(R.string.register_screen_hint_password)
+            ) {
                 onPasswordChanged?.invoke(email ?: "", it)
 
             }
@@ -134,7 +144,7 @@ fun AccountView(
     }
 }
 
-@Preview
+@Preview(showSystemUi = true)
 @Composable
 fun ShowRegisterScreenPreview() {
     ReportsGoTheme {
