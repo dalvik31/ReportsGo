@@ -4,11 +4,19 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 
 object DateUtils {
 
     fun format(date: Date, format: String) = apply(date, format)
+
+    fun dateFormat(timestamp: String): String {
+        val date = Date(timestamp.toLong())
+        val sdf = SimpleDateFormat("dd / MMMM / yyyy", Locale("es"))
+        sdf.timeZone = TimeZone.getDefault()
+        return sdf.format(date).uppercase()
+    }
 
     fun format(timestamp: Long, format: String) = apply(Date(timestamp), format)
 

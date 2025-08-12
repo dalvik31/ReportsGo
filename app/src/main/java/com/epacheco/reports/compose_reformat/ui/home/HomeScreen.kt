@@ -13,7 +13,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.epacheco.reports.compose_reformat.general_components.navbar.AnimatedNavigationBar
 import com.epacheco.reports.compose_reformat.model.orders.Order
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.ClientsScreen
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.view.DetailClientScreen
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.listClients.view.ClientsScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.finances.FinancesScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.OrdersMainScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders_detail.OrdersScreen
@@ -61,7 +62,18 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                 }
             }
             composable<BottomHomeRoutes.ClientBottomHomeRoute> {
-                ClientsScreen()
+                ClientsScreen(){ idClient ->
+                    bottomNavController.navigate(
+                        BottomHomeRoutes.ClientDetailBottomHomeRoute(
+                            idClient
+                        )
+                    )
+                }
+            }
+            composable<BottomHomeRoutes.ClientDetailBottomHomeRoute> { backStackEntry ->
+                val createDetailRout : BottomHomeRoutes.ClientDetailBottomHomeRoute =
+                    backStackEntry.toRoute()
+                DetailClientScreen(clientId = createDetailRout.idClient)
             }
             composable<BottomHomeRoutes.ProductBottomHomeRoute> {
                 ProductsScreen(onNavigateToProductDetail = { productId ->

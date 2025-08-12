@@ -10,6 +10,6 @@ data class Client(
     val detail: String = "",
     val phone: String = "",
     val limit: Double = 0.0,
-    val dateClient: String = "",
-    val ClientsDetails: HashMap<String, ClientDetail>? = null
+    var dateClient: String = "",
+    val clientsDetails: HashMap<String, ClientDetailCmps>? = null
 )

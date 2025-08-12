@@ -69,7 +69,7 @@
     <string name="lbl_client_phone_hint">000-000-0000</string>
     <string name="lbl_client_limit">Límite de crédito</string>
     <string name="lbl_client_limit_hint">$0,0</string>
-    <string name="lbl_date_client">Cliente desde el  22/Mayo/2021</string>
+    <string name="lbl_date_client">Cliente desde el  %s</string>
     <string name="lbl_amount_client">Debe:</string>
     <string name="lbl_client_amount">Monto</string>
     <string name="lbl_client_amount_hint">$0,0</string>
@@ -93,7 +93,7 @@
     <string name="txt_client_amount_format">$ %s</string>
     <string name="txt_client_amount_format_plus">+ $ %s</string>
     <string name="txt_client_amount_format_minum">- $ %s</string>
-    <string name="txt_client_date_format">Cliente desde el %s</string>
+    <string name="txt_client_date_format">Cliente desde %s</string>
     <string name="txt_client_name_format"> %s %s</string>
     <string name="txt_client_name_format1"> %s</string>
     <string name="txt_client_limit_format">Limite de credito %s</string>
@@ -102,6 +102,9 @@
     <string name="lbl_change_product">Cambiar producto</string>
     <string name="lbl_body_message_detail_client">Usted debe: $%s</string>
     <string name="lbl_subject_message_detail_client">Estado de cuenta de %s %s</string>
+
+    <string name="txt_debt_client">Debe: $ %s</string>
+    <string name="txt_credit_limit_client">MXN %s</string>
 
 
     <!--Fragment Productos-->
@@ -491,6 +494,7 @@
 
     <!--CLIENTS Fragments-->
     <string name="search_clients">Buscando clientes registrados…</string>
+    <string name="txt_import_client_from_contacts">\"Importar información de un cliente desde tus contactos\"</string>
     <plurals name="title_clients">
         <item formatted="true" quantity="one">(%s) Cliente</item>
         <item formatted="true" quantity="other">(%s) Clientes</item>

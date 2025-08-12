@@ -3,6 +3,7 @@ package com.epacheco.reports.compose_reformat.general_components
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -35,7 +36,7 @@ fun ListAnimationItem(
     title: String,
     body: String,
     content: String? = null,
-
+    onSelectItem : () -> Unit
     ) {
     var expandedContent by rememberSaveable { mutableStateOf(false) }
 
@@ -45,6 +46,7 @@ fun ListAnimationItem(
             modifier = Modifier
                 .padding(vertical = 4.dp, horizontal = 8.dp)
                 .fillMaxWidth()
+                .clickable(onClick = onSelectItem)
         ) {
 
             Row(
@@ -117,6 +119,6 @@ private fun validateContent(content: String?): String? {
 @Preview
 @Composable
 fun ListAnimationItemPreview() {
-    ListAnimationItem(Modifier, "12/03/2025", "ListAnimationItem", "")
+    ListAnimationItem(Modifier, "12/03/2025", "ListAnimationItem", ""){}
 }
 
