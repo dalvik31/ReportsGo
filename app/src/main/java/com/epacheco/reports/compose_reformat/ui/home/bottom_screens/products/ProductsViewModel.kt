@@ -1,14 +1,11 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products
 
+import android.os.Handler
+import android.os.Looper
 import androidx.lifecycle.viewModelScope
-import com.epacheco.reports.compose_reformat.domain.GetProductsUseCase
+import com.epacheco.reports.compose_reformat.domain.GetProductsByNameUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
-import com.epacheco.reports.compose_reformat.model.products.Product
-import com.epacheco.reports.compose_reformat.repository.products.ProductsRepository
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile.ProfileUiEffect
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile.ProfileUiIntent
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile.ProfileUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,9 +17,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProductsViewModel @Inject constructor(
-    private val productsUseCase: GetProductsUseCase
+    private val productsByNameUseCase: GetProductsByNameUseCase
 ) :
     BaseViewModel() {
+
+    private var handler: Handler? = null
 
     private val _inputProductName = MutableStateFlow("")
     val inputProductName: StateFlow<String> = _inputProductName
@@ -35,14 +34,28 @@ class ProductsViewModel @Inject constructor(
 
     fun handleIntent(intent: ProductsUiIntent) {
         when (intent) {
-            ProductsUiIntent.LoadProducts -> getProducts()
+            ProductsUiIntent.LoadProducts -> downloadProducts()
             ProductsUiIntent.Error -> setErrorMsg()
         }
     }
 
-    private fun getProducts() = viewModelScope.launch {
+    private fun downloadProducts() {
+        getHandler()?.removeCallbacksAndMessages(null)
+        val productNameToSearch = _inputProductName.value.ifEmpty { null }
+        if (productNameToSearch != null) {
+            getHandler()?.postDelayed({
+                getProductsByName(productNameToSearch)
+            }, 1000)
+        } else {
+            getProductsByName(null)
+        }
+
+
+    }
+
+    fun getProductsByName(productNameToSearch: String? = null) = viewModelScope.launch {
         loading(true)
-        when (val productsResponse = productsUseCase()) {
+        when (val productsResponse = productsByNameUseCase(productNameToSearch)) {
             is Resource.Failure -> {
                 setErrorMsg(productsResponse.exception.message)
             }
@@ -56,11 +69,12 @@ class ProductsViewModel @Inject constructor(
             }
         }
         loading(false)
-
     }
 
     fun onInputNameChanged(inputName: String) {
         _inputProductName.value = inputName
+        downloadProducts()
+
     }
 
     override fun setErrorMsg(msgError: String?) {
@@ -70,5 +84,12 @@ class ProductsViewModel @Inject constructor(
 
     override fun loading(showLoading: Boolean) {
         _uiState.update { it.copy(isLoading = showLoading) }
+    }
+
+    fun getHandler(): Handler? {
+        if (handler == null) {
+            handler = Handler(Looper.getMainLooper())
+        }
+        return handler
     }
 }

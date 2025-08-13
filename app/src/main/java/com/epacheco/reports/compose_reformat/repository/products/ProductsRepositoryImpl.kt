@@ -1,5 +1,6 @@
 package com.epacheco.reports.compose_reformat.repository.products
 
+import android.util.Log
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.model.products.Product
 import com.epacheco.reports.tools.Constants
@@ -13,20 +14,22 @@ class ProductsRepositoryImpl @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val firebaseDatabase: FirebaseDatabase
 ) : ProductsRepository {
-    override suspend fun getProducts(): Resource<List<Product>> {
+    override suspend fun getProductsByName(productName: String?): Resource<List<Product>> {
         return try {
             val productList = mutableListOf<Product>()
-            getProductsReference().get().await().children.map { snapShot ->
-                val product = snapShot.getValue(Product::class.java)
-                product?.let {
-                    productList.add(it)
+            getProductsReference().orderByChild("productName").startAt(productName)
+                .endAt(productName + "\uf8ff").get().await().children.map { snapShot ->
+                    val product = snapShot.getValue(Product::class.java)
+                    product?.let {
+                        productList.add(it)
+                    }
                 }
-            }
             Resource.Success(productList)
         } catch (exception: Exception) {
-            Resource.Failure(exception)
+            Resource.Success(emptyList())
         }
     }
+
 
     override fun getProductsReference(): DatabaseReference =
         firebaseDatabase.getReference(Constants.DATABASE_FIREBASE_NAME)

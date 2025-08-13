@@ -6,8 +6,8 @@ import com.epacheco.reports.compose_reformat.repository.products.ProductsReposit
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetProductsUseCase @Inject constructor(private val productsRepository: ProductsRepository) {
-    suspend operator fun invoke(): Resource<List<Product>> {
-        return productsRepository.getProducts()
+class GetProductsByNameUseCase @Inject constructor(private val productsRepository: ProductsRepository) {
+    suspend operator fun invoke(productName: String?): Resource<List<Product>> {
+        return productsRepository.getProductsByName(productName)
     }
 }

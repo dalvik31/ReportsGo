@@ -5,7 +5,7 @@ import com.epacheco.reports.compose_reformat.model.products.Product
 import com.google.firebase.database.DatabaseReference
 
 interface ProductsRepository {
-    suspend fun getProducts(): Resource<List<Product>>
+    suspend fun getProductsByName(productName: String?): Resource<List<Product>>
     fun getProductsReference(): DatabaseReference
 
 }

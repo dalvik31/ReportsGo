@@ -82,9 +82,9 @@ fun OrdersMainScreen(
 
 
     // Loading Overlay
-    if (uiState.isLoading) {
+   /* if (uiState.isLoading) {
         Loader(false)
-    }
+    }*/
 
     //Message error
     uiState.errorMessage?.let { msgError ->

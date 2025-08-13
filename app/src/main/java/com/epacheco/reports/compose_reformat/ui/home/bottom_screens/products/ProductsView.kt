@@ -13,7 +13,10 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults.Indicator
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -28,6 +31,7 @@ import com.epacheco.reports.compose_reformat.general_components.ProductItem
 import com.epacheco.reports.compose_reformat.general_components.SearchBarElement
 import com.epacheco.reports.compose_reformat.model.products.Product
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
+import com.epacheco.reports.compose_reformat.ui.theme.White
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -40,6 +44,7 @@ fun ProductsView(
     onRefresh: (() -> Unit)? = null,
     onGoProductDetailClick: (String?) -> Unit
 ) {
+    val state = rememberPullToRefreshState()
     Column {
         Header(
             title = pluralStringResource(
@@ -68,7 +73,17 @@ fun ProductsView(
 
         PullToRefreshBox(
             isRefreshing = isRefreshing,
+            state = state,
             onRefresh = { onRefresh?.invoke() },
+            indicator = {
+                Indicator(
+                    modifier = Modifier.align(Alignment.TopCenter),
+                    isRefreshing = isRefreshing,
+                    containerColor = White,
+                    color = MaterialTheme.colorScheme.primary,
+                    state = state
+                )
+            }
         ) {
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),

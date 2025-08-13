@@ -31,15 +31,7 @@ fun ProductsScreen(
     LaunchedEffect(Unit) {
         ordersViewModel.handleIntent(ProductsUiIntent.LoadProducts)
     }
-    /*LaunchedEffect(ordersViewModel) {
-        ordersViewModel.effectFlow.collectLatest { effect ->
-            when (effect) {
-                is ProductsUiEffect.NavigateToProductDetail ->{
-                    onNavigateToProductDetail?.invoke(effect.productId)
-                }
-            }
-        }
-    }*/
+
 
     ProductsView(
         productList = uiState.listProducts,
@@ -53,11 +45,6 @@ fun ProductsScreen(
         }) {
         onNavigateToProductDetail?.invoke(it)
         Log.e("aqui", "vamoooos: ${it}")
-    }
-
-    // Loading Overlay
-    if (uiState.isLoading) {
-        Loader(false)
     }
 
     //Message error

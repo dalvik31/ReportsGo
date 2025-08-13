@@ -12,6 +12,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults.Indicator
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,6 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.model.orders.OrderMain
+import com.epacheco.reports.compose_reformat.ui.theme.White
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,6 +37,7 @@ fun OrderList(
     onRefresh: (() -> Unit)? = null,
     showImgEmptyList: Boolean?,
 ) {
+    val state = rememberPullToRefreshState()
     if (orderMains.isEmpty() && showImgEmptyList == false) {
         Column(
             Modifier.fillMaxSize(),
@@ -55,6 +59,16 @@ fun OrderList(
         PullToRefreshBox(
             isRefreshing = isRefreshing,
             onRefresh = { onRefresh?.invoke() },
+            state = state,
+            indicator = {
+                Indicator(
+                    modifier = Modifier.align(Alignment.TopCenter),
+                    isRefreshing = isRefreshing,
+                    containerColor = White,
+                    color = MaterialTheme.colorScheme.primary,
+                    state = state
+                )
+            }
         ) {
             LazyColumn(
                 modifier = Modifier

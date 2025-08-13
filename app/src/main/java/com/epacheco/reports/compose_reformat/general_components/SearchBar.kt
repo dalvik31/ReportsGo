@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -56,7 +57,10 @@ fun SearchBarElement(
             fontSize = 16.sp
         ),
         singleLine = true,
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Text,
+            capitalization = KeyboardCapitalization.Sentences
+        ),
         onValueChange = {
             if (it.length <= maxLength) {
                 onTextChange(it)
