@@ -2,8 +2,8 @@ package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.lis
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.epacheco.reports.compose_reformat.domain.GetClientDetailUseCase
-import com.epacheco.reports.compose_reformat.domain.GetClientsUseCase
+import com.epacheco.reports.compose_reformat.domain.ClientDetailUseCase
+import com.epacheco.reports.compose_reformat.domain.ClientListUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.listClients.view.ClientsUiState
@@ -19,7 +19,7 @@ import java.util.TimeZone
 import javax.inject.Inject
 
 @HiltViewModel
-class ClientsViewModel @Inject constructor(private val clientsUseCase: GetClientsUseCase, private val clientDetailUseCase: GetClientDetailUseCase) :
+class ClientsViewModel @Inject constructor(private val clientsUseCase: ClientListUseCase, private val clientDetailUseCase: ClientDetailUseCase) :
     BaseViewModel() {
 
     private val _clientsFlow = MutableStateFlow(ClientsUiState())

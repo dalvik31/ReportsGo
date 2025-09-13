@@ -8,8 +8,8 @@ import java.io.File
 
 suspend fun File.compress(context: Context): File {
     return Compressor.compress(context, this) {
-        resolution(100, 100)
-        quality(75)
+        resolution(200, 200)
+        quality(100)
     }
 }
 

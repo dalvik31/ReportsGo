@@ -62,7 +62,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                 }
             }
             composable<BottomHomeRoutes.ClientBottomHomeRoute> {
-                ClientsScreen(){ idClient ->
+                ClientsScreen() { idClient ->
                     bottomNavController.navigate(
                         BottomHomeRoutes.ClientDetailBottomHomeRoute(
                             idClient
@@ -71,7 +71,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                 }
             }
             composable<BottomHomeRoutes.ClientDetailBottomHomeRoute> { backStackEntry ->
-                val createDetailRout : BottomHomeRoutes.ClientDetailBottomHomeRoute =
+                val createDetailRout: BottomHomeRoutes.ClientDetailBottomHomeRoute =
                     backStackEntry.toRoute()
                 DetailClientScreen(clientId = createDetailRout.idClient)
             }
@@ -126,7 +126,9 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
             composable<BottomHomeRoutes.CreateProductBottomHomeRoute> { backStackEntry ->
                 val createProductRoute: BottomHomeRoutes.CreateProductBottomHomeRoute =
                     backStackEntry.toRoute()
-                NewProductScreen(productToEdit = createProductRoute.productId)
+                NewProductScreen(productToEdit = createProductRoute.productId, onBackPressed = {
+                    bottomNavController.navigateUp()
+                })
             }
 
             composable<BottomHomeRoutes.CreateOrderBottomHomeRoute>(typeMap = mapOf(typeOf<Order?>() to serializableType<Order?>())) { backStackEntry ->

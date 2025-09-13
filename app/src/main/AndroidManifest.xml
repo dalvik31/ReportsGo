@@ -38,6 +38,8 @@
             android:name=".compose_reformat.ui.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowOptOutEdgeToEdgeEnforcement="true"
             android:windowSoftInputMode="adjustResize"
             android:theme="@style/Theme.App.Starting">
             <intent-filter>

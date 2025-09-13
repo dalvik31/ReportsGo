@@ -315,6 +315,7 @@
     <string name="lbl_empty" />
     <string name="btn_understood">Entiendo</string>
     <string name="btn_ok">Aceptar</string>
+    <string name="btn_ok_delete">Si, eliminar</string>
     <string name="btn_cancel">Cancelar</string>
     <string name="btn_delete">Eliminar</string>
     <string name="btn_save">Guardar</string>
@@ -408,7 +409,7 @@
     <string name="new_order_name_title">Nombre</string>
     <string name="new_order_name_desc">¿Qué pidieron?</string>
     <string name="new_order_description_title">Descripción</string>
-    <string name="new_order_description_desc">Detalles inportantes del producto</string>
+    <string name="new_order_description_desc">Detalles importantes del pedido</string>
     <string name="new_order_size_title">Talla</string>
     <string name="new_order_number_sizes">Numérica</string>
     <string name="new_order_size_desc">¿Que talla?</string>
@@ -509,6 +510,33 @@
     <string name="lbl_price_sale">$%s</string>
     <string name="lbl_stock_sale">%s en existencia</string>
     <string name="lbl_search_product_hint">Nombre del producto</string>
+
+    <!--ADD PRODUCTS Fragments-->
+    <string name="add_product_title">Detalles del producto</string>
+    <string name="add_product_name">Nombre</string>
+    <string name="add_product_name_detail">Nombre del producto</string>
+    <string name="add_product_description_title">Descripción</string>
+    <string name="add_product_description">Describe las características del producto</string>
+    <string name="add_product_price_title">Precio</string>
+    <string name="add_product_buy_price">Precio compra</string>
+    <string name="add_product_sell_price">Precio venta</string>
+    <string name="add_product_size_title">Talla</string>
+    <string name="add_product_size_numeric_title">Numérica</string>
+    <string name="add_product_size">¿Qué talla?</string>
+    <string name="add_product_color_title">Color</string>
+    <string name="add_product_color">Color del producto</string>
+    <string name="add_product_gender_title">¿Qué género?</string>
+    <string name="add_product_gender">¿Para caballero, dama, niño(a)?</string>
+    <string name="add_product_inventory_title">Inventario</string>
+    <string name="add_product_inventory">Cantidad de producto en tu inventario</string>
+    <string name="add_product_code_title">Código</string>
+    <string name="add_product_code">Código del producto</string>
+    <string name="msg_product_update_success">Producto actualizado correctamente.</string>
+    <string name="msg_product_inputs_error">Faltan campos por completar</string>
+    <string name="msg_product_inputs_different_prices">El precio de venta tiene que ser mayor al precio de compra</string>
+    <string name="msg_product_confirm_delete">¿Realmente deseas eliminar este producto?</string>
+    <string name="msg_product_delete_success">Producto eliminado correctamente.</string>
+
 
     <!--FINANCES Fragments-->
     <string name="search_finances">Buscando ventas generadas…</string>

@@ -120,7 +120,7 @@ fun AccountView(
             }
 
             Spacer(Modifier.padding(top = 24.dp))
-            TextDivider(textDivider = stringResource(id = R.string.register_screen_lbl_or))
+           /* TextDivider(textDivider = stringResource(id = R.string.register_screen_lbl_or))
             Spacer(Modifier.padding(top = 24.dp))
             PrimaryButton(
                 textButton = stringResource(id = R.string.register_screen_btn_continue_facebook),
@@ -138,7 +138,7 @@ fun AccountView(
                 modifier = Modifier
             ) {
 
-            }
+            }*/
             Spacer(Modifier.padding(top = 48.dp))
         }
     }

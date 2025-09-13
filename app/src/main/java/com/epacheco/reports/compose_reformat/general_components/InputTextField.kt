@@ -38,7 +38,7 @@ fun InputTextField(
     OutlinedTextField(
         value = textValue,
         onValueChange = { newValue ->
-            onTextChange.invoke(newValue)
+            onTextChange.invoke(newValue.toString())
         },
         label = {
             Text(

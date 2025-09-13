@@ -29,7 +29,7 @@ import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.model.products.Product
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.ui.theme.White
-import com.epacheco.reports.compose_reformat.utils.extensions.StockColor
+import com.epacheco.reports.compose_reformat.utils.extensions.stockColor
 
 
 @Composable
@@ -91,7 +91,7 @@ fun ProductItem(
                 modifier = Modifier
                     .padding(horizontal = 10.dp, vertical = 5.dp)
                     .fillMaxWidth()
-                    .background(product.inStock.StockColor(), shape = RoundedCornerShape(20.dp)),
+                    .background(product.inStock.stockColor(), shape = RoundedCornerShape(20.dp)),
                 fontSize = 12.sp,
                 textAlign = TextAlign.Center,
                 color = White,

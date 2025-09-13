@@ -3,10 +3,10 @@ package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ReportsApp
-import com.epacheco.reports.compose_reformat.domain.CreateMainOrderUseCase
-import com.epacheco.reports.compose_reformat.domain.DeleteMainOrderUseCase
-import com.epacheco.reports.compose_reformat.domain.GetMainOrdersUseCase
-import com.epacheco.reports.compose_reformat.domain.UpdateStatusMainOrderUseCase
+import com.epacheco.reports.compose_reformat.domain.OrderMainCreateUseCase
+import com.epacheco.reports.compose_reformat.domain.OrderMainDeleteUseCase
+import com.epacheco.reports.compose_reformat.domain.OrderMainListUseCase
+import com.epacheco.reports.compose_reformat.domain.OrderMainUpdateStatusUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.model.orders.OrderMain
 import com.epacheco.reports.compose_reformat.model.orders.OrderStatus
@@ -24,10 +24,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OrdersMainViewModel @Inject constructor(
-    private val getMainOrdersUseCase: GetMainOrdersUseCase,
-    private val deleteMainOrderUseCase: DeleteMainOrderUseCase,
-    private val createMainOrderUseCase: CreateMainOrderUseCase,
-    private val updateStatusMainOrderUseCase: UpdateStatusMainOrderUseCase,
+    private val orderMainListUseCase: OrderMainListUseCase,
+    private val orderMainDeleteUseCase: OrderMainDeleteUseCase,
+    private val orderMainCreateUseCase: OrderMainCreateUseCase,
+    private val orderMainUpdateStatusUseCase: OrderMainUpdateStatusUseCase,
     private val app: ReportsApp
 ) :
     BaseViewModel() {
@@ -64,7 +64,7 @@ class OrdersMainViewModel @Inject constructor(
     private fun loadMainOrders() =
         viewModelScope.launch {
             loading(true)
-            when (val orderMainResponse = getMainOrdersUseCase()) {
+            when (val orderMainResponse = orderMainListUseCase()) {
                 is Resource.Failure -> {
                     _uiState.value = _uiState.value.copy(
                         showImgEmptyList = true
@@ -83,7 +83,7 @@ class OrdersMainViewModel @Inject constructor(
     private fun deleteMainOrder(orderId: String) =
         viewModelScope.launch {
             loading(true)
-            when (val orderMainResponse = deleteMainOrderUseCase(orderId)) {
+            when (val orderMainResponse = orderMainDeleteUseCase(orderId)) {
                 is Resource.Failure -> setErrorMsg(orderMainResponse.exception.message)
                 is Resource.Success -> {
                     _uiState.value =
@@ -99,7 +99,7 @@ class OrdersMainViewModel @Inject constructor(
             loading(true)
             val newOrderStatus =
                 if (orderStatus == OrderStatus.DONE) OrderStatus.IN_PROGRESS else OrderStatus.DONE
-            when (val orderMainResponse = updateStatusMainOrderUseCase(orderId, newOrderStatus)) {
+            when (val orderMainResponse = orderMainUpdateStatusUseCase(orderId, newOrderStatus)) {
                 is Resource.Failure -> setErrorMsg(orderMainResponse.exception.message)
                 is Resource.Success -> {
                     _uiState.value =
@@ -125,7 +125,7 @@ class OrdersMainViewModel @Inject constructor(
         viewModelScope.launch {
             loading(true)
             val orderId = System.currentTimeMillis()
-            when (val orderMainMainResponse = createMainOrderUseCase(
+            when (val orderMainMainResponse = orderMainCreateUseCase(
                 OrderMain(
                     orderId = orderId.toString(),
                     dateOrder = orderId.toString(),

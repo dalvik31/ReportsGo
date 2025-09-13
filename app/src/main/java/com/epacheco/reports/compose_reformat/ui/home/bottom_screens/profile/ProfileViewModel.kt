@@ -1,23 +1,16 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile
 
 import android.net.Uri
-import androidx.core.net.toUri
 import androidx.lifecycle.viewModelScope
-import coil3.Bitmap
 import com.epacheco.reports.compose_reformat.ReportsApp
 import com.epacheco.reports.compose_reformat.domain.FirebaseGetUserUseCase
-import com.epacheco.reports.compose_reformat.domain.FirebaseUpdateImgProfileUseCase
+import com.epacheco.reports.compose_reformat.domain.FirebaseUpdateProfileUseCase
 import com.epacheco.reports.compose_reformat.domain.FirebaseUploadImgProfileUseCase
 import com.epacheco.reports.compose_reformat.domain.FirebaseUserLogoutUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import com.epacheco.reports.compose_reformat.utils.extensions.compress
 import dagger.hilt.android.lifecycle.HiltViewModel
-import id.zelory.compressor.Compressor
-import id.zelory.compressor.constraint.format
-import id.zelory.compressor.constraint.quality
-import id.zelory.compressor.constraint.resolution
-import id.zelory.compressor.constraint.size
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -32,7 +25,7 @@ class ProfileViewModel @Inject constructor(
     private val firebaseUserLogoutUseCase: FirebaseUserLogoutUseCase,
     private val firebaseGetUserUseCase: FirebaseGetUserUseCase,
     private val firebaseUploadImgProfileUseCase: FirebaseUploadImgProfileUseCase,
-    private val updateImgProfileUseCase: FirebaseUpdateImgProfileUseCase,
+    private val firebaseUpdateProfileUseCase: FirebaseUpdateProfileUseCase,
     private val app: ReportsApp
 ) :
     BaseViewModel() {
@@ -76,7 +69,7 @@ class ProfileViewModel @Inject constructor(
     private fun updateProfile(url: Uri) {
         viewModelScope.launch {
             loading(true)
-            when (val updateImgProfileResponse = updateImgProfileUseCase(url)) {
+            when (val updateImgProfileResponse = firebaseUpdateProfileUseCase(url)) {
                 is Resource.Failure ->
                     setErrorMsg(updateImgProfileResponse.exception.message)
 

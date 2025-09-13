@@ -95,7 +95,7 @@ fun ProductsView(
             ) {
                 items(productList) { product ->
                     ProductItem(product) {
-                        onGoProductDetailClick.invoke(product.productName)
+                        onGoProductDetailClick.invoke(product.productId)
                     }
                 }
             }
@@ -103,12 +103,11 @@ fun ProductsView(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun ProductsViewPreview() {
     ReportsGoTheme {
         ProductsView() {
-
         }
     }
 }

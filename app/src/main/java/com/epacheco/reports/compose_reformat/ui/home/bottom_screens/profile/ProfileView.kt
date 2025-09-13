@@ -36,6 +36,8 @@ import coil3.compose.rememberAsyncImagePainter
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
+import com.epacheco.reports.compose_reformat.general_components.header_image.HeaderImage
+import com.epacheco.reports.compose_reformat.general_components.header_image.HeaderImageSize
 import com.epacheco.reports.compose_reformat.ui.theme.GrayLight
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.utils.DateUtils
@@ -54,186 +56,74 @@ fun ProfileView(
 ) {
 
     Column(Modifier.fillMaxSize()) {
-        HeaderProfile(
+        HeaderImage(
             imageProfile,
             onUpdateProfilePictureClicked = onUpdateProfilePictureClicked
         )
-        BodyProfile(firebaseUser, loading)
-        FooterProfile(onLogoutClicked)
-    }
-
-}
-
-@Composable
-private fun HeaderProfile(
-    selectedImageUri: Uri?,
-    onUpdateProfilePictureClicked: (() -> Unit)? = null,
-) {
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            BackgroundTopImg(selectedImageUri)
-            ProfileTopImg(
-                modifier = Modifier
-                    .size(120.dp)
-                    .align(Alignment.Center),
-                selectedImageUri,
-                onUpdateProfilePictureClicked = onUpdateProfilePictureClicked
-            )
-        }
-    }
-
-}
-
-@Composable
-private fun BodyProfile(firebaseUser: FirebaseUser?, loading: Boolean) {
-
-
-    firebaseUser?.let {
-        DividerProfile(firebaseUser)
-        firebaseUser.email?.let {
-            Text(
-                it,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = if (firebaseUser.email.isNullOrEmpty()) 24.dp else 0.dp),
-                textAlign = TextAlign.Center,
-                fontWeight = FontWeight.ExtraBold,
-            )
-        }
-    } ?: run {
-        if (!loading) {
-
-            Column(modifier = Modifier.padding(vertical = 24.dp)) {
-                Image(
-                    painter = painterResource(R.drawable.ic_user_resource_not_found),
-                    modifier = Modifier
-                        .width(200.dp)
-                        .height(200.dp)
-                        .align(Alignment.CenterHorizontally),
-                    contentDescription = stringResource(R.string.msg_user_profile_not_found)
-                )
+        firebaseUser?.let {
+            DividerProfile(firebaseUser)
+            firebaseUser.email?.let {
                 Text(
-                    "Usuario no encontrado",
+                    it,
                     modifier = Modifier
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .padding(vertical = if (firebaseUser.email.isNullOrEmpty()) 24.dp else 0.dp),
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.ExtraBold,
                 )
+            }
+        } ?: run {
+            if (!loading) {
+
+                Column(modifier = Modifier.padding(vertical = 24.dp)) {
+                    Image(
+                        painter = painterResource(R.drawable.ic_user_resource_not_found),
+                        modifier = Modifier
+                            .width(200.dp)
+                            .height(200.dp)
+                            .align(Alignment.CenterHorizontally),
+                        contentDescription = stringResource(R.string.msg_user_profile_not_found)
+                    )
+                    Text(
+                        "Usuario no encontrado",
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.ExtraBold,
+                    )
+                }
+
+            }
+        }
+
+        firebaseUser?.metadata?.lastSignInTimestamp?.let { lastConnection ->
+            Text(
+                text = stringResource(
+                    R.string.last_connection,
+                    DateUtils.format(lastConnection, FORMAT_DATE2)
+                ),
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                fontSize = 10.sp
+
+            )
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp)
+                .padding(bottom = 48.dp),
+            verticalArrangement = Arrangement.Bottom
+        ) {
+            PrimaryButton(textButton = stringResource(R.string.btn_logout)) {
+                onLogoutClicked?.invoke()
             }
 
         }
     }
 
-    firebaseUser?.metadata?.lastSignInTimestamp?.let { lastConnection ->
-        Text(
-            text = stringResource(
-                R.string.last_connection,
-                DateUtils.format(lastConnection, FORMAT_DATE2)
-            ),
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Center,
-            fontSize = 10.sp
-
-        )
-    }
 }
 
-@Composable
-private fun FooterProfile(onLogoutClicked: (() -> Unit)?) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 16.dp)
-            .padding(bottom = 48.dp),
-        verticalArrangement = Arrangement.Bottom
-    ) {
-        PrimaryButton(textButton = stringResource(R.string.btn_logout)) {
-            onLogoutClicked?.invoke()
-        }
-
-    }
-}
-
-@Composable
-private fun BackgroundTopImg(imgProfile: Uri?) {
-    Box(
-        modifier = Modifier
-            .height(250.dp)
-            .fillMaxWidth()
-    ) {
-
-        imgProfile?.let {
-            Image(
-                painter = rememberAsyncImagePainter(imgProfile),
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .blur(
-                        radiusX = 20.dp,
-                        radiusY = 20.dp,
-                        edgeTreatment = BlurredEdgeTreatment(RoundedCornerShape(bottomEnd = 100.dp))
-                    ),
-                contentScale = ContentScale.FillWidth
-            )
-        } ?: run {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(GrayLight, shape = RoundedCornerShape(bottomEnd = 100.dp)),
-            )
-        }
-
-
-    }
-
-}
-
-@Composable
-private fun ProfileTopImg(
-    modifier: Modifier,
-    imgProfile: Uri?,
-    onUpdateProfilePictureClicked: (() -> Unit)? = null,
-) {
-
-    Surface(
-        color = Color.Transparent,
-        modifier = modifier,
-
-        ) {
-        imgProfile?.let {
-            Image(
-                painter = rememberAsyncImagePainter(imgProfile),
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(10.dp)
-                    .clip(CircleShape)
-                    .clickable {
-                        onUpdateProfilePictureClicked?.invoke()
-                    },
-                contentScale = ContentScale.Crop,
-            )
-        } ?: run {
-            Image(
-                painter = painterResource(id = R.drawable.icon_person),
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(10.dp)
-                    .clip(shape = RoundedCornerShape(40.dp))
-                    .clickable {
-                        onUpdateProfilePictureClicked?.invoke()
-                    },
-                contentScale = ContentScale.Crop,
-            )
-        }
-
-    }
-
-}
 
 @Composable
 private fun DividerProfile(firebaseUser: FirebaseUser) {

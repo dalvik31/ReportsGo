@@ -1,7 +1,7 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.finances
 
 import androidx.lifecycle.viewModelScope
-import com.epacheco.reports.compose_reformat.domain.GetFinancesUseCase
+import com.epacheco.reports.compose_reformat.domain.FinancesUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.model.Finances.Sale
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FinancesViewModel @Inject constructor(private val financesUseCase: GetFinancesUseCase) :
+class FinancesViewModel @Inject constructor(private val financesUseCase: FinancesUseCase) :
     BaseViewModel() {
 
     private val _financesFlow = MutableStateFlow<Resource<List<Sale>>?>(null)

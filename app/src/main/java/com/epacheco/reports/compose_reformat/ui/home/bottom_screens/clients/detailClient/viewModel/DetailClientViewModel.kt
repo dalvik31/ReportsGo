@@ -2,7 +2,7 @@ package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.det
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.epacheco.reports.compose_reformat.domain.GetClientDetailUseCase
+import com.epacheco.reports.compose_reformat.domain.ClientDetailUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.view.DetailClientUiState
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailClientViewModel @Inject constructor(private val clientDetailUseCase: GetClientDetailUseCase): BaseViewModel()  {
+class DetailClientViewModel @Inject constructor(private val clientDetailUseCase: ClientDetailUseCase): BaseViewModel()  {
 
     private val _clientFlow = MutableStateFlow(DetailClientUiState())
     val clientFlow: StateFlow<DetailClientUiState> = _clientFlow

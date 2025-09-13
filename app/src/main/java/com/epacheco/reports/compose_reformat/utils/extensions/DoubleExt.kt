@@ -8,7 +8,7 @@ import com.epacheco.reports.compose_reformat.ui.theme.GreenColor
 import com.epacheco.reports.compose_reformat.ui.theme.YellowColor
 
 
-fun Int.StockColor(): Color {
+fun Int.stockColor(): Color {
     return when (this) {
         0 -> Gray
         in 1..5 -> Red

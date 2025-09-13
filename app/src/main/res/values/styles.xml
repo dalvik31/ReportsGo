@@ -26,8 +26,8 @@
     <item name="android:textSize">22sp</item>
     <item name="android:fontFamily">sans-serif-condensed</item>
     <item name="android:inputType">textCapWords</item>
-
   </style>
+
 
   <!--Style para Textview como titulo -->
   <style name="TextView_Title" parent="@android:style/TextAppearance.Widget.TextView">

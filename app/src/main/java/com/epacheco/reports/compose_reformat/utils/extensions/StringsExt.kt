@@ -35,8 +35,6 @@ fun String.getNameSeason(): Int =
     }
 
 fun String.getTranslateFireBaseErrorMsg(ctx: Context): String =
-
-
     ctx.getString(
         when {
             this.contains("There is no user record corresponding to this identifier") -> R.string.msg_firebase_user_not_found
@@ -45,4 +43,10 @@ fun String.getTranslateFireBaseErrorMsg(ctx: Context): String =
             else -> R.string.general_error
         }
     )
+
+
+fun String.getNameProductImage(): String =
+    this.substringAfter("Images%2F")
+        .substringBefore("?alt=media")
+        .trim()
 

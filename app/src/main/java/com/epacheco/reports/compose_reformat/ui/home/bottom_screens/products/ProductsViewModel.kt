@@ -3,7 +3,7 @@ package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products
 import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.viewModelScope
-import com.epacheco.reports.compose_reformat.domain.GetProductsByNameUseCase
+import com.epacheco.reports.compose_reformat.domain.ProductsGetByNameUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProductsViewModel @Inject constructor(
-    private val productsByNameUseCase: GetProductsByNameUseCase
+    private val productsByNameUseCase: ProductsGetByNameUseCase
 ) :
     BaseViewModel() {
 
