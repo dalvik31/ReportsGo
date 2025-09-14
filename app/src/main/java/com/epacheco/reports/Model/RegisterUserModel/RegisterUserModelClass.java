@@ -6,7 +6,7 @@ import com.epacheco.reports.view.registerUserView.RegisterUserViewClass;
 import com.facebook.AccessToken;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseUser;
-import com.twitter.sdk.android.core.TwitterSession;
+//import com.twitter.sdk.android.core.TwitterSession;
 
 public class RegisterUserModelClass implements RegisterUserModelInterface {
 
@@ -103,12 +103,12 @@ public class RegisterUserModelClass implements RegisterUserModelInterface {
     }
   }
 
-  @Override
+ /* @Override
   public void loginTwitter(TwitterSession session) {
     if(registerUserControllerClass!=null){
       registerUserControllerClass.loginTwitter(session);
     }
-  }
+  }*/
 
   @Override
   public void successLoginFacebook(FirebaseUser firebaseUser) {

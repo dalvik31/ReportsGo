@@ -33,10 +33,10 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseUser;
-import com.twitter.sdk.android.core.Result;
+/*import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
-import com.twitter.sdk.android.core.identity.TwitterAuthClient;
+import com.twitter.sdk.android.core.identity.TwitterAuthClient;*/
 import java.util.Arrays;
 
 public class RegisterUserViewClass extends AppCompatActivity implements RegisterUserViewInterface {
@@ -44,7 +44,7 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
   private RegisterUserModelClass registerUserModelClass;
   private GoogleSignInClient mGoogleSignInClient;
   private static final int RC_SIGN_IN = 9001;
-  private TwitterAuthClient mTwitterAuthClient;
+ // private TwitterAuthClient mTwitterAuthClient;
   private CallbackManager mCallbackManager;
   private ReportsProgressDialog progressbar;
 
@@ -82,7 +82,7 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
     mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
     //Inicializamos twitter
-    mTwitterAuthClient= new TwitterAuthClient();
+   // mTwitterAuthClient= new TwitterAuthClient();
 
     //Inicializamos facebook
     mCallbackManager = CallbackManager.Factory.create();
@@ -119,7 +119,7 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
     startActivityForResult(signInIntent, RC_SIGN_IN);
   }
 
-  public void registerTwitter(View v){
+  /*public void registerTwitter(View v){
     progressbar.showProgress(this,getString(R.string.msg_process));
     mTwitterAuthClient.authorize(this, new com.twitter.sdk.android.core.Callback<TwitterSession>() {
 
@@ -140,7 +140,7 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
         e.printStackTrace();
       }
     });
-  }
+  }*/
 
   public void forgotPassword(View v){
     ScreenManager.goForgotPasswordActivity(this);
@@ -286,7 +286,7 @@ public class RegisterUserViewClass extends AppCompatActivity implements Register
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
-    mTwitterAuthClient.onActivityResult(requestCode, resultCode, data);
+   // mTwitterAuthClient.onActivityResult(requestCode, resultCode, data);
     if(mCallbackManager.onActivityResult(requestCode, resultCode, data)) {
       return;
     }
