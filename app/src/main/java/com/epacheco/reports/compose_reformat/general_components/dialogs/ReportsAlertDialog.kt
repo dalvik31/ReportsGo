@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -31,6 +32,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.epacheco.reports.R
+import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
+import com.epacheco.reports.compose_reformat.general_components.SecondaryButton
 import com.epacheco.reports.compose_reformat.ui.theme.Black
 import com.epacheco.reports.compose_reformat.ui.theme.GrayDark
 import com.epacheco.reports.compose_reformat.ui.theme.RedBackground
@@ -40,13 +43,13 @@ import kotlinx.coroutines.delay
 @Composable
 fun ReportsAlertDialog(
     imgDialog: Int,
-    dialogTitle: String,
-    dialogSubTitle: String,
+    dialogTitle: String? = null,
+    dialogSubTitle: String? = null,
     confirmButtonText: String? = null,
     cancelButtonText: String? = null,
     closeAutomatically: Boolean? = null,
     onDismissRequest: (() -> Unit)? = null,
-    onConfirmation: () -> Unit,
+    onConfirmation:  () -> Unit,
 ) {
     Dialog(onDismissRequest = { onDismissRequest?.invoke() }) {
         CustomDialogUI(
@@ -88,6 +91,7 @@ fun CustomDialogUI(
         ) {
 
             //.......................................................................
+            Spacer(modifier = Modifier.padding(vertical = 10.dp))
             Image(
                 painter = painterResource(id = imgDialog),
                 contentDescription = null, // decorative
@@ -96,20 +100,18 @@ fun CustomDialogUI(
                     color = MaterialTheme.colorScheme.primary
                 ),
                 modifier = Modifier
-                    .padding(top = 35.dp)
                     .height(70.dp)
                     .fillMaxWidth(),
 
                 )
 
-            Column(modifier = Modifier.padding(vertical = 16.dp, horizontal = 8.dp)) {
+            Column(modifier = Modifier.padding(vertical = 10.dp, horizontal = 30.dp)) {
 
                 dialogTitle?.let {
                     Text(
                         text = it,
                         textAlign = TextAlign.Center,
                         modifier = Modifier
-                            .padding(top = 5.dp)
                             .fillMaxWidth(),
                         color = Black,
                         style = MaterialTheme.typography.headlineMedium,
@@ -118,53 +120,16 @@ fun CustomDialogUI(
                     )
                 }
 
+                Spacer(modifier = Modifier.padding(vertical = 10.dp))
                 dialogSubTitle?.let {
                     Text(
                         text = AnnotatedString.fromHtml(it),
                         textAlign = TextAlign.Center,
                         color = Black,
                         modifier = Modifier
-                            .padding(top = 10.dp)
                             .fillMaxWidth(),
-                        style = MaterialTheme.typography.bodyMedium
+                        style = MaterialTheme.typography.bodyLarge
                     )
-                }
-
-            }
-            //.......................................................................
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(top = 10.dp)
-                    .background(RedBackground),
-                horizontalArrangement = Arrangement.SpaceAround
-            ) {
-
-                cancelButtonText?.let {
-                    TextButton(onClick = {
-                        onDismissRequest?.invoke()
-                    }) {
-
-                        Text(
-                            it.uppercase(),
-                            fontWeight = FontWeight.Bold,
-                            color = GrayDark,
-                            modifier = Modifier.padding(top = 5.dp, bottom = 5.dp)
-                        )
-                    }
-                }
-
-                confirmButtonText?.let {
-                    TextButton(modifier = Modifier.wrapContentSize(), onClick = {
-                        onConfirmation?.invoke()
-                    }) {
-                        Text(
-                            it.uppercase(),
-                            fontWeight = FontWeight.ExtraBold,
-                            color = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier.padding(top = 5.dp, bottom = 5.dp)
-                        )
-                    }
                 }
 
                 closeAutomatically?.let {
@@ -172,9 +137,25 @@ fun CustomDialogUI(
                         delay(2000)  // the delay of 3 seconds
                         onConfirmation?.invoke()
                     }
+                } ?: run {
+                    Spacer(modifier = Modifier.padding(vertical = 10.dp))
+                    confirmButtonText?.let {
+                        PrimaryButton(textButton = it, onButtonClicked = {
+                            onConfirmation?.invoke()
+                        })
+                    }
+
+                    cancelButtonText?.let {
+                        SecondaryButton(textButton = it, onButtonClicked = {
+                            onDismissRequest?.invoke()
+                        })
+
+                    }
+
                 }
 
             }
+
         }
     }
 }

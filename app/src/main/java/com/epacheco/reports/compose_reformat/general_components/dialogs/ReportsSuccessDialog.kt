@@ -10,11 +10,11 @@ fun ReportsSuccessDialog(
     dialogSubTitle: String,
     closeAutomatically: Boolean? = null,
     onConfirmation: () -> Unit,
-
     ) {
     ReportsAlertDialog(
         imgDialog = R.drawable.ic_vector_ok,
         dialogTitle = stringResource(R.string.msg_success),
+        cancelButtonText = stringResource(R.string.btn_ok),
         dialogSubTitle = dialogSubTitle,
         closeAutomatically = closeAutomatically,
         confirmButtonText = if (closeAutomatically == true) null else stringResource(R.string.btn_ok),

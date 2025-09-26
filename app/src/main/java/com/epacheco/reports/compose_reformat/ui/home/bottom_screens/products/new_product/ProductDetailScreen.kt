@@ -1,6 +1,9 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products.new_product
 
-import android.util.Log
+import android.app.Activity.RESULT_OK
+import android.content.Intent
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -8,22 +11,24 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.epacheco.reports.R
+import com.epacheco.reports.compose_reformat.general_components.CheckPermission
 import com.epacheco.reports.compose_reformat.general_components.Loader
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsAlertDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsErrorDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsSuccessDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.picture_picker.PickerPictureDialog
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.new_order.NewOrderUiEffect
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.new_order.NewOrderUiIntent
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
+import com.epacheco.reports.view.productsView.scanCode.ScannedBarcodeActivity
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import kotlinx.coroutines.flow.collectLatest
-import kotlin.text.ifEmpty
 
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun NewProductScreen(
     newProductViewModel: ProductDetailViewModel = hiltViewModel<ProductDetailViewModel>(),
@@ -31,6 +36,20 @@ fun NewProductScreen(
     onBackPressed: (() -> Unit)? = null,
 ) {
 
+    val settingResultRequest =
+        rememberLauncherForActivityResult(contract = ActivityResultContracts.StartActivityForResult()) { activityResult ->
+            if (activityResult.resultCode == RESULT_OK && activityResult.data != null && activityResult.data?.hasExtra(
+                    ScannedBarcodeActivity.CODE_SCANNER
+                ) == true
+            ) {
+                val valueCodeScanned =
+                    activityResult.data?.getStringExtra(ScannedBarcodeActivity.CODE_SCANNER) ?: ""
+                newProductViewModel.onInputCodeChanged(valueCodeScanned)
+
+            }
+        }
+
+    var showScanCodeDialog by remember { mutableStateOf(false) }
     var showProfilePictureDialog by remember { mutableStateOf(false) }
     var showDialogConfirmDeleteProduct by remember { mutableStateOf(false) }
 
@@ -49,6 +68,7 @@ fun NewProductScreen(
     val inputUrlImg by newProductViewModel.inputProductUrlImg.collectAsState()
 
 
+    val context = LocalContext.current
     LaunchedEffect(Unit) {
         productToEdit?.let {
             newProductViewModel.handleIntent(ProductDetailUiIntent.LoadProduct(it))
@@ -113,6 +133,9 @@ fun NewProductScreen(
             newProductViewModel.onInputCodeChanged(it)
         },
         inputUrlImg = inputUrlImg,
+        onOpenScanCodeDialog = {
+            showScanCodeDialog = true
+        },
         onUpdateProfilePictureClicked = {
             showProfilePictureDialog = true
         }, onCreateProduct = {
@@ -155,6 +178,32 @@ fun NewProductScreen(
                 }
             })
     }
+
+
+
+    if (showScanCodeDialog) {
+        CheckPermission(
+            permission = android.Manifest.permission.CAMERA,
+            onGranted = {
+
+                settingResultRequest.launch(
+                    Intent(
+                        context,
+                        ScannedBarcodeActivity::class.java
+                    )
+                )
+                showScanCodeDialog = false
+
+            },
+            permissionRationaleTitle = stringResource(R.string.permission_camera_title),
+            permissionOpenSettingsTitle = stringResource(R.string.permission_settings_title),
+            onCancel = { showScanCodeDialog = false }
+        )
+
+    }
+
+
+
 
     if (showDialogConfirmDeleteProduct) {
         ReportsAlertDialog(

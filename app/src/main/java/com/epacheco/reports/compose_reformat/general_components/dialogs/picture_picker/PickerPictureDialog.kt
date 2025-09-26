@@ -125,7 +125,7 @@ fun PickerPictureDialogScreen(
 @Composable
 fun PermissionsScreenPreview() {
     ReportsGoTheme {
-        PickerPictureDialogScreen()
+        PickerPictureDialog()
     }
 
 }

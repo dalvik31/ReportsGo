@@ -80,6 +80,7 @@ fun NewProductView(
     onInputStockChanged: ((String) -> Unit)? = null,
     inputColorCode: String? = null,
     onInputColorCodeChanged: ((String) -> Unit)? = null,
+    onOpenScanCodeDialog: (() -> Unit)? = null,
     inputCode: String? = null,
     onInputCodeChanged: ((String) -> Unit)? = null,
     inputUrlImg: String? = null,
@@ -335,7 +336,7 @@ fun NewProductView(
                         .background(YellowColor, shape = CircleShape),
 
                     onClick = {
-
+                        onOpenScanCodeDialog?.invoke()
                     }) {
                     Icon(
                         imageVector = ImageVector.vectorResource(R.drawable.ic_vector_bar_code_scanner),

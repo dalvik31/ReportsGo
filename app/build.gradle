@@ -171,6 +171,8 @@ dependencies {
     //Compress images
     implementation 'id.zelory:compressor:3.0.1'
 
+    //CheckPermissions
+    implementation "com.google.accompanist:accompanist-permissions:0.37.3"
 
 }
 
