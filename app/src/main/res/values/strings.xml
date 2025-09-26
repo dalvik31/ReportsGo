@@ -31,7 +31,7 @@
     <string name="msg_zero_products">No se encontraron productos.</string>
     <string name="msg_camera_scan">Escanea el código QR o de barras.</string>
     <string name="Titulo_cerrar_sesion">Cerrar sesión </string>
-    <string name="msg_cerrar_sesion">¿Realmente desea cerrar sesion? </string>
+
 
 
     <!--Activity Principal-->
@@ -555,6 +555,7 @@
     <string name="search_profile">Buscando usuario…</string>
     <string name="title_profile">Hola, %s!</string>
     <string name="last_connection">Última conexión: %s</string>
-    <string name="btn_logout">Cerrar sesión</string>
+    <string name="title_close_session">Cerrar sesión</string>
     <string name="msg_user_profile_not_found">Usuario no encontrado</string>
+    <string name="msg_close_session">¿Realmente desea cerrar sesion?</string>
 </resources>

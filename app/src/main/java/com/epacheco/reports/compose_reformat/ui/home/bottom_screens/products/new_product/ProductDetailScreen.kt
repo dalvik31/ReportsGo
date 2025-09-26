@@ -19,8 +19,6 @@ import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.CheckPermission
 import com.epacheco.reports.compose_reformat.general_components.Loader
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsAlertDialog
-import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsErrorDialog
-import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsSuccessDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.picture_picker.PickerPictureDialog
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.view.productsView.scanCode.ScannedBarcodeActivity
@@ -155,14 +153,17 @@ fun NewProductScreen(
 
     //Message error
     uiState.errorMessage?.let { msgError ->
-        ReportsErrorDialog(
+        ReportsAlertDialog(
+            imgDialog = R.drawable.ic_error,
+            confirmButtonText = stringResource(R.string.btn_ok),
             dialogSubTitle = msgError,
             onConfirmation = {
                 newProductViewModel.handleIntent(ProductDetailUiIntent.Error)
             })
     }
     uiState.successMessage?.let { msgSuccessOperation ->
-        ReportsSuccessDialog(
+        ReportsAlertDialog(
+            imgDialog = R.drawable.ic_vector_ok,
             dialogSubTitle = stringResource(msgSuccessOperation),
             closeAutomatically = true,
             onConfirmation = {

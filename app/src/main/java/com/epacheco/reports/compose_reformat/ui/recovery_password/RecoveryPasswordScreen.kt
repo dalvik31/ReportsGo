@@ -6,9 +6,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.Loader
-import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsErrorDialog
-import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsSuccessDialog
+import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsAlertDialog
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 
@@ -41,7 +41,9 @@ fun PasswordScreen(
 
     //Message error
     uiState.errorMessage?.let { msgError ->
-        ReportsErrorDialog(
+        ReportsAlertDialog(
+            imgDialog = R.drawable.ic_error,
+            confirmButtonText = stringResource(R.string.btn_ok),
             dialogSubTitle = msgError,
             onConfirmation = {
                 recoverPasswordViewModel.handleIntent(RecoveryPasswordUiIntent.HideDialogs)
@@ -50,7 +52,8 @@ fun PasswordScreen(
 
     //Message success
     uiState.successOperationMsg?.let { msgSuccessOperation ->
-        ReportsSuccessDialog(
+        ReportsAlertDialog(
+            imgDialog = R.drawable.ic_vector_ok,
             dialogSubTitle = stringResource(msgSuccessOperation),
             closeAutomatically = true,
             onConfirmation = {

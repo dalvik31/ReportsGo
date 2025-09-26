@@ -115,7 +115,7 @@ fun ProfileView(
                 .padding(bottom = 48.dp),
             verticalArrangement = Arrangement.Bottom
         ) {
-            PrimaryButton(textButton = stringResource(R.string.btn_logout)) {
+            PrimaryButton(textButton = stringResource(R.string.title_close_session)) {
                 onLogoutClicked?.invoke()
             }
 

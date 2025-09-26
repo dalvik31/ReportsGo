@@ -11,10 +11,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.general_components.Loader
-import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsErrorDialog
+import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsAlertDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsInfoDialog
-import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsSuccessDialog
 import com.epacheco.reports.compose_reformat.model.orders.Season
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.view.OrderMainInputDialog
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.view.OrderMainView
@@ -88,7 +86,9 @@ fun OrdersMainScreen(
 
     //Message error
     uiState.errorMessage?.let { msgError ->
-        ReportsErrorDialog(
+        ReportsAlertDialog(
+            imgDialog = R.drawable.ic_error,
+            confirmButtonText = stringResource(R.string.btn_ok),
             dialogSubTitle = msgError,
             onConfirmation = {
                 ordersMainViewModel.handleIntent(OrdersMainUiIntent.HideDialogs)
@@ -97,7 +97,8 @@ fun OrdersMainScreen(
 
     //Message success
     uiState.successOperationMsg?.let { msgSuccessOperation ->
-        ReportsSuccessDialog(
+        ReportsAlertDialog(
+            imgDialog = R.drawable.ic_vector_ok,
             dialogSubTitle = stringResource(msgSuccessOperation),
             closeAutomatically = true,
             onConfirmation = {

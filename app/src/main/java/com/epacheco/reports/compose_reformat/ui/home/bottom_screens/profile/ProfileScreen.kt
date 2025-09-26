@@ -13,7 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.Loader
-import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsErrorDialog
+import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsAlertDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.picture_picker.PickerPictureDialog
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import kotlinx.coroutines.flow.collectLatest
@@ -28,6 +28,7 @@ fun ProfileScreen(
 
     val uiState by profileViewModel.uiState.collectAsState()
 
+    var showCloseSessionDialog by remember { mutableStateOf(false) }
     var showProfilePictureDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(profileViewModel) {
@@ -45,7 +46,8 @@ fun ProfileScreen(
         imageProfile = uiState.imgUser,
         loading = uiState.isLoading,
         onLogoutClicked = {
-            profileViewModel.handleIntent(ProfileUiIntent.Logout)
+            showCloseSessionDialog = true
+
         }, onUpdateProfilePictureClicked = {
             showProfilePictureDialog = true
         })
@@ -57,7 +59,9 @@ fun ProfileScreen(
 
     //Message error
     uiState.errorMessage?.let { msgError ->
-        ReportsErrorDialog(
+        ReportsAlertDialog(
+            imgDialog = R.drawable.ic_error,
+            confirmButtonText = stringResource(R.string.btn_ok),
             dialogSubTitle = msgError,
             onConfirmation = {
                 profileViewModel.handleIntent(ProfileUiIntent.Error)
@@ -70,6 +74,21 @@ fun ProfileScreen(
             onImageSelected = {
                 profileViewModel.handleIntent(ProfileUiIntent.UploadProfileImage(it))
             })
+    }
+
+    if (showCloseSessionDialog) {
+        ReportsAlertDialog(
+            imgDialog = R.drawable.ic_notfication,
+            dialogTitle = stringResource(R.string.title_close_session),
+            dialogSubTitle = stringResource(R.string.msg_close_session),
+            confirmButtonText = stringResource(R.string.btn_ok),
+            onConfirmation = {
+                showCloseSessionDialog = false
+                profileViewModel.handleIntent(ProfileUiIntent.Logout)
+            },
+            onDismissRequest = { showCloseSessionDialog = false },
+            cancelButtonText = stringResource(R.string.btn_cancel)
+        )
     }
 
 }

@@ -49,7 +49,7 @@ fun ReportsAlertDialog(
     cancelButtonText: String? = null,
     closeAutomatically: Boolean? = null,
     onDismissRequest: (() -> Unit)? = null,
-    onConfirmation:  () -> Unit,
+    onConfirmation: () -> Unit,
 ) {
     Dialog(onDismissRequest = { onDismissRequest?.invoke() }) {
         CustomDialogUI(
@@ -82,16 +82,15 @@ fun CustomDialogUI(
 
     Card(
         shape = RoundedCornerShape(10.dp),
-        modifier = Modifier.padding(10.dp, 5.dp, 10.dp, 10.dp),
         elevation = androidx.compose.material3.CardDefaults.cardElevation(8.dp)
     ) {
         Column(
             modifier
                 .background(Color.White)
+                .padding(horizontal = 30.dp).padding(top = 30.dp, bottom = 20.dp)
         ) {
 
             //.......................................................................
-            Spacer(modifier = Modifier.padding(vertical = 10.dp))
             Image(
                 painter = painterResource(id = imgDialog),
                 contentDescription = null, // decorative
@@ -105,9 +104,10 @@ fun CustomDialogUI(
 
                 )
 
-            Column(modifier = Modifier.padding(vertical = 10.dp, horizontal = 30.dp)) {
+            Column {
 
                 dialogTitle?.let {
+                    Spacer(modifier = Modifier.padding(vertical = 10.dp))
                     Text(
                         text = it,
                         textAlign = TextAlign.Center,
@@ -120,8 +120,8 @@ fun CustomDialogUI(
                     )
                 }
 
-                Spacer(modifier = Modifier.padding(vertical = 10.dp))
                 dialogSubTitle?.let {
+                    Spacer(modifier = Modifier.padding(vertical = 10.dp))
                     Text(
                         text = AnnotatedString.fromHtml(it),
                         textAlign = TextAlign.Center,
@@ -130,26 +130,25 @@ fun CustomDialogUI(
                             .fillMaxWidth(),
                         style = MaterialTheme.typography.bodyLarge
                     )
+                    Spacer(modifier = Modifier.padding(vertical = 10.dp))
                 }
-
                 closeAutomatically?.let {
                     LaunchedEffect(it) {
                         delay(2000)  // the delay of 3 seconds
                         onConfirmation?.invoke()
                     }
                 } ?: run {
-                    Spacer(modifier = Modifier.padding(vertical = 10.dp))
+
                     confirmButtonText?.let {
-                        PrimaryButton(textButton = it, onButtonClicked = {
+                        PrimaryButton(textButton = it.uppercase(), onButtonClicked = {
                             onConfirmation?.invoke()
                         })
-                    }
 
+                    }
                     cancelButtonText?.let {
-                        SecondaryButton(textButton = it, onButtonClicked = {
+                        SecondaryButton(textButton = it.uppercase(), onButtonClicked = {
                             onDismissRequest?.invoke()
                         })
-
                     }
 
                 }
@@ -164,15 +163,43 @@ fun CustomDialogUI(
 @Preview
 @Composable
 fun ReportsErrorDialogPreview() {
-    ReportsErrorDialog(
+    ReportsAlertDialog(
+        R.drawable.ic_error,
         dialogSubTitle = "Ocurrio un error intenta mas tarde",
+        confirmButtonText = "Aceptar",
+        cancelButtonText = "Cancel"
     ) {}
 }
 
 @Preview
 @Composable
 fun ReportsSuccessDialogPreview() {
-    ReportsSuccessDialog(
-        dialogSubTitle = "Ocurrio un error intenta mas tarde",
+    ReportsAlertDialog(
+        R.drawable.ic_vector_ok,
+        dialogTitle = "Info",
+        dialogSubTitle = "La operacion se ejecuto con exito",
+        confirmButtonText = "Aceptar",
+    ) {}
+}
+
+@Preview
+@Composable
+fun ReportsSuccessCancelDialogPreview() {
+    ReportsAlertDialog(
+        R.drawable.ic_vector_ok,
+        dialogSubTitle = "La operacion se ejecuto con exito",
+        cancelButtonText = "Cancelar",
+    ) {}
+}
+
+@Preview
+@Composable
+fun ReportsSuccessAutomaticallyDialogPreview() {
+    ReportsAlertDialog(
+        R.drawable.ic_vector_ok,
+        dialogSubTitle = "La operacion se ejecuto con exito",
+        closeAutomatically = true,
+        confirmButtonText = "Aceptar",
+        cancelButtonText = "Cancel"
     ) {}
 }

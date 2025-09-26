@@ -101,7 +101,7 @@ public class ProfileViewClass extends AppCompatActivity implements ProfileViewIn
     public void closeSesion(View v) {
 
         ReportsDialogGlobal.showDialogAccept(this, getString(R.string.Titulo_cerrar_sesion),
-                getString(R.string.msg_cerrar_sesion),
+                getString(R.string.msg_close_session),
                 (dialog, which) -> {
                     mAuth.signOut();
                     ScreenManager.goRegisterActivity(ProfileViewClass.this);

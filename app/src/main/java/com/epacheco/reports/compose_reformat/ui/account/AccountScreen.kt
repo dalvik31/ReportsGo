@@ -4,10 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.Loader
-import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsErrorDialog
+import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsAlertDialog
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import kotlinx.coroutines.flow.collectLatest
 
@@ -65,8 +67,10 @@ fun AccountScreen(
 
     //Message error
     uiState.errorMessage?.let { msgError ->
-        ReportsErrorDialog(
+        ReportsAlertDialog(
+            imgDialog = R.drawable.ic_error,
             dialogSubTitle = msgError,
+            confirmButtonText = stringResource(R.string.btn_ok),
             onConfirmation = {
                 accountViewModel.handleIntent(AccountUiIntent.HideMsgError)
             })
