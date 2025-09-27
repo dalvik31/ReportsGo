@@ -9,21 +9,16 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -37,7 +32,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.graphicsLayer
@@ -51,16 +45,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsAlertDialog
-import com.epacheco.reports.compose_reformat.general_components.navbar.Circle
 import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.model.orders.OrderStatus
 import com.epacheco.reports.compose_reformat.model.orders.Season
-import com.epacheco.reports.compose_reformat.ui.theme.GrayLight
+import com.epacheco.reports.compose_reformat.ui.theme.Black
+import com.epacheco.reports.compose_reformat.ui.theme.FallColor
+import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.ui.theme.White
 import com.epacheco.reports.compose_reformat.ui.theme.White60
-import com.epacheco.reports.compose_reformat.ui.theme.FallColor
-import com.epacheco.reports.compose_reformat.ui.theme.GrayDark
-import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE3
 import com.epacheco.reports.compose_reformat.utils.extensions.getNameSeason
@@ -78,119 +70,178 @@ fun OrderItem(
     var showDialogConfirmDeleteOrder by remember { mutableStateOf(false) }
     var showDialogConfirmCompleteOrder by remember { mutableStateOf(false) }
 
+    /* Surface(color = Color.Transparent) {
+         Box(contentAlignment = Alignment.Center) {
+             Image(
+                 modifier = Modifier
+                     .width(200.dp)
+                     .alpha(.2f)
+                     .align(Alignment.CenterEnd)
+                     .graphicsLayer {
+                         rotationZ = 20f
+                     },
+
+                 painter = painterResource(if (order.orderBuy) R.drawable.ic_vector_order else R.drawable.ic_vector_checked),
+                 contentDescription = null,
+                 colorFilter = ColorFilter.tint(White60),
+                 contentScale = ContentScale.Crop
+             )*/
+    /*Image(
+        modifier = Modifier
+            .width(200.dp)
+            .alpha(.2f)
+            .align(Alignment.CenterEnd)
+            .graphicsLayer {
+                rotationZ = 220f
+            },
+        painter = painterResource(if (order.orderBuy) R.drawable.ic_vector_order else R.drawable.ic_vector_checked),
+        contentDescription = null,
+        contentScale = ContentScale.Crop
+    )*/
+
     Surface(color = Color.Transparent) {
-        Box(contentAlignment = Alignment.Center) {
+        Card(
+            modifier = Modifier
+                .padding(vertical = 8.dp, horizontal = 8.dp)
+                .alpha(if (order.orderBuy) 0.5f else 1f)
+                .fillMaxWidth()
+                .height(120.dp)
+                .clickable {
+                    showDialogConfirmCompleteOrder = true
+                    // onMainOrderClick.invoke(order)
+                },
 
-
-            Card(
-                modifier = Modifier
-                    .padding(vertical = 4.dp, horizontal = 8.dp)
-                    .fillMaxWidth()
-                    .height(intrinsicSize = IntrinsicSize.Min)
-                    .clickable {
-                        onMainOrderClick.invoke(order)
-                    }
             ) {
 
+            /* Box(modifier = Modifier.fillMaxSize()) {
+             Card(
+                 modifier = Modifier
+                     .padding(vertical = 4.dp, horizontal = 8.dp)
+                     .alpha(if (order.orderBuy) 0.5f else 1f)
+                     .fillMaxWidth()
+                     .height(intrinsicSize = IntrinsicSize.Min)
+                     .clickable {
+                         showDialogConfirmCompleteOrder = true
+                         //onMainOrderClick.invoke(order)
+                     }
+             ) {*/
 
-                Box(modifier = Modifier.fillMaxSize()) {
 
-                    Row(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .animateContentSize(
-                                animationSpec = spring(
-                                    dampingRatio = Spring.DampingRatioMediumBouncy,
-                                    stiffness = Spring.StiffnessLow
-                                )
+            Box(modifier = Modifier
+                .fillMaxSize()
+                .padding()) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .animateContentSize(
+                            animationSpec = spring(
+                                dampingRatio = Spring.DampingRatioMediumBouncy,
+                                stiffness = Spring.StiffnessLow
                             )
+                        )
 
-                    ) {
-                        Column(Modifier.fillMaxSize()) {
-
-                            Text(
-                                text = stringResource(order.orderSeason?.name?.getNameSeason() ?: R.string.lbl_empty),
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(20.dp)
-                                    .background(getCardBackground(order))
-                                    .wrapContentHeight(align = Alignment.CenterVertically),
-                                color = Color.White, textAlign = TextAlign.Center,
-                                style = MaterialTheme.typography.bodySmall.copy(
-                                    fontWeight = FontWeight.Bold
-                                ),
-                                fontSize = 14.sp,
-                            )
+                ) {
 
 
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 8.dp, vertical = 4.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.Absolute.SpaceBetween
-                            ) {
-                                Image(
-                                    modifier = Modifier
-                                        .weight(.12f)
-                                        .clip(CircleShape)
-                                        .background(MaterialTheme.colorScheme.onTertiary)
-                                        .padding(8.dp),
+                    Column() {
+
+                        Text(
+                            text = stringResource(
+                                order.orderSeason?.name?.getNameSeason() ?: R.string.lbl_empty
+                            ),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(20.dp)
+                                .background(getCardBackground(order))
+                                .wrapContentHeight(align = Alignment.CenterVertically),
+                            color = Color.White, textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                fontWeight = FontWeight.Bold
+                            ),
+                            fontSize = 14.sp,
+                        )
+
+
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 4.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Absolute.SpaceBetween
+                        ) {
+                            /* IconButton (
+                                 modifier = Modifier
+                                     .clip(CircleShape)
+                                     .padding(10.dp),
+                                 painter = painterResource(R.drawable.ic_vector_products),
+                                 contentDescription = null,
+                                 colorFilter = ColorFilter.tint(getCardBackground(order)),
+                                 contentScale = ContentScale.Crop
+                             )*/
+
+                            IconButton(onClick = {}) {
+                                Icon(
                                     painter = painterResource(R.drawable.ic_vector_products),
                                     contentDescription = null,
-                                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
-                                    contentScale = ContentScale.Crop
+                                    tint = getCardBackground(order)
                                 )
-
-                                Text(
-                                    modifier = Modifier
-                                        .padding(horizontal = 12.dp)
-                                        .weight(.76f),
-                                    text = order.orderName.uppercase(),
-                                    textAlign = TextAlign.Start,
-                                    style = MaterialTheme.typography.bodyLarge.copy(
-                                        fontWeight = FontWeight.ExtraBold
-                                    ), fontSize = 14.sp
-                                )
-
-                                IconButton(modifier = Modifier.weight(.12f), onClick = {
-                                    showDialogConfirmCompleteOrder = true
-                                }) {
-                                    Icon(
-                                        painter = painterResource(if (order.orderBuy) R.drawable.ic_vector_checked else R.drawable.ic_vector_unchecked),
-                                        contentDescription = null,
-                                    )
-                                }
                             }
 
-                            Row(
+                            Text(
                                 modifier = Modifier
-                                    .padding(horizontal = 8.dp)
-                                    .fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                IconButton(onClick = {
-                                    showDialogConfirmDeleteOrder = true
-                                }) {
-                                    Icon(
-                                        painter = painterResource(R.drawable.ic_vector_remove),
-                                        contentDescription = null,
-                                    )
-                                }
-                                if (order.orderId.isNotEmpty()) {
-                                    Text(
-                                        text = DateUtils.format(
-                                            order.orderId.toLong(),
-                                            FORMAT_DATE3
-                                        ),
-                                        style = MaterialTheme.typography.bodySmall,
-                                        fontWeight = FontWeight.Bold
-                                    )
-                                }
+                                    .weight(.76f),
+                                text = order.orderName.uppercase(),
+                                textAlign = TextAlign.Start,
+                                style = MaterialTheme.typography.bodyLarge.copy(
+                                    fontWeight = FontWeight.ExtraBold
+                                ), fontSize = 14.sp
+                            )
 
-
+                            IconButton(onClick = {
+                                onMainOrderClick.invoke(order)
+                            }) {
+                                Icon(
+                                    painter = painterResource(R.drawable.ic_vector_modify),
+                                    contentDescription = null,
+                                    tint = getCardBackground(order)
+                                )
                             }
+
+                            /*IconButton(modifier = Modifier.weight(.12f), onClick = {
+                                showDialogConfirmCompleteOrder = true
+                            }) {
+                                Icon(
+                                    painter = painterResource(if (order.orderBuy) R.drawable.ic_vector_checked else R.drawable.ic_vector_unchecked),
+                                    contentDescription = null,
+                                )
+                            }*/
+                        }
+
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            IconButton(onClick = {
+                                showDialogConfirmDeleteOrder = true
+                            }) {
+                                Icon(
+                                    painter = painterResource(R.drawable.ic_vector_remove),
+                                    contentDescription = null,
+                                )
+                            }
+                            Spacer(modifier = Modifier.weight(1f))
+                            if (order.orderId.isNotEmpty()) {
+                                Text(modifier = Modifier.padding(end = 12.dp),
+                                    text = DateUtils.format(
+                                        order.orderId.toLong(),
+                                        FORMAT_DATE3
+                                    ),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+
 
                         }
 
@@ -199,15 +250,9 @@ fun OrderItem(
                 }
 
             }
-            Image(
-                modifier = Modifier
-                    .height(120.dp)
-                    .fillMaxWidth()
-                    .alpha(0.5f),
-                painter = painterResource(if (order.orderBuy) R.drawable.buyit else R.drawable.ic_icon_trans),
-                contentDescription = null,
-                contentScale = ContentScale.Crop
-            )
+
+            // }
+
         }
 
 
@@ -254,16 +299,15 @@ private fun getCardBackground(orderMain: Order): Color =
     when (orderMain.orderSeason) {
         Season.FALL -> FallColor
         Season.SPRING -> com.epacheco.reports.compose_reformat.ui.theme.SpringColor
-        null -> GrayLight
+        null -> Black
     }
-
 
 
 @Composable
 private fun getUpdateStatusList(order: Order) =
     stringResource(
-        if (order.orderBuy) R.string.msg_in_progress_order_body else R.string.msg_complete_order_body ,
-        order.orderListId
+        if (order.orderBuy) R.string.msg_in_progress_order_body else R.string.msg_complete_order_body,
+        order.orderName
     )
 
 
@@ -276,7 +320,7 @@ fun OrderMainItemPreview() {
                 orderSeason = Season.FALL,
                 orderName = "name",
                 orderId = "1746568014",
-                orderBuy = true
+                orderBuy = false
             ),
             onMainOrderClick = {},
             onDeleteOrderClick = {}, onUpdateStatusOrderClick = {})

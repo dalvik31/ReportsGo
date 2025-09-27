@@ -43,6 +43,7 @@ fun AccountView(
     onEmailChanged: ((String, String) -> Unit)? = null,
     onPasswordChanged: ((String, String) -> Unit)? = null,
     onLoginClicked: (() -> Unit)? = null,
+    onLoginGoogleClicked: (() -> Unit)? = null,
     onPasswordClicked: (() -> Unit)? = null,
     onRegisterClicked: (() -> Unit)? = null
 
@@ -120,16 +121,16 @@ fun AccountView(
             }
 
             Spacer(Modifier.padding(top = 24.dp))
-           /* TextDivider(textDivider = stringResource(id = R.string.register_screen_lbl_or))
+            TextDivider(textDivider = stringResource(id = R.string.register_screen_lbl_or))
             Spacer(Modifier.padding(top = 24.dp))
-            PrimaryButton(
+            /* PrimaryButton(
                 textButton = stringResource(id = R.string.register_screen_btn_continue_facebook),
                 iconBtn = R.drawable.ic_vector_facebook_logo,
                 colorBackground = FacebookColor,
                 modifier = Modifier
             ) {
 
-            }
+            }*/
             Spacer(Modifier.padding(top = 8.dp))
             PrimaryButton(
                 textButton = stringResource(id = R.string.register_screen_btn_continue_google),
@@ -137,8 +138,8 @@ fun AccountView(
                 colorBackground = GoogleColor,
                 modifier = Modifier
             ) {
-
-            }*/
+                onLoginGoogleClicked?.invoke()
+            }
             Spacer(Modifier.padding(top = 48.dp))
         }
     }

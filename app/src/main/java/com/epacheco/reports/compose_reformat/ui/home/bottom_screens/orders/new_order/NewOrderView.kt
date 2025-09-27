@@ -382,7 +382,7 @@ fun GetBtnSelectColor(colorWrote: String) {
     val colorPosition = colorPosition(colorWrote)
     return if (colorPosition > -1) {
         Icon(
-            imageVector = ImageVector.vectorResource(R.drawable.ic_color_picker),
+            painter = painterResource(R.drawable.ic_color_picker),
             contentDescription = "close",
             tint = getTintColor(colorPosition)
         )

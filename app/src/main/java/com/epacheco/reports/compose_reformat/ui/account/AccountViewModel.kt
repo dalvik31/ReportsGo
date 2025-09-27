@@ -1,14 +1,20 @@
 package com.epacheco.reports.compose_reformat.ui.account
 
+import android.util.Log
+import androidx.credentials.CredentialManager
+import androidx.credentials.CustomCredential
+import androidx.credentials.GetCredentialRequest
+import androidx.credentials.GetCredentialResponse
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.compose_reformat.ReportsApp
-import com.epacheco.reports.compose_reformat.domain.FirebaseGetUserUseCase
+import com.epacheco.reports.compose_reformat.domain.FirebaseUserGoogleLoginUseCase
 import com.epacheco.reports.compose_reformat.domain.FirebaseUserLoginUseCase
 import com.epacheco.reports.compose_reformat.domain.FirebaseUserSignUpUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import com.epacheco.reports.compose_reformat.utils.Validations
 import com.epacheco.reports.compose_reformat.utils.extensions.getTranslateFireBaseErrorMsg
+import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +26,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AccountViewModel @Inject constructor(
     private val firebaseUserLoginUseCase: FirebaseUserLoginUseCase,
-    private val firebaseGetUserUseCase: FirebaseGetUserUseCase,
+    private val firebaseUserGoogleLoginUseCase: FirebaseUserGoogleLoginUseCase,
     private val firebaseUserSignUpUseCase: FirebaseUserSignUpUseCase,
     private val app: ReportsApp
 ) : BaseViewModel() {
@@ -41,7 +47,7 @@ class AccountViewModel @Inject constructor(
     val enabledLoginButton: StateFlow<Boolean> = _enabledLoginButton
 
     init {
-        getProfile()
+        // getProfile()
     }
 
     fun handleIntent(intent: AccountUiIntent) {
@@ -49,26 +55,37 @@ class AccountViewModel @Inject constructor(
             AccountUiIntent.SignUp -> doSignUp()
             AccountUiIntent.ChangePassword -> navigateToPassword()
             AccountUiIntent.SignIn -> doSignIn()
-            AccountUiIntent.GetProfile -> getProfile()
             AccountUiIntent.HideMsgError -> setErrorMsg()
+            is AccountUiIntent.GoogleSignIn -> googleSignIn(intent.credentialRequest)
         }
     }
 
-    private fun getProfile() = viewModelScope.launch {
+    private fun googleSignIn(credentialRequest: GetCredentialRequest) {
         loading(true)
-        when (firebaseGetUserUseCase()) {
-            is Resource.Failure -> {
-                /*No existe informacion del usuario nos quedamos en esta pantalla
-                * para que el usuario inicie sesion o cree una cuenta*/
-            }
+        val credentialManager = CredentialManager.create(app)
+        viewModelScope.launch {
+            try {
+                val result = credentialManager.getCredential(
+                    request = credentialRequest,
+                    context = app,
+                )
+                when (val signInResponse = firebaseUserGoogleLoginUseCase(result)) {
+                    is Resource.Failure -> setErrorMsg(
+                        signInResponse.exception.message?.getTranslateFireBaseErrorMsg(
+                            app
+                        )
+                    )
 
-            is Resource.Success -> {
+                    is Resource.Success -> navigateToHome()
+                }
 
+
+            } catch (e: Throwable) {
+                Log.e("TAG", "handleSignIn google ${e.message}")
             }
         }
         loading(false)
     }
-
     fun onValueLoginChanged(email: String, password: String) {
         _email.value = email
         _password.value = password
@@ -85,7 +102,6 @@ class AccountViewModel @Inject constructor(
                 )
             )
 
-
             is Resource.Success -> navigateToHome()
         }
         loading(false)
@@ -99,6 +115,7 @@ class AccountViewModel @Inject constructor(
                     app
                 )
             )
+
             is Resource.Success -> navigateToHome()
 
         }

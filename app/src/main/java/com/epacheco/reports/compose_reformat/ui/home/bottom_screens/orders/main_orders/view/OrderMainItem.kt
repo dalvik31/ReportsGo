@@ -45,10 +45,13 @@ import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsA
 import com.epacheco.reports.compose_reformat.model.orders.OrderMain
 import com.epacheco.reports.compose_reformat.model.orders.OrderStatus
 import com.epacheco.reports.compose_reformat.model.orders.Season
+import com.epacheco.reports.compose_reformat.ui.theme.Black
 import com.epacheco.reports.compose_reformat.ui.theme.GrayLight
 import com.epacheco.reports.compose_reformat.ui.theme.White
 import com.epacheco.reports.compose_reformat.ui.theme.White60
 import com.epacheco.reports.compose_reformat.ui.theme.FallColor
+import com.epacheco.reports.compose_reformat.ui.theme.PinkDark
+import com.epacheco.reports.compose_reformat.ui.theme.RedLight
 import com.epacheco.reports.compose_reformat.ui.theme.SpringColor
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE3
@@ -137,7 +140,7 @@ fun OrderMainItem(
 
                         Row(
                             modifier = Modifier
-                                .padding(horizontal = 12.dp, vertical = 12.dp),
+                                .padding( vertical = 12.dp).padding(end = 12.dp),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
                             IconButton({
@@ -210,7 +213,7 @@ private fun getCardBackground(orderMain: OrderMain): Color =
     when (orderMain.orderSeason) {
         Season.FALL -> FallColor
         Season.SPRING -> SpringColor
-        null -> GrayLight
+        null -> Black
     }
 
 @Composable
