@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -82,7 +83,7 @@ private fun BackgroundTopImg(imgProfile: Uri?) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(GrayLight, shape = RoundedCornerShape(bottomEnd = 30.dp)),
+                    .background(MaterialTheme.colorScheme.onTertiary, shape = RoundedCornerShape(bottomEnd = 30.dp)),
             )
         }
 

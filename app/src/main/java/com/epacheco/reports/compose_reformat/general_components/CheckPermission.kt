@@ -10,7 +10,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsAlertDialog
+import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
 import com.epacheco.reports.compose_reformat.utils.extensions.findActivity
 import com.epacheco.reports.compose_reformat.utils.extensions.gotoApplicationSettings
 import com.epacheco.reports.compose_reformat.utils.extensions.shouldShowRationale
@@ -57,7 +57,7 @@ fun CheckPermission(
 
 
     if (showScanCodeRationaleDialog) {
-        ReportsAlertDialog(
+        ReportsDialog(
             imgDialog = R.drawable.ic_vector_add_photo,
             dialogSubTitle = permissionRationaleTitle,
             confirmButtonText = stringResource(R.string.permission_btn_get_permission),
@@ -74,7 +74,7 @@ fun CheckPermission(
     }
 
     if (showScanCodeSettingsDialog) {
-        ReportsAlertDialog(
+        ReportsDialog(
             imgDialog = R.drawable.ic_vector_add_photo,
             dialogSubTitle = permissionOpenSettingsTitle,
             confirmButtonText = stringResource(R.string.permission_btn_open_settings),

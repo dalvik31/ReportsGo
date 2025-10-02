@@ -4,9 +4,13 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
@@ -43,7 +47,7 @@ fun OrdersView(
     onDeleteOrderClick: ((String) -> Unit)? = null,
     onUpdateStatusOrderClick: ((Order) -> Unit)? = null
 ) {
-    Column {
+    Column(Modifier.background(color = Color.Transparent))  {
 
         Header(
             title = pluralStringResource(
@@ -51,7 +55,6 @@ fun OrdersView(
                 count = orderList.size,
                 orderList.size
             ),
-            backgroundToolbar = Color.Transparent,
             titleColor = MaterialTheme.colorScheme.primary,
             onLeftIconClicked = { onBackPressed?.invoke() },
             leftImageVector = Icons.Default.ArrowBackIosNew,
@@ -83,7 +86,29 @@ fun OrdersView(
                 isRefreshing = isRefreshing,
                 onRefresh = { onRefresh?.invoke() },
             ) {
-                LazyColumn(
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                    contentPadding = PaddingValues(horizontal = 8.dp)
+                ) {
+                    items(orderList) { order ->
+                        OrderItem(
+                            order = order,
+                            onMainOrderClick = {
+                                onOrderClick?.invoke(order)
+                            },
+                            onDeleteOrderClick = {
+                                onDeleteOrderClick?.invoke(order.orderId)
+                            },
+                            onUpdateStatusOrderClick = {
+                                onUpdateStatusOrderClick?.invoke(order)
+                            }
+                        )
+                    }
+                }
+                /*LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
                         .background(color = Color.Transparent)
@@ -102,7 +127,7 @@ fun OrdersView(
                             }
                         )
                     }
-                }
+                }*/
             }
 
         }

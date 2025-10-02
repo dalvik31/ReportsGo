@@ -1,26 +1,19 @@
 package com.epacheco.reports.compose_reformat.ui.account
 
-import android.provider.Settings.Global.getString
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.credentials.CredentialManager
 import androidx.credentials.GetCredentialRequest
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.Loader
-import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsAlertDialog
+import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
-import com.epacheco.reports.compose_reformat.utils.extensions.findActivity
-import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GetSignInWithGoogleOption
 import kotlinx.coroutines.flow.collectLatest
-import java.security.SecureRandom
-import java.util.Base64
 
 @Composable
 fun AccountScreen(
@@ -90,10 +83,13 @@ fun AccountScreen(
 
     //Message error
     uiState.errorMessage?.let { msgError ->
-        ReportsAlertDialog(
+        ReportsDialog(
             imgDialog = R.drawable.ic_error,
             dialogSubTitle = msgError,
             confirmButtonText = stringResource(R.string.btn_ok),
+            onDismissRequest = {
+                accountViewModel.handleIntent(AccountUiIntent.HideMsgError)
+            },
             onConfirmation = {
                 accountViewModel.handleIntent(AccountUiIntent.HideMsgError)
             })

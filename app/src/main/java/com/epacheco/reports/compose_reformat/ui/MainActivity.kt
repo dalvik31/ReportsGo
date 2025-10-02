@@ -25,7 +25,8 @@ class MainActivity : ComponentActivity() {
             ReportsGoTheme {
                 Scaffold { paddingValues ->
                     ReportsNavHost(
-                        modifier = Modifier.padding(paddingValues = paddingValues)
+                        modifier = Modifier.padding(paddingValues = paddingValues),
+                        ctx = this
                     )
                 }
             }

@@ -1,6 +1,7 @@
 package com.epacheco.reports.compose_reformat.utils
 
 import java.text.SimpleDateFormat
+import java.time.DayOfWeek
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
@@ -45,16 +46,17 @@ object DateUtils {
         date: Date,
         format: String
     ): String = SimpleDateFormat(
-        format, Locale.getDefault()
+        format, Locale("es")
     ).format(date)
 
 
 
     const val FORMAT_DATE1 = "yyyy-MM-dd"
-    const val FORMAT_DATE2 = "dd/MM/yyyy"
+    const val FORMAT_DATE2 = "dd/MMMM/yy"
     const val FORMAT_DATE3 = "dd / MMMM / YYYY - HH:MM"
     const val FORMAT_DATE4 = "dd MMM, YYYY"
-    const val FORMAT_DATE5 = "MM/YY - HH:MM"
+    const val FORMAT_DATE5 = "EE dd/MM/yy HH:MM"
+    const val FORMAT_DATE6 = "EEEE"
 
 
 

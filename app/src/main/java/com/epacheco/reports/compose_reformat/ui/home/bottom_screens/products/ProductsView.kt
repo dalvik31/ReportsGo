@@ -1,5 +1,6 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,6 +13,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults.Indicator
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
@@ -20,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -45,6 +48,7 @@ fun ProductsView(
     onGoProductDetailClick: (String?) -> Unit
 ) {
     val state = rememberPullToRefreshState()
+
     Column {
         Header(
             title = pluralStringResource(
@@ -52,7 +56,6 @@ fun ProductsView(
                 count = productList.size,
                 productList.size,
             ),
-            backgroundToolbar = Color.Transparent,
             titleColor = MaterialTheme.colorScheme.primary,
             onRightIconClicked = {
                 onGoProductDetailClick.invoke(null)
@@ -65,6 +68,7 @@ fun ProductsView(
             modifier = Modifier.padding(horizontal = 16.dp),
             searchHintText = stringResource(id = R.string.lbl_search_product_hint),
             searchText = inputName ?: "",
+
         ) {
             onInputNameChanged?.invoke(it)
         }
@@ -79,26 +83,46 @@ fun ProductsView(
                 Indicator(
                     modifier = Modifier.align(Alignment.TopCenter),
                     isRefreshing = isRefreshing,
-                    containerColor = White,
+                    containerColor = MaterialTheme.colorScheme.onPrimary,
                     color = MaterialTheme.colorScheme.primary,
                     state = state
                 )
             }
         ) {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(color = Color.Transparent),
-                verticalArrangement = Arrangement.spacedBy(4.dp),
-                contentPadding = PaddingValues(horizontal = 8.dp)
-            ) {
-                items(productList) { product ->
-                    ProductItem(product) {
-                        onGoProductDetailClick.invoke(product.productId)
+
+            if(productList.isEmpty()){
+                Column(
+                    Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.ic_vector_products_empty),
+                        contentDescription = null
+                    )
+                    Text(
+                        color = MaterialTheme.colorScheme.primary,
+                        text = stringResource(R.string.msg_zero_products),
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.padding(top = 12.dp)
+                    )
+                }
+            }else{
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                    contentPadding = PaddingValues(horizontal = 8.dp)
+                ) {
+                    items(productList) { product ->
+                        ProductItem(product) {
+                            onGoProductDetailClick.invoke(product.productId)
+                        }
                     }
                 }
             }
+
         }
     }
 }

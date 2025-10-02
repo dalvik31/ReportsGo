@@ -88,7 +88,7 @@ fun ReportsInputDialog(
                             Text(
                                 it.uppercase(),
                                 fontWeight = FontWeight.ExtraBold,
-                                color = White,
+                                color = MaterialTheme.colorScheme.onPrimary,
                                 textAlign = TextAlign.Center,
                                 modifier = Modifier
                                     .fillMaxWidth()

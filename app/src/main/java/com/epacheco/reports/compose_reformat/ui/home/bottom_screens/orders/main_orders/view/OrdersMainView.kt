@@ -1,6 +1,7 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.view
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -52,10 +53,9 @@ fun OrderMainView(
                 count = orderMainMainList.size,
                 orderMainMainList.size,
             ),
-            backgroundToolbar = Color.Transparent,
             titleColor = MaterialTheme.colorScheme.primary,
-            onRightIconClicked = { onCreateOrderMainClick?.invoke() },
             tintImageRight = MaterialTheme.colorScheme.primary,
+            onRightIconClicked = { onCreateOrderMainClick?.invoke() },
             rightImageVector = ImageVector.vectorResource(R.drawable.ic_vector_add)
         )
 

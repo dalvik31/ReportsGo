@@ -72,9 +72,9 @@ fun PasswordTextField(
             unfocusedContainerColor = Color.Transparent,
             disabledContainerColor = Color.Transparent,
             focusedContainerColor = Color.Transparent,
-            unfocusedIndicatorColor = RedLight,
-            focusedIndicatorColor = RedLight,
-            disabledIndicatorColor = RedLight,
+            unfocusedIndicatorColor = MaterialTheme.colorScheme.primary,
+            disabledIndicatorColor = Color.Transparent,
+            focusedIndicatorColor = MaterialTheme.colorScheme.primary
         ),
         visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
         trailingIcon = {

@@ -1,11 +1,16 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders_detail
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.domain.OrderDeleteUseCase
+import com.epacheco.reports.compose_reformat.domain.OrderMainUpdateStatusUseCase
 import com.epacheco.reports.compose_reformat.domain.OrdersListUseCase
 import com.epacheco.reports.compose_reformat.domain.OrderUpdateStatusUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
+import com.epacheco.reports.compose_reformat.model.orders.Order
+import com.epacheco.reports.compose_reformat.model.orders.OrderMain
+import com.epacheco.reports.compose_reformat.model.orders.OrderStatus
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -20,6 +25,7 @@ class OrdersViewModel @Inject constructor(
     private val ordersListUseCase: OrdersListUseCase,
     private val orderDeleteUseCase: OrderDeleteUseCase,
     private val orderUpdateStatusUseCase: OrderUpdateStatusUseCase,
+    private val orderMainUpdateStatusUseCase: OrderMainUpdateStatusUseCase,
 ) :
     BaseViewModel() {
 
@@ -56,15 +62,16 @@ class OrdersViewModel @Inject constructor(
 
                 is Resource.Success -> {
                     _uiState.value =
-
                         _uiState.value.copy(
                             orders = orderResponse.result,
                             showImgEmptyList = orderResponse.result.isEmpty()
                         )
+
                 }
             }
             loading(false)
         }
+
 
     private fun deleteOrder(orderId: String, mainOrderId: String) =
         viewModelScope.launch {
@@ -95,6 +102,8 @@ class OrdersViewModel @Inject constructor(
             }
             loading(false)
         }
+
+    
 
 
     override fun setErrorMsg(msgError: String?) {

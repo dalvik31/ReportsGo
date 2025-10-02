@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Reports</string>
+    <string name="app_name">ReportsGo</string>
 
 
     <!--Llaves para twitter-->
@@ -392,13 +392,20 @@
     <string name="list__main_orders_empty">No se encontraron listas de pedido.</string>
     <string name="list_orders_empty">No se encontraron pedidos.</string>
     <string name="list_order_empty">No se encontraron listas de pedido %s.</string>
+    <string name="msg_dialog_options_title">Opciones</string>
+    <string name="msg_dialog_options_body">¿Que acción quieres realizar?</string>
+    <string name="msg_dialog_delete_option">Eliminar</string>
+    <string name="msg_dialog_check_complete">Cambiar a completado</string>
+    <string name="msg_dialog_check_in_progress">Cambiar a en progreso</string>
+    <string name="msg_dialog_edit_order">Editar</string>
+    <string name="msg_dialog_delete_order">Eliminar</string>
     <string name="msg_delete_main_order_title">Eliminar elemento</string>
     <string name="msg_delete_order_title">Eliminar elemento</string>
     <string name="msg_delete_main_order_list_body"><![CDATA[¿Estas seguro de querer eliminar la lista de pedido: <b>%s</b>?]]></string>
     <string name="msg_delete_order_list_body"><![CDATA[¿Estas seguro de querer eliminar el pedido: <b>%s</b>?]]></string>
     <string name="btn_create_order_list">Crear lista</string>
     <string name="title_create_order_list">Nombre de la lista</string>
-    <string name="title_order_main_default_name">Lista | %s</string>
+    <string name="title_order_main_default_name">%s • %s</string>
     <string name="title_order_default_name">Pedido %s: %s</string>
     <string name="msg_error_list_already_exist">Ya creaste una lista de pedido con la fecha de hoy, intenta crear una lista mañana o elimina la ultima lista.</string>
     <string name="msg_update_state_order_title">Actualizar estado</string>
@@ -406,6 +413,7 @@
     <string name="msg_in_progress_main_order_body"><![CDATA[¿Estas seguro de querer cambiar el estado de la lista: \"<i>%s</i>\" a <b>en progreso</b>?]]></string>
     <string name="msg_complete_order_body"><![CDATA[¿Estas seguro de querer cambiar el estado del pedido: \"<i>%s</i>\" a <b>completado</b>?]]></string>
     <string name="msg_in_progress_order_body"><![CDATA[¿Estas seguro de querer cambiar el estado del pedido: \"<i>%s</i>\" a <b>en progreso</b>?]]></string>
+
     <!--ORDER Fragments-->
     <string name="create_new_order_title">Crear nuevo pedido</string>
     <string name="modify_order_title">Modificar pedido</string>
@@ -432,6 +440,11 @@
     <string name="season_spring">Primavera - Verano</string>
     <string name="season_fall">Otoño - Invierno</string>
     <string name="order_empty_inputs_error">Faltan campos por completar</string>
+    <string name="order_name_format"><![CDATA[<b>%s</b> - %s]]></string>
+    <plurals name="num_orders">
+        <item formatted="true" quantity="one">%s Pedido</item>
+        <item formatted="true" quantity="other">%s Pedidos</item>
+    </plurals>
     <string-array name="colors_code_array">
         <item>#090000</item>
         <item>#929292</item>

@@ -12,26 +12,36 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = RedDark,
+    background = BlackBackground,
+    primary = White,
+    onPrimary = Black,
     secondary = GrayLight,
     onSecondary = White,
     tertiary = PinkLight,
     surface = Black60,
     onSurface = White60,
     onTertiary = GrayDark,
+    primaryContainer = GrayDark,
+    inversePrimary = White40,
+    onPrimaryContainer = White,
+    onBackground = WhiteBackground
 
     )
 
 private val LightColorScheme = lightColorScheme(
-    primary = RedDark,
+    background = WhiteBackground,
+    primary = Black,
+    onPrimary = White,
     secondary = GrayDark,
     onSecondary = Black,
     tertiary = PinkDark,
     surface = White60,
     onSurface = Black60,
-    onTertiary = GrayLight
-
-)
+    onTertiary = GrayLight,
+    primaryContainer = Black,
+    inversePrimary = GrayDark,
+    onPrimaryContainer = White,
+    onBackground = BlackBackground)
 
 @Composable
 fun ReportsGoTheme(
@@ -46,8 +56,8 @@ fun ReportsGoTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+            window.statusBarColor = colorScheme.background.toArgb()
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
         }
     }
 

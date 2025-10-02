@@ -7,5 +7,5 @@ data class OrdersMainUiState(
     val isLoading: Boolean = false,       // Loading state
     val errorMessage: String? = null,
     val successOperationMsg: Int? = null,
-    val showImgEmptyList: Boolean? = null
+    val showImgEmptyList: Boolean? = null,
 )

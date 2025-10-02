@@ -64,7 +64,7 @@ fun OrderList(
                 Indicator(
                     modifier = Modifier.align(Alignment.TopCenter),
                     isRefreshing = isRefreshing,
-                    containerColor = White,
+                    containerColor = MaterialTheme.colorScheme.onPrimary,
                     color = MaterialTheme.colorScheme.primary,
                     state = state
                 )

@@ -59,7 +59,7 @@ public class FinanceAcitivityView extends AppCompatActivity implements FinanceAc
         super.onStart();
         if (mAuth.getCurrentUser() != null && mAuth.getCurrentUser().getPhotoUrl() != null) {
             Glide
-                    .with(ReportsApplication.getMyApplicationContext())
+                    .with(this)
                     .load(com.epacheco.reports.tools.Tools.getFormatUrlImage(mAuth.getCurrentUser().getPhotoUrl()))
                     .apply(RequestOptions.circleCropTransform())
                     .into(binding.appBarLayout.getImageView());

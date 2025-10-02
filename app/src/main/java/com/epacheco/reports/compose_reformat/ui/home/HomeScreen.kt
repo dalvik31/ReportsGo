@@ -1,12 +1,15 @@
 package com.epacheco.reports.compose_reformat.ui.home
 
 
+import android.app.Activity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -27,10 +30,11 @@ import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes
 import com.epacheco.reports.compose_reformat.ui.theme.White
 import com.epacheco.reports.compose_reformat.ui.theme.White40
 import com.epacheco.reports.compose_reformat.utils.extensions.serializableType
+import com.epacheco.reports.tools.ScreenManager
 import kotlin.reflect.typeOf
 
 @Composable
-fun HomeScreen(onNavigateToRegister: () -> Unit) {
+fun HomeScreen(onNavigateToRegister: () -> Unit,ctx : Activity) {
     val bottomNavController = rememberNavController()
 
     Scaffold(
@@ -38,10 +42,10 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
         bottomBar = {
             AnimatedNavigationBar(
                 buttons = BottomHomeNavigationItem().bottomNavigationItems(),
-                barColor = MaterialTheme.colorScheme.primary,
-                circleColor = MaterialTheme.colorScheme.primary,
-                selectedColor = White,
-                unselectedColor = White40,
+                barColor = MaterialTheme.colorScheme.primaryContainer,
+                circleColor = MaterialTheme.colorScheme.primaryContainer,
+                selectedColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                unselectedColor = MaterialTheme.colorScheme.inversePrimary,
                 bottomNavController
             )
         }
@@ -85,7 +89,11 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                 })
             }
             composable<BottomHomeRoutes.FinanceBottomHomeRoute> {
-                FinancesScreen()
+                LaunchedEffect(Unit) {
+
+                }
+                ScreenManager.goFinanceActivity(ctx)
+                //FinancesScreen()
             }
             composable<BottomHomeRoutes.ProfileBottomHomeRoute> {
                 ProfileScreen(onNavigateToLogin = {

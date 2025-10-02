@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.Loader
-import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsAlertDialog
+import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.listClients.viewModel.ClientsViewModel
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
@@ -33,7 +33,7 @@ fun ClientsScreen(
     }
 
     clientsUiState.errorMessage?.let { msgError ->
-        ReportsAlertDialog (
+        ReportsDialog (
             imgDialog = R.drawable.ic_error,
             confirmButtonText = stringResource(R.string.btn_ok),
             dialogSubTitle = msgError,

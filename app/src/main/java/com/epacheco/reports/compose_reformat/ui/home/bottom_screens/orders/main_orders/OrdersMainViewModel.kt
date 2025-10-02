@@ -1,5 +1,6 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ReportsApp
@@ -8,6 +9,7 @@ import com.epacheco.reports.compose_reformat.domain.OrderMainDeleteUseCase
 import com.epacheco.reports.compose_reformat.domain.OrderMainListUseCase
 import com.epacheco.reports.compose_reformat.domain.OrderMainUpdateStatusUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
+import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.model.orders.OrderMain
 import com.epacheco.reports.compose_reformat.model.orders.OrderStatus
 import com.epacheco.reports.compose_reformat.model.orders.Season
@@ -42,7 +44,6 @@ class OrdersMainViewModel @Inject constructor(
     private val _effectFlow = MutableSharedFlow<OrdersMainUiEffect>()
     val effectFlow: SharedFlow<OrdersMainUiEffect> = _effectFlow
 
-
     fun handleIntent(intent: OrdersMainUiIntent) {
         when (intent) {
             is OrdersMainUiIntent.DeleteMainList -> deleteMainOrder(intent.orderId)
@@ -61,6 +62,38 @@ class OrdersMainViewModel @Inject constructor(
         }
     }
 
+    private fun checkUnCompleteOrders() {
+        val listInProgress = _uiState.value.orderMains
+        if (listInProgress.isNotEmpty()) {
+            val listOrderComplete = arrayListOf<String>()
+            val listOrderInProgress = arrayListOf<String>()
+            for (itemProgressList in listInProgress) {
+                val listMainOrder = itemProgressList.orderLists
+                if (!listMainOrder.isNullOrEmpty()) {
+
+                    if (itemProgressList.geProgressList() == 1f && itemProgressList.orderStatus == OrderStatus.IN_PROGRESS) {
+                        if (!listOrderComplete.contains(itemProgressList.orderId)) {
+                            listOrderComplete.add(itemProgressList.orderId)
+                        }
+                    } else if (itemProgressList.geProgressList() < 1f && itemProgressList.orderStatus == OrderStatus.DONE) {
+                        if (!listOrderInProgress.contains(itemProgressList.orderId)) {
+                            listOrderInProgress.add(itemProgressList.orderId)
+                        }
+                    }
+                }
+
+            }
+
+            for (orderMainIdItem in listOrderComplete) {
+                updateStatusOrder(orderMainIdItem, OrderStatus.IN_PROGRESS, true)
+            }
+            for (orderMainIdItem in listOrderInProgress) {
+                updateStatusOrder(orderMainIdItem, OrderStatus.DONE, true)
+            }
+        }
+    }
+
+
     private fun loadMainOrders() =
         viewModelScope.launch {
             loading(true)
@@ -71,11 +104,35 @@ class OrdersMainViewModel @Inject constructor(
                     )
                 }
 
-                is Resource.Success -> _uiState.value =
-                    _uiState.value.copy(
-                        orderMains = orderMainResponse.result,
-                        showImgEmptyList = orderMainResponse.result.isEmpty()
+                is Resource.Success -> {
+                    _uiState.value =
+                        _uiState.value.copy(
+                            orderMains = orderMainResponse.result,
+                            showImgEmptyList = orderMainResponse.result.isEmpty(),
+                        )
+                    checkUnCompleteOrders()
+                }
+            }
+            loading(false)
+        }
+
+    private fun reloadMainOrders() =
+        viewModelScope.launch {
+            loading(true)
+            when (val orderMainResponse = orderMainListUseCase()) {
+                is Resource.Failure -> {
+                    _uiState.value = _uiState.value.copy(
+                        showImgEmptyList = true
                     )
+                }
+
+                is Resource.Success -> {
+                    _uiState.value =
+                        _uiState.value.copy(
+                            orderMains = orderMainResponse.result,
+                            showImgEmptyList = orderMainResponse.result.isEmpty(),
+                        )
+                }
             }
             loading(false)
         }
@@ -94,7 +151,11 @@ class OrdersMainViewModel @Inject constructor(
             loading(false)
         }
 
-    private fun updateStatusOrder(orderId: String, orderStatus: OrderStatus) =
+    private fun updateStatusOrder(
+        orderId: String,
+        orderStatus: OrderStatus,
+        comeCheckOrder: Boolean = false
+    ) =
         viewModelScope.launch {
             loading(true)
             val newOrderStatus =
@@ -104,7 +165,13 @@ class OrdersMainViewModel @Inject constructor(
                 is Resource.Success -> {
                     _uiState.value =
                         _uiState.value.copy(successOperationMsg = R.string.msg_order_list_update_success)
-                    loadMainOrders()
+                    if (comeCheckOrder) {
+                        reloadMainOrders()
+                    } else {
+                        loadMainOrders()
+                    }
+
+
                 }
             }
             loading(false)
@@ -144,11 +211,9 @@ class OrdersMainViewModel @Inject constructor(
             loading(false)
         }
 
-    private fun getNameMainOrder(): String = _inputList.value.ifEmpty {
-        app.getString(
-            R.string.title_order_main_default_name,
-            DateUtils.format(System.currentTimeMillis(), DateUtils.FORMAT_DATE5)
-        )
+    private fun getNameMainOrder(): String {
+        return _inputList.value
+
     }
 
     override fun setErrorMsg(msgError: String?) {

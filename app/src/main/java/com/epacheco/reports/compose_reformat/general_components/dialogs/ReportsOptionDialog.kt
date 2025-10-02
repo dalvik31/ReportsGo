@@ -3,19 +3,16 @@ package com.epacheco.reports.compose_reformat.general_components.dialogs
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -24,7 +21,6 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -34,60 +30,61 @@ import androidx.compose.ui.window.Dialog
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
 import com.epacheco.reports.compose_reformat.general_components.SecondaryButton
-import com.epacheco.reports.compose_reformat.ui.theme.Black
-import com.epacheco.reports.compose_reformat.ui.theme.GrayDark
-import com.epacheco.reports.compose_reformat.ui.theme.RedBackground
 import kotlinx.coroutines.delay
 
 
 @Composable
-fun ReportsAlertDialog(
+fun ReportsOptionDialog(
     imgDialog: Int,
     dialogTitle: String? = null,
     dialogSubTitle: String? = null,
-    confirmButtonText: String? = null,
-    cancelButtonText: String? = null,
+    firstOptionText: String? = null,
+    secondOptionText: String? = null,
     closeAutomatically: Boolean? = null,
     onDismissRequest: (() -> Unit)? = null,
-    onConfirmation: () -> Unit,
+    onFirstConfirmation: () -> Unit,
+    onSecondConfirmation: () -> Unit,
 ) {
     Dialog(onDismissRequest = { onDismissRequest?.invoke() }) {
-        CustomDialogUI(
+        CustomOptionDialogUI(
             imgDialog = imgDialog,
             dialogTitle = dialogTitle,
             dialogSubTitle = dialogSubTitle,
             closeAutomatically = closeAutomatically,
-            confirmButtonText = confirmButtonText,
-            cancelButtonText = cancelButtonText,
+            firstOptionText = firstOptionText,
+            secondOptionText = secondOptionText,
             onDismissRequest = onDismissRequest,
-            onConfirmation = onConfirmation
+            onFirstConfirmation = onFirstConfirmation,
+            onSecondConfirmation = onSecondConfirmation
         )
     }
 }
 
 //Layout
 @Composable
-fun CustomDialogUI(
+fun CustomOptionDialogUI(
     modifier: Modifier = Modifier,
     imgDialog: Int = R.drawable.ic_notfication,
     dialogTitle: String? = null,
     dialogSubTitle: String? = null,
-    confirmButtonText: String? = null,
-    cancelButtonText: String? = null,
+    firstOptionText: String? = null,
+    secondOptionText: String? = null,
     closeAutomatically: Boolean? = null,
     onDismissRequest: (() -> Unit)? = null,
-    onConfirmation: (() -> Unit)? = null,
+    onFirstConfirmation: (() -> Unit)? = null,
+    onSecondConfirmation: (() -> Unit)? = null,
 ) {
 
 
     Card(
         shape = RoundedCornerShape(10.dp),
-        elevation = androidx.compose.material3.CardDefaults.cardElevation(8.dp)
+        elevation = CardDefaults.cardElevation(8.dp)
     ) {
         Column(
             modifier
-                .background(Color.White)
-                .padding(horizontal = 30.dp).padding(top = 30.dp, bottom = 20.dp)
+                .background(Color.Unspecified)
+                .padding(horizontal = 30.dp)
+                .padding(top = 30.dp, bottom = 20.dp)
         ) {
 
             //.......................................................................
@@ -113,7 +110,7 @@ fun CustomDialogUI(
                         textAlign = TextAlign.Center,
                         modifier = Modifier
                             .fillMaxWidth(),
-                        color = Black,
+                        color = MaterialTheme.colorScheme.primary,
                         style = MaterialTheme.typography.headlineMedium,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis,
@@ -125,7 +122,7 @@ fun CustomDialogUI(
                     Text(
                         text = AnnotatedString.fromHtml(it),
                         textAlign = TextAlign.Center,
-                        color = Black,
+                        color = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier
                             .fillMaxWidth(),
                         style = MaterialTheme.typography.bodyLarge
@@ -135,19 +132,19 @@ fun CustomDialogUI(
                 closeAutomatically?.let {
                     LaunchedEffect(it) {
                         delay(2000)  // the delay of 3 seconds
-                        onConfirmation?.invoke()
+                        onDismissRequest?.invoke()
                     }
                 } ?: run {
 
-                    confirmButtonText?.let {
+                    firstOptionText?.let {
                         PrimaryButton(textButton = it.uppercase(), onButtonClicked = {
-                            onConfirmation?.invoke()
+                            onFirstConfirmation?.invoke()
                         })
 
                     }
-                    cancelButtonText?.let {
+                    secondOptionText?.let {
                         SecondaryButton(textButton = it.uppercase(), onButtonClicked = {
-                            onDismissRequest?.invoke()
+                            onSecondConfirmation?.invoke()
                         })
                     }
 
@@ -162,44 +159,14 @@ fun CustomDialogUI(
 
 @Preview
 @Composable
-fun ReportsErrorDialogPreview() {
-    ReportsAlertDialog(
-        R.drawable.ic_error,
-        dialogSubTitle = "Ocurrio un error intenta mas tarde",
-        confirmButtonText = "Aceptar",
-        cancelButtonText = "Cancel"
-    ) {}
-}
-
-@Preview
-@Composable
-fun ReportsSuccessDialogPreview() {
-    ReportsAlertDialog(
-        R.drawable.ic_vector_ok,
-        dialogTitle = "Info",
-        dialogSubTitle = "La operacion se ejecuto con exito",
-        confirmButtonText = "Aceptar",
-    ) {}
-}
-
-@Preview
-@Composable
-fun ReportsSuccessCancelDialogPreview() {
-    ReportsAlertDialog(
-        R.drawable.ic_vector_ok,
-        dialogSubTitle = "La operacion se ejecuto con exito",
-        cancelButtonText = "Cancelar",
-    ) {}
-}
-
-@Preview
-@Composable
-fun ReportsSuccessAutomaticallyDialogPreview() {
-    ReportsAlertDialog(
-        R.drawable.ic_vector_ok,
-        dialogSubTitle = "La operacion se ejecuto con exito",
-        closeAutomatically = true,
-        confirmButtonText = "Aceptar",
-        cancelButtonText = "Cancel"
-    ) {}
+fun ReportsOptionPreview() {
+    ReportsOptionDialog(
+        R.drawable.ic_vector_order,
+        dialogTitle = "Opciones",
+        dialogSubTitle = "¿Que accion deseas realizar?",
+        firstOptionText = "Marcar como completado",
+        secondOptionText = "Eliminar",
+        onFirstConfirmation = {},
+        onSecondConfirmation = {}
+    )
 }

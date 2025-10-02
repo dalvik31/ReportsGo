@@ -8,7 +8,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsAlertDialog
+import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
 import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.model.orders.Season
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
@@ -101,7 +101,7 @@ fun NewOrderScreen(
 
     //Message error
     uiState.errorMessage?.let { msgError ->
-        ReportsAlertDialog(
+        ReportsDialog(
             imgDialog = R.drawable.ic_error,
             confirmButtonText = stringResource(R.string.btn_ok),
             dialogSubTitle = msgError,
@@ -112,7 +112,7 @@ fun NewOrderScreen(
 
     //Message success
     uiState.successOperationMsg?.let { msgSuccessOperation ->
-        ReportsAlertDialog(
+        ReportsDialog(
             imgDialog = R.drawable.ic_vector_ok,
             dialogSubTitle = stringResource(msgSuccessOperation),
             closeAutomatically = true,

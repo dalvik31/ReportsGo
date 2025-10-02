@@ -18,7 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.CheckPermission
 import com.epacheco.reports.compose_reformat.general_components.Loader
-import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsAlertDialog
+import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.picture_picker.PickerPictureDialog
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.view.productsView.scanCode.ScannedBarcodeActivity
@@ -153,7 +153,7 @@ fun NewProductScreen(
 
     //Message error
     uiState.errorMessage?.let { msgError ->
-        ReportsAlertDialog(
+        ReportsDialog(
             imgDialog = R.drawable.ic_error,
             confirmButtonText = stringResource(R.string.btn_ok),
             dialogSubTitle = msgError,
@@ -162,7 +162,7 @@ fun NewProductScreen(
             })
     }
     uiState.successMessage?.let { msgSuccessOperation ->
-        ReportsAlertDialog(
+        ReportsDialog(
             imgDialog = R.drawable.ic_vector_ok,
             dialogSubTitle = stringResource(msgSuccessOperation),
             closeAutomatically = true,
@@ -207,7 +207,7 @@ fun NewProductScreen(
 
 
     if (showDialogConfirmDeleteProduct) {
-        ReportsAlertDialog(
+        ReportsDialog(
             imgDialog = R.drawable.ic_vector_remove,
             dialogTitle = stringResource(R.string.msg_delete_main_order_title),
             dialogSubTitle = stringResource(

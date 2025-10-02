@@ -1,6 +1,10 @@
 package com.epacheco.reports.compose_reformat.ui.navigation
 
+import android.app.Activity
+import androidx.compose.foundation.background
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -15,7 +19,8 @@ import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 @Composable
 fun ReportsNavHost(
     modifier: Modifier = Modifier,
-    navController: NavHostController = rememberNavController()
+    navController: NavHostController = rememberNavController(),
+    ctx: Activity
 ) {
     ReportsGoTheme {
         NavHost(
@@ -25,15 +30,21 @@ fun ReportsNavHost(
         ) {
 
             composable<NavHostScreens.SplashRoute> {
-                SplashScreen(onNavigateToHome = {
-                    navController.navigate(NavHostScreens.HomeRoute) {
-                        popUpTo(NavHostScreens.SplashRoute) { inclusive = true }
-                    }
-                }, onNavigateToLogin = {
-                    navController.navigate(NavHostScreens.RegisterRoute) {
-                        popUpTo(NavHostScreens.SplashRoute) { inclusive = true }
-                    }
-                })
+
+                    SplashScreen(onNavigateToHome = {
+
+                            navController.navigate(NavHostScreens.HomeRoute) {
+                                popUpTo(NavHostScreens.SplashRoute) { inclusive = true }
+                            }
+
+
+                    }, onNavigateToLogin = {
+                        navController.navigate(NavHostScreens.RegisterRoute) {
+                            popUpTo(NavHostScreens.SplashRoute) { inclusive = true }
+                        }
+                    })
+
+
             }
             composable<NavHostScreens.RegisterRoute> {
                 AccountScreen(onNavigateToHome = {
@@ -50,7 +61,7 @@ fun ReportsNavHost(
                 })
             }
             composable<NavHostScreens.HomeRoute> {
-                HomeScreen(onNavigateToRegister = {
+                HomeScreen(ctx = ctx,onNavigateToRegister = {
                     navController.navigate(NavHostScreens.RegisterRoute) {
                         popUpTo(NavHostScreens.HomeRoute) { inclusive = true }
                     }

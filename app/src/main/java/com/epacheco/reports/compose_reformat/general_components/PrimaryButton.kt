@@ -22,6 +22,7 @@ import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ui.theme.FacebookColor
 import com.epacheco.reports.compose_reformat.ui.theme.GoogleColor
 import com.epacheco.reports.compose_reformat.ui.theme.GrayLight
+import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.ui.theme.White
 
 
@@ -48,8 +49,8 @@ fun PrimaryButton(
 
             }, colors = ButtonDefaults.buttonColors(
                 containerColor = colorBackground,
-                disabledContentColor = White,
-                disabledContainerColor = GrayLight,
+                disabledContentColor = MaterialTheme.colorScheme.onPrimary,
+                disabledContainerColor = MaterialTheme.colorScheme.onTertiary,
             )
         ) {
             iconBtn?.let { icon ->
@@ -57,12 +58,12 @@ fun PrimaryButton(
                     painterResource(id = icon),
                     contentDescription = "Login google",
                     modifier = Modifier.size(20.dp),
-                    tint = White
+                    tint = MaterialTheme.colorScheme.onPrimary
                 )
             }
 
             Text(
-                color = White,
+                color = MaterialTheme.colorScheme.onPrimary,
                 text = textButton,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center
@@ -94,10 +95,15 @@ private fun FacebookButtonPreview() {
     )
 }
 
-@Preview
+@Preview()
 @Composable
 private fun PrimaryButtonPreview() {
-    PrimaryButton(
-        textButton = "Primary button"
-    )
+    ReportsGoTheme {
+        PrimaryButton(
+            textButton = "Primary button",
+            enabledButton = false,
+            iconBtn = R.drawable.ic_vector_google_logo,
+        )
+    }
+
 }

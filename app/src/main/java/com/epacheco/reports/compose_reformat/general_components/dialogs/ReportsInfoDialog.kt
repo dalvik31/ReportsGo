@@ -9,8 +9,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -37,6 +40,8 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.epacheco.reports.R
+import com.epacheco.reports.compose_reformat.ui.theme.FallColor
+import com.epacheco.reports.compose_reformat.ui.theme.SpringColor
 import com.epacheco.reports.compose_reformat.ui.theme.White
 
 @Composable
@@ -114,6 +119,16 @@ fun ReportsInfoDialog(
                             overflow = TextOverflow.Ellipsis,
                         )
                     }
+                    IconButton({
+                    }, modifier = Modifier.fillMaxWidth()) {
+                        Icon(
+                            painter = painterResource(R.drawable.new_ic_vector_comdin),
+                            contentDescription = null,
+                            tint = FallColor,
+                            modifier = Modifier.size(16.dp)
+
+                        )
+                    }
 
                     dialogSubTitle?.let {
                         Text(
@@ -126,7 +141,11 @@ fun ReportsInfoDialog(
                         )
                     }
 
+
+
                 }
+
+
 
                 Row(
                     Modifier
@@ -144,7 +163,7 @@ fun ReportsInfoDialog(
                                 it.uppercase(),
                                 textAlign = TextAlign.Center,
                                 fontWeight = FontWeight.ExtraBold,
-                                color = White,
+                                color = MaterialTheme.colorScheme.onPrimary,
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(top = 5.dp, bottom = 5.dp)

@@ -13,7 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.Loader
-import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsAlertDialog
+import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.picture_picker.PickerPictureDialog
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import kotlinx.coroutines.flow.collectLatest
@@ -59,7 +59,7 @@ fun ProfileScreen(
 
     //Message error
     uiState.errorMessage?.let { msgError ->
-        ReportsAlertDialog(
+        ReportsDialog(
             imgDialog = R.drawable.ic_error,
             confirmButtonText = stringResource(R.string.btn_ok),
             dialogSubTitle = msgError,
@@ -77,7 +77,7 @@ fun ProfileScreen(
     }
 
     if (showCloseSessionDialog) {
-        ReportsAlertDialog(
+        ReportsDialog(
             imgDialog = R.drawable.ic_notfication,
             dialogTitle = stringResource(R.string.title_close_session),
             dialogSubTitle = stringResource(R.string.msg_close_session),

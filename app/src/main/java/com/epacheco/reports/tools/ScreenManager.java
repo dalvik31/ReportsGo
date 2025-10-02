@@ -1,5 +1,6 @@
 package com.epacheco.reports.tools;
 
+import android.app.Activity;
 import android.content.Intent;
 
 import androidx.fragment.app.FragmentActivity;
@@ -158,6 +159,11 @@ public class ScreenManager {
     }
 
     public static void goFinanceActivity(FragmentActivity myActivity) {
+        Intent forgotPasswordActivity = new Intent(myActivity, FinanceAcitivityView.class);
+        myActivity.startActivity(forgotPasswordActivity);
+    }
+
+    public static void goFinanceActivity(Activity myActivity) {
         Intent forgotPasswordActivity = new Intent(myActivity, FinanceAcitivityView.class);
         myActivity.startActivity(forgotPasswordActivity);
     }

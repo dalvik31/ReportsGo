@@ -6,12 +6,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsAlertDialog
+import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsInfoDialog
 import com.epacheco.reports.compose_reformat.model.orders.Season
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.view.OrderMainInputDialog
@@ -26,6 +30,8 @@ fun OrdersMainScreen(
     ordersMainViewModel: OrdersMainViewModel = hiltViewModel<OrdersMainViewModel>(),
     onNavigateToElementsMain: ((String, Season?) -> Unit)? = null,
 ) {
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val currentState = lifecycleOwner.lifecycle.currentState
     val uiState by ordersMainViewModel.uiState.collectAsState()
     val input by ordersMainViewModel.inputList.collectAsState()
 
@@ -33,9 +39,11 @@ fun OrdersMainScreen(
 
     var showInfoDialog by remember { mutableStateOf(false) }
 
-
     LaunchedEffect(Unit) {
-        ordersMainViewModel.handleIntent(OrdersMainUiIntent.LoadMainOrders)
+        if (currentState.isAtLeast(Lifecycle.State.STARTED)) {
+            ordersMainViewModel.handleIntent(OrdersMainUiIntent.LoadMainOrders)
+
+        }
     }
 
     LaunchedEffect(ordersMainViewModel) {
@@ -79,14 +87,14 @@ fun OrdersMainScreen(
         })
 
 
-    // Loading Overlay
-   /* if (uiState.isLoading) {
-        Loader(false)
-    }*/
+// Loading Overlay
+    /* if (uiState.isLoading) {
+         Loader(false)
+     }*/
 
-    //Message error
+//Message error
     uiState.errorMessage?.let { msgError ->
-        ReportsAlertDialog(
+        ReportsDialog(
             imgDialog = R.drawable.ic_error,
             confirmButtonText = stringResource(R.string.btn_ok),
             dialogSubTitle = msgError,
@@ -95,9 +103,9 @@ fun OrdersMainScreen(
             })
     }
 
-    //Message success
+//Message success
     uiState.successOperationMsg?.let { msgSuccessOperation ->
-        ReportsAlertDialog(
+        ReportsDialog(
             imgDialog = R.drawable.ic_vector_ok,
             dialogSubTitle = stringResource(msgSuccessOperation),
             closeAutomatically = true,
@@ -123,7 +131,6 @@ fun OrdersMainScreen(
             ),
             onDismissRequest = {
                 showInfoDialog = false
-                showDialogCreateOrder = true
             },
             onConfirmation = {
                 showInfoDialog = false

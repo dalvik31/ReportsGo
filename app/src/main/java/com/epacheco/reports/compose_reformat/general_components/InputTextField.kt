@@ -71,11 +71,11 @@ fun InputTextField(
         colors = TextFieldDefaults.colors(
             unfocusedContainerColor = Color.Transparent,
             disabledContainerColor = Color.Transparent,
+            disabledIndicatorColor = MaterialTheme.colorScheme.primary,
             focusedContainerColor = Color.Transparent,
-            unfocusedIndicatorColor = RedLight,
-            focusedIndicatorColor = RedLight,
-            disabledIndicatorColor = RedLight,
-        )
+            unfocusedIndicatorColor = MaterialTheme.colorScheme.primary,
+            focusedIndicatorColor = MaterialTheme.colorScheme.primary,
+        ),
     )
 }
 
@@ -83,6 +83,6 @@ fun InputTextField(
 @Composable
 private fun ShowEmailTextField() {
     ReportsGoTheme {
-        InputTextField(textValue = "", textHint = "BasicTextField")
+        InputTextField(textValue = "", textHint = "BasicTextField", enable = false)
     }
 }

@@ -30,8 +30,8 @@ import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 fun Header(
     modifier: Modifier = Modifier,
     title: String? = null,
-    titleColor: Color = MaterialTheme.colorScheme.surface,
-    backgroundToolbar: Color = MaterialTheme.colorScheme.primary,
+    titleColor: Color = MaterialTheme.colorScheme.onPrimary,
+    backgroundToolbar: Color = MaterialTheme.colorScheme.background,
     rightImageVector: ImageVector = Icons.Filled.Clear,
     tintImageRight: Color = MaterialTheme.colorScheme.surface,
     leftImageVector: ImageVector = Icons.Filled.AccountCircle,
@@ -49,7 +49,7 @@ fun Header(
                         .offset(x = (-13).dp)
                         .padding(horizontal = 16.dp),
                     fontSize = 22.sp,
-                    textAlign = if (onRightIconClicked != null) TextAlign.Start else TextAlign.Center
+                    textAlign = TextAlign.Start
                 )
             }
         }, colors = TopAppBarDefaults.topAppBarColors(

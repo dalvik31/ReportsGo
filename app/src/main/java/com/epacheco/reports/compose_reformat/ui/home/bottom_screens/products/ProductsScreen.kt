@@ -8,8 +8,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsAlertDialog
+import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 
@@ -19,11 +21,15 @@ fun ProductsScreen(
     onNavigateToProductDetail: ((String?) -> Unit)? = null,
 ) {
 
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val currentState = lifecycleOwner.lifecycle.currentState
     val inputName by ordersViewModel.inputProductName.collectAsState()
     val uiState by ordersViewModel.uiState.collectAsState()
 
     LaunchedEffect(Unit) {
-        ordersViewModel.handleIntent(ProductsUiIntent.LoadProducts)
+        if (currentState.isAtLeast(Lifecycle.State.STARTED)) {
+            ordersViewModel.handleIntent(ProductsUiIntent.LoadProducts)
+        }
     }
 
 
@@ -43,7 +49,7 @@ fun ProductsScreen(
 
     //Message error
     uiState.errorMessage?.let { msgError ->
-        ReportsAlertDialog(
+        ReportsDialog(
             imgDialog = R.drawable.ic_error,
             confirmButtonText = stringResource(R.string.btn_ok),
             dialogSubTitle = msgError,
