@@ -59,7 +59,7 @@ fun ReportsInputDialog(
                     ),
                     modifier = Modifier
                         .padding(top = 35.dp)
-                        .height(70.dp)
+                        .height(48.dp)
                         .fillMaxWidth(),
 
                     )

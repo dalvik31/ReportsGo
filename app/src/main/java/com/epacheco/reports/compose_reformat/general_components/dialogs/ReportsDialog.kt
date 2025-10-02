@@ -91,7 +91,7 @@ fun CustomDialogUI(
                     color = MaterialTheme.colorScheme.primary
                 ),
                 modifier = Modifier
-                    .height(70.dp)
+                    .height(48.dp)
                     .fillMaxWidth(),
 
                 )

@@ -20,32 +20,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PermissionsViewModel @Inject constructor(private val app: ReportsApp) : ViewModel() {
-    private val manifestGalleryPermission =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            Manifest.permission.READ_MEDIA_IMAGES
-        } else {
-            Manifest.permission.READ_EXTERNAL_STORAGE
-        }
-
-    private val manifestCameraPermission = Manifest.permission.CAMERA
-
-    private val manifestArrayPermission =
-        arrayOf(manifestGalleryPermission, manifestCameraPermission)
-
-    fun galleryPermissionIsGranted(): Boolean {
-        return ContextCompat.checkSelfPermission(
-            app,
-            manifestGalleryPermission
-        ) == PackageManager.PERMISSION_GRANTED
-    }
-
-    fun cameraPermissionIsGranted(): Boolean {
-        return ContextCompat.checkSelfPermission(
-            app,
-            manifestCameraPermission
-        ) == PackageManager.PERMISSION_GRANTED
-    }
-
     fun getUriToFile(uri: Uri): File {
         return uri.toFile(app)
     }
@@ -54,7 +28,4 @@ class PermissionsViewModel @Inject constructor(private val app: ReportsApp) : Vi
         return imageBitmap.toFile(app)
     }
 
-    fun getGalleryPermission() = manifestGalleryPermission
-
-    fun getArrayPermissions() = manifestArrayPermission
 }

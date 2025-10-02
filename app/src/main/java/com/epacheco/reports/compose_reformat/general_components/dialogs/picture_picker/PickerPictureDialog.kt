@@ -1,8 +1,10 @@
 package com.epacheco.reports.compose_reformat.general_components.dialogs.picture_picker
 
 import android.Manifest
+import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
@@ -11,10 +13,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.epacheco.reports.R
+import com.epacheco.reports.compose_reformat.general_components.CheckPermission
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
+import com.epacheco.reports.view.productsView.scanCode.ScannedBarcodeActivity
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import java.io.File
@@ -41,20 +47,10 @@ fun PickerPictureDialogScreen(
     onDismissRequest: ((() -> Unit))? = null,
 ) {
 
-
+    var showPermissionCameraDialog by remember { mutableStateOf(false) }
+    var showPermissionGalleryDialog by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
 
-    var hasGalleryPermission by remember {
-        mutableStateOf(
-            permissionsViewModel.galleryPermissionIsGranted()
-        )
-    }
-
-    var hasCameraPermission by remember {
-        mutableStateOf(
-            permissionsViewModel.cameraPermissionIsGranted()
-        )
-    }
 
     // Launchers for selecting an image from the gallery or camera
     val galleryLauncher = rememberLauncherForActivityResult(
@@ -72,9 +68,6 @@ fun PickerPictureDialogScreen(
         contract = ActivityResultContracts.TakePicturePreview()
     ) { bitmap ->
         bitmap?.let {
-            /*val uri = permissionsViewModel.saveBitmapToUri(it)
-            selectedImageUri = uri*/
-
             coroutineScope.launch {
                 onImageSelected?.invoke(permissionsViewModel.getBitmapToFile(bitmap))
                 onDismissRequest?.invoke()
@@ -83,41 +76,49 @@ fun PickerPictureDialogScreen(
         }
     }
 
-    // Permission array request launcher
-    val permissionArrayLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestMultiplePermissions()
-    ) { permissions ->
-        hasGalleryPermission = permissions[permissionsViewModel.getGalleryPermission()] ?: false
-        hasCameraPermission = permissions[Manifest.permission.CAMERA] ?: false
-
-        if (hasCameraPermission && hasGalleryPermission) {
-            cameraLauncher.launch(null)
-        }
-    }
-
-    // Permission only one request launcher
-    val permissionGalleyLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestPermission()
-    ) { isGranted ->
-        hasGalleryPermission = isGranted
-        if (isGranted) {
-            galleryLauncher.launch("image/*")
-        }
-    }
-
     PermissionsPictureView(
         onGalleryClicked = {
-            if (hasGalleryPermission) {
-                galleryLauncher.launch("image/*")
-            } else permissionGalleyLauncher.launch(permissionsViewModel.getGalleryPermission())
+            showPermissionGalleryDialog = true
         },
         onCameraClicked = {
-            if (hasCameraPermission && hasGalleryPermission) {
-                cameraLauncher.launch(null)
-            } else permissionArrayLauncher.launch(
-                permissionsViewModel.getArrayPermissions()
-            )
+            showPermissionCameraDialog = true
         })
+
+
+
+    if (showPermissionCameraDialog) {
+        CheckPermission(
+            permission = Manifest.permission.CAMERA,
+            onGranted = {
+                cameraLauncher.launch(null)
+                showPermissionCameraDialog = false
+
+            },
+            permissionRationaleTitle = stringResource(R.string.permission_camera_product_title),
+            permissionOpenSettingsTitle = stringResource(R.string.permission_camera_settings_product_title),
+            onCancel = { showPermissionCameraDialog = false }
+        )
+
+    }
+
+    if (showPermissionGalleryDialog) {
+        CheckPermission(
+            permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                Manifest.permission.READ_MEDIA_IMAGES
+            } else {
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            },
+            onGranted = {
+                galleryLauncher.launch("image/*")
+                showPermissionGalleryDialog = false
+
+            },
+            permissionRationaleTitle = stringResource(R.string.permission_gallery_product_title),
+            permissionOpenSettingsTitle = stringResource(R.string.permission_gallery_settings_product_title),
+            onCancel = { showPermissionGalleryDialog = false }
+        )
+
+    }
 }
 
 

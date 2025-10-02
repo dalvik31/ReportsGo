@@ -36,15 +36,12 @@ fun PermissionsPictureView(
         modifier = Modifier.padding(10.dp, 5.dp, 10.dp, 10.dp),
         elevation = androidx.compose.material3.CardDefaults.cardElevation(8.dp)
     ) {
-        Column(
-            Modifier
-                .background(Color.White)
-        ) {
+        Column() {
             Spacer(modifier = Modifier.padding(16.dp))
             Image(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .size(60.dp),
+                    .size(48.dp),
                 painter = painterResource(R.drawable.ic_vector_add_photo),
                 contentDescription = null,
                 alignment = Alignment.Center,
@@ -52,10 +49,9 @@ fun PermissionsPictureView(
             )
             Spacer(modifier = Modifier.padding(16.dp))
             Text(
-                color = MaterialTheme.colorScheme.tertiary,
                 text = stringResource(R.string.permission_title),
                 style = MaterialTheme.typography.bodyLarge,
-
+                color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
                     .padding(horizontal = 12.dp)
                     .fillMaxWidth(),
