@@ -2,6 +2,7 @@ package com.epacheco.reports.compose_reformat.general_components.header_image
 
 
 import android.net.Uri
+import android.os.Build
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -30,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.rememberAsyncImagePainter
 import com.epacheco.reports.R
+import com.epacheco.reports.compose_reformat.ui.theme.Black60
 import com.epacheco.reports.compose_reformat.ui.theme.GrayLight
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
@@ -77,13 +79,17 @@ private fun BackgroundTopImg(imgProfile: Uri?) {
                         radiusY = 20.dp,
                         edgeTreatment = BlurredEdgeTreatment(RoundedCornerShape(bottomEnd = 30.dp))
                     ),
+                alpha = if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R) 0.3f else 1f,
                 contentScale = ContentScale.FillWidth
             )
         } ?: run {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.onTertiary, shape = RoundedCornerShape(bottomEnd = 30.dp)),
+                    .background(
+                        MaterialTheme.colorScheme.onTertiary,
+                        shape = RoundedCornerShape(bottomEnd = 30.dp)
+                    ),
             )
         }
 

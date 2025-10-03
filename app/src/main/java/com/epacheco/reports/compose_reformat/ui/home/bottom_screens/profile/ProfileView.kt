@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.rememberAsyncImagePainter
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
+import com.epacheco.reports.compose_reformat.general_components.SecondaryButton
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
 import com.epacheco.reports.compose_reformat.general_components.header_image.HeaderImage
 import com.epacheco.reports.compose_reformat.general_components.header_image.HeaderImageSize
@@ -115,7 +116,7 @@ fun ProfileView(
                 .padding(bottom = 48.dp),
             verticalArrangement = Arrangement.Bottom
         ) {
-            PrimaryButton(textButton = stringResource(R.string.title_close_session)) {
+            SecondaryButton(textButton = stringResource(R.string.title_close_session).uppercase()) {
                 onLogoutClicked?.invoke()
             }
 
