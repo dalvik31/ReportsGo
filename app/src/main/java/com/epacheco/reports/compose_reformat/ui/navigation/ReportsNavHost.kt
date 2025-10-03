@@ -20,7 +20,6 @@ import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 fun ReportsNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    ctx: Activity
 ) {
     ReportsGoTheme {
         NavHost(
@@ -61,7 +60,7 @@ fun ReportsNavHost(
                 })
             }
             composable<NavHostScreens.HomeRoute> {
-                HomeScreen(ctx = ctx,onNavigateToRegister = {
+                HomeScreen(onNavigateToRegister = {
                     navController.navigate(NavHostScreens.RegisterRoute) {
                         popUpTo(NavHostScreens.HomeRoute) { inclusive = true }
                     }

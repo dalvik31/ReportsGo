@@ -22,7 +22,8 @@ fun OrdersScreen(
     onNavigateToCreateOrder: ((String, Season?) -> Unit)? = null,
     onNavigateToEditOrder: ((Order) -> Unit)? = null,
     mainOrderId: String,
-    orderSeason: Season?
+    orderSeason: Season?,
+    nameOrderMain: String,
 ) {
     val uiState by ordersViewModel.uiState.collectAsState()
 
@@ -45,6 +46,7 @@ fun OrdersScreen(
     OrdersView(
         orderList = uiState.orders,
         showImgEmptyList = uiState.showImgEmptyList,
+        nameOrderMain = nameOrderMain,
         onBackPressed = { onBackPressed?.invoke() },
         onCreateOrderClick = {
             onNavigateToCreateOrder?.invoke(mainOrderId, orderSeason)

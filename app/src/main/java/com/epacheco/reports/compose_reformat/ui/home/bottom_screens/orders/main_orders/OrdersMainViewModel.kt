@@ -57,7 +57,8 @@ class OrdersMainViewModel @Inject constructor(
 
             is OrdersMainUiIntent.GoToListOrders -> navigateToElementsOrderList(
                 intent.orderMainId,
-                intent.orderSeason
+                intent.orderSeason,
+                intent.orderNameMain
             )
         }
     }
@@ -182,9 +183,13 @@ class OrdersMainViewModel @Inject constructor(
         _inputList.value = input
     }
 
-    private fun navigateToElementsOrderList(orderMainId: String, season: Season?) {
+    private fun navigateToElementsOrderList(
+        orderMainId: String,
+        season: Season?,
+        nameOrderMain: String
+    ) {
         viewModelScope.launch {
-            _effectFlow.emit(OrdersMainUiEffect.NavigateToElementsMain(orderMainId, season))
+            _effectFlow.emit(OrdersMainUiEffect.NavigateToElementsMain(orderMainId, season, nameOrderMain))
         }
     }
 

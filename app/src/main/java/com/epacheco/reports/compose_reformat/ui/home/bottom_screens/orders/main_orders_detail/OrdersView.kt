@@ -7,11 +7,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -29,8 +27,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.Header
+import com.epacheco.reports.compose_reformat.general_components.TextDivider
 import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
@@ -45,9 +45,10 @@ fun OrdersView(
     onOrderClick: ((Order) -> Unit)? = null,
     onCreateOrderClick: (() -> Unit)? = null,
     onDeleteOrderClick: ((String) -> Unit)? = null,
-    onUpdateStatusOrderClick: ((Order) -> Unit)? = null
+    onUpdateStatusOrderClick: ((Order) -> Unit)? = null,
+    nameOrderMain: String? = null
 ) {
-    Column(Modifier.background(color = Color.Transparent))  {
+    Column(Modifier.background(color = Color.Transparent)) {
 
         Header(
             title = pluralStringResource(
@@ -63,6 +64,10 @@ fun OrdersView(
             tintImageRight = MaterialTheme.colorScheme.primary,
             rightImageVector = ImageVector.vectorResource(R.drawable.ic_vector_add)
         )
+        nameOrderMain?.let {
+            TextDivider(modifier = Modifier.padding(horizontal = 12.dp).padding(bottom = 16.dp), textDivider = it.uppercase(), fontSize = 14.sp)
+        }
+
 
         if (showImgEmptyList == true) {
             Column(
@@ -140,6 +145,6 @@ fun OrdersView(
 @Composable
 fun OrderMainViewPreview() {
     ReportsGoTheme {
-        OrdersView(showImgEmptyList = true)
+        OrdersView(showImgEmptyList = true, nameOrderMain = "Mi lista")
     }
 }

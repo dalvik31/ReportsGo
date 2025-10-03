@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -117,9 +118,10 @@ fun CustomDialogUI(
                     Text(
                         text = AnnotatedString.fromHtml(it),
                         textAlign = TextAlign.Center,
-                        color = MaterialTheme.colorScheme.onSurface,
+                        color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier
                             .fillMaxWidth(),
+                        fontWeight = FontWeight.Normal,
                         style = MaterialTheme.typography.bodyLarge
                     )
                     Spacer(modifier = Modifier.padding(vertical = 10.dp))

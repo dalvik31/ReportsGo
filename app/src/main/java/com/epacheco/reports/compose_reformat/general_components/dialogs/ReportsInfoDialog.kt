@@ -137,6 +137,8 @@ fun ReportsInfoDialog(
                             modifier = Modifier
                                 .padding(top = 10.dp)
                                 .fillMaxWidth(),
+                            fontWeight = FontWeight.Normal,
+                            color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.bodyMedium
                         )
                     }

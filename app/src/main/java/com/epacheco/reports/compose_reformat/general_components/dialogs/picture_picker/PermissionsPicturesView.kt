@@ -56,7 +56,7 @@ fun PermissionsPictureView(
                     .padding(horizontal = 12.dp)
                     .fillMaxWidth(),
                 textAlign = TextAlign.Center,
-                fontWeight = FontWeight.Light
+                fontWeight = FontWeight.Medium
             )
             Spacer(modifier = Modifier.padding(16.dp))
 

@@ -12,7 +12,8 @@ sealed interface BottomHomeRoutes {
     @Serializable
     data class DetailMainOrdersBottomHomeRoute(
         val idOrderMain: String,
-        val orderSeason: Season?
+        val orderSeason: Season?,
+        val nameOrderMain: String
     ) :
         BottomHomeRoutes
 

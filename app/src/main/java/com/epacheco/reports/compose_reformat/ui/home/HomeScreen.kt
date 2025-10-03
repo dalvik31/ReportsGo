@@ -2,18 +2,37 @@ package com.epacheco.reports.compose_reformat.ui.home
 
 
 import android.app.Activity
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.navbar.AnimatedNavigationBar
 import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.view.DetailClientScreen
@@ -27,27 +46,64 @@ import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products.new
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile.ProfileScreen
 import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeNavigationItem
 import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes
+import com.epacheco.reports.compose_reformat.ui.theme.GreenColor
+import com.epacheco.reports.compose_reformat.ui.theme.RedDark
 import com.epacheco.reports.compose_reformat.ui.theme.White
 import com.epacheco.reports.compose_reformat.ui.theme.White40
+import com.epacheco.reports.compose_reformat.ui.theme.YellowColor
 import com.epacheco.reports.compose_reformat.utils.extensions.serializableType
 import com.epacheco.reports.tools.ScreenManager
 import kotlin.reflect.typeOf
 
 @Composable
-fun HomeScreen(onNavigateToRegister: () -> Unit,ctx : Activity) {
+fun HomeScreen(onNavigateToRegister: () -> Unit) {
     val bottomNavController = rememberNavController()
+    val navBackStackEntry by bottomNavController.currentBackStackEntryAsState()
+
+    val items = BottomHomeNavigationItem().bottomNavigationItems()
+    var curDestination by remember { mutableStateOf(0) }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
-            AnimatedNavigationBar(
+            BottomAppBar() {
+                NavigationBar(containerColor = MaterialTheme.colorScheme.background) {
+                    items.forEachIndexed { index, navigationItem ->
+
+                        NavigationBarItem(
+                            selected = curDestination == index,
+                            label = { Text(stringResource(navigationItem.label)) },
+                            icon = {
+                                Icon(
+                                    ImageVector.vectorResource(navigationItem.icon),
+                                    contentDescription = stringResource(navigationItem.label)
+                                )
+                            },
+                            colors = NavigationBarItemColors(
+                                selectedIconColor = RedDark,
+                                unselectedIconColor = MaterialTheme.colorScheme.onSurface,
+                                unselectedTextColor = MaterialTheme.colorScheme.onSurface,
+                                selectedTextColor = RedDark,
+                                selectedIndicatorColor = Color.Transparent,
+                                disabledIconColor = MaterialTheme.colorScheme.onPrimary,
+                                disabledTextColor = MaterialTheme.colorScheme.onPrimary,
+                            ),
+                            onClick = {
+                                curDestination = index
+                                bottomNavController.navigate(navigationItem.bottomHomeRoutes)
+                            }
+                        )
+                    }
+                }
+            }
+            /*AnimatedNavigationBar(
                 buttons = BottomHomeNavigationItem().bottomNavigationItems(),
                 barColor = MaterialTheme.colorScheme.primaryContainer,
                 circleColor = MaterialTheme.colorScheme.primaryContainer,
                 selectedColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 unselectedColor = MaterialTheme.colorScheme.inversePrimary,
                 bottomNavController
-            )
+            )*/
         }
     ) { paddingValues ->
         NavHost(
@@ -56,11 +112,12 @@ fun HomeScreen(onNavigateToRegister: () -> Unit,ctx : Activity) {
             modifier = Modifier.padding(paddingValues = paddingValues)
         ) {
             composable<BottomHomeRoutes.MainOrdersBottomHomeRoute> {
-                OrdersMainScreen { mainOrderId, orderSeason ->
+                OrdersMainScreen { mainOrderId, orderSeason, orderNameMain ->
                     bottomNavController.navigate(
                         BottomHomeRoutes.DetailMainOrdersBottomHomeRoute(
                             mainOrderId,
-                            orderSeason
+                            orderSeason = orderSeason,
+                            orderNameMain
                         )
                     )
                 }
@@ -92,7 +149,6 @@ fun HomeScreen(onNavigateToRegister: () -> Unit,ctx : Activity) {
                 LaunchedEffect(Unit) {
 
                 }
-                ScreenManager.goFinanceActivity(ctx)
                 //FinancesScreen()
             }
             composable<BottomHomeRoutes.ProfileBottomHomeRoute> {
@@ -106,6 +162,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit,ctx : Activity) {
                 OrdersScreen(
                     mainOrderId = orderMainRoute.idOrderMain,
                     orderSeason = orderMainRoute.orderSeason,
+                    nameOrderMain = orderMainRoute.nameOrderMain,
 
                     onNavigateToCreateOrder = { mainOrderId, orderSeason ->
                         bottomNavController.navigate(
@@ -153,4 +210,11 @@ fun HomeScreen(onNavigateToRegister: () -> Unit,ctx : Activity) {
             }
         }
     }
+}
+
+
+@Preview
+@Composable
+fun HomePreview() {
+    HomeScreen({})
 }

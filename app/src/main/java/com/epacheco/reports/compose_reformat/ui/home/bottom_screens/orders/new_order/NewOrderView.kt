@@ -110,9 +110,8 @@ fun NewOrderView(
             textDivider = stringResource(R.string.order_detail_title),
             modifier = Modifier
                 .padding(bottom = 20.dp)
-                .padding(horizontal = 24.dp),
-            primaryColor = GrayDark,
-            fontSize = 16.sp
+                .padding(horizontal = 12.dp),
+            fontSize = 14.sp
 
         )
 

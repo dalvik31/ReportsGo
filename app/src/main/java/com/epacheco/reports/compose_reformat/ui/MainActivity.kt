@@ -26,7 +26,6 @@ class MainActivity : ComponentActivity() {
                 Scaffold { paddingValues ->
                     ReportsNavHost(
                         modifier = Modifier.padding(paddingValues = paddingValues),
-                        ctx = this
                     )
                 }
             }
