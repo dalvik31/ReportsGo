@@ -33,6 +33,8 @@ import com.epacheco.reports.compose_reformat.general_components.Header
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
 import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
+import com.epacheco.reports.compose_reformat.utils.DateUtils
+import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE5
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -46,7 +48,8 @@ fun OrdersView(
     onCreateOrderClick: (() -> Unit)? = null,
     onDeleteOrderClick: ((String) -> Unit)? = null,
     onUpdateStatusOrderClick: ((Order) -> Unit)? = null,
-    nameOrderMain: String? = null
+    nameOrderMain: String? = null,
+    mainOrderId: String? = null
 ) {
     Column(Modifier.background(color = Color.Transparent)) {
 
@@ -65,7 +68,18 @@ fun OrdersView(
             rightImageVector = ImageVector.vectorResource(R.drawable.ic_vector_add)
         )
         nameOrderMain?.let {
-            TextDivider(modifier = Modifier.padding(horizontal = 12.dp).padding(bottom = 16.dp), textDivider = it.uppercase(), fontSize = 14.sp)
+            TextDivider(
+                modifier = Modifier
+                    .padding(horizontal = 12.dp)
+                    .padding(bottom = 16.dp),
+                textDivider = it.ifEmpty {
+                    DateUtils.format(
+                        mainOrderId?.toLong() ?: 0,
+                        FORMAT_DATE5
+                    )
+                },
+                fontSize = 14.sp
+            )
         }
 
 

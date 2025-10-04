@@ -47,6 +47,7 @@ fun OrdersScreen(
         orderList = uiState.orders,
         showImgEmptyList = uiState.showImgEmptyList,
         nameOrderMain = nameOrderMain,
+        mainOrderId = mainOrderId,
         onBackPressed = { onBackPressed?.invoke() },
         onCreateOrderClick = {
             onNavigateToCreateOrder?.invoke(mainOrderId, orderSeason)

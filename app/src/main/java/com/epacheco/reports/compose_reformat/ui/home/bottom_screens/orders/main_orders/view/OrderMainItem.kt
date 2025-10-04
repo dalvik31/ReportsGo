@@ -67,6 +67,7 @@ import com.epacheco.reports.compose_reformat.ui.theme.SpringColor
 import com.epacheco.reports.compose_reformat.ui.theme.White
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE2
+import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE5
 
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
@@ -152,17 +153,14 @@ fun OrderMainItem(
                                 modifier = Modifier
                                     .padding(end = 12.dp)
                                     .fillMaxWidth(),
-                                text = AnnotatedString.fromHtml(
-                                    stringResource(
-                                        R.string.order_name_format,
-                                        orderMain.nameOrder.uppercase(),
+                                text = orderMain.nameOrder.uppercase()
+                                    .ifEmpty {
                                         DateUtils.format(
                                             orderMain.orderId.toLong(),
-                                            DateUtils.FORMAT_DATE5
-                                        ).capitalize(Locale.current)
-                                    )
-                                ),
-                                style = MaterialTheme.typography.bodyMedium, fontSize = 14.sp
+                                            FORMAT_DATE5
+                                        )
+                                    },
+                                style = MaterialTheme.typography.titleSmall
                             )
 
 
