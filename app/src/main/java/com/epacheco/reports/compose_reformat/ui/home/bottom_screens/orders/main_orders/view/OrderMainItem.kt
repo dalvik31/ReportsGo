@@ -49,8 +49,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.progressBarRangeInfo
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.fromHtml
+import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -157,7 +159,7 @@ fun OrderMainItem(
                                         DateUtils.format(
                                             orderMain.orderId.toLong(),
                                             DateUtils.FORMAT_DATE5
-                                        )
+                                        ).capitalize(Locale.current)
                                     )
                                 ),
                                 style = MaterialTheme.typography.bodyMedium, fontSize = 14.sp

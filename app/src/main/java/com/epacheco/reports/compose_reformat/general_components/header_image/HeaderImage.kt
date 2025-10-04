@@ -74,12 +74,8 @@ private fun BackgroundTopImg(imgProfile: Uri?) {
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxSize()
-                    .blur(
-                        radiusX = 20.dp,
-                        radiusY = 20.dp,
-                        edgeTreatment = BlurredEdgeTreatment(RoundedCornerShape(bottomEnd = 30.dp))
-                    ),
-                alpha = if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R) 0.3f else 1f,
+                 ,
+                alpha = 0.1f,
                 contentScale = ContentScale.FillWidth
             )
         } ?: run {

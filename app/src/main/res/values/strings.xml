@@ -445,7 +445,7 @@
     <string name="season_spring">Primavera - Verano</string>
     <string name="season_fall">Otoño - Invierno</string>
     <string name="order_empty_inputs_error">Faltan campos por completar</string>
-    <string name="order_name_format"><![CDATA[<b>%s</b> - %s]]></string>
+    <string name="order_name_format"><![CDATA[<b>%s</b> %s]]></string>
     <plurals name="num_orders">
         <item formatted="true" quantity="one">%s Pedido</item>
         <item formatted="true" quantity="other">%s Pedidos</item>
