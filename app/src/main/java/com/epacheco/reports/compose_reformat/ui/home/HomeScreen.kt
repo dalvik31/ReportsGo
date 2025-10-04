@@ -1,8 +1,7 @@
 package com.epacheco.reports.compose_reformat.ui.home
 
 
-import android.app.Activity
-import androidx.compose.foundation.background
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomAppBar
@@ -14,30 +13,32 @@ import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.general_components.navbar.AnimatedNavigationBar
 import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.view.DetailClientScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.listClients.view.ClientsScreen
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.finances.FinancesScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.OrdersMainScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders_detail.OrdersScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.new_order.NewOrderScreen
@@ -46,32 +47,31 @@ import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products.new
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile.ProfileScreen
 import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeNavigationItem
 import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes
-import com.epacheco.reports.compose_reformat.ui.theme.GreenColor
 import com.epacheco.reports.compose_reformat.ui.theme.RedDark
-import com.epacheco.reports.compose_reformat.ui.theme.White
-import com.epacheco.reports.compose_reformat.ui.theme.White40
-import com.epacheco.reports.compose_reformat.ui.theme.YellowColor
 import com.epacheco.reports.compose_reformat.utils.extensions.serializableType
-import com.epacheco.reports.tools.ScreenManager
+import com.google.android.material.tabs.TabItem
 import kotlin.reflect.typeOf
 
 @Composable
 fun HomeScreen(onNavigateToRegister: () -> Unit) {
-    val bottomNavController = rememberNavController()
-    val navBackStackEntry by bottomNavController.currentBackStackEntryAsState()
 
+    /*val navBackStackEntry by bottomNavController.currentBackStackEntryAsState()
+
+    var curDestination by remember { mutableStateOf(0) }*/
     val items = BottomHomeNavigationItem().bottomNavigationItems()
-    var curDestination by remember { mutableStateOf(0) }
+    val bottomNavController = rememberNavController()
+    val currentTopLevelDestination by bottomNavController.currentTabItemAsState()
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
             BottomAppBar() {
                 NavigationBar(containerColor = MaterialTheme.colorScheme.background) {
-                    items.forEachIndexed { index, navigationItem ->
 
+                    items.forEachIndexed { index, navigationItem ->
+                        val isTabSelected = index == currentTopLevelDestination
                         NavigationBarItem(
-                            selected = curDestination == index,
+                            selected = isTabSelected,
                             label = { Text(stringResource(navigationItem.label)) },
                             icon = {
                                 Icon(
@@ -89,8 +89,20 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                                 disabledTextColor = MaterialTheme.colorScheme.onPrimary,
                             ),
                             onClick = {
-                                curDestination = index
-                                bottomNavController.navigate(navigationItem.bottomHomeRoutes)
+                                bottomNavController.navigate(route = navigationItem.bottomHomeRoutes) {
+                                    // Pop up to the start destination of the graph to
+                                    // avoid building up a large stack of destinations
+                                    // on the back stack as users select items
+                                    popUpTo(bottomNavController.graph.findStartDestination().id) {
+                                        saveState = !isTabSelected
+                                    }
+                                    // Avoid multiple copies of the same destination when
+                                    // reselecting the same item
+                                    launchSingleTop = true
+                                    // Restore state when reselecting a previously selected item
+                                    restoreState = !isTabSelected
+                                }
+
                             }
                         )
                     }
@@ -212,6 +224,36 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
     }
 }
 
+
+@Composable
+private fun NavController.currentTabItemAsState(): State<Int> {
+    val selectedItem = remember { mutableIntStateOf(0) }
+
+    DisposableEffect(this) {
+        val listener = NavController.OnDestinationChangedListener { _, destination, _ ->
+            when {
+                destination.hierarchy.any { it.route == BottomHomeRoutes.ProductBottomHomeRoute.javaClass.canonicalName } -> {
+                    selectedItem.intValue = 1
+                }
+
+                destination.hierarchy.any { it.route == BottomHomeRoutes.ProfileBottomHomeRoute.javaClass.canonicalName } -> {
+                    selectedItem.intValue = 2
+                }
+
+                else -> {
+                    selectedItem.intValue = 0
+                }
+            }
+        }
+        addOnDestinationChangedListener(listener)
+
+        onDispose {
+            removeOnDestinationChangedListener(listener)
+        }
+    }
+
+    return selectedItem
+}
 
 @Preview
 @Composable

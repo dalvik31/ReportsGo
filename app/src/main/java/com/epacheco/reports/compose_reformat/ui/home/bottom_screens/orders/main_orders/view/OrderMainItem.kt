@@ -18,7 +18,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -88,7 +90,7 @@ fun OrderMainItem(
             modifier = Modifier
                 .padding(vertical = 8.dp, horizontal = 8.dp)
                 .fillMaxWidth()
-                .height(100.dp)
+                .wrapContentHeight()
                 .combinedClickable(
                     onClick = {
                         onMainOrderClick.invoke(orderMain)
@@ -102,9 +104,29 @@ fun OrderMainItem(
                 disabledContainerColor = Color.Transparent
             )
         ) {
+            val numOrders = orderMain.orderLists?.size ?: 0
 
-            Box(modifier = Modifier.fillMaxSize()) {
-                Image(
+            Box(contentAlignment = Alignment.TopEnd) {
+
+                Box(
+                    modifier = Modifier
+                        .background(
+                            MaterialTheme.colorScheme.onBackground,
+                            RoundedCornerShape(bottomStart = 10.dp)
+                        )
+                        .padding(horizontal = 8.dp, vertical = 4.dp),
+
+                    ) {
+                    Text(
+                        text = DateUtils.format(orderMain.orderId.toLong(), FORMAT_DATE2),
+                        fontSize = 10.sp,
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        style = MaterialTheme.typography.bodySmall,
+
+                        )
+                }
+
+                /*Image(
                     modifier = Modifier
                         .width(200.dp)
                         .alpha(.2f)
@@ -117,11 +139,11 @@ fun OrderMainItem(
                     contentDescription = null,
                     colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.background),
                     contentScale = ContentScale.Crop
-                )
+                )*/
 
                 Row(
                     modifier = Modifier
-                        .fillMaxSize()
+                        .wrapContentHeight()
                         .animateContentSize(
                             animationSpec = spring(
                                 dampingRatio = Spring.DampingRatioMediumBouncy,
@@ -130,13 +152,13 @@ fun OrderMainItem(
                         )
 
                 ) {
-                    Column(Modifier.fillMaxSize(), Arrangement.SpaceBetween) {
+                    Column(Modifier.wrapContentHeight(), Arrangement.SpaceBetween, horizontalAlignment = Alignment.CenterHorizontally) {
 
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
                         ) {
+
                             IconButton({
                             }) {
                                 Icon(
@@ -151,8 +173,7 @@ fun OrderMainItem(
                             Text(
                                 color = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier
-                                    .padding(end = 12.dp)
-                                    .fillMaxWidth(),
+                                    .wrapContentWidth(),
                                 text = orderMain.nameOrder.uppercase()
                                     .ifEmpty {
                                         DateUtils.format(
@@ -162,6 +183,17 @@ fun OrderMainItem(
                                     },
                                 style = MaterialTheme.typography.titleSmall
                             )
+                            Spacer(modifier = Modifier.weight(1f))
+                           /* Text(
+                                color = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier
+                                    .wrapContentWidth().padding(end = 12.dp),
+                                text =   DateUtils.format(
+                                    orderMain.orderId.toLong(),
+                                    FORMAT_DATE5
+                                ),
+                                style = MaterialTheme.typography.bodySmall,
+                            )*/
 
 
                             /*IconButton({
@@ -177,7 +209,6 @@ fun OrderMainItem(
 
                         Row(
                             modifier = Modifier
-                                .wrapContentWidth()
                                 .padding(vertical = 12.dp)
                                 .padding(end = 12.dp, start = 12.dp),
                             verticalAlignment = Alignment.CenterVertically,
@@ -191,6 +222,7 @@ fun OrderMainItem(
                                      tint = White
                                  )
                              }*/
+
 
                             LinearProgressIndicator(
                                 modifier = Modifier.wrapContentWidth(),
@@ -206,11 +238,8 @@ fun OrderMainItem(
                                 }
 
                             )
-
-
                             Spacer(modifier = Modifier.weight(1f))
 
-                            val numOrders = orderMain.orderLists?.size ?: 0
                             Text(
                                 modifier = Modifier.wrapContentWidth(),
                                 text = pluralStringResource(

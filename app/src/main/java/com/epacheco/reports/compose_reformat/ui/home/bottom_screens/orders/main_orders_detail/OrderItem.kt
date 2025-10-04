@@ -19,6 +19,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.Icon
@@ -34,6 +36,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -139,8 +142,29 @@ fun OrderItem(
 
             Box(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxSize(),
+                contentAlignment = Alignment.BottomEnd
             ) {
+                if (order.orderId.isNotEmpty()) {
+                    Box(
+                        modifier = Modifier
+                            .background(
+                                MaterialTheme.colorScheme.onBackground,
+                                RoundedCornerShape(topStart = 10.dp)
+                            )
+                            .padding(horizontal = 8.dp, vertical = 4.dp),
+
+                        ) {
+                        Text(
+                            text = DateUtils.format(order.orderId.toLong(), FORMAT_DATE2),
+                            fontSize = 10.sp,
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            style = MaterialTheme.typography.bodySmall,
+
+                        )
+                    }
+                }
+
                 Row(
                     modifier = Modifier
                         .fillMaxSize()
@@ -199,6 +223,7 @@ fun OrderItem(
                                 )
                             }
 
+
                             Text(
                                 modifier = Modifier.fillMaxWidth(),
                                 text = order.orderName.uppercase(),
@@ -246,7 +271,7 @@ fun OrderItem(
                                 )
                             }*/
                             Spacer(modifier = Modifier.weight(1f))
-                            if (order.orderId.isNotEmpty()) {
+                            /*if (order.orderId.isNotEmpty()) {
                                 Text(
                                     modifier = Modifier.padding(end = 12.dp),
                                     text = DateUtils.format(
@@ -259,7 +284,7 @@ fun OrderItem(
                                     fontWeight = if (order.orderBuy) FontWeight.Light else FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.primary
                                 )
-                            }
+                            }*/
 
 
                         }
@@ -349,6 +374,39 @@ private fun getUpdateStatusList(order: Order) =
         if (order.orderBuy) R.string.msg_in_progress_order_body else R.string.msg_complete_order_body,
         order.orderName
     )
+
+
+@Composable
+fun MinimalListItem(
+    title: String,
+    subtitle: String? = null,
+    onClick: () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            // Apply the RoundedCornerShape with a large radius
+            .background(
+                color = Color.Blue.copy(alpha = 0.7f),
+                shape = RoundedCornerShape(percent = 50) // Or use a specific dp value like 50.dp
+            )
+            .padding(horizontal = 24.dp, vertical = 12.dp) // Add padding for content
+    ) {
+        Text(
+            text = "This is a pill-shaped box",
+            color = Color.White
+        )
+    }
+    // Optional: Add a subtle indicator like an arrow or icon
+    //
+    //
+    //
+    //
+    //
+    //
+
+}
 
 
 @Preview
