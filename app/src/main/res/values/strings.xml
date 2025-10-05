@@ -342,10 +342,11 @@
 
     <!--Recovery Password Screen-->
     <string name="recovery_password_screen_title">Recuperar contraseña</string>
-    <string name="recovery_password_body">Si no recuerdas tus datos para iniciar sesión, puedes ingresar el correo eléctronico con el que creaste tu cuenta y te enviaremos un mensaje para que puedas reestablecer tu contraseña.</string>
+    <string name="recovery_password_body">Si olvidaste tu contraseña, puedes ingresar el correo eléctronico con el que creaste tu cuenta y te enviaremos instrucciones para ayudarte a reestablecerla.</string>
     <string name="recovery_password_hint_email">Ingresa correo electrónico</string>
     <string name="recovery_password_send_email">Enviar correo electrónico</string>
     <string name="recovery_password_success">Se envio un email al correo que ingresaste, revisa tu bandeja de entrada</string>
+    <string name="lbl_remember">Recuerda</string>
 
     <!--Register Screen-->
     <string name="register_screen_name_app_logo_first">Reports</string>

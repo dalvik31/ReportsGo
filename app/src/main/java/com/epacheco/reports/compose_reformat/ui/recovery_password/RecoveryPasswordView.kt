@@ -1,12 +1,15 @@
 package com.epacheco.reports.compose_reformat.ui.recovery_password
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material3.Card
@@ -60,11 +63,22 @@ fun RecoveryPasswordView(
                 )
                 Spacer(modifier = Modifier.padding(8.dp))
                 Text(
-                    color = MaterialTheme.colorScheme.tertiary,
+                    color = MaterialTheme.colorScheme.primary,
+                    text = stringResource(R.string.lbl_remember),
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier
+                        .padding(horizontal = 12.dp)
+                        .fillMaxWidth(),
+                    textAlign = TextAlign.Center
+                )
+
+                Spacer(modifier = Modifier.padding(8.dp))
+                Text(
+                    color = MaterialTheme.colorScheme.primary,
                     text = stringResource(R.string.recovery_password_body),
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(horizontal = 12.dp),
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Justify
                 )
                 Spacer(modifier = Modifier.padding(8.dp))
             }
@@ -75,8 +89,9 @@ fun RecoveryPasswordView(
             modifier = Modifier.padding(all = 24.dp),
             textHint = stringResource(R.string.register_screen_hint_email),
             textValue = inputEmail ?: "",
-            onTextChange = {  onInputEmailChanged?.invoke(it)},
-            keyboardType = KeyboardType.Email)
+            onTextChange = { onInputEmailChanged?.invoke(it) },
+            keyboardType = KeyboardType.Email
+        )
 
         PrimaryButton(
             modifier = Modifier.padding(24.dp),
