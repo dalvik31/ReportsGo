@@ -32,6 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.airbnb.lottie.LottieComposition
 import com.airbnb.lottie.compose.LottieAnimation
@@ -114,7 +115,7 @@ fun ReportsInfoDialog(
                             modifier = Modifier
                                 .padding(top = 5.dp)
                                 .fillMaxWidth(),
-                            style = MaterialTheme.typography.headlineMedium,
+                            style = MaterialTheme.typography.titleLarge,
                             maxLines = 2,
                             overflow = TextOverflow.Ellipsis,
                         )
@@ -139,7 +140,8 @@ fun ReportsInfoDialog(
                                 .fillMaxWidth(),
                             fontWeight = FontWeight.Normal,
                             color = MaterialTheme.colorScheme.primary,
-                            style = MaterialTheme.typography.bodyMedium
+                            fontSize = 14.sp,
+                            style = MaterialTheme.typography.bodySmall
                         )
                     }
 

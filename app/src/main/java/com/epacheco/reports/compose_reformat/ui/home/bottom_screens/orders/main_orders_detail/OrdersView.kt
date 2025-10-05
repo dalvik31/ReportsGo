@@ -77,7 +77,7 @@ fun OrdersView(
                         mainOrderId?.toLong() ?: 0,
                         FORMAT_DATE5
                     )
-                },
+                }.uppercase(),
                 fontSize = 14.sp
             )
         }

@@ -27,6 +27,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
@@ -112,7 +113,7 @@ fun CustomOptionDialogUI(
                         modifier = Modifier
                             .fillMaxWidth(),
                         color = MaterialTheme.colorScheme.primary,
-                        style = MaterialTheme.typography.headlineMedium,
+                        style =  MaterialTheme.typography.titleLarge,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis,
                     )
@@ -126,8 +127,8 @@ fun CustomOptionDialogUI(
                         color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier
                             .fillMaxWidth(),
-                        fontWeight = FontWeight.Normal,
-                        style = MaterialTheme.typography.bodyLarge
+                        fontSize = 14.sp,
+                        style = MaterialTheme.typography.bodySmall
                     )
                     Spacer(modifier = Modifier.padding(vertical = 10.dp))
                 }

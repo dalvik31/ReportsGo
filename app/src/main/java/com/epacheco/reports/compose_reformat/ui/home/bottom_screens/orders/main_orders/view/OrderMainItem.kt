@@ -95,7 +95,7 @@ fun OrderMainItem(
                     onClick = {
                         onMainOrderClick.invoke(orderMain)
                     },
-                    onLongClick = { showDialogOptionsOrder = true },
+                    onLongClick = { showDialogConfirmDeleteOrder = true },
                 ),
             colors = CardColors(
                 contentColor = White,
@@ -269,7 +269,7 @@ fun OrderMainItem(
             imgDialog = R.drawable.ic_vector_order,
             dialogTitle = stringResource(R.string.msg_dialog_options_title),
             dialogSubTitle = stringResource(R.string.msg_dialog_options_body),
-            firstOptionText = stringResource(if (orderMain.orderStatus == OrderStatus.IN_PROGRESS) R.string.msg_dialog_check_in_progress else R.string.msg_dialog_check_complete),
+            firstOptionText = stringResource(if (orderMain.orderStatus == OrderStatus.IN_PROGRESS) R.string.msg_dialog_check_complete  else R.string.msg_dialog_check_in_progress),
             secondOptionText = stringResource(R.string.msg_dialog_delete_option),
             onDismissRequest = { showDialogOptionsOrder = false },
             onFirstConfirmation = {

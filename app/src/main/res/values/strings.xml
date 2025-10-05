@@ -400,8 +400,8 @@
     <string name="msg_dialog_options_title">Opciones</string>
     <string name="msg_dialog_options_body">¿Que acción quieres realizar?</string>
     <string name="msg_dialog_delete_option">Eliminar</string>
-    <string name="msg_dialog_check_complete">Cambiar a completado</string>
-    <string name="msg_dialog_check_in_progress">Cambiar a en progreso</string>
+    <string name="msg_dialog_check_complete">Completar lista</string>
+    <string name="msg_dialog_check_in_progress">Lista en progreso</string>
     <string name="msg_dialog_edit_order">Editar</string>
     <string name="msg_dialog_delete_order">Eliminar</string>
     <string name="msg_delete_main_order_title">Eliminar elemento</string>
@@ -440,7 +440,7 @@
     <string name="msg_order_list_update_success">Lista actualizada correctamente.</string>
     <string name="msg_order_delete_success">Pedido eliminado correctamente.</string>
     <string name="msg_order_update_success">Pedido actualizado correctamente.</string>
-    <string name="msg_current_season"><![CDATA[<b>%s</b><br/>Toma esto en cuenta al crear tu lista.]]></string>
+    <string name="msg_current_season"><![CDATA[<b>%s</b><br/><br/>Toma esto en cuenta al crear tu lista.]]></string>
     <string name="season_title">Temporada</string>
     <string name="season_spring">Primavera - Verano</string>
     <string name="season_fall">Otoño - Invierno</string>
