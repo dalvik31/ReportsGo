@@ -24,6 +24,10 @@ import kotlinx.coroutines.flow.collectLatest
 fun ProfileScreen(
     profileViewModel: ProfileViewModel = hiltViewModel<ProfileViewModel>(),
     onNavigateToLogin: () -> Unit,
+    onNavigateToOrders: (() -> Unit)? = null,
+    onNavigateToClients: (() -> Unit)? = null,
+    onNavigateToProducts: (() -> Unit)? = null,
+    onNavigateToFinances: (() -> Unit)? = null
 ) {
 
     val uiState by profileViewModel.uiState.collectAsState()
@@ -37,6 +41,7 @@ fun ProfileScreen(
                 ProfileUiEffect.NavigateToLogin -> {
                     onNavigateToLogin()
                 }
+
             }
         }
     }
@@ -48,9 +53,23 @@ fun ProfileScreen(
         onLogoutClicked = {
             showCloseSessionDialog = true
 
-        }, onUpdateProfilePictureClicked = {
+        },
+        onUpdateProfilePictureClicked = {
             showProfilePictureDialog = true
-        })
+        },
+        onNavigateToFinances = {
+            onNavigateToFinances?.invoke()
+        },
+        onNavigateToOrders = {
+            onNavigateToOrders?.invoke()
+        },
+        onNavigateToClients = {
+            onNavigateToClients?.invoke()
+        },
+        onNavigateToProducts = {
+            onNavigateToProducts?.invoke()
+        },
+    )
 
     // Loading Overlay
     if (uiState.isLoading) {
@@ -98,7 +117,7 @@ fun ProfileScreen(
 @Composable
 fun ProfileScreenPreview() {
     ReportsGoTheme {
-        ProfileView(null, loading = false)
+        ProfileView(loading = false)
     }
 
 }

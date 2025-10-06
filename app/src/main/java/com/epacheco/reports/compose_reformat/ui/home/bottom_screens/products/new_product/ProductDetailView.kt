@@ -1,15 +1,20 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products.new_product
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
@@ -23,8 +28,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -35,6 +43,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
+import coil3.compose.rememberAsyncImagePainter
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.InputTextField
 import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
@@ -48,10 +57,13 @@ import com.epacheco.reports.compose_reformat.model.products.Product
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.new_order.GetBtnSelectColor
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.new_order.colorPosition
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.new_order.colourSaver
+import com.epacheco.reports.compose_reformat.ui.theme.Black
 import com.epacheco.reports.compose_reformat.ui.theme.GrayDark
 import com.epacheco.reports.compose_reformat.ui.theme.GrayLight
+import com.epacheco.reports.compose_reformat.ui.theme.RedDark
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.ui.theme.White
+import com.epacheco.reports.compose_reformat.ui.theme.WhiteBackground
 import com.epacheco.reports.compose_reformat.ui.theme.YellowColor
 import com.epacheco.reports.compose_reformat.utils.extensions.toColor
 import com.epacheco.reports.compose_reformat.utils.extensions.toHexString
@@ -102,11 +114,39 @@ fun NewProductView(
         val urlImg = if (inputUrlImg.isNullOrEmpty()) null else inputUrlImg.toUri()
         val productName =
             if (inputName.isNullOrEmpty()) stringResource(R.string.add_product_title) else inputName
-        HeaderImage(
+
+        /*HeaderImage(
             urlImage = urlImg,
             imageSize = HeaderImageSize.LARGE
         ) {
             onUpdateProfilePictureClicked?.invoke()
+        }*/
+        Box(
+            modifier = Modifier
+                .height(250.dp)
+                .fillMaxWidth()
+        ) {
+
+            urlImg?.let {
+                Image(
+                    painter = rememberAsyncImagePainter(it),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxSize().clip(RoundedCornerShape(bottomEnd = 10.dp, bottomStart = 10.dp)),
+                    contentScale = ContentScale.FillWidth
+                )
+            } ?: run {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            MaterialTheme.colorScheme.surface,
+                            shape = RoundedCornerShape(bottomEnd = 10.dp, bottomStart = 10.dp)
+                        ),
+                )
+            }
+
+
         }
 
         Spacer(Modifier.padding(vertical = 8.dp))
@@ -257,7 +297,7 @@ fun NewProductView(
                 IconButton(
                     modifier = Modifier
                         .padding(end = 24.dp)
-                        .background(GrayLight, shape = CircleShape),
+                        .background(GrayDark, shape = CircleShape),
                     onClick = {
                         colorPickerOpen = true
                     }) {
@@ -333,7 +373,7 @@ fun NewProductView(
                     modifier = Modifier
                         .graphicsLayer()
                         .padding(end = 24.dp)
-                        .background(YellowColor, shape = CircleShape),
+                        .background(GrayDark, shape = CircleShape),
 
                     onClick = {
                         onOpenScanCodeDialog?.invoke()

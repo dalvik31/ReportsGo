@@ -40,6 +40,6 @@ sealed interface BottomHomeRoutes {
     data object ProfileBottomHomeRoute : BottomHomeRoutes
 
     @Serializable
-    data object FinanceBottomHomeRoute : BottomHomeRoutes
+    data object SaleBottomHomeRoute : BottomHomeRoutes
 }
 

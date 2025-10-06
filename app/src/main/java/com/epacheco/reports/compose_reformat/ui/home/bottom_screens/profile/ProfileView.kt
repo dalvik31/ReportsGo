@@ -2,44 +2,39 @@ package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile
 
 import android.net.Uri
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.BlurredEdgeTreatment
-import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.rememberAsyncImagePainter
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
-import com.epacheco.reports.compose_reformat.general_components.SecondaryButton
+import com.epacheco.reports.compose_reformat.general_components.OptionItem
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
-import com.epacheco.reports.compose_reformat.general_components.header_image.HeaderImage
-import com.epacheco.reports.compose_reformat.general_components.header_image.HeaderImageSize
-import com.epacheco.reports.compose_reformat.ui.theme.GrayLight
+import com.epacheco.reports.compose_reformat.ui.theme.RedDark
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE2
@@ -53,50 +48,61 @@ fun ProfileView(
     imageProfile: Uri? = null,
     onUpdateProfilePictureClicked: (() -> Unit)? = null,
     onLogoutClicked: (() -> Unit)? = null,
-    loading: Boolean
+    loading: Boolean,
+    onNavigateToOrders: (() -> Unit)? = null,
+    onNavigateToClients: (() -> Unit)? = null,
+    onNavigateToProducts: (() -> Unit)? = null,
+    onNavigateToFinances: (() -> Unit)? = null
 ) {
-
     Column(Modifier.fillMaxSize()) {
-        HeaderImage(
-            imageProfile,
-            onUpdateProfilePictureClicked = onUpdateProfilePictureClicked
-        )
-        firebaseUser?.let {
-            DividerProfile(firebaseUser)
-            firebaseUser.email?.let {
-                Text(
-                    it,
+        DividerProfile(firebaseUser)
+        Surface(
+            color = Color.Transparent,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+        ) {
+            firebaseUser?.photoUrl?.let {
+                Image(
+                    painter = rememberAsyncImagePainter(it),
+                    contentDescription = null,
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = if (firebaseUser.email.isNullOrEmpty()) 24.dp else 0.dp),
-                    textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.ExtraBold,
+                        .size(130.dp)
+                        .padding(10.dp)
+                        .clip(CircleShape)
+                        .clickable {
+                            onUpdateProfilePictureClicked?.invoke()
+                        },
+                    contentScale = ContentScale.Crop,
+                )
+            } ?: run {
+                Image(
+                    painter = painterResource(id = R.drawable.icon_person),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(130.dp)
+                        .padding(10.dp)
+                        .clip(shape = RoundedCornerShape(40.dp))
+                        .clickable {
+                            firebaseUser?.let {
+                                onUpdateProfilePictureClicked?.invoke()
+                            }
+                        },
+                    contentScale = ContentScale.Crop,
                 )
             }
-        } ?: run {
-            if (!loading) {
 
-                Column(modifier = Modifier.padding(vertical = 24.dp)) {
-                    Image(
-                        painter = painterResource(R.drawable.ic_user_resource_not_found),
-                        modifier = Modifier
-                            .width(200.dp)
-                            .height(200.dp)
-                            .align(Alignment.CenterHorizontally),
-                        contentDescription = stringResource(R.string.msg_user_profile_not_found)
-                    )
-                    Text(
-                        "Usuario no encontrado",
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.ExtraBold,
-                    )
-                }
-
-            }
         }
 
+        firebaseUser?.email?.let {
+            Text(
+                it,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = if (firebaseUser.email.isNullOrEmpty()) 24.dp else 0.dp),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.titleSmall,
+            )
+        }
         firebaseUser?.metadata?.lastSignInTimestamp?.let { lastConnection ->
             Text(
                 text = stringResource(
@@ -109,17 +115,70 @@ fun ProfileView(
 
             )
         }
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp)
-                .padding(bottom = 48.dp),
-            verticalArrangement = Arrangement.Bottom
-        ) {
-            SecondaryButton(textButton = stringResource(R.string.title_close_session).uppercase()) {
-                onLogoutClicked?.invoke()
-            }
+        Spacer(modifier = Modifier.padding(vertical = 16.dp))
 
+        Card(
+            modifier = Modifier.padding(horizontal = 16.dp), colors = CardColors(
+                contentColor = MaterialTheme.colorScheme.onBackground,
+                containerColor = MaterialTheme.colorScheme.surface,
+                disabledContentColor = Color.Transparent,
+                disabledContainerColor = Color.Transparent
+            )
+        ) {
+
+
+            Column(
+                modifier = Modifier
+                    .wrapContentWidth(),
+            ) {
+
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    OptionItem(
+                        icon = R.drawable.ic_vector_order,
+                        title = stringResource(R.string.tab_order_option),
+                        onClick = { onNavigateToOrders?.invoke() },
+                    )
+                    HorizontalDivider(
+                        modifier = Modifier.padding(horizontal = 8.dp),
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f)
+                    )
+                    OptionItem(
+                        icon = R.drawable.ic_vector_clients,
+                        title = stringResource(R.string.tab_clients_option),
+                        onClick = { onNavigateToClients?.invoke() },
+                    )
+                    HorizontalDivider(
+                        modifier = Modifier.padding(horizontal = 8.dp),
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f)
+                    )
+                    OptionItem(
+                        icon = R.drawable.ic_vector_products,
+                        title = stringResource(R.string.tab_products_option),
+                        onClick = { onNavigateToProducts?.invoke() },
+                    )
+                    HorizontalDivider(
+                        modifier = Modifier.padding(horizontal = 8.dp),
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f)
+                    )
+                    OptionItem(
+                        icon = R.drawable.ic_vector_sale,
+                        title = stringResource(R.string.tab_sales_option),
+                        onClick = { onNavigateToFinances?.invoke() },
+                    )
+                    HorizontalDivider(
+                        modifier = Modifier.padding(horizontal = 8.dp),
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f)
+                    )
+
+                    OptionItem(
+                        icon = R.drawable.ic_vector_logout,
+                        title = stringResource(R.string.lbl_logout),
+                        tintText = RedDark,
+                        tintIcon = RedDark
+                    ) { onLogoutClicked?.invoke() }
+
+                }
+            }
         }
     }
 
@@ -127,14 +186,16 @@ fun ProfileView(
 
 
 @Composable
-private fun DividerProfile(firebaseUser: FirebaseUser) {
+private fun DividerProfile(firebaseUser: FirebaseUser?) {
+    val userName = firebaseUser?.displayName.nameProfile(firebaseUser?.email)
+    val userNameLbl = stringResource(
+        R.string.title_profile,
+        userName
+    )
     TextDivider(
         modifier = Modifier.padding(vertical = 16.dp),
-        textDivider = stringResource(
-            R.string.title_profile,
-            firebaseUser.displayName.nameProfile(firebaseUser.email)
-        ),
-        fontSize = 18.sp
+        textDivider = if (userName.isEmpty()) stringResource(R.string.msg_user_profile_not_found) else userNameLbl,
+        fontSize = 20.sp
     )
 }
 
@@ -142,7 +203,7 @@ private fun DividerProfile(firebaseUser: FirebaseUser) {
 @Composable
 fun ProfileViewPreview() {
     ReportsGoTheme {
-        ProfileView(null, loading = false)
+        ProfileView(loading = false)
     }
 
 }

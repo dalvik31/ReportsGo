@@ -34,7 +34,7 @@ fun TextDivider(
             text = textDivider,
             modifier = Modifier.padding(horizontal = 24.dp),
             fontSize = fontSize,
-            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.titleLarge,
             color = primaryColor,
         )
 

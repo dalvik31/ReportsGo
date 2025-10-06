@@ -31,13 +31,15 @@ fun PrimaryButton(
     modifier: Modifier = Modifier,
     textButton: String,
     iconBtn: Int? = null,
+    textColor: Color = MaterialTheme.colorScheme.onPrimary,
+    iconTint: Color = MaterialTheme.colorScheme.onPrimary,
     colorBackground: Color = MaterialTheme.colorScheme.primary,
     enabledButton: Boolean = true,
     onButtonClicked: (() -> Unit)? = null
 ) {
 
     val lifecycleOwner = LocalLifecycleOwner.current
-    Box(modifier = modifier){
+    Box(modifier = modifier) {
         Button(
             enabled = enabledButton,
             onClick = {
@@ -58,12 +60,12 @@ fun PrimaryButton(
                     painterResource(id = icon),
                     contentDescription = "Login google",
                     modifier = Modifier.size(20.dp),
-                    tint = MaterialTheme.colorScheme.onPrimary
+                    tint = iconTint
                 )
             }
 
             Text(
-                color = MaterialTheme.colorScheme.onPrimary,
+                color = textColor,
                 text = textButton,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center

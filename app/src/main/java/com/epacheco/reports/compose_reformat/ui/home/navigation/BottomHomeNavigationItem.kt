@@ -14,28 +14,22 @@ data class BottomHomeNavigationItem(
                 icon = R.drawable.ic_vector_order,
                 bottomHomeRoutes = BottomHomeRoutes.MainOrdersBottomHomeRoute
             ),
-            /**
-             * Pending 07/05/2025
-             * */
-            /*BottomHomeNavigationItem(
+            BottomHomeNavigationItem(
                 label = R.string.tab_clients_option,
                 icon = R.drawable.ic_vector_clients,
                 bottomHomeRoutes = BottomHomeRoutes.ClientBottomHomeRoute
-            ),*/
+            ),
             BottomHomeNavigationItem(
                 label = R.string.tab_products_option,
                 icon = R.drawable.ic_vector_products_red,
                 bottomHomeRoutes = BottomHomeRoutes.ProductBottomHomeRoute
             ),
 
-            /**
-             * Pending 07/05/2025
-             * */
-            /*BottomHomeNavigationItem(
-                label = R.string.tab_finances_option,
-                icon = R.drawable.ic_vector_activity,
-                bottomHomeRoutes = BottomHomeRoutes.FinanceBottomHomeRoute
-            ),*/
+            BottomHomeNavigationItem(
+                label = R.string.tab_sales_option,
+                icon = R.drawable.ic_vector_sale,
+                bottomHomeRoutes = BottomHomeRoutes.SaleBottomHomeRoute
+            ),
             BottomHomeNavigationItem(
                 label = R.string.tab_profile_option,
                 icon = R.drawable.ic_vector_account,

@@ -371,7 +371,7 @@
     <string name="tab_order_option">Pedidos</string>
     <string name="tab_clients_option">Clientes</string>
     <string name="tab_profile_option">Perfil</string>
-    <string name="tab_sells_option">Ventas</string>
+    <string name="tab_sales_option">Ventas</string>
     <string name="tab_finances_option">Finanzas</string>
     <string name="tab_products_option">Productos</string>
 
@@ -572,7 +572,7 @@
 
     <!--PROFILE Fragments-->
     <string name="search_profile">Buscando usuario…</string>
-    <string name="title_profile">Hola, %s!</string>
+    <string name="title_profile">Hola, %s</string>
     <string name="last_connection">Última conexión: %s</string>
     <string name="title_close_session">Cerrar sesión</string>
     <string name="msg_user_profile_not_found">Usuario no encontrado</string>

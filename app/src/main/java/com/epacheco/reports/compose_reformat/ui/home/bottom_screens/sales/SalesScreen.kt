@@ -1,4 +1,4 @@
-package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.finances
+package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.sales
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -25,8 +25,8 @@ import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 
 @Composable
-fun FinancesScreen(
-    ordersViewModel: FinancesViewModel = hiltViewModel<FinancesViewModel>()
+fun SalesScreen(
+    ordersViewModel: SalesViewModel = hiltViewModel<SalesViewModel>()
 ) {
     val orderResponse = ordersViewModel.financesFlow.collectAsState()
 
@@ -72,20 +72,20 @@ fun FinancesScreen(
 
     }
 
-    FinancesScreenView()
+    SalesScreenView()
 
 }
 
 @Composable
-fun FinancesScreenView() {
-    Text("Finances response")
+fun SalesScreenView() {
+    Text("Sales response")
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun FinancesScreenPreview() {
     ReportsGoTheme {
-        FinancesScreenView()
+        SalesScreenView()
     }
 
 }

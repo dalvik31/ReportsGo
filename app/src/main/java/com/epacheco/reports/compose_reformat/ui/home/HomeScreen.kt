@@ -39,17 +39,20 @@ import androidx.navigation.toRoute
 import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.view.DetailClientScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.listClients.view.ClientsScreen
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.finances.FinancesScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.OrdersMainScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders_detail.OrdersScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.new_order.NewOrderScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products.ProductsScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products.new_product.NewProductScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile.ProfileScreen
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.sales.SalesScreen
 import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeNavigationItem
 import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes
 import com.epacheco.reports.compose_reformat.ui.theme.RedDark
 import com.epacheco.reports.compose_reformat.utils.extensions.serializableType
 import com.google.android.material.tabs.TabItem
+import kotlin.math.round
 import kotlin.reflect.typeOf
 
 @Composable
@@ -81,8 +84,8 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                             },
                             colors = NavigationBarItemColors(
                                 selectedIconColor = RedDark,
-                                unselectedIconColor = MaterialTheme.colorScheme.onSurface,
-                                unselectedTextColor = MaterialTheme.colorScheme.onSurface,
+                                unselectedIconColor = MaterialTheme.colorScheme.primary,
+                                unselectedTextColor = MaterialTheme.colorScheme.primary,
                                 selectedTextColor = RedDark,
                                 selectedIndicatorColor = Color.Transparent,
                                 disabledIconColor = MaterialTheme.colorScheme.onPrimary,
@@ -157,16 +160,37 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                     )
                 })
             }
-            composable<BottomHomeRoutes.FinanceBottomHomeRoute> {
-                LaunchedEffect(Unit) {
-
-                }
-                //FinancesScreen()
+            composable<BottomHomeRoutes.SaleBottomHomeRoute> {
+                SalesScreen()
             }
             composable<BottomHomeRoutes.ProfileBottomHomeRoute> {
-                ProfileScreen(onNavigateToLogin = {
-                    onNavigateToRegister.invoke()
-                })
+                ProfileScreen(
+                    onNavigateToLogin = {
+                        onNavigateToRegister.invoke()
+                    }, onNavigateToFinances = {
+                        goProfileToRoute(bottomNavController, BottomHomeRoutes.SaleBottomHomeRoute)
+                    }, onNavigateToOrders = {
+                        bottomNavController.navigate(
+                            route =
+                                BottomHomeRoutes.MainOrdersBottomHomeRoute,
+                        ) {
+                            popUpTo(BottomHomeRoutes.MainOrdersBottomHomeRoute) {
+                                inclusive = true
+                            }
+                        }
+                    },
+                    onNavigateToClients = {
+                        goProfileToRoute(
+                            bottomNavController,
+                            BottomHomeRoutes.ClientBottomHomeRoute
+                        )
+                    },
+                    onNavigateToProducts = {
+                        goProfileToRoute(
+                            bottomNavController,
+                            BottomHomeRoutes.ProductBottomHomeRoute
+                        )
+                    })
             }
             composable<BottomHomeRoutes.DetailMainOrdersBottomHomeRoute> { backStackEntry ->
                 val orderMainRoute: BottomHomeRoutes.DetailMainOrdersBottomHomeRoute =
@@ -225,6 +249,20 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
 }
 
 
+private fun goProfileToRoute(
+    bottomNavController: NavHostController,
+    bottomHomeRoutes: BottomHomeRoutes
+) {
+    bottomNavController.navigate(
+        route =
+            bottomHomeRoutes,
+    ) {
+        popUpTo(BottomHomeRoutes.ProfileBottomHomeRoute) {
+            inclusive = true
+        }
+    }
+}
+
 @Composable
 private fun NavController.currentTabItemAsState(): State<Int> {
     val selectedItem = remember { mutableIntStateOf(0) }
@@ -232,16 +270,23 @@ private fun NavController.currentTabItemAsState(): State<Int> {
     DisposableEffect(this) {
         val listener = NavController.OnDestinationChangedListener { _, destination, _ ->
             when {
-                destination.hierarchy.any { it.route == BottomHomeRoutes.ProductBottomHomeRoute.javaClass.canonicalName } -> {
+                destination.hierarchy.any { it.route == BottomHomeRoutes.MainOrdersBottomHomeRoute.javaClass.canonicalName } -> {
+                    selectedItem.intValue = 0
+                }
+                destination.hierarchy.any { it.route == BottomHomeRoutes.ClientBottomHomeRoute.javaClass.canonicalName } -> {
                     selectedItem.intValue = 1
                 }
 
-                destination.hierarchy.any { it.route == BottomHomeRoutes.ProfileBottomHomeRoute.javaClass.canonicalName } -> {
+                destination.hierarchy.any { it.route == BottomHomeRoutes.ProductBottomHomeRoute.javaClass.canonicalName } -> {
                     selectedItem.intValue = 2
                 }
 
-                else -> {
-                    selectedItem.intValue = 0
+                destination.hierarchy.any { it.route == BottomHomeRoutes.SaleBottomHomeRoute.javaClass.canonicalName } -> {
+                    selectedItem.intValue = 3
+                }
+
+                destination.hierarchy.any { it.route == BottomHomeRoutes.ProfileBottomHomeRoute.javaClass.canonicalName } -> {
+                    selectedItem.intValue = 4
                 }
             }
         }
