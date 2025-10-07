@@ -26,66 +26,20 @@ import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 @Composable
 fun SalesScreen(
-    ordersViewModel: SalesViewModel = hiltViewModel<SalesViewModel>()
+    ordersViewModel: SalesViewModel = hiltViewModel<SalesViewModel>(),
+    onNavigateToFinances: (() -> Unit)? = null,
+    onNavigateToProfile: (() -> Unit)? = null
 ) {
-    val orderResponse = ordersViewModel.financesFlow.collectAsState()
-
-
-    orderResponse.value?.let {
-        when (it) {
-            is Resource.Failure -> {
-                it.exception?.let {
-                    Log.e("aqui", "FinancesScreen vamooos: ${it.message}")
-                }
-            }
-
-            //Resource.Waiting -> Loader(false, stringResource(R.string.search_finances))
-            is Resource.Success -> {
-                Column {
-                    TextDivider(
-                        modifier = Modifier.padding(vertical = 8.dp),
-                        textDivider = pluralStringResource(
-                            R.plurals.title_finances,
-                            count = it.result.size,
-                            it.result.size
-                        ),
-                        fontSize = 14.sp
-                    )
-
-                    LazyColumn(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(color = Color.Transparent)
-                    ) {
-                        items(it.result) { order ->
-                            ListAnimationItem(
-                                title = order.saleDate,
-                                body = order.nameClient.plus(" - ").plus(order.nameClient),
-                                onSelectItem = {}
-                            )
-                        }
-                    }
-                }
-            }
-
-        }
-
-    }
-
-    SalesScreenView()
-
-}
-
-@Composable
-fun SalesScreenView() {
-    Text("Sales response")
+    SalesView(
+        onNavigateToFinances = { onNavigateToFinances?.invoke() },
+        onNavigateToProfile = { onNavigateToProfile?.invoke() })
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun FinancesScreenPreview() {
     ReportsGoTheme {
-        SalesScreenView()
+        SalesView()
     }
 
 }

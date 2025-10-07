@@ -24,8 +24,9 @@ import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 @Composable
 fun ClientsView(
     clientsList: List<Client> = emptyList(),
-    onItemSelected : (Client) -> Unit = {}) {
-
+    onItemSelected: (Client) -> Unit = {},
+    onNavigateToProfile: (() -> Unit)? = null
+) {
 
 
     Column {
@@ -41,7 +42,9 @@ fun ClientsView(
 
             },
             tintImageRight = MaterialTheme.colorScheme.primary,
-            rightImageVector = ImageVector.vectorResource(R.drawable.ic_vector_add)
+            rightImageVector = ImageVector.vectorResource(R.drawable.ic_vector_add),
+            onProfileClicked = {onNavigateToProfile?.invoke()},
+            tintIconProfile = MaterialTheme.colorScheme.primary,
         )
 
         LazyColumn(
@@ -54,7 +57,7 @@ fun ClientsView(
                     title = client.phone,
                     body = client.name.plus(" ").plus(client.lastNanme),
                     content = client.detail
-                ){
+                ) {
                     onItemSelected.invoke(client)
                 }
             }

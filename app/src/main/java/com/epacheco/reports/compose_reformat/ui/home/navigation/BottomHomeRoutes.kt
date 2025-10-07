@@ -41,5 +41,8 @@ sealed interface BottomHomeRoutes {
 
     @Serializable
     data object SaleBottomHomeRoute : BottomHomeRoutes
+
+    @Serializable
+    data object FinancesBottomHomeRoute : BottomHomeRoutes
 }
 

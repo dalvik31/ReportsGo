@@ -29,6 +29,7 @@ import kotlinx.coroutines.flow.collectLatest
 fun OrdersMainScreen(
     ordersMainViewModel: OrdersMainViewModel = hiltViewModel<OrdersMainViewModel>(),
     onNavigateToElementsMain: ((String, Season?, String) -> Unit)? = null,
+    onNavigateToProfile: (() -> Unit)? = null
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
     val currentState = lifecycleOwner.lifecycle.currentState
@@ -50,7 +51,11 @@ fun OrdersMainScreen(
         ordersMainViewModel.effectFlow.collectLatest { effect ->
             when (effect) {
                 is OrdersMainUiEffect.NavigateToElementsMain -> {
-                    onNavigateToElementsMain?.invoke(effect.orderMainId, effect.orderSeason,effect.orderNameMain)
+                    onNavigateToElementsMain?.invoke(
+                        effect.orderMainId,
+                        effect.orderSeason,
+                        effect.orderNameMain
+                    )
                 }
             }
         }
@@ -59,6 +64,7 @@ fun OrdersMainScreen(
     OrderMainView(
         orderMainMainList = uiState.orderMains,
         showImgEmptyList = uiState.showImgEmptyList,
+        onNavigateToProfile = { onNavigateToProfile?.invoke() },
         onOrderClick = {
             ordersMainViewModel.handleIntent(
                 OrdersMainUiIntent.GoToListOrders(

@@ -41,7 +41,8 @@ fun OrderMainView(
     onOrderClick: ((OrderMain) -> Unit)? = null,
     onCreateOrderMainClick: (() -> Unit)? = null,
     onDeleteOrderClick: ((String) -> Unit)? = null,
-    onUpdateStatusOrderClick: ((OrderMain) -> Unit)? = null
+    onUpdateStatusOrderClick: ((OrderMain) -> Unit)? = null,
+    onNavigateToProfile: (() -> Unit)? = null
 ) {
     val coroutineScope = rememberCoroutineScope()
 
@@ -56,7 +57,9 @@ fun OrderMainView(
             titleColor = MaterialTheme.colorScheme.primary,
             tintImageRight = MaterialTheme.colorScheme.primary,
             onRightIconClicked = { onCreateOrderMainClick?.invoke() },
-            rightImageVector = ImageVector.vectorResource(R.drawable.ic_vector_add)
+            rightImageVector = ImageVector.vectorResource(R.drawable.ic_vector_add),
+            onProfileClicked = { onNavigateToProfile?.invoke() },
+            tintIconProfile = MaterialTheme.colorScheme.primary
         )
 
 

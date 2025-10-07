@@ -577,4 +577,11 @@
     <string name="title_close_session">Cerrar sesión</string>
     <string name="msg_user_profile_not_found">Usuario no encontrado</string>
     <string name="msg_close_session">¿Realmente desea cerrar sesion?</string>
+
+    <!--SALES Fragments-->
+    <string name="generate_sale">Nevo ticket</string>
+    <string name="client">Cliente</string>
+    <string name="select_client">Buscar cliente</string>
+    <string name="product">Producto</string>
+    <string name="select_product">Buscar producto</string>
 </resources>

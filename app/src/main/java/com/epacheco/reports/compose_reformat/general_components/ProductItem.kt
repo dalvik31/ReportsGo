@@ -110,8 +110,7 @@ fun ProductItem(
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(100.dp)
-                        .alpha(0.8f),
+                        .height(100.dp),
                 )
 
                 Text(

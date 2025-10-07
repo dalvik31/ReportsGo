@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -32,13 +33,16 @@ fun Header(
     title: String? = null,
     titleColor: Color = MaterialTheme.colorScheme.onPrimary,
     backgroundToolbar: Color = MaterialTheme.colorScheme.background,
-    rightImageVector: ImageVector = Icons.Filled.Clear,
-    tintImageRight: Color = MaterialTheme.colorScheme.surface,
-    leftImageVector: ImageVector = Icons.Filled.AccountCircle,
+    leftImageVector: ImageVector = Icons.Filled.ArrowBackIosNew,
+    onLeftIconClicked: (() -> Unit)? = null,
     tintImageLeft: Color = MaterialTheme.colorScheme.surface,
     onRightIconClicked: (() -> Unit)? = null,
-    onLeftIconClicked: (() -> Unit)? = null
-) {
+    rightImageVector: ImageVector = Icons.Filled.Clear,
+    tintImageRight: Color = MaterialTheme.colorScheme.surface,
+    onProfileClicked: (() -> Unit)? = null,
+    tintIconProfile: Color = MaterialTheme.colorScheme.surface,
+
+    ) {
     TopAppBar(
         title = {
             title?.let {
@@ -57,6 +61,15 @@ fun Header(
             titleContentColor = titleColor
         ),
         actions = {
+            onProfileClicked?.let { profileAction ->
+                IconButton(onClick = profileAction) {
+                    Icon(
+                        imageVector = Icons.Filled.AccountCircle,
+                        contentDescription = "close",
+                        tint = tintImageRight
+                    )
+                }
+            }
             onRightIconClicked?.let { rightAction ->
                 IconButton(onClick = rightAction) {
                     Icon(
@@ -65,7 +78,6 @@ fun Header(
                         tint = tintImageRight
                     )
                 }
-
             }
 
         },

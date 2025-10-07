@@ -19,7 +19,8 @@ import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 @Composable
 fun ClientsScreen(
     clientsViewModel: ClientsViewModel = hiltViewModel<ClientsViewModel>(),
-    onNavigateToClientDetail : (String) -> Unit
+    onNavigateToClientDetail: (String) -> Unit,
+    onNavigateToProfile: (() -> Unit)? = null
 ) {
     val clientsUiState by clientsViewModel.clientsFlow.collectAsState()
     val context = LocalContext.current
@@ -33,7 +34,7 @@ fun ClientsScreen(
     }
 
     clientsUiState.errorMessage?.let { msgError ->
-        ReportsDialog (
+        ReportsDialog(
             imgDialog = R.drawable.ic_error,
             confirmButtonText = stringResource(R.string.btn_ok),
             dialogSubTitle = msgError,
@@ -41,10 +42,13 @@ fun ClientsScreen(
                 Log.e("aqui", "ClientsViewModel vamooos: ${msgError}")
             })
     }
-     ClientsView(clientsUiState.listClients){ client ->
-         Toast.makeText(context, client.name, Toast.LENGTH_LONG).show()
-         onNavigateToClientDetail.invoke(client.id)
-     }
+    ClientsView(
+        clientsUiState.listClients,
+        onNavigateToProfile = { onNavigateToProfile?.invoke() },
+        onItemSelected = { client ->
+            Toast.makeText(context, client.name, Toast.LENGTH_LONG).show()
+            onNavigateToClientDetail.invoke(client.id)
+        })
 }
 
 @Preview

@@ -127,24 +127,34 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
             modifier = Modifier.padding(paddingValues = paddingValues)
         ) {
             composable<BottomHomeRoutes.MainOrdersBottomHomeRoute> {
-                OrdersMainScreen { mainOrderId, orderSeason, orderNameMain ->
-                    bottomNavController.navigate(
-                        BottomHomeRoutes.DetailMainOrdersBottomHomeRoute(
-                            mainOrderId,
-                            orderSeason = orderSeason,
-                            orderNameMain
+                OrdersMainScreen(
+                    onNavigateToProfile = {
+                        bottomNavController.navigate(
+                            BottomHomeRoutes.ProfileBottomHomeRoute
                         )
-                    )
-                }
+                    },
+                    onNavigateToElementsMain = { mainOrderId, orderSeason, orderNameMain ->
+                        bottomNavController.navigate(
+                            BottomHomeRoutes.DetailMainOrdersBottomHomeRoute(
+                                mainOrderId,
+                                orderSeason = orderSeason,
+                                orderNameMain
+                            )
+                        )
+                    })
             }
             composable<BottomHomeRoutes.ClientBottomHomeRoute> {
-                ClientsScreen() { idClient ->
+                ClientsScreen(onNavigateToProfile = {
+                    bottomNavController.navigate(
+                        BottomHomeRoutes.ProfileBottomHomeRoute
+                    )
+                }, onNavigateToClientDetail = { idClient ->
                     bottomNavController.navigate(
                         BottomHomeRoutes.ClientDetailBottomHomeRoute(
                             idClient
                         )
                     )
-                }
+                })
             }
             composable<BottomHomeRoutes.ClientDetailBottomHomeRoute> { backStackEntry ->
                 val createDetailRout: BottomHomeRoutes.ClientDetailBottomHomeRoute =
@@ -158,10 +168,26 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                             productId = productId
                         )
                     )
+                }, onNavigateToProfile = {
+                    bottomNavController.navigate(
+                        BottomHomeRoutes.ProfileBottomHomeRoute
+                    )
                 })
             }
             composable<BottomHomeRoutes.SaleBottomHomeRoute> {
-                SalesScreen()
+                SalesScreen(onNavigateToFinances = {
+                    bottomNavController.navigate(
+                        BottomHomeRoutes.FinancesBottomHomeRoute
+                    )
+                }, onNavigateToProfile = {
+                    bottomNavController.navigate(
+                        BottomHomeRoutes.ProfileBottomHomeRoute
+                    )
+                })
+            }
+
+            composable<BottomHomeRoutes.FinancesBottomHomeRoute> {
+                FinancesScreen()
             }
             composable<BottomHomeRoutes.ProfileBottomHomeRoute> {
                 ProfileScreen(
@@ -273,6 +299,7 @@ private fun NavController.currentTabItemAsState(): State<Int> {
                 destination.hierarchy.any { it.route == BottomHomeRoutes.MainOrdersBottomHomeRoute.javaClass.canonicalName } -> {
                     selectedItem.intValue = 0
                 }
+
                 destination.hierarchy.any { it.route == BottomHomeRoutes.ClientBottomHomeRoute.javaClass.canonicalName } -> {
                     selectedItem.intValue = 1
                 }
@@ -283,10 +310,6 @@ private fun NavController.currentTabItemAsState(): State<Int> {
 
                 destination.hierarchy.any { it.route == BottomHomeRoutes.SaleBottomHomeRoute.javaClass.canonicalName } -> {
                     selectedItem.intValue = 3
-                }
-
-                destination.hierarchy.any { it.route == BottomHomeRoutes.ProfileBottomHomeRoute.javaClass.canonicalName } -> {
-                    selectedItem.intValue = 4
                 }
             }
         }

@@ -133,7 +133,7 @@ fun ProfileView(
             ) {
 
                 Column(modifier = Modifier.fillMaxWidth()) {
-                    OptionItem(
+                   /* OptionItem(
                         icon = R.drawable.ic_vector_order,
                         title = stringResource(R.string.tab_order_option),
                         onClick = { onNavigateToOrders?.invoke() },
@@ -168,7 +168,7 @@ fun ProfileView(
                     HorizontalDivider(
                         modifier = Modifier.padding(horizontal = 8.dp),
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f)
-                    )
+                    )*/
 
                     OptionItem(
                         icon = R.drawable.ic_vector_logout,

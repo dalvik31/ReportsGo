@@ -19,6 +19,7 @@ import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 fun ProductsScreen(
     ordersViewModel: ProductsViewModel = hiltViewModel<ProductsViewModel>(),
     onNavigateToProductDetail: ((String?) -> Unit)? = null,
+    onNavigateToProfile: (() -> Unit)? = null
 ) {
 
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -42,10 +43,11 @@ fun ProductsScreen(
         isRefreshing = uiState.isLoading,
         onRefresh = {
             ordersViewModel.handleIntent(ProductsUiIntent.LoadProducts)
-        }) {
-        onNavigateToProductDetail?.invoke(it)
-        Log.e("aqui", "vamoooos: ${it}")
-    }
+        }, onNavigateToProfile = {
+            onNavigateToProfile?.invoke()
+        }, onGoProductDetailClick = {
+            onNavigateToProductDetail?.invoke(it)
+        })
 
     //Message error
     uiState.errorMessage?.let { msgError ->
@@ -65,7 +67,7 @@ fun ProductsScreen(
 @Composable
 fun ProductsScreenPreview() {
     ReportsGoTheme {
-        ProductsView {}
+        ProductsView(onGoProductDetailClick = {})
     }
 
 }

@@ -45,7 +45,8 @@ fun ProductsView(
     inputName: String? = null,
     isRefreshing: Boolean = false,
     onRefresh: (() -> Unit)? = null,
-    onGoProductDetailClick: (String?) -> Unit
+    onGoProductDetailClick: (String?) -> Unit,
+    onNavigateToProfile: (() -> Unit)? = null
 ) {
     val state = rememberPullToRefreshState()
 
@@ -61,7 +62,9 @@ fun ProductsView(
                 onGoProductDetailClick.invoke(null)
             },
             tintImageRight = MaterialTheme.colorScheme.primary,
-            rightImageVector = ImageVector.vectorResource(R.drawable.ic_vector_add)
+            rightImageVector = ImageVector.vectorResource(R.drawable.ic_vector_add),
+            onProfileClicked = { onNavigateToProfile?.invoke() },
+            tintIconProfile = MaterialTheme.colorScheme.primary
         )
 
         SearchBarElement(
@@ -131,7 +134,6 @@ fun ProductsView(
 @Composable
 fun ProductsViewPreview() {
     ReportsGoTheme {
-        ProductsView() {
-        }
+        ProductsView(onGoProductDetailClick = {})
     }
 }

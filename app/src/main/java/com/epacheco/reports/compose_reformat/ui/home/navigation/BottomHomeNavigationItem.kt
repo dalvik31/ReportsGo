@@ -30,11 +30,11 @@ data class BottomHomeNavigationItem(
                 icon = R.drawable.ic_vector_sale,
                 bottomHomeRoutes = BottomHomeRoutes.SaleBottomHomeRoute
             ),
-            BottomHomeNavigationItem(
+            /*BottomHomeNavigationItem(
                 label = R.string.tab_profile_option,
                 icon = R.drawable.ic_vector_account,
                 bottomHomeRoutes = BottomHomeRoutes.ProfileBottomHomeRoute
-            )
+            )*/
         )
     }
 }
