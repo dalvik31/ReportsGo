@@ -581,7 +581,7 @@
     <!--SALES Fragments-->
     <string name="generate_sale">Nevo ticket</string>
     <string name="client">Cliente</string>
-    <string name="select_client">Buscar cliente</string>
+    <string name="select_client">Seleccionar cliente</string>
     <string name="product">Producto</string>
-    <string name="select_product">Buscar producto</string>
+    <string name="select_product">Agregar producto</string>
 </resources>

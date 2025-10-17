@@ -20,7 +20,9 @@ import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 fun ClientsScreen(
     clientsViewModel: ClientsViewModel = hiltViewModel<ClientsViewModel>(),
     onNavigateToClientDetail: (String) -> Unit,
-    onNavigateToProfile: (() -> Unit)? = null
+    onNavigateToProfile: (() -> Unit)? = null,
+    isSelectableClient: Boolean = false,
+    onClientSelected: ((String) -> Unit)? = null
 ) {
     val clientsUiState by clientsViewModel.clientsFlow.collectAsState()
     val context = LocalContext.current
@@ -46,8 +48,13 @@ fun ClientsScreen(
         clientsUiState.listClients,
         onNavigateToProfile = { onNavigateToProfile?.invoke() },
         onItemSelected = { client ->
-            Toast.makeText(context, client.name, Toast.LENGTH_LONG).show()
-            onNavigateToClientDetail.invoke(client.id)
+            if (isSelectableClient) {
+                onClientSelected?.invoke(client.id)
+            } else {
+                Toast.makeText(context, client.name, Toast.LENGTH_LONG).show()
+                onNavigateToClientDetail.invoke(client.id)
+            }
+
         })
 }
 

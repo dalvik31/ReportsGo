@@ -19,7 +19,7 @@ data class Product(
     val productColorCode: String = "",
     val inStock: Int = 0,
     val auxPrice: Double = 0.0,
-    val auxStock: Int = 0,
+    var auxStock: Int = 0,
     val talla: String = "",
     val color: String = "",
     val tipo_de_empaque: String = "",

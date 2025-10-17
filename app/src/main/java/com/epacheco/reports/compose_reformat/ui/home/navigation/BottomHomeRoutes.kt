@@ -28,10 +28,10 @@ sealed interface BottomHomeRoutes {
     data class ClientDetailBottomHomeRoute(val idClient: String) : BottomHomeRoutes
 
     @Serializable
-    data object ClientBottomHomeRoute : BottomHomeRoutes
+    data class ClientBottomHomeRoute(val isSelectableClient: Boolean = false) : BottomHomeRoutes
 
     @Serializable
-    data object ProductBottomHomeRoute : BottomHomeRoutes
+    data class ProductBottomHomeRoute(val isSelectableProduct: Boolean = false) : BottomHomeRoutes
 
     @Serializable
     data class CreateProductBottomHomeRoute(val productId: String?) : BottomHomeRoutes

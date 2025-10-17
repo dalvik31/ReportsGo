@@ -17,12 +17,12 @@ data class BottomHomeNavigationItem(
             BottomHomeNavigationItem(
                 label = R.string.tab_clients_option,
                 icon = R.drawable.ic_vector_clients,
-                bottomHomeRoutes = BottomHomeRoutes.ClientBottomHomeRoute
+                bottomHomeRoutes = BottomHomeRoutes.ClientBottomHomeRoute()
             ),
             BottomHomeNavigationItem(
                 label = R.string.tab_products_option,
                 icon = R.drawable.ic_vector_products_red,
-                bottomHomeRoutes = BottomHomeRoutes.ProductBottomHomeRoute
+                bottomHomeRoutes = BottomHomeRoutes.ProductBottomHomeRoute()
             ),
 
             BottomHomeNavigationItem(

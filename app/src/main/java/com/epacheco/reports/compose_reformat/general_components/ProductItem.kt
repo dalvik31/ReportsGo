@@ -78,15 +78,6 @@ fun ProductItem(
             )
         }
 
-        /* Box(
-             modifier = Modifier
-                 .fillMaxWidth()
-                 .padding(horizontal = 4.dp)
-                 .background(Color.Black, shape = RoundedCornerShape(10.dp))
-                 .clickable {
-                     onProductClick.invoke(product)
-                 }
-         ) {*/
 
         Card(
             modifier = Modifier
@@ -123,9 +114,7 @@ fun ProductItem(
                     color = MaterialTheme.colorScheme.onBackground,
                     fontSize = 14.sp
                 )
-                /*Column(
-                    modifier = Modifier
-                ) {*/
+
                 Text(
                     stringResource(R.string.lbl_price_sale, product.productPriceSale),
                     modifier = Modifier
@@ -135,19 +124,6 @@ fun ProductItem(
                     fontSize = 20.sp,
                     color = MaterialTheme.colorScheme.primary,
                 )
-
-                /*Text(
-                stringResource(R.string.lbl_stock_sale, product.inStock),
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier
-                    .padding(horizontal = 10.dp, vertical = 5.dp)
-                    .fillMaxWidth()
-                    .background(product.inStock.stockColor(), shape = RoundedCornerShape(20.dp)),
-                fontSize = 12.sp,
-                textAlign = TextAlign.Center,
-                color = White,
-            )*/
-                //  }
             }
 
         }

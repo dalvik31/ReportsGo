@@ -17,6 +17,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -143,25 +144,39 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                         )
                     })
             }
-            composable<BottomHomeRoutes.ClientBottomHomeRoute> {
-                ClientsScreen(onNavigateToProfile = {
-                    bottomNavController.navigate(
-                        BottomHomeRoutes.ProfileBottomHomeRoute
-                    )
-                }, onNavigateToClientDetail = { idClient ->
-                    bottomNavController.navigate(
-                        BottomHomeRoutes.ClientDetailBottomHomeRoute(
-                            idClient
+            composable<BottomHomeRoutes.ClientBottomHomeRoute> { backStackEntry ->
+                val clientIsSelect: BottomHomeRoutes.ClientBottomHomeRoute =
+                    backStackEntry.toRoute()
+                ClientsScreen(
+                    onNavigateToProfile = {
+                        bottomNavController.navigate(
+                            BottomHomeRoutes.ProfileBottomHomeRoute
                         )
-                    )
-                })
+                    },
+                    onNavigateToClientDetail = { idClient ->
+                        bottomNavController.navigate(
+                            BottomHomeRoutes.ClientDetailBottomHomeRoute(
+                                idClient
+                            )
+                        )
+                    },
+                    isSelectableClient = clientIsSelect.isSelectableClient,
+                    onClientSelected = { clientName ->
+                        bottomNavController.previousBackStackEntry?.savedStateHandle?.set(
+                            "resultStatus",
+                            clientName
+                        )
+                        bottomNavController.navigateUp()
+                    })
             }
             composable<BottomHomeRoutes.ClientDetailBottomHomeRoute> { backStackEntry ->
                 val createDetailRout: BottomHomeRoutes.ClientDetailBottomHomeRoute =
                     backStackEntry.toRoute()
                 DetailClientScreen(clientId = createDetailRout.idClient)
             }
-            composable<BottomHomeRoutes.ProductBottomHomeRoute> {
+            composable<BottomHomeRoutes.ProductBottomHomeRoute> { backStackEntry ->
+                val productIsSelect: BottomHomeRoutes.ProductBottomHomeRoute =
+                    backStackEntry.toRoute()
                 ProductsScreen(onNavigateToProductDetail = { productId ->
                     bottomNavController.navigate(
                         BottomHomeRoutes.CreateProductBottomHomeRoute(
@@ -172,9 +187,23 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                     bottomNavController.navigate(
                         BottomHomeRoutes.ProfileBottomHomeRoute
                     )
+                }, isSelectableProduct = productIsSelect.isSelectableProduct, onProductSelected = {
+                    bottomNavController.previousBackStackEntry?.savedStateHandle?.set(
+                        "productResult",
+                        it
+                    )
+                    bottomNavController.navigateUp()
                 })
             }
-            composable<BottomHomeRoutes.SaleBottomHomeRoute> {
+            composable<BottomHomeRoutes.SaleBottomHomeRoute> { backStackEntry ->
+                val noResultData =
+                    backStackEntry.savedStateHandle.getLiveData<String>("resultStatus")
+                        .observeAsState("")
+                val onProductResult =
+                    backStackEntry.savedStateHandle.getLiveData<String>("productResult")
+                        .observeAsState("")
+                backStackEntry.savedStateHandle.remove<String>("resultStatus")
+                backStackEntry.savedStateHandle.remove<String>("productResult")
                 SalesScreen(onNavigateToFinances = {
                     bottomNavController.navigate(
                         BottomHomeRoutes.FinancesBottomHomeRoute
@@ -183,7 +212,30 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                     bottomNavController.navigate(
                         BottomHomeRoutes.ProfileBottomHomeRoute
                     )
-                })
+                }, onNavigateToSelectClient = {
+                    bottomNavController.navigate(
+                        BottomHomeRoutes.ClientBottomHomeRoute(
+                            isSelectableClient = true
+                        )
+                    ) {
+                        popUpTo(BottomHomeRoutes.SaleBottomHomeRoute) {
+                            inclusive = false
+                        }
+                    }
+
+
+                }, onNavigateToSelectProduct = {
+                    bottomNavController.navigate(
+                        BottomHomeRoutes.ProductBottomHomeRoute(
+                            isSelectableProduct = true
+                        )
+                    ) {
+                        popUpTo(BottomHomeRoutes.SaleBottomHomeRoute) {
+                            inclusive = false
+                        }
+                    }
+                }, clientIdSelected = noResultData.value, productIdSelected = onProductResult.value)
+
             }
 
             composable<BottomHomeRoutes.FinancesBottomHomeRoute> {
@@ -208,13 +260,13 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                     onNavigateToClients = {
                         goProfileToRoute(
                             bottomNavController,
-                            BottomHomeRoutes.ClientBottomHomeRoute
+                            BottomHomeRoutes.ClientBottomHomeRoute()
                         )
                     },
                     onNavigateToProducts = {
                         goProfileToRoute(
                             bottomNavController,
-                            BottomHomeRoutes.ProductBottomHomeRoute
+                            BottomHomeRoutes.ProductBottomHomeRoute()
                         )
                     })
             }
@@ -295,12 +347,61 @@ private fun NavController.currentTabItemAsState(): State<Int> {
 
     DisposableEffect(this) {
         val listener = NavController.OnDestinationChangedListener { _, destination, _ ->
-            when {
-                destination.hierarchy.any { it.route == BottomHomeRoutes.MainOrdersBottomHomeRoute.javaClass.canonicalName } -> {
+
+            destination.hierarchy.forEachIndexed { index, navigationItem ->
+                if (navigationItem.route == BottomHomeRoutes.MainOrdersBottomHomeRoute.javaClass.canonicalName
+                ) {
+                    selectedItem.intValue = 0
+                    return@forEachIndexed
+                }
+                if (navigationItem.route == BottomHomeRoutes.ClientBottomHomeRoute.javaClass.canonicalName
+                ) {
+                    selectedItem.intValue = 1
+                    return@forEachIndexed
+                }
+                if (navigationItem.route == BottomHomeRoutes.ProductBottomHomeRoute.javaClass.canonicalName
+                ) {
+                    selectedItem.intValue = 2
+                    return@forEachIndexed
+                }
+                if (navigationItem.route == BottomHomeRoutes.SaleBottomHomeRoute.javaClass.canonicalName
+                ) {
+                    selectedItem.intValue = 3
+                    return@forEachIndexed
+                }
+
+
+            }
+            /*destination.hierarchy.any {
+                Log.e("aqui","MainOrdersBottomHomeRoute: vanoooos1: ${  it.route}")
+                Log.e("aqui","MainOrdersBottomHomeRoute: vanoooo2: ${   BottomHomeRoutes.MainOrdersBottomHomeRoute.javaClass.canonicalName}")
+
+        
+
+
+                it.route == BottomHomeRoutes.MainOrdersBottomHomeRoute.javaClass.canonicalName
+
+
+            }*/
+            /*when {
+                destination.hierarchy.any {
+                    Log.e("aqui","MainOrdersBottomHomeRoute: vanoooos1: ${  it.route}")
+                    Log.e("aqui","MainOrdersBottomHomeRoute: vanoooo2: ${   BottomHomeRoutes.MainOrdersBottomHomeRoute.javaClass.canonicalName}")
+                    it.route == BottomHomeRoutes.MainOrdersBottomHomeRoute.javaClass.canonicalName
+
+
+                } -> {
                     selectedItem.intValue = 0
                 }
 
-                destination.hierarchy.any { it.route == BottomHomeRoutes.ClientBottomHomeRoute.javaClass.canonicalName } -> {
+
+                destination.hierarchy.any {
+                    Log.e("aqui","ClientBottomHomeRoute: vanoooos1: ${  it.route}")
+                    Log.e("aqui","ClientBottomHomeRoute: vanoooos1: ${  it.route}")
+                    Log.e("aqui","ClientBottomHomeRoute: vanoooos2: ${   BottomHomeRoutes.ClientBottomHomeRoute.javaClass.simpleName}")
+
+                    it.label == BottomHomeRoutes.ClientBottomHomeRoute.javaClass.canonicalName
+                } -> {
                     selectedItem.intValue = 1
                 }
 
@@ -311,7 +412,7 @@ private fun NavController.currentTabItemAsState(): State<Int> {
                 destination.hierarchy.any { it.route == BottomHomeRoutes.SaleBottomHomeRoute.javaClass.canonicalName } -> {
                     selectedItem.intValue = 3
                 }
-            }
+            }*/
         }
         addOnDestinationChangedListener(listener)
 

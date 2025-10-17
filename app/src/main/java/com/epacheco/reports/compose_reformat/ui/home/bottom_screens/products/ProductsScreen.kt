@@ -19,7 +19,9 @@ import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 fun ProductsScreen(
     ordersViewModel: ProductsViewModel = hiltViewModel<ProductsViewModel>(),
     onNavigateToProductDetail: ((String?) -> Unit)? = null,
-    onNavigateToProfile: (() -> Unit)? = null
+    onNavigateToProfile: (() -> Unit)? = null,
+    isSelectableProduct: Boolean = false,
+    onProductSelected: ((String) -> Unit)? = null
 ) {
 
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -45,8 +47,18 @@ fun ProductsScreen(
             ordersViewModel.handleIntent(ProductsUiIntent.LoadProducts)
         }, onNavigateToProfile = {
             onNavigateToProfile?.invoke()
-        }, onGoProductDetailClick = {
-            onNavigateToProductDetail?.invoke(it)
+        }, onGoProductDetailClick = { product ->
+            if (isSelectableProduct) {
+                product?.let {
+                    onProductSelected?.invoke(product)
+                } ?: run {
+                    onNavigateToProductDetail?.invoke(null)
+                }
+
+            } else {
+                onNavigateToProductDetail?.invoke(product)
+            }
+
         })
 
     //Message error
