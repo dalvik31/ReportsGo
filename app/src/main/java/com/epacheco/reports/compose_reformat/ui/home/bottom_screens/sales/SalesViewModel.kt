@@ -39,6 +39,7 @@ class SalesViewModel @Inject constructor(
             is SalesUiIntent.GetClientById -> getClientById(intent.clientId)
             is SalesUiIntent.GetProductById -> getProductById(intent.productId)
             is SalesUiIntent.UpdateStock -> updateStock(intent.product, intent.incrementValue)
+            is SalesUiIntent.RemoveProductList -> removeProduct(intent.productId)
         }
     }
 
@@ -96,6 +97,26 @@ class SalesViewModel @Inject constructor(
                 )
             }
             sumTotalSale()
+        }
+    }
+
+    private fun removeProduct(productId: String?) {
+        Log.e("TAG", "productId: $productId")
+        productId?.let { id ->
+            val list = _uiState.value.cartProducts.toMutableList()
+            val productList = list.find { it.productId == id }
+            Log.e("TAG", "productId removeProduct: $productList")
+            productList?.let { product ->
+                subtractTotalSale(product)
+                val indexItem = list.indexOf(productList)
+                list.remove(list[indexItem])
+                _uiState.update {
+                    it.copy(
+                        cartProducts = list,
+                    )
+                }
+            }
+
         }
     }
 

@@ -10,6 +10,7 @@ sealed class SalesUiIntent {
     data class GetClientById(val clientId: String?) : SalesUiIntent()
     data class GetProductById(val productId: String?) : SalesUiIntent()
     data class UpdateStock(val product: Product, val incrementValue: Boolean) : SalesUiIntent()
+    data class RemoveProductList(val productId: String?) : SalesUiIntent()
 
 }
 

@@ -70,6 +70,7 @@ import com.epacheco.reports.compose_reformat.ui.theme.White
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE2
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE5
+import com.epacheco.reports.compose_reformat.utils.Utils
 
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
@@ -126,21 +127,6 @@ fun OrderMainItem(
                         )
                 }
 
-                /*Image(
-                    modifier = Modifier
-                        .width(200.dp)
-                        .alpha(.2f)
-                        .align(Alignment.CenterEnd)
-                        .graphicsLayer {
-                            rotationZ = 20f
-                        },
-
-                    painter = painterResource(if (orderMain.orderStatus == OrderStatus.IN_PROGRESS) R.drawable.ic_vector_order else R.drawable.ic_vector_checked),
-                    contentDescription = null,
-                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.background),
-                    contentScale = ContentScale.Crop
-                )*/
-
                 Row(
                     modifier = Modifier
                         .wrapContentHeight()
@@ -164,7 +150,7 @@ fun OrderMainItem(
                                 Icon(
                                     painter = painterResource(R.drawable.new_ic_vector_comdin),
                                     contentDescription = null,
-                                    tint = getCardBackground(orderMain),
+                                    tint = Utils.getCardBackground(orderMain),
                                     modifier = Modifier.size(16.dp)
 
                                 )
@@ -184,27 +170,7 @@ fun OrderMainItem(
                                 style = MaterialTheme.typography.titleSmall
                             )
                             Spacer(modifier = Modifier.weight(1f))
-                           /* Text(
-                                color = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier
-                                    .wrapContentWidth().padding(end = 12.dp),
-                                text =   DateUtils.format(
-                                    orderMain.orderId.toLong(),
-                                    FORMAT_DATE5
-                                ),
-                                style = MaterialTheme.typography.bodySmall,
-                            )*/
 
-
-                            /*IconButton({
-                                showDialogConfirmCompleteOrder = true
-                            }) {
-                                Icon(
-                                    painter = painterResource(if (orderMain.orderStatus == OrderStatus.IN_PROGRESS) R.drawable.ic_vector_unchecked else R.drawable.ic_vector_checked),
-                                    contentDescription = null,
-                                    tint = White
-                                )
-                            }*/
                         }
 
                         Row(
@@ -213,16 +179,6 @@ fun OrderMainItem(
                                 .padding(end = 12.dp, start = 12.dp),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
-                            /* IconButton({
-                                 showDialogConfirmDeleteOrder = true
-                             }) {
-                                 Icon(
-                                     painter = painterResource(R.drawable.ic_vector_remove),
-                                     contentDescription = null,
-                                     tint = White
-                                 )
-                             }*/
-
 
                             LinearProgressIndicator(
                                 modifier = Modifier.wrapContentWidth(),
@@ -322,13 +278,7 @@ fun OrderMainItem(
 }
 
 
-@Composable
-private fun getCardBackground(orderMain: OrderMain): Color =
-    when (orderMain.orderSeason) {
-        Season.FALL -> FallColor
-        Season.SPRING -> SpringColor
-        null -> MaterialTheme.colorScheme.onBackground
-    }
+
 
 @Composable
 private fun getUpdateStatusList(orderMain: OrderMain) =

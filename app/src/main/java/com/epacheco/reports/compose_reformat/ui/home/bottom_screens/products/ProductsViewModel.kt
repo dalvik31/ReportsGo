@@ -35,7 +35,7 @@ class ProductsViewModel @Inject constructor(
     fun handleIntent(intent: ProductsUiIntent) {
         when (intent) {
             ProductsUiIntent.LoadProducts -> downloadProducts()
-            ProductsUiIntent.Error -> setErrorMsg()
+            is ProductsUiIntent.Error -> setErrorMsg(intent.msgError)
         }
     }
 

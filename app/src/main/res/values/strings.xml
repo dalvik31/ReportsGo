@@ -328,6 +328,7 @@
     <string name="btn_cancel">Cancelar</string>
     <string name="btn_delete">Eliminar</string>
     <string name="btn_save">Guardar</string>
+    <string name="btn_pay">Pagar</string>
     <string name="btn_update">Actualizar</string>
     <string name="show_more">Show more</string>
     <string name="show_less">Show less</string>
@@ -584,4 +585,9 @@
     <string name="select_client">Seleccionar cliente</string>
     <string name="product">Producto</string>
     <string name="select_product">Agregar producto</string>
+    <string name="shopping_cart">Carrito de compras</string>
+    <string name="total_to_pay"><![CDATA[Total: <b>$%s</b>]]></string>
+    <string name="remove_product">¿Quieres eliminar este producto de tu carrito?</string>
+    <string name="credit_client">Crédito: $%s</string>
+
 </resources>

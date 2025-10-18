@@ -5,7 +5,7 @@ import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile.Prof
 
 sealed class ProductsUiIntent {
     data object LoadProducts : ProductsUiIntent()
-    data object Error : ProductsUiIntent()
+    data class Error(val msgError: String? = null) : ProductsUiIntent()
 
 }
 

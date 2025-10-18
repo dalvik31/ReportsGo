@@ -47,10 +47,15 @@ fun ProductsScreen(
             ordersViewModel.handleIntent(ProductsUiIntent.LoadProducts)
         }, onNavigateToProfile = {
             onNavigateToProfile?.invoke()
-        }, onGoProductDetailClick = { product ->
+        }, onGoProductDetailClick = { product, inStock ->
             if (isSelectableProduct) {
                 product?.let {
-                    onProductSelected?.invoke(product)
+                    if((inStock ?: 0) > 0){
+                        onProductSelected?.invoke(product)
+                    }else{
+                        ordersViewModel.handleIntent(ProductsUiIntent.Error("Sin inventario, selecciona otro producto"))
+                    }
+
                 } ?: run {
                     onNavigateToProductDetail?.invoke(null)
                 }
@@ -65,10 +70,11 @@ fun ProductsScreen(
     uiState.errorMessage?.let { msgError ->
         ReportsDialog(
             imgDialog = R.drawable.ic_error,
+            dialogTitle = stringResource(R.string.title_information),
             confirmButtonText = stringResource(R.string.btn_ok),
             dialogSubTitle = msgError,
             onConfirmation = {
-                ordersViewModel.handleIntent(ProductsUiIntent.Error)
+                ordersViewModel.handleIntent(ProductsUiIntent.Error())
             })
     }
 
@@ -79,7 +85,7 @@ fun ProductsScreen(
 @Composable
 fun ProductsScreenPreview() {
     ReportsGoTheme {
-        ProductsView(onGoProductDetailClick = {})
+        ProductsView()
     }
 
 }
