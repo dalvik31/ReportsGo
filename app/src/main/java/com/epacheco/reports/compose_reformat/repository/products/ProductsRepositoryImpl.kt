@@ -74,6 +74,18 @@ class ProductsRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun updateStockProduct(
+        productId: String,
+        newStock: Int
+    ): Resource<Any> {
+        return try {
+            getProductsReference().child(productId).child("inStock").setValue(newStock)
+            Resource.Success(Any())
+        } catch (exception: Exception) {
+            Resource.Failure(exception)
+        }
+    }
+
     override suspend fun createProduct(product: Product): Resource<Any> {
         return try {
             getProductsReference().child(product.productId).setValue(product)

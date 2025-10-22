@@ -323,6 +323,7 @@
     <string name="lbl_empty" />
     <string name="btn_understood">Entiendo</string>
     <string name="btn_ok">Aceptar</string>
+    <string name="btn_continue">Continuar</string>
     <string name="btn_close">Cerrar</string>
     <string name="btn_ok_delete">Si, eliminar</string>
     <string name="btn_cancel">Cancelar</string>
@@ -580,7 +581,7 @@
     <string name="msg_close_session">¿Realmente desea cerrar sesion?</string>
 
     <!--SALES Fragments-->
-    <string name="generate_sale">Nevo ticket</string>
+    <string name="generate_sale">Nuevo ticket</string>
     <string name="client">Cliente</string>
     <string name="select_client">Seleccionar cliente</string>
     <string name="product">Producto</string>
@@ -588,6 +589,12 @@
     <string name="shopping_cart">Carrito de compras</string>
     <string name="total_to_pay"><![CDATA[Total: <b>$%s</b>]]></string>
     <string name="remove_product">¿Quieres eliminar este producto de tu carrito?</string>
+    <string name="type_transaction">¿Tu compra será a crédito o de contado?</string>
+    <string name="type_not_client_selected">No se ha seleccionado un cliente, ¿Quieres continuar con la venta?</string>
+    <string name="sale_exceeds_credit"><![CDATA[Esta venta supera el crédito actual<br><br>¿Quieres continuar con la venta actualizando el crédito del cliente? <br><br><b><font color=#FF0000>Limite anterior $%s</font></b><br><br><b><font color=#8DC68F>Nuevo limite $%s</font></b>]]></string>
+    <string name="credit_transaction">Crédito</string>
+    <string name="cash_transaction">Contado</string>
     <string name="credit_client">Crédito: $%s</string>
+    <string name="msg_sale_created">Venta generada correctamente</string>
 
 </resources>

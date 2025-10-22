@@ -61,8 +61,8 @@ import com.epacheco.reports.compose_reformat.utils.Utils
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SalesView(
-    inputClient: Client? = null,
-    inputProduct: String? = null,
+    clientSelected: Client? = null,
+    productSelected: String? = null,
     listProductCart: List<Product>? = null,
     totalSale: Double? = null,
     onInputClientChanged: (() -> Unit)? = null,
@@ -71,6 +71,7 @@ fun SalesView(
     onNavigateToProfile: (() -> Unit)? = null,
     onIncrementProductToCar: ((Product) -> Unit)? = null,
     onSubtractProductToCar: ((Product) -> Unit)? = null,
+    onPayCar: (() -> Unit)? = null,
 ) {
 
     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.BottomCenter) {
@@ -87,17 +88,6 @@ fun SalesView(
                 tintIconProfile = MaterialTheme.colorScheme.primary
             )
 
-            /*InputTextField(
-                modifier = Modifier
-                    .padding(horizontal = 24.dp)
-                    .clickable {
-                        onInputClientChanged?.invoke()
-                    },
-                textHint = stringResource(R.string.select_client),
-                textValue = inputClient ?: "",
-                enable = false
-            )*/
-
             Surface(color = Color.Transparent) {
                 Card(
                     modifier = Modifier
@@ -106,7 +96,10 @@ fun SalesView(
                         .wrapContentHeight(),
                     colors = CardColors(
                         contentColor = White,
-                        containerColor = MaterialTheme.colorScheme.surface,
+                        containerColor = clientSelected?.let { MaterialTheme.colorScheme.surface }
+                            ?: run {
+                                Color.Transparent
+                            },
                         disabledContentColor = Color.Transparent,
                         disabledContainerColor = Color.Transparent
                     )
@@ -124,12 +117,12 @@ fun SalesView(
                                 .clickable {
                                     onInputClientChanged?.invoke()
                                 }
-                                .padding(horizontal = 14.dp, vertical = 8.dp),
+                                .padding(horizontal = 16.dp, vertical = 10.dp),
 
 
                             ) {
                             Text(
-                                text = if (inputClient?.name.isNullOrEmpty()) "Buscar cliente" else "Cambiar cliente",
+                                text = if (clientSelected?.name.isNullOrEmpty()) "Buscar cliente" else "Cambiar cliente",
                                 fontSize = 12.sp,
                                 color = MaterialTheme.colorScheme.onPrimary,
                                 style = MaterialTheme.typography.bodySmall,
@@ -166,82 +159,103 @@ fun SalesView(
                                             painter = painterResource(R.drawable.new_ic_vector_comdin),
                                             contentDescription = null,
                                             modifier = Modifier.size(16.dp),
-                                            tint = inputClient?.let {
+                                            tint = clientSelected?.let {
                                                 Utils.getClientDotBackground(
-                                                    inputClient?.geProgressLimit() ?: 0f
+                                                    clientSelected?.geProgressLimit() ?: 0f
                                                 )
                                             } ?: run { Color.Transparent }
 
                                         )
                                     }
 
-                                    Text(
-                                        color = MaterialTheme.colorScheme.primary,
-                                        modifier = Modifier
-                                            .wrapContentWidth(),
-                                        text = inputClient?.name ?: "",
-                                        style = MaterialTheme.typography.titleSmall
-                                    )
-                                    Spacer(modifier = Modifier.weight(1f))
-
-                                }
-
-                                Column {
-                                    TextDivider(
-                                        modifier = Modifier
-                                            .wrapContentWidth()
-                                            .wrapContentHeight()
-                                            .padding(horizontal = 20.dp),
-                                        textDivider = "Credito"
-                                    )
-                                    Row(
-                                        modifier = Modifier
-                                            .padding(vertical = 12.dp)
-                                            .padding(end = 12.dp, start = 12.dp),
-                                        verticalAlignment = Alignment.Bottom,
-                                    ) {
-
-                                        Column() {
+                                    clientSelected?.let {
+                                        client ->
+                                        Row(verticalAlignment = Alignment.CenterVertically) {
+                                            Text(
+                                                color = MaterialTheme.colorScheme.primary,
+                                                modifier = Modifier
+                                                    .wrapContentWidth(),
+                                                text = client.name,
+                                                style = MaterialTheme.typography.titleSmall
+                                            )
 
                                             Text(
-                                                modifier = Modifier
-                                                    .wrapContentWidth()
-                                                    .padding(bottom = 8.dp),
-                                                text = "Utilizado $${inputClient?.limitUsed ?: 0}",
-                                                style = MaterialTheme.typography.bodySmall,
                                                 color = MaterialTheme.colorScheme.primary,
-                                            )
-                                            LinearProgressIndicator(
-                                                modifier = Modifier.wrapContentWidth(),
-                                                gapSize = (1).dp,
-                                                progress = { inputClient?.geProgressLimit() ?: 0f },
-                                                drawStopIndicator = {
-                                                    drawStopIndicator(
-                                                        drawScope = this,
-                                                        stopSize = ProgressIndicatorDefaults.LinearTrackStopIndicatorSize,
-                                                        color = Color.Transparent,
-                                                        strokeCap = StrokeCap.Round,
-                                                    )
-                                                }
-
+                                                modifier = Modifier
+                                                    .wrapContentWidth(),
+                                                text = " • $${client.debt}",
+                                                style = MaterialTheme.typography.bodySmall,
                                             )
                                         }
 
 
-                                        Spacer(modifier = Modifier.weight(1f))
-
-
-                                        Text(
-                                            modifier = Modifier.wrapContentWidth(),
-                                            text = "Total $${inputClient?.limit ?: 0}",
-                                            style = MaterialTheme.typography.bodySmall,
-                                            color = MaterialTheme.colorScheme.primary,
-                                        )
-
-
                                     }
+                                    Spacer(modifier = Modifier.weight(1f))
+
                                 }
 
+                                clientSelected?.let {
+
+
+                                    Column {
+                                        TextDivider(
+                                            modifier = Modifier
+                                                .wrapContentWidth()
+                                                .wrapContentHeight()
+                                                .padding(horizontal = 20.dp),
+                                            textDivider = "Credito"
+                                        )
+                                        Row(
+                                            modifier = Modifier
+                                                .padding(vertical = 12.dp)
+                                                .padding(end = 12.dp, start = 12.dp),
+                                            verticalAlignment = Alignment.Bottom,
+                                        ) {
+
+                                            Column() {
+
+                                                Text(
+                                                    modifier = Modifier
+                                                        .wrapContentWidth()
+                                                        .padding(bottom = 8.dp),
+                                                    text = "Disponible $${clientSelected.getLimitAvailable()}",
+                                                    style = MaterialTheme.typography.bodySmall,
+                                                    color = MaterialTheme.colorScheme.primary,
+                                                )
+                                                LinearProgressIndicator(
+                                                    modifier = Modifier.wrapContentWidth(),
+                                                    gapSize = (1).dp,
+                                                    progress = {
+                                                        clientSelected?.geProgressLimit() ?: 0f
+                                                    },
+                                                    drawStopIndicator = {
+                                                        drawStopIndicator(
+                                                            drawScope = this,
+                                                            stopSize = ProgressIndicatorDefaults.LinearTrackStopIndicatorSize,
+                                                            color = Color.Transparent,
+                                                            strokeCap = StrokeCap.Round,
+                                                        )
+                                                    }
+
+                                                )
+                                            }
+
+
+                                            Spacer(modifier = Modifier.weight(1f))
+
+
+                                            Text(
+                                                modifier = Modifier.wrapContentWidth(),
+                                                text = "Gastado $${clientSelected.limitUsed}",
+                                                style = MaterialTheme.typography.bodySmall,
+                                                color = MaterialTheme.colorScheme.primary,
+                                            )
+
+
+                                        }
+                                    }
+
+                                }
 
                             }
 
@@ -334,7 +348,7 @@ fun SalesView(
                         modifier = Modifier
                             .padding(horizontal = 20.dp)
                             .clickable {
-
+                                onPayCar?.invoke()
                             },
                         textAlign = TextAlign.Right,
                         color = RedDark,
@@ -354,6 +368,6 @@ fun SalesView(
 @Composable()
 fun SalesViewPreview() {
     ReportsGoTheme {
-        SalesView(totalSale = 34.toDouble())
+        SalesView(totalSale = 34.toDouble(), clientSelected = Client(name = "Emmanuel", debt = 400.0))
     }
 }

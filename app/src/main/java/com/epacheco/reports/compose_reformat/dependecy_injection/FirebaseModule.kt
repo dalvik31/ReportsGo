@@ -10,6 +10,8 @@ import com.epacheco.reports.compose_reformat.repository.orders.OrdersRepository
 import com.epacheco.reports.compose_reformat.repository.orders.OrdersRepositoryImpl
 import com.epacheco.reports.compose_reformat.repository.products.ProductsRepository
 import com.epacheco.reports.compose_reformat.repository.products.ProductsRepositoryImpl
+import com.epacheco.reports.compose_reformat.repository.sales.SalesRepository
+import com.epacheco.reports.compose_reformat.repository.sales.SalesRepositoryImpl
 import com.epacheco.reports.compose_reformat.repository.user.UserRepository
 import com.epacheco.reports.compose_reformat.repository.user.UserRepositoryImp
 import com.google.firebase.auth.FirebaseAuth
@@ -58,5 +60,10 @@ class FirebaseModule {
     fun providesFirebaseFinancesRepository(
         impl: FinancesRepositoryImpl
     ): FinancesRepository = impl
+
+    @Provides
+    fun providesFirebaseSalesRepository(
+        impl: SalesRepositoryImpl
+    ): SalesRepository = impl
 
 }

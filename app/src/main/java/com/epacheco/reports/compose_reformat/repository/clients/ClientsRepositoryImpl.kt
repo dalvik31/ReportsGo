@@ -20,9 +20,6 @@ class ClientsRepositoryImpl @Inject constructor(
     @SuppressLint("RestrictedApi")
     override suspend fun getClient(clientId: String): Resource<Client> {
         return try {
-            val fullPath = getClientsReference().child(clientId).ref.path
-            Log.e("FIREBASE_PATH", "Path exacto: $fullPath")
-
             val snapshot = getClientsReference()
                 .child(clientId)
                 .get()
@@ -38,6 +35,24 @@ class ClientsRepositoryImpl @Inject constructor(
             Log.e("FIREBASE_ERROR", "Error obteniendo cliente: ${e.message}")
             Resource.Failure(e)
         }
+    }
+
+    override suspend fun updateClientLimit(
+        clientId: String,
+        newLimit: Double,
+        newLimitUsed: Double
+    ): Resource<Any> {
+        getClientsReference().child(clientId).child("limit").setValue(newLimit)
+        getClientsReference().child(clientId).child("limitUsed").setValue(newLimitUsed)
+        return Resource.Success(Any())
+    }
+
+    override suspend fun updateClientDebt(
+        clientId: String,
+        newDebt: Double
+    ): Resource<Any> {
+        getClientsReference().child(clientId).child("debt").setValue(newDebt)
+        return Resource.Success(Any())
     }
 
     override suspend fun getClients(paramName: String): Resource<List<Client>> {

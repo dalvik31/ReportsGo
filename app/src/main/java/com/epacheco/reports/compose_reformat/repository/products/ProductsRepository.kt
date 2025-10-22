@@ -13,6 +13,7 @@ interface ProductsRepository {
     suspend fun getProductsByName(productName: String?): Resource<List<Product>>
     suspend fun uploadProductImage(imageFile: File, nameImgToReplace: String? = null): Resource<Uri>
     suspend fun updateProduct(product: Product): Resource<Any>
+    suspend fun updateStockProduct(productId: String, newStock: Int): Resource<Any>
     suspend fun createProduct(product: Product): Resource<Any>
     suspend fun deleteProduct(productId: String): Resource<Any>
     suspend fun deleteImgProduct(imgName: String?): Resource<Any>

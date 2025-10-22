@@ -43,6 +43,7 @@ fun ReportsDialog(
     cancelButtonText: String? = null,
     closeAutomatically: Boolean? = null,
     onDismissRequest: (() -> Unit)? = null,
+    onCancel: (() -> Unit)? = null,
     onConfirmation: () -> Unit,
 ) {
     Dialog(onDismissRequest = { onDismissRequest?.invoke() }) {
@@ -54,7 +55,8 @@ fun ReportsDialog(
             confirmButtonText = confirmButtonText,
             cancelButtonText = cancelButtonText,
             onDismissRequest = onDismissRequest,
-            onConfirmation = onConfirmation
+            onConfirmation = onConfirmation,
+            onCancel = onCancel
         )
     }
 }
@@ -71,6 +73,7 @@ fun CustomDialogUI(
     closeAutomatically: Boolean? = null,
     onDismissRequest: (() -> Unit)? = null,
     onConfirmation: (() -> Unit)? = null,
+    onCancel: (() -> Unit)? = null,
 ) {
 
 
@@ -81,7 +84,8 @@ fun CustomDialogUI(
         Column(
             modifier
                 .background(Color.Unspecified)
-                .padding(horizontal = 30.dp).padding(top = 30.dp, bottom = 20.dp)
+                .padding(horizontal = 30.dp)
+                .padding(top = 30.dp, bottom = 20.dp)
         ) {
 
             //.......................................................................
@@ -143,6 +147,7 @@ fun CustomDialogUI(
                     }
                     cancelButtonText?.let {
                         SecondaryButton(textButton = it.uppercase(), onButtonClicked = {
+                            onCancel?.invoke()
                             onDismissRequest?.invoke()
                         })
                     }

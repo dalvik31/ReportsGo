@@ -8,5 +8,16 @@ import com.google.firebase.database.DatabaseReference
 interface ClientsRepository {
     suspend fun getClients(paramName: String = ""): Resource<List<Client>>
     suspend fun getClient(id: String): Resource<Client>
+    suspend fun updateClientLimit(
+        clientId: String,
+        newLimit: Double,
+        newLimitUsed: Double
+    ): Resource<Any>
+
+    suspend fun updateClientDebt(
+        clientId: String,
+        newDebt: Double,
+    ): Resource<Any>
+
     fun getClientsReference(): DatabaseReference
 }

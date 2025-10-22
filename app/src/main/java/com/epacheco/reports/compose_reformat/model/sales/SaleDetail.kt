@@ -1,6 +1,7 @@
 package com.epacheco.reports.compose_reformat.model.sales
 
 data class SaleDetail(
+    val saleId: String = "",
     val datePayment: String = "",
     val amount: Double = 0.0,
     val concept: String = "",
@@ -14,5 +15,9 @@ data class SaleDetail(
     val productPriceBuy: Double = 0.0,
     val productPriceSale: Double = 0.0,
     val auxStock: Int = 0,
-    val isCreditSale: Boolean = false
+    val isCreditSale: Boolean = false,
+    val idClient: String = "",
+    val nameClient: String = "",
+    val imgProduct: String = "",
+    val saleDate: String = ""
 )

@@ -2,21 +2,21 @@ package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.sales
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.domain.ClientDetailUseCase
-import com.epacheco.reports.compose_reformat.domain.ClientListUseCase
-import com.epacheco.reports.compose_reformat.domain.FinancesUseCase
+import com.epacheco.reports.compose_reformat.domain.ClientUpdateDebtUseCase
+import com.epacheco.reports.compose_reformat.domain.ClientUpdateLimitUseCase
+import com.epacheco.reports.compose_reformat.domain.ProductUpdateStockUseCase
 import com.epacheco.reports.compose_reformat.domain.ProductsGetByIdUseCase
+import com.epacheco.reports.compose_reformat.domain.SaleCreateUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
-import com.epacheco.reports.compose_reformat.model.Finances.Sale
 import com.epacheco.reports.compose_reformat.model.products.Product
+import com.epacheco.reports.compose_reformat.model.sales.SaleDetail
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile.ProfileUiEffect
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile.ProfileUiIntent
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile.ProfileUiState
+import com.epacheco.reports.tools.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -25,7 +25,11 @@ import javax.inject.Inject
 @HiltViewModel
 class SalesViewModel @Inject constructor(
     private val clientDetailUseCase: ClientDetailUseCase,
-    private val productsGetByIdUseCase: ProductsGetByIdUseCase
+    private val productsGetByIdUseCase: ProductsGetByIdUseCase,
+    private val saleCreateUseCase: SaleCreateUseCase,
+    private val updateClientLimit: ClientUpdateLimitUseCase,
+    private val productUpdateStockUseCase: ProductUpdateStockUseCase,
+    private val clientUpdateDebtUseCase: ClientUpdateDebtUseCase
 ) :
     BaseViewModel() {
 
@@ -40,7 +44,20 @@ class SalesViewModel @Inject constructor(
             is SalesUiIntent.GetProductById -> getProductById(intent.productId)
             is SalesUiIntent.UpdateStock -> updateStock(intent.product, intent.incrementValue)
             is SalesUiIntent.RemoveProductList -> removeProduct(intent.productId)
+            is SalesUiIntent.IsCreditSale -> setIsCreditSale(intent.isCreditSale)
+            is SalesUiIntent.SetNewLimit -> setNewLimit(intent.newLimit)
+            is SalesUiIntent.SetNewLimitUsed -> setNewLimitUsed(intent.newLimitUsed)
+            is SalesUiIntent.SaveSale -> saveSale(intent.isCreditSale)
+            SalesUiIntent.HideDialogs -> setErrorMsg()
         }
+    }
+
+    private fun setNewLimitUsed(newLimitUsed: Double) {
+        _uiState.update { it.copy(newLimitUsed = newLimitUsed) }
+    }
+
+    private fun setNewLimit(newLimit: Double) {
+        _uiState.update { it.copy(newLimit = newLimit) }
     }
 
     private fun getClientById(clientId: String?) = viewModelScope.launch {
@@ -165,8 +182,115 @@ class SalesViewModel @Inject constructor(
         }
     }
 
+    private fun setIsCreditSale(isCreditSale: Boolean) {
+        _uiState.update {
+            it.copy(
+                isCreditSale = isCreditSale
+            )
+        }
+    }
+
+    private fun getSaleDetail(product: Product): SaleDetail {
+
+        val saleId = System.currentTimeMillis().toString()
+        return SaleDetail(
+            saleId = saleId,
+            isCreditSale = uiState.value.isCreditSale,
+            idClient = uiState.value.client?.id ?: Constants.ID_GENERIC_SALES,
+            nameClient = uiState.value.client?.name ?: "",
+            imgProduct = product.urlImage,
+            productName = product.productName,
+            productPriceBuy = product.productPriceBuy,
+            productPriceSale = product.productPriceSale,
+            productId = product.productId,
+            saleDate = saleId,
+        )
+    }
+
+    private fun saveSale(isCreditSale: Boolean) = viewModelScope.launch {
+        val listProducts = uiState.value.cartProducts
+        listProducts.forEachIndexed { index, product ->
+            loading(true)
+            when (val saleCreateResponse = saleCreateUseCase(getSaleDetail(product))) {
+                is Resource.Failure -> {
+                    setErrorMsg(saleCreateResponse.exception.message)
+                }
+
+                is Resource.Success -> {
+                    val newStock = product.inStock - product.auxStock
+                    when (val updateStockProductResponse =
+                        productUpdateStockUseCase(productId = product.productId, newStock)) {
+                        is Resource.Failure -> {
+                            setErrorMsg(updateStockProductResponse.exception.message)
+                        }
+
+                        is Resource.Success -> {}
+                    }
+
+
+                    if (isCreditSale && (index + 1) == listProducts.size) {
+                        val clientId: String =
+                            uiState.value.client?.id ?: Constants.ID_GENERIC_SALES
+                        val newLimit = uiState.value.newLimit
+                        val newLimitUsed = uiState.value.newLimitUsed
+                        val newDebt =
+                            uiState.value.client?.debt?.plus(uiState.value.totalSale ?: 0.0)
+
+
+
+                        when (val updateClientLimitResponse = updateClientLimit(
+                            clientId = clientId,
+                            newLimit = newLimit,
+                            newLimitUsed = newLimitUsed
+                        )) {
+                            is Resource.Failure -> {
+                                setErrorMsg(updateClientLimitResponse.exception.message)
+                            }
+
+                            is Resource.Success -> {
+
+
+                                when (val clientUpdateDebtUseCase = clientUpdateDebtUseCase(
+                                    clientId = clientId,
+                                    newDebt = newDebt ?: 0.0
+                                )) {
+                                    is Resource.Failure -> {
+                                        setErrorMsg(clientUpdateDebtUseCase.exception.message)
+                                    }
+
+                                    is Resource.Success -> {
+                                        resetValues()
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        resetValues()
+                    }
+
+
+                }
+            }
+        }
+        loading(false)
+    }
+
+
+    private fun resetValues() {
+        _uiState.update {
+            it.copy(
+                successOperationMsg = R.string.msg_sale_update,
+                cartProducts = emptyList(),
+                totalSale = null,
+                isCreditSale = false,
+                product = null
+            )
+        }
+        getClientById(uiState.value.client?.id)
+    }
+
     override fun setErrorMsg(msgError: String?) {
-        _uiState.update { it.copy(errorMessage = msgError) }
+        _uiState.update { it.copy(errorMessage = msgError, successOperationMsg = null) }
     }
 
     override fun loading(showLoading: Boolean) {
