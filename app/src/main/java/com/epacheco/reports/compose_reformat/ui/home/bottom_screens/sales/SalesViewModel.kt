@@ -49,7 +49,13 @@ class SalesViewModel @Inject constructor(
             is SalesUiIntent.SetNewLimitUsed -> setNewLimitUsed(intent.newLimitUsed)
             is SalesUiIntent.SaveSale -> saveSale(intent.isCreditSale)
             SalesUiIntent.HideDialogs -> setErrorMsg()
+            SalesUiIntent.RemoveClient -> removeClient()
         }
+    }
+
+
+    private fun removeClient() {
+        _uiState.update { it.copy(client = null) }
     }
 
     private fun setNewLimitUsed(newLimitUsed: Double) {

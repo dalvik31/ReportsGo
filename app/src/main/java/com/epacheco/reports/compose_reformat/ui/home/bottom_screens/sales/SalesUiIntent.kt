@@ -9,6 +9,7 @@ import java.io.File
 sealed class SalesUiIntent {
     data object Error : SalesUiIntent()
     data class SaveSale(val isCreditSale: Boolean = false) : SalesUiIntent()
+    data object RemoveClient : SalesUiIntent()
     data class GetClientById(val clientId: String?) : SalesUiIntent()
     data class GetProductById(val productId: String?) : SalesUiIntent()
     data class UpdateStock(val product: Product, val incrementValue: Boolean) : SalesUiIntent()

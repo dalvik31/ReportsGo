@@ -78,7 +78,10 @@ fun SalesScreen(
         clientSelected = uiState.client,
         productSelected = uiState.product?.productName,
         listProductCart = uiState.cartProducts,
-        totalSale = uiState.totalSale
+        totalSale = uiState.totalSale,
+        onRemoveClient = {
+            salesViewModel.handleIntent(SalesUiIntent.RemoveClient)
+        }
     )
 
     // Loading Overlay
@@ -166,8 +169,8 @@ fun SalesScreen(
             ),
             confirmButtonText = stringResource(R.string.btn_continue),
             onConfirmation = {
-                salesViewModel.handleIntent(SalesUiIntent.SetNewLimit(limit +incrementCredit))
-                salesViewModel.handleIntent(SalesUiIntent.SetNewLimitUsed(limit +incrementCredit))
+                salesViewModel.handleIntent(SalesUiIntent.SetNewLimit(limit + incrementCredit))
+                salesViewModel.handleIntent(SalesUiIntent.SetNewLimitUsed(limit + incrementCredit))
                 salesViewModel.handleIntent(SalesUiIntent.SaveSale(true))
                 showCreditExceedSaleDialog = false
             },

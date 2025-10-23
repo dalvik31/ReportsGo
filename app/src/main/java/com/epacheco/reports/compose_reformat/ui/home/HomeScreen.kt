@@ -2,6 +2,15 @@ package com.epacheco.reports.compose_reformat.ui.home
 
 
 import android.util.Log
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomAppBar
@@ -23,11 +32,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.BlendMode.Companion.Screen
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -125,7 +136,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
         NavHost(
             navController = bottomNavController,
             startDestination = BottomHomeRoutes.MainOrdersBottomHomeRoute,
-            modifier = Modifier.padding(paddingValues = paddingValues)
+            modifier = Modifier.padding(paddingValues = paddingValues),
         ) {
             composable<BottomHomeRoutes.MainOrdersBottomHomeRoute> {
                 OrdersMainScreen(
@@ -241,7 +252,10 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
             composable<BottomHomeRoutes.FinancesBottomHomeRoute> {
                 FinancesScreen()
             }
-            composable<BottomHomeRoutes.ProfileBottomHomeRoute> {
+            composable<BottomHomeRoutes.ProfileBottomHomeRoute>(
+
+
+            ) {
                 ProfileScreen(
                     onNavigateToLogin = {
                         onNavigateToRegister.invoke()
@@ -327,6 +341,8 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
 }
 
 
+
+
 private fun goProfileToRoute(
     bottomNavController: NavHostController,
     bottomHomeRoutes: BottomHomeRoutes
@@ -376,7 +392,7 @@ private fun NavController.currentTabItemAsState(): State<Int> {
                 Log.e("aqui","MainOrdersBottomHomeRoute: vanoooos1: ${  it.route}")
                 Log.e("aqui","MainOrdersBottomHomeRoute: vanoooo2: ${   BottomHomeRoutes.MainOrdersBottomHomeRoute.javaClass.canonicalName}")
 
-        
+
 
 
                 it.route == BottomHomeRoutes.MainOrdersBottomHomeRoute.javaClass.canonicalName

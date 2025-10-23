@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
@@ -71,6 +72,7 @@ fun SalesView(
     onNavigateToProfile: (() -> Unit)? = null,
     onIncrementProductToCar: ((Product) -> Unit)? = null,
     onSubtractProductToCar: ((Product) -> Unit)? = null,
+    onRemoveClient: (() -> Unit)? = null,
     onPayCar: (() -> Unit)? = null,
 ) {
 
@@ -117,17 +119,35 @@ fun SalesView(
                                 .clickable {
                                     onInputClientChanged?.invoke()
                                 }
-                                .padding(horizontal = 16.dp, vertical = 10.dp),
+                                .padding(horizontal = 10.dp, vertical = 5.dp),
 
 
                             ) {
-                            Text(
-                                text = if (clientSelected?.name.isNullOrEmpty()) "Buscar cliente" else "Cambiar cliente",
-                                fontSize = 12.sp,
-                                color = MaterialTheme.colorScheme.onPrimary,
-                                style = MaterialTheme.typography.bodySmall,
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text(
+                                    text = if (clientSelected?.name.isNullOrEmpty()) "Buscar cliente" else "Cambiar cliente",
+                                    fontSize = 12.sp,
+                                    color = MaterialTheme.colorScheme.onPrimary,
+                                    style = MaterialTheme.typography.bodySmall,
 
-                                )
+                                    )
+                                clientSelected?.let {
+                                    Icon(
+                                        painter = painterResource(R.drawable.ic_error),
+                                        contentDescription = null,
+                                        modifier = Modifier
+                                            .size(20.dp)
+                                            .padding(start = 5.dp)
+                                            .clickable {
+                                                onRemoveClient?.invoke()
+                                            },
+                                        tint = MaterialTheme.colorScheme.onPrimary,
+
+                                        )
+                                }
+
+                            }
+
                         }
 
                         Row(
@@ -168,8 +188,7 @@ fun SalesView(
                                         )
                                     }
 
-                                    clientSelected?.let {
-                                        client ->
+                                    clientSelected?.let { client ->
                                         Row(verticalAlignment = Alignment.CenterVertically) {
                                             Text(
                                                 color = MaterialTheme.colorScheme.primary,
@@ -197,16 +216,23 @@ fun SalesView(
                                 clientSelected?.let {
 
 
-                                    Column {
+                                    Column(Modifier.fillMaxWidth()) {
                                         TextDivider(
                                             modifier = Modifier
-                                                .wrapContentWidth()
-                                                .wrapContentHeight()
                                                 .padding(horizontal = 20.dp),
-                                            textDivider = "Credito"
+                                            textDivider = stringResource(
+                                                R.string.credit_client,
+                                                it.getLimitAvailable()
+                                            )
                                         )
+                                        /* TextDivider(
+                                             modifier = Modifier
+                                                 .padding(horizontal = 20.dp, vertical = 10.dp),
+                                             textDivider = "Cliente debe: $${clientSelected.debt} • Gastado ${clientSelected.limitUsed}"
+                                         )*/
                                         Row(
                                             modifier = Modifier
+                                                .wrapContentWidth()
                                                 .padding(vertical = 12.dp)
                                                 .padding(end = 12.dp, start = 12.dp),
                                             verticalAlignment = Alignment.Bottom,
@@ -214,16 +240,15 @@ fun SalesView(
 
                                             Column() {
 
-                                                Text(
+                                                /*Text(
                                                     modifier = Modifier
-                                                        .wrapContentWidth()
                                                         .padding(bottom = 8.dp),
-                                                    text = "Disponible $${clientSelected.getLimitAvailable()}",
+                                                    text = "Credito: $${clientSelected.getLimitAvailable()}",
                                                     style = MaterialTheme.typography.bodySmall,
                                                     color = MaterialTheme.colorScheme.primary,
-                                                )
+                                                )*/
                                                 LinearProgressIndicator(
-                                                    modifier = Modifier.wrapContentWidth(),
+                                                    modifier = Modifier.fillMaxWidth(),
                                                     gapSize = (1).dp,
                                                     progress = {
                                                         clientSelected?.geProgressLimit() ?: 0f
@@ -238,21 +263,34 @@ fun SalesView(
                                                     }
 
                                                 )
+                                                Row() {
+                                                    Text(
+                                                        modifier = Modifier
+                                                            .wrapContentWidth()
+                                                            .padding(top = 4.dp),
+                                                        text = "$${clientSelected.limitUsed}",
+                                                        style = MaterialTheme.typography.bodySmall,
+                                                        color = MaterialTheme.colorScheme.primary,
+                                                        textAlign = TextAlign.End
+                                                    )
+                                                    Spacer(modifier = Modifier.weight(1f))
+                                                    Text(
+                                                        modifier = Modifier
+                                                            .wrapContentWidth()
+                                                            .padding(top = 4.dp),
+                                                        text = "$${clientSelected.limit}",
+                                                        style = MaterialTheme.typography.bodySmall,
+                                                        color = MaterialTheme.colorScheme.primary,
+                                                        textAlign = TextAlign.End
+                                                    )
+                                                }
+
+
                                             }
 
 
-                                            Spacer(modifier = Modifier.weight(1f))
-
-
-                                            Text(
-                                                modifier = Modifier.wrapContentWidth(),
-                                                text = "Gastado $${clientSelected.limitUsed}",
-                                                style = MaterialTheme.typography.bodySmall,
-                                                color = MaterialTheme.colorScheme.primary,
-                                            )
-
-
                                         }
+
                                     }
 
                                 }
@@ -264,9 +302,6 @@ fun SalesView(
                 }
 
             }
-
-
-            Spacer(modifier = Modifier.padding(vertical = 8.dp))
 
             PrimaryButton(
                 textButton = stringResource(R.string.select_product),
@@ -368,6 +403,9 @@ fun SalesView(
 @Composable()
 fun SalesViewPreview() {
     ReportsGoTheme {
-        SalesView(totalSale = 34.toDouble(), clientSelected = Client(name = "Emmanuel", debt = 400.0))
+        SalesView(
+            totalSale = 34.toDouble(),
+            clientSelected = Client()
+        )
     }
 }
