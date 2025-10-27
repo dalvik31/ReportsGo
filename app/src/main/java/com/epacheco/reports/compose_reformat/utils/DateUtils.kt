@@ -1,22 +1,25 @@
 package com.epacheco.reports.compose_reformat.utils
 
+import java.text.Format
 import java.text.SimpleDateFormat
 import java.time.DayOfWeek
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import kotlin.invoke
 
 
 object DateUtils {
 
     fun format(date: Date, format: String) = apply(date, format)
 
-    fun dateFormat(timestamp: String): String {
+    fun dateFormat(timestamp: String,format: String): String {
         val date = Date(timestamp.toLong())
-        val sdf = SimpleDateFormat("dd / MMMM / yyyy", Locale("es"))
-        sdf.timeZone = TimeZone.getDefault()
-        return sdf.format(date).uppercase()
+        val sdf = SimpleDateFormat(format, Locale("es"))
+        sdf.timeZone =TimeZone.getTimeZone("UTC")
+
+        return sdf.format(date)
     }
 
     fun format(timestamp: Long, format: String) = apply(Date(timestamp), format)
@@ -51,7 +54,7 @@ object DateUtils {
 
 
 
-    const val FORMAT_DATE1 = "yyyy-MM-dd"
+    const val FORMAT_DATE1 = "dd / MMMM / YYYY"
     const val FORMAT_DATE2 = "dd/MMMM/yy"
     const val FORMAT_DATE3 = "dd / MMMM / YYYY - HH:MM"
     const val FORMAT_DATE4 = "dd MMM, YYYY"

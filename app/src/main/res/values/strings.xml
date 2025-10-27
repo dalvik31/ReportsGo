@@ -594,7 +594,12 @@
     <string name="sale_exceeds_credit"><![CDATA[Esta venta supera el crédito actual<br><br>¿Quieres continuar con la venta actualizando el crédito del cliente? <br><br><b><font color=#FF0000>Limite anterior $%s</font></b><br><br><b><font color=#8DC68F>Nuevo limite $%s</font></b>]]></string>
     <string name="credit_transaction">Crédito</string>
     <string name="cash_transaction">Contado</string>
-    <string name="credit_client">Crédito: $%s</string>
+    <string name="credit_client">Crédito disponible: $%s</string>
     <string name="msg_sale_created">Venta generada correctamente</string>
 
+
+    <!--FINANCES Fragments-->
+    <string name="finances_title">Finanzas</string>
+    <string name="finances_initial_date">Fecha inicial</string>
+    <string name="finances_final_date">Fecha final</string>
 </resources>

@@ -10,9 +10,11 @@ import com.epacheco.reports.compose_reformat.domain.ProductUpdateStockUseCase
 import com.epacheco.reports.compose_reformat.domain.ProductsGetByIdUseCase
 import com.epacheco.reports.compose_reformat.domain.SaleCreateUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
+import com.epacheco.reports.compose_reformat.model.Finances.Sale
 import com.epacheco.reports.compose_reformat.model.products.Product
-import com.epacheco.reports.compose_reformat.model.sales.SaleDetail
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
+import com.epacheco.reports.compose_reformat.utils.DateUtils
+import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE1
 import com.epacheco.reports.tools.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -196,12 +198,12 @@ class SalesViewModel @Inject constructor(
         }
     }
 
-    private fun getSaleDetail(product: Product): SaleDetail {
+    private fun getSaleDetail(product: Product): Sale {
 
         val saleId = System.currentTimeMillis().toString()
-        return SaleDetail(
-            saleId = saleId,
-            isCreditSale = uiState.value.isCreditSale,
+        return Sale(
+            saleId = DateUtils.format(saleId.toLong(), FORMAT_DATE1),
+            creditSale = uiState.value.isCreditSale,
             idClient = uiState.value.client?.id ?: Constants.ID_GENERIC_SALES,
             nameClient = uiState.value.client?.name ?: "",
             imgProduct = product.urlImage,

@@ -64,6 +64,7 @@ import com.epacheco.reports.compose_reformat.model.clients.ClientDetailCmps
 import com.epacheco.reports.compose_reformat.ui.theme.Black
 import com.epacheco.reports.compose_reformat.ui.theme.GoogleColor
 import com.epacheco.reports.compose_reformat.ui.theme.White
+import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.DateUtils.dateFormat
 
 @Composable
@@ -310,7 +311,7 @@ fun GetItemTransaction(clientDetail: ClientDetailCmps = ClientDetailCmps()) {
             )
             Text(
                 modifier = Modifier.padding(start = 7.dp, end = 7.dp),
-                text = dateFormat(clientDetail.datePayment),
+                text = dateFormat(clientDetail.datePayment, DateUtils.FORMAT_DATE1),
                 fontSize = 16.sp
             )
         }

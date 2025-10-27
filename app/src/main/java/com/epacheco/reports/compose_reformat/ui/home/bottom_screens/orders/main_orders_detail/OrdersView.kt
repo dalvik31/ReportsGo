@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -30,11 +32,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.Header
+import com.epacheco.reports.compose_reformat.general_components.SecondaryItem
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
 import com.epacheco.reports.compose_reformat.model.orders.Order
+import com.epacheco.reports.compose_reformat.model.orders.Season
+import com.epacheco.reports.compose_reformat.ui.theme.Black
+import com.epacheco.reports.compose_reformat.ui.theme.FallColor
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.utils.DateUtils
+import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE2
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE5
+import com.epacheco.reports.compose_reformat.utils.Utils
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -67,17 +76,17 @@ fun OrdersView(
             tintImageRight = MaterialTheme.colorScheme.primary,
             rightImageVector = ImageVector.vectorResource(R.drawable.ic_vector_add)
         )
-        nameOrderMain?.let {
+        nameOrderMain?.let { nameOrder ->
             TextDivider(
                 modifier = Modifier
                     .padding(horizontal = 12.dp)
                     .padding(bottom = 16.dp),
-                textDivider = it.ifEmpty {
+                textDivider = nameOrder.ifEmpty {
                     DateUtils.format(
                         mainOrderId?.toLong() ?: 0,
                         FORMAT_DATE5
                     )
-                }.uppercase(),
+                }.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() },
                 fontSize = 14.sp
             )
         }
@@ -105,28 +114,52 @@ fun OrdersView(
                 isRefreshing = isRefreshing,
                 onRefresh = { onRefresh?.invoke() },
             ) {
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
+
+                LazyColumn(
                     modifier = Modifier
                         .fillMaxSize(),
                     verticalArrangement = Arrangement.spacedBy(4.dp),
                     contentPadding = PaddingValues(horizontal = 8.dp)
                 ) {
                     items(orderList) { order ->
-                        OrderItem(
-                            order = order,
-                            onMainOrderClick = {
-                                onOrderClick?.invoke(order)
-                            },
-                            onDeleteOrderClick = {
-                                onDeleteOrderClick?.invoke(order.orderId)
-                            },
-                            onUpdateStatusOrderClick = {
+                        SecondaryItem(
+                            text = order.orderName,
+                            contentText = order.orderDescription,
+                            secondaryText = DateUtils.dateFormat(order.orderId, FORMAT_DATE2),
+                            strikeThrough = order.orderBuy,
+                            tintIcon = MaterialTheme.colorScheme.primary,
+                            onClick = {
                                 onUpdateStatusOrderClick?.invoke(order)
+                            },
+                            icon = R.drawable.ic_vector_products,
+                            onLongClick = {
+                                onOrderClick?.invoke(order)
                             }
                         )
                     }
                 }
+                /* LazyVerticalGrid(
+                      columns = GridCells.Fixed(2),
+                      modifier = Modifier
+                          .fillMaxSize(),
+                      verticalArrangement = Arrangement.spacedBy(4.dp),
+                      contentPadding = PaddingValues(horizontal = 8.dp)
+                  ) {
+                      items(orderList) { order ->
+                          OrderItem(
+                              order = order,
+                              onMainOrderClick = {
+                                  onOrderClick?.invoke(order)
+                              },
+                              onDeleteOrderClick = {
+                                  onDeleteOrderClick?.invoke(order.orderId)
+                              },
+                              onUpdateStatusOrderClick = {
+                                  onUpdateStatusOrderClick?.invoke(order)
+                              }
+                          )
+                      }
+                  }*/
                 /*LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
@@ -154,6 +187,14 @@ fun OrdersView(
 
     }
 }
+
+private fun getCardBackground(order: Order): Color =
+    when (order.orderSeason) {
+        Season.FALL -> FallColor
+        Season.SPRING -> com.epacheco.reports.compose_reformat.ui.theme.SpringColor
+        null -> Black
+    }
+
 
 @Preview
 @Composable

@@ -1,91 +1,78 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.finances
 
-import android.util.Log
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Text
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.firebase.Resource
-import com.epacheco.reports.compose_reformat.general_components.ListAnimationItem
-import com.epacheco.reports.compose_reformat.general_components.TextDivider
+import androidx.lifecycle.Lifecycle
+import coil3.annotation.InternalCoilApi
+import coil3.request.GlobalLifecycle.currentState
+import com.epacheco.reports.compose_reformat.general_components.SelectorDateDialog
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
+import com.epacheco.reports.compose_reformat.utils.DateUtils
 
 
+@OptIn(InternalCoilApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun FinancesScreen(
-    ordersViewModel: FinancesViewModel = hiltViewModel<FinancesViewModel>()
+    financesViewModel: FinancesViewModel = hiltViewModel<FinancesViewModel>(),
+    onBackPressed: (() -> Unit)? = null,
 ) {
-    val orderResponse = ordersViewModel.financesFlow.collectAsState()
+
+    var showSelectorDateDialog by remember { mutableStateOf(false) }
+    val uiState by financesViewModel.uiState.collectAsState()
 
 
-    orderResponse.value?.let {
-        when (it) {
-            is Resource.Failure -> {
-                it.exception?.let {
-                    Log.e("aqui", "FinancesScreen vamooos: ${it.message}")
-                }
-            }
-
-            //Resource.Waiting -> Loader(false, stringResource(R.string.search_finances))
-            is Resource.Success -> {
-                Column {
-                    TextDivider(
-                        modifier = Modifier.padding(vertical = 8.dp),
-                        textDivider = pluralStringResource(
-                            R.plurals.title_finances,
-                            count = it.result.size,
-                            it.result.size
-                        ),
-                        fontSize = 14.sp
-                    )
-
-                    LazyColumn(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(color = Color.Transparent)
-                    ) {
-                        items(it.result) { order ->
-                            ListAnimationItem(
-                                title = order.saleDate,
-                                body = order.nameClient.plus(" - ").plus(order.nameClient),
-                                onSelectItem = {}
-                            )
-                        }
-                    }
-                }
-            }
-
+    LaunchedEffect(Unit) {
+        if (currentState.isAtLeast(Lifecycle.State.STARTED)) {
+            financesViewModel.handleIntent(FinancesUiIntent.LoadFinancesItems)
         }
-
     }
 
-    FinancesScreenView()
+    FinancesView(
+        orderMainMainList = uiState.financesList,
+        isRefreshing = uiState.isLoading,
+        onRefresh = {
+            financesViewModel.handleIntent(FinancesUiIntent.LoadFinancesItems)
+        },
+        onBackPressed = {
+            onBackPressed?.invoke()
+        },
+        initialDate = DateUtils.dateFormat(uiState.initialDate.toString(), DateUtils.FORMAT_DATE1),
+        finalDate = DateUtils.dateFormat(uiState.finalDate.toString(),DateUtils.FORMAT_DATE1),
+        onSelectDatePressed = {
+            showSelectorDateDialog = true
+        },
+    )
 
-}
+    if (showSelectorDateDialog) {
+        SelectorDateDialog(
+            onDateSelected = { initialDate, finalDate ->
+                showSelectorDateDialog = false
+                financesViewModel.handleIntent(FinancesUiIntent.SetInitialDate(initialDate))
+                financesViewModel.handleIntent(FinancesUiIntent.SetFinalDate(finalDate))
+                financesViewModel.handleIntent(FinancesUiIntent.LoadFinancesItems)
+            },
+            onDismiss = {
+                showSelectorDateDialog = false
+            }
+        )
+    }
 
-@Composable
-fun FinancesScreenView() {
-    Text("Finances response")
+
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun FinancesScreenPreview() {
     ReportsGoTheme {
-        FinancesScreenView()
+        FinancesView()
     }
 
 }

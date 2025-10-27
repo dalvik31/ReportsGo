@@ -1,4 +1,4 @@
-package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products
+package com.epacheco.reports.compose_reformat.general_components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

@@ -1,6 +1,7 @@
 package com.epacheco.reports.compose_reformat.repository.sales
 
 import com.epacheco.reports.compose_reformat.firebase.Resource
+import com.epacheco.reports.compose_reformat.model.Finances.Sale
 import com.epacheco.reports.compose_reformat.model.sales.SaleDetail
 import com.epacheco.reports.tools.Constants
 import com.google.firebase.auth.FirebaseAuth
@@ -12,9 +13,9 @@ class SalesRepositoryImpl @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val firebaseDatabase: FirebaseDatabase,
 ) : SalesRepository {
-    override suspend fun createSale(sale: SaleDetail): Resource<Any> {
+    override suspend fun createSale(sale: Sale): Resource<Any> {
         return try {
-            getSalesReference().child(sale.saleId).setValue(sale)
+            getSalesReference().child(sale.saleDate).setValue(sale)
             Resource.Success(Any())
         } catch (exception: Exception) {
             Resource.Failure(exception)

@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -42,6 +43,7 @@ import com.epacheco.reports.compose_reformat.general_components.Header
 import com.epacheco.reports.compose_reformat.general_components.InputTextField
 import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
+import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.color_picker.ColorPickerDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.picker_dialog.PickerDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.picker_dialog.PickerDialogOption
@@ -84,6 +86,7 @@ fun NewOrderView(
     var sizePickerOpen by rememberSaveable { mutableStateOf(false) }
     var sizeNumericPickerOpen by rememberSaveable { mutableStateOf(false) }
     var genderPickerOpen by rememberSaveable { mutableStateOf(false) }
+    var showDialogConfirmDeleteOrder by remember { mutableStateOf(false) }
 
     var currentlySelected by rememberSaveable(saver = colourSaver()) {
         mutableStateOf(listColorCode[0].toColor())
@@ -298,8 +301,7 @@ fun NewOrderView(
                         textButton = stringResource(R.string.btn_delete),
                         colorBackground = GrayDark
                     ) {
-                        onDeleteOrder?.invoke()
-
+                        showDialogConfirmDeleteOrder = true
                     }
                 }
 
@@ -371,6 +373,24 @@ fun NewOrderView(
                 currentlySelected = color
                 onInputColorChanged?.invoke(listColorNames[index])
                 onInputColorCodeChanged?.invoke(color.toHexString())
+            }
+        )
+    }
+
+    if (showDialogConfirmDeleteOrder) {
+        ReportsDialog(
+            imgDialog = R.drawable.ic_vector_remove,
+            dialogTitle = stringResource(R.string.msg_delete_order_title),
+            dialogSubTitle = stringResource(
+                R.string.msg_delete_order_list_body,
+                orderToEdit?.orderName ?: ""
+            ),
+            confirmButtonText = stringResource(R.string.btn_ok),
+            cancelButtonText = stringResource(R.string.btn_cancel),
+            onDismissRequest = { showDialogConfirmDeleteOrder = false },
+            onConfirmation = {
+                showDialogConfirmDeleteOrder = false
+                onDeleteOrder?.invoke()
             }
         )
     }

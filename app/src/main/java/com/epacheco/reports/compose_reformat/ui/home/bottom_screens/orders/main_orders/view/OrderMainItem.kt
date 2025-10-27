@@ -138,7 +138,11 @@ fun OrderMainItem(
                         )
 
                 ) {
-                    Column(Modifier.wrapContentHeight(), Arrangement.SpaceBetween, horizontalAlignment = Alignment.CenterHorizontally) {
+                    Column(
+                        Modifier.wrapContentHeight(),
+                        Arrangement.SpaceBetween,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
 
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -160,7 +164,11 @@ fun OrderMainItem(
                                 color = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier
                                     .wrapContentWidth(),
-                                text = orderMain.nameOrder.uppercase()
+                                text = orderMain.nameOrder.replaceFirstChar {
+                                    if (it.isLowerCase()) it.titlecase(
+                                        java.util.Locale.ROOT
+                                    ) else it.toString()
+                                }
                                     .ifEmpty {
                                         DateUtils.format(
                                             orderMain.orderId.toLong(),
@@ -225,7 +233,7 @@ fun OrderMainItem(
             imgDialog = R.drawable.ic_vector_order,
             dialogTitle = stringResource(R.string.msg_dialog_options_title),
             dialogSubTitle = stringResource(R.string.msg_dialog_options_body),
-            firstOptionText = stringResource(if (orderMain.orderStatus == OrderStatus.IN_PROGRESS) R.string.msg_dialog_check_complete  else R.string.msg_dialog_check_in_progress),
+            firstOptionText = stringResource(if (orderMain.orderStatus == OrderStatus.IN_PROGRESS) R.string.msg_dialog_check_complete else R.string.msg_dialog_check_in_progress),
             secondOptionText = stringResource(R.string.msg_dialog_delete_option),
             onDismissRequest = { showDialogOptionsOrder = false },
             onFirstConfirmation = {
@@ -276,8 +284,6 @@ fun OrderMainItem(
     }
 
 }
-
-
 
 
 @Composable

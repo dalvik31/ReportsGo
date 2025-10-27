@@ -250,7 +250,9 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
             }
 
             composable<BottomHomeRoutes.FinancesBottomHomeRoute> {
-                FinancesScreen()
+                FinancesScreen( onBackPressed = {
+                    bottomNavController.navigateUp()
+                })
             }
             composable<BottomHomeRoutes.ProfileBottomHomeRoute>(
 

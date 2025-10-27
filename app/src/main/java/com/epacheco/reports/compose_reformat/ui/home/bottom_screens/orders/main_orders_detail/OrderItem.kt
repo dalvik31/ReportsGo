@@ -126,18 +126,6 @@ fun OrderItem(
 
         ) {
 
-            /* Box(modifier = Modifier.fillMaxSize()) {
-             Card(
-                 modifier = Modifier
-                     .padding(vertical = 4.dp, horizontal = 8.dp)
-                     .alpha(if (order.orderBuy) 0.5f else 1f)
-                     .fillMaxWidth()
-                     .height(intrinsicSize = IntrinsicSize.Min)
-                     .clickable {
-                         showDialogConfirmCompleteOrder = true
-                         //onMainOrderClick.invoke(order)
-                     }
-             ) {*/
 
 
             Box(
@@ -180,23 +168,6 @@ fun OrderItem(
 
                     Column() {
 
-                        /* Text(
-                             text = stringResource(
-                                 order.orderSeason?.name?.getNameSeason() ?: R.string.lbl_empty
-                             ),
-                             modifier = Modifier
-                                 .fillMaxWidth()
-                                 .height(20.dp)
-                                 .background(MaterialTheme.colorScheme.primary)
-                                 .wrapContentHeight(align = Alignment.CenterVertically),
-                             color = MaterialTheme.colorScheme.onPrimary,
-                             textAlign = TextAlign.Center,
-                             style = MaterialTheme.typography.bodySmall.copy(
-                                 fontWeight = FontWeight.Light
-                             ),
-                             fontSize = 14.sp,
-                         )*/
-
 
                         Row(
                             modifier = Modifier
@@ -204,15 +175,7 @@ fun OrderItem(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.Absolute.SpaceBetween
                         ) {
-                            /* IconButton (
-                                 modifier = Modifier
-                                     .clip(CircleShape)
-                                     .padding(10.dp),
-                                 painter = painterResource(R.drawable.ic_vector_products),
-                                 contentDescription = null,
-                                 colorFilter = ColorFilter.tint(getCardBackground(order)),
-                                 contentScale = ContentScale.Crop
-                             )*/
+
 
                             IconButton(onClick = {}) {
                                 Icon(
@@ -234,25 +197,6 @@ fun OrderItem(
                                 ), fontSize = 14.sp,
                                 color = MaterialTheme.colorScheme.primary
                             )
-
-                            /* IconButton(onClick = {
-                                 onMainOrderClick.invoke(order)
-                             }) {
-                                 Icon(
-                                     painter = painterResource(R.drawable.ic_vector_modify),
-                                     contentDescription = null,
-                                     tint = getCardBackground(order)
-                                 )
-                             }*/
-
-                            /*IconButton(modifier = Modifier.weight(.12f), onClick = {
-                                showDialogConfirmCompleteOrder = true
-                            }) {
-                                Icon(
-                                    painter = painterResource(if (order.orderBuy) R.drawable.ic_vector_checked else R.drawable.ic_vector_unchecked),
-                                    contentDescription = null,
-                                )
-                            }*/
                         }
 
                         Row(
@@ -261,30 +205,8 @@ fun OrderItem(
                                 .fillMaxHeight(),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            /*IconButton(onClick = {
-                                showDialogConfirmDeleteOrder = true
-                            }) {
-                                Icon(
-                                    painter = painterResource(R.drawable.ic_vector_remove),
-                                    contentDescription = null,
-                                    tint =  getCardBackground(order)
-                                )
-                            }*/
+
                             Spacer(modifier = Modifier.weight(1f))
-                            /*if (order.orderId.isNotEmpty()) {
-                                Text(
-                                    modifier = Modifier.padding(end = 12.dp),
-                                    text = DateUtils.format(
-                                        order.orderId.toLong(),
-                                        FORMAT_DATE2
-                                    ),
-                                    style = MaterialTheme.typography.bodySmall.copy(
-                                        textDecoration = if (order.orderBuy) TextDecoration.LineThrough else TextDecoration.None
-                                    ),
-                                    fontWeight = if (order.orderBuy) FontWeight.Light else FontWeight.Bold,
-                                    color = MaterialTheme.colorScheme.primary
-                                )
-                            }*/
 
 
                         }
@@ -295,7 +217,6 @@ fun OrderItem(
 
             }
 
-            // }
 
         }
 

@@ -5,6 +5,7 @@ import android.util.Log
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.firebase.await
 import com.epacheco.reports.compose_reformat.model.clients.Client
+import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.DateUtils.dateFormat
 import com.epacheco.reports.tools.Constants
 import com.google.firebase.auth.FirebaseAuth
@@ -28,7 +29,7 @@ class ClientsRepositoryImpl @Inject constructor(
             val client = snapshot.getValue(Client::class.java)
 
             client?.let {
-                it.dateClient = dateFormat(it.dateClient.toString())
+                it.dateClient = dateFormat(it.dateClient.toString(), DateUtils.FORMAT_DATE1)
                 Resource.Success(it)
             } ?: Resource.Failure(Exception("Cliente $clientId no encontrado"))
         } catch (e: Exception) {

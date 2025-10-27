@@ -6,7 +6,7 @@ import com.epacheco.reports.compose_reformat.repository.finances.FinancesReposit
 import javax.inject.Inject
 
 class FinancesUseCase @Inject constructor(private val financesRepository: FinancesRepository) {
-    suspend operator fun invoke(): Resource<List<Sale>> {
-        return financesRepository.getFinances()
+    suspend operator fun invoke(initialDate: Long, finalDate: Long): Resource<List<Sale>> {
+        return financesRepository.getFinances(initialDate = initialDate, finalDate = finalDate)
     }
 }

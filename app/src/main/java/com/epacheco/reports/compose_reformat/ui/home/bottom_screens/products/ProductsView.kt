@@ -28,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.Header
+import com.epacheco.reports.compose_reformat.general_components.ProductItem
 import com.epacheco.reports.compose_reformat.general_components.SearchBarElement
 import com.epacheco.reports.compose_reformat.model.products.Product
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
@@ -116,7 +117,7 @@ fun ProductsView(
                 ) {
                     items(productList) { product ->
                         ProductItem(product) {
-                            onGoProductDetailClick?.invoke(product.productId,product.inStock)
+                            onGoProductDetailClick?.invoke(product.productId, product.inStock)
                         }
                     }
                 }
