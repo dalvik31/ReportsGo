@@ -158,7 +158,7 @@ fun NewProductScreen(
             confirmButtonText = stringResource(R.string.btn_ok),
             dialogSubTitle = msgError,
             onConfirmation = {
-                newProductViewModel.handleIntent(ProductDetailUiIntent.Error)
+                newProductViewModel.handleIntent(ProductDetailUiIntent.HideDialogs)
             })
     }
     uiState.successMessage?.let { msgSuccessOperation ->

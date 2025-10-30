@@ -1,5 +1,6 @@
 package com.epacheco.reports.compose_reformat.utils
 
+import android.util.Log
 import java.text.Format
 import java.text.SimpleDateFormat
 import java.time.DayOfWeek
@@ -17,9 +18,11 @@ object DateUtils {
     fun dateFormat(timestamp: String,format: String): String {
         val date = Date(timestamp.toLong())
         val sdf = SimpleDateFormat(format, Locale("es"))
-        sdf.timeZone =TimeZone.getTimeZone("UTC")
-
-        return sdf.format(date)
+        sdf.timeZone =TimeZone.getTimeZone(TimeZone.getDefault().toString())
+        Log.e("vamoos","fechaaaaaa: ${date.toString()}")
+        val format = sdf.format(date)
+        Log.e("vamoos","fechaaaaaa2: ${format.toString()}")
+        return format
     }
 
     fun format(timestamp: Long, format: String) = apply(Date(timestamp), format)

@@ -3,7 +3,8 @@ package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.det
 import com.epacheco.reports.compose_reformat.model.clients.Client
 
 data class DetailClientUiState(
-    val clientDetail: Client = Client(),
+    val clientDetail: Client? = null,
     val isLoading: Boolean = false,
     val errorMessage: String? = null,
+    val successMessage: Int? = null,
 )

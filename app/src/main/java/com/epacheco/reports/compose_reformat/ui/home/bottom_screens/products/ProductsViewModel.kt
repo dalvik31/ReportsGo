@@ -49,8 +49,6 @@ class ProductsViewModel @Inject constructor(
         } else {
             getProductsByName(null)
         }
-
-
     }
 
     fun getProductsByName(productNameToSearch: String? = null) = viewModelScope.launch {
@@ -74,7 +72,13 @@ class ProductsViewModel @Inject constructor(
     fun onInputNameChanged(inputName: String) {
         _inputProductName.value = inputName
         downloadProducts()
+    }
 
+    fun getHandler(): Handler? {
+        if (handler == null) {
+            handler = Handler(Looper.getMainLooper())
+        }
+        return handler
     }
 
     override fun setErrorMsg(msgError: String?) {
@@ -86,10 +90,5 @@ class ProductsViewModel @Inject constructor(
         _uiState.update { it.copy(isLoading = showLoading) }
     }
 
-    fun getHandler(): Handler? {
-        if (handler == null) {
-            handler = Handler(Looper.getMainLooper())
-        }
-        return handler
-    }
+
 }

@@ -9,6 +9,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -44,6 +45,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
+import com.epacheco.reports.compose_reformat.ui.theme.GreenColor
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.ui.theme.White
 
@@ -56,15 +58,20 @@ fun MoneyItem(
     isAmount: Boolean = true,
     backgroundColor: Color = MaterialTheme.colorScheme.primary,
     tintIcon: Color = MaterialTheme.colorScheme.onPrimary,
+    onClick: (() -> Unit)? = null
 ) {
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier.wrapContentWidth().height(IntrinsicSize.Min)
     ) {
 
         IconButton(
-            {}, modifier = modifier
-                .size(50.dp)
+            {
+                onClick?.invoke()
+            }, modifier = modifier
+                .wrapContentWidth()
+
                 .background(
                     backgroundColor,
                     shape = MaterialTheme.shapes.medium
@@ -82,26 +89,32 @@ fun MoneyItem(
             )
         }
 
-        val moneySymbol = if(isAmount) "$" else ""
+        val moneySymbol = if (isAmount) "$" else ""
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(
-                modifier = modifier.padding(top = 4.dp),
-                text = text ?: "",
-                color = MaterialTheme.colorScheme.primary,
-                style = MaterialTheme.typography.labelSmall,
-                fontWeight = FontWeight.Bold,
-            )
-            Text(
-                modifier = modifier.padding(vertical = 4.dp),
-                text = "${moneySymbol}${amount ?: 0.0}",
-                color = MaterialTheme.colorScheme.primary,
-                style = MaterialTheme.typography.bodySmall,
-                fontSize = 12.sp
-            )
+            text?.let {
+                Text(
+                    modifier = Modifier.padding(top = 4.dp),
+                    text = text,
+                    color = MaterialTheme.colorScheme.primary,
+                    style = MaterialTheme.typography.labelSmall,
+                    fontWeight = FontWeight.Bold,
+                )
+            }
+
+            amount?.let {
+                Text(
+                    modifier = modifier.padding(vertical = 4.dp),
+                    text = "${moneySymbol}${amount ?: 0.0}",
+                    color = MaterialTheme.colorScheme.primary,
+                    style = MaterialTheme.typography.bodySmall,
+                    fontSize = 12.sp
+                )
+            }
+
         }
 
     }
@@ -112,6 +125,6 @@ fun MoneyItem(
 @Composable
 fun MoneyItemPreview() {
     ReportsGoTheme {
-        MoneyItem(text = "Venta", amount = "34.00", icon = R.drawable.baseline_circle_24)
+        MoneyItem(text = "Venta", icon = R.drawable.baseline_circle_24)
     }
 }

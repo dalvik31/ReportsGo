@@ -48,8 +48,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
+import com.epacheco.reports.compose_reformat.general_components.ClientItem
 import com.epacheco.reports.compose_reformat.general_components.Header
 import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
+import com.epacheco.reports.compose_reformat.general_components.SecondaryItem
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
 import com.epacheco.reports.compose_reformat.model.clients.Client
 import com.epacheco.reports.compose_reformat.model.products.Product
@@ -90,218 +92,250 @@ fun SalesView(
                 tintIconProfile = MaterialTheme.colorScheme.primary
             )
 
-            Surface(color = Color.Transparent) {
-                Card(
-                    modifier = Modifier
-                        .padding(vertical = 8.dp, horizontal = 20.dp)
-                        .fillMaxWidth()
-                        .wrapContentHeight(),
-                    colors = CardColors(
-                        contentColor = White,
-                        containerColor = clientSelected?.let { MaterialTheme.colorScheme.surface }
-                            ?: run {
-                                Color.Transparent
-                            },
-                        disabledContentColor = Color.Transparent,
-                        disabledContainerColor = Color.Transparent
-                    )
-                ) {
 
-
-                    Box(contentAlignment = Alignment.TopEnd) {
-
-                        Box(
-                            modifier = Modifier
-                                .background(
-                                    MaterialTheme.colorScheme.onBackground,
-                                    RoundedCornerShape(bottomStart = 10.dp)
-                                )
-                                .clickable {
-                                    onInputClientChanged?.invoke()
-                                }
-                                .padding(horizontal = 10.dp, vertical = 5.dp),
-
-
-                            ) {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Text(
-                                    text = if (clientSelected?.name.isNullOrEmpty()) "Buscar cliente" else "Cambiar cliente",
-                                    fontSize = 12.sp,
-                                    color = MaterialTheme.colorScheme.onPrimary,
-                                    style = MaterialTheme.typography.bodySmall,
-
-                                    )
-                                clientSelected?.let {
-                                    Icon(
-                                        painter = painterResource(R.drawable.ic_error),
-                                        contentDescription = null,
-                                        modifier = Modifier
-                                            .size(20.dp)
-                                            .padding(start = 5.dp)
-                                            .clickable {
-                                                onRemoveClient?.invoke()
-                                            },
-                                        tint = MaterialTheme.colorScheme.onPrimary,
-
-                                        )
-                                }
-
-                            }
-
-                        }
-
-                        Row(
-                            modifier = Modifier
-                                .wrapContentHeight()
-                                .animateContentSize(
-                                    animationSpec = spring(
-                                        dampingRatio = Spring.DampingRatioMediumBouncy,
-                                        stiffness = Spring.StiffnessLow
-                                    )
-                                )
-
-                        ) {
-                            Column(
-                                Modifier.wrapContentHeight(),
-                                Arrangement.SpaceBetween,
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    verticalAlignment = Alignment.CenterVertically,
-                                ) {
-
-
-                                    IconButton({
-                                    }) {
-                                        Icon(
-                                            painter = painterResource(R.drawable.new_ic_vector_comdin),
-                                            contentDescription = null,
-                                            modifier = Modifier.size(16.dp),
-                                            tint = clientSelected?.let {
-                                                Utils.getClientDotBackground(
-                                                    clientSelected?.geProgressLimit() ?: 0f
-                                                )
-                                            } ?: run { Color.Transparent }
-
-                                        )
-                                    }
-
-                                    clientSelected?.let { client ->
-                                        Row(verticalAlignment = Alignment.CenterVertically) {
-                                            Text(
-                                                color = MaterialTheme.colorScheme.primary,
-                                                modifier = Modifier
-                                                    .wrapContentWidth(),
-                                                text = client.name,
-                                                style = MaterialTheme.typography.titleSmall
-                                            )
-
-                                            Text(
-                                                color = MaterialTheme.colorScheme.primary,
-                                                modifier = Modifier
-                                                    .wrapContentWidth(),
-                                                text = " • $${client.debt}",
-                                                style = MaterialTheme.typography.bodySmall,
-                                            )
-                                        }
-
-
-                                    }
-                                    Spacer(modifier = Modifier.weight(1f))
-
-                                }
-
-                                clientSelected?.let {
-
-
-                                    Column(Modifier.fillMaxWidth()) {
-                                        TextDivider(
-                                            modifier = Modifier
-                                                .padding(horizontal = 20.dp),
-                                            textDivider = stringResource(
-                                                R.string.credit_client,
-                                                it.getLimitAvailable()
-                                            )
-                                        )
-                                        /* TextDivider(
-                                             modifier = Modifier
-                                                 .padding(horizontal = 20.dp, vertical = 10.dp),
-                                             textDivider = "Cliente debe: $${clientSelected.debt} • Gastado ${clientSelected.limitUsed}"
-                                         )*/
-                                        Row(
-                                            modifier = Modifier
-                                                .wrapContentWidth()
-                                                .padding(vertical = 12.dp)
-                                                .padding(end = 12.dp, start = 12.dp),
-                                            verticalAlignment = Alignment.Bottom,
-                                        ) {
-
-                                            Column() {
-
-                                                /*Text(
-                                                    modifier = Modifier
-                                                        .padding(bottom = 8.dp),
-                                                    text = "Credito: $${clientSelected.getLimitAvailable()}",
-                                                    style = MaterialTheme.typography.bodySmall,
-                                                    color = MaterialTheme.colorScheme.primary,
-                                                )*/
-                                                LinearProgressIndicator(
-                                                    modifier = Modifier.fillMaxWidth(),
-                                                    gapSize = (1).dp,
-                                                    progress = {
-                                                        clientSelected?.geProgressLimit() ?: 0f
-                                                    },
-                                                    drawStopIndicator = {
-                                                        drawStopIndicator(
-                                                            drawScope = this,
-                                                            stopSize = ProgressIndicatorDefaults.LinearTrackStopIndicatorSize,
-                                                            color = Color.Transparent,
-                                                            strokeCap = StrokeCap.Round,
-                                                        )
-                                                    }
-
-                                                )
-                                                Row() {
-                                                    Text(
-                                                        modifier = Modifier
-                                                            .wrapContentWidth()
-                                                            .padding(top = 4.dp),
-                                                        text = "$${clientSelected.limitUsed}",
-                                                        style = MaterialTheme.typography.bodySmall,
-                                                        color = MaterialTheme.colorScheme.primary,
-                                                        textAlign = TextAlign.End
-                                                    )
-                                                    Spacer(modifier = Modifier.weight(1f))
-                                                    Text(
-                                                        modifier = Modifier
-                                                            .wrapContentWidth()
-                                                            .padding(top = 4.dp),
-                                                        text = "$${clientSelected.limit}",
-                                                        style = MaterialTheme.typography.bodySmall,
-                                                        color = MaterialTheme.colorScheme.primary,
-                                                        textAlign = TextAlign.End
-                                                    )
-                                                }
-
-
-                                            }
-
-
-                                        }
-
-                                    }
-
-                                }
-
-                            }
-
-                        }
+            clientSelected?.let { client ->
+                ClientItem(
+                    client = client,
+                    actionText = if (client.name.isEmpty()) "Buscar cliente" else "Cambiar cliente",
+                    iconAction = R.drawable.ic_error,
+                    onClickIcon = {
+                        onRemoveClient?.invoke()
+                    }, onClick = {
+                        onInputClientChanged?.invoke()
                     }
-                }
+                )
+            } ?: run {
+                SecondaryItem(
+                    modifier = Modifier.padding(horizontal = 12.dp),
+                    text = stringResource(R.string.search_client),
+                    icon = R.drawable.ic_vector_search_client,
+                    secondaryText = stringResource(R.string.client_not_selected),
+                    onClick = {
+                        onInputClientChanged?.invoke()
+                    }
+                )
+
+                /*PrimaryButton(
+                    textButton = stringResource(R.string.search_client),
+                    modifier = Modifier.padding(horizontal = 20.dp)
+                ) {
+                    onInputClientChanged?.invoke()
+                }*/
 
             }
+
+            /* Surface(color = Color.Transparent) {
+                 Card(
+                     modifier = Modifier
+                         .padding(vertical = 8.dp, horizontal = 20.dp)
+                         .fillMaxWidth()
+                         .wrapContentHeight(),
+                     colors = CardColors(
+                         contentColor = White,
+                         containerColor = clientSelected?.let { MaterialTheme.colorScheme.surface }
+                             ?: run {
+                                 Color.Transparent
+                             },
+                         disabledContentColor = Color.Transparent,
+                         disabledContainerColor = Color.Transparent
+                     )
+                 ) {
+
+
+                     Box(contentAlignment = Alignment.TopEnd) {
+
+                         Box(
+                             modifier = Modifier
+                                 .background(
+                                     MaterialTheme.colorScheme.onBackground,
+                                     RoundedCornerShape(bottomStart = 10.dp)
+                                 )
+                                 .clickable {
+                                     onInputClientChanged?.invoke()
+                                 }
+                                 .padding(horizontal = 10.dp, vertical = 5.dp),
+
+
+                             ) {
+                             Row(verticalAlignment = Alignment.CenterVertically) {
+                                 Text(
+                                     text = if (clientSelected?.name.isNullOrEmpty()) "Buscar cliente" else "Cambiar cliente",
+                                     fontSize = 12.sp,
+                                     color = MaterialTheme.colorScheme.onPrimary,
+                                     style = MaterialTheme.typography.bodySmall,
+
+                                     )
+                                 clientSelected?.let {
+                                     Icon(
+                                         painter = painterResource(R.drawable.ic_error),
+                                         contentDescription = null,
+                                         modifier = Modifier
+                                             .size(20.dp)
+                                             .padding(start = 5.dp)
+                                             .clickable {
+                                                 onRemoveClient?.invoke()
+                                             },
+                                         tint = MaterialTheme.colorScheme.onPrimary,
+
+                                         )
+                                 }
+
+                             }
+
+                         }
+
+                         Row(
+                             modifier = Modifier
+                                 .wrapContentHeight()
+                                 .animateContentSize(
+                                     animationSpec = spring(
+                                         dampingRatio = Spring.DampingRatioMediumBouncy,
+                                         stiffness = Spring.StiffnessLow
+                                     )
+                                 )
+
+                         ) {
+                             Column(
+                                 Modifier.wrapContentHeight(),
+                                 Arrangement.SpaceBetween,
+                                 horizontalAlignment = Alignment.CenterHorizontally
+                             ) {
+
+                                 Row(
+                                     modifier = Modifier.fillMaxWidth(),
+                                     verticalAlignment = Alignment.CenterVertically,
+                                 ) {
+
+
+                                     IconButton({
+                                     }) {
+                                         Icon(
+                                             painter = painterResource(R.drawable.new_ic_vector_comdin),
+                                             contentDescription = null,
+                                             modifier = Modifier.size(16.dp),
+                                             tint = clientSelected?.let {
+                                                 Utils.getClientDotBackground(
+                                                     clientSelected?.geProgressLimit() ?: 0f
+                                                 )
+                                             } ?: run { Color.Transparent }
+
+                                         )
+                                     }
+
+                                     clientSelected?.let { client ->
+                                         Row(verticalAlignment = Alignment.CenterVertically) {
+                                             Text(
+                                                 color = MaterialTheme.colorScheme.primary,
+                                                 modifier = Modifier
+                                                     .wrapContentWidth(),
+                                                 text = client.name,
+                                                 style = MaterialTheme.typography.titleSmall
+                                             )
+
+                                             Text(
+                                                 color = MaterialTheme.colorScheme.primary,
+                                                 modifier = Modifier
+                                                     .wrapContentWidth(),
+                                                 text = " • $${client.debt}",
+                                                 style = MaterialTheme.typography.bodySmall,
+                                             )
+                                         }
+
+
+                                     }
+                                     Spacer(modifier = Modifier.weight(1f))
+
+                                 }
+
+                                 clientSelected?.let {
+
+
+                                     Column(Modifier.fillMaxWidth()) {
+                                         TextDivider(
+                                             modifier = Modifier
+                                                 .padding(horizontal = 20.dp),
+                                             textDivider = stringResource(
+                                                 R.string.credit_client,
+                                                 it.getLimitAvailable()
+                                             )
+                                         )
+                                         /* TextDivider(
+                                              modifier = Modifier
+                                                  .padding(horizontal = 20.dp, vertical = 10.dp),
+                                              textDivider = "Cliente debe: $${clientSelected.debt} • Gastado ${clientSelected.limitUsed}"
+                                          )*/
+                                         Row(
+                                             modifier = Modifier
+                                                 .wrapContentWidth()
+                                                 .padding(vertical = 12.dp)
+                                                 .padding(end = 12.dp, start = 12.dp),
+                                             verticalAlignment = Alignment.Bottom,
+                                         ) {
+
+                                             Column() {
+
+                                                 /*Text(
+                                                     modifier = Modifier
+                                                         .padding(bottom = 8.dp),
+                                                     text = "Credito: $${clientSelected.getLimitAvailable()}",
+                                                     style = MaterialTheme.typography.bodySmall,
+                                                     color = MaterialTheme.colorScheme.primary,
+                                                 )*/
+                                                 LinearProgressIndicator(
+                                                     modifier = Modifier.fillMaxWidth(),
+                                                     gapSize = (1).dp,
+                                                     progress = {
+                                                         clientSelected?.geProgressLimit() ?: 0f
+                                                     },
+                                                     drawStopIndicator = {
+                                                         drawStopIndicator(
+                                                             drawScope = this,
+                                                             stopSize = ProgressIndicatorDefaults.LinearTrackStopIndicatorSize,
+                                                             color = Color.Transparent,
+                                                             strokeCap = StrokeCap.Round,
+                                                         )
+                                                     }
+
+                                                 )
+                                                 Row() {
+                                                     Text(
+                                                         modifier = Modifier
+                                                             .wrapContentWidth()
+                                                             .padding(top = 4.dp),
+                                                         text = "$${clientSelected.limitUsed}",
+                                                         style = MaterialTheme.typography.bodySmall,
+                                                         color = MaterialTheme.colorScheme.primary,
+                                                         textAlign = TextAlign.End
+                                                     )
+                                                     Spacer(modifier = Modifier.weight(1f))
+                                                     Text(
+                                                         modifier = Modifier
+                                                             .wrapContentWidth()
+                                                             .padding(top = 4.dp),
+                                                         text = "$${clientSelected.limit}",
+                                                         style = MaterialTheme.typography.bodySmall,
+                                                         color = MaterialTheme.colorScheme.primary,
+                                                         textAlign = TextAlign.End
+                                                     )
+                                                 }
+
+
+                                             }
+
+
+                                         }
+
+                                     }
+
+                                 }
+
+                             }
+
+                         }
+                     }
+                 }
+
+             }*/
 
             PrimaryButton(
                 textButton = stringResource(R.string.select_product),
@@ -405,7 +439,6 @@ fun SalesViewPreview() {
     ReportsGoTheme {
         SalesView(
             totalSale = 34.toDouble(),
-            clientSelected = Client()
         )
     }
 }

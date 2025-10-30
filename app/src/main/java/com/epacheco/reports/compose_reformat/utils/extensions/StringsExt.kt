@@ -50,3 +50,16 @@ fun String.getNameProductImage(): String =
         .substringBefore("?alt=media")
         .trim()
 
+
+
+fun String.Initials(): String {
+    val words = split(" ", "-") // Split by space and hyphen
+    val initials = StringBuilder()
+    for (word in words) {
+        if (word.isNotEmpty()) {
+            initials.append(word.first().uppercaseChar())
+        }
+    }
+    return initials.toString()
+}
+

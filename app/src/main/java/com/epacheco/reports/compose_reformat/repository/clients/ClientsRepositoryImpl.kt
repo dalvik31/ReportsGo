@@ -5,6 +5,7 @@ import android.util.Log
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.firebase.await
 import com.epacheco.reports.compose_reformat.model.clients.Client
+import com.epacheco.reports.compose_reformat.model.products.Product
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.DateUtils.dateFormat
 import com.epacheco.reports.tools.Constants
@@ -56,12 +57,38 @@ class ClientsRepositoryImpl @Inject constructor(
         return Resource.Success(Any())
     }
 
-    override suspend fun getClients(paramName: String): Resource<List<Client>> {
-        val clientList = mutableListOf<Client>()
+    override suspend fun updateClient(client: Client): Resource<Any> {
         return try {
-            getClientsReference().orderByChild(Constants.CLIENT_ORDER_PARAM_NAME_)
-                .startAt(paramName).endAt(paramName + "\uf8ff").get()
-                .await().children.map { snapShot ->
+            getClientsReference().child(client.id).setValue(client)
+            Resource.Success(Any())
+        } catch (exception: Exception) {
+            Resource.Failure(exception)
+        }
+    }
+
+    override suspend fun createClient(client: Client): Resource<Any> {
+        return try {
+            getClientsReference().child(client.id).setValue(client)
+            Resource.Success(Any())
+        } catch (exception: Exception) {
+            Resource.Failure(exception)
+        }
+    }
+
+    override suspend fun deleteClient(clientId: String): Resource<Any> {
+        return try {
+            getClientsReference().child(clientId).removeValue()
+            Resource.Success(Any())
+        } catch (e: Exception) {
+            Resource.Failure(e)
+        }
+    }
+
+    override suspend fun getClientByName(clientName: String?): Resource<List<Client>> {
+        return try {
+            val clientList = mutableListOf<Client>()
+            getClientsReference().orderByChild("name").startAt(clientName)
+                .endAt(clientName + "\uf8ff").get().await().children.map { snapShot ->
                     val client = snapShot.getValue(Client::class.java)
                     client?.let {
                         clientList.add(it)
@@ -69,9 +96,8 @@ class ClientsRepositoryImpl @Inject constructor(
                 }
             Resource.Success(clientList)
         } catch (exception: Exception) {
-            Resource.Failure(exception)
+            Resource.Success(emptyList())
         }
-
     }
 
 

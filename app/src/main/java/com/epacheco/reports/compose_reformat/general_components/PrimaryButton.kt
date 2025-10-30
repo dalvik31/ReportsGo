@@ -66,7 +66,7 @@ fun PrimaryButton(
 
             Text(
                 color = textColor,
-                text = textButton,
+                text = textButton.uppercase(),
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center
             )

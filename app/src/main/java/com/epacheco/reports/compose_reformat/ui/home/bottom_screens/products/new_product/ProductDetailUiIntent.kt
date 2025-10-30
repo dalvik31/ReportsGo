@@ -14,7 +14,6 @@ sealed class ProductDetailUiIntent {
     data class UpdateProduct(val productId: String)  : ProductDetailUiIntent()
     data object CreateProduct : ProductDetailUiIntent()
     data class DeleteProduct(val productId: String) : ProductDetailUiIntent()
-    data object Error : ProductDetailUiIntent()
     data object HideDialogs : ProductDetailUiIntent()
 
 }

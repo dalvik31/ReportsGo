@@ -81,11 +81,9 @@ class ProductDetailViewModel @Inject constructor(
 
     fun handleIntent(intent: ProductDetailUiIntent) {
         when (intent) {
-            ProductDetailUiIntent.Error -> setErrorMsg()
             is ProductDetailUiIntent.LoadProduct -> getProductById(intent.productId)
             ProductDetailUiIntent.HideDialogs -> setErrorMsg()
             ProductDetailUiIntent.CreateProduct -> validateInfoToCreateProduct()
-
             is ProductDetailUiIntent.DeleteProduct -> deleteProduct(intent.productId)
             is ProductDetailUiIntent.SetImageFile -> setImageFile(intent.imgFile)
             is ProductDetailUiIntent.UpdateProduct -> validateInfoToUpdateProduct(intent.productId)
@@ -159,10 +157,10 @@ class ProductDetailViewModel @Inject constructor(
     private fun createProduct() {
         viewModelScope.launch {
             loading(true)
-            when (val updateProductResponse =
+            when (val createProductResponse =
                 productCreateUseCase(getNewProduct())) {
                 is Resource.Failure ->
-                    setErrorMsg(updateProductResponse.exception.message)
+                    setErrorMsg(createProductResponse.exception.message)
 
                 is Resource.Success -> {
                     _uiState.value =

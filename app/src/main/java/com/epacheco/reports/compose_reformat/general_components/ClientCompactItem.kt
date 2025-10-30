@@ -1,15 +1,16 @@
 package com.epacheco.reports.compose_reformat.general_components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -20,47 +21,36 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.ui.theme.GrayDark
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.ui.theme.White
-import java.util.Locale
+import com.epacheco.reports.compose_reformat.utils.Utils
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun SecondaryItem(
+fun ClientCompactItem(
     modifier: Modifier = Modifier,
     text: String? = null,
     contentText: String? = null,
     secondaryText: String? = null,
-    icon: Int? = null,
-    tintIcon: Color = MaterialTheme.colorScheme.primary,
-    strikeThrough: Boolean = false,
+    avatarUrl: String? = null,
+    avatarLetters: String? = null,
+    progressLimit: Float = 0f,
     onClick: (() -> Unit)? = null,
-    onLongClick: (() -> Unit)? = null,
+    onLongClick: (() -> Unit)? = null
 ) {
 
     Card(
         modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp, horizontal = 8.dp)
-            .alpha(if (strikeThrough) 0.5f else 1f)
-            .combinedClickable(
-                onClick = {
-                    onClick?.invoke()
-                },
-                onLongClick = { onLongClick?.invoke() },
-            ),
+            .wrapContentHeight(),
         colors = CardColors(
             contentColor = White,
             containerColor = MaterialTheme.colorScheme.surface,
@@ -68,52 +58,77 @@ fun SecondaryItem(
             disabledContainerColor = Color.Transparent
         )
     ) {
-        Column(Modifier.wrapContentHeight().padding(start = 8.dp, top = 8.dp)) {
+        Column(
+            modifier = Modifier.combinedClickable(
+                onClick = { //showDialogConfirmCompleteOrder = true
+                    onClick?.invoke()
+                },
+                onLongClick = { onLongClick?.invoke() },
+            )
+        ) {
 
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .wrapContentHeight()
                     .padding(8.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                icon?.let {
-                    Image(
-                        modifier = Modifier
-                            .size(16.dp).padding(),
-                        imageVector = ImageVector.vectorResource(
-                            icon ?: R.drawable.baseline_circle_24
-                        ),
-                        contentDescription = null,
-                        colorFilter = ColorFilter.tint(if (icon != null) tintIcon else Color.Transparent)
+
+                avatarUrl?.let {
+                    AvatarWithIndicator(
+                        avatarUrl = it,
+                        indicatorRes = R.drawable.baseline_circle_24
                     )
-
-
                 }
 
-                Text(
+                avatarLetters?.let {
+                    AvatarWithIndicator(
+                        avatarLetters = it,
+                        indicatorRes = R.drawable.baseline_circle_24,
+                        indicatorSize = 15.dp,
+                        avatarSize = 60.dp,
+                        tintSaleIndicator = Utils.getClientDotBackground(
+                            progressLimit
+                        )
+                    )
+                }
+
+                Column(
+
                     modifier = Modifier
-                        .wrapContentWidth().padding(start = if(icon !=null )8.dp else 0.dp),
-                    text = text?.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }
-                        ?: "",
-                    textAlign = TextAlign.Start,
-                    style = MaterialTheme.typography.bodyLarge.copy(
-                        fontWeight = if (strikeThrough) FontWeight.Light else FontWeight.Bold,
-                        textDecoration = if (strikeThrough) TextDecoration.LineThrough else TextDecoration.None,
-                    ),
+                        .wrapContentHeight()
+                        .padding(start = 8.dp),
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        modifier = Modifier
+                            .wrapContentWidth(),
+                        text = text ?: "",
+                        textAlign = TextAlign.Start,
+                        style = MaterialTheme.typography.bodyLarge.copy(
+                            fontWeight = FontWeight.Bold,
+                            textDecoration = TextDecoration.None,
+                        ),
 
-                    color = MaterialTheme.colorScheme.primary
-                )
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    Spacer(modifier = Modifier.padding(4.dp))
+                    contentText?.let {
+                        Text(
+                            contentText,
+                            color = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier,
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                    }
+                }
+
             }
-            Text(
-                contentText ?: "",
-                color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.padding(vertical = 10.dp, horizontal = 8.dp),
-                style = MaterialTheme.typography.bodyLarge
-            )
-            secondaryText?.let {
-            Row {
-                Spacer(modifier = modifier.weight(1f))
 
+
+            secondaryText?.let {
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                     Text(
                         secondaryText,
                         color = MaterialTheme.colorScheme.onPrimary,
@@ -122,8 +137,8 @@ fun SecondaryItem(
                                 MaterialTheme.colorScheme.onBackground,
                                 RoundedCornerShape(topStart = 10.dp)
                             )
-                            .padding(horizontal = 8.dp, vertical = 4.dp),
-                        style = MaterialTheme.typography.labelSmall
+                            .padding(horizontal = 10.dp, vertical = 6.dp),
+                        style = MaterialTheme.typography.labelMedium
                     )
                 }
 
@@ -225,27 +240,20 @@ fun SecondaryItem(
     */
 }
 
-@Preview(showSystemUi = true, showBackground = true)
+@Preview
 @Composable
-fun SecondaryItemPreview() {
+fun ClientCompactItemPreview() {
     ReportsGoTheme {
         Row {
-            SecondaryItem(
-                modifier = Modifier.weight(1f),
+            ClientCompactItem(
+                modifier = Modifier,
+                avatarUrl = "",
                 text = "text",
                 contentText = "contentText",
                 secondaryText = "secondaryText",
-                icon = R.drawable.baseline_circle_24,
-                strikeThrough = false,
+                progressLimit = 0.4f
             )
-            SecondaryItem(
-                modifier = Modifier.weight(1f),
-                text = "text",
-                contentText = "ContentText",
-                secondaryText = null,
-                icon = R.drawable.baseline_circle_24,
-                strikeThrough = false,
-            )
+
         }
     }
 }

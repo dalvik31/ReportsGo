@@ -98,12 +98,14 @@ fun SelectorDateDialog(
             }
             TextButton(
                 onClick = {
+                    val startDate = state.selectedStartDateMillis ?: System.currentTimeMillis()
+                    val endDate = state.selectedEndDateMillis ?: startDate
                     onDateSelected?.invoke(
-                        state.selectedStartDateMillis ?: System.currentTimeMillis(),
-                        state.selectedEndDateMillis ?: System.currentTimeMillis()
+                        startDate,
+                        endDate
                     )
                 },
-                enabled = state.selectedEndDateMillis != null,
+                enabled = state.selectedStartDateMillis != null,
             ) {
                 Text(text = "Seleccionar fecha")
             }

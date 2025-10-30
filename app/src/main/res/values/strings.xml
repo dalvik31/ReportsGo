@@ -537,6 +537,7 @@
     <string name="lbl_stock_sale">%s en existencia</string>
     <string name="lbl_search_product_hint">Nombre del producto</string>
 
+
     <!--ADD PRODUCTS Fragments-->
     <string name="add_product_title">Detalles del producto</string>
     <string name="add_product_name">Nombre</string>
@@ -583,7 +584,8 @@
     <!--SALES Fragments-->
     <string name="generate_sale">Nuevo ticket</string>
     <string name="client">Cliente</string>
-    <string name="select_client">Seleccionar cliente</string>
+    <string name="search_client">Buscar cliente</string>
+    <string name="client_not_selected">Cliente no seleccionado</string>
     <string name="product">Producto</string>
     <string name="select_product">Agregar producto</string>
     <string name="shopping_cart">Carrito de compras</string>
@@ -602,4 +604,31 @@
     <string name="finances_title">Finanzas</string>
     <string name="finances_initial_date">Fecha inicial</string>
     <string name="finances_final_date">Fecha final</string>
+
+    <!--CLIENTS Fragments-->
+    <string name="lbl_search_client_hint">Nombre del cliente</string>
+    <string name="confirm_delete_client">¿Realmente deseas eliminar el cliente?</string>
+    <string name="update_client_success">Cliente actualizado correctamente.</string>
+    <string name="client_delete_success">Cliente eliminado correctamente.</string>
+    <string name="client_not_found">Cliente no encontrado</string>
+    <string name="option_sale">Venta</string>
+    <string name="option_order">Pedido</string>
+    <string name="option_call">Llamar</string>
+    <string name="option_info">Información</string>
+    <string name="create_new_cliet">Crear nuevo cliente</string>
+    <string name="modify_client">Modificar cliente</string>
+    <string name="add_client_title">Detalles de %s</string>
+    <string name="client_name_title">Nombre</string>
+    <string name="client_name">Nombre(s)</string>
+    <string name="client_earns">Monto a abonar</string>
+    <string name="client_earns_concept">Concepto</string>
+    <string name="operations">Operaciones</string>
+    <string name="client_lastname_title">Apellidos</string>
+    <string name="client_lastname">Apellidos</string>
+    <string name="client_info_title">Información</string>
+    <string name="client_info">Detalles importantes del cliente</string>
+    <string name="client_cel_title">Celular</string>
+    <string name="client_cel">Número celular del cliente</string>
+    <string name="client_credit_title">Crédito</string>
+    <string name="client_credit">Limite de crédito</string>
 </resources>

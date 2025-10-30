@@ -127,11 +127,9 @@ fun OrdersView(
                             contentText = order.orderDescription,
                             secondaryText = DateUtils.dateFormat(order.orderId, FORMAT_DATE2),
                             strikeThrough = order.orderBuy,
-                            tintIcon = MaterialTheme.colorScheme.primary,
                             onClick = {
                                 onUpdateStatusOrderClick?.invoke(order)
                             },
-                            icon = R.drawable.ic_vector_products,
                             onLongClick = {
                                 onOrderClick?.invoke(order)
                             }

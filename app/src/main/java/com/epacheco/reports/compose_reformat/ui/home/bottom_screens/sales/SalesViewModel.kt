@@ -202,7 +202,7 @@ class SalesViewModel @Inject constructor(
 
         val saleId = System.currentTimeMillis().toString()
         return Sale(
-            saleId = DateUtils.format(saleId.toLong(), FORMAT_DATE1),
+            saleId = DateUtils.dateFormat(saleId, FORMAT_DATE1),
             creditSale = uiState.value.isCreditSale,
             idClient = uiState.value.client?.id ?: Constants.ID_GENERIC_SALES,
             nameClient = uiState.value.client?.name ?: "",

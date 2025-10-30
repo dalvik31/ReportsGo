@@ -6,7 +6,7 @@ import com.epacheco.reports.compose_reformat.model.clients.ClientDetailCmps
 import com.google.firebase.database.DatabaseReference
 
 interface ClientsRepository {
-    suspend fun getClients(paramName: String = ""): Resource<List<Client>>
+    suspend fun getClientByName(clientName: String?): Resource<List<Client>>
     suspend fun getClient(id: String): Resource<Client>
     suspend fun updateClientLimit(
         clientId: String,
@@ -18,6 +18,10 @@ interface ClientsRepository {
         clientId: String,
         newDebt: Double,
     ): Resource<Any>
+
+    suspend fun updateClient(client: Client): Resource<Any>
+    suspend fun createClient(client: Client): Resource<Any>
+    suspend fun deleteClient(clientId: String): Resource<Any>
 
     fun getClientsReference(): DatabaseReference
 }
