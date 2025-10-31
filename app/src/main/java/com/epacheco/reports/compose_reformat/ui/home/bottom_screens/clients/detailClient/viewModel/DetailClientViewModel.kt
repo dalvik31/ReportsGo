@@ -7,6 +7,7 @@ import com.epacheco.reports.compose_reformat.domain.ClientCreateUseCase
 import com.epacheco.reports.compose_reformat.domain.ClientDeleteUseCase
 import com.epacheco.reports.compose_reformat.domain.ClientDetailUseCase
 import com.epacheco.reports.compose_reformat.domain.ClientUpdateUseCase
+import com.epacheco.reports.compose_reformat.domain.FinancesGetByClientIdUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.model.clients.Client
 import com.epacheco.reports.compose_reformat.model.products.Product
@@ -32,7 +33,8 @@ class DetailClientViewModel @Inject constructor(
     private val clientDetailUseCase: ClientDetailUseCase,
     private val clientUpdateUseCase: ClientUpdateUseCase,
     private val clientDeleteUseCase: ClientDeleteUseCase,
-    private val clientCreateUseCase: ClientCreateUseCase
+    private val clientCreateUseCase: ClientCreateUseCase,
+
 ) :
     BaseViewModel() {
 
@@ -74,21 +76,21 @@ class DetailClientViewModel @Inject constructor(
     }
 
     private fun updateClient() = viewModelScope.launch {
-            loading(true)
-            when (val updateProductResponse =
-                clientUpdateUseCase(
-                    getNewClient(uiState.value.clientDetail)
-                )) {
-                is Resource.Failure ->
-                    setErrorMsg(updateProductResponse.exception.message)
+        loading(true)
+        when (val updateProductResponse =
+            clientUpdateUseCase(
+                getNewClient(uiState.value.clientDetail)
+            )) {
+            is Resource.Failure ->
+                setErrorMsg(updateProductResponse.exception.message)
 
-                is Resource.Success -> {
-                    _uiState.value =
-                        _uiState.value.copy(successMessage = R.string.update_client_success)
-                    _effectFlow.emit(ClientDetailUiEffect.NavigateBack)
-                }
+            is Resource.Success -> {
+                _uiState.value =
+                    _uiState.value.copy(successMessage = R.string.update_client_success)
+                _effectFlow.emit(ClientDetailUiEffect.NavigateBack)
             }
-            loading(false)
+        }
+        loading(false)
 
     }
 
@@ -117,6 +119,7 @@ class DetailClientViewModel @Inject constructor(
             is Resource.Failure -> {
                 setErrorMsg(deleteClientResponse.exception.message)
             }
+
             is Resource.Success -> {
                 _uiState.value =
                     _uiState.value.copy(successMessage = R.string.client_delete_success)
@@ -128,16 +131,16 @@ class DetailClientViewModel @Inject constructor(
 
 
     private fun getNewClient(client: Client?): Client {
-        val clientId = DateUtils.now()
-        val clientDetail = client?.let { client } ?: run {Client()}
+        val clientId = DateUtils.now().toString()
+        val clientDetail = client?.let { client } ?: run { Client() }
         return clientDetail.copy(
-            id = client?.id ?: clientId.toString(),
+            id = client?.id ?: clientId,
             name = _inputClientNames.value,
             lastNanme = _inputClientLastName.value,
             detail = _inputClientInfo.value,
             phone = _inputClientPhone.value,
             limit = _inputClientCredit.value.toDouble(),
-            dateClient = client?.dateClient ?: clientId.toString(),
+            dateClient = client?.dateClient ?: clientId,
         )
     }
 
@@ -198,7 +201,7 @@ class DetailClientViewModel @Inject constructor(
     }
 
     override fun setErrorMsg(msgError: String?) {
-        _uiState.update { it.copy(errorMessage = msgError) }
+        _uiState.update { it.copy(errorMessage = msgError, successMessage = null) }
     }
 
 

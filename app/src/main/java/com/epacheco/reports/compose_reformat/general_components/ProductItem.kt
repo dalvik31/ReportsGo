@@ -110,10 +110,10 @@ fun ProductItem(
                     modifier = Modifier
                         .padding(horizontal = 10.dp, vertical = 8.dp)
                         .align(Alignment.End),
-                    fontWeight = FontWeight.Black,
-                    fontSize = 20.sp,
+                    style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.primary,
                 )
+
             }
 
         }

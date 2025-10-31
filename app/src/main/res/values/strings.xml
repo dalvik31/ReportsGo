@@ -594,8 +594,8 @@
     <string name="type_transaction">¿Tu compra será a crédito o de contado?</string>
     <string name="type_not_client_selected">No se ha seleccionado un cliente, ¿Quieres continuar con la venta?</string>
     <string name="sale_exceeds_credit"><![CDATA[Esta venta supera el crédito actual<br><br>¿Quieres continuar con la venta actualizando el crédito del cliente? <br><br><b><font color=#FF0000>Limite anterior $%s</font></b><br><br><b><font color=#8DC68F>Nuevo limite $%s</font></b>]]></string>
-    <string name="credit_transaction">Crédito</string>
-    <string name="cash_transaction">Contado</string>
+    <string name="credit_transaction">Compra a crédito</string>
+    <string name="cash_transaction">Compra de contado</string>
     <string name="credit_client">Crédito disponible: $%s</string>
     <string name="msg_sale_created">Venta generada correctamente</string>
 
@@ -631,4 +631,7 @@
     <string name="client_cel">Número celular del cliente</string>
     <string name="client_credit_title">Crédito</string>
     <string name="client_credit">Limite de crédito</string>
+
+    <!--TRANSACTIONS Fragments-->
+    <string name="transactions_title">Transacciones</string>
 </resources>

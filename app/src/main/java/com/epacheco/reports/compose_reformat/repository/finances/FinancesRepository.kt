@@ -6,5 +6,6 @@ import com.google.firebase.database.DatabaseReference
 
 interface FinancesRepository {
     suspend fun getFinances(initialDate: Long, finalDate: Long): Resource<List<Sale>>
+    suspend fun getFinancesByClientId(clientId:String): Resource<List<Sale>>
     fun getFinancesReference(): DatabaseReference
 }

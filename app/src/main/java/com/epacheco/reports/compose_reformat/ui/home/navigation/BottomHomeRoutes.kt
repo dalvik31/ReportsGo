@@ -25,6 +25,9 @@ sealed interface BottomHomeRoutes {
     ) : BottomHomeRoutes
 
     @Serializable
+    data class ClientDetailInformation(val idClient: String?) : BottomHomeRoutes
+
+    @Serializable
     data class ClientDetailBottomHomeRoute(val idClient: String?) : BottomHomeRoutes
 
     @Serializable
@@ -43,7 +46,7 @@ sealed interface BottomHomeRoutes {
     data object ProfileBottomHomeRoute : BottomHomeRoutes
 
     @Serializable
-    data object SaleBottomHomeRoute : BottomHomeRoutes
+    data class SaleBottomHomeRoute(val idClient: String? = null) : BottomHomeRoutes
 
     @Serializable
     data object FinancesBottomHomeRoute : BottomHomeRoutes

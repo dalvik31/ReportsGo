@@ -1,6 +1,5 @@
-package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.view
+package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.client_info
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -13,26 +12,23 @@ import coil3.request.GlobalLifecycle.currentState
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.Loader
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.view.ClientDetailUiIntent
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.view.ClientDetailView
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.viewModel.DetailClientViewModel
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.OrdersMainUiIntent
 
 @OptIn(InternalCoilApi::class)
 @Composable
-fun ClientDetailScreen(
-    detailClientViewModel: DetailClientViewModel = hiltViewModel<DetailClientViewModel>(),
+fun ClientInfoScreen(
+    clientInfoViewModel: ClientInfoViewModel = hiltViewModel<ClientInfoViewModel>(),
     clientId: String? = null,
     onBackPressed: (() -> Unit)? = null,
-    openClientTransaction: ((String) -> Unit)? = null,
-    openClientSale: ((String) -> Unit)? = null,
 ) {
-
-    val clientUiState by detailClientViewModel.uiState.collectAsState()
-
+    val uiState by clientInfoViewModel.uiState.collectAsState()
     LaunchedEffect(Unit) {
         if (currentState.isAtLeast(Lifecycle.State.STARTED)) {
             clientId?.let {
-                detailClientViewModel.handleIntent(
-                    ClientDetailUiIntent.LoadClient(
+                clientInfoViewModel.handleIntent(
+                    ClientInfoUiIntent.LoadTransactions(
                         it
                     )
                 )
@@ -40,28 +36,21 @@ fun ClientDetailScreen(
         }
     }
 
-    ClientDetailView(
-        client = clientUiState.clientDetail,
-        clientTransaction = clientUiState.clientTransactions,
-        onBackPressed = {
-            onBackPressed?.invoke()
-        },
-        openClientTransaction = { openClientTransaction?.invoke(it) },
-        openClientSale = { openClientSale?.invoke(it) })
-
-    if (clientUiState.isLoading) {
+    ClientInfoView(clientTransaction = uiState.clientTransactions, onBackPressed = {
+        onBackPressed?.invoke()
+    })
+    if (uiState.isLoading) {
         Loader(false)
     }
 
-    clientUiState.errorMessage?.let { msgError ->
+    uiState.errorMessage?.let { msgError ->
         ReportsDialog(
             imgDialog = R.drawable.ic_error,
             confirmButtonText = stringResource(R.string.btn_ok),
             dialogSubTitle = msgError,
             onConfirmation = {
-                detailClientViewModel.handleIntent(ClientDetailUiIntent.HideDialogs)
+                clientInfoViewModel.handleIntent(ClientInfoUiIntent.HideDialogs)
             })
     }
-
 
 }

@@ -43,6 +43,7 @@ import com.epacheco.reports.compose_reformat.utils.Utils
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ClientItem(
+    modifier: Modifier = Modifier,
     client: Client? = null,
     showFullName: Boolean = false,
     iconAction: Int? = null,
@@ -52,7 +53,7 @@ fun ClientItem(
 ) {
 
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight()
             .clickable {
@@ -263,7 +264,7 @@ fun ClientItemPreview() {
             )
             ClientItem(iconAction = R.drawable.ic_error, actionText = "5548562659")
             ClientItem(
-                Client(name = "Cliente", phone = "5548562659"),
+                client = Client(name = "Cliente", phone = "5548562659"),
                 iconAction = R.drawable.ic_error,
                 actionText = "5548562659",
             )

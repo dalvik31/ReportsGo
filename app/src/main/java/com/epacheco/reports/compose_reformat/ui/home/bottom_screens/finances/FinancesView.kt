@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -81,8 +82,10 @@ fun FinancesView(
         )*/
 
 
-        val totalSales = orderMainMainList.asSequence().filter { !it.creditSale }.sumOf { it.productPriceSale }
-        val totalBuy = orderMainMainList.asSequence().filter { !it.creditSale }.sumOf { it.productPriceBuy }
+        val totalSales =
+            orderMainMainList.asSequence().filter { !it.creditSale }.sumOf { it.productPriceSale }
+        val totalBuy =
+            orderMainMainList.asSequence().filter { !it.creditSale }.sumOf { it.productPriceBuy }
 
 
 
@@ -112,13 +115,13 @@ fun FinancesView(
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(horizontal = 10.dp)
+            modifier = Modifier
         ) {
 
             TextDivider(
                 textDivider = "${initialDate} a ${finalDate}",
                 modifier = Modifier
-                    .padding(horizontal = 20.dp, vertical = 12.dp)
+                    .padding(horizontal = 15.dp, vertical = 12.dp)
                     .weight(1f)
                     .clickable {
                         onSelectDatePressed?.invoke()
@@ -133,18 +136,11 @@ fun FinancesView(
                 }) {
 
                 Icon(
-                    painter = painterResource(R.drawable.ic_vector_arrow_next),
+                    painter = painterResource(R.drawable.ic_vector_activity),
                     contentDescription = null,
                 )
             }
 
-            /*PrimaryButton(
-                textButton = "Cambiar fechas",
-                iconBtn = R.drawable.ic_vector_activity,
-                modifier = Modifier.padding(horizontal = 20.dp)
-            ) {
-
-            }*/
         }
 
         PullToRefreshBox(
@@ -165,8 +161,10 @@ fun FinancesView(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(color = Color.Transparent)
-            ) {
+                    .padding(horizontal = 20.dp)
+                    .background(color = Color.Transparent),
+                verticalArrangement = Arrangement.spacedBy(20.dp),
+                ) {
                 items(orderMainMainList) { sale ->
                     FinanceItem(sale = sale)
                 }

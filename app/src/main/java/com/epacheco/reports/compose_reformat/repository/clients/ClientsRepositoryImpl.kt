@@ -29,9 +29,7 @@ class ClientsRepositoryImpl @Inject constructor(
 
             val client = snapshot.getValue(Client::class.java)
 
-            client?.let {
-                it.dateClient = dateFormat(it.dateClient.toString(), DateUtils.FORMAT_DATE1)
-                Resource.Success(it)
+            client?.let { Resource.Success(it)
             } ?: Resource.Failure(Exception("Cliente $clientId no encontrado"))
         } catch (e: Exception) {
             Log.e("FIREBASE_ERROR", "Error obteniendo cliente: ${e.message}")

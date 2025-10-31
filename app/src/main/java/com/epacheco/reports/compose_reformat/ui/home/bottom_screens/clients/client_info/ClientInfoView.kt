@@ -1,4 +1,4 @@
-package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.view
+package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.client_info
 
 import android.util.Log
 import android.widget.Toast
@@ -88,21 +88,14 @@ import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.DateUtils.dateFormat
 
 @Composable
-fun ClientDetailView(
-    client: Client?,
+fun ClientInfoView(
     clientTransaction: List<Sale> = emptyList(),
-    inputName: String? = null,
-    onInputNameChanged: ((String) -> Unit)? = null,
     onBackPressed: (() -> Unit)? = null,
-    openClientTransaction: ((String) -> Unit)? = null,
-    openClientSale: ((String) -> Unit)? = null,
 ) {
 
     Column {
-        val clientName =
-            client?.name ?: run { stringResource(R.string.client_not_found) }
         Header(
-            title = stringResource(R.string.add_client_title, clientName),
+            title = stringResource(R.string.transactions_title),
             backgroundToolbar = Color.Transparent,
             onRightIconClicked = {
                 onBackPressed?.invoke()
@@ -114,86 +107,14 @@ fun ClientDetailView(
         )
 
 
-        Column(
+        LazyColumn(
             modifier = Modifier
-                .padding(horizontal = 24.dp)
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
-            ClientItem(client = client, showFullName = true)
-            Spacer(modifier = Modifier.padding(8.dp))
-
-            Row {
-                InputTextField(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(end = 10.dp),
-                    textHint = stringResource(R.string.client_earns),
-                    textValue = inputName ?: "",
-                    onTextChange = { onInputNameChanged?.invoke(it) },
-                    capitalization = KeyboardCapitalization.Sentences
-                )
-                InputTextField(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(start = 10.dp),
-                    textHint = stringResource(R.string.client_earns_concept),
-                    textValue = inputName ?: "",
-                    onTextChange = { onInputNameChanged?.invoke(it) },
-                    capitalization = KeyboardCapitalization.Sentences
-                )
+            items(clientTransaction) {
+                FinanceItem(sale = it)
             }
-
-            Spacer(modifier = Modifier.padding(8.dp))
-            PrimaryButton(
-                textButton = "Abonar",
-                iconBtn = R.drawable.ic_vector_sale,
-            )
-            Spacer(modifier = Modifier.padding(8.dp))
-            TextDivider(
-                textDivider = stringResource(R.string.operations),
-                fontSize = 16.sp,
-            )
-            Spacer(modifier = Modifier.padding(8.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                MoneyItem(
-                    text = stringResource(R.string.option_sale),
-                    icon = R.drawable.ic_vector_sale
-                ) {
-                    client?.let {
-                        openClientSale?.invoke(it.id)
-                    }
-                }
-                MoneyItem(
-                    text = stringResource(R.string.option_info),
-                    icon = R.drawable.ic_vector_activity
-                ) {
-                    client?.let {
-                        openClientTransaction?.invoke(client.id)
-                    }
-                }
-                MoneyItem(
-                    text = stringResource(R.string.option_order),
-                    icon = R.drawable.ic_vector_order
-                )
-                MoneyItem(
-                    text = stringResource(R.string.option_call),
-                    icon = R.drawable.ic_vector_phone
-                )
-            }
-
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(4.dp),
-            ) {
-                items(clientTransaction) {
-                    FinanceItem(sale = it)
-                }
-            }
-
-            Spacer(modifier = Modifier.padding(48.dp))
         }
     }
 }
@@ -201,5 +122,5 @@ fun ClientDetailView(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ClientDetailViewPreview() {
-    ClientDetailView(Client())
+    ClientInfoView()
 }

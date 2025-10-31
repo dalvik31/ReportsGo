@@ -38,17 +38,20 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.os.bundleOf
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.Navigator
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.epacheco.reports.compose_reformat.model.orders.Order
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.client_info.ClientInfoScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.view.ClientDetailScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.view.NewClientScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.listClients.view.ClientsScreen
@@ -194,6 +197,19 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                     backStackEntry.toRoute()
                 ClientDetailScreen(clientId = createDetailRout.idClient, onBackPressed = {
                     bottomNavController.navigateUp()
+                }, openClientTransaction = {
+                    bottomNavController.navigate(
+                        BottomHomeRoutes.ClientDetailInformation(
+                            it
+                        )
+                    )
+                }, openClientSale = { clientId ->
+
+                    //bottomNavController.previousBackStackEntry?.savedStateHandle?.set("resultStatus", clientId)
+
+                    bottomNavController.navigate(
+                        route = BottomHomeRoutes.SaleBottomHomeRoute(clientId),
+                    )
                 })
             }
             composable<BottomHomeRoutes.ClientCreateNewBottomHomeRoute> { backStackEntry ->
@@ -226,9 +242,18 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                 })
             }
             composable<BottomHomeRoutes.SaleBottomHomeRoute> { backStackEntry ->
-                val noResultData =
+                var clientId: String? = null
+                val clientIdFromClientDetail =
+                    backStackEntry.toRoute<BottomHomeRoutes.SaleBottomHomeRoute>().idClient
+                val clientIdFromSale =
                     backStackEntry.savedStateHandle.getLiveData<String>("resultStatus")
                         .observeAsState("")
+                if (clientIdFromClientDetail != null)
+                    clientId = clientIdFromClientDetail
+                else if (clientIdFromSale.value != null) {
+                    clientId = clientIdFromSale.value
+                }
+
                 val onProductResult =
                     backStackEntry.savedStateHandle.getLiveData<String>("productResult")
                         .observeAsState("")
@@ -248,7 +273,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                             isSelectableClient = true
                         )
                     ) {
-                        popUpTo(BottomHomeRoutes.SaleBottomHomeRoute) {
+                        popUpTo(BottomHomeRoutes.SaleBottomHomeRoute()) {
                             inclusive = false
                         }
                     }
@@ -264,7 +289,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                             inclusive = false
                         }
                     }
-                }, clientIdSelected = noResultData.value, productIdSelected = onProductResult.value)
+                }, clientIdSelected = clientId, productIdSelected = onProductResult.value)
 
             }
 
@@ -281,7 +306,10 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                     onNavigateToLogin = {
                         onNavigateToRegister.invoke()
                     }, onNavigateToFinances = {
-                        goProfileToRoute(bottomNavController, BottomHomeRoutes.SaleBottomHomeRoute)
+                        goProfileToRoute(
+                            bottomNavController,
+                            BottomHomeRoutes.SaleBottomHomeRoute(null)
+                        )
                     }, onNavigateToOrders = {
                         bottomNavController.navigate(
                             route =
@@ -304,6 +332,13 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                             BottomHomeRoutes.ProductBottomHomeRoute()
                         )
                     })
+            }
+            composable<BottomHomeRoutes.ClientDetailInformation> { backStackEntry ->
+                val orderMainRoute: BottomHomeRoutes.ClientDetailInformation =
+                    backStackEntry.toRoute()
+                ClientInfoScreen(clientId = orderMainRoute.idClient, onBackPressed = {
+                    bottomNavController.navigateUp()
+                })
             }
             composable<BottomHomeRoutes.DetailMainOrdersBottomHomeRoute> { backStackEntry ->
                 val orderMainRoute: BottomHomeRoutes.DetailMainOrdersBottomHomeRoute =

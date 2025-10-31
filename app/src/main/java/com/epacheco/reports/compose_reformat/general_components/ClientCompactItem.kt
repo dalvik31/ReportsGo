@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -58,75 +59,8 @@ fun ClientCompactItem(
             disabledContainerColor = Color.Transparent
         )
     ) {
-        Column(
-            modifier = Modifier.combinedClickable(
-                onClick = { //showDialogConfirmCompleteOrder = true
-                    onClick?.invoke()
-                },
-                onLongClick = { onLongClick?.invoke() },
-            )
-        ) {
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight()
-                    .padding(8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-
-                avatarUrl?.let {
-                    AvatarWithIndicator(
-                        avatarUrl = it,
-                        indicatorRes = R.drawable.baseline_circle_24
-                    )
-                }
-
-                avatarLetters?.let {
-                    AvatarWithIndicator(
-                        avatarLetters = it,
-                        indicatorRes = R.drawable.baseline_circle_24,
-                        indicatorSize = 15.dp,
-                        avatarSize = 60.dp,
-                        tintSaleIndicator = Utils.getClientDotBackground(
-                            progressLimit
-                        )
-                    )
-                }
-
-                Column(
-
-                    modifier = Modifier
-                        .wrapContentHeight()
-                        .padding(start = 8.dp),
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        modifier = Modifier
-                            .wrapContentWidth(),
-                        text = text ?: "",
-                        textAlign = TextAlign.Start,
-                        style = MaterialTheme.typography.bodyLarge.copy(
-                            fontWeight = FontWeight.Bold,
-                            textDecoration = TextDecoration.None,
-                        ),
-
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                    Spacer(modifier = Modifier.padding(4.dp))
-                    contentText?.let {
-                        Text(
-                            contentText,
-                            color = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier,
-                            style = MaterialTheme.typography.bodyLarge
-                        )
-                    }
-                }
-
-            }
-
-
+        Box {
             secondaryText?.let {
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                     Text(
@@ -135,12 +69,82 @@ fun ClientCompactItem(
                         modifier = Modifier
                             .background(
                                 MaterialTheme.colorScheme.onBackground,
-                                RoundedCornerShape(topStart = 10.dp)
+                                RoundedCornerShape(bottomStart = 10.dp)
                             )
                             .padding(horizontal = 10.dp, vertical = 6.dp),
-                        style = MaterialTheme.typography.labelMedium
+                        style = MaterialTheme.typography.bodySmall
                     )
                 }
+
+            }
+
+            Column(
+                modifier = Modifier.combinedClickable(
+                    onClick = {
+                        onClick?.invoke()
+                    },
+                    onLongClick = { onLongClick?.invoke() },
+                )
+            ) {
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                        .padding(8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+
+                    avatarUrl?.let {
+                        AvatarWithIndicator(
+                            avatarUrl = it,
+                            indicatorRes = R.drawable.baseline_circle_24
+                        )
+                    }
+
+                    avatarLetters?.let {
+                        AvatarWithIndicator(
+                            avatarLetters = it,
+                            indicatorRes = R.drawable.baseline_circle_24,
+                            indicatorSize = 15.dp,
+                            avatarSize = 60.dp,
+                            tintSaleIndicator = Utils.getClientDotBackground(
+                                progressLimit
+                            )
+                        )
+                    }
+
+                    Column(
+
+                        modifier = Modifier
+                            .wrapContentHeight()
+                            .padding(start = 8.dp),
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            modifier = Modifier
+                                .wrapContentWidth(),
+                            text = text ?: "",
+                            textAlign = TextAlign.Start,
+                            style = MaterialTheme.typography.titleSmall.copy(
+                                fontWeight = FontWeight.Bold,
+                                textDecoration = TextDecoration.None,
+                            ),
+
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                        contentText?.let {
+                            Text(
+                                contentText,
+                                color = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier,
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
+                    }
+
+                }
+
 
             }
 

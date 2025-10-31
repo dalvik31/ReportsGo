@@ -28,7 +28,7 @@ data class BottomHomeNavigationItem(
             BottomHomeNavigationItem(
                 label = R.string.tab_sales_option,
                 icon = R.drawable.ic_vector_sale,
-                bottomHomeRoutes = BottomHomeRoutes.SaleBottomHomeRoute
+                bottomHomeRoutes = BottomHomeRoutes.SaleBottomHomeRoute()
             ),
             /*BottomHomeNavigationItem(
                 label = R.string.tab_profile_option,

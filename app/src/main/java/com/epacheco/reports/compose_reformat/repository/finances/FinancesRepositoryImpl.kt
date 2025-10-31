@@ -4,6 +4,7 @@ import android.util.Log
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.firebase.await
 import com.epacheco.reports.compose_reformat.model.Finances.Sale
+import com.epacheco.reports.compose_reformat.model.products.Product
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE1
 import com.epacheco.reports.tools.Constants
@@ -28,12 +29,12 @@ class FinancesRepositoryImpl @Inject constructor(
         return try {
             var oneDate: Query? = null
 
-            if(initialDate == finalDate){
+            if (initialDate == finalDate) {
                 val dateToSearch = DateUtils.dateFormat(initialDate.toString(), FORMAT_DATE1)
-                Log.e("aqu","vamooooos dateToSearch: $dateToSearch")
+                Log.e("aqu", "vamooooos dateToSearch: $dateToSearch")
                 oneDate = usersRef.orderByChild("saleId")
                     .equalTo(dateToSearch)
-            }else{
+            } else {
                 oneDate = usersRef.orderByChild("saleId")
                     .startAt(DateUtils.dateFormat(initialDate.toString(), FORMAT_DATE1))
                     .endAt(DateUtils.dateFormat(finalDate.toString(), FORMAT_DATE1))
@@ -48,6 +49,24 @@ class FinancesRepositoryImpl @Inject constructor(
             Resource.Success(saleList)
         } catch (exception: Exception) {
             Resource.Failure(exception)
+        }
+    }
+
+    override suspend fun getFinancesByClientId(clientId: String): Resource<List<Sale>> {
+        Log.e("aqui","estamos::sssss ${clientId}")
+        return try {
+            val saleList = mutableListOf<Sale>()
+            getFinancesReference().orderByChild("idClient").startAt(clientId)
+                .endAt(clientId + "\uf8ff").get().await()?.children?.map { snapShot ->
+                val sale = snapShot.getValue(Sale::class.java)
+                sale?.let {
+                    saleList.add(it)
+                }
+            }
+            Log.e("aqui","estamos::listasssss ${saleList}")
+            Resource.Success(saleList)
+        } catch (exception: Exception) {
+            Resource.Success(emptyList())
         }
     }
 

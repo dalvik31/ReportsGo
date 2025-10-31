@@ -53,7 +53,6 @@ fun SecondaryItem(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp, horizontal = 8.dp)
             .alpha(if (strikeThrough) 0.5f else 1f)
             .combinedClickable(
                 onClick = {

@@ -17,7 +17,9 @@ import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.Loader
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.viewModel.DetailClientViewModel
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products.new_product.ProductDetailUiEffect
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products.new_product.ProductDetailUiIntent
+import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(InternalCoilApi::class)
 @Composable
@@ -39,7 +41,20 @@ fun NewClientScreen(
     LaunchedEffect(Unit) {
         if (currentState.isAtLeast(Lifecycle.State.STARTED)) {
             clientId?.let {
-                detailClientViewModel.handleIntent(ClientDetailUiIntent.LoadClient(it))
+                detailClientViewModel.handleIntent(
+                    ClientDetailUiIntent.LoadClient(
+                        it,
+                        isEditMode = true
+                    )
+                )
+            }
+        }
+    }
+
+    LaunchedEffect(detailClientViewModel) {
+        detailClientViewModel.effectFlow.collectLatest { effect ->
+            when (effect) {
+                ClientDetailUiEffect.NavigateBack -> onBackPressed?.invoke()
             }
         }
     }
@@ -83,7 +98,7 @@ fun NewClientScreen(
             confirmButtonText = stringResource(R.string.btn_ok),
             dialogSubTitle = msgError,
             onConfirmation = {
-                Log.e("aqui", "ClientsViewModel vamooos: ${msgError}")
+                detailClientViewModel.handleIntent(ClientDetailUiIntent.HideDialogs)
             })
     }
 

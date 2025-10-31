@@ -65,13 +65,13 @@ fun AvatarWithIndicator(
                     .fillMaxWidth()
                     .fillMaxHeight()
                     .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.onTertiary), contentAlignment = Alignment.Center
+                    .background(MaterialTheme.colorScheme.onBackground), contentAlignment = Alignment.Center
             ) {
                 Text(
                     text = avatarLetters,
                     textAlign = TextAlign.Center,
                     style = androidx.compose.ui.text.TextStyle(
-                        color = MaterialTheme.colorScheme.primary,
+                        color = MaterialTheme.colorScheme.onPrimary,
                         fontSize = 18.sp
                     ),
 
