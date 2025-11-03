@@ -22,6 +22,7 @@ import com.google.accompanist.permissions.rememberPermissionState
 @Composable
 fun CheckPermission(
     permission: String,
+    iconPermission: Int = R.drawable.baseline_circle_24,
     onGranted: (() -> Unit),
     onCancel: (() -> Unit),
     permissionRationaleTitle: String = stringResource(R.string.lbl_empty),
@@ -58,7 +59,7 @@ fun CheckPermission(
 
     if (showScanCodeRationaleDialog) {
         ReportsDialog(
-            imgDialog = R.drawable.ic_vector_add_photo,
+            imgDialog = iconPermission,
             dialogSubTitle = permissionRationaleTitle,
             confirmButtonText = stringResource(R.string.permission_btn_get_permission),
             cancelButtonText = stringResource(R.string.btn_close),
@@ -75,7 +76,7 @@ fun CheckPermission(
 
     if (showScanCodeSettingsDialog) {
         ReportsDialog(
-            imgDialog = R.drawable.ic_vector_add_photo,
+            imgDialog = iconPermission,
             dialogSubTitle = permissionOpenSettingsTitle,
             confirmButtonText = stringResource(R.string.permission_btn_open_settings),
             cancelButtonText = stringResource(R.string.btn_close),

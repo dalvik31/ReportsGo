@@ -185,8 +185,8 @@ fun NewProductScreen(
     if (showScanCodeDialog) {
         CheckPermission(
             permission = android.Manifest.permission.CAMERA,
+            iconPermission = R.drawable.ic_vector_bar_code_scanner,
             onGranted = {
-
                 settingResultRequest.launch(
                     Intent(
                         context,

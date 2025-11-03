@@ -12,5 +12,6 @@ data class Sale(
     val auxStock: Int = 0,
     val isCancelSale: Boolean = false,
     val saleDate: String = "",
-    val creditSale: Boolean = false,
+    val paymentType: PaymentType = PaymentType.UNKNOWN,
+    val saleConcept: String = "",
 )

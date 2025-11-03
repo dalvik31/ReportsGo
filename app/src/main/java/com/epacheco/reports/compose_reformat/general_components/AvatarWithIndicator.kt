@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -28,12 +29,14 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.rememberAsyncImagePainter
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ui.theme.GrayDark
+import com.epacheco.reports.compose_reformat.ui.theme.GreenColor
 import com.epacheco.reports.compose_reformat.utils.ColorUtils
 import java.time.format.TextStyle
 
 @Composable
 fun AvatarWithIndicator(
     avatarUrl: String? = null,
+    avatarRes: Int? = null,
     avatarLetters: String? = null,
     indicatorRes: Int,
     indicatorSaleRes: Int? = null,
@@ -49,11 +52,22 @@ fun AvatarWithIndicator(
 
         ) {
         // Main circular image
-        if (avatarUrl != null) {
+        if (!avatarUrl.isNullOrEmpty()) {
             Image(
                 painter = rememberAsyncImagePainter(avatarUrl),
                 contentDescription = "Avatar",
                 contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .matchParentSize()
+                    .clip(CircleShape)
+                    .border(2.dp, Color.White, CircleShape) // Optional border
+            )
+        }else if(avatarRes != null){
+            Image(
+                painter = painterResource(avatarRes),
+                contentDescription = "Avatar",
+                contentScale = ContentScale.Inside,
+                colorFilter = ColorFilter.tint(GreenColor),
                 modifier = Modifier
                     .matchParentSize()
                     .clip(CircleShape)
@@ -65,7 +79,8 @@ fun AvatarWithIndicator(
                     .fillMaxWidth()
                     .fillMaxHeight()
                     .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.onBackground), contentAlignment = Alignment.Center
+                    .background(MaterialTheme.colorScheme.onBackground),
+                contentAlignment = Alignment.Center
             ) {
                 Text(
                     text = avatarLetters,
@@ -119,9 +134,10 @@ fun AvatarWithIndicatorPreview() {
     AvatarWithIndicator(
         avatarUrl = null, // Replace with your avatar drawable
         avatarLetters = "EP",
+        avatarRes = R.drawable.ic_vector_sale,
         indicatorRes = R.drawable.icon_person, // Replace with your badge drawable
         indicatorSaleRes = R.drawable.ic_sales, // Replace with your badge drawable
-        avatarSize =60.dp,
+        avatarSize = 60.dp,
         indicatorSize = 15.dp,
         modifier = Modifier.padding(all = 8.dp)
     )

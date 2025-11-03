@@ -39,14 +39,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
+import com.epacheco.reports.compose_reformat.general_components.ClientItem
 import com.epacheco.reports.compose_reformat.general_components.Header
 import com.epacheco.reports.compose_reformat.general_components.InputTextField
 import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
+import com.epacheco.reports.compose_reformat.general_components.SecondaryItem
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.color_picker.ColorPickerDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.picker_dialog.PickerDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.picker_dialog.PickerDialogOption
+import com.epacheco.reports.compose_reformat.model.clients.Client
 import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.ui.theme.GrayDark
 import com.epacheco.reports.compose_reformat.ui.theme.GrayLight
@@ -57,6 +60,7 @@ import com.epacheco.reports.compose_reformat.utils.extensions.toHexString
 
 @Composable
 fun NewOrderView(
+    clientSelected: Client? = null,
     onInputStatus: Boolean = false,
     onInputStatusChanged: ((Boolean) -> Unit)? = null,
     onInputNameChanged: ((String) -> Unit)? = null,
@@ -77,6 +81,8 @@ fun NewOrderView(
     onCreateOrder: (() -> Unit)? = null,
     onDeleteOrder: (() -> Unit?)? = null,
     onUpdateOrder: (() -> Unit?)? = null,
+    onRemoveClient: (() -> Unit)? = null,
+    onInputClientChanged: (() -> Unit)? = null,
     onBackPressed: (() -> Unit)? = null,
 ) {
 
@@ -108,7 +114,32 @@ fun NewOrderView(
             tintImageRight = MaterialTheme.colorScheme.primary
         )
 
+        clientSelected?.let { client ->
+            ClientItem(
+                modifier = Modifier.padding(horizontal = 20.dp),
+                client = client,
+                actionText = if (client.name.isEmpty()) "Buscar cliente" else "Cambiar cliente",
+                iconAction = R.drawable.ic_error,
+                onClickIcon = {
+                    onRemoveClient?.invoke()
+                }, onClick = {
+                    onInputClientChanged?.invoke()
+                }
+            )
+        } ?: run {
+            SecondaryItem(
+                modifier = Modifier.padding(horizontal = 24.dp),
+                text = stringResource(R.string.search_client),
+                icon = R.drawable.ic_vector_search_client,
+                secondaryText = stringResource(R.string.client_not_selected),
+                onClick = {
+                    onInputClientChanged?.invoke()
+                }
+            )
 
+        }
+
+        Spacer(modifier = Modifier.padding(16.dp))
         TextDivider(
             textDivider = stringResource(R.string.order_detail_title),
             modifier = Modifier
@@ -145,14 +176,14 @@ fun NewOrderView(
 
             Spacer(modifier = Modifier.padding(8.dp))
 
-            Text(
+           /* Text(
                 modifier = Modifier.padding(horizontal = 8.dp),
                 text = stringResource(R.string.new_order_name_title),
                 color = MaterialTheme.colorScheme.primary,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.W400
             )
-            Spacer(modifier = Modifier.padding(8.dp))
+            Spacer(modifier = Modifier.padding(8.dp))*/
             InputTextField(
                 modifier = Modifier.padding(horizontal = 24.dp),
                 textHint = stringResource(R.string.new_order_name_desc),
@@ -163,14 +194,14 @@ fun NewOrderView(
                 )
             Spacer(modifier = Modifier.padding(8.dp))
 
-            Text(
+            /*Text(
                 modifier = Modifier.padding(horizontal = 8.dp),
                 text = stringResource(R.string.new_order_description_title),
                 color = MaterialTheme.colorScheme.primary,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.W400
             )
-            Spacer(modifier = Modifier.padding(8.dp))
+            Spacer(modifier = Modifier.padding(8.dp))*/
             InputTextField(
                 modifier = Modifier.padding(horizontal = 24.dp),
                 textHint = stringResource(R.string.new_order_description_desc),
@@ -184,13 +215,13 @@ fun NewOrderView(
             Row(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text(
-                    modifier = Modifier.padding(start = 8.dp),
+                /*Text(
+                    modifier = Modifier.padding(start = 24.dp),
                     text = stringResource(R.string.new_order_size_title),
                     color = MaterialTheme.colorScheme.primary,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.W400
-                )
+                )*/
                 Spacer(Modifier.weight(1f))
 
                 Text(
@@ -211,7 +242,6 @@ fun NewOrderView(
                 )
             }
 
-            Spacer(modifier = Modifier.padding(8.dp))
 
             InputTextField(
                 modifier = Modifier
@@ -226,14 +256,14 @@ fun NewOrderView(
                 textValue = inputSize ?: "",
                 enable = false
             )
-            Spacer(modifier = Modifier.padding(8.dp))
+           /* Spacer(modifier = Modifier.padding(8.dp))
             Text(
                 modifier = Modifier.padding(horizontal = 8.dp),
                 text = stringResource(R.string.new_order_color_title),
                 color = MaterialTheme.colorScheme.primary,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.W400
-            )
+            )*/
             Spacer(modifier = Modifier.padding(8.dp))
 
             Row(
@@ -263,14 +293,14 @@ fun NewOrderView(
                 }
             }
 
-            Spacer(modifier = Modifier.padding(8.dp))
+           /* Spacer(modifier = Modifier.padding(8.dp))
             Text(
                 modifier = Modifier.padding(horizontal = 8.dp),
                 text = stringResource(R.string.new_order_gender_title),
                 color = MaterialTheme.colorScheme.primary,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Light
-            )
+            )*/
             Spacer(modifier = Modifier.padding(8.dp))
 
             InputTextField(

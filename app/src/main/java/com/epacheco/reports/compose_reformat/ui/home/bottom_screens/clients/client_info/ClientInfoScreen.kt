@@ -36,12 +36,21 @@ fun ClientInfoScreen(
         }
     }
 
-    ClientInfoView(clientTransaction = uiState.clientTransactions, onBackPressed = {
-        onBackPressed?.invoke()
-    })
-    if (uiState.isLoading) {
-        Loader(false)
-    }
+    ClientInfoView(
+        clientTransaction = uiState.clientTransactions,
+        isRefreshing = uiState.isLoading,
+        onRefresh = {
+            clientId?.let {
+                clientInfoViewModel.handleIntent(
+                    ClientInfoUiIntent.LoadTransactions(
+                        it
+                    )
+                )
+            }
+        },
+        onBackPressed = {
+            onBackPressed?.invoke()
+        })
 
     uiState.errorMessage?.let { msgError ->
         ReportsDialog(

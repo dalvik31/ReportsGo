@@ -12,6 +12,7 @@ sealed class ClientDetailUiIntent {
     data class LoadClient(val clientId: String, val isEditMode: Boolean = false) :
         ClientDetailUiIntent()
     data class UpdateClient(val clientId: String) : ClientDetailUiIntent()
+    data class UpdateAmountPayClient(val clientId: String) : ClientDetailUiIntent()
     data object CreateClient : ClientDetailUiIntent()
     data class DeleteClient(val clientId: String) : ClientDetailUiIntent()
     data object HideDialogs : ClientDetailUiIntent()

@@ -7,25 +7,30 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed interface BottomHomeRoutes {
     @Serializable
-    data object MainOrdersBottomHomeRoute : BottomHomeRoutes
+    data class MainOrdersBottomHomeRoute(val idClient: String? = null) : BottomHomeRoutes
 
     @Serializable
     data class DetailMainOrdersBottomHomeRoute(
         val idOrderMain: String,
         val orderSeason: Season?,
-        val nameOrderMain: String
+        val nameOrderMain: String,
+        val clientId: String? = null
     ) :
         BottomHomeRoutes
 
     @Serializable
     data class CreateOrderBottomHomeRoute(
         val orderToEdit: Order?,
-        val idOrderMain: String,
-        val orderSeason: Season?
+        val idOrderMain: String?,
+        val orderSeason: Season?,
+        val clientId: String? = null
     ) : BottomHomeRoutes
 
     @Serializable
     data class ClientDetailInformation(val idClient: String?) : BottomHomeRoutes
+
+    @Serializable
+    data class ClientOrdersBottomHomeRoute(val idClient: String?) : BottomHomeRoutes
 
     @Serializable
     data class ClientDetailBottomHomeRoute(val idClient: String?) : BottomHomeRoutes

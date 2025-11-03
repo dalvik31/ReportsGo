@@ -23,10 +23,13 @@ fun ClientDetailScreen(
     clientId: String? = null,
     onBackPressed: (() -> Unit)? = null,
     openClientTransaction: ((String) -> Unit)? = null,
+    openClientOrder: ((String) -> Unit)? = null,
     openClientSale: ((String) -> Unit)? = null,
 ) {
 
-    val clientUiState by detailClientViewModel.uiState.collectAsState()
+    val uiState by detailClientViewModel.uiState.collectAsState()
+    val inputAmount by detailClientViewModel.inputClientAmount.collectAsState()
+    val inputConcept by detailClientViewModel.inputClientConcept.collectAsState()
 
     LaunchedEffect(Unit) {
         if (currentState.isAtLeast(Lifecycle.State.STARTED)) {
@@ -41,19 +44,40 @@ fun ClientDetailScreen(
     }
 
     ClientDetailView(
-        client = clientUiState.clientDetail,
-        clientTransaction = clientUiState.clientTransactions,
+        client = uiState.clientDetail,
+        clientTransaction = uiState.clientTransactions,
         onBackPressed = {
             onBackPressed?.invoke()
         },
+        inputAmount = inputAmount,
+        onInputAmountChanged = {
+            detailClientViewModel.onInputAmountChanged(it)
+        },
+        inputConcept = inputConcept,
+        onInputConceptChanged = { detailClientViewModel.onInputConceptChanged(it) },
         openClientTransaction = { openClientTransaction?.invoke(it) },
-        openClientSale = { openClientSale?.invoke(it) })
+        openClientSale = { openClientSale?.invoke(it) },
+        openClientOrder = { openClientOrder?.invoke(it) }, onCreatePayment = {
+            detailClientViewModel.handleIntent(
+                ClientDetailUiIntent.UpdateAmountPayClient(it)
+            )
+        })
 
-    if (clientUiState.isLoading) {
+    if (uiState.isLoading) {
         Loader(false)
     }
+    uiState.successMessage?.let { msgSuccessOperation ->
+        ReportsDialog(
+            imgDialog = R.drawable.ic_vector_ok,
+            dialogSubTitle = stringResource(msgSuccessOperation),
+            closeAutomatically = true,
+            onConfirmation = {
+                detailClientViewModel.handleIntent(ClientDetailUiIntent.HideDialogs)
+            })
+    }
 
-    clientUiState.errorMessage?.let { msgError ->
+
+    uiState.errorMessage?.let { msgError ->
         ReportsDialog(
             imgDialog = R.drawable.ic_error,
             confirmButtonText = stringResource(R.string.btn_ok),

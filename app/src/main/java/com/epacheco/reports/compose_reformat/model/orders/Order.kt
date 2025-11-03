@@ -19,5 +19,7 @@ data class Order(
     val orderSizeNumeric: Boolean = false,
     val orderBuy: Boolean = false,
     var orderSeason: Season? = null,
+    val orderClientName: String? = null,
+    val orderClientId: String? = null,
     // val orderProduct: Product = Product()
 ) : Parcelable

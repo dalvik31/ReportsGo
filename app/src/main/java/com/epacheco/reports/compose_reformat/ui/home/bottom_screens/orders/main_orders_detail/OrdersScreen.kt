@@ -1,5 +1,6 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders_detail
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -24,11 +25,20 @@ fun OrdersScreen(
     mainOrderId: String,
     orderSeason: Season?,
     nameOrderMain: String,
+    clientId: String? = null
 ) {
     val uiState by ordersViewModel.uiState.collectAsState()
 
+    Log.e("aqui","OrdersScreen ClientOrderScreenssss: clientId: ${clientId}")
+
     LaunchedEffect(Unit) {
         ordersViewModel.handleIntent(OrdersUiIntent.LoadOrders(mainOrderId))
+    }
+
+    LaunchedEffect(Unit) {
+        clientId?.let {
+            onNavigateToCreateOrder?.invoke(mainOrderId, orderSeason)
+        }
     }
 
     LaunchedEffect(ordersViewModel) {
@@ -42,6 +52,8 @@ fun OrdersScreen(
             }
         }
     }
+
+
 
     OrdersView(
         orderList = uiState.orders,

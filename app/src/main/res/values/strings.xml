@@ -432,7 +432,7 @@
     <string name="new_order_description_title">Descripción</string>
     <string name="new_order_description_desc">Detalles importantes del pedido</string>
     <string name="new_order_size_title">Talla</string>
-    <string name="new_order_number_sizes">Numérica</string>
+    <string name="new_order_number_sizes">Talla numérica</string>
     <string name="new_order_size_desc">¿Que talla?</string>
     <string name="new_order_color_title">Color</string>
     <string name="new_order_color_desc">¿Qué color lo pidieron?</string>
@@ -631,6 +631,11 @@
     <string name="client_cel">Número celular del cliente</string>
     <string name="client_credit_title">Crédito</string>
     <string name="client_credit">Limite de crédito</string>
+    <string name="select_list_main">¿En que lista se generará el pedido?</string>
+    <string name="permission_phone_title">Necesitamos acceder a los contactos de tu dispositivo para poder realizar la llamada.</string>
+    <string name="permission_phone_settings_title">Es necesario permitir el acceso a los contactos del dispositivo para poder realizar la llamada.</string>
+    <string name="msg_client_amount_update_success">¡Abono realizado!.</string>
+    <string name="msg_info_client_not_found">No se encontro información.</string>
 
     <!--TRANSACTIONS Fragments-->
     <string name="transactions_title">Transacciones</string>

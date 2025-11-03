@@ -10,6 +10,7 @@ import com.epacheco.reports.compose_reformat.domain.ProductUpdateStockUseCase
 import com.epacheco.reports.compose_reformat.domain.ProductsGetByIdUseCase
 import com.epacheco.reports.compose_reformat.domain.SaleCreateUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
+import com.epacheco.reports.compose_reformat.model.Finances.PaymentType
 import com.epacheco.reports.compose_reformat.model.Finances.Sale
 import com.epacheco.reports.compose_reformat.model.products.Product
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
@@ -88,8 +89,6 @@ class SalesViewModel @Inject constructor(
             loading(false)
 
         }
-
-
     }
 
     private fun getProductById(productId: String?) = viewModelScope.launch {
@@ -203,7 +202,7 @@ class SalesViewModel @Inject constructor(
         val saleId = System.currentTimeMillis().toString()
         return Sale(
             saleId = DateUtils.dateFormat(saleId, FORMAT_DATE1),
-            creditSale = uiState.value.isCreditSale,
+            paymentType = if (uiState.value.isCreditSale) PaymentType.CREDIT else PaymentType.CASH,
             idClient = uiState.value.client?.id ?: Constants.ID_GENERIC_SALES,
             nameClient = uiState.value.client?.name ?: "",
             imgProduct = product.urlImage,

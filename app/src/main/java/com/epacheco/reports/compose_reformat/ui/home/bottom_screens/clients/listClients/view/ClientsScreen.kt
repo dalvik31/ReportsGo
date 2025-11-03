@@ -37,12 +37,8 @@ fun ClientsScreen(
 
     LaunchedEffect(Unit) {
         if (currentState.isAtLeast(Lifecycle.State.STARTED)) {
-            clientsViewModel.handleIntent(ClientUiIntent.LoadClients(null))
+            clientsViewModel.handleIntent(ClientUiIntent.LoadClients())
         }
-    }
-
-    if (clientsUiState.isLoading) {
-        Loader(false)
     }
 
     clientsUiState.errorMessage?.let { msgError ->
@@ -61,13 +57,16 @@ fun ClientsScreen(
             if (isSelectableClient) {
                 onClientSelected?.invoke(client.id)
             } else {
-                Toast.makeText(context, client.name, Toast.LENGTH_LONG).show()
                 onNavigateToClientDetail.invoke(client.id)
             }
 
         },
         onNavigateToCreateClient = { idClient ->
             onNavigateToCreateClient.invoke(idClient)
+        },
+        isRefreshing = clientsUiState.isLoading,
+        onRefresh = {
+            clientsViewModel.handleIntent(ClientUiIntent.LoadClients())
         },
         inputName = inputName,
         onInputNameChanged = {

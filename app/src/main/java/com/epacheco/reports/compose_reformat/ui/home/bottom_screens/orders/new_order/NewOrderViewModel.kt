@@ -3,6 +3,7 @@ package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.new_
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ReportsApp
+import com.epacheco.reports.compose_reformat.domain.ClientDetailUseCase
 import com.epacheco.reports.compose_reformat.domain.OrderCreateUseCase
 import com.epacheco.reports.compose_reformat.domain.OrderDeleteUseCase
 import com.epacheco.reports.compose_reformat.domain.OrderUpdateUseCase
@@ -16,6 +17,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,6 +26,7 @@ class NewOrderViewModel @Inject constructor(
     private val orderDeleteUseCase: OrderDeleteUseCase,
     private val orderCreateUseCase: OrderCreateUseCase,
     private val orderUpdateUseCase: OrderUpdateUseCase,
+    private val clientDetailUseCase: ClientDetailUseCase,
     private val app: ReportsApp
 ) :
     BaseViewModel() {
@@ -73,6 +76,31 @@ class NewOrderViewModel @Inject constructor(
             NewOrderUiIntent.HideDialogs -> setErrorMsg()
             is NewOrderUiIntent.UpdateOrder -> if (validInputs()) updateOrder(intent.order)
             else setErrorMsg(app.getString(R.string.order_empty_inputs_error))
+
+            is NewOrderUiIntent.GetClientById -> getClientById(intent.clientId)
+        }
+    }
+
+    private fun getClientById(clientId: String?) = viewModelScope.launch {
+        if (!clientId.isNullOrEmpty()) {
+
+            loading(true)
+            when (val clientResponse = clientDetailUseCase(clientId)) {
+                is Resource.Failure -> {
+                    setErrorMsg(clientResponse.exception.message)
+                }
+
+                is Resource.Success -> {
+
+                    _uiState.update {
+                        it.copy(
+                            client = clientResponse.result
+                        )
+                    }
+                }
+            }
+            loading(false)
+
         }
     }
 
@@ -97,6 +125,7 @@ class NewOrderViewModel @Inject constructor(
             loading(false)
         }
 
+
     private fun deleteOrder(orderId: String, mainOrderId: String) =
         viewModelScope.launch {
             loading(true)
@@ -120,7 +149,9 @@ class NewOrderViewModel @Inject constructor(
                     getNewOrder().copy(
                         orderId = order.orderId,
                         orderListId = order.orderListId,
-                        orderSeason = order.orderSeason
+                        orderSeason = order.orderSeason,
+                        orderClientId = _uiState.value.client?.id ?: order.orderClientId,
+                        orderClientName = _uiState.value.client?.name ?: order.orderClientName
                     )
                 )) {
                 is Resource.Failure -> setErrorMsg(updateOrderResponse.exception.message)
@@ -143,7 +174,9 @@ class NewOrderViewModel @Inject constructor(
             orderColor = _inputProductColor.value,
             orderSizeNumeric = _isProductSizeNumeric.value,
             orderColorCode = _inputProductColorCode.value,
-            orderBuy = _inputProductStatus.value
+            orderBuy = _inputProductStatus.value,
+            orderClientId = _uiState.value.client?.id,
+            orderClientName = _uiState.value.client?.name
         )
 
 
@@ -188,7 +221,6 @@ class NewOrderViewModel @Inject constructor(
     fun onInputGenderChanged(inputGender: String) {
         _inputProductGender.value = inputGender
     }
-
 
     override fun setErrorMsg(msgError: String?) {
         _uiState.value = _uiState.value.copy(errorMessage = msgError, successOperationMsg = null)

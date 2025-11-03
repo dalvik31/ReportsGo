@@ -6,9 +6,13 @@ import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.domain.ClientCreateUseCase
 import com.epacheco.reports.compose_reformat.domain.ClientDeleteUseCase
 import com.epacheco.reports.compose_reformat.domain.ClientDetailUseCase
+import com.epacheco.reports.compose_reformat.domain.ClientUpdateDebtUseCase
 import com.epacheco.reports.compose_reformat.domain.ClientUpdateUseCase
 import com.epacheco.reports.compose_reformat.domain.FinancesGetByClientIdUseCase
+import com.epacheco.reports.compose_reformat.domain.SaleCreateUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
+import com.epacheco.reports.compose_reformat.model.Finances.PaymentType
+import com.epacheco.reports.compose_reformat.model.Finances.Sale
 import com.epacheco.reports.compose_reformat.model.clients.Client
 import com.epacheco.reports.compose_reformat.model.products.Product
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
@@ -18,6 +22,8 @@ import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.deta
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products.new_product.ProductDetailUiEffect
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products.new_product.ProductDetailUiIntent
 import com.epacheco.reports.compose_reformat.utils.DateUtils
+import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE1
+import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE3
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -34,6 +40,8 @@ class DetailClientViewModel @Inject constructor(
     private val clientUpdateUseCase: ClientUpdateUseCase,
     private val clientDeleteUseCase: ClientDeleteUseCase,
     private val clientCreateUseCase: ClientCreateUseCase,
+    private val clientUpdateDebtUseCase: ClientUpdateDebtUseCase,
+    private val saleCreateUseCase: SaleCreateUseCase
 
 ) :
     BaseViewModel() {
@@ -52,6 +60,12 @@ class DetailClientViewModel @Inject constructor(
 
     private val _inputClientCredit = MutableStateFlow("")
     val inputClientCredit: StateFlow<String> = _inputClientCredit
+
+    private val _inputClientAmount = MutableStateFlow("")
+    val inputClientAmount: StateFlow<String> = _inputClientAmount
+
+    private val _inputClientConcept = MutableStateFlow("")
+    val inputClientConcept: StateFlow<String> = _inputClientConcept
 
 
     private val _uiState = MutableStateFlow(DetailClientUiState())
@@ -72,6 +86,7 @@ class DetailClientViewModel @Inject constructor(
             )
 
             is ClientDetailUiIntent.UpdateClient -> updateClient()
+            is ClientDetailUiIntent.UpdateAmountPayClient -> updateAmountPayClient(intent.clientId)
         }
     }
 
@@ -170,6 +185,77 @@ class DetailClientViewModel @Inject constructor(
         loading(false)
     }
 
+    private fun validatePaymentInputs(): Boolean {
+        var inputsPaymentsValid = true
+        if (_inputClientAmount.value.isEmpty()) {
+            inputsPaymentsValid = false
+        }
+
+        return inputsPaymentsValid
+    }
+
+    fun updateAmountPayClient(clientId: String) = viewModelScope.launch {
+        if (!validatePaymentInputs()) {
+            _uiState.update {
+                it.copy(
+                    errorMessage = "Debes ingresar un monto"
+                )
+            }
+            return@launch
+        }
+        loading(true)
+        val currentDebt = (_uiState.value.clientDetail?.debt) ?: 0.0
+        var newDebt = currentDebt - (_inputClientAmount.value.toDouble())
+        when (val clientUpdateDebtResponse =
+            clientUpdateDebtUseCase(clientId, newDebt = newDebt)) {
+
+            is Resource.Success -> {
+                val saleId = DateUtils.now().toString()
+                when (val createSaleResponse =
+                    saleCreateUseCase(
+                        saleDetail = Sale(
+                            saleId = DateUtils.dateFormat(saleId, FORMAT_DATE1),
+                            idClient = clientId,
+                            saleConcept = _inputClientConcept.value.ifEmpty { "Sin concepto" },
+                            paymentType = PaymentType.PAY,
+                            productPriceSale = _inputClientAmount.value.toDouble(),
+                            productPriceBuy = 0.0,
+                            saleDate = saleId,
+                            productName = _inputClientConcept.value.ifEmpty { "Sin concepto" },
+                            nameClient = uiState.value.clientDetail?.name ?: "",
+                        )
+                    )) {
+                    is Resource.Success -> {
+                        _uiState.update {
+                            it.copy(
+                                successMessage = R.string.msg_client_amount_update_success,
+                            )
+                        }
+                        getClientDetail(clientId, false)
+                    }
+
+                    is Resource.Failure -> {
+                        _uiState.update {
+                            it.copy(
+                                errorMessage = createSaleResponse.exception.message
+                            )
+                        }
+                    }
+                }
+            }
+
+            is Resource.Failure -> {
+                _uiState.update {
+                    it.copy(
+                        errorMessage = clientUpdateDebtResponse.exception.message
+                    )
+                }
+            }
+        }
+        loading(false)
+    }
+
+
     private fun setValuesToEdit(client: Client) {
         client.also {
             onInputNameChanged(it.name)
@@ -198,6 +284,14 @@ class DetailClientViewModel @Inject constructor(
 
     fun onInputCreditChanged(inputCredit: String) {
         _inputClientCredit.value = inputCredit
+    }
+
+    fun onInputAmountChanged(inputAmount: String) {
+        _inputClientAmount.value = inputAmount
+    }
+
+    fun onInputConceptChanged(inputConcept: String) {
+        _inputClientConcept.value = inputConcept
     }
 
     override fun setErrorMsg(msgError: String?) {

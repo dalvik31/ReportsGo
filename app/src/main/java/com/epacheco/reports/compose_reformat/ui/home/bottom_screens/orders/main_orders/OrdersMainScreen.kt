@@ -29,13 +29,15 @@ import kotlinx.coroutines.flow.collectLatest
 fun OrdersMainScreen(
     ordersMainViewModel: OrdersMainViewModel = hiltViewModel<OrdersMainViewModel>(),
     onNavigateToElementsMain: ((String, Season?, String) -> Unit)? = null,
-    onNavigateToProfile: (() -> Unit)? = null
+    onNavigateToProfile: (() -> Unit)? = null,
+    clientId: String? = null
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
     val currentState = lifecycleOwner.lifecycle.currentState
     val uiState by ordersMainViewModel.uiState.collectAsState()
     val input by ordersMainViewModel.inputList.collectAsState()
 
+    var showSelectMainOrder by remember { mutableStateOf(false) }
     var showDialogCreateOrder by remember { mutableStateOf(false) }
 
     var showInfoDialog by remember { mutableStateOf(false) }
@@ -43,7 +45,10 @@ fun OrdersMainScreen(
     LaunchedEffect(Unit) {
         if (currentState.isAtLeast(Lifecycle.State.STARTED)) {
             ordersMainViewModel.handleIntent(OrdersMainUiIntent.LoadMainOrders)
+        }
 
+        clientId?.let {
+            showSelectMainOrder = true
         }
     }
 
@@ -136,6 +141,22 @@ fun OrdersMainScreen(
                     Season.SPRING -> stringResource(R.string.season_spring)
                 }
             ),
+            onDismissRequest = {
+                showInfoDialog = false
+            },
+            onConfirmation = {
+                showInfoDialog = false
+                showDialogCreateOrder = true
+            },
+            confirmButtonText = stringResource(R.string.btn_understood)
+        )
+    }
+
+    if (showSelectMainOrder) {
+
+        ReportsInfoDialog(
+            dialogTitle = stringResource(R.string.title_information),
+            dialogSubTitle = "Selecciona una lista de pedidos",
             onDismissRequest = {
                 showInfoDialog = false
             },

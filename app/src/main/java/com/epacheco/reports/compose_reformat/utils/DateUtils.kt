@@ -15,13 +15,12 @@ object DateUtils {
     fun format(date: Date, format: String) = apply(date, format)
 
     fun dateFormat(timestamp: String, format: String): String {
-        val cal = Calendar.getInstance()
-        cal.setTimeInMillis(timestamp.toLong())
+        val cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
         val date = Date(cal.timeInMillis)
-        val sdf = SimpleDateFormat(format, Locale("es"))
-        sdf.timeZone = TimeZone.getTimeZone(TimeZone.getDefault().toString())
+        val simple: DateFormat = SimpleDateFormat(format, Locale.US)
         Log.e("vamoos", "fechaaaaaa: ${date.toString()}")
-        val format = sdf.format(date)
+        cal.setTimeInMillis(timestamp.toLong())
+        val format = simple.format(cal.getTime())
         Log.e("vamoos", "fechaaaaaa2: ${format.toString()}")
         return format
     }

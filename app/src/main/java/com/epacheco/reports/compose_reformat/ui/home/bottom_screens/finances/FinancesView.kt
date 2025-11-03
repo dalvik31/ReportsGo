@@ -36,6 +36,7 @@ import com.epacheco.reports.compose_reformat.general_components.Header
 import com.epacheco.reports.compose_reformat.general_components.ListAnimationItem
 import com.epacheco.reports.compose_reformat.general_components.MoneyItem
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
+import com.epacheco.reports.compose_reformat.model.Finances.PaymentType
 import com.epacheco.reports.compose_reformat.model.Finances.Sale
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
@@ -83,9 +84,9 @@ fun FinancesView(
 
 
         val totalSales =
-            orderMainMainList.asSequence().filter { !it.creditSale }.sumOf { it.productPriceSale }
+            orderMainMainList.asSequence().filter { it.paymentType  == PaymentType.PAY || it.paymentType  == PaymentType.CASH }.sumOf { it.productPriceSale }
         val totalBuy =
-            orderMainMainList.asSequence().filter { !it.creditSale }.sumOf { it.productPriceBuy }
+            orderMainMainList.asSequence().filter { it.paymentType  == PaymentType.PAY || it.paymentType  == PaymentType.CASH }.sumOf { it.productPriceBuy }
 
 
 

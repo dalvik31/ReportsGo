@@ -45,6 +45,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.rememberAsyncImagePainter
 import com.epacheco.reports.R
+import com.epacheco.reports.compose_reformat.model.Finances.PaymentType
 import com.epacheco.reports.compose_reformat.model.Finances.Sale
 import com.epacheco.reports.compose_reformat.model.products.Product
 import com.epacheco.reports.compose_reformat.ui.theme.GreenColor
@@ -79,26 +80,30 @@ fun FinanceItem(
 
             Box {
 
+                val saleType = getTypeSale(saleType = sale.paymentType)
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                    Text(
-                        //sale.saleId,
-                        text = stringResource(if (sale.creditSale) R.string.credit_transaction else R.string.cash_transaction),
 
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        modifier = Modifier
-                            .background(
-                                MaterialTheme.colorScheme.onBackground,
-                                RoundedCornerShape(bottomStart = 10.dp)
-                            )
-                            .padding(horizontal = 10.dp, vertical = 6.dp),
-                        style = MaterialTheme.typography.labelSmall
-                    )
+                    saleType?.let { saleType ->
+                        Text(
+                            //sale.saleId,
+                            text = saleType,
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            modifier = Modifier
+                                .background(
+                                    MaterialTheme.colorScheme.onBackground,
+                                    RoundedCornerShape(bottomStart = 10.dp)
+                                )
+                                .padding(horizontal = 10.dp, vertical = 6.dp),
+                            style = MaterialTheme.typography.labelSmall
+                        )
+                    }
+
                 }
 
 
 
                 Column(
-                    modifier = modifier.combinedClickable(
+                    modifier = modifier.padding(top = 10.dp, start = 10.dp, end = 10.dp, bottom = 5.dp).combinedClickable(
                         onClick = {
                             //onClick?.invoke()
                         },
@@ -120,9 +125,10 @@ fun FinanceItem(
                         AvatarWithIndicator(
                             avatarUrl = sale.imgProduct,
                             indicatorRes = R.drawable.baseline_circle_24,
+                            avatarRes = if(sale.paymentType == PaymentType.PAY) R.drawable.ic_vector_sale else null,
                             avatarSize = 70.dp,
                             indicatorSize = 17.dp,
-                            tintSaleIndicator = if (sale.creditSale) RedDark else GreenColor
+                            tintSaleIndicator = if (sale.paymentType == PaymentType.CREDIT) RedDark else GreenColor
                         )
 
                         Column(
@@ -157,7 +163,7 @@ fun FinanceItem(
                                     colorFilter = ColorFilter.tint(if (sale.creditSale) RedDark else GreenColor)
                                 )*/
                                 Text(
-                                    modifier=modifier,
+                                    modifier = modifier,
                                     text = sale.saleId,
                                     //text = stringResource(if (sale.creditSale) R.string.credit_transaction else R.string.cash_transaction),
                                     color = MaterialTheme.colorScheme.secondary,
@@ -310,6 +316,15 @@ fun FinanceItem(
 }
 
 
+private fun getTypeSale(saleType: PaymentType): String? {
+    return when (saleType) {
+        PaymentType.PAY -> "Abono"
+        PaymentType.CREDIT -> "Compra a credito"
+        PaymentType.CASH -> "Compra en efectivo"
+        PaymentType.UNKNOWN -> null
+    }
+}
+
 @Preview
 @Composable
 fun FinanceItemPreview() {
@@ -319,7 +334,8 @@ fun FinanceItemPreview() {
                 productName = "Producto",
                 nameClient = "cliente",
                 productPriceSale = 34.0,
-                saleId = "31/Oct/2025"
+                saleId = "31/Oct/2025",
+                paymentType = PaymentType.PAY
             )
         )
     }

@@ -36,12 +36,16 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults.Indicator
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -87,12 +91,15 @@ import com.epacheco.reports.compose_reformat.ui.theme.White
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.DateUtils.dateFormat
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ClientInfoView(
     clientTransaction: List<Sale> = emptyList(),
+    isRefreshing: Boolean = false,
+    onRefresh: (() -> Unit)? = null,
     onBackPressed: (() -> Unit)? = null,
 ) {
-
+    val state = rememberPullToRefreshState()
     Column {
         Header(
             title = stringResource(R.string.transactions_title),
@@ -106,16 +113,54 @@ fun ClientInfoView(
             tintImageRight = MaterialTheme.colorScheme.primary
         )
 
-
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(4.dp),
-        ) {
-            items(clientTransaction) {
-                FinanceItem(sale = it)
+        PullToRefreshBox(
+            isRefreshing = isRefreshing,
+            state = state,
+            onRefresh = { onRefresh?.invoke() },
+            indicator = {
+                Indicator(
+                    modifier = Modifier.align(Alignment.TopCenter),
+                    isRefreshing = isRefreshing,
+                    containerColor = MaterialTheme.colorScheme.onPrimary,
+                    color = MaterialTheme.colorScheme.primary,
+                    state = state
+                )
             }
+        ) {
+            if(clientTransaction.isEmpty()){
+                Column(
+                    Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.ic_sales_empty),
+                        contentDescription = null
+                    )
+                    Text(
+                        color = MaterialTheme.colorScheme.primary,
+                        text = stringResource(R.string.msg_info_client_not_found),
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.padding(top = 12.dp)
+                    )
+                }
+            }else{
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize().padding(20.dp),
+                    verticalArrangement = Arrangement.spacedBy(20.dp),
+
+                    ) {
+                    items(clientTransaction) {
+                        FinanceItem(sale = it)
+                    }
+                }
+            }
+
         }
+
+
+
     }
 }
 

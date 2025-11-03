@@ -106,7 +106,7 @@ fun SecondaryItem(
             Text(
                 contentText ?: "",
                 color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.padding(vertical = 10.dp, horizontal = 8.dp),
+                modifier = Modifier.padding(vertical = 5.dp, horizontal = 8.dp),
                 style = MaterialTheme.typography.bodyLarge
             )
             secondaryText?.let {
@@ -240,8 +240,8 @@ fun SecondaryItemPreview() {
             SecondaryItem(
                 modifier = Modifier.weight(1f),
                 text = "text",
-                contentText = "ContentText",
-                secondaryText = null,
+                contentText = null,
+                secondaryText = "null",
                 icon = R.drawable.baseline_circle_24,
                 strikeThrough = false,
             )

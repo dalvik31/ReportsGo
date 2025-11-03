@@ -5,14 +5,14 @@ import com.epacheco.reports.R
 data class BottomHomeNavigationItem(
     val label: Int = R.string.app_name,
     val icon: Int = R.drawable.ic_vector_order,
-    val bottomHomeRoutes: BottomHomeRoutes = BottomHomeRoutes.MainOrdersBottomHomeRoute
+    val bottomHomeRoutes: BottomHomeRoutes = BottomHomeRoutes.MainOrdersBottomHomeRoute()
 ) {
     fun bottomNavigationItems(): List<BottomHomeNavigationItem> {
         return listOf(
             BottomHomeNavigationItem(
                 label = R.string.tab_order_option,
                 icon = R.drawable.ic_vector_order,
-                bottomHomeRoutes = BottomHomeRoutes.MainOrdersBottomHomeRoute
+                bottomHomeRoutes = BottomHomeRoutes.MainOrdersBottomHomeRoute()
             ),
             BottomHomeNavigationItem(
                 label = R.string.tab_clients_option,

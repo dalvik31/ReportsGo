@@ -110,6 +110,7 @@ fun PickerPictureDialogScreen(
     if (showPermissionCameraDialog) {
         CheckPermission(
             permission = Manifest.permission.CAMERA,
+            iconPermission = R.drawable.ic_vector_add_photo,
             onGranted = {
                 cameraLauncher.launch(null)
                 showPermissionCameraDialog = false
@@ -134,6 +135,7 @@ fun PickerPictureDialogScreen(
                 showPermissionGalleryDialog = false
 
             },
+            iconPermission = R.drawable.ic_vector_image,
             permissionRationaleTitle = stringResource(R.string.permission_gallery_product_title),
             permissionOpenSettingsTitle = stringResource(R.string.permission_gallery_settings_product_title),
             onCancel = { showPermissionGalleryDialog = false }

@@ -1,5 +1,6 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.new_order
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -7,20 +8,28 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import coil3.annotation.InternalCoilApi
+import coil3.request.GlobalLifecycle.currentState
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
 import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.model.orders.Season
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.view.ClientDetailUiIntent
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.sales.SalesUiIntent
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import kotlinx.coroutines.flow.collectLatest
 
+@OptIn(InternalCoilApi::class)
 @Composable
 fun NewOrderScreen(
     newOrderViewModel: NewOrderViewModel = hiltViewModel<NewOrderViewModel>(),
+    onNavigateToSelectClient: (() -> Unit)? = null,
     onBackPressed: (() -> Unit)? = null,
     orderToEdit: Order? = null,
-    mainOrderId: String,
-    orderSeason: Season?
+    mainOrderId: String?,
+    orderSeason: Season?,
+    clientIdSelected: String? = null
 ) {
 
     val uiState by newOrderViewModel.uiState.collectAsState()
@@ -33,35 +42,55 @@ fun NewOrderScreen(
     val inputOrderStatus by newOrderViewModel.inputProductStatus.collectAsState()
     val isNumericSize by newOrderViewModel.isProductSizeNumeric.collectAsState()
 
-    LaunchedEffect(orderToEdit) {
-        orderToEdit?.let {
-            newOrderViewModel.onInputNameChanged(it.orderName)
-            newOrderViewModel.onInputStatusChanged(it.orderBuy)
-            newOrderViewModel.onInputGenderChanged(it.orderGender)
-            newOrderViewModel.onInputColorChanged(it.orderColor)
-            newOrderViewModel.onInputSizeChanged(it.orderSize)
-            newOrderViewModel.onInputDescriptionChanged(it.orderDescription)
-            newOrderViewModel.onInputColorCodeChanged(it.orderColorCode)
-            newOrderViewModel.onIsNumericSizeChanged(it.orderSizeNumeric)
-        }
-    }
-    LaunchedEffect(newOrderViewModel) {
-        newOrderViewModel.effectFlow.collectLatest { effect ->
-            when (effect) {
-                NewOrderUiEffect.NavigateBack -> {
-                    onBackPressed?.invoke()
+    LaunchedEffect(Unit) {
+        if (currentState.isAtLeast(Lifecycle.State.STARTED)) {
+
+            clientIdSelected?.let {
+                newOrderViewModel.handleIntent(NewOrderUiIntent.GetClientById(clientIdSelected))
+            }
+
+
+            orderToEdit?.let {
+                newOrderViewModel.onInputNameChanged(it.orderName)
+                newOrderViewModel.onInputStatusChanged(it.orderBuy)
+                newOrderViewModel.onInputGenderChanged(it.orderGender)
+                newOrderViewModel.onInputColorChanged(it.orderColor)
+                newOrderViewModel.onInputSizeChanged(it.orderSize)
+                newOrderViewModel.onInputDescriptionChanged(it.orderDescription)
+                newOrderViewModel.onInputColorCodeChanged(it.orderColorCode)
+                newOrderViewModel.onIsNumericSizeChanged(it.orderSizeNumeric)
+                if(clientIdSelected.isNullOrEmpty()){
+                    newOrderViewModel.handleIntent(NewOrderUiIntent.GetClientById(it.orderClientId))
+                    Log.e("aqui","vamoooos clientIdSelected: ${clientIdSelected}")
+                }else{
+                    Log.e("aqui","vamoooos2 clientIdSelected: ")
+                }
+
+
+            }
+
+
+            newOrderViewModel.effectFlow.collectLatest { effect ->
+                when (effect) {
+                    NewOrderUiEffect.NavigateBack -> {
+                        onBackPressed?.invoke()
+                    }
                 }
             }
+
         }
     }
 
-    NewOrderView(onInputStatus = inputOrderStatus, onInputStatusChanged = {
-        newOrderViewModel.onInputStatusChanged(it)
-    }, onInputIsNumericSize = isNumericSize, onInputIsNumericSizeChanged = {
-        newOrderViewModel.onIsNumericSizeChanged(it)
-    }, inputName = inputName, onInputNameChanged = {
-        newOrderViewModel.onInputNameChanged(it)
-    },
+
+    NewOrderView(
+        clientSelected = uiState.client,
+        onInputStatus = inputOrderStatus, onInputStatusChanged = {
+            newOrderViewModel.onInputStatusChanged(it)
+        }, onInputIsNumericSize = isNumericSize, onInputIsNumericSizeChanged = {
+            newOrderViewModel.onIsNumericSizeChanged(it)
+        }, inputName = inputName, onInputNameChanged = {
+            newOrderViewModel.onInputNameChanged(it)
+        },
         inputDescription = inputDescription, onInputDescriptionChanged = {
             newOrderViewModel.onInputDescriptionChanged(it)
         },
@@ -78,7 +107,14 @@ fun NewOrderScreen(
         inputGender = inputGender, onInputGenderChanged = {
             newOrderViewModel.onInputGenderChanged(it)
         }, onCreateOrder = {
-            newOrderViewModel.handleIntent(NewOrderUiIntent.CreateOrder(mainOrderId, orderSeason))
+            mainOrderId?.let {
+                newOrderViewModel.handleIntent(
+                    NewOrderUiIntent.CreateOrder(
+                        mainOrderId,
+                        orderSeason
+                    )
+                )
+            }
         },
         orderToEdit = orderToEdit,
         onUpdateOrder = {
@@ -97,6 +133,9 @@ fun NewOrderScreen(
 
         }, onBackPressed = {
             onBackPressed?.invoke()
+        },
+        onInputClientChanged = {
+            onNavigateToSelectClient?.invoke()
         })
 
     //Message error
