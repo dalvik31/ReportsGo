@@ -1,10 +1,10 @@
 package com.epacheco.reports.compose_reformat.ui.home
 
+
 import android.util.Log
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -13,13 +13,21 @@ import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -49,53 +57,38 @@ import com.epacheco.reports.compose_reformat.utils.extensions.serializableType
 import kotlin.reflect.typeOf
 
 @Composable
-fun HomeScreen(onNavigateToRegister: () -> Unit) {
+fun HomeScreenAlt(onNavigateToRegister: () -> Unit) {
+
+    /*val navBackStackEntry by bottomNavController.currentBackStackEntryAsState()
+
+    var curDestination by remember { mutableStateOf(0) }*/
     val navController = rememberNavController()
-    val items = BottomHomeNavigationItem().bottomNavigationItems()
+    val items2 = BottomHomeNavigationItem().bottomNavigationItems()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route
-    Log.e("aqui", "estamoooos: ${navBackStackEntry?.destination?.route?.fromPath()}")
-    Log.e(
-        "aqui",
-        "estamoooos2: ${MainOrdersBottomHomeRoute.javaClass.canonicalName.substringBefore(".Companion")}"
-    )
-    Log.e(
-        "aqui",
-        "estamoooos3: ${
-            BottomHomeRoutes.ClientBottomHomeRoute.javaClass.canonicalName.substringBefore(".Companion")
-        }"
-    )
-
-    val showBottomBar = currentRoute?.fromPath() in listOf(
-        MainOrdersBottomHomeRoute.javaClass.canonicalName.substringBefore(".Companion"),
-        BottomHomeRoutes.ClientBottomHomeRoute.javaClass.canonicalName.substringBefore(".Companion"),
-        BottomHomeRoutes.ProductBottomHomeRoute.javaClass.canonicalName.substringBefore(".Companion"),
-        BottomHomeRoutes.SaleBottomHomeRoute.javaClass.canonicalName.substringBefore(".Companion"),
-
-        )
-
-
+    val currentRoute = navBackStackEntry?.destination?.route?.fromPath()
+    Log.e("aqui","vamooooos currentRoute1: ${navBackStackEntry?.destination?.route}")
+    Log.e("aqui","vamooooos currentRoute2: ${currentRoute}")
+    val items = BottomHomeNavigationItem().bottomNavigationItems()
+    val bottomNavController = rememberNavController()
+    val currentTopLevelDestination by bottomNavController.currentTabItemAsState()
 
     Scaffold(
+        modifier = Modifier.fillMaxSize(),
         bottomBar = {
-            AnimatedVisibility(
-                visible = showBottomBar,
-                enter = slideInVertically(initialOffsetY = { it }), // Slide in from bottom
-                exit = slideOutVertically(targetOffsetY = { it }) // Slide out to bottom
-            ) {
-                NavigationBar {
+            BottomAppBar() {
+                NavigationBar(containerColor = MaterialTheme.colorScheme.background) {
 
-                    items.forEach { navigationItem ->
-
+                    items.forEachIndexed { index, navigationItem ->
+                        val isTabSelected = index == currentTopLevelDestination
                         NavigationBarItem(
+                            selected = isTabSelected,
+                            label = { Text(stringResource(navigationItem.label)) },
                             icon = {
                                 Icon(
                                     ImageVector.vectorResource(navigationItem.icon),
                                     contentDescription = stringResource(navigationItem.label)
                                 )
                             },
-                            label = { Text(stringResource(navigationItem.label)) },
-                            selected = currentRoute?.fromPath() == navigationItem.route.fromPath(),
                             colors = NavigationBarItemColors(
                                 selectedIconColor = RedDark,
                                 unselectedIconColor = MaterialTheme.colorScheme.primary,
@@ -106,45 +99,51 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                                 disabledTextColor = MaterialTheme.colorScheme.onPrimary,
                             ),
                             onClick = {
-                                navController.navigate(navigationItem.bottomHomeRoutes) {
+                                bottomNavController.navigate(route = navigationItem.bottomHomeRoutes) {
                                     // Pop up to the start destination of the graph to
                                     // avoid building up a large stack of destinations
                                     // on the back stack as users select items
-                                    popUpTo(navController.graph.startDestinationId) {
-                                        saveState = true
+                                    popUpTo(bottomNavController.graph.findStartDestination().id) {
+                                        saveState = !isTabSelected
                                     }
                                     // Avoid multiple copies of the same destination when
                                     // reselecting the same item
                                     launchSingleTop = true
-                                    // Restore state when reselecting previously selected item
-                                    restoreState = true
+                                    // Restore state when reselecting a previously selected item
+                                    restoreState = !isTabSelected
                                 }
+
                             }
                         )
                     }
                 }
             }
-
-
+            /*AnimatedNavigationBar(
+                buttons = BottomHomeNavigationItem().bottomNavigationItems(),
+                barColor = MaterialTheme.colorScheme.primaryContainer,
+                circleColor = MaterialTheme.colorScheme.primaryContainer,
+                selectedColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                unselectedColor = MaterialTheme.colorScheme.inversePrimary,
+                bottomNavController
+            )*/
         }
-    ) { innerPadding ->
+    ) { paddingValues ->
         NavHost(
-            navController,
+            navController = bottomNavController,
             startDestination = MainOrdersBottomHomeRoute(),
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(paddingValues = paddingValues),
         ) {
-
             composable<MainOrdersBottomHomeRoute> { backStackEntry ->
                 val clientIdFromClientDetail =
                     backStackEntry.toRoute<MainOrdersBottomHomeRoute>().idClient
                 OrdersMainScreen(
                     onNavigateToProfile = {
-                        navController.navigate(
+                        bottomNavController.navigate(
                             BottomHomeRoutes.ProfileBottomHomeRoute
                         )
                     },
                     onNavigateToElementsMain = { mainOrderId, orderSeason, orderNameMain ->
-                        navController.navigate(
+                        bottomNavController.navigate(
                             BottomHomeRoutes.DetailMainOrdersBottomHomeRoute(
                                 mainOrderId,
                                 orderSeason = orderSeason,
@@ -159,12 +158,12 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                     backStackEntry.toRoute()
                 ClientsScreen(
                     onNavigateToProfile = {
-                        navController.navigate(
+                        bottomNavController.navigate(
                             BottomHomeRoutes.ProfileBottomHomeRoute
                         )
                     },
                     onNavigateToClientDetail = { idClient ->
-                        navController.navigate(
+                        bottomNavController.navigate(
                             BottomHomeRoutes.ClientDetailBottomHomeRoute(
                                 idClient
                             )
@@ -172,7 +171,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
 
                     },
                     onNavigateToCreateClient = { idClient ->
-                        navController.navigate(
+                        bottomNavController.navigate(
                             BottomHomeRoutes.ClientCreateNewBottomHomeRoute(
                                 idClient
                             )
@@ -180,11 +179,11 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                     },
                     isSelectableClient = clientIsSelect.isSelectableClient,
                     onClientSelected = { clientName ->
-                        navController.previousBackStackEntry?.savedStateHandle?.set(
+                        bottomNavController.previousBackStackEntry?.savedStateHandle?.set(
                             "resultStatus",
                             clientName
                         )
-                        navController.navigateUp()
+                        bottomNavController.navigateUp()
                     })
             }
             composable<BottomHomeRoutes.ClientDetailBottomHomeRoute> { backStackEntry ->
@@ -193,22 +192,22 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                 ClientDetailScreen(
                     clientId = createDetailRout.idClient,
                     onBackPressed = {
-                        navController.navigateUp()
+                        bottomNavController.navigateUp()
                     },
                     openClientTransaction = {
-                        navController.navigate(
+                        bottomNavController.navigate(
                             BottomHomeRoutes.ClientDetailInformation(
                                 it
                             )
                         )
                     },
                     openClientSale = { clientId ->
-                        navController.navigate(
+                        bottomNavController.navigate(
                             route = BottomHomeRoutes.SaleBottomHomeRoute(clientId),
                         )
                     },
                     openClientOrder = { clientId ->
-                        navController.navigate(
+                        bottomNavController.navigate(
                             BottomHomeRoutes.ClientOrdersBottomHomeRoute(idClient = clientId)
                         )
                     },
@@ -218,7 +217,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                 val clientId: BottomHomeRoutes.ClientCreateNewBottomHomeRoute =
                     backStackEntry.toRoute()
                 NewClientScreen(clientId = clientId.idClient, onBackPressed = {
-                    navController.navigateUp()
+                    bottomNavController.navigateUp()
                 })
 
             }
@@ -226,21 +225,21 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                 val productIsSelect: BottomHomeRoutes.ProductBottomHomeRoute =
                     backStackEntry.toRoute()
                 ProductsScreen(onNavigateToProductDetail = { productId ->
-                    navController.navigate(
+                    bottomNavController.navigate(
                         BottomHomeRoutes.CreateProductBottomHomeRoute(
                             productId = productId
                         )
                     )
                 }, onNavigateToProfile = {
-                    navController.navigate(
+                    bottomNavController.navigate(
                         BottomHomeRoutes.ProfileBottomHomeRoute
                     )
                 }, isSelectableProduct = productIsSelect.isSelectableProduct, onProductSelected = {
-                    navController.previousBackStackEntry?.savedStateHandle?.set(
+                    bottomNavController.previousBackStackEntry?.savedStateHandle?.set(
                         "productResult",
                         it
                     )
-                    navController.navigateUp()
+                    bottomNavController.navigateUp()
                 })
             }
             composable<BottomHomeRoutes.SaleBottomHomeRoute> { backStackEntry ->
@@ -262,15 +261,15 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                 backStackEntry.savedStateHandle.remove<String>("resultStatus")
                 backStackEntry.savedStateHandle.remove<String>("productResult")
                 SalesScreen(onNavigateToFinances = {
-                    navController.navigate(
+                    bottomNavController.navigate(
                         BottomHomeRoutes.FinancesBottomHomeRoute
                     )
                 }, onNavigateToProfile = {
-                    navController.navigate(
+                    bottomNavController.navigate(
                         BottomHomeRoutes.ProfileBottomHomeRoute
                     )
                 }, onNavigateToSelectClient = {
-                    navController.navigate(
+                    bottomNavController.navigate(
                         BottomHomeRoutes.ClientBottomHomeRoute(
                             isSelectableClient = true
                         )
@@ -282,7 +281,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
 
 
                 }, onNavigateToSelectProduct = {
-                    navController.navigate(
+                    bottomNavController.navigate(
                         BottomHomeRoutes.ProductBottomHomeRoute(
                             isSelectableProduct = true
                         )
@@ -297,7 +296,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
 
             composable<BottomHomeRoutes.FinancesBottomHomeRoute> {
                 FinancesScreen(onBackPressed = {
-                    navController.navigateUp()
+                    bottomNavController.navigateUp()
                 })
             }
             composable<BottomHomeRoutes.ProfileBottomHomeRoute>(
@@ -309,11 +308,11 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                         onNavigateToRegister.invoke()
                     }, onNavigateToFinances = {
                         goProfileToRoute(
-                            navController,
+                            bottomNavController,
                             BottomHomeRoutes.SaleBottomHomeRoute(null)
                         )
                     }, onNavigateToOrders = {
-                        navController.navigate(
+                        bottomNavController.navigate(
                             route =
                                 MainOrdersBottomHomeRoute,
                         ) {
@@ -324,13 +323,13 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                     },
                     onNavigateToClients = {
                         goProfileToRoute(
-                            navController,
+                            bottomNavController,
                             BottomHomeRoutes.ClientBottomHomeRoute()
                         )
                     },
                     onNavigateToProducts = {
                         goProfileToRoute(
-                            navController,
+                            bottomNavController,
                             BottomHomeRoutes.ProductBottomHomeRoute()
                         )
                     })
@@ -339,7 +338,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                 val orderMainRoute: BottomHomeRoutes.ClientDetailInformation =
                     backStackEntry.toRoute()
                 ClientInfoScreen(clientId = orderMainRoute.idClient, onBackPressed = {
-                    navController.navigateUp()
+                    bottomNavController.navigateUp()
                 })
             }
 
@@ -347,10 +346,10 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                 val clientId: BottomHomeRoutes.ClientOrdersBottomHomeRoute =
                     backStackEntry.toRoute()
                 ClientOrderScreen(clientId = clientId.idClient, onBackPressed = {
-                    navController.navigateUp()
+                    bottomNavController.navigateUp()
                 }, onOrderMainSelected = { mainOrderId, orderSeason, orderNameMain, openOrder ->
                     Log.e("aqui", "estamos en el bottom${openOrder}")
-                    navController.navigate(
+                    bottomNavController.navigate(
                         BottomHomeRoutes.CreateOrderBottomHomeRoute(
                             null,
                             mainOrderId,
@@ -369,7 +368,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                     nameOrderMain = orderMainRoute.nameOrderMain,
 
                     onNavigateToCreateOrder = { mainOrderId, orderSeason ->
-                        navController.navigate(
+                        bottomNavController.navigate(
                             BottomHomeRoutes.CreateOrderBottomHomeRoute(
                                 null,
                                 mainOrderId,
@@ -379,7 +378,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                         )
                     },
                     onNavigateToEditOrder = {
-                        navController.navigate(
+                        bottomNavController.navigate(
                             BottomHomeRoutes.CreateOrderBottomHomeRoute(
                                 it,
                                 "",
@@ -389,7 +388,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                         )
                     },
                     onBackPressed = {
-                        navController.navigateUp()
+                        bottomNavController.navigateUp()
                     }, clientId = orderMainRoute.clientId
                 )
             }
@@ -399,11 +398,11 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                 val createProductRoute: BottomHomeRoutes.CreateProductBottomHomeRoute =
                     backStackEntry.toRoute()
                 NewProductScreen(productToEdit = createProductRoute.productId, onBackPressed = {
-                    navController.navigateUp()
+                    bottomNavController.navigateUp()
                 })
             }
 
-            composable<BottomHomeRoutes.CreateOrderBottomHomeRoute> { backStackEntry ->
+            composable<BottomHomeRoutes.CreateOrderBottomHomeRoute>(typeMap = mapOf(typeOf<Order?>() to serializableType<Order?>())) { backStackEntry ->
                 val orderMainRoute: BottomHomeRoutes.CreateOrderBottomHomeRoute =
                     backStackEntry.toRoute()
 
@@ -415,7 +414,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
 
                 if (orderMainRoute.clientId != null) {
                     clientId = orderMainRoute.clientId
-                } else if (clientIdFromOrder.value != null) {
+                }else if(clientIdFromOrder.value != null){
                     clientId = clientIdFromOrder.value
                 }
                 backStackEntry.savedStateHandle.remove<String>("resultStatus")
@@ -425,7 +424,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                     mainOrderId = orderMainRoute.idOrderMain,
                     orderToEdit = orderMainRoute.orderToEdit,
                     onNavigateToSelectClient = {
-                        navController.navigate(
+                        bottomNavController.navigate(
                             BottomHomeRoutes.ClientBottomHomeRoute(
                                 isSelectableClient = true
                             )
@@ -437,16 +436,13 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                     },
                     clientIdSelected = clientId,
                     onBackPressed = {
-                        navController.navigateUp()
+                        bottomNavController.navigateUp()
                     })
             }
-            /*composable(Screen.Home.route) { HomeScreen(navController) }
-            composable(Screen.Favorites.route) { FavoritesScreen() }
-            composable(Screen.Settings.route) { SettingsScreen() }
-            composable(Screen.Profile.route) { ProfileScreen() }*/
         }
     }
 }
+
 
 private fun goProfileToRoute(
     bottomNavController: NavHostController,
@@ -460,4 +456,93 @@ private fun goProfileToRoute(
             inclusive = true
         }
     }
+}
+
+@Composable
+private fun NavController.currentTabItemAsState(): State<Int> {
+    val selectedItem = remember { mutableIntStateOf(0) }
+
+    DisposableEffect(this) {
+        val listener = NavController.OnDestinationChangedListener { _, destination, _ ->
+
+            destination.hierarchy.forEachIndexed { index, navigationItem ->
+                if (navigationItem.route == MainOrdersBottomHomeRoute.javaClass.canonicalName
+                ) {
+                    selectedItem.intValue = 0
+                    return@forEachIndexed
+                }
+                if (navigationItem.route == BottomHomeRoutes.ClientBottomHomeRoute.javaClass.canonicalName
+                ) {
+                    selectedItem.intValue = 1
+                    return@forEachIndexed
+                }
+                if (navigationItem.route == BottomHomeRoutes.ProductBottomHomeRoute.javaClass.canonicalName
+                ) {
+                    selectedItem.intValue = 2
+                    return@forEachIndexed
+                }
+                if (navigationItem.route == BottomHomeRoutes.SaleBottomHomeRoute.javaClass.canonicalName
+                ) {
+                    selectedItem.intValue = 3
+                    return@forEachIndexed
+                }
+
+
+            }
+            /*destination.hierarchy.any {
+                Log.e("aqui","MainOrdersBottomHomeRoute: vanoooos1: ${  it.route}")
+                Log.e("aqui","MainOrdersBottomHomeRoute: vanoooo2: ${   BottomHomeRoutes.MainOrdersBottomHomeRoute.javaClass.canonicalName}")
+
+
+
+
+                it.route == BottomHomeRoutes.MainOrdersBottomHomeRoute.javaClass.canonicalName
+
+
+            }*/
+            /*when {
+                destination.hierarchy.any {
+                    Log.e("aqui","MainOrdersBottomHomeRoute: vanoooos1: ${  it.route}")
+                    Log.e("aqui","MainOrdersBottomHomeRoute: vanoooo2: ${   BottomHomeRoutes.MainOrdersBottomHomeRoute.javaClass.canonicalName}")
+                    it.route == BottomHomeRoutes.MainOrdersBottomHomeRoute.javaClass.canonicalName
+
+
+                } -> {
+                    selectedItem.intValue = 0
+                }
+
+
+                destination.hierarchy.any {
+                    Log.e("aqui","ClientBottomHomeRoute: vanoooos1: ${  it.route}")
+                    Log.e("aqui","ClientBottomHomeRoute: vanoooos1: ${  it.route}")
+                    Log.e("aqui","ClientBottomHomeRoute: vanoooos2: ${   BottomHomeRoutes.ClientBottomHomeRoute.javaClass.simpleName}")
+
+                    it.label == BottomHomeRoutes.ClientBottomHomeRoute.javaClass.canonicalName
+                } -> {
+                    selectedItem.intValue = 1
+                }
+
+                destination.hierarchy.any { it.route == BottomHomeRoutes.ProductBottomHomeRoute.javaClass.canonicalName } -> {
+                    selectedItem.intValue = 2
+                }
+
+                destination.hierarchy.any { it.route == BottomHomeRoutes.SaleBottomHomeRoute.javaClass.canonicalName } -> {
+                    selectedItem.intValue = 3
+                }
+            }*/
+        }
+        addOnDestinationChangedListener(listener)
+
+        onDispose {
+            removeOnDestinationChangedListener(listener)
+        }
+    }
+
+    return selectedItem
+}
+
+@Preview
+@Composable
+fun HomePreview() {
+    HomeScreenAlt({})
 }

@@ -12,6 +12,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.epacheco.reports.compose_reformat.ui.account.AccountScreen
 import com.epacheco.reports.compose_reformat.ui.home.HomeScreen
+import com.epacheco.reports.compose_reformat.ui.home.MainScreen
 import com.epacheco.reports.compose_reformat.ui.recovery_password.PasswordScreen
 import com.epacheco.reports.compose_reformat.ui.splash.SplashScreen
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
@@ -30,18 +31,18 @@ fun ReportsNavHost(
 
             composable<NavHostScreens.SplashRoute> {
 
-                    SplashScreen(onNavigateToHome = {
+                SplashScreen(onNavigateToHome = {
 
-                            navController.navigate(NavHostScreens.HomeRoute) {
-                                popUpTo(NavHostScreens.SplashRoute) { inclusive = true }
-                            }
+                    navController.navigate(NavHostScreens.HomeRoute) {
+                        popUpTo(NavHostScreens.SplashRoute) { inclusive = true }
+                    }
 
 
-                    }, onNavigateToLogin = {
-                        navController.navigate(NavHostScreens.RegisterRoute) {
-                            popUpTo(NavHostScreens.SplashRoute) { inclusive = true }
-                        }
-                    })
+                }, onNavigateToLogin = {
+                    navController.navigate(NavHostScreens.RegisterRoute) {
+                        popUpTo(NavHostScreens.SplashRoute) { inclusive = true }
+                    }
+                })
 
 
             }
@@ -65,6 +66,11 @@ fun ReportsNavHost(
                         popUpTo(NavHostScreens.HomeRoute) { inclusive = true }
                     }
                 })
+                /*HomeScreen(onNavigateToRegister = {
+                    navController.navigate(NavHostScreens.RegisterRoute) {
+                        popUpTo(NavHostScreens.HomeRoute) { inclusive = true }
+                    }
+                })*/
             }
         }
 

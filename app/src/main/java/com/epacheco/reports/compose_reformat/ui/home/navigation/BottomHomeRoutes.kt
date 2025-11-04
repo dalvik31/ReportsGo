@@ -6,8 +6,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 sealed interface BottomHomeRoutes {
+
     @Serializable
-    data class MainOrdersBottomHomeRoute(val idClient: String? = null) : BottomHomeRoutes
+    data class MainOrdersBottomHomeRoute(
+        val route: String = "Orders",
+        val idClient: String? = null
+    ) : BottomHomeRoutes
 
     @Serializable
     data class DetailMainOrdersBottomHomeRoute(
@@ -20,17 +24,20 @@ sealed interface BottomHomeRoutes {
 
     @Serializable
     data class CreateOrderBottomHomeRoute(
-        val orderToEdit: Order?,
+        val orderToEdit: String?,
         val idOrderMain: String?,
         val orderSeason: Season?,
         val clientId: String? = null
     ) : BottomHomeRoutes
 
     @Serializable
-    data class ClientDetailInformation(val idClient: String?) : BottomHomeRoutes
+    data class ClientDetailInformation(val idClient: String?) : BottomHomeRoutes {
+
+    }
 
     @Serializable
-    data class ClientOrdersBottomHomeRoute(val idClient: String?) : BottomHomeRoutes
+    data class ClientOrdersBottomHomeRoute(val route: String = "Clients", val idClient: String?) :
+        BottomHomeRoutes
 
     @Serializable
     data class ClientDetailBottomHomeRoute(val idClient: String?) : BottomHomeRoutes

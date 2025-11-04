@@ -26,7 +26,7 @@ fun NewOrderScreen(
     newOrderViewModel: NewOrderViewModel = hiltViewModel<NewOrderViewModel>(),
     onNavigateToSelectClient: (() -> Unit)? = null,
     onBackPressed: (() -> Unit)? = null,
-    orderToEdit: Order? = null,
+    orderToEdit: String? = null,
     mainOrderId: String?,
     orderSeason: Season?,
     clientIdSelected: String? = null
@@ -50,7 +50,7 @@ fun NewOrderScreen(
             }
 
 
-            orderToEdit?.let {
+           /* orderToEdit?.let {
                 newOrderViewModel.onInputNameChanged(it.orderName)
                 newOrderViewModel.onInputStatusChanged(it.orderBuy)
                 newOrderViewModel.onInputGenderChanged(it.orderGender)
@@ -66,8 +66,7 @@ fun NewOrderScreen(
                     Log.e("aqui","vamoooos2 clientIdSelected: ")
                 }
 
-
-            }
+            }*/
 
 
             newOrderViewModel.effectFlow.collectLatest { effect ->
@@ -119,14 +118,14 @@ fun NewOrderScreen(
         orderToEdit = orderToEdit,
         onUpdateOrder = {
             orderToEdit?.let {
-                newOrderViewModel.handleIntent(NewOrderUiIntent.UpdateOrder(it))
+                //newOrderViewModel.handleIntent(NewOrderUiIntent.UpdateOrder(it))
             }
         }, onDeleteOrder = {
             orderToEdit?.let {
                 newOrderViewModel.handleIntent(
                     NewOrderUiIntent.DeleteOrder(
-                        it.orderId,
-                        it.orderListId
+                        "it.orderId",
+                        "it.orderListId"
                     )
                 )
             }

@@ -43,7 +43,7 @@ fun OrdersMainScreen(
     var showInfoDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-        if (currentState.isAtLeast(Lifecycle.State.STARTED)) {
+        if (currentState.isAtLeast(Lifecycle.State.CREATED)) {
             ordersMainViewModel.handleIntent(OrdersMainUiIntent.LoadMainOrders)
         }
 

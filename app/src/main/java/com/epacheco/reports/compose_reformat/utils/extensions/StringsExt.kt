@@ -1,6 +1,7 @@
 package com.epacheco.reports.compose_reformat.utils.extensions
 
 import android.content.Context
+import android.util.Log
 import android.util.Patterns
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -8,6 +9,8 @@ import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.model.orders.OrderMain
 import com.epacheco.reports.compose_reformat.model.orders.Season
 import androidx.core.graphics.toColorInt
+import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeNavigationItem
+import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes
 
 
 fun String.validateEmail(): Boolean = Patterns.EMAIL_ADDRESS.matcher(this).matches()
@@ -63,3 +66,14 @@ fun String.Initials(): String {
     return initials.toString()
 }
 
+
+fun String.fromPath(): String {
+    val name = if (this.contains("/")) {
+        this.split("/").first()
+    } else if (this.contains("?")) {
+        this.split("?").first()
+    } else this
+    Log.e("fromPath","vamooooos currentRoute aqui: ${this}")
+    Log.e("fromPath","vamooooos currentRoute aqui: ${name}")
+    return name
+}

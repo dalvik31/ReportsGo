@@ -77,7 +77,8 @@ fun NewOrderView(
     onInputColorCodeChanged: ((String) -> Unit)? = null,
     onInputGenderChanged: ((String) -> Unit)? = null,
     inputGender: String? = null,
-    orderToEdit: Order? = null,
+    orderToEdit: String? = null,
+    orderNameToEdit: String? = null,
     onCreateOrder: (() -> Unit)? = null,
     onDeleteOrder: (() -> Unit?)? = null,
     onUpdateOrder: (() -> Unit?)? = null,
@@ -413,7 +414,7 @@ fun NewOrderView(
             dialogTitle = stringResource(R.string.msg_delete_order_title),
             dialogSubTitle = stringResource(
                 R.string.msg_delete_order_list_body,
-                orderToEdit?.orderName ?: ""
+                orderNameToEdit ?: ""
             ),
             confirmButtonText = stringResource(R.string.btn_ok),
             cancelButtonText = stringResource(R.string.btn_cancel),
@@ -465,6 +466,6 @@ fun getTintColor(position: Int): Color {
 @Composable
 fun NewOrderViewPreview() {
     ReportsGoTheme {
-        NewOrderView(orderToEdit = Order())
+        NewOrderView(orderToEdit = "")
     }
 }
