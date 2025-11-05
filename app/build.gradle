@@ -15,8 +15,8 @@ android {
         applicationId "com.epacheco.reports"
         minSdk 26
         targetSdk 36
-        versionCode 21
-        versionName "2.0.0.260925"
+        versionCode 23
+        versionName "2.0.0.051125"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
@@ -40,11 +40,6 @@ android {
 
     buildTypes {
         release {
-            signingConfig signingConfigs.release
-            minifyEnabled false
-            debuggable true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-
         }
     }
 
