@@ -6,6 +6,7 @@ import com.epacheco.reports.compose_reformat.ReportsApp
 import com.epacheco.reports.compose_reformat.domain.ClientDetailUseCase
 import com.epacheco.reports.compose_reformat.domain.OrderCreateUseCase
 import com.epacheco.reports.compose_reformat.domain.OrderDeleteUseCase
+import com.epacheco.reports.compose_reformat.domain.OrderGetByIdUseCase
 import com.epacheco.reports.compose_reformat.domain.OrderUpdateUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.model.orders.Order
@@ -13,6 +14,7 @@ import com.epacheco.reports.compose_reformat.model.orders.Season
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -27,6 +29,7 @@ class NewOrderViewModel @Inject constructor(
     private val orderCreateUseCase: OrderCreateUseCase,
     private val orderUpdateUseCase: OrderUpdateUseCase,
     private val clientDetailUseCase: ClientDetailUseCase,
+    private val orderGetByIdUseCase: OrderGetByIdUseCase,
     private val app: ReportsApp
 ) :
     BaseViewModel() {
@@ -74,12 +77,58 @@ class NewOrderViewModel @Inject constructor(
 
             is NewOrderUiIntent.DeleteOrder -> deleteOrder(intent.orderId, intent.mainOrderId)
             NewOrderUiIntent.HideDialogs -> setErrorMsg()
-            is NewOrderUiIntent.UpdateOrder -> if (validInputs()) updateOrder(intent.order)
+             NewOrderUiIntent.UpdateOrder -> if (validInputs()) updateOrder()
             else setErrorMsg(app.getString(R.string.order_empty_inputs_error))
 
             is NewOrderUiIntent.GetClientById -> getClientById(intent.clientId)
+            is NewOrderUiIntent.GetOrderById -> getOrderById(intent.orderMainId, intent.orderId, intent.callClientInfo)
+            NewOrderUiIntent.RemoveClient -> removeClient()
         }
     }
+
+    private fun removeClient() {
+        _uiState.value = _uiState.value.copy(client = null)
+    }
+
+    private fun getOrderById(orderMainId: String, orderId: String, callClientInfo: Boolean) = viewModelScope.launch {
+
+        loading(true)
+        when (val orderToEditResponse = orderGetByIdUseCase(orderMainId, orderId)) {
+            is Resource.Failure -> {
+                setErrorMsg(orderToEditResponse.exception.message)
+            }
+
+            is Resource.Success -> {
+                _uiState.update {
+                    it.copy(
+                        orderToEdit = orderToEditResponse.result
+                    )
+                }
+                val orderClientId =orderToEditResponse.result?.orderClientId
+                if(!orderClientId.isNullOrEmpty() && callClientInfo){
+                    getClientById(orderClientId)
+                }
+                setValuesToEdit(orderToEditResponse.result)
+            }
+        }
+        loading(false)
+
+    }
+
+    private fun setValuesToEdit(order: Order?) {
+        order?.let {
+            onInputNameChanged(it.orderName)
+            onInputStatusChanged(it.orderBuy)
+            onInputGenderChanged(it.orderGender)
+            onInputColorChanged(it.orderColor)
+            onInputSizeChanged(it.orderSize)
+            onInputDescriptionChanged(it.orderDescription)
+            onInputColorCodeChanged(it.orderColorCode)
+            onIsNumericSizeChanged(it.orderSizeNumeric)
+        }
+
+    }
+
 
     private fun getClientById(clientId: String?) = viewModelScope.launch {
         if (!clientId.isNullOrEmpty()) {
@@ -141,26 +190,31 @@ class NewOrderViewModel @Inject constructor(
         }
 
 
-    private fun updateOrder(order: Order) =
+    private fun updateOrder() =
         viewModelScope.launch {
             loading(true)
-            when (val updateOrderResponse =
-                orderUpdateUseCase(
-                    getNewOrder().copy(
-                        orderId = order.orderId,
-                        orderListId = order.orderListId,
-                        orderSeason = order.orderSeason,
-                        orderClientId = _uiState.value.client?.id ?: order.orderClientId,
-                        orderClientName = _uiState.value.client?.name ?: order.orderClientName
-                    )
-                )) {
-                is Resource.Failure -> setErrorMsg(updateOrderResponse.exception.message)
-                is Resource.Success -> {
-                    _uiState.value =
-                        _uiState.value.copy(successOperationMsg = R.string.msg_order_update_success)
-                    _effectFlow.emit(NewOrderUiEffect.NavigateBack)
+            val order = _uiState.value.orderToEdit
+
+            order?.let { orderToEdit ->
+                when (val updateOrderResponse =
+                    orderUpdateUseCase(
+                        getNewOrder().copy(
+                            orderId = orderToEdit.orderId,
+                            orderListId = orderToEdit.orderListId,
+                            orderSeason = orderToEdit.orderSeason,
+                            orderClientId = _uiState.value.client?.id ?: order.orderClientId,
+                            orderClientName = _uiState.value.client?.name ?: order.orderClientName
+                        )
+                    )) {
+                    is Resource.Failure -> setErrorMsg(updateOrderResponse.exception.message)
+                    is Resource.Success -> {
+                        _uiState.value =
+                            _uiState.value.copy(successOperationMsg = R.string.msg_order_update_success)
+                        _effectFlow.emit(NewOrderUiEffect.NavigateBack)
+                    }
                 }
             }
+
             loading(false)
         }
 

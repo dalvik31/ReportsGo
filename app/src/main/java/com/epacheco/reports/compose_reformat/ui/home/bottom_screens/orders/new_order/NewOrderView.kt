@@ -125,7 +125,7 @@ fun NewOrderView(
                     onRemoveClient?.invoke()
                 }, onClick = {
                     onInputClientChanged?.invoke()
-                }
+                },
             )
         } ?: run {
             SecondaryItem(

@@ -21,7 +21,7 @@ fun OrdersScreen(
     ordersViewModel: OrdersViewModel = hiltViewModel<OrdersViewModel>(),
     onBackPressed: (() -> Unit)? = null,
     onNavigateToCreateOrder: ((String, Season?) -> Unit)? = null,
-    onNavigateToEditOrder: ((String) -> Unit)? = null,
+    onNavigateToEditOrder: ((String,String) -> Unit)? = null,
     mainOrderId: String,
     orderSeason: Season?,
     nameOrderMain: String,
@@ -65,7 +65,7 @@ fun OrdersScreen(
             onNavigateToCreateOrder?.invoke(mainOrderId, orderSeason)
         },
         onOrderClick = {
-            onNavigateToEditOrder?.invoke(it.orderId)
+            onNavigateToEditOrder?.invoke(it.orderListId, it.orderId)
         },
         isRefreshing = uiState.isLoading,
         onDeleteOrderClick = {

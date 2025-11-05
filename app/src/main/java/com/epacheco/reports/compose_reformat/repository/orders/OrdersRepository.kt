@@ -9,6 +9,7 @@ import com.google.firebase.database.DatabaseReference
 interface OrdersRepository {
     //Orders
     suspend fun getOrders(mainOrderId: String): Resource<List<Order>>
+    suspend fun getOrderById(mainOrderId: String, orderId: String): Resource<Order?>
     suspend fun createOrder(order: Order): Resource<Any>
     suspend fun deleteOrder(orderId: String, mainOrderId: String): Resource<Any>
     suspend fun updateOrder(order: Order): Resource<Any>

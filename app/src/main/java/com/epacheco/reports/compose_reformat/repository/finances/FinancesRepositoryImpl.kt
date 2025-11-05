@@ -53,7 +53,6 @@ class FinancesRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getFinancesByClientId(clientId: String): Resource<List<Sale>> {
-        Log.e("aqui","estamos::sssss ${clientId}")
         return try {
             val saleList = mutableListOf<Sale>()
             getFinancesReference().orderByChild("idClient").startAt(clientId)
@@ -63,7 +62,9 @@ class FinancesRepositoryImpl @Inject constructor(
                     saleList.add(it)
                 }
             }
-            Log.e("aqui","estamos::listasssss ${saleList}")
+            saleList.sortByDescending {
+                it.saleDate
+            }
             Resource.Success(saleList)
         } catch (exception: Exception) {
             Resource.Success(emptyList())

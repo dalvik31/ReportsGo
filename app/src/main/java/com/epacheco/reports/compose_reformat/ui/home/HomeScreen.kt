@@ -378,14 +378,12 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                             )
                         )
                     },
-                    onNavigateToEditOrder = {
+                    onNavigateToEditOrder = { orderMainId, orderId ->
                         navController.navigate(
                             BottomHomeRoutes.CreateOrderBottomHomeRoute(
-                                it,
-                                "",
-                                null,
-
-                                )
+                                orderId ,
+                                orderMainId,
+                                null,)
                         )
                     },
                     onBackPressed = {

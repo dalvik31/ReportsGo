@@ -50,24 +50,15 @@ fun NewOrderScreen(
             }
 
 
-           /* orderToEdit?.let {
-                newOrderViewModel.onInputNameChanged(it.orderName)
-                newOrderViewModel.onInputStatusChanged(it.orderBuy)
-                newOrderViewModel.onInputGenderChanged(it.orderGender)
-                newOrderViewModel.onInputColorChanged(it.orderColor)
-                newOrderViewModel.onInputSizeChanged(it.orderSize)
-                newOrderViewModel.onInputDescriptionChanged(it.orderDescription)
-                newOrderViewModel.onInputColorCodeChanged(it.orderColorCode)
-                newOrderViewModel.onIsNumericSizeChanged(it.orderSizeNumeric)
-                if(clientIdSelected.isNullOrEmpty()){
-                    newOrderViewModel.handleIntent(NewOrderUiIntent.GetClientById(it.orderClientId))
-                    Log.e("aqui","vamoooos clientIdSelected: ${clientIdSelected}")
-                }else{
-                    Log.e("aqui","vamoooos2 clientIdSelected: ")
-                }
-
-            }*/
-
+            orderToEdit?.let {
+                newOrderViewModel.handleIntent(
+                    NewOrderUiIntent.GetOrderById(
+                        mainOrderId ?: "",
+                        it,
+                        callClientInfo = clientIdSelected.isNullOrEmpty()
+                    )
+                )
+            }
 
             newOrderViewModel.effectFlow.collectLatest { effect ->
                 when (effect) {
@@ -118,7 +109,7 @@ fun NewOrderScreen(
         orderToEdit = orderToEdit,
         onUpdateOrder = {
             orderToEdit?.let {
-                //newOrderViewModel.handleIntent(NewOrderUiIntent.UpdateOrder(it))
+                newOrderViewModel.handleIntent(NewOrderUiIntent.UpdateOrder)
             }
         }, onDeleteOrder = {
             orderToEdit?.let {
@@ -135,6 +126,9 @@ fun NewOrderScreen(
         },
         onInputClientChanged = {
             onNavigateToSelectClient?.invoke()
+        },
+        onRemoveClient = {
+            newOrderViewModel.handleIntent(NewOrderUiIntent.RemoveClient)
         })
 
     //Message error

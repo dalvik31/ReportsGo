@@ -180,28 +180,12 @@ fun NewProductView(
         Spacer(modifier = Modifier.padding(8.dp))
 
         Column {
-            Text(
-                modifier = Modifier.padding(horizontal = 8.dp),
-                text = stringResource(R.string.add_product_name),
-                color = MaterialTheme.colorScheme.primary,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.W400
-            )
-            Spacer(modifier = Modifier.padding(8.dp))
             InputTextField(
                 modifier = Modifier.padding(horizontal = 24.dp),
                 textHint = stringResource(R.string.add_product_name_detail),
                 textValue = inputName ?: "",
                 onTextChange = { onInputNameChanged?.invoke(it) },
                 capitalization = KeyboardCapitalization.Sentences
-            )
-            Spacer(modifier = Modifier.padding(8.dp))
-            Text(
-                modifier = Modifier.padding(horizontal = 8.dp),
-                text = stringResource(R.string.add_product_description_title),
-                color = MaterialTheme.colorScheme.primary,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.W400
             )
             Spacer(modifier = Modifier.padding(8.dp))
             InputTextField(
@@ -211,14 +195,7 @@ fun NewProductView(
                 onTextChange = { onInputDescriptionChanged?.invoke(it) },
                 capitalization = KeyboardCapitalization.Sentences
             )
-            Spacer(modifier = Modifier.padding(8.dp))
-            Text(
-                modifier = Modifier.padding(horizontal = 8.dp),
-                text = stringResource(R.string.add_product_price_title),
-                color = MaterialTheme.colorScheme.primary,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.W400
-            )
+
             Spacer(modifier = Modifier.padding(8.dp))
             Row(
                 modifier = Modifier
@@ -253,15 +230,7 @@ fun NewProductView(
                     .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text(
-                    modifier = Modifier.padding(start = 8.dp),
-                    text = stringResource(R.string.add_product_size_title),
-                    color = MaterialTheme.colorScheme.primary,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.W400
-                )
                 Spacer(Modifier.weight(1f))
-
                 Text(
                     modifier = Modifier.padding(horizontal = 8.dp),
                     text = stringResource(R.string.add_product_size_numeric_title),
@@ -280,8 +249,6 @@ fun NewProductView(
                 )
             }
 
-            Spacer(modifier = Modifier.padding(8.dp))
-
             InputTextField(
                 modifier = Modifier
                     .padding(horizontal = 24.dp)
@@ -294,14 +261,6 @@ fun NewProductView(
                 textHint = stringResource(R.string.add_product_size),
                 textValue = inputSize ?: "",
                 enable = false
-            )
-            Spacer(modifier = Modifier.padding(8.dp))
-            Text(
-                modifier = Modifier.padding(horizontal = 8.dp),
-                text = stringResource(R.string.add_product_color_title),
-                color = MaterialTheme.colorScheme.primary,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.W400
             )
             Spacer(modifier = Modifier.padding(8.dp))
 
@@ -332,14 +291,6 @@ fun NewProductView(
                 }
             }
             Spacer(modifier = Modifier.padding(8.dp))
-            Text(
-                modifier = Modifier.padding(horizontal = 8.dp),
-                text = stringResource(R.string.add_product_gender_title),
-                color = MaterialTheme.colorScheme.primary,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Light
-            )
-            Spacer(modifier = Modifier.padding(8.dp))
 
             InputTextField(
                 modifier = Modifier
@@ -352,14 +303,6 @@ fun NewProductView(
                 enable = false
             )
             Spacer(modifier = Modifier.padding(8.dp))
-            Text(
-                modifier = Modifier.padding(horizontal = 8.dp),
-                text = stringResource(R.string.add_product_inventory_title),
-                color = MaterialTheme.colorScheme.primary,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Light
-            )
-            Spacer(modifier = Modifier.padding(8.dp))
 
             InputTextField(
                 modifier = Modifier.padding(horizontal = 24.dp),
@@ -368,15 +311,6 @@ fun NewProductView(
                 keyboardType = KeyboardType.NumberPassword,
                 onTextChange = { onInputStockChanged?.invoke(it) },
                 capitalization = KeyboardCapitalization.Sentences
-            )
-
-            Spacer(modifier = Modifier.padding(8.dp))
-            Text(
-                modifier = Modifier.padding(horizontal = 8.dp),
-                text = stringResource(R.string.add_product_code_title),
-                color = MaterialTheme.colorScheme.primary,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.W400
             )
             Spacer(modifier = Modifier.padding(8.dp))
 

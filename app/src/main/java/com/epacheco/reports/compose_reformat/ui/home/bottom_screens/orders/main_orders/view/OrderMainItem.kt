@@ -108,7 +108,7 @@ fun OrderMainItem(
             val numOrders = orderMain.orderLists?.size ?: 0
 
             Box(contentAlignment = Alignment.TopEnd) {
-
+                if(!orderMain.orderId.isEmpty()){
                 Box(
                     modifier = Modifier
                         .background(
@@ -118,13 +118,16 @@ fun OrderMainItem(
                         .padding(horizontal = 8.dp, vertical = 4.dp),
 
                     ) {
-                    Text(
-                        text = DateUtils.format(orderMain.orderId.toLong(), FORMAT_DATE2),
-                        fontSize = 10.sp,
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        style = MaterialTheme.typography.bodySmall,
 
-                        )
+                        Text(
+                            text = DateUtils.format(orderMain.orderId.toLong(), FORMAT_DATE2),
+                            fontSize = 10.sp,
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            style = MaterialTheme.typography.bodySmall,
+
+                            )
+                    }
+
                 }
 
                 Row(

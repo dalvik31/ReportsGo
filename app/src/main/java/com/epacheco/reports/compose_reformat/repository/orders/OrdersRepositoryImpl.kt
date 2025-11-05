@@ -1,5 +1,6 @@
 package com.epacheco.reports.compose_reformat.repository.orders
 
+import android.util.Log
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ReportsApp
 import com.epacheco.reports.compose_reformat.firebase.Resource
@@ -7,6 +8,7 @@ import com.epacheco.reports.compose_reformat.firebase.await
 import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.model.orders.OrderMain
 import com.epacheco.reports.compose_reformat.model.orders.OrderStatus
+import com.epacheco.reports.compose_reformat.model.products.Product
 import com.epacheco.reports.tools.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -84,6 +86,19 @@ class OrdersRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getOrderById(mainOrderId: String, orderId: String): Resource<Order?> {
+        var order: Order? = null
+        return try {
+            order = getOrdersReference().child(mainOrderId).child("orderLists").child(orderId).get()
+                .await().getValue(Order::class.java)
+
+            Resource.Success(order)
+        } catch (exception: Exception) {
+            Log.e("aqui", "estamos en el repo: ${exception.message}")
+            Resource.Failure(exception)
+        }
+    }
+
 
     override suspend fun getMainOrders(): Resource<List<OrderMain>> {
         val orderMainList = mutableListOf<OrderMain>()
@@ -120,7 +135,7 @@ class OrdersRepositoryImpl @Inject constructor(
                 getOrdersReference().orderByChild("orderDate").equalTo(newOrderMain.orderDate).get()
                     .await().children.map { snapShot ->
                         if (snapShot.exists()) {
-                           return  Resource.Failure(Exception(application.getString(R.string.msg_error_list_already_exist)))
+                            return Resource.Failure(Exception(application.getString(R.string.msg_error_list_already_exist)))
                         }
                     }
             }
