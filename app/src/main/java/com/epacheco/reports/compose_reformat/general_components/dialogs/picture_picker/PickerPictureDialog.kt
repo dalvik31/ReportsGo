@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Build
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -51,20 +52,16 @@ fun PickerPictureDialogScreen(
 ) {
 
     var showPermissionCameraDialog by remember { mutableStateOf(false) }
-    var showPermissionGalleryDialog by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
 
-
-    // Launchers for selecting an image from the gallery or camera
-    val galleryLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.GetContent()
-    ) { uri: Uri? ->
-        uri?.let {
-            coroutineScope.launch {
-                onImageSelected?.invoke(permissionsViewModel.getUriToFile(uri))
-            }
+    // Registers a photo picker activity launcher in single-select mode.
+    val pickMedia = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        // Callback is invoked after the user selects a media item or closes the
+        // photo picker.
+        if (uri != null) {
+            onImageSelected?.invoke(permissionsViewModel.getUriToFile(uri))
+            onDismissRequest?.invoke()
         }
-        onDismissRequest?.invoke()
     }
 
     val cameraLauncher = rememberLauncherForActivityResult(
@@ -72,25 +69,11 @@ fun PickerPictureDialogScreen(
     ) { bitmap ->
         bitmap?.let {
 
-
-            //Bitmap obtenido en la toma de la foto.
-            /*var takenImage =
-                BitmapFactory.decodeFile(permissionsViewModel.getBitmapToFile(bitmap).absolutePath)
-            try {
-                takenImage =
-                    rotateImageIfRequired(
-                        takenImage,
-                        permissionsViewModel.getBitmapToFile(bitmap).absolutePath
-                    )
-            } catch (e: IOException) {
-                Log.e("Error", "Ocurrio un error al girar la imagen")
-                e.printStackTrace()
-            }*/
             coroutineScope.launch {
                 onImageSelected?.invoke(
                     permissionsViewModel.getBitmapToFile(bitmap)
                 )
-                // onImageSelected?.invoke(permissionsViewModel.getBitmapToFile(rotateImage(bitmap, 90)))
+
                 onDismissRequest?.invoke()
             }
 
@@ -99,7 +82,7 @@ fun PickerPictureDialogScreen(
 
     PermissionsPictureView(
         onGalleryClicked = {
-            showPermissionGalleryDialog = true
+            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         },
         onCameraClicked = {
             showPermissionCameraDialog = true
@@ -123,25 +106,6 @@ fun PickerPictureDialogScreen(
 
     }
 
-    if (showPermissionGalleryDialog) {
-        CheckPermission(
-            permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                Manifest.permission.READ_MEDIA_IMAGES
-            } else {
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            },
-            onGranted = {
-                galleryLauncher.launch("image/*")
-                showPermissionGalleryDialog = false
-
-            },
-            iconPermission = R.drawable.ic_vector_image,
-            permissionRationaleTitle = stringResource(R.string.permission_gallery_product_title),
-            permissionOpenSettingsTitle = stringResource(R.string.permission_gallery_settings_product_title),
-            onCancel = { showPermissionGalleryDialog = false }
-        )
-
-    }
 }
 
 /**
