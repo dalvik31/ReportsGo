@@ -3,6 +3,7 @@ package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.det
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.R
+import com.epacheco.reports.compose_reformat.ReportsApp
 import com.epacheco.reports.compose_reformat.domain.ClientCreateUseCase
 import com.epacheco.reports.compose_reformat.domain.ClientDeleteUseCase
 import com.epacheco.reports.compose_reformat.domain.ClientDetailUseCase
@@ -24,6 +25,7 @@ import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products.new
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE1
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE3
+import com.epacheco.reports.tools.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -41,8 +43,7 @@ class DetailClientViewModel @Inject constructor(
     private val clientDeleteUseCase: ClientDeleteUseCase,
     private val clientCreateUseCase: ClientCreateUseCase,
     private val clientUpdateDebtUseCase: ClientUpdateDebtUseCase,
-    private val saleCreateUseCase: SaleCreateUseCase
-
+    private val saleCreateUseCase: SaleCreateUseCase, private val app: ReportsApp
 ) :
     BaseViewModel() {
 
@@ -91,40 +92,56 @@ class DetailClientViewModel @Inject constructor(
     }
 
     private fun updateClient() = viewModelScope.launch {
-        loading(true)
-        when (val updateProductResponse =
-            clientUpdateUseCase(
-                getNewClient(uiState.value.clientDetail)
-            )) {
-            is Resource.Failure ->
-                setErrorMsg(updateProductResponse.exception.message)
-
-            is Resource.Success -> {
-                _uiState.value =
-                    _uiState.value.copy(successMessage = R.string.update_client_success)
-                _effectFlow.emit(ClientDetailUiEffect.NavigateBack)
-            }
-        }
-        loading(false)
-
-    }
-
-    private fun createClient() = viewModelScope.launch {
-        viewModelScope.launch {
+        if (validateClientInputs()) {
             loading(true)
-            when (val crateClientResponse =
-                clientCreateUseCase(getNewClient(null))) {
+            when (val updateProductResponse =
+                clientUpdateUseCase(
+                    getNewClient(uiState.value.clientDetail)
+                )) {
                 is Resource.Failure ->
-                    setErrorMsg(crateClientResponse.exception.message)
+                    setErrorMsg(updateProductResponse.exception.message)
 
                 is Resource.Success -> {
                     _uiState.value =
-                        _uiState.value.copy(successMessage = R.string.msg_product_update_success)
+                        _uiState.value.copy(successMessage = R.string.update_client_success)
                     _effectFlow.emit(ClientDetailUiEffect.NavigateBack)
                 }
             }
             loading(false)
+        } else {
+            setErrorMsg(app.getString(R.string.error_client_name_not_found))
         }
+
+
+    }
+
+    private fun createClient() = viewModelScope.launch {
+        if (validateClientInputs()) {
+            viewModelScope.launch {
+                loading(true)
+                when (val crateClientResponse =
+                    clientCreateUseCase(getNewClient(null))) {
+                    is Resource.Failure ->
+                        setErrorMsg(crateClientResponse.exception.message)
+
+                    is Resource.Success -> {
+                        _uiState.value =
+                            _uiState.value.copy(successMessage = R.string.msg_product_update_success)
+                        _effectFlow.emit(ClientDetailUiEffect.NavigateBack)
+                    }
+                }
+                loading(false)
+            }
+        } else setErrorMsg(app.getString(R.string.error_client_name_not_found))
+
+    }
+
+    private fun validateClientInputs(): Boolean {
+        var inputsClientValid = true
+        if (_inputClientNames.value.isEmpty()) {
+            inputsClientValid = false
+        }
+        return inputsClientValid
     }
 
 
@@ -154,7 +171,7 @@ class DetailClientViewModel @Inject constructor(
             lastNanme = _inputClientLastName.value,
             detail = _inputClientInfo.value,
             phone = _inputClientPhone.value,
-            limit = _inputClientCredit.value.toDouble(),
+            limit = _inputClientCredit.value.ifEmpty { Constants.LIMIT_AMOUNT }.toDouble(),
             dateClient = client?.dateClient ?: clientId,
         )
     }

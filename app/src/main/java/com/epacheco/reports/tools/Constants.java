@@ -22,5 +22,7 @@ public class Constants {
     public final static String COUNTER_KEY = "counter";
     public final static String CHANGE_SEASON = "CHANGE_SEASON";
 
+    public final static String LIMIT_AMOUNT = "1500";
+
 
 }

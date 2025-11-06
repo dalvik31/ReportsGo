@@ -71,6 +71,7 @@ import com.epacheco.reports.compose_reformat.general_components.Header
 import com.epacheco.reports.compose_reformat.general_components.InputTextField
 import com.epacheco.reports.compose_reformat.general_components.MoneyItem
 import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
+import com.epacheco.reports.compose_reformat.general_components.SecondaryItem
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
 import com.epacheco.reports.compose_reformat.model.clients.Client
 import com.epacheco.reports.compose_reformat.model.clients.ClientDetailCmps
@@ -80,6 +81,7 @@ import com.epacheco.reports.compose_reformat.ui.theme.GrayDark
 import com.epacheco.reports.compose_reformat.ui.theme.White
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.DateUtils.dateFormat
+import com.epacheco.reports.tools.Constants
 
 @Composable
 fun NewClientView(
@@ -98,6 +100,7 @@ fun NewClientView(
     onCreateClient: (() -> Unit)? = null,
     onDeleteClient: (() -> Unit)? = null,
     onUpdateClient: ((String) -> Unit)? = null,
+    onSelectContact: (() -> Unit)? = null,
 ) {
 
     Column {
@@ -118,6 +121,14 @@ fun NewClientView(
 
 
         Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+            SecondaryItem(
+                text = "Elegir desde contactos",
+                secondaryText = "Contactos",
+                modifier = Modifier.padding(horizontal = 24.dp),
+                onClick = {
+                    onSelectContact?.invoke()
+                }
+            )
 
             Spacer(modifier = Modifier.padding(8.dp))
             Row {
@@ -163,7 +174,7 @@ fun NewClientView(
             Spacer(modifier = Modifier.padding(8.dp))
             InputTextField(
                 modifier = Modifier.padding(horizontal = 24.dp),
-                textHint = stringResource(R.string.client_credit),
+                textHint = stringResource(R.string.client_credit, Constants.LIMIT_AMOUNT),
                 textValue = inputCredit ?: "",
                 onTextChange = { onInputCreditChanged?.invoke(it) },
                 capitalization = KeyboardCapitalization.Sentences

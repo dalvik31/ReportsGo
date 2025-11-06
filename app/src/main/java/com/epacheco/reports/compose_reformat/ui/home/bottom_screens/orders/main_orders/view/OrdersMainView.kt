@@ -64,7 +64,7 @@ fun OrderMainView(
 
 
 
-        if (showImgEmptyList == true) {
+        /*if (showImgEmptyList == true) {
             Column(
                 Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
@@ -81,7 +81,7 @@ fun OrderMainView(
                     modifier = Modifier.padding(top = 12.dp)
                 )
             }
-        } else {
+        } else {*/
             val tabs = listOf(
                 stringResource(
                     OrderStatus.IN_PROGRESS.orderStatusName,
@@ -141,7 +141,7 @@ fun OrderMainView(
             }
 
 
-        }
+       // }
 
 
     }

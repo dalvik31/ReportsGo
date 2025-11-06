@@ -2,6 +2,7 @@ package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -38,38 +39,39 @@ fun OrderList(
     showImgEmptyList: Boolean?,
 ) {
     val state = rememberPullToRefreshState()
-    if (orderMains.isEmpty() && showImgEmptyList == false) {
-        Column(
-            Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Image(
-                painter = painterResource(R.drawable.ic_vector_empty_orders),
-                contentDescription = null
-            )
-            Text(
+
+    PullToRefreshBox(
+        isRefreshing = isRefreshing,
+        onRefresh = { onRefresh?.invoke() },
+        state = state,
+        indicator = {
+            Indicator(
+                modifier = Modifier.align(Alignment.TopCenter),
+                isRefreshing = isRefreshing,
+                containerColor = MaterialTheme.colorScheme.onPrimary,
                 color = MaterialTheme.colorScheme.primary,
-                text = stringResource(R.string.list_order_empty, status),
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.padding(top = 12.dp)
+                state = state
             )
         }
-    } else {
-        PullToRefreshBox(
-            isRefreshing = isRefreshing,
-            onRefresh = { onRefresh?.invoke() },
-            state = state,
-            indicator = {
-                Indicator(
-                    modifier = Modifier.align(Alignment.TopCenter),
-                    isRefreshing = isRefreshing,
-                    containerColor = MaterialTheme.colorScheme.onPrimary,
+    ) {
+        if (orderMains.isEmpty() && showImgEmptyList == false) {
+            Column(
+                Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Image(
+                    painter = painterResource(R.drawable.ic_vector_empty_orders),
+                    contentDescription = null,
+                )
+                Text(
                     color = MaterialTheme.colorScheme.primary,
-                    state = state
+                    text = stringResource(R.string.list_order_empty, status),
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(top = 12.dp)
                 )
             }
-        ) {
+        } else {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
@@ -91,5 +93,7 @@ fun OrderList(
                 }
             }
         }
+
+
     }
 }

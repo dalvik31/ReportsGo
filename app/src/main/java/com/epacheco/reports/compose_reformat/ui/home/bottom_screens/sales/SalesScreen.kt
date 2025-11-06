@@ -116,7 +116,7 @@ fun SalesScreen(
                 showTypeSaleDialog = false
                 val total = uiState.totalSale ?: 0.0
                 val limit = uiState.client?.getLimitAvailable() ?: 0.0
-                val newLimit = (uiState.client?.limitUsed ?: 0.0) + total
+                val newLimit = (uiState.client?.debt ?: 0.0) + total
                 if (total > limit) {
                     showCreditExceedSaleDialog = true
                 } else {

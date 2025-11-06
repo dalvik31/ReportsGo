@@ -217,7 +217,7 @@ fun ClientItem(
                                             modifier = Modifier
                                                 .wrapContentWidth()
                                                 .padding(top = 10.dp),
-                                            text = "$${client.limitUsed}",
+                                            text = "$${client.debt}",
                                             style = MaterialTheme.typography.bodySmall,
                                             color = MaterialTheme.colorScheme.primary,
                                             textAlign = TextAlign.End

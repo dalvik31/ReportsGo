@@ -1,6 +1,14 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.view
 
+import android.Manifest
+import android.app.Activity
+import android.content.Intent
+import android.database.Cursor
+import android.net.Uri
+import android.provider.ContactsContract
 import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -8,12 +16,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import coil3.annotation.InternalCoilApi
 import coil3.request.GlobalLifecycle.currentState
 import com.epacheco.reports.R
+import com.epacheco.reports.compose_reformat.general_components.CheckPermission
 import com.epacheco.reports.compose_reformat.general_components.Loader
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.viewModel.DetailClientViewModel
@@ -28,7 +38,6 @@ fun NewClientScreen(
     clientId: String? = null,
     onBackPressed: (() -> Unit)? = null,
 ) {
-
     var showDialogConfirmDeleteClient by remember { mutableStateOf(false) }
     val uiState by detailClientViewModel.uiState.collectAsState()
     val inputNames by detailClientViewModel.inputClientNames.collectAsState()
@@ -36,6 +45,21 @@ fun NewClientScreen(
     val inputInfo by detailClientViewModel.inputClientInfo.collectAsState()
     val inputPhone by detailClientViewModel.inputClientPhone.collectAsState()
     val inputCredit by detailClientViewModel.inputClientCredit.collectAsState()
+    val context = LocalContext.current
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult(),
+        onResult = { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val contactUri: Uri? = result.data?.data
+                if (contactUri != null) {
+                    // Process the contact URI to get details
+                    val details = getContactDetails(context, contactUri)
+                    detailClientViewModel.onInputNameChanged(details.first ?: "")
+                    detailClientViewModel.onInputPhoneChanged(details.second ?: "")
+                }
+            }
+        }
+    )
 
 
     LaunchedEffect(Unit) {
@@ -86,6 +110,13 @@ fun NewClientScreen(
         },
         onBackPressed = {
             onBackPressed?.invoke()
+        },
+        onSelectContact = {
+            val intent = Intent(Intent.ACTION_PICK).apply {
+                type = ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE // Or other types like ContactsContract.Contacts.CONTENT_TYPE
+            }
+
+            launcher.launch(intent)
         })
 
     if (uiState.isLoading) {
@@ -95,6 +126,7 @@ fun NewClientScreen(
     uiState.errorMessage?.let { msgError ->
         ReportsDialog(
             imgDialog = R.drawable.ic_error,
+            dialogTitle = stringResource(R.string.title_information),
             confirmButtonText = stringResource(R.string.btn_ok),
             dialogSubTitle = msgError,
             onConfirmation = {
@@ -132,4 +164,30 @@ fun NewClientScreen(
         )
     }
 
+}
+
+fun getContactDetails(context: android.content.Context, contactUri: Uri): Pair<String?, String?> {
+    var name: String? = null
+    var phoneNo: String? = null
+    val cursor: Cursor? = context.contentResolver.query(contactUri, null, null, null, null)
+
+    try {
+        if (cursor != null && cursor.moveToFirst()) {
+            Log.e("aqui","vamoooos phone cursor: ${cursor.moveToFirst()}")
+            val phoneIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
+            val nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)
+
+            if (phoneIndex != -1) {
+                phoneNo = cursor.getString(phoneIndex)
+            }
+            if (nameIndex != -1) {
+                name = cursor.getString(nameIndex)
+            }
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+    } finally {
+        cursor?.close()
+    }
+    return Pair(name, phoneNo)
 }

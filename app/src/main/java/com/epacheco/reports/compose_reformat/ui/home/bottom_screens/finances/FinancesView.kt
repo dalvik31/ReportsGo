@@ -1,5 +1,6 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.finances
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -16,6 +18,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults.Indicator
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
@@ -25,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -144,6 +148,7 @@ fun FinancesView(
 
         }
 
+
         PullToRefreshBox(
             isRefreshing = isRefreshing,
             modifier = Modifier.padding(top = 10.dp),
@@ -159,17 +164,41 @@ fun FinancesView(
                 )
             }
         ) {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 20.dp)
-                    .background(color = Color.Transparent),
-                verticalArrangement = Arrangement.spacedBy(20.dp),
+            if(orderMainMainList.isEmpty()){
+                Column(
+                    Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                items(orderMainMainList) { sale ->
-                    FinanceItem(sale = sale)
+                    Image(
+                        painter = painterResource(R.drawable.ic_sales_empty),
+                        contentScale = ContentScale.Crop,
+                        contentDescription = null,
+                        modifier = Modifier.size(150.dp).clickable{
+                            onSelectDatePressed?.invoke()
+                        }
+                    )
+                    Text(
+                        color = MaterialTheme.colorScheme.primary,
+                        text = stringResource(R.string.sales_not_found),
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.padding(top = 12.dp)
+                    )
+                }
+            }else{
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(horizontal = 20.dp)
+                        .background(color = Color.Transparent),
+                    verticalArrangement = Arrangement.spacedBy(20.dp),
+                ) {
+                    items(orderMainMainList) { sale ->
+                        FinanceItem(sale = sale)
+                    }
                 }
             }
+
         }
     }
 }

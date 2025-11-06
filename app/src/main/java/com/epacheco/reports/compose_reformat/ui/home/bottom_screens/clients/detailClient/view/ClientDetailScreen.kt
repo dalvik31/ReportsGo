@@ -57,7 +57,8 @@ fun ClientDetailScreen(
         onInputConceptChanged = { detailClientViewModel.onInputConceptChanged(it) },
         openClientTransaction = { openClientTransaction?.invoke(it) },
         openClientSale = { openClientSale?.invoke(it) },
-        openClientOrder = { openClientOrder?.invoke(it) }, onCreatePayment = {
+        openClientOrder = { openClientOrder?.invoke(it) },
+        onCreatePayment = {
             detailClientViewModel.handleIntent(
                 ClientDetailUiIntent.UpdateAmountPayClient(it)
             )

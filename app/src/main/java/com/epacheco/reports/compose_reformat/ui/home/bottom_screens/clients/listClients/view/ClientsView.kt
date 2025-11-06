@@ -2,6 +2,7 @@ package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.lis
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -96,7 +97,8 @@ fun ClientsView(
         SearchBarElement(
             modifier = Modifier.padding(horizontal = 16.dp),
             searchHintText = stringResource(id = R.string.lbl_search_client_hint),
-            searchText = inputName ?: "") {
+            searchText = inputName ?: ""
+        ) {
             onInputNameChanged?.invoke(it)
         }
         Spacer(modifier = Modifier.padding(8.dp))
@@ -118,7 +120,7 @@ fun ClientsView(
             }
         ) {
 
-            if(clientsList.isEmpty()){
+            if (clientsList.isEmpty()) {
                 Column(
                     Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.Center,
@@ -126,16 +128,19 @@ fun ClientsView(
                 ) {
                     Image(
                         painter = painterResource(R.drawable.ic_vector_clients_empty),
-                        contentDescription = null
+                        contentDescription = null,
+                        modifier = Modifier.clickable {
+                            onNavigateToCreateClient?.invoke(null)
+                        }
                     )
                     Text(
                         color = MaterialTheme.colorScheme.primary,
-                        text = stringResource(R.string.msg_zero_products),
+                        text = stringResource(R.string.msg_clients_not_found),
                         style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier.padding(top = 12.dp)
                     )
                 }
-            }else{
+            } else {
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize(),

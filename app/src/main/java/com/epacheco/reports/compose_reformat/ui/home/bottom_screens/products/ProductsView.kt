@@ -1,6 +1,7 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -56,7 +57,7 @@ fun ProductsView(
             ),
             titleColor = MaterialTheme.colorScheme.primary,
             onRightIconClicked = {
-                onGoProductDetailClick?.invoke(null,null)
+                onGoProductDetailClick?.invoke(null, null)
             },
             tintImageRight = MaterialTheme.colorScheme.primary,
             rightImageVector = ImageVector.vectorResource(R.drawable.ic_vector_add),
@@ -69,7 +70,7 @@ fun ProductsView(
             searchHintText = stringResource(id = R.string.lbl_search_product_hint),
             searchText = inputName ?: "",
 
-        ) {
+            ) {
             onInputNameChanged?.invoke(it)
         }
 
@@ -90,7 +91,7 @@ fun ProductsView(
             }
         ) {
 
-            if(productList.isEmpty()){
+            if (productList.isEmpty()) {
                 Column(
                     Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.Center,
@@ -98,7 +99,10 @@ fun ProductsView(
                 ) {
                     Image(
                         painter = painterResource(R.drawable.ic_vector_products_empty),
-                        contentDescription = null
+                        contentDescription = null,
+                        modifier = Modifier.clickable {
+                            onGoProductDetailClick?.invoke(null, null)
+                        },
                     )
                     Text(
                         color = MaterialTheme.colorScheme.primary,
@@ -107,7 +111,7 @@ fun ProductsView(
                         modifier = Modifier.padding(top = 12.dp)
                     )
                 }
-            }else{
+            } else {
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(2),
                     modifier = Modifier

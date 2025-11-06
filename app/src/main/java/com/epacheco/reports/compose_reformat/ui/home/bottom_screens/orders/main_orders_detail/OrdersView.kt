@@ -86,34 +86,36 @@ fun OrdersView(
                         mainOrderId?.toLong() ?: 0,
                         FORMAT_DATE5
                     )
-                }.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() },
+                }
+                    .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() },
                 fontSize = 14.sp
             )
         }
 
 
-        if (showImgEmptyList == true) {
-            Column(
-                Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.ic_vector_empty_orders),
-                    contentDescription = null
-                )
-                Text(
-                    color = MaterialTheme.colorScheme.primary,
-                    text = stringResource(R.string.list_orders_empty),
-                    style = MaterialTheme.typography.bodySmall,
-                    modifier = Modifier.padding(top = 12.dp)
-                )
-            }
-        } else {
-            PullToRefreshBox(
-                isRefreshing = isRefreshing,
-                onRefresh = { onRefresh?.invoke() },
-            ) {
+
+        PullToRefreshBox(
+            isRefreshing = isRefreshing,
+            onRefresh = { onRefresh?.invoke() },
+        ) {
+            if (showImgEmptyList == true) {
+                Column(
+                    Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.ic_vector_empty_orders),
+                        contentDescription = null
+                    )
+                    Text(
+                        color = MaterialTheme.colorScheme.primary,
+                        text = stringResource(R.string.list_orders_empty),
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.padding(top = 12.dp)
+                    )
+                }
+            } else {
 
                 LazyColumn(
                     modifier = Modifier
@@ -136,50 +138,51 @@ fun OrdersView(
                         )
                     }
                 }
-                /* LazyVerticalGrid(
-                      columns = GridCells.Fixed(2),
-                      modifier = Modifier
-                          .fillMaxSize(),
-                      verticalArrangement = Arrangement.spacedBy(4.dp),
-                      contentPadding = PaddingValues(horizontal = 8.dp)
-                  ) {
-                      items(orderList) { order ->
-                          OrderItem(
-                              order = order,
-                              onMainOrderClick = {
-                                  onOrderClick?.invoke(order)
-                              },
-                              onDeleteOrderClick = {
-                                  onDeleteOrderClick?.invoke(order.orderId)
-                              },
-                              onUpdateStatusOrderClick = {
-                                  onUpdateStatusOrderClick?.invoke(order)
-                              }
-                          )
-                      }
-                  }*/
-                /*LazyColumn(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(color = Color.Transparent)
-                ) {
-                    items(orderList) { order ->
-                        OrderItem(
-                            order = order,
-                            onMainOrderClick = {
-                                onOrderClick?.invoke(order)
-                            },
-                            onDeleteOrderClick = {
-                                onDeleteOrderClick?.invoke(order.orderId)
-                            },
-                            onUpdateStatusOrderClick = {
-                                onUpdateStatusOrderClick?.invoke(order)
-                            }
-                        )
-                    }
-                }*/
             }
 
+
+            /* LazyVerticalGrid(
+                  columns = GridCells.Fixed(2),
+                  modifier = Modifier
+                      .fillMaxSize(),
+                  verticalArrangement = Arrangement.spacedBy(4.dp),
+                  contentPadding = PaddingValues(horizontal = 8.dp)
+              ) {
+                  items(orderList) { order ->
+                      OrderItem(
+                          order = order,
+                          onMainOrderClick = {
+                              onOrderClick?.invoke(order)
+                          },
+                          onDeleteOrderClick = {
+                              onDeleteOrderClick?.invoke(order.orderId)
+                          },
+                          onUpdateStatusOrderClick = {
+                              onUpdateStatusOrderClick?.invoke(order)
+                          }
+                      )
+                  }
+              }*/
+            /*LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(color = Color.Transparent)
+            ) {
+                items(orderList) { order ->
+                    OrderItem(
+                        order = order,
+                        onMainOrderClick = {
+                            onOrderClick?.invoke(order)
+                        },
+                        onDeleteOrderClick = {
+                            onDeleteOrderClick?.invoke(order.orderId)
+                        },
+                        onUpdateStatusOrderClick = {
+                            onUpdateStatusOrderClick?.invoke(order)
+                        }
+                    )
+                }
+            }*/
         }
 
 

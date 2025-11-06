@@ -12,19 +12,18 @@ data class Client(
     val phone: String = "",
     val debt: Double= 0.0,
     val limit: Double = 0.0,
-    val limitUsed: Double = 0.0,
     var dateClient: String = "",
     val clientsDetails: HashMap<String, ClientDetailCmps>? = null
 ) {
     fun geProgressLimit(): Float {
         var limitCredit = 0f
-        if (limitUsed > 0) {
-            limitCredit = (limitUsed / limit).toFloat()
+        if (debt > 0) {
+            limitCredit = (debt / limit).toFloat()
         }
         return limitCredit
     }
 
     fun getLimitAvailable(): Double {
-        return limit - limitUsed
+        return limit - debt
     }
 }
