@@ -52,10 +52,10 @@ fun NewClientScreen(
             if (result.resultCode == Activity.RESULT_OK) {
                 val contactUri: Uri? = result.data?.data
                 if (contactUri != null) {
-                    // Process the contact URI to get details
                     val details = getContactDetails(context, contactUri)
                     detailClientViewModel.onInputNameChanged(details.first ?: "")
-                    detailClientViewModel.onInputPhoneChanged(details.second ?: "")
+                    detailClientViewModel.onInputLastNameChanged(details.second ?: "")
+                    detailClientViewModel.onInputPhoneChanged(details.third ?: "")
                 }
             }
         }
@@ -166,9 +166,11 @@ fun NewClientScreen(
 
 }
 
-fun getContactDetails(context: android.content.Context, contactUri: Uri): Pair<String?, String?> {
+fun getContactDetails(context: android.content.Context, contactUri: Uri): Triple<String?, String?, String?> {
     var name: String? = null
+    var lastName: String? = null
     var phoneNo: String? = null
+
     val cursor: Cursor? = context.contentResolver.query(contactUri, null, null, null, null)
 
     try {
@@ -181,7 +183,8 @@ fun getContactDetails(context: android.content.Context, contactUri: Uri): Pair<S
                 phoneNo = cursor.getString(phoneIndex)
             }
             if (nameIndex != -1) {
-                name = cursor.getString(nameIndex)
+                name = cursor.getString(nameIndex).substringBefore(" ")
+                lastName = cursor.getString(nameIndex).substringAfterLast(" ")
             }
         }
     } catch (e: Exception) {
@@ -189,5 +192,5 @@ fun getContactDetails(context: android.content.Context, contactUri: Uri): Pair<S
     } finally {
         cursor?.close()
     }
-    return Pair(name, phoneNo)
+    return Triple(name, lastName, phoneNo)
 }
