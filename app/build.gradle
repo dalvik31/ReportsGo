@@ -15,8 +15,8 @@ android {
         applicationId "com.epacheco.reports"
         minSdk 26
         targetSdk 36
-        versionCode 25
-        versionName "2.0.0.051125"
+        versionCode 26
+        versionName "2.0.0.061125"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
@@ -25,10 +25,6 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("reports_keystore_release.jks")
-            storePassword "Emma3103"
-            keyAlias "reports"
-            keyPassword "Emma3103"
         }
 
     }
@@ -40,6 +36,7 @@ android {
 
     buildTypes {
         release {
+        signingConfig signingConfigs.release
         }
     }
 

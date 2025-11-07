@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "948414846887-0rruas4ftj7tb62dn8nbm6dr89uthna5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.epacheco.reports",
+            "certificate_hash": "f97ee489546f80a21d172a5b0ee586ca791247dc"
+          }
+        },
+        {
+          "client_id": "948414846887-1fceaqjc5gta07cpa1unfulil6s6pe0f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.epacheco.reports",
+            "certificate_hash": "6fd09a52c0e9e4cda0d302a4b7a192382dca2f26"
+          }
+        },
+        {
           "client_id": "948414846887-g86rijitriq55navan1amib5omiacbl7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -23,11 +39,19 @@
           }
         },
         {
-          "client_id": "948414846887-0rruas4ftj7tb62dn8nbm6dr89uthna5.apps.googleusercontent.com",
+          "client_id": "948414846887-gditm2chn8msnsfl3rk0qtdcredkfpau.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.epacheco.reports",
-            "certificate_hash": "f97ee489546f80a21d172a5b0ee586ca791247dc"
+            "certificate_hash": "66da61bf71ca0bdc135c137490af2d64fe51d965"
+          }
+        },
+        {
+          "client_id": "948414846887-gfsec2cjc3j8rfqmlbsq7g9f2lfuvvvp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.epacheco.reports",
+            "certificate_hash": "c2e7a2a5341fec688fc4f7a91638099d6520c1b1"
           }
         },
         {
@@ -37,7 +61,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDnfPEgKbwzhK3R9tJXFpjBumgk4lWo1hY"
+          "current_key": "AIzaSyCW3B5elaDdF8iS3mTb7G0o28z3asuQMxU"
         }
       ],
       "services": {

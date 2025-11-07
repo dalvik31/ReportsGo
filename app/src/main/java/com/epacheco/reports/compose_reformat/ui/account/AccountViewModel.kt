@@ -1,9 +1,6 @@
 package com.epacheco.reports.compose_reformat.ui.account
 
 import android.util.Log
-import androidx.credentials.CredentialManager
-import androidx.credentials.CustomCredential
-import androidx.credentials.GetCredentialRequest
 import androidx.credentials.GetCredentialResponse
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.compose_reformat.ReportsApp
@@ -14,7 +11,6 @@ import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import com.epacheco.reports.compose_reformat.utils.Validations
 import com.epacheco.reports.compose_reformat.utils.extensions.getTranslateFireBaseErrorMsg
-import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -56,20 +52,20 @@ class AccountViewModel @Inject constructor(
             AccountUiIntent.ChangePassword -> navigateToPassword()
             AccountUiIntent.SignIn -> doSignIn()
             AccountUiIntent.HideMsgError -> setErrorMsg()
-            is AccountUiIntent.GoogleSignIn -> googleSignIn(intent.credentialRequest)
+            is AccountUiIntent.GoogleSignIn -> googleSignIn(intent.getCredentialResponse)
         }
     }
 
-    private fun googleSignIn(credentialRequest: GetCredentialRequest) {
+    private fun googleSignIn(credentialResponse: GetCredentialResponse) {
         loading(true)
-        val credentialManager = CredentialManager.create(app)
+        //val credentialManager = CredentialManager.create(app)
         viewModelScope.launch {
             try {
-                val result = credentialManager.getCredential(
+                /*val result = credentialManager.getCredential(
                     request = credentialRequest,
                     context = app,
-                )
-                when (val signInResponse = firebaseUserGoogleLoginUseCase(result)) {
+                )*/
+                when (val signInResponse = firebaseUserGoogleLoginUseCase(credentialResponse)) {
                     is Resource.Failure -> setErrorMsg(
                         signInResponse.exception.message?.getTranslateFireBaseErrorMsg(
                             app
