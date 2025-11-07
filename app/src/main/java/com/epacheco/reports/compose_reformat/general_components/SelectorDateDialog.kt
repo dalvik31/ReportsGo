@@ -46,6 +46,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -74,8 +75,50 @@ fun SelectorDateDialog(
             initialSelectedEndDateMillis = finalDate
         )
 
-    Column(modifier = modifier.fillMaxSize(), verticalArrangement = Arrangement.Top) {
-        Row(
+    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
+        Column {
+            Header(
+                title = stringResource(
+                    R.string.msg_select_date,
+                ),
+                titleColor = MaterialTheme.colorScheme.primary,
+                onRightIconClicked = {
+                    val startDate = state.selectedStartDateMillis ?: System.currentTimeMillis()
+                    val endDate = state.selectedEndDateMillis ?: startDate
+                    onDateSelected?.invoke(
+                        startDate,
+                        endDate
+                    )
+                    //onBackPressed?.invoke()
+                },
+                tintImageRight = MaterialTheme.colorScheme.primary,
+                rightImageVector = ImageVector.vectorResource(R.drawable.ic_vector_ok),
+            )
+
+            DateRangePicker(
+                state = state,
+                modifier = modifier
+                    .weight(1f)
+                    .background(MaterialTheme.colorScheme.background)
+            )
+        }
+
+        PrimaryButton(
+            modifier = Modifier
+                .padding(horizontal = 48.dp)
+                .padding(bottom = 24.dp),
+            textButton = stringResource(
+                R.string.msg_date_selected,
+            )
+        ) {
+            val startDate = state.selectedStartDateMillis ?: System.currentTimeMillis()
+            val endDate = state.selectedEndDateMillis ?: startDate
+            onDateSelected?.invoke(
+                startDate,
+                endDate
+            )
+        }
+        /*Row(
             modifier =
                 modifier
                     .fillMaxWidth()
@@ -109,8 +152,8 @@ fun SelectorDateDialog(
             ) {
                 Text(text = "Seleccionar fecha")
             }
-        }
-        DateRangePicker(state = state, modifier = modifier.weight(1f))
+        }*/
+
     }
 
 }

@@ -126,7 +126,14 @@ fun OrdersView(
                     items(orderList) { order ->
                         SecondaryItem(
                             text = order.orderName,
-                            contentText = order.orderDescription,
+                            contentText = stringResource(
+                                R.string.description_order,
+                                order.orderDescription,
+                                order.orderSize,
+                                order.orderColor,
+                                order.orderGender,
+                                order.orderClientName ?: ""
+                            ),
                             secondaryText = DateUtils.dateFormat(order.orderId, FORMAT_DATE2),
                             strikeThrough = order.orderBuy,
                             onClick = {

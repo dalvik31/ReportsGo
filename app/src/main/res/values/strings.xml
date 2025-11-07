@@ -448,6 +448,8 @@
     <string name="season_spring">Primavera - Verano</string>
     <string name="season_fall">Otoño - Invierno</string>
     <string name="order_empty_inputs_error">Faltan campos por completar</string>
+    <string name="description_order"><![CDATA[<b>Descripción:</b> %s<br> <b>Talla:</b> %s<br> <b>Color:</b> %s<br> <b>Género:</b> %s<br> <b>Cliente:</b> %s<br>]]></string>
+
     <string name="order_name_format"><![CDATA[<b>%s</b> %s]]></string>
     <plurals name="num_orders">
         <item formatted="true" quantity="one">%s Pedido</item>
@@ -606,6 +608,8 @@
     <string name="finances_initial_date">Fecha inicial</string>
     <string name="finances_final_date">Fecha final</string>
     <string name="sales_not_found">No hay ventas en este periodo</string>
+    <string name="msg_select_date">Selecciona una fecha</string>
+    <string name="msg_date_selected">Usar esta fecha</string>
 
     <!--CLIENTS Fragments-->
     <string name="lbl_search_client_hint">Nombre del cliente</string>

@@ -25,7 +25,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
@@ -67,7 +69,9 @@ fun SecondaryItem(
             disabledContainerColor = Color.Transparent
         )
     ) {
-        Column(Modifier.wrapContentHeight().padding(start = 8.dp, top = 8.dp)) {
+        Column(Modifier
+            .wrapContentHeight()
+            .padding(start = 8.dp, top = 8.dp)) {
 
             Row(
                 modifier = Modifier
@@ -78,7 +82,8 @@ fun SecondaryItem(
                 icon?.let {
                     Image(
                         modifier = Modifier
-                            .size(16.dp).padding(),
+                            .size(16.dp)
+                            .padding(),
                         imageVector = ImageVector.vectorResource(
                             icon ?: R.drawable.baseline_circle_24
                         ),
@@ -91,7 +96,8 @@ fun SecondaryItem(
 
                 Text(
                     modifier = Modifier
-                        .wrapContentWidth().padding(start = if(icon !=null )8.dp else 0.dp),
+                        .wrapContentWidth()
+                        .padding(start = if (icon != null) 8.dp else 0.dp),
                     text = text?.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }
                         ?: "",
                     textAlign = TextAlign.Start,
@@ -104,14 +110,19 @@ fun SecondaryItem(
                 )
             }
             Text(
-                contentText ?: "",
+                AnnotatedString.fromHtml(contentText ?: ""),
                 color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.padding(vertical = 5.dp, horizontal = 8.dp),
-                style = MaterialTheme.typography.bodyLarge
+                modifier = Modifier
+                    .padding(horizontal = 8.dp)
+                    .padding(top = 5.dp, bottom = 5.dp),
+                style = MaterialTheme.typography.bodyLarge.copy(
+                    fontWeight =  FontWeight.Light,
+                    textDecoration = if (strikeThrough) TextDecoration.LineThrough else TextDecoration.None,
+                ),
             )
             secondaryText?.let {
-            Row {
-                Spacer(modifier = modifier.weight(1f))
+                Row {
+                    Spacer(modifier = modifier.weight(1f))
 
                     Text(
                         secondaryText,
