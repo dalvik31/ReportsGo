@@ -22,16 +22,24 @@ import com.epacheco.reports.compose_reformat.utils.DateUtils
 @Composable
 fun FinancesScreen(
     financesViewModel: FinancesViewModel = hiltViewModel<FinancesViewModel>(),
+    initialDate: String? = System.currentTimeMillis().toString(),
+    finalDate: String? = System.currentTimeMillis().toString(),
+    onSelectDateScreen: (() -> Unit)? = null,
     onBackPressed: (() -> Unit)? = null,
 ) {
 
-    var showSelectorDateDialog by remember { mutableStateOf(false) }
     val uiState by financesViewModel.uiState.collectAsState()
 
 
     LaunchedEffect(Unit) {
         if (currentState.isAtLeast(Lifecycle.State.STARTED)) {
-            financesViewModel.handleIntent(FinancesUiIntent.LoadFinancesItems)
+            if(!initialDate.isNullOrEmpty() && !finalDate.isNullOrEmpty()){
+                financesViewModel.handleIntent(FinancesUiIntent.SetInitialDate(initialDate.toLong() ))
+                financesViewModel.handleIntent(FinancesUiIntent.SetFinalDate(finalDate.toLong() ))
+
+            }
+             financesViewModel.handleIntent(FinancesUiIntent.LoadFinancesItems)
+
         }
     }
 
@@ -44,26 +52,12 @@ fun FinancesScreen(
         onBackPressed = {
             onBackPressed?.invoke()
         },
-        initialDate = DateUtils.dateFormat(uiState.initialDate.toString(), DateUtils.FORMAT_DATE1),
-        finalDate = DateUtils.dateFormat(uiState.finalDate.toString(),DateUtils.FORMAT_DATE1),
+        initialDate = DateUtils.dateFormat(initialDate.toString().ifEmpty { System.currentTimeMillis().toString() }, DateUtils.FORMAT_DATE1),
+        finalDate = DateUtils.dateFormat(finalDate.toString().ifEmpty { System.currentTimeMillis().toString() }, DateUtils.FORMAT_DATE1),
         onSelectDatePressed = {
-            showSelectorDateDialog = true
+            onSelectDateScreen?.invoke()
         },
     )
-
-    if (showSelectorDateDialog) {
-        SelectorDateDialog(
-            onDateSelected = { initialDate, finalDate ->
-                showSelectorDateDialog = false
-                financesViewModel.handleIntent(FinancesUiIntent.SetInitialDate(initialDate))
-                financesViewModel.handleIntent(FinancesUiIntent.SetFinalDate(finalDate))
-                financesViewModel.handleIntent(FinancesUiIntent.LoadFinancesItems)
-            },
-            onDismiss = {
-                showSelectorDateDialog = false
-            }
-        )
-    }
 
 
 }

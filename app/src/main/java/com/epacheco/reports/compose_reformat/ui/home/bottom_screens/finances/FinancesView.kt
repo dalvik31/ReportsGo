@@ -90,7 +90,7 @@ fun FinancesView(
         val totalSales =
             orderMainMainList.asSequence().filter { it.paymentType  == PaymentType.PAY || it.paymentType  == PaymentType.CASH }.sumOf { it.productPriceSale }
         val totalBuy =
-            orderMainMainList.asSequence().filter { it.paymentType  == PaymentType.PAY || it.paymentType  == PaymentType.CASH }.sumOf { it.productPriceBuy }
+            orderMainMainList.asSequence().filter { it.paymentType  == PaymentType.PAY || it.paymentType  == PaymentType.CASH || it.paymentType  == PaymentType.CREDIT }.sumOf { it.productPriceBuy }
 
 
 

@@ -33,6 +33,7 @@ import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.deta
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.listClients.view.ClientsScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.orders.ClientOrderScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.finances.FinancesScreen
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.finances.finances_date.FinancesDateScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.OrdersMainScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders_detail.OrdersScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.new_order.NewOrderScreen
@@ -44,8 +45,10 @@ import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeNaviga
 import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes
 import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes.MainOrdersBottomHomeRoute
 import com.epacheco.reports.compose_reformat.ui.theme.RedDark
+import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.extensions.fromPath
 import com.epacheco.reports.compose_reformat.utils.extensions.serializableType
+import com.epacheco.reports.tools.Tools
 import kotlin.reflect.typeOf
 
 @Composable
@@ -54,18 +57,6 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
     val items = BottomHomeNavigationItem().bottomNavigationItems()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
-    Log.e("aqui", "estamoooos: ${navBackStackEntry?.destination?.route?.fromPath()}")
-    Log.e(
-        "aqui",
-        "estamoooos2: ${MainOrdersBottomHomeRoute.javaClass.canonicalName.substringBefore(".Companion")}"
-    )
-    Log.e(
-        "aqui",
-        "estamoooos3: ${
-            BottomHomeRoutes.ClientBottomHomeRoute.javaClass.canonicalName.substringBefore(".Companion")
-        }"
-    )
-
     val showBottomBar = currentRoute?.fromPath() in listOf(
         MainOrdersBottomHomeRoute.javaClass.canonicalName.substringBefore(".Companion"),
         BottomHomeRoutes.ClientBottomHomeRoute.javaClass.canonicalName.substringBefore(".Companion"),
@@ -295,15 +286,100 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
 
             }
 
-            composable<BottomHomeRoutes.FinancesBottomHomeRoute> {
-                FinancesScreen(onBackPressed = {
-                    navController.navigateUp()
-                })
+            composable<BottomHomeRoutes.FinancesBottomHomeRoute> { backStackEntry ->
+
+                val finalDate =
+                    backStackEntry.savedStateHandle.getLiveData<String>("finalDate")
+                        .observeAsState("")
+
+                val initialDate =
+                    backStackEntry.savedStateHandle.getLiveData<String>("initialDate")
+                        .observeAsState("")
+
+                /*backStackEntry.savedStateHandle.remove<String>("finalDate")
+                backStackEntry.savedStateHandle.remove<String>("initialDate")*/
+
+                if(initialDate.value.isNotEmpty()){
+                    Log.e("aqui", "vamooooos fecha: ${initialDate.value}")
+                    Log.e("aqui", "vamooooos fecha format: ${Tools.getFormatDateHour(initialDate.value)}")
+
+                }
+                 FinancesScreen(
+                    initialDate = initialDate.value,
+                    finalDate = finalDate.value,
+                    onBackPressed = {
+                        navController.navigateUp()
+                    },
+                    onSelectDateScreen = {
+                        navController.navigate(
+                            BottomHomeRoutes.FinancesDateBottomHomeRoute
+                        ) {
+                            popUpTo(BottomHomeRoutes.FinancesBottomHomeRoute) {
+                                inclusive = false
+                            }
+                        }
+                    })
             }
-            composable<BottomHomeRoutes.ProfileBottomHomeRoute>(
+            composable<BottomHomeRoutes.FinancesDateBottomHomeRoute> { backStackEntry ->
+                FinancesDateScreen( onDateSelected = { initialDate, finalDate ->
+                    navController.previousBackStackEntry?.savedStateHandle?.set(
+                        "initialDate",
+                        initialDate
+                    )
 
 
-            ) {
+                    navController.previousBackStackEntry?.savedStateHandle?.set(
+                        "finalDate",
+                        finalDate
+                    )
+                    navController.navigateUp()
+                }
+                )
+            }
+
+            composable<BottomHomeRoutes.CreateOrderBottomHomeRoute> { backStackEntry ->
+                val orderMainRoute: BottomHomeRoutes.CreateOrderBottomHomeRoute =
+                    backStackEntry.toRoute()
+
+                var clientId: String? = null
+                val clientIdFromOrder =
+                    backStackEntry.savedStateHandle.getLiveData<String>("resultStatus")
+                        .observeAsState("")
+
+                if (orderMainRoute.clientId != null) {
+                    clientId = orderMainRoute.clientId
+                } else if (clientIdFromOrder.value != null) {
+                    clientId = clientIdFromOrder.value
+                }
+                backStackEntry.savedStateHandle.remove<String>("resultStatus")
+                backStackEntry.savedStateHandle.remove<String>("productResult")
+                NewOrderScreen(
+                    orderSeason = orderMainRoute.orderSeason,
+                    mainOrderId = orderMainRoute.idOrderMain,
+                    orderToEdit = orderMainRoute.orderToEdit,
+                    onNavigateToSelectClient = {
+                        navController.navigate(
+                            BottomHomeRoutes.ClientBottomHomeRoute(
+                                isSelectableClient = true
+                            )
+                        ) {
+                            popUpTo(
+                                BottomHomeRoutes.CreateOrderBottomHomeRoute(
+                                    null,
+                                    null,
+                                    null
+                                )
+                            ) {
+                                inclusive = false
+                            }
+                        }
+                    },
+                    clientIdSelected = clientId,
+                    onBackPressed = {
+                        navController.navigateUp()
+                    })
+            }
+            composable<BottomHomeRoutes.ProfileBottomHomeRoute> {
                 ProfileScreen(
                     onNavigateToLogin = {
                         onNavigateToRegister.invoke()
@@ -349,7 +425,6 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                 ClientOrderScreen(clientId = clientId.idClient, onBackPressed = {
                     navController.navigateUp()
                 }, onOrderMainSelected = { mainOrderId, orderSeason, orderNameMain, openOrder ->
-                    Log.e("aqui", "estamos en el bottom${openOrder}")
                     navController.navigate(
                         BottomHomeRoutes.CreateOrderBottomHomeRoute(
                             null,
@@ -381,9 +456,10 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                     onNavigateToEditOrder = { orderMainId, orderId ->
                         navController.navigate(
                             BottomHomeRoutes.CreateOrderBottomHomeRoute(
-                                orderId ,
+                                orderId,
                                 orderMainId,
-                                null,)
+                                null,
+                            )
                         )
                     },
                     onBackPressed = {
@@ -401,47 +477,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                 })
             }
 
-            composable<BottomHomeRoutes.CreateOrderBottomHomeRoute> { backStackEntry ->
-                val orderMainRoute: BottomHomeRoutes.CreateOrderBottomHomeRoute =
-                    backStackEntry.toRoute()
 
-
-                var clientId: String? = null
-                val clientIdFromOrder =
-                    backStackEntry.savedStateHandle.getLiveData<String>("resultStatus")
-                        .observeAsState("")
-
-                if (orderMainRoute.clientId != null) {
-                    clientId = orderMainRoute.clientId
-                } else if (clientIdFromOrder.value != null) {
-                    clientId = clientIdFromOrder.value
-                }
-                backStackEntry.savedStateHandle.remove<String>("resultStatus")
-                backStackEntry.savedStateHandle.remove<String>("productResult")
-                NewOrderScreen(
-                    orderSeason = orderMainRoute.orderSeason,
-                    mainOrderId = orderMainRoute.idOrderMain,
-                    orderToEdit = orderMainRoute.orderToEdit,
-                    onNavigateToSelectClient = {
-                        navController.navigate(
-                            BottomHomeRoutes.ClientBottomHomeRoute(
-                                isSelectableClient = true
-                            )
-                        ) {
-                            popUpTo(BottomHomeRoutes.CreateOrderBottomHomeRoute(null, null, null)) {
-                                inclusive = false
-                            }
-                        }
-                    },
-                    clientIdSelected = clientId,
-                    onBackPressed = {
-                        navController.navigateUp()
-                    })
-            }
-            /*composable(Screen.Home.route) { HomeScreen(navController) }
-            composable(Screen.Favorites.route) { FavoritesScreen() }
-            composable(Screen.Settings.route) { SettingsScreen() }
-            composable(Screen.Profile.route) { ProfileScreen() }*/
         }
     }
 }

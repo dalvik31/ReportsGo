@@ -56,6 +56,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
+import com.epacheco.reports.compose_reformat.ui.theme.RedDark
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.ui.theme.White
 import kotlinx.coroutines.launch
@@ -67,7 +68,6 @@ fun SelectorDateDialog(
     initialDate: Long? = System.currentTimeMillis(),
     finalDate: Long? = System.currentTimeMillis(),
     onDateSelected: ((Long, Long) -> Unit)? = null,
-    onDismiss: (() -> Unit)? = null
 ) {
     val state =
         rememberDateRangePickerState(
@@ -77,7 +77,7 @@ fun SelectorDateDialog(
 
     Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
         Column {
-            Header(
+            /*Header(
                 title = stringResource(
                     R.string.msg_select_date,
                 ),
@@ -89,17 +89,15 @@ fun SelectorDateDialog(
                         startDate,
                         endDate
                     )
-                    //onBackPressed?.invoke()
                 },
                 tintImageRight = MaterialTheme.colorScheme.primary,
                 rightImageVector = ImageVector.vectorResource(R.drawable.ic_vector_ok),
-            )
+            )*/
 
             DateRangePicker(
                 state = state,
                 modifier = modifier
                     .weight(1f)
-                    .background(MaterialTheme.colorScheme.background)
             )
         }
 
@@ -118,41 +116,6 @@ fun SelectorDateDialog(
                 endDate
             )
         }
-        /*Row(
-            modifier =
-                modifier
-                    .fillMaxWidth()
-                    .background(DatePickerDefaults.colors().containerColor)
-                    .padding(start = 12.dp, end = 12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
-        ) {
-            TooltipBox(
-                positionProvider =
-                    TooltipDefaults.rememberPlainTooltipPositionProvider(),
-                tooltip = { PlainTooltip { Text("Close") } },
-                state = rememberTooltipState(),
-            ) {
-                IconButton(onClick = {
-                    onDismiss?.invoke()
-                }) {
-                    Icon(Icons.Filled.Close, contentDescription = "Close")
-                }
-            }
-            TextButton(
-                onClick = {
-                    val startDate = state.selectedStartDateMillis ?: System.currentTimeMillis()
-                    val endDate = state.selectedEndDateMillis ?: startDate
-                    onDateSelected?.invoke(
-                        startDate,
-                        endDate
-                    )
-                },
-                enabled = state.selectedStartDateMillis != null,
-            ) {
-                Text(text = "Seleccionar fecha")
-            }
-        }*/
 
     }
 

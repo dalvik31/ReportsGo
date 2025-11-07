@@ -115,7 +115,7 @@ fun SecondaryItem(
                 modifier = Modifier
                     .padding(horizontal = 8.dp)
                     .padding(top = 5.dp, bottom = 5.dp),
-                style = MaterialTheme.typography.bodyLarge.copy(
+                style = MaterialTheme.typography.bodySmall.copy(
                     fontWeight =  FontWeight.Light,
                     textDecoration = if (strikeThrough) TextDecoration.LineThrough else TextDecoration.None,
                 ),

@@ -1,9 +1,15 @@
 package com.epacheco.reports.compose_reformat.utils
 
+import android.os.Build
 import android.util.Log
-import com.epacheco.reports.tools.Tools
+import androidx.annotation.RequiresApi
 import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.ZoneId
+import java.time.ZoneOffset
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
@@ -14,15 +20,27 @@ object DateUtils {
 
     fun format(date: Date, format: String) = apply(date, format)
 
+    fun convertMillisToLocalDate(millis: Long): ZonedDateTime {
+        val utcDateAtStartOfDay = Instant
+            .ofEpochMilli(millis)
+            .atZone(ZoneOffset.UTC)
+            .toLocalDate()
+        val localDate = utcDateAtStartOfDay.atStartOfDay(ZoneId.systemDefault())
+        return localDate
+
+    }
+
+
     fun dateFormat(timestamp: String, format: String): String {
-        val cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
-        val date = Date(cal.timeInMillis)
-        val simple: DateFormat = SimpleDateFormat(format, Locale.US)
-        Log.e("vamoos", "fechaaaaaa: ${date.toString()}")
-        cal.setTimeInMillis(timestamp.toLong())
-        val format = simple.format(cal.getTime())
-        Log.e("vamoos", "fechaaaaaa2: ${format.toString()}")
-        return format
+        val zoneFormatDate = convertMillisToLocalDate(timestamp.toLong())
+        val dateFormatter = DateTimeFormatter.ofPattern(format, Locale.getDefault())
+        return dateFormatter.format(zoneFormatDate)
+    }
+
+    fun dateFormat(timestamp: Long, format: String): String {
+        val zoneFormatDate = convertMillisToLocalDate(timestamp)
+        val dateFormatter = DateTimeFormatter.ofPattern(format, Locale.getDefault())
+        return dateFormatter.format(zoneFormatDate)
     }
 
     fun format(timestamp: Long, format: String) = apply(Date(timestamp), format)
