@@ -6,52 +6,44 @@ Con ReportsGo puedes agregar clientes, productos y pedidos, cada cliente tiene u
 
 <img src="https://github.com/dalvik31/ReportsGo/blob/release_071125/app/images/nueva1.png" width="350" height="780">
 
-![App Screenshot](https://github.com/dalvik31/ReportsGo/blob/release_071125/app/images/nueva1.png)
-
-![test image size](/img/post-bg-2015.jpg){:height="2880px" width="5120px"}
-
-<img src="[https://github.com/favicon.ico](https://github.com/dalvik31/ReportsGo/blob/release_071125/app/images/nueva1.png)" width="48">
-
-
 Productos:
 
 Puedes agregar productos con diferentes detalles como el precio de compra, el precio de venta, un código de barras o Qr que puedes escanear, una imagen descriptiva, y otros datos que te ayudarán a llevar un mejor control de los mismos.
 
-![App Screenshot](https://play-lh.googleusercontent.com/ana4qP7kV8sD_LiD_8lSoS1PnIDCI523fcy1aDT8oYITh3WSajjD8Ybyp5HfNmMKidc=w5120-h2880)
+<img src="https://github.com/dalvik31/ReportsGo/blob/release_071125/app/images/nueva3.png" width="350" height="780">
 
 Cliente:
 
 Puedes agregar clientes con un limite de crédito por default, que si lo deseas puedes modificar, también puedes agregar un numero de teléfono por si en algún momento necesitas ponerte en contacto con él.
 Lleva el control de los productos que compren tus clientes, el dinero que te están abonando, además puedes enviar el detalle de los pagos y prestamos de los clientes por correo o mensaje.
 
-![App Screenshot](https://play-lh.googleusercontent.com/c2YUvKkSSOL_RE72vbB2trmnWOIkQeYnJw84Lb03lgP6oqVC01O2rKOIpvwtTJgpC4Cz=w5120-h2880)
 
-
+<img src="https://github.com/dalvik31/ReportsGo/blob/release_071125/app/images/nueva2.png" width="350" height="780">
 
 Ventas:
 
 Puedes generar ventas de tus productos desde esta pantalla, si no tienes clientes o productos puedes crearlos desde aquí y generar la venta.
 
-![App Screenshot](https://play-lh.googleusercontent.com/zrWD8fEOHgDVU8uN60ad89HD8ntuyk3jmgEpzCaGmdOO8eplsUhGbqXaCnHNGbTj8g=w5120-h2880)
+
+<img src="https://github.com/dalvik31/ReportsGo/blob/release_071125/app/images/nueva4.png?raw=true" width="350" height="780">
 
 Pedidos:
 
 Crea una lista y agrega pedidos los cuales puedes ir marcando cuando ya los hayas comprado.
 
-![App Screenshot](https://play-lh.googleusercontent.com/dWyN5bMoWlns1q8BRz1w7L7L0BPZ4r0QjkVyyZfFOJLPFS-uRvkwJjNodYroK6HPWHM=w5120-h2880)
+<img src="https://github.com/dalvik31/ReportsGo/blob/release_071125/app/images/nueva7.png" width="350" height="780">
 
 
 Finanzas:
 
 Ten a la mano lo que invertiste, tus ventas y las ganancias generadas por día o en un rango de fechas determinado.
 
-![App Screenshot](https://play-lh.googleusercontent.com/m13YjMCdAi7JCAcSS04l5d2ugbKby8ckkWdgNnSkiIKJjfMF9ufwRL-LS2dQ26DchV8=w5120-h2880)
 
+<img src="https://github.com/dalvik31/ReportsGo/blob/release_071125/app/images/nueva5.png" width="350" height="780">
 
 
 ## 🔗 Links
-[![googlePay](https://cdn.icon-icons.com/icons2/2699/PNG/512/google_play_logo_icon_171054.png)](https://play.google.com/store/apps/details?id=com.epacheco.reports&hl=es_419)
-
+[![googlePay](https://image.similarpng.com/file/similarpng/very-thumbnail/2020/12/Google-play-icon-illustration-premium-vector-PNG.png)](https://play.google.com/store/apps/details?id=com.epacheco.reports&hl=es_419)
 
 
 ## Authors
