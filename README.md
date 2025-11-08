@@ -43,7 +43,7 @@ Ten a la mano lo que invertiste, tus ventas y las ganancias generadas por día o
 
 
 ## 🔗 Links
-[![googlePay](https://image.similarpng.com/file/similarpng/very-thumbnail/2020/12/Google-play-icon-illustration-premium-vector-PNG.png)](https://play.google.com/store/apps/details?id=com.epacheco.reports&hl=es_419)
+[![googlePay](https://static.vecteezy.com/system/resources/previews/013/441/310/non_2x/google-play-modern-logo-icon-free-vector.jpg)](https://play.google.com/store/apps/details?id=com.epacheco.reports&hl=es_419)
 
 
 ## Authors
