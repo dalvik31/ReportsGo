@@ -4,6 +4,8 @@
 Con ReportsGo puedes agregar clientes, productos y pedidos, cada cliente tiene un limite de crédito al cual le puedes prestar una cierta cantidad de productos.
 
 
+<img src="https://github.com/dalvik31/ReportsGo/blob/release_071125/app/images/nueva1.png" width="150" height="280">
+
 ![App Screenshot](https://github.com/dalvik31/ReportsGo/blob/release_071125/app/images/nueva1.png)
 
 ![test image size](/img/post-bg-2015.jpg){:height="2880px" width="5120px"}
