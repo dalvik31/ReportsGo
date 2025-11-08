@@ -48,7 +48,7 @@ import com.epacheco.reports.compose_reformat.ui.theme.RedDark
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.extensions.fromPath
 import com.epacheco.reports.compose_reformat.utils.extensions.serializableType
-import com.epacheco.reports.tools.Tools
+
 import kotlin.reflect.typeOf
 
 @Composable
@@ -299,11 +299,6 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                 /*backStackEntry.savedStateHandle.remove<String>("finalDate")
                 backStackEntry.savedStateHandle.remove<String>("initialDate")*/
 
-                if(initialDate.value.isNotEmpty()){
-                    Log.e("aqui", "vamooooos fecha: ${initialDate.value}")
-                    Log.e("aqui", "vamooooos fecha format: ${Tools.getFormatDateHour(initialDate.value)}")
-
-                }
                  FinancesScreen(
                     initialDate = initialDate.value,
                     finalDate = finalDate.value,

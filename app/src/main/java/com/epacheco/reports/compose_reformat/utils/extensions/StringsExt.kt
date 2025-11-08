@@ -73,7 +73,5 @@ fun String.fromPath(): String {
     } else if (this.contains("?")) {
         this.split("?").first()
     } else this
-    Log.e("fromPath","vamooooos currentRoute aqui: ${this}")
-    Log.e("fromPath","vamooooos currentRoute aqui: ${name}")
     return name
 }

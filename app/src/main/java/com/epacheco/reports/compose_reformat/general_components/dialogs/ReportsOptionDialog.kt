@@ -89,7 +89,6 @@ fun CustomOptionDialogUI(
                 .padding(top = 30.dp, bottom = 20.dp)
         ) {
 
-            //.......................................................................
             Image(
                 painter = painterResource(id = imgDialog),
                 contentDescription = null, // decorative
@@ -113,7 +112,7 @@ fun CustomOptionDialogUI(
                         modifier = Modifier
                             .fillMaxWidth(),
                         color = MaterialTheme.colorScheme.primary,
-                        style =  MaterialTheme.typography.titleLarge,
+                        style = MaterialTheme.typography.titleLarge,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis,
                     )

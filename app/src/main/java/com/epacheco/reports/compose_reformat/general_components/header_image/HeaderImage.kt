@@ -73,8 +73,7 @@ private fun BackgroundTopImg(imgProfile: Uri?) {
                 painter = rememberAsyncImagePainter(imgProfile),
                 contentDescription = null,
                 modifier = Modifier
-                    .fillMaxSize()
-                 ,
+                    .fillMaxSize(),
                 alpha = 0.1f,
                 contentScale = ContentScale.FillWidth
             )

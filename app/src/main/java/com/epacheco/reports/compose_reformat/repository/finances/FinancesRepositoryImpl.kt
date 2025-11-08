@@ -4,11 +4,9 @@ import android.util.Log
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.firebase.await
 import com.epacheco.reports.compose_reformat.model.Finances.Sale
-import com.epacheco.reports.compose_reformat.model.products.Product
+import com.epacheco.reports.compose_reformat.utils.Constants
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE1
-import com.epacheco.reports.tools.Constants
-import com.epacheco.reports.tools.Tools
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -27,20 +25,19 @@ class FinancesRepositoryImpl @Inject constructor(
         val saleList = mutableListOf<Sale>()
         val usersRef = getFinancesReference()
         return try {
-            var oneDate: Query? = null
+            var query: Query? = null
 
             if (initialDate == finalDate) {
                 val dateToSearch = DateUtils.dateFormat(initialDate.toString(), FORMAT_DATE1)
-                Log.e("aqu", "vamooooos dateToSearch: $dateToSearch")
-                oneDate = usersRef.orderByChild("saleId")
+                query = usersRef.orderByChild("saleId")
                     .equalTo(dateToSearch)
             } else {
-                oneDate = usersRef.orderByChild("saleId")
+                query = usersRef.orderByChild("saleId")
                     .startAt(DateUtils.dateFormat(initialDate.toString(), FORMAT_DATE1))
                     .endAt(DateUtils.dateFormat(finalDate.toString(), FORMAT_DATE1))
             }
 
-            oneDate?.get()?.await()?.children?.map { snapShot ->
+            query.get().await()?.children?.map { snapShot ->
                 val sale = snapShot.getValue(Sale::class.java)
                 sale?.let {
                     saleList.add(it)

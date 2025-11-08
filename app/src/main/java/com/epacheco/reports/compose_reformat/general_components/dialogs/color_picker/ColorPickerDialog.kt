@@ -50,20 +50,20 @@ fun ColorPickerDialog(
                         borderWidth = 2.dp
                     }
 
-                    Canvas(modifier = Modifier
-                        .padding(16.dp)
-                        .clip(RoundedCornerShape(20.dp))
-                        .border(
-                            borderWidth,
-                            MaterialTheme.colorScheme.onBackground.copy(alpha = 0.75f),
-                            RoundedCornerShape(20.dp)
-                        )
-//                        .background(color)
-                        .requiredSize(70.dp)
-                        .clickable {
-                            onColorSelected(currentColor, index)
-                            onDismiss()
-                        }
+                    Canvas(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .clip(RoundedCornerShape(20.dp))
+                            .border(
+                                borderWidth,
+                                MaterialTheme.colorScheme.onBackground.copy(alpha = 0.75f),
+                                RoundedCornerShape(20.dp)
+                            )
+                            .requiredSize(70.dp)
+                            .clickable {
+                                onColorSelected(currentColor, index)
+                                onDismiss()
+                            }
                     ) {
                         val canvasWidth = size.width
                         val canvasHeight = size.height

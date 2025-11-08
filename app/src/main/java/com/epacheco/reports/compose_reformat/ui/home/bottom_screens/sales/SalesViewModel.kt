@@ -3,22 +3,21 @@ package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.sales
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.domain.ClientDetailUseCase
-import com.epacheco.reports.compose_reformat.domain.ClientUpdateDebtUseCase
-import com.epacheco.reports.compose_reformat.domain.ClientUpdateLimitUseCase
-import com.epacheco.reports.compose_reformat.domain.ProductUpdateStockUseCase
-import com.epacheco.reports.compose_reformat.domain.ProductsGetByIdUseCase
-import com.epacheco.reports.compose_reformat.domain.SaleCreateUseCase
+import com.epacheco.reports.compose_reformat.domain.clients.GetClientDetailUseCase
+import com.epacheco.reports.compose_reformat.domain.clients.UpdateDebtClientUseCase
+import com.epacheco.reports.compose_reformat.domain.clients.UpdateClientLimitUseCase
+import com.epacheco.reports.compose_reformat.domain.products.UpdateStockProductUseCase
+import com.epacheco.reports.compose_reformat.domain.products.GetProductByIdUseCase
+import com.epacheco.reports.compose_reformat.domain.sales.CreateSaleUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.model.Finances.PaymentType
 import com.epacheco.reports.compose_reformat.model.Finances.Sale
 import com.epacheco.reports.compose_reformat.model.products.Product
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
+import com.epacheco.reports.compose_reformat.utils.Constants
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE1
-import com.epacheco.reports.tools.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -27,12 +26,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SalesViewModel @Inject constructor(
-    private val clientDetailUseCase: ClientDetailUseCase,
-    private val productsGetByIdUseCase: ProductsGetByIdUseCase,
-    private val saleCreateUseCase: SaleCreateUseCase,
-    private val updateClientLimit: ClientUpdateLimitUseCase,
-    private val productUpdateStockUseCase: ProductUpdateStockUseCase,
-    private val clientUpdateDebtUseCase: ClientUpdateDebtUseCase
+    private val getClientDetailUseCase: GetClientDetailUseCase,
+    private val getProductByIdUseCase: GetProductByIdUseCase,
+    private val createSaleUseCase: CreateSaleUseCase,
+    private val updateClientLimit: UpdateClientLimitUseCase,
+    private val updateStockProductUseCase: UpdateStockProductUseCase,
+    private val updateDebtClientUseCase: UpdateDebtClientUseCase
 ) :
     BaseViewModel() {
 
@@ -73,7 +72,7 @@ class SalesViewModel @Inject constructor(
         if (!clientId.isNullOrEmpty()) {
 
             loading(true)
-            when (val clientResponse = clientDetailUseCase(clientId)) {
+            when (val clientResponse = getClientDetailUseCase(clientId)) {
                 is Resource.Failure -> {
                     setErrorMsg(clientResponse.exception.message)
                 }
@@ -94,7 +93,7 @@ class SalesViewModel @Inject constructor(
     private fun getProductById(productId: String?) = viewModelScope.launch {
         if (!productId.isNullOrEmpty()) {
             loading(true)
-            when (val productResponse = productsGetByIdUseCase(productId)) {
+            when (val productResponse = getProductByIdUseCase(productId)) {
                 is Resource.Failure -> {
                     setErrorMsg(productResponse.exception.message)
                 }
@@ -125,11 +124,9 @@ class SalesViewModel @Inject constructor(
     }
 
     private fun removeProduct(productId: String?) {
-        Log.e("TAG", "productId: $productId")
         productId?.let { id ->
             val list = _uiState.value.cartProducts.toMutableList()
             val productList = list.find { it.productId == id }
-            Log.e("TAG", "productId removeProduct: $productList")
             productList?.let { product ->
                 subtractTotalSale(product)
                 val indexItem = list.indexOf(productList)
@@ -218,7 +215,7 @@ class SalesViewModel @Inject constructor(
         val listProducts = uiState.value.cartProducts
         listProducts.forEachIndexed { index, product ->
             loading(true)
-            when (val saleCreateResponse = saleCreateUseCase(getSaleDetail(product))) {
+            when (val saleCreateResponse = createSaleUseCase(getSaleDetail(product))) {
                 is Resource.Failure -> {
                     setErrorMsg(saleCreateResponse.exception.message)
                 }
@@ -226,7 +223,7 @@ class SalesViewModel @Inject constructor(
                 is Resource.Success -> {
                     val newStock = product.inStock - product.auxStock
                     when (val updateStockProductResponse =
-                        productUpdateStockUseCase(productId = product.productId, newStock)) {
+                        updateStockProductUseCase(productId = product.productId, newStock)) {
                         is Resource.Failure -> {
                             setErrorMsg(updateStockProductResponse.exception.message)
                         }
@@ -257,7 +254,7 @@ class SalesViewModel @Inject constructor(
                             is Resource.Success -> {
 
 
-                                when (val clientUpdateDebtUseCase = clientUpdateDebtUseCase(
+                                when (val clientUpdateDebtUseCase = updateDebtClientUseCase(
                                     clientId = clientId,
                                     newDebt = newDebt ?: 0.0
                                 )) {

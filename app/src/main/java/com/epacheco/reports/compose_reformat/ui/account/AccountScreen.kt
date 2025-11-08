@@ -43,7 +43,6 @@ fun AccountScreen(
     val context = LocalContext.current
     val credentialManager = remember { CredentialManager.create(context) }
     val coroutineScope = rememberCoroutineScope()
-    var statusMessage by remember { mutableStateOf("Ready to sign in") }
 
     val googleId = stringResource(R.string.default_web_client_id)
 
@@ -69,21 +68,12 @@ fun AccountScreen(
                 onSignInSuccess.invoke(result)
 
             } catch (e: GetCredentialException) {
-                // Handle exceptions, such as user cancellation or no credentials found
-                statusMessage = "Sign-in failed: ${e.message}"
-                Log.e("aqui","errorrrrrrrr GetCredentialException ${statusMessage}")
                 e.printStackTrace()
             } catch (e: Throwable) {
-                statusMessage = "An error occurred: ${e.message}"
-                Log.e("aqui","errorrrrrrrr GetCredentialException2 ${statusMessage}")
                 e.printStackTrace()
             }
         }
     }
-
-    val ctx = LocalContext.current
-
-
 
 
     val email = accountViewModel.email.collectAsState()

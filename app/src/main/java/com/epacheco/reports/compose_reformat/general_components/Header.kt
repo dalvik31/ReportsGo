@@ -30,8 +30,8 @@ import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 @Composable
 fun Header(
     modifier: Modifier = Modifier,
-    title: String? = null,
-    titleColor: Color = MaterialTheme.colorScheme.onPrimary,
+    text: String? = null,
+    textColor: Color = MaterialTheme.colorScheme.onPrimary,
     backgroundToolbar: Color = MaterialTheme.colorScheme.background,
     leftImageVector: ImageVector = Icons.Filled.ArrowBackIosNew,
     onLeftIconClicked: (() -> Unit)? = null,
@@ -45,7 +45,7 @@ fun Header(
     ) {
     TopAppBar(
         title = {
-            title?.let {
+            text?.let {
                 Text(
                     text = it,
                     modifier = modifier
@@ -58,7 +58,7 @@ fun Header(
             }
         }, colors = TopAppBarDefaults.topAppBarColors(
             containerColor = backgroundToolbar,
-            titleContentColor = titleColor
+            titleContentColor = textColor
         ),
         actions = {
             onProfileClicked?.let { profileAction ->
@@ -66,7 +66,7 @@ fun Header(
                     Icon(
                         imageVector = Icons.Filled.AccountCircle,
                         contentDescription = "close",
-                        tint = tintImageRight
+                        tint = tintIconProfile
                     )
                 }
             }
@@ -95,34 +95,34 @@ fun Header(
     )
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true, showSystemUi = false)
 @Composable
 private fun BasicHeaderPreview() {
     ReportsGoTheme {
-        Header(title = "Toolbar")
+        Header(text = "Toolbar")
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true, showSystemUi = false)
 @Composable
 private fun RightActionHeaderPreview() {
     ReportsGoTheme {
-        Header(title = "Toolbar", onRightIconClicked = {})
+        Header(text = "Toolbar", onRightIconClicked = {})
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true, showSystemUi = false)
 @Composable
 private fun LeftActionHeaderPreview() {
     ReportsGoTheme {
-        Header(title = "showLeftActionHeader", onLeftIconClicked = {})
+        Header(text = "showLeftActionHeader", onLeftIconClicked = {})
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = false, showSystemUi = false)
 @Composable
 private fun BothActionHeaderPreview() {
     ReportsGoTheme {
-        Header(title = "Toolbar", onLeftIconClicked = {}, onRightIconClicked = {})
+        Header(text = "Toolbar", onLeftIconClicked = {}, onRightIconClicked = {})
     }
 }

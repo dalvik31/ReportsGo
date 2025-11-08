@@ -23,9 +23,6 @@ fun ClientOrderScreen(
     clientId: String? = null,
     onBackPressed: (() -> Unit)? = null,
 ) {
-
-    Log.e("aqui","ClientOrderScreenssss: clientId: ${clientId}")
-
     val uiState by clientOrdersViewModel.uiState.collectAsState()
     LaunchedEffect(Unit) {
         if (currentState.isAtLeast(Lifecycle.State.STARTED)) {

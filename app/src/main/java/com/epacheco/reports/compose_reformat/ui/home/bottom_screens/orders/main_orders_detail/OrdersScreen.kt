@@ -28,9 +28,6 @@ fun OrdersScreen(
     clientId: String? = null
 ) {
     val uiState by ordersViewModel.uiState.collectAsState()
-
-    Log.e("aqui","OrdersScreen ClientOrderScreenssss: clientId: ${clientId}")
-
     LaunchedEffect(Unit) {
         ordersViewModel.handleIntent(OrdersUiIntent.LoadOrders(mainOrderId))
     }

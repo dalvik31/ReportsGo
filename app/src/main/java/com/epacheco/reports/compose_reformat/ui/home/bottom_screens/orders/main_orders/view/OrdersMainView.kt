@@ -1,8 +1,5 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.view
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,11 +12,9 @@ import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -49,12 +44,12 @@ fun OrderMainView(
     val pagerState = rememberPagerState(initialPage = 0, pageCount = { 2 })
     Column {
         Header(
-            title = pluralStringResource(
+            text = pluralStringResource(
                 R.plurals.title_main_orders,
                 count = orderMainMainList.size,
                 orderMainMainList.size,
             ),
-            titleColor = MaterialTheme.colorScheme.primary,
+            textColor = MaterialTheme.colorScheme.primary,
             tintImageRight = MaterialTheme.colorScheme.primary,
             onRightIconClicked = { onCreateOrderMainClick?.invoke() },
             rightImageVector = ImageVector.vectorResource(R.drawable.ic_vector_add),

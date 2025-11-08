@@ -1,15 +1,12 @@
 package com.epacheco.reports.compose_reformat.ui.recovery_password
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material3.Card
@@ -42,9 +39,9 @@ fun RecoveryPasswordView(
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         Header(
-            title = stringResource(R.string.recovery_password_screen_title),
+            text = stringResource(R.string.recovery_password_screen_title),
             backgroundToolbar = Color.Transparent,
-            titleColor = MaterialTheme.colorScheme.primary,
+            textColor = MaterialTheme.colorScheme.primary,
             onLeftIconClicked = { onBackPressed?.invoke() },
             leftImageVector = Icons.Default.ArrowBackIosNew,
             tintImageLeft = MaterialTheme.colorScheme.primary

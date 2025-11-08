@@ -1,7 +1,6 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.view
 
 import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,7 +25,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat.startActivity
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.CheckPermission
 import com.epacheco.reports.compose_reformat.general_components.ClientItem
@@ -60,13 +58,13 @@ fun ClientDetailView(
         val clientName =
             client?.name ?: run { stringResource(R.string.client_not_found) }
         Header(
-            title = stringResource(R.string.add_client_title, clientName),
+            text = stringResource(R.string.add_client_title, clientName),
             backgroundToolbar = Color.Transparent,
             onRightIconClicked = {
                 onBackPressed?.invoke()
             },
 
-            titleColor = MaterialTheme.colorScheme.primary,
+            textColor = MaterialTheme.colorScheme.primary,
 
             tintImageRight = MaterialTheme.colorScheme.primary
         )

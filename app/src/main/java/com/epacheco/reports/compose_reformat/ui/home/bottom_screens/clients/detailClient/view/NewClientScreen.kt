@@ -113,7 +113,8 @@ fun NewClientScreen(
         },
         onSelectContact = {
             val intent = Intent(Intent.ACTION_PICK).apply {
-                type = ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE // Or other types like ContactsContract.Contacts.CONTENT_TYPE
+                type =
+                    ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE // Or other types like ContactsContract.Contacts.CONTENT_TYPE
             }
 
             launcher.launch(intent)
@@ -166,7 +167,10 @@ fun NewClientScreen(
 
 }
 
-fun getContactDetails(context: android.content.Context, contactUri: Uri): Triple<String?, String?, String?> {
+fun getContactDetails(
+    context: android.content.Context,
+    contactUri: Uri
+): Triple<String?, String?, String?> {
     var name: String? = null
     var lastName: String? = null
     var phoneNo: String? = null
@@ -175,9 +179,9 @@ fun getContactDetails(context: android.content.Context, contactUri: Uri): Triple
 
     try {
         if (cursor != null && cursor.moveToFirst()) {
-            Log.e("aqui","vamoooos phone cursor: ${cursor.moveToFirst()}")
             val phoneIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
-            val nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)
+            val nameIndex =
+                cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)
 
             if (phoneIndex != -1) {
                 phoneNo = cursor.getString(phoneIndex)
@@ -185,6 +189,9 @@ fun getContactDetails(context: android.content.Context, contactUri: Uri): Triple
             if (nameIndex != -1) {
                 name = cursor.getString(nameIndex).substringBefore(" ")
                 lastName = cursor.getString(nameIndex).substringAfterLast(" ")
+                if (name == lastName) {
+                    lastName = ""
+                }
             }
         }
     } catch (e: Exception) {

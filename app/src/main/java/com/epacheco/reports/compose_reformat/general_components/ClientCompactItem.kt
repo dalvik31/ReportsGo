@@ -2,14 +2,11 @@ package com.epacheco.reports.compose_reformat.general_components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -152,96 +149,6 @@ fun ClientCompactItem(
         }
 
     }
-
-    /*    Card(
-            modifier = modifier
-                .wrapContentWidth()
-                .wrapContentSize()
-                .padding(vertical = 8.dp, horizontal = 8.dp)
-                .alpha(if (strikeThrough) 0.5f else 1f)
-                .clickable {
-                    onItemPressed?.invoke()
-                },
-            colors = CardColors(
-                contentColor = White,
-                containerColor = MaterialTheme.colorScheme.surface,
-                disabledContentColor = Color.Transparent,
-                disabledContainerColor = Color.Transparent
-            )
-
-        ) {
-
-
-            Column(
-                horizontalAlignment = Alignment.End,
-            ) {
-
-                Row(
-                    modifier = modifier.padding(start = 8.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Start
-                ) {
-
-
-                    Image(
-                        modifier = Modifier
-                            .size(16.dp),
-                        imageVector = ImageVector.vectorResource(
-                            icon ?: R.drawable.baseline_circle_24
-                        ),
-                        contentDescription = null,
-                        colorFilter = ColorFilter.tint(if (icon != null) tintIcon else Color.Transparent)
-                    )
-
-                    Text(
-                        modifier = Modifier
-                            .wrapContentWidth()
-                            .padding(start = 8.dp),
-                        text = text ?: "",
-                        textAlign = TextAlign.Start,
-                        style = MaterialTheme.typography.bodyLarge.copy(
-                            fontWeight = if (strikeThrough) FontWeight.Light else FontWeight.Bold,
-                            textDecoration = if (strikeThrough) TextDecoration.LineThrough else TextDecoration.None
-                        ), fontSize = 14.sp,
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                    Spacer(modifier = modifier.weight(1f))
-
-                }
-
-
-
-                Text(
-                    modifier = modifier.fillMaxWidth().padding(vertical = 4.dp),
-                    text = secondaryText ?: "",
-                    fontSize = 10.sp,
-                    color = MaterialTheme.colorScheme.primary,
-                    style = MaterialTheme.typography.bodySmall,
-
-                    )
-
-                Box(
-                    modifier = modifier
-                        .background(
-                            MaterialTheme.colorScheme.onBackground,
-                            RoundedCornerShape(topStart = 10.dp)
-                        )
-                        .padding(horizontal = 8.dp, vertical = 4.dp),
-
-                    ) {
-                    Text(
-                        text = secondaryText ?: "",
-                        fontSize = 10.sp,
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        style = MaterialTheme.typography.bodySmall,
-
-                        )
-                }
-
-            }
-
-        }
-    */
 }
 
 @Preview

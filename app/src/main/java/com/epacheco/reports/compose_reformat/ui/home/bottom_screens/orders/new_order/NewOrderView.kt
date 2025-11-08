@@ -28,11 +28,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
@@ -50,7 +48,6 @@ import com.epacheco.reports.compose_reformat.general_components.dialogs.color_pi
 import com.epacheco.reports.compose_reformat.general_components.dialogs.picker_dialog.PickerDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.picker_dialog.PickerDialogOption
 import com.epacheco.reports.compose_reformat.model.clients.Client
-import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.ui.theme.GrayDark
 import com.epacheco.reports.compose_reformat.ui.theme.GrayLight
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
@@ -105,13 +102,13 @@ fun NewOrderView(
     Column {
 
         Header(
-            title = stringResource(orderToEdit?.let { R.string.modify_order_title }
+            text = stringResource(orderToEdit?.let { R.string.modify_order_title }
                 ?: run { R.string.create_new_order_title }),
             backgroundToolbar = Color.Transparent,
             onRightIconClicked = {
                 onBackPressed?.invoke()
             },
-            titleColor = MaterialTheme.colorScheme.primary,
+            textColor = MaterialTheme.colorScheme.primary,
             tintImageRight = MaterialTheme.colorScheme.primary
         )
 

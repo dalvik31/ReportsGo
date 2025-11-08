@@ -15,10 +15,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -28,10 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.rememberAsyncImagePainter
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.ui.theme.GrayDark
 import com.epacheco.reports.compose_reformat.ui.theme.GreenColor
-import com.epacheco.reports.compose_reformat.utils.ColorUtils
-import java.time.format.TextStyle
 
 @Composable
 fun AvatarWithIndicator(
@@ -39,7 +34,6 @@ fun AvatarWithIndicator(
     avatarRes: Int? = null,
     avatarLetters: String? = null,
     indicatorRes: Int,
-    indicatorSaleRes: Int? = null,
     avatarSize: Dp = 80.dp,
     indicatorSize: Dp = 30.dp,
     tintSaleIndicator: Color = MaterialTheme.colorScheme.primary,
@@ -51,7 +45,6 @@ fun AvatarWithIndicator(
             .padding(indicatorSize / 6),
 
         ) {
-        // Main circular image
         if (!avatarUrl.isNullOrEmpty()) {
             Image(
                 painter = rememberAsyncImagePainter(avatarUrl),
@@ -62,7 +55,7 @@ fun AvatarWithIndicator(
                     .clip(CircleShape)
                     .border(2.dp, Color.White, CircleShape) // Optional border
             )
-        }else if(avatarRes != null){
+        } else if (avatarRes != null) {
             Image(
                 painter = painterResource(avatarRes),
                 contentDescription = "Avatar",
@@ -94,9 +87,6 @@ fun AvatarWithIndicator(
             }
 
         }
-
-
-        // Smaller indicator image in the bottom-end corner
         Image(
             painter = painterResource(id = indicatorRes),
             contentDescription = "Status indicator",
@@ -109,20 +99,6 @@ fun AvatarWithIndicator(
             , colorFilter = ColorFilter.tint(tintSaleIndicator)
         )
 
-        /* indicatorSaleRes?.let {
-             // Smaller indicator image in the bottom-end corner
-             Image(
-                 painter = painterResource(id = it),
-                 contentDescription = "Status indicator",
-                 colorFilter = ColorFilter.tint(tintSaleIndicator),
-                 modifier = Modifier
-                     .size(indicatorSize)
-                     .align(Alignment.TopStart) // Align to the bottom-right
-                     .clip(CircleShape)
-                     .background(Color.White)
-                     .padding(1.dp) // Add a small internal padding
-             )
-         }*/
 
     }
 }
@@ -132,11 +108,10 @@ fun AvatarWithIndicator(
 @Composable
 fun AvatarWithIndicatorPreview() {
     AvatarWithIndicator(
-        avatarUrl = null, // Replace with your avatar drawable
+        avatarUrl = null,
         avatarLetters = "EP",
         avatarRes = R.drawable.ic_vector_sale,
-        indicatorRes = R.drawable.icon_person, // Replace with your badge drawable
-        indicatorSaleRes = R.drawable.ic_sales, // Replace with your badge drawable
+        indicatorRes = R.drawable.icon_person,
         avatarSize = 60.dp,
         indicatorSize = 15.dp,
         modifier = Modifier.padding(all = 8.dp)

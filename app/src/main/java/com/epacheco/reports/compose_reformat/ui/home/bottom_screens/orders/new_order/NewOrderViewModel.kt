@@ -3,18 +3,17 @@ package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.new_
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ReportsApp
-import com.epacheco.reports.compose_reformat.domain.ClientDetailUseCase
-import com.epacheco.reports.compose_reformat.domain.OrderCreateUseCase
-import com.epacheco.reports.compose_reformat.domain.OrderDeleteUseCase
-import com.epacheco.reports.compose_reformat.domain.OrderGetByIdUseCase
-import com.epacheco.reports.compose_reformat.domain.OrderUpdateUseCase
+import com.epacheco.reports.compose_reformat.domain.clients.GetClientDetailUseCase
+import com.epacheco.reports.compose_reformat.domain.orders.CreateOrderUseCase
+import com.epacheco.reports.compose_reformat.domain.orders.DeleteOrderUseCase
+import com.epacheco.reports.compose_reformat.domain.orders.GetOrderByIdUseCase
+import com.epacheco.reports.compose_reformat.domain.orders.UpdateOrderUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.model.orders.Season
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -25,11 +24,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewOrderViewModel @Inject constructor(
-    private val orderDeleteUseCase: OrderDeleteUseCase,
-    private val orderCreateUseCase: OrderCreateUseCase,
-    private val orderUpdateUseCase: OrderUpdateUseCase,
-    private val clientDetailUseCase: ClientDetailUseCase,
-    private val orderGetByIdUseCase: OrderGetByIdUseCase,
+    private val deleteOrderUseCase: DeleteOrderUseCase,
+    private val createOrderUseCase: CreateOrderUseCase,
+    private val updateOrderUseCase: UpdateOrderUseCase,
+    private val getClientDetailUseCase: GetClientDetailUseCase,
+    private val getOrderByIdUseCase: GetOrderByIdUseCase,
     private val app: ReportsApp
 ) :
     BaseViewModel() {
@@ -93,7 +92,7 @@ class NewOrderViewModel @Inject constructor(
     private fun getOrderById(orderMainId: String, orderId: String, callClientInfo: Boolean) = viewModelScope.launch {
 
         loading(true)
-        when (val orderToEditResponse = orderGetByIdUseCase(orderMainId, orderId)) {
+        when (val orderToEditResponse = getOrderByIdUseCase(orderMainId, orderId)) {
             is Resource.Failure -> {
                 setErrorMsg(orderToEditResponse.exception.message)
             }
@@ -134,7 +133,7 @@ class NewOrderViewModel @Inject constructor(
         if (!clientId.isNullOrEmpty()) {
 
             loading(true)
-            when (val clientResponse = clientDetailUseCase(clientId)) {
+            when (val clientResponse = getClientDetailUseCase(clientId)) {
                 is Resource.Failure -> {
                     setErrorMsg(clientResponse.exception.message)
                 }
@@ -156,7 +155,7 @@ class NewOrderViewModel @Inject constructor(
     private fun createOrder(mainOrderId: String, mainOrderSeason: Season?) =
         viewModelScope.launch {
             loading(true)
-            when (val orderMainMainResponse = orderCreateUseCase(
+            when (val orderMainMainResponse = createOrderUseCase(
                 getNewOrder().apply {
                     orderListId = mainOrderId
                     orderSeason = mainOrderSeason
@@ -178,7 +177,7 @@ class NewOrderViewModel @Inject constructor(
     private fun deleteOrder(orderId: String, mainOrderId: String) =
         viewModelScope.launch {
             loading(true)
-            when (val orderMainResponse = orderDeleteUseCase(orderId, mainOrderId)) {
+            when (val orderMainResponse = deleteOrderUseCase(orderId, mainOrderId)) {
                 is Resource.Failure -> setErrorMsg(orderMainResponse.exception.message)
                 is Resource.Success -> {
                     _uiState.value =
@@ -197,7 +196,7 @@ class NewOrderViewModel @Inject constructor(
 
             order?.let { orderToEdit ->
                 when (val updateOrderResponse =
-                    orderUpdateUseCase(
+                    updateOrderUseCase(
                         getNewOrder().copy(
                             orderId = orderToEdit.orderId,
                             orderListId = orderToEdit.orderListId,

@@ -35,7 +35,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.model.clients.Client
-import com.epacheco.reports.compose_reformat.ui.theme.GreenColor
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.ui.theme.White
 import com.epacheco.reports.compose_reformat.utils.Utils
@@ -153,7 +152,8 @@ fun ClientItem(
                                 color = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier
                                     .wrapContentWidth(),
-                                text = if(showFullName)client.name.plus(" ").plus(client.lastNanme) else client.name,
+                                text = if (showFullName) client.name.plus(" ")
+                                    .plus(client.lastNanme) else client.name,
                                 style = MaterialTheme.typography.titleSmall
                             )
 
@@ -173,77 +173,76 @@ fun ClientItem(
 
                 }
 
-                    client?.let {
-                        Column(
-                            Modifier
-                                .fillMaxWidth()
-                                .padding(top = 20.dp)
-                        ) {
-                            TextDivider(
-                                modifier = Modifier
-                                    .padding(horizontal = 12.dp),
-                                textDivider = stringResource(
-                                    R.string.credit_client,
-                                    it.getLimitAvailable()
-                                )
+                client?.let {
+                    Column(
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(top = 20.dp)
+                    ) {
+                        TextDivider(
+                            modifier = Modifier
+                                .padding(horizontal = 12.dp),
+                            textDivider = stringResource(
+                                R.string.credit_client,
+                                it.getLimitAvailable()
                             )
-                            Row(
-                                modifier = Modifier
-                                    .wrapContentWidth()
-                                    .padding(vertical = 12.dp)
-                                    .padding(end = 12.dp, start = 12.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                            ) {
+                        )
+                        Row(
+                            modifier = Modifier
+                                .wrapContentWidth()
+                                .padding(vertical = 12.dp)
+                                .padding(end = 12.dp, start = 12.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
 
-                                Column() {
-                                    LinearProgressIndicator(
-                                        modifier = Modifier.fillMaxWidth(),
-                                        gapSize = (1).dp,
-                                        progress = {
-                                            client?.geProgressLimit() ?: 0f
-                                        },
-                                        drawStopIndicator = {
-                                            drawStopIndicator(
-                                                drawScope = this,
-                                                stopSize = ProgressIndicatorDefaults.LinearTrackStopIndicatorSize,
-                                                color = Color.Transparent,
-                                                strokeCap = StrokeCap.Round,
-                                            )
-                                        }
-
-                                    )
-                                    Row() {
-                                        Text(
-                                            modifier = Modifier
-                                                .wrapContentWidth()
-                                                .padding(top = 10.dp),
-                                            text = "$${client.debt}",
-                                            style = MaterialTheme.typography.bodySmall,
-                                            color = MaterialTheme.colorScheme.primary,
-                                            textAlign = TextAlign.End
-                                        )
-                                        Spacer(modifier = Modifier.weight(1f))
-                                        Text(
-                                            modifier = Modifier
-                                                .wrapContentWidth()
-                                                .padding(top = 10.dp),
-                                            text = "$${client.limit}",
-                                            style = MaterialTheme.typography.bodySmall,
-                                            color = MaterialTheme.colorScheme.primary,
-                                            textAlign = TextAlign.End
+                            Column() {
+                                LinearProgressIndicator(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    gapSize = (1).dp,
+                                    progress = {
+                                        client?.geProgressLimit() ?: 0f
+                                    },
+                                    drawStopIndicator = {
+                                        drawStopIndicator(
+                                            drawScope = this,
+                                            stopSize = ProgressIndicatorDefaults.LinearTrackStopIndicatorSize,
+                                            color = Color.Transparent,
+                                            strokeCap = StrokeCap.Round,
                                         )
                                     }
 
-
+                                )
+                                Row() {
+                                    Text(
+                                        modifier = Modifier
+                                            .wrapContentWidth()
+                                            .padding(top = 10.dp),
+                                        text = "$${client.debt}",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.primary,
+                                        textAlign = TextAlign.End
+                                    )
+                                    Spacer(modifier = Modifier.weight(1f))
+                                    Text(
+                                        modifier = Modifier
+                                            .wrapContentWidth()
+                                            .padding(top = 10.dp),
+                                        text = "$${client.limit}",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.primary,
+                                        textAlign = TextAlign.End
+                                    )
                                 }
 
 
                             }
 
+
                         }
 
                     }
 
+                }
 
 
             }

@@ -3,7 +3,7 @@ package com.epacheco.reports.compose_reformat.ui.recovery_password
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ReportsApp
-import com.epacheco.reports.compose_reformat.domain.FirebaseRecoveryPasswordUserUseCase
+import com.epacheco.reports.compose_reformat.domain.user.RecoveryPasswordUserUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import com.epacheco.reports.compose_reformat.utils.extensions.validateEmail
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RecoverPasswordViewModel @Inject constructor(
-    private val recoveryPasswordUserUseCase: FirebaseRecoveryPasswordUserUseCase,
+    private val recoveryPasswordUserUseCase: RecoveryPasswordUserUseCase,
     private val app: ReportsApp
 ) :
     BaseViewModel() {

@@ -1,18 +1,9 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.orders
 
 import androidx.lifecycle.viewModelScope
-import com.epacheco.reports.compose_reformat.domain.ClientCreateUseCase
-import com.epacheco.reports.compose_reformat.domain.ClientDeleteUseCase
-import com.epacheco.reports.compose_reformat.domain.ClientDetailUseCase
-import com.epacheco.reports.compose_reformat.domain.ClientUpdateUseCase
-import com.epacheco.reports.compose_reformat.domain.FinancesGetByClientIdUseCase
-import com.epacheco.reports.compose_reformat.domain.OrderMainListUseCase
+import com.epacheco.reports.compose_reformat.domain.orders.GetOrdersMainListUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.client_info.ClientInfoUiIntent
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.client_info.ClientInfoUiState
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.view.ClientDetailUiIntent
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.view.DetailClientUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -22,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ClientOrdersViewModel @Inject constructor(
-    private val orderMainListUseCase: OrderMainListUseCase
+    private val getOrdersMainListUseCase: GetOrdersMainListUseCase
 ) : BaseViewModel() {
     private val _uiState = MutableStateFlow(ClientOrdersUiState())
     val uiState: StateFlow<ClientOrdersUiState> = _uiState
@@ -37,7 +28,7 @@ class ClientOrdersViewModel @Inject constructor(
 
     fun getClientOrders() = viewModelScope.launch {
         loading(true)
-        when (val ordersResponse = orderMainListUseCase()) {
+        when (val ordersResponse = getOrdersMainListUseCase()) {
             is Resource.Success -> {
                 _uiState.update {
                     it.copy(

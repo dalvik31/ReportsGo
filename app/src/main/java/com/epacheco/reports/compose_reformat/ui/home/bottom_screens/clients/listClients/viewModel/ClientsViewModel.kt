@@ -4,13 +4,12 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.epacheco.reports.compose_reformat.domain.ClientDetailUseCase
-import com.epacheco.reports.compose_reformat.domain.ClientGetByNameUseCase
+import com.epacheco.reports.compose_reformat.domain.clients.GetClientDetailUseCase
+import com.epacheco.reports.compose_reformat.domain.clients.GetClientByNameUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.listClients.view.ClientUiIntent
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.listClients.view.ClientsUiState
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products.ProductsUiIntent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -25,9 +24,9 @@ import kotlin.text.ifEmpty
 
 @HiltViewModel
 class ClientsViewModel @Inject constructor(
-    private val clientsUseCase: ClientGetByNameUseCase,
-    private val clientDetailUseCase: ClientDetailUseCase,
-    private val clientGetByNameUseCase: ClientGetByNameUseCase
+    private val clientsUseCase: GetClientByNameUseCase,
+    private val getClientDetailUseCase: GetClientDetailUseCase,
+    private val getClientByNameUseCase: GetClientByNameUseCase
 ) :
     BaseViewModel() {
     private var handler: Handler? = null
@@ -47,25 +46,6 @@ class ClientsViewModel @Inject constructor(
         }
     }
 
-    fun getClientDetail(clientId: String) = viewModelScope.launch {
-        when (val clientsResponse = clientDetailUseCase(clientId)) {
-            is Resource.Success -> {
-                Log.e("aqui", "ClientsViewModel SUCCESSS: ${clientsResponse.result}")
-            }
-
-            is Resource.Failure -> {
-                Log.e("aqui", "ERRORRRR: message: ${clientsResponse.exception} ")
-            }
-        }
-    }
-
-    fun dateFormat(timestamp: Date): String {
-        val sdf = SimpleDateFormat("dd / MMMM / yyyy", Locale("es"))
-        sdf.setTimeZone(TimeZone.getDefault()) // Opcional: ajusta la zona horaria
-        return sdf.format(timestamp).uppercase() // ← ¡Aquí la magia!
-    }
-
-
 
     private fun downloadClients() {
         getHandler()?.removeCallbacksAndMessages(null)
@@ -81,7 +61,7 @@ class ClientsViewModel @Inject constructor(
 
     fun getClientsByName(clientNameToSearch: String? = null) = viewModelScope.launch {
         loading(true)
-        when (val clientsResponse = clientGetByNameUseCase(clientNameToSearch)) {
+        when (val clientsResponse = getClientByNameUseCase(clientNameToSearch)) {
             is Resource.Failure -> {
                 setErrorMsg(clientsResponse.exception.message)
             }

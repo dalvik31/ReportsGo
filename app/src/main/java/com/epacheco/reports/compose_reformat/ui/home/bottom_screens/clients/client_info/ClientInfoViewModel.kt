@@ -1,15 +1,9 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.client_info
 
 import androidx.lifecycle.viewModelScope
-import com.epacheco.reports.compose_reformat.domain.ClientCreateUseCase
-import com.epacheco.reports.compose_reformat.domain.ClientDeleteUseCase
-import com.epacheco.reports.compose_reformat.domain.ClientDetailUseCase
-import com.epacheco.reports.compose_reformat.domain.ClientUpdateUseCase
-import com.epacheco.reports.compose_reformat.domain.FinancesGetByClientIdUseCase
+import com.epacheco.reports.compose_reformat.domain.finances.GetFinancesByClientIdUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.view.ClientDetailUiIntent
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.view.DetailClientUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ClientInfoViewModel @Inject constructor(
-    private val financesGetByClientIdUseCase: FinancesGetByClientIdUseCase
+    private val getFinancesByClientIdUseCase: GetFinancesByClientIdUseCase
 ) : BaseViewModel() {
     private val _uiState = MutableStateFlow(ClientInfoUiState())
     val uiState: StateFlow<ClientInfoUiState> = _uiState
@@ -34,7 +28,7 @@ class ClientInfoViewModel @Inject constructor(
 
     fun getClientTransactions(clientId: String) = viewModelScope.launch {
         loading(true)
-        when (val financesResponse = financesGetByClientIdUseCase(clientId)) {
+        when (val financesResponse = getFinancesByClientIdUseCase(clientId)) {
             is Resource.Success -> {
                 _uiState.update {
                     it.copy(

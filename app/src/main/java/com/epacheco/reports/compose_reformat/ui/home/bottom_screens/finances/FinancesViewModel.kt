@@ -1,13 +1,9 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.finances
 
 import androidx.lifecycle.viewModelScope
-import com.epacheco.reports.compose_reformat.domain.FinancesUseCase
+import com.epacheco.reports.compose_reformat.domain.finances.GetUserFinancesUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
-import com.epacheco.reports.compose_reformat.model.Finances.Sale
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.OrdersMainUiIntent
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.OrdersMainUiState
-import com.epacheco.reports.compose_reformat.utils.DateUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FinancesViewModel @Inject constructor(private val financesUseCase: FinancesUseCase) :
+class FinancesViewModel @Inject constructor(private val getUserFinancesUseCase: GetUserFinancesUseCase) :
     BaseViewModel() {
 
     private val _uiState = MutableStateFlow(FinancesUiState())
@@ -33,7 +29,7 @@ class FinancesViewModel @Inject constructor(private val financesUseCase: Finance
     private fun loadFinancesItems() =
         viewModelScope.launch {
             loading(true)
-            when (val financesItemsResponses = financesUseCase.invoke(
+            when (val financesItemsResponses = getUserFinancesUseCase.invoke(
                 uiState.value.initialDate, uiState.value.finalDate,
             )) {
                 is Resource.Failure -> {

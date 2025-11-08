@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.core.net.toUri
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.model.products.Product
-import com.epacheco.reports.tools.Constants
+import com.epacheco.reports.compose_reformat.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -121,11 +121,8 @@ class ProductsRepositoryImpl @Inject constructor(
             .child(Constants.CLIENT_PRODUCTS_TABLE_FIREBASE)
 
     override fun getStorageReference(nameImgToReplace: String?): StorageReference? {
-        Log.e("StorageReference", "StorageReferenceStorageReference2: $nameImgToReplace")
         val nameImgFile =
             if (nameImgToReplace.isNullOrEmpty()) "${System.currentTimeMillis()}.jpg" else nameImgToReplace
-
-        Log.e("StorageReference", "StorageReferenceStorageReference3: $nameImgFile")
         return firebaseAuth.uid?.let { userId ->
             firebaseStorage.getReference().child(Constants.DATABASE_FIREBASE_NAME)
                 .child(userId)

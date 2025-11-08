@@ -3,12 +3,12 @@ package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products.ne
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ReportsApp
-import com.epacheco.reports.compose_reformat.domain.ProductCreateUseCase
-import com.epacheco.reports.compose_reformat.domain.ProductImgDeleteUseCase
-import com.epacheco.reports.compose_reformat.domain.ProductDeleteUseCase
-import com.epacheco.reports.compose_reformat.domain.FirebaseUploadImgProductUseCase
-import com.epacheco.reports.compose_reformat.domain.ProductsGetByIdUseCase
-import com.epacheco.reports.compose_reformat.domain.ProductUpdateUseCase
+import com.epacheco.reports.compose_reformat.domain.products.CreateProductUseCase
+import com.epacheco.reports.compose_reformat.domain.products.DeleteProductImgUseCase
+import com.epacheco.reports.compose_reformat.domain.products.DeleteProductUseCase
+import com.epacheco.reports.compose_reformat.domain.products.UploadImgProductUseCase
+import com.epacheco.reports.compose_reformat.domain.products.GetProductByIdUseCase
+import com.epacheco.reports.compose_reformat.domain.products.UpdateProductUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.model.products.Product
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
@@ -27,12 +27,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProductDetailViewModel @Inject constructor(
-    private val productsByIdUseCase: ProductsGetByIdUseCase,
-    private val firebaseUploadImgProductUseCase: FirebaseUploadImgProductUseCase,
-    private val productUpdateUseCase: ProductUpdateUseCase,
-    private val productCreateUseCase: ProductCreateUseCase,
-    private val productDeleteUseCase: ProductDeleteUseCase,
-    private val productImgDeleteUseCase: ProductImgDeleteUseCase,
+    private val productsByIdUseCase: GetProductByIdUseCase,
+    private val uploadImgProductUseCase: UploadImgProductUseCase,
+    private val updateProductUseCase: UpdateProductUseCase,
+    private val createProductUseCase: CreateProductUseCase,
+    private val deleteProductUseCase: DeleteProductUseCase,
+    private val deleteProductImgUseCase: DeleteProductImgUseCase,
     private val app: ReportsApp
 ) :
     BaseViewModel() {
@@ -131,7 +131,7 @@ class ProductDetailViewModel @Inject constructor(
             viewModelScope.launch {
                 loading(true)
                 when (val uploadImageResponse =
-                    firebaseUploadImgProductUseCase(
+                    uploadImgProductUseCase(
                         imgFile.compress(app), nameImgToReplace = getNameImage()
                     )) {
                     is Resource.Failure ->
@@ -158,7 +158,7 @@ class ProductDetailViewModel @Inject constructor(
         viewModelScope.launch {
             loading(true)
             when (val createProductResponse =
-                productCreateUseCase(getNewProduct())) {
+                createProductUseCase(getNewProduct())) {
                 is Resource.Failure ->
                     setErrorMsg(createProductResponse.exception.message)
 
@@ -192,7 +192,7 @@ class ProductDetailViewModel @Inject constructor(
         viewModelScope.launch {
             loading(true)
             when (val updateProductResponse =
-                productUpdateUseCase(
+                updateProductUseCase(
                     getNewProduct().copy(
                         productId = productId
                     )
@@ -227,12 +227,12 @@ class ProductDetailViewModel @Inject constructor(
 
     private fun deleteProduct(productId: String) = viewModelScope.launch {
         loading(true)
-        when (val deleteProductResponse = productDeleteUseCase.invoke(productId)) {
+        when (val deleteProductResponse = deleteProductUseCase.invoke(productId)) {
             is Resource.Failure -> {
                 setErrorMsg(deleteProductResponse.exception.message)
             }
             is Resource.Success -> {
-                productImgDeleteUseCase.invoke(getNameImage())
+                deleteProductImgUseCase.invoke(getNameImage())
                 _uiState.value =
                     _uiState.value.copy(successMessage = R.string.msg_product_delete_success)
                 _effectFlow.emit(ProductDetailUiEffect.NavigateBack)

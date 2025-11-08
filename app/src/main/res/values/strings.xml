@@ -610,6 +610,10 @@
     <string name="sales_not_found">No hay ventas en este periodo</string>
     <string name="msg_select_date">Selecciona una fecha</string>
     <string name="msg_date_selected">Usar esta fecha</string>
+    <string name="option_pay">Abono</string>
+    <string name="option_credit">Compra a crédito</string>
+    <string name="option_cash">Compra de contado</string>
+    <string name="option_unknown">Operación no renocida</string>
 
     <!--CLIENTS Fragments-->
     <string name="lbl_search_client_hint">Nombre del cliente</string>

@@ -1,7 +1,5 @@
 package com.epacheco.reports.compose_reformat.model.orders
 
-import com.epacheco.reports.Pojo.OrderDetail.OrderDetail
-
 
 data class OrderMain(
     val orderId: String = "",

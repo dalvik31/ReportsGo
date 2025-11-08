@@ -42,8 +42,6 @@ import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ui.theme.FallColor
-import com.epacheco.reports.compose_reformat.ui.theme.SpringColor
-import com.epacheco.reports.compose_reformat.ui.theme.White
 
 @Composable
 fun ReportsInfoDialog(
@@ -61,16 +59,16 @@ fun ReportsInfoDialog(
     var lottieProgress: Float? = null
 
     lottieAnimation?.let { lottieRaw ->
-        val preloaderLottieComposition by rememberLottieComposition(
+        val preLoaderLottieComposition by rememberLottieComposition(
             LottieCompositionSpec.RawRes(lottieRaw)
         )
-        val preloaderProgress by animateLottieCompositionAsState(
-            preloaderLottieComposition,
+        val preLoaderProgress by animateLottieCompositionAsState(
+            preLoaderLottieComposition,
             iterations = LottieConstants.IterateForever,
             isPlaying = true
         )
-        lottieComposition = preloaderLottieComposition
-        lottieProgress = preloaderProgress
+        lottieComposition = preLoaderLottieComposition
+        lottieProgress = preLoaderProgress
     }
 
     Dialog(onDismissRequest = { onDismissRequest?.invoke() }) {
@@ -144,7 +142,6 @@ fun ReportsInfoDialog(
                             style = MaterialTheme.typography.bodySmall
                         )
                     }
-
 
 
                 }

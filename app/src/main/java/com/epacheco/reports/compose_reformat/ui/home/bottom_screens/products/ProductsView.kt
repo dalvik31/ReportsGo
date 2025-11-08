@@ -50,12 +50,12 @@ fun ProductsView(
 
     Column {
         Header(
-            title = pluralStringResource(
+            text = pluralStringResource(
                 R.plurals.title_products,
                 count = productList.size,
                 productList.size,
             ),
-            titleColor = MaterialTheme.colorScheme.primary,
+            textColor = MaterialTheme.colorScheme.primary,
             onRightIconClicked = {
                 onGoProductDetailClick?.invoke(null, null)
             },

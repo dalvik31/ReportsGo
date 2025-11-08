@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.credentials.GetCredentialResponse
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.compose_reformat.ReportsApp
-import com.epacheco.reports.compose_reformat.domain.FirebaseUserGoogleLoginUseCase
-import com.epacheco.reports.compose_reformat.domain.FirebaseUserLoginUseCase
-import com.epacheco.reports.compose_reformat.domain.FirebaseUserSignUpUseCase
+import com.epacheco.reports.compose_reformat.domain.user.SigInUserWithGoogleUseCase
+import com.epacheco.reports.compose_reformat.domain.user.SigInUserWithEmailAndPasswordUseCase
+import com.epacheco.reports.compose_reformat.domain.user.SignUpUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import com.epacheco.reports.compose_reformat.utils.Validations
@@ -21,9 +21,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AccountViewModel @Inject constructor(
-    private val firebaseUserLoginUseCase: FirebaseUserLoginUseCase,
-    private val firebaseUserGoogleLoginUseCase: FirebaseUserGoogleLoginUseCase,
-    private val firebaseUserSignUpUseCase: FirebaseUserSignUpUseCase,
+    private val sigInUserWithEmailAndPasswordUseCase: SigInUserWithEmailAndPasswordUseCase,
+    private val sigInUserWithGoogleUseCase: SigInUserWithGoogleUseCase,
+    private val signUpUseCase: SignUpUseCase,
     private val app: ReportsApp
 ) : BaseViewModel() {
 
@@ -58,14 +58,9 @@ class AccountViewModel @Inject constructor(
 
     private fun googleSignIn(credentialResponse: GetCredentialResponse) {
         loading(true)
-        //val credentialManager = CredentialManager.create(app)
         viewModelScope.launch {
             try {
-                /*val result = credentialManager.getCredential(
-                    request = credentialRequest,
-                    context = app,
-                )*/
-                when (val signInResponse = firebaseUserGoogleLoginUseCase(credentialResponse)) {
+                when (val signInResponse = sigInUserWithGoogleUseCase(credentialResponse)) {
                     is Resource.Failure -> setErrorMsg(
                         signInResponse.exception.message?.getTranslateFireBaseErrorMsg(
                             app
@@ -74,10 +69,8 @@ class AccountViewModel @Inject constructor(
 
                     is Resource.Success -> navigateToHome()
                 }
-
-
             } catch (e: Throwable) {
-                Log.e("TAG", "handleSignIn google ${e.message}")
+                e.printStackTrace()
             }
         }
         loading(false)
@@ -91,7 +84,7 @@ class AccountViewModel @Inject constructor(
 
     private fun doSignIn() = viewModelScope.launch {
         loading(true)
-        when (val signInResponse = firebaseUserLoginUseCase(email.value, password.value)) {
+        when (val signInResponse = sigInUserWithEmailAndPasswordUseCase(email.value, password.value)) {
             is Resource.Failure -> setErrorMsg(
                 signInResponse.exception.message?.getTranslateFireBaseErrorMsg(
                     app
@@ -105,7 +98,7 @@ class AccountViewModel @Inject constructor(
 
     private fun doSignUp() = viewModelScope.launch {
         loading(true)
-        when (val signInResponse = firebaseUserSignUpUseCase(email.value, password.value)) {
+        when (val signInResponse = signUpUseCase(email.value, password.value)) {
             is Resource.Failure -> setErrorMsg(
                 signInResponse.exception.message?.getTranslateFireBaseErrorMsg(
                     app

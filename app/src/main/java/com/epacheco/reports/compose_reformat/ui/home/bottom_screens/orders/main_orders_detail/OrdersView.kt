@@ -8,9 +8,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
@@ -42,7 +39,6 @@ import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE2
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE5
-import com.epacheco.reports.compose_reformat.utils.Utils
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -63,12 +59,12 @@ fun OrdersView(
     Column(Modifier.background(color = Color.Transparent)) {
 
         Header(
-            title = pluralStringResource(
+            text = pluralStringResource(
                 R.plurals.title_orders,
                 count = orderList.size,
                 orderList.size
             ),
-            titleColor = MaterialTheme.colorScheme.primary,
+            textColor = MaterialTheme.colorScheme.primary,
             onLeftIconClicked = { onBackPressed?.invoke() },
             leftImageVector = Icons.Default.ArrowBackIosNew,
             tintImageLeft = MaterialTheme.colorScheme.primary,

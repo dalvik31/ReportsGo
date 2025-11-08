@@ -5,10 +5,7 @@ import android.util.Log
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.firebase.await
 import com.epacheco.reports.compose_reformat.model.clients.Client
-import com.epacheco.reports.compose_reformat.model.products.Product
-import com.epacheco.reports.compose_reformat.utils.DateUtils
-import com.epacheco.reports.compose_reformat.utils.DateUtils.dateFormat
-import com.epacheco.reports.tools.Constants
+import com.epacheco.reports.compose_reformat.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -32,7 +29,6 @@ class ClientsRepositoryImpl @Inject constructor(
             client?.let { Resource.Success(it)
             } ?: Resource.Failure(Exception("Cliente $clientId no encontrado"))
         } catch (e: Exception) {
-            Log.e("FIREBASE_ERROR", "Error obteniendo cliente: ${e.message}")
             Resource.Failure(e)
         }
     }

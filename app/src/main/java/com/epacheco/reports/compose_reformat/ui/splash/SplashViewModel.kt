@@ -2,7 +2,7 @@ package com.epacheco.reports.compose_reformat.ui.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.epacheco.reports.compose_reformat.domain.FirebaseGetUserUseCase
+import com.epacheco.reports.compose_reformat.domain.user.GetUserUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SplashViewModel @Inject constructor(private val firebaseGetUserUseCase: FirebaseGetUserUseCase) :
+class SplashViewModel @Inject constructor(private val getUserUseCase: GetUserUseCase) :
     ViewModel() {
 
     private val _uiState = MutableStateFlow(SplashUiState())
@@ -31,7 +31,7 @@ class SplashViewModel @Inject constructor(private val firebaseGetUserUseCase: Fi
     private fun checkUserStatus() = viewModelScope.launch {
         _uiState.value = _uiState.value.copy(isLoading = true)
 
-        when (firebaseGetUserUseCase()) {
+        when (getUserUseCase()) {
             is Resource.Failure -> _effectFlow.emit(SplashUiEffect.NavigateToLogin)
             is Resource.Success -> {
                 _effectFlow.emit(SplashUiEffect.NavigateToHome)

@@ -1,33 +1,26 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.viewModel
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ReportsApp
-import com.epacheco.reports.compose_reformat.domain.ClientCreateUseCase
-import com.epacheco.reports.compose_reformat.domain.ClientDeleteUseCase
-import com.epacheco.reports.compose_reformat.domain.ClientDetailUseCase
-import com.epacheco.reports.compose_reformat.domain.ClientUpdateDebtUseCase
-import com.epacheco.reports.compose_reformat.domain.ClientUpdateUseCase
-import com.epacheco.reports.compose_reformat.domain.FinancesGetByClientIdUseCase
-import com.epacheco.reports.compose_reformat.domain.SaleCreateUseCase
+import com.epacheco.reports.compose_reformat.domain.clients.CreateClientUseCase
+import com.epacheco.reports.compose_reformat.domain.clients.DeleteClientUseCase
+import com.epacheco.reports.compose_reformat.domain.clients.GetClientDetailUseCase
+import com.epacheco.reports.compose_reformat.domain.clients.UpdateDebtClientUseCase
+import com.epacheco.reports.compose_reformat.domain.clients.UpdateClientUseCase
+import com.epacheco.reports.compose_reformat.domain.sales.CreateSaleUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.model.Finances.PaymentType
 import com.epacheco.reports.compose_reformat.model.Finances.Sale
 import com.epacheco.reports.compose_reformat.model.clients.Client
-import com.epacheco.reports.compose_reformat.model.products.Product
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.view.ClientDetailUiEffect
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.view.ClientDetailUiIntent
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.view.DetailClientUiState
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products.new_product.ProductDetailUiEffect
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products.new_product.ProductDetailUiIntent
+import com.epacheco.reports.compose_reformat.utils.Constants
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE1
-import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE3
-import com.epacheco.reports.tools.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -38,12 +31,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailClientViewModel @Inject constructor(
-    private val clientDetailUseCase: ClientDetailUseCase,
-    private val clientUpdateUseCase: ClientUpdateUseCase,
-    private val clientDeleteUseCase: ClientDeleteUseCase,
-    private val clientCreateUseCase: ClientCreateUseCase,
-    private val clientUpdateDebtUseCase: ClientUpdateDebtUseCase,
-    private val saleCreateUseCase: SaleCreateUseCase, private val app: ReportsApp
+    private val getClientDetailUseCase: GetClientDetailUseCase,
+    private val updateClientUseCase: UpdateClientUseCase,
+    private val deleteClientUseCase: DeleteClientUseCase,
+    private val createClientUseCase: CreateClientUseCase,
+    private val updateDebtClientUseCase: UpdateDebtClientUseCase,
+    private val createSaleUseCase: CreateSaleUseCase, private val app: ReportsApp
 ) :
     BaseViewModel() {
 
@@ -95,7 +88,7 @@ class DetailClientViewModel @Inject constructor(
         if (validateClientInputs()) {
             loading(true)
             when (val updateProductResponse =
-                clientUpdateUseCase(
+                updateClientUseCase(
                     getNewClient(uiState.value.clientDetail)
                 )) {
                 is Resource.Failure ->
@@ -120,7 +113,7 @@ class DetailClientViewModel @Inject constructor(
             viewModelScope.launch {
                 loading(true)
                 when (val crateClientResponse =
-                    clientCreateUseCase(getNewClient(null))) {
+                    createClientUseCase(getNewClient(null))) {
                     is Resource.Failure ->
                         setErrorMsg(crateClientResponse.exception.message)
 
@@ -147,7 +140,7 @@ class DetailClientViewModel @Inject constructor(
 
     private fun deleteClient(clientId: String) = viewModelScope.launch {
         loading(true)
-        when (val deleteClientResponse = clientDeleteUseCase.invoke(clientId)) {
+        when (val deleteClientResponse = deleteClientUseCase.invoke(clientId)) {
             is Resource.Failure -> {
                 setErrorMsg(deleteClientResponse.exception.message)
             }
@@ -179,7 +172,7 @@ class DetailClientViewModel @Inject constructor(
 
     fun getClientDetail(clientId: String, isEditMode: Boolean = false) = viewModelScope.launch {
         loading(true)
-        when (val clientResponse = clientDetailUseCase(clientId)) {
+        when (val clientResponse = getClientDetailUseCase(clientId)) {
             is Resource.Success -> {
                 _uiState.update {
                     it.copy(
@@ -224,12 +217,12 @@ class DetailClientViewModel @Inject constructor(
         val currentDebt = (_uiState.value.clientDetail?.debt) ?: 0.0
         var newDebt = currentDebt - (_inputClientAmount.value.toDouble())
         when (val clientUpdateDebtResponse =
-            clientUpdateDebtUseCase(clientId, newDebt = newDebt)) {
+            updateDebtClientUseCase(clientId, newDebt = newDebt)) {
 
             is Resource.Success -> {
                 val saleId = DateUtils.now().toString()
                 when (val createSaleResponse =
-                    saleCreateUseCase(
+                    createSaleUseCase(
                         saleDetail = Sale(
                             saleId = DateUtils.dateFormat(saleId, FORMAT_DATE1),
                             idClient = clientId,

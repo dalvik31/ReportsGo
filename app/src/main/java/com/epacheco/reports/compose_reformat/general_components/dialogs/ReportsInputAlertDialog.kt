@@ -29,7 +29,6 @@ import androidx.compose.ui.window.Dialog
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.InputTextField
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
-import com.epacheco.reports.compose_reformat.ui.theme.White
 
 
 @Composable

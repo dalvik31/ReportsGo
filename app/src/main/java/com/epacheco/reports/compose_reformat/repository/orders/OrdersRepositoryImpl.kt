@@ -8,8 +8,7 @@ import com.epacheco.reports.compose_reformat.firebase.await
 import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.model.orders.OrderMain
 import com.epacheco.reports.compose_reformat.model.orders.OrderStatus
-import com.epacheco.reports.compose_reformat.model.products.Product
-import com.epacheco.reports.tools.Constants
+import com.epacheco.reports.compose_reformat.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -94,7 +93,6 @@ class OrdersRepositoryImpl @Inject constructor(
 
             Resource.Success(order)
         } catch (exception: Exception) {
-            Log.e("aqui", "estamos en el repo: ${exception.message}")
             Resource.Failure(exception)
         }
     }

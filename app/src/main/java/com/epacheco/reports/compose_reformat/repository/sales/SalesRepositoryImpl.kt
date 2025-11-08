@@ -2,8 +2,7 @@ package com.epacheco.reports.compose_reformat.repository.sales
 
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.model.Finances.Sale
-import com.epacheco.reports.compose_reformat.model.sales.SaleDetail
-import com.epacheco.reports.tools.Constants
+import com.epacheco.reports.compose_reformat.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase

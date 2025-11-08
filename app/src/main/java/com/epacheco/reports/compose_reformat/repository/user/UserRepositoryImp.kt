@@ -4,14 +4,10 @@ import android.net.Uri
 import androidx.core.net.toUri
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.firebase.await
-import com.epacheco.reports.tools.Constants
-import com.epacheco.reports.tools.Tools
-import com.google.android.gms.tasks.Continuation
-import com.google.android.gms.tasks.Task
+import com.epacheco.reports.compose_reformat.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.UploadTask
 import java.io.File
 import javax.inject.Inject
 

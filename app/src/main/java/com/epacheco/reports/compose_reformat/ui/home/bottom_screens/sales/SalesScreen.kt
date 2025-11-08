@@ -62,7 +62,6 @@ fun SalesScreen(
                     )
                 )
             } else {
-                Log.e("TAG", "productId: $it.productId")
                 productIdToRemoveList = it.productId
             }
 

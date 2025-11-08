@@ -87,8 +87,6 @@ fun CustomDialogUI(
                 .padding(horizontal = 30.dp)
                 .padding(top = 30.dp, bottom = 20.dp)
         ) {
-
-            //.......................................................................
             Image(
                 painter = painterResource(id = imgDialog),
                 contentDescription = null, // decorative
