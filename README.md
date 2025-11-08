@@ -6,6 +6,8 @@ Con ReportsGo puedes agregar clientes, productos y pedidos, cada cliente tiene u
 
 ![App Screenshot](https://github.com/dalvik31/ReportsGo/blob/release_071125/app/images/nueva1.png)
 
+![test image size](/img/post-bg-2015.jpg){:height="2880px" width="5120px"}
+
 <img src="[https://github.com/favicon.ico](https://github.com/dalvik31/ReportsGo/blob/release_071125/app/images/nueva1.png)" width="48">
 
 
