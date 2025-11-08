@@ -43,7 +43,10 @@ Ten a la mano lo que invertiste, tus ventas y las ganancias generadas por día o
 
 
 ## 🔗 Links
-<a href="https://static.vecteezy.com/system/resources/previews/013/441/310/non_2x/google-play-modern-logo-icon-free-vector.jpg" title="video text"><img src="[path/to/img.png](https://static.vecteezy.com/system/resources/previews/013/441/310/non_2x/google-play-modern-logo-icon-free-vector.jpg)" width="100" height="100"></a>
+<a href="https://play.google.com/store/apps/details?id=com.epacheco.reports" title="video text"><img src="https://static.vecteezy.com/system/resources/previews/013/441/310/non_2x/google-play-modern-logo-icon-free-vector.jpg" width="100" height="100"></a>
+
+<a href="https://play.google.com/store/apps/details?id=com.epacheco.reports" title="video text"><img src="https://play-lh.googleusercontent.com/j9qTlYdO5N5A792Bh3KfvqNpFFq-Q_A5Ag-nSfkYxlmW-iowNswTXa18nZU6wxWl20H-1aau24eR3m2MhGktxg=w240-h480" width="100" height="100"></a>
+
 
 
 ## Authors
