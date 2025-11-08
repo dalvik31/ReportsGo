@@ -58,7 +58,7 @@ Ten a la mano lo que invertiste, tus ventas y las ganancias generadas por día o
 
 - Se migra código Java a kotlin
 - Nuevas vistas en compose
-- Se agrega localización para encontrar lugares donde comprar tus pedidos
+- Se hace un rediseño completo de la app
 
 ## 🛠 Skills
 Android, Java, Kotlin, Android Studio, Git, Github, Retrofit, Coroutines, Compose, LiveData, Dagger Hilt, SplashScreen, Crashlytics, Play-services-location, Color Picker, Image compressor, Lottie, Firebase-messaging, Firebase-storage, Facebook-android-sdk, Twitter-core, Glide, Firebase-database, Play-services, Firebase-auth
