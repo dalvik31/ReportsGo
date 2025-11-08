@@ -29,7 +29,6 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.epacheco.reports.BuildConfig;
 import com.epacheco.reports.Model.ProfileModel.ProfileModelClass;
 import com.epacheco.reports.R;
 import com.epacheco.reports.tools.ReportsDialogGlobal;
@@ -55,7 +54,7 @@ public class ProfileViewClass extends AppCompatActivity implements ProfileViewIn
 
 
     //Constantes para abrir la camara
-    private final static String MY_PROVIDER = BuildConfig.APPLICATION_ID + ".providers.FileProvider";
+    private final static String MY_PROVIDER =/* BuildConfig.APPLICATION_ID +*/ ".providers.FileProvider";
     private File photoFile;
 
     private final int MY_PERMISSIONS_REQUEST_CAMERA = 1;
@@ -102,7 +101,7 @@ public class ProfileViewClass extends AppCompatActivity implements ProfileViewIn
     public void closeSesion(View v) {
 
         ReportsDialogGlobal.showDialogAccept(this, getString(R.string.Titulo_cerrar_sesion),
-                getString(R.string.msg_cerrar_sesion),
+                getString(R.string.msg_close_session),
                 (dialog, which) -> {
                     mAuth.signOut();
                     ScreenManager.goRegisterActivity(ProfileViewClass.this);
@@ -195,6 +194,7 @@ public class ProfileViewClass extends AppCompatActivity implements ProfileViewIn
      * Hacemos lo mismo que con la camara.
      */
     private void checkPermissionsGallery() {
+        dispatchGalleryPictureIntent();
         if (com.epacheco.reports.tools.Tools.checkPermissionsGallery(this)) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 createDialogPermisionGallery();

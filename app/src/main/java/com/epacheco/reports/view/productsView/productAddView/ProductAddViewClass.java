@@ -36,7 +36,7 @@ import android.text.TextUtils;
 import android.widget.CompoundButton;
 
 import com.bumptech.glide.Glide;
-import com.epacheco.reports.BuildConfig;
+
 import com.epacheco.reports.Model.ProductsModel.ProductsAddModel.ProductsAddModelClass;
 import com.epacheco.reports.Pojo.Product.Product;
 import com.epacheco.reports.R;
@@ -60,7 +60,7 @@ import yuku.ambilwarna.AmbilWarnaDialog;
 public class ProductAddViewClass extends AppCompatActivity implements ProductAddViewInterface {
     int defaultColor;
     public final static String PRODUCT_ID = "productId";
-    private final static String MY_PROVIDER = BuildConfig.APPLICATION_ID + ".providers.FileProvider";
+    private final static String MY_PROVIDER = /*BuildConfig.APPLICATION_ID + */".providers.FileProvider";
     private File photoFile;
 
     private final int MY_PERMISSIONS_REQUEST_CAMERA = 1;

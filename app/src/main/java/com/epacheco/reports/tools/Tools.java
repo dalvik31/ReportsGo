@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 
 import com.epacheco.reports.R;
+import com.epacheco.reports.compose_reformat.ReportsApp;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.material.snackbar.Snackbar;
@@ -35,11 +36,13 @@ import id.zelory.compressor.Compressor;
 public class Tools {
     private final static String TAG = Tools.class.getSimpleName();
     private static final String PREFERENCE_FILE_KEY = "reportsPreference";
-    private static SharedPreferences preferences = com.epacheco.reports.tools.ReportsApplication.getMyApplicationContext().getSharedPreferences(PREFERENCE_FILE_KEY, Context.MODE_PRIVATE);
+    private static SharedPreferences preferences = null;
     private static final String DATE_FORMAT_4 = "yyyy-MM-dd";
     private static final String DATE_FORMAT_3 = "dd / MMMM";
     private static final String DATE_FORMAT_2 = "dd / MMMM / yyyy";
     private static final String DATE_FORMAT_1 = "HH:mm  -- dd / MMMM / yyyy";
+
+
 
     public static void showToasMessage(FragmentActivity myActivity, String message) {
         Toast.makeText(myActivity, message, Toast.LENGTH_LONG).show();
@@ -210,15 +213,11 @@ public class Tools {
 
         Bitmap thumb_bitmap = null;
         byte[] thumb_byte = null;
-        try {
-            thumb_bitmap = new Compressor(ctx)
-                    .setMaxWidth(width)
-                    .setMaxHeight(height)
-                    .setQuality(75)
-                    .compressToBitmap(file_thumb_path);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        /*  thumb_bitmap = new Compressor
+                  .setMaxWidth(width)
+                  .setMaxHeight(height)
+                  .setQuality(75)
+                  .compressToBitmap(file_thumb_path);*/
 
         //if (thumb_bitmap != null) return null;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -229,4 +228,7 @@ public class Tools {
         return thumb_byte;
 
     }
+
+
+
 }

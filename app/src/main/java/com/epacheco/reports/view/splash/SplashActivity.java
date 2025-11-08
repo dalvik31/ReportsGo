@@ -59,7 +59,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(!com.epacheco.reports.tools.Tools.isGooglePlayServicesAvailable(SplashActivity.this)) return;
+        //if(!com.epacheco.reports.tools.Tools.isGooglePlayServicesAvailable(SplashActivity.this)) return;
         startAnimationSplash();
     }
 }

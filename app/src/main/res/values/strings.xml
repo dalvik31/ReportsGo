@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Reports</string>
+    <string name="app_name">ReportsGo</string>
 
 
     <!--Llaves para twitter-->
@@ -31,7 +31,7 @@
     <string name="msg_zero_products">No se encontraron productos.</string>
     <string name="msg_camera_scan">Escanea el código QR o de barras.</string>
     <string name="Titulo_cerrar_sesion">Cerrar sesión </string>
-    <string name="msg_cerrar_sesion">¿Realmente desea cerrar sesion? </string>
+
 
 
     <!--Activity Principal-->
@@ -54,14 +54,9 @@
     <string name="lbl_add_client">Crear nuevo cliente</string>
     <string name="lbl_detail_client">Detalle de cliente</string>
     <string name="lbl_detail_name_client">%s - %s</string>
-    <string name="btn_save">Guardar</string>
     <string name="btn_conatctos">contactos</string>
-    <string name="btn_ok">aceptar</string>
-    <string name="btn_cancel">Cancelar</string>
     <string name="btn_modify">Modificar</string>
     <string name="btn_sale">vender</string>
-    <string name="btn_delete">eliminar</string>
-    <string name="btn_close">cerrar</string>
     <string name="btn_detail">Información</string>
     <string name="lbl_client_name">Nombre</string>
     <string name="lbl_client_name_hint"></string>
@@ -73,7 +68,7 @@
     <string name="lbl_client_phone_hint">000-000-0000</string>
     <string name="lbl_client_limit">Límite de crédito</string>
     <string name="lbl_client_limit_hint">$0,0</string>
-    <string name="lbl_date_client">Cliente desde el  22/Mayo/2021</string>
+    <string name="lbl_date_client">Cliente desde el  %s</string>
     <string name="lbl_amount_client">Debe:</string>
     <string name="lbl_client_amount">Monto</string>
     <string name="lbl_client_amount_hint">$0,0</string>
@@ -97,7 +92,7 @@
     <string name="txt_client_amount_format">$ %s</string>
     <string name="txt_client_amount_format_plus">+ $ %s</string>
     <string name="txt_client_amount_format_minum">- $ %s</string>
-    <string name="txt_client_date_format">Cliente desde el %s</string>
+    <string name="txt_client_date_format">Cliente desde %s</string>
     <string name="txt_client_name_format"> %s %s</string>
     <string name="txt_client_name_format1"> %s</string>
     <string name="txt_client_limit_format">Limite de credito %s</string>
@@ -106,6 +101,9 @@
     <string name="lbl_change_product">Cambiar producto</string>
     <string name="lbl_body_message_detail_client">Usted debe: $%s</string>
     <string name="lbl_subject_message_detail_client">Estado de cuenta de %s %s</string>
+
+    <string name="txt_debt_client">Debe: $ %s</string>
+    <string name="txt_credit_limit_client">MXN %s</string>
 
 
     <!--Fragment Productos-->
@@ -147,7 +145,6 @@
     <string name="toolbar_scan">Escanear producto</string>
 
 
-
     <string name="lbl_select_product_size_2">2</string>
     <string name="lbl_select_product_size_4">4</string>
     <string name="lbl_select_product_size_6">6</string>
@@ -167,8 +164,6 @@
     <string name="lbl_select_product_size_44">44</string>
 
 
-   <string name="lbl_take_photo">Tomar foto</string>
-    <string name="lbl_select_gallery">Abrir galería</string>
     <string name="msg_error_empty_product_name">Falta nombre del producto</string>
     <string name="msg_error_empty_type_name">Falta tipo del producto</string>
     <string name="msg_error_empty_price_buy">Falta precio compra</string>
@@ -290,9 +285,7 @@
     <string name="msg_cancel_sale_item">COMPRA CANCELADA</string>
 
     <!-- String para el banner-->
-    <string name="title_banner">Temporada </string>
-    <string name="title_season_spring">Primavera - Verano </string>
-    <string name="title_season_winter">Otoño - Invierno </string>
+    <string name="title_banner">Temporada</string>
     <string name="msg_banner">Toma esto en cuenta al crear tu lista</string>
 
 
@@ -309,4 +302,351 @@
     <string name="msg_season_spring_summer">Primavera - Verano</string>
     <string name="msg_season_autumn_winter">Otoño - Invierno</string>
 
+
+    <!--REFACTOR RESOURCES COMPOSE -->
+
+    <!--PERMISSIONS-->
+    <string name="permission_title">Necesitamos acceder a las imagenes de tu dispositivo.\n\nVamos a buscar la imagen.</string>
+    <string name="permission_camera_title">Necesitamos acceder a la camara de tu dispositivo para poder escanear el código.</string>
+    <string name="permission_camera_product_title">Necesitamos acceder a la camara de tu dispositivo.</string>
+    <string name="permission_camera_settings_product_title">Es necesario permitir el acceso a la camara del dispositivo para poder tomar foto de tu producto.</string>
+
+    <string name="permission_gallery_product_title">Necesitamos acceder a la galeria de tu dispositivo.</string>
+    <string name="permission_gallery_settings_product_title">Es necesario permitir el acceso a la galeria del dispositivo para poder elegir una imagen para tu producto.</string>
+    <string name="permission_settings_title">Es necesario permitir el acceso a la camara del dispositivo para poder escanear el codigo.</string>
+    <string name="permission_btn_open_settings">Ir a configuración</string>
+    <string name="permission_btn_get_permission">Solicitar permiso</string>
+    <!--General errors-->
+    <string name="general_error">¡Ups! Lo sentimos algo salió mal.</string>
+
+    <!--General msg-->
+    <string name="lbl_empty" />
+    <string name="btn_understood">Entiendo</string>
+    <string name="btn_ok">Aceptar</string>
+    <string name="btn_continue">Continuar</string>
+    <string name="btn_close">Cerrar</string>
+    <string name="btn_ok_delete">Si, eliminar</string>
+    <string name="btn_cancel">Cancelar</string>
+    <string name="btn_delete">Eliminar</string>
+    <string name="btn_save">Guardar</string>
+    <string name="btn_pay">Pagar</string>
+    <string name="btn_update">Actualizar</string>
+    <string name="show_more">Show more</string>
+    <string name="show_less">Show less</string>
+    <string name="loading">Cargando…</string>
+    <string name="msg_error">Error</string>
+    <string name="msg_success">Éxito</string>
+    <string name="title_information">Información</string>
+    <string name="lbl_take_photo">Tomar foto</string>
+    <string name="lbl_open_camera">Abrir camára</string>
+    <string name="lbl_select_gallery">Abrir Galería</string>
+
+
+    <!--Recovery Password Screen-->
+    <string name="recovery_password_screen_title">Recuperar contraseña</string>
+    <string name="recovery_password_body">Si olvidaste tu contraseña, puedes ingresar el correo eléctronico con el que creaste tu cuenta y te enviaremos instrucciones para ayudarte a reestablecerla.</string>
+    <string name="recovery_password_hint_email">Ingresa correo electrónico</string>
+    <string name="recovery_password_send_email">Enviar correo electrónico</string>
+    <string name="recovery_password_success">Se envio un email al correo que ingresaste, revisa tu bandeja de entrada</string>
+    <string name="lbl_remember">Recuerda</string>
+
+    <!--Register Screen-->
+    <string name="register_screen_name_app_logo_first">Reports</string>
+    <string name="register_screen_name_app_logo_second">GO</string>
+    <string name="register_screen_hint_email">Correo electrónico</string>
+    <string name="register_screen_hint_password">Contraseña</string>
+    <string name="register_screen_btn_login">Iniciar sesión</string>
+    <string name="register_screen_btn_sign_up">Crear cuenta</string>
+    <string name="register_screen_btn_continue_facebook">Continua con Facebook</string>
+    <string name="register_screen_btn_continue_google">Continua con Google</string>
+    <string name="register_screen_btn_continue_twitter">Continua con Twitter</string>
+    <string name="register_screen_lbl_or">Ó</string>
+    <string name="register_screen_lbl_remember_user">Recordar usuario</string>
+    <string name="register_screen_lbl_forgot_password">Olvidé mi contraseña</string>
+
+    <!--Errores FIREBASE-->
+    <string name="msg_firebase_user_not_found">No existe ningún registro de usuario correspondiente a este identificador. Es posible que el usuario haya sido eliminado.</string>
+    <string name="msg_firebase_password_invalid">La contraseña no es válida o el usuario no tiene contraseña.</string>
+    <string name="msg_firebase_email_exist_already">La dirección de correo electrónico ya está siendo utilizada por otra cuenta</string>
+
+    <!--HOME Activity-->
+    <string name="tab_order_option">Pedidos</string>
+    <string name="tab_clients_option">Clientes</string>
+    <string name="tab_profile_option">Perfil</string>
+    <string name="tab_sales_option">Ventas</string>
+    <string name="tab_finances_option">Finanzas</string>
+    <string name="tab_products_option">Productos</string>
+
+    <!--ORDERS Fragments-->
+    <plurals name="title_main_orders">
+        <item formatted="true" quantity="one">(%s) Lista de pedidos</item>
+        <item formatted="true" quantity="other">(%s) Listas de pedidos</item>
+    </plurals>
+    <plurals name="title_orders">
+        <item formatted="true" quantity="one">(%s) Pedido</item>
+        <item formatted="true" quantity="other">(%s) Pedidos</item>
+    </plurals>
+    <string name="tab_count_in_progress">(%s) EN PROGRESO</string>
+    <string name="tab_count_done">(%s) COMPLETADAS</string>
+    <string name="tab_in_progress">EN PROGRESO</string>
+    <string name="tab_done">COMPLETADAS</string>
+    <string name="search_orders">Buscando listas de pedidos…</string>
+    <string name="date_order"> %s</string>
+    <string name="create_new_list_orders">Crear nueva lista</string>
+    <string name="create_new_order">Crear nuevo pedido</string>
+    <string name="title_season">Temporada</string>
+    <string name="season_fall_winter">Otoño - Invierno</string>
+    <string name="season_warning">Toma esto en cuenta al crear tu lista</string>
+    <string name="list__main_orders_empty">No se encontraron listas de pedido.</string>
+    <string name="list_orders_empty">No se encontraron pedidos.</string>
+    <string name="list_order_empty">No se encontraron listas de pedido %s.</string>
+    <string name="msg_dialog_options_title">Opciones</string>
+    <string name="msg_dialog_options_body">¿Que acción quieres realizar?</string>
+    <string name="msg_dialog_delete_option">Eliminar</string>
+    <string name="msg_dialog_check_complete">Completar lista</string>
+    <string name="msg_dialog_check_in_progress">Lista en progreso</string>
+    <string name="msg_dialog_edit_order">Editar</string>
+    <string name="msg_dialog_delete_order">Eliminar</string>
+    <string name="msg_delete_main_order_title">Eliminar elemento</string>
+    <string name="msg_delete_order_title">Eliminar elemento</string>
+    <string name="msg_delete_main_order_list_body"><![CDATA[¿Estas seguro de querer eliminar la lista de pedido: <b>%s</b>?]]></string>
+    <string name="msg_delete_order_list_body"><![CDATA[¿Estas seguro de querer eliminar el pedido: <b>%s</b>?]]></string>
+    <string name="btn_create_order_list">Crear lista</string>
+    <string name="title_create_order_list">Nombre de la lista</string>
+    <string name="title_order_main_default_name">%s • %s</string>
+    <string name="title_order_default_name">Pedido %s: %s</string>
+    <string name="msg_error_list_already_exist">Ya creaste una lista de pedido con la fecha de hoy, intenta crear una lista mañana o elimina la ultima lista.</string>
+    <string name="msg_update_state_order_title">Actualizar estado</string>
+    <string name="msg_complete_main_order_body"><![CDATA[¿Estas seguro de querer cambiar el estado de la lista: \"<i>%s</i>\" a <b>completado</b>?]]></string>
+    <string name="msg_in_progress_main_order_body"><![CDATA[¿Estas seguro de querer cambiar el estado de la lista: \"<i>%s</i>\" a <b>en progreso</b>?]]></string>
+    <string name="msg_complete_order_body"><![CDATA[¿Estas seguro de querer cambiar el estado del pedido: \"<i>%s</i>\" a <b>completado</b>?]]></string>
+    <string name="msg_in_progress_order_body"><![CDATA[¿Estas seguro de querer cambiar el estado del pedido: \"<i>%s</i>\" a <b>en progreso</b>?]]></string>
+
+    <!--ORDER Fragments-->
+    <string name="create_new_order_title">Crear nuevo pedido</string>
+    <string name="modify_order_title">Modificar pedido</string>
+    <string name="order_detail_title">Detalles del pedido</string>
+    <string name="new_order_status_title">Ya he comprado este pedido</string>
+    <string name="new_order_name_title">Nombre</string>
+    <string name="new_order_name_desc">¿Qué pidieron?</string>
+    <string name="new_order_description_title">Descripción</string>
+    <string name="new_order_description_desc">Detalles importantes del pedido</string>
+    <string name="new_order_size_title">Talla</string>
+    <string name="new_order_number_sizes">Talla numérica</string>
+    <string name="new_order_size_desc">¿Que talla?</string>
+    <string name="new_order_color_title">Color</string>
+    <string name="new_order_color_desc">¿Qué color lo pidieron?</string>
+    <string name="new_order_write_color">Selecciona el color</string>
+    <string name="new_order_gender_title">¿Qué género?</string>
+    <string name="new_order_gender_desc">¿Para caballero, dama, niño(a)?</string>
+    <string name="msg_order_list_delete_success">Lista eliminada correctamente.</string>
+    <string name="msg_order_list_update_success">Lista actualizada correctamente.</string>
+    <string name="msg_order_delete_success">Pedido eliminado correctamente.</string>
+    <string name="msg_order_update_success">Pedido actualizado correctamente.</string>
+    <string name="msg_current_season"><![CDATA[<b>%s</b><br/><br/>Toma esto en cuenta al crear tu lista.]]></string>
+    <string name="season_title">Temporada</string>
+    <string name="season_spring">Primavera - Verano</string>
+    <string name="season_fall">Otoño - Invierno</string>
+    <string name="order_empty_inputs_error">Faltan campos por completar</string>
+    <string name="description_order"><![CDATA[<b>Descripción:</b> %s<br> <b>Talla:</b> %s<br> <b>Color:</b> %s<br> <b>Género:</b> %s<br> <b>Cliente:</b> %s<br>]]></string>
+
+    <string name="order_name_format"><![CDATA[<b>%s</b> %s]]></string>
+    <plurals name="num_orders">
+        <item formatted="true" quantity="one">%s Pedido</item>
+        <item formatted="true" quantity="other">%s Pedidos</item>
+    </plurals>
+    <string-array name="colors_code_array">
+        <item>#090000</item>
+        <item>#929292</item>
+        <item>#FFFFFF</item>
+        <item>#FF0000</item>
+        <item>#FF6D00</item>
+        <item>#FFD600</item>
+        <item>#00C853</item>
+        <item>#2962FF</item>
+        <item>#6200EA</item>
+        <item>#AA00FF</item>
+        <item>#E95AFF</item>
+    </string-array>
+    <string-array name="colors_name_array">
+        <item>Negro</item>
+        <item>Gris</item>
+        <item>Blanco</item>
+        <item>Rojo</item>
+        <item>Naranja</item>
+        <item>Amarillo</item>
+        <item>Verde</item>
+        <item>Azul</item>
+        <item>Morado</item>
+        <item>Fiusha</item>
+        <item>Rosa</item>
+    </string-array>
+    <string-array name="sizes_array">
+        <item>SSS</item>
+        <item>Extra chico</item>
+        <item>Chico</item>
+        <item>Mediano</item>
+        <item>Grande</item>
+        <item>Extra grande</item>
+        <item>XXL</item>
+    </string-array>
+    <string-array name="number_sizes_array">
+        <item>2</item>
+        <item>4</item>
+        <item>6</item>
+        <item>8</item>
+        <item>10</item>
+        <item>12</item>
+        <item>14</item>
+        <item>16</item>
+        <item>28</item>
+        <item>30</item>
+        <item>32</item>
+        <item>34</item>
+        <item>36</item>
+        <item>38</item>
+        <item>40</item>
+        <item>42</item>
+        <item>44</item>
+        <item>46</item>
+    </string-array>
+    <string-array name="gender_array">
+        <item>Caballero</item>
+        <item>Dama</item>
+        <item>Niño</item>
+        <item>Niña</item>
+        <item>Abuelo</item>
+        <item>Abuela</item>
+    </string-array>
+
+
+    <!--CLIENTS Fragments-->
+    <string name="search_clients">Buscando clientes registrados…</string>
+    <string name="txt_import_client_from_contacts">\"Importar información de un cliente desde tus contactos\"</string>
+    <plurals name="title_clients">
+        <item formatted="true" quantity="one">(%s) Cliente</item>
+        <item formatted="true" quantity="other">(%s) Clientes</item>
+    </plurals>
+
+    <!--PRODUCTS Fragments-->
+    <string name="search_products">Buscando productos guardados…</string>
+    <string name="search_product">Buscar producto</string>
+    <plurals name="title_products">
+        <item formatted="true" quantity="one">(%s) Producto</item>
+        <item formatted="true" quantity="other">(%s) Productos</item>
+    </plurals>
+    <string name="lbl_price_sale">$%s</string>
+    <string name="lbl_stock_sale">%s en existencia</string>
+    <string name="lbl_search_product_hint">Nombre del producto</string>
+
+
+    <!--ADD PRODUCTS Fragments-->
+    <string name="add_product_title">Detalles del producto</string>
+    <string name="add_product_name">Nombre</string>
+    <string name="add_product_name_detail">Nombre del producto</string>
+    <string name="add_product_description_title">Descripción</string>
+    <string name="add_product_description">Describe las características del producto</string>
+    <string name="add_product_price_title">Precio</string>
+    <string name="add_product_buy_price">Precio compra</string>
+    <string name="add_product_sell_price">Precio venta</string>
+    <string name="add_product_size_title">Talla</string>
+    <string name="add_product_size_numeric_title">Numérica</string>
+    <string name="add_product_size">¿Qué talla?</string>
+    <string name="add_product_color_title">Color</string>
+    <string name="add_product_color">Color del producto</string>
+    <string name="add_product_gender_title">¿Qué género?</string>
+    <string name="add_product_gender">¿Para caballero, dama, niño(a)?</string>
+    <string name="add_product_inventory_title">Inventario</string>
+    <string name="add_product_inventory">Cantidad de producto en tu inventario</string>
+    <string name="add_product_code_title">Código</string>
+    <string name="add_product_code">Código del producto</string>
+    <string name="msg_product_update_success">Producto actualizado correctamente.</string>
+    <string name="msg_product_inputs_error">Faltan campos por completar</string>
+    <string name="msg_product_inputs_different_prices">El precio de venta tiene que ser mayor al precio de compra</string>
+    <string name="msg_product_confirm_delete">¿Realmente deseas eliminar este producto?</string>
+    <string name="msg_product_delete_success">Producto eliminado correctamente.</string>
+
+
+    <!--FINANCES Fragments-->
+    <string name="search_finances">Buscando ventas generadas…</string>
+    <plurals name="title_finances">
+        <item formatted="true" quantity="one">(%s) Venta completada</item>
+        <item formatted="true" quantity="other">(%s) Ventas completadas</item>
+    </plurals>
+
+
+    <!--PROFILE Fragments-->
+    <string name="search_profile">Buscando usuario…</string>
+    <string name="title_profile">Hola, %s</string>
+    <string name="last_connection">Última conexión: %s</string>
+    <string name="title_close_session">Cerrar sesión</string>
+    <string name="msg_user_profile_not_found">Usuario no encontrado</string>
+    <string name="msg_close_session">¿Realmente desea cerrar sesion?</string>
+
+    <!--SALES Fragments-->
+    <string name="generate_sale">Nuevo ticket</string>
+    <string name="client">Cliente</string>
+    <string name="search_client">Buscar cliente</string>
+    <string name="client_not_selected">Cliente no seleccionado</string>
+    <string name="product">Producto</string>
+    <string name="select_product">Agregar producto</string>
+    <string name="shopping_cart">Carrito de compras</string>
+    <string name="total_to_pay"><![CDATA[Total: <b>$%s</b>]]></string>
+    <string name="remove_product">¿Quieres eliminar este producto de tu carrito?</string>
+    <string name="type_transaction">¿Tu compra será a crédito o de contado?</string>
+    <string name="type_not_client_selected">No se ha seleccionado un cliente, ¿Quieres continuar con la venta?</string>
+    <string name="sale_exceeds_credit"><![CDATA[Esta venta supera el crédito actual<br><br>¿Quieres continuar con la venta actualizando el crédito del cliente? <br><br><b><font color=#FF0000>Limite anterior $%s</font></b><br><br><b><font color=#8DC68F>Nuevo limite $%s</font></b>]]></string>
+    <string name="credit_transaction">Compra a crédito</string>
+    <string name="cash_transaction">Compra de contado</string>
+    <string name="credit_client">Crédito disponible: $%s</string>
+    <string name="msg_sale_created">Venta generada correctamente</string>
+    <string name="sale_products_not_found">Agrega productos para generar un nuevo ticket.</string>
+
+
+    <!--FINANCES Fragments-->
+    <string name="finances_title">Finanzas</string>
+    <string name="finances_initial_date">Fecha inicial</string>
+    <string name="finances_final_date">Fecha final</string>
+    <string name="sales_not_found">No hay ventas en este periodo</string>
+    <string name="msg_select_date">Selecciona una fecha</string>
+    <string name="msg_date_selected">Usar esta fecha</string>
+
+    <!--CLIENTS Fragments-->
+    <string name="lbl_search_client_hint">Nombre del cliente</string>
+    <string name="confirm_delete_client">¿Realmente deseas eliminar el cliente?</string>
+    <string name="update_client_success">Cliente actualizado correctamente.</string>
+    <string name="client_delete_success">Cliente eliminado correctamente.</string>
+    <string name="client_not_found">Cliente no encontrado</string>
+    <string name="option_sale">Venta</string>
+    <string name="option_order">Pedido</string>
+    <string name="option_call">Llamar</string>
+    <string name="option_info">Información</string>
+    <string name="create_new_cliet">Crear nuevo cliente</string>
+    <string name="modify_client">Modificar cliente</string>
+    <string name="add_client_title">Detalles de %s</string>
+    <string name="client_name_title">Nombre</string>
+    <string name="client_name">Nombre(s)</string>
+    <string name="client_earns">Monto a abonar</string>
+    <string name="client_earns_concept">Concepto</string>
+    <string name="operations">Operaciones</string>
+    <string name="client_lastname_title">Apellidos</string>
+    <string name="client_lastname">Apellidos</string>
+    <string name="client_info_title">Información</string>
+    <string name="client_info">Detalles importantes del cliente</string>
+    <string name="client_cel_title">Celular</string>
+    <string name="client_cel">Número celular del cliente</string>
+    <string name="client_credit_title">Crédito</string>
+    <string name="client_credit">Limite de crédito $%s</string>
+    <string name="select_list_main">¿En que lista se generará el pedido?</string>
+    <string name="permission_phone_title">Necesitamos acceder a los contactos de tu dispositivo para poder realizar la llamada.</string>
+    <string name="permission_phone_settings_title">Es necesario permitir el acceso a los contactos del dispositivo para poder realizar la llamada.</string>
+    <string name="msg_client_amount_update_success">¡Abono realizado!.</string>
+    <string name="msg_info_client_not_found">No se encontro información.</string>
+    <string name="msg_clients_not_found">No se encontraron clientes.</string>
+    <string name="error_client_name_not_found">Agrega un nombre para el cliente.</string>
+    <string name="permission_contacts_product_title">Necesitamos acceder a los contactos de tu dispositivo.</string>
+    <string name="permission_contacts_settings_product_title">Es necesario permitir el acceso a los contactos para poder obtener la información del usuario</string>
+
+    <!--TRANSACTIONS Fragments-->
+    <string name="transactions_title">Transacciones</string>
 </resources>
