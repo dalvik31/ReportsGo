@@ -15,8 +15,8 @@ android {
         applicationId "com.epacheco.reports"
         minSdk 26
         targetSdk 36
-        versionCode 27
-        versionName "2.0.0.071125"
+        versionCode 28
+        versionName "2.0.0.101125"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
