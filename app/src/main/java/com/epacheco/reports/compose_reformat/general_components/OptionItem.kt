@@ -18,13 +18,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.epacheco.reports.compose_reformat.ui.theme.RedDark
-
+import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
+import com.epacheco.reports.R
 @Composable
 fun OptionItem(
     icon: Int,
-    title: String,
+    text: String,
     tintText: Color = MaterialTheme.colorScheme.primary,
     tintIcon: Color = MaterialTheme.colorScheme.primary,
     onClick: () -> Unit
@@ -49,7 +51,7 @@ fun OptionItem(
                 )
                 Spacer(modifier = Modifier.width(16.dp))
                 Text(
-                    text = title,
+                    text = text,
                     style = MaterialTheme.typography.bodySmall,
                     color = tintText,
                 )
@@ -62,4 +64,13 @@ fun OptionItem(
             )
         }
     }
+}
+
+@Preview
+@Composable
+private fun OptionItemPreview() {
+    ReportsGoTheme {
+        OptionItem(icon = R.drawable.ic_vector_sale, text = "Ventas", onClick = {})
+    }
+
 }

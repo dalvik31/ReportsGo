@@ -1,6 +1,5 @@
 package com.epacheco.reports.compose_reformat.utils
 
-import android.util.Log
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -11,8 +10,6 @@ import com.epacheco.reports.compose_reformat.ui.theme.GreenColor
 import com.epacheco.reports.compose_reformat.ui.theme.RedDark
 import com.epacheco.reports.compose_reformat.ui.theme.SpringColor
 import com.epacheco.reports.compose_reformat.ui.theme.YellowColor
-import com.epacheco.reports.compose_reformat.utils.extensions.validateEmail
-import com.epacheco.reports.compose_reformat.utils.extensions.validatePassword
 
 object Utils {
     @Composable
@@ -27,9 +24,9 @@ object Utils {
     @Composable
     fun getClientDotBackground(limitCreditPercent: Float): Color =
         when (limitCreditPercent) {
-            in 0.0001f ..0.4f -> GreenColor
-            in 0.4f ..0.8f -> YellowColor
-            in 0.8f ..1f -> RedDark
+            in 0.0001f..0.4f -> GreenColor
+            in 0.4f..0.8f -> YellowColor
+            in 0.8f..1f -> RedDark
             else -> MaterialTheme.colorScheme.onBackground
         }
 

@@ -2,7 +2,6 @@ package com.epacheco.reports.compose_reformat.general_components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -21,9 +20,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ui.theme.FacebookColor
 import com.epacheco.reports.compose_reformat.ui.theme.GoogleColor
-import com.epacheco.reports.compose_reformat.ui.theme.GrayLight
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
-import com.epacheco.reports.compose_reformat.ui.theme.White
 
 
 @Composable
@@ -80,21 +77,29 @@ fun PrimaryButton(
 @Preview
 @Composable
 private fun GoogleButtonPreview() {
-    PrimaryButton(
-        textButton = "Icon button",
-        iconBtn = R.drawable.ic_vector_google_logo,
-        colorBackground = GoogleColor
-    )
+    ReportsGoTheme {
+        PrimaryButton(
+            textButton = "Icon button",
+            iconBtn = R.drawable.ic_vector_google_logo,
+            colorBackground = GoogleColor,
+            enabledButton = true
+        )
+    }
+
 }
 
 @Preview
 @Composable
 private fun FacebookButtonPreview() {
-    PrimaryButton(
-        textButton = "Icon button",
-        iconBtn = R.drawable.ic_vector_facebook_logo,
-        colorBackground = FacebookColor
-    )
+    ReportsGoTheme {
+        PrimaryButton(
+            textButton = "Icon button",
+            iconBtn = R.drawable.ic_vector_facebook_logo,
+            colorBackground = FacebookColor,
+            enabledButton = true
+        )
+    }
+
 }
 
 @Preview()
@@ -103,8 +108,7 @@ private fun PrimaryButtonPreview() {
     ReportsGoTheme {
         PrimaryButton(
             textButton = "Primary button",
-            enabledButton = false,
-            iconBtn = R.drawable.ic_vector_google_logo,
+            enabledButton = true,
         )
     }
 

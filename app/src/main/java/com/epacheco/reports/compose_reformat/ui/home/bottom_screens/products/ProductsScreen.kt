@@ -1,6 +1,5 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -50,9 +49,9 @@ fun ProductsScreen(
         }, onGoProductDetailClick = { product, inStock ->
             if (isSelectableProduct) {
                 product?.let {
-                    if((inStock ?: 0) > 0){
+                    if ((inStock ?: 0) > 0) {
                         onProductSelected?.invoke(product)
-                    }else{
+                    } else {
                         ordersViewModel.handleIntent(ProductsUiIntent.Error("Sin inventario, selecciona otro producto"))
                     }
 
@@ -66,7 +65,6 @@ fun ProductsScreen(
 
         })
 
-    //Message error
     uiState.errorMessage?.let { msgError ->
         ReportsDialog(
             imgDialog = R.drawable.ic_error,

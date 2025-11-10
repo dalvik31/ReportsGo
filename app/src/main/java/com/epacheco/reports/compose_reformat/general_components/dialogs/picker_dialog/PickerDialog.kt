@@ -26,11 +26,10 @@ import com.epacheco.reports.R
 
 @Composable
 fun PickerDialog(
-    pickerDialogOption: PickerDialogOption,
+    items: Array<String> = emptyArray<String>(),
     onDismiss: (() -> Unit),
     onValueSelected: ((String) -> Unit)
 ) {
-    val elements = stringArrayResource(getArrayValues(pickerDialogOption))
 
     Dialog(onDismissRequest = { onDismiss.invoke() }) {
         Card(
@@ -38,13 +37,13 @@ fun PickerDialog(
             elevation = androidx.compose.material3.CardDefaults.cardElevation(8.dp)
         ) {
             LazyColumn(modifier = Modifier.padding(20.dp)) {
-                items(elements) { value ->
+                items(items) { value ->
 
                     Row(verticalAlignment = Alignment.CenterVertically) {
 
                         Icon(
                             modifier = Modifier.width(8.dp),
-                            imageVector = ImageVector.vectorResource(R.drawable.new_ic_vector_comdin),
+                            imageVector = ImageVector.vectorResource(R.drawable.ic_simple_dot),
                             contentDescription = "back",
                             tint = MaterialTheme.colorScheme.primary
                         )
@@ -70,14 +69,6 @@ fun PickerDialog(
     }
 }
 
-private fun getArrayValues(pickerDialogOption: PickerDialogOption): Int {
-    return when (pickerDialogOption) {
-        PickerDialogOption.SIZES -> R.array.sizes_array
-        PickerDialogOption.GENDERS -> R.array.gender_array
-        PickerDialogOption.NUMBER_SIZES -> R.array.number_sizes_array
-    }
-}
-
 
 @Preview
 @Composable
@@ -85,7 +76,7 @@ fun ColorPickerDialogPreview() {
     PickerDialog(
         onDismiss = {},
         onValueSelected = {},
-        pickerDialogOption = PickerDialogOption.SIZES
+        items = stringArrayResource(R.array.sizes_array),
     )
 }
 

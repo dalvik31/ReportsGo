@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,9 +32,6 @@ class OrdersMainViewModel @Inject constructor(
     private val app: ReportsApp
 ) :
     BaseViewModel() {
-
-    private val _inputList = MutableStateFlow("")
-    val inputList: StateFlow<String> = _inputList
 
     private val _uiState = MutableStateFlow(OrdersMainUiState())
     val uiState: StateFlow<OrdersMainUiState> = _uiState
@@ -98,17 +96,10 @@ class OrdersMainViewModel @Inject constructor(
             loading(true)
             when (val orderMainResponse = getOrdersMainListUseCase()) {
                 is Resource.Failure -> {
-                    _uiState.value = _uiState.value.copy(
-                        showImgEmptyList = true
-                    )
                 }
 
                 is Resource.Success -> {
-                    _uiState.value =
-                        _uiState.value.copy(
-                            orderMains = orderMainResponse.result,
-                            showImgEmptyList = orderMainResponse.result.isEmpty(),
-                        )
+                    _uiState.update { it.copy(orderMains = orderMainResponse.result) }
                     checkUnCompleteOrders()
                 }
             }
@@ -120,17 +111,10 @@ class OrdersMainViewModel @Inject constructor(
             loading(true)
             when (val orderMainResponse = getOrdersMainListUseCase()) {
                 is Resource.Failure -> {
-                    _uiState.value = _uiState.value.copy(
-                        showImgEmptyList = true
-                    )
                 }
 
                 is Resource.Success -> {
-                    _uiState.value =
-                        _uiState.value.copy(
-                            orderMains = orderMainResponse.result,
-                            showImgEmptyList = orderMainResponse.result.isEmpty(),
-                        )
+                    _uiState.update { it.copy(orderMains = orderMainResponse.result) }
                 }
             }
             loading(false)
@@ -142,8 +126,8 @@ class OrdersMainViewModel @Inject constructor(
             when (val orderMainResponse = deleteMainOrderUseCase(orderId)) {
                 is Resource.Failure -> setErrorMsg(orderMainResponse.exception.message)
                 is Resource.Success -> {
-                    _uiState.value =
-                        _uiState.value.copy(successOperationMsg = R.string.msg_order_list_delete_success)
+
+                    _uiState.update { it.copy(successOperationMsg = R.string.msg_order_list_delete_success) }
                     loadMainOrders()
                 }
             }
@@ -162,8 +146,7 @@ class OrdersMainViewModel @Inject constructor(
             when (val orderMainResponse = updateStatusOrderMainUseCase(orderId, newOrderStatus)) {
                 is Resource.Failure -> setErrorMsg(orderMainResponse.exception.message)
                 is Resource.Success -> {
-                    _uiState.value =
-                        _uiState.value.copy(successOperationMsg = R.string.msg_order_list_update_success)
+                    _uiState.update { it.copy(successOperationMsg = R.string.msg_order_list_update_success) }
                     if (comeCheckOrder) {
                         reloadMainOrders()
                     } else {
@@ -178,7 +161,7 @@ class OrdersMainViewModel @Inject constructor(
 
 
     fun onValueInputListChanged(input: String) {
-        _inputList.value = input
+        _uiState.update { it.copy(listName = input) }
     }
 
     private fun navigateToElementsOrderList(
@@ -187,7 +170,13 @@ class OrdersMainViewModel @Inject constructor(
         nameOrderMain: String
     ) {
         viewModelScope.launch {
-            _effectFlow.emit(OrdersMainUiEffect.NavigateToElementsMain(orderMainId, season, nameOrderMain))
+            _effectFlow.emit(
+                OrdersMainUiEffect.NavigateToElementsMain(
+                    orderMainId,
+                    season,
+                    nameOrderMain
+                )
+            )
         }
     }
 
@@ -199,31 +188,26 @@ class OrdersMainViewModel @Inject constructor(
                 OrderMain(
                     orderId = orderId.toString(),
                     dateOrder = orderId.toString(),
-                    nameOrder = getNameMainOrder(),
-                    orderDate = DateUtils.format(orderId, DateUtils.FORMAT_DATE2),
+                    nameOrder = uiState.value.listName,
+                    orderDate = DateUtils.dateFormat(orderId.toString(), DateUtils.FORMAT_DATE2),
                     orderSeason = SeasonUtils.getSeason()
 
                 )
             )) {
                 is Resource.Failure -> setErrorMsg(orderMainMainResponse.exception.message)
                 is Resource.Success -> {
-                    _inputList.value = ""
+                    _uiState.update { it.copy(listName = "") }
                     loadMainOrders()
                 }
             }
             loading(false)
         }
 
-    private fun getNameMainOrder(): String {
-        return _inputList.value
-
-    }
-
     override fun setErrorMsg(msgError: String?) {
-        _uiState.value = _uiState.value.copy(errorMessage = msgError, successOperationMsg = null)
+        _uiState.update { it.copy(errorMessage = null, successOperationMsg = null) }
     }
 
     override fun loading(showLoading: Boolean) {
-        _uiState.value = _uiState.value.copy(isLoading = showLoading)
+        _uiState.update { it.copy(isLoading = showLoading) }
     }
 }

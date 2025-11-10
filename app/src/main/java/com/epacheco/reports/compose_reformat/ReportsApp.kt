@@ -5,6 +5,5 @@ import android.widget.Toast
 import com.epacheco.reports.R
 import dagger.hilt.android.HiltAndroidApp
 
-
 @HiltAndroidApp
 class ReportsApp : Application()

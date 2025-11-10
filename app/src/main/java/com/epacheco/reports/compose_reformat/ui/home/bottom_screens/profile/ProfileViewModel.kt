@@ -4,9 +4,9 @@ import android.net.Uri
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.compose_reformat.ReportsApp
 import com.epacheco.reports.compose_reformat.domain.user.GetUserUseCase
+import com.epacheco.reports.compose_reformat.domain.user.LogoutUseCase
 import com.epacheco.reports.compose_reformat.domain.user.UpdateProfileUseCase
 import com.epacheco.reports.compose_reformat.domain.user.UploadImgProfileUseCase
-import com.epacheco.reports.compose_reformat.domain.user.LogoutUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import com.epacheco.reports.compose_reformat.utils.extensions.compress

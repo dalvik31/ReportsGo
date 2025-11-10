@@ -32,6 +32,8 @@ class OrdersRepositoryImpl @Inject constructor(
 
     override suspend fun deleteOrder(orderId: String, mainOrderId: String): Resource<Any> {
         return try {
+            Log.e("aqui","eliminamos lista ordenId: ${orderId}")
+            Log.e("aqui","eliminamos lista mainOrderId: ${mainOrderId}")
             getOrdersReference().child(mainOrderId).child("orderLists").child(orderId).removeValue()
             Resource.Success(Any())
         } catch (e: Exception) {

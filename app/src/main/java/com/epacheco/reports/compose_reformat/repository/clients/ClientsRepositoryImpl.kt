@@ -1,7 +1,6 @@
 package com.epacheco.reports.compose_reformat.repository.clients
 
 import android.annotation.SuppressLint
-import android.util.Log
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.firebase.await
 import com.epacheco.reports.compose_reformat.model.clients.Client
@@ -26,7 +25,8 @@ class ClientsRepositoryImpl @Inject constructor(
 
             val client = snapshot.getValue(Client::class.java)
 
-            client?.let { Resource.Success(it)
+            client?.let {
+                Resource.Success(it)
             } ?: Resource.Failure(Exception("Cliente $clientId no encontrado"))
         } catch (e: Exception) {
             Resource.Failure(e)

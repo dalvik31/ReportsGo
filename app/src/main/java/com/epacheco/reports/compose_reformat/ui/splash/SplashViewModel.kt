@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,7 +30,7 @@ class SplashViewModel @Inject constructor(private val getUserUseCase: GetUserUse
     }
 
     private fun checkUserStatus() = viewModelScope.launch {
-        _uiState.value = _uiState.value.copy(isLoading = true)
+        _uiState.update { it.copy(isLoading = true) }
 
         when (getUserUseCase()) {
             is Resource.Failure -> _effectFlow.emit(SplashUiEffect.NavigateToLogin)
@@ -37,7 +38,7 @@ class SplashViewModel @Inject constructor(private val getUserUseCase: GetUserUse
                 _effectFlow.emit(SplashUiEffect.NavigateToHome)
             }
         }
-        _uiState.value = _uiState.value.copy(isLoading = false)
+        _uiState.update { it.copy(isLoading = false) }
     }
 
 }

@@ -39,6 +39,7 @@ import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.ClientItem
 import com.epacheco.reports.compose_reformat.general_components.Header
 import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
+import com.epacheco.reports.compose_reformat.general_components.SaleItem
 import com.epacheco.reports.compose_reformat.general_components.SecondaryItem
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
 import com.epacheco.reports.compose_reformat.model.clients.Client
@@ -51,7 +52,6 @@ import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 @Composable
 fun SalesView(
     clientSelected: Client? = null,
-    productSelected: String? = null,
     listProductCart: List<Product>? = null,
     totalSale: Double? = null,
     onInputClientChanged: (() -> Unit)? = null,
@@ -106,14 +106,14 @@ fun SalesView(
 
             PrimaryButton(
                 textButton = stringResource(R.string.select_product),
-                modifier = Modifier.padding(horizontal = 20.dp,vertical = 8.dp)
+                modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp)
             ) {
                 onInputProductChanged?.invoke()
             }
             Spacer(modifier = Modifier.padding(vertical = 8.dp))
 
             if (!listProductCart.isNullOrEmpty()) {
-                TextDivider(textDivider = stringResource(R.string.shopping_cart))
+                TextDivider(text = stringResource(R.string.shopping_cart))
                 Spacer(modifier = Modifier.padding(vertical = 8.dp))
                 LazyColumn(
                     modifier = Modifier
@@ -136,7 +136,7 @@ fun SalesView(
 
                 }
 
-            }else{
+            } else {
                 Column(
                     Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.Center,

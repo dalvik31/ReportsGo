@@ -133,7 +133,7 @@ fun ClientItem(
                 ) {
                     client?.let {
                         Icon(
-                            painter = painterResource(R.drawable.new_ic_vector_comdin),
+                            painter = painterResource(R.drawable.ic_simple_dot),
                             contentDescription = null,
                             modifier = Modifier.size(16.dp),
                             tint = client?.let {
@@ -182,7 +182,7 @@ fun ClientItem(
                         TextDivider(
                             modifier = Modifier
                                 .padding(horizontal = 12.dp),
-                            textDivider = stringResource(
+                            text = stringResource(
                                 R.string.credit_client,
                                 it.getLimitAvailable()
                             )

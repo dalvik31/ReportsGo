@@ -1,6 +1,5 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile
 
-import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -14,7 +13,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -45,14 +43,8 @@ import com.google.firebase.auth.FirebaseUser
 @Composable
 fun ProfileView(
     firebaseUser: FirebaseUser? = null,
-    imageProfile: Uri? = null,
     onUpdateProfilePictureClicked: (() -> Unit)? = null,
     onLogoutClicked: (() -> Unit)? = null,
-    loading: Boolean,
-    onNavigateToOrders: (() -> Unit)? = null,
-    onNavigateToClients: (() -> Unit)? = null,
-    onNavigateToProducts: (() -> Unit)? = null,
-    onNavigateToFinances: (() -> Unit)? = null
 ) {
     Column(Modifier.fillMaxSize()) {
         DividerProfile(firebaseUser)
@@ -107,7 +99,7 @@ fun ProfileView(
             Text(
                 text = stringResource(
                     R.string.last_connection,
-                    DateUtils.format(lastConnection, FORMAT_DATE2)
+                    DateUtils.dateFormat(lastConnection.toString(), FORMAT_DATE2)
                 ),
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
@@ -133,46 +125,9 @@ fun ProfileView(
             ) {
 
                 Column(modifier = Modifier.fillMaxWidth()) {
-                   /* OptionItem(
-                        icon = R.drawable.ic_vector_order,
-                        title = stringResource(R.string.tab_order_option),
-                        onClick = { onNavigateToOrders?.invoke() },
-                    )
-                    HorizontalDivider(
-                        modifier = Modifier.padding(horizontal = 8.dp),
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f)
-                    )
-                    OptionItem(
-                        icon = R.drawable.ic_vector_clients,
-                        title = stringResource(R.string.tab_clients_option),
-                        onClick = { onNavigateToClients?.invoke() },
-                    )
-                    HorizontalDivider(
-                        modifier = Modifier.padding(horizontal = 8.dp),
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f)
-                    )
-                    OptionItem(
-                        icon = R.drawable.ic_vector_products,
-                        title = stringResource(R.string.tab_products_option),
-                        onClick = { onNavigateToProducts?.invoke() },
-                    )
-                    HorizontalDivider(
-                        modifier = Modifier.padding(horizontal = 8.dp),
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f)
-                    )
-                    OptionItem(
-                        icon = R.drawable.ic_vector_sale,
-                        title = stringResource(R.string.tab_sales_option),
-                        onClick = { onNavigateToFinances?.invoke() },
-                    )
-                    HorizontalDivider(
-                        modifier = Modifier.padding(horizontal = 8.dp),
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f)
-                    )*/
-
                     OptionItem(
                         icon = R.drawable.ic_vector_logout,
-                        title = stringResource(R.string.lbl_logout),
+                        text = stringResource(R.string.lbl_logout),
                         tintText = RedDark,
                         tintIcon = RedDark
                     ) { onLogoutClicked?.invoke() }
@@ -194,7 +149,7 @@ private fun DividerProfile(firebaseUser: FirebaseUser?) {
     )
     TextDivider(
         modifier = Modifier.padding(vertical = 16.dp),
-        textDivider = if (userName.isEmpty()) stringResource(R.string.msg_user_profile_not_found) else userNameLbl,
+        text = if (userName.isEmpty()) stringResource(R.string.msg_user_profile_not_found) else userNameLbl,
         fontSize = 20.sp
     )
 }
@@ -203,7 +158,7 @@ private fun DividerProfile(firebaseUser: FirebaseUser?) {
 @Composable
 fun ProfileViewPreview() {
     ReportsGoTheme {
-        ProfileView(loading = false)
+        ProfileView()
     }
 
 }

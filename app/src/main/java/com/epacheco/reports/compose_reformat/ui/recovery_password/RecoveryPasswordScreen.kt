@@ -18,28 +18,23 @@ fun PasswordScreen(
     onBackPressed: (() -> Unit)? = null,
 ) {
     val uiState by recoverPasswordViewModel.uiState.collectAsState()
-    val inputEmail by recoverPasswordViewModel.inputEmail.collectAsState()
-    val inputEmailIsValid by recoverPasswordViewModel.enabledButton.collectAsState()
 
     RecoveryPasswordView(
-        inputEmail = inputEmail,
+        inputEmail = uiState.inputEmail,
         onInputEmailChanged = {
             recoverPasswordViewModel.onInputEmailChanged(it)
         },
-        inputEmailIsValid = inputEmailIsValid,
+        inputEmailIsValid = uiState.enabledButton,
         onBackPressed = {
             onBackPressed?.invoke()
         }, onSendEmail = {
             recoverPasswordViewModel.handleIntent(RecoveryPasswordUiIntent.RecoveryPassword)
         })
 
-    // Loading Overlay
     if (uiState.isLoading) {
         Loader(false)
     }
 
-
-    //Message error
     uiState.errorMessage?.let { msgError ->
         ReportsDialog(
             imgDialog = R.drawable.ic_error,
@@ -50,7 +45,6 @@ fun PasswordScreen(
             })
     }
 
-    //Message success
     uiState.successOperationMsg?.let { msgSuccessOperation ->
         ReportsDialog(
             imgDialog = R.drawable.ic_vector_ok,

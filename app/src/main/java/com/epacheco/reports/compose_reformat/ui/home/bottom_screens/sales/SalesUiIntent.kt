@@ -1,10 +1,6 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.sales
 
-import android.graphics.Bitmap
-import android.net.Uri
 import com.epacheco.reports.compose_reformat.model.products.Product
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.OrdersMainUiIntent
-import java.io.File
 
 sealed class SalesUiIntent {
     data object Error : SalesUiIntent()

@@ -29,15 +29,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.epacheco.reports.R
+import com.epacheco.reports.compose_reformat.utils.extensions.validateContent
 
 @Composable
 fun ListAnimationItem(
     modifier: Modifier = Modifier,
-    title: String,
+    text: String,
     body: String,
     content: String? = null,
-    onSelectItem : () -> Unit
-    ) {
+    onSelectItem: () -> Unit
+) {
     var expandedContent by rememberSaveable { mutableStateOf(false) }
 
     Surface(color = Color.Transparent) {
@@ -68,7 +69,7 @@ fun ListAnimationItem(
                         .padding(bottom = 12.dp),
                 ) {
                     Text(
-                        text = title
+                        text = text
                     )
                     Text(
                         modifier = Modifier.padding(top = 8.dp),
@@ -78,7 +79,7 @@ fun ListAnimationItem(
                         )
                     )
 
-                    validateContent(content)?.let {
+                    content?.validateContent()?.let {
                         if (expandedContent) {
                             Text(
                                 text = it,
@@ -90,16 +91,16 @@ fun ListAnimationItem(
 
                 }
 
-                validateContent(content)?.let {
+                content?.validateContent()?.let {
                     IconButton(onClick = {
                         expandedContent = !expandedContent
                     }) {
                         Icon(
                             imageVector = if (expandedContent) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
                             contentDescription =
-                            if (expandedContent) stringResource(R.string.show_less) else stringResource(
-                                R.string.show_more
-                            )
+                                if (expandedContent) stringResource(R.string.show_less) else stringResource(
+                                    R.string.show_more
+                                )
                         )
                     }
                 }
@@ -112,13 +113,9 @@ fun ListAnimationItem(
 }
 
 
-private fun validateContent(content: String?): String? {
-    return if (content.isNullOrEmpty()) null else content
-}
-
 @Preview
 @Composable
 fun ListAnimationItemPreview() {
-    ListAnimationItem(Modifier, "12/03/2025", "ListAnimationItem", ""){}
+    ListAnimationItem(Modifier, "12/03/2025", "ListAnimationItem", "") {}
 }
 

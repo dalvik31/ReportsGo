@@ -1,6 +1,6 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.client_info
 
-import com.epacheco.reports.compose_reformat.model.Finances.Sale
+import com.epacheco.reports.compose_reformat.model.sales.Sale
 import com.epacheco.reports.compose_reformat.model.clients.Client
 
 data class ClientInfoUiState(

@@ -33,7 +33,6 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.ui.theme.GrayDark
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.ui.theme.White
 import java.util.Locale
@@ -69,9 +68,11 @@ fun SecondaryItem(
             disabledContainerColor = Color.Transparent
         )
     ) {
-        Column(Modifier
-            .wrapContentHeight()
-            .padding(start = 8.dp, top = 8.dp)) {
+        Column(
+            Modifier
+                .wrapContentHeight()
+                .padding(start = 8.dp, top = 8.dp)
+        ) {
 
             Row(
                 modifier = Modifier
@@ -85,7 +86,7 @@ fun SecondaryItem(
                             .size(16.dp)
                             .padding(),
                         imageVector = ImageVector.vectorResource(
-                            icon ?: R.drawable.baseline_circle_24
+                            icon ?: R.drawable.ic_simple_dot
                         ),
                         contentDescription = null,
                         colorFilter = ColorFilter.tint(if (icon != null) tintIcon else Color.Transparent)
@@ -116,7 +117,7 @@ fun SecondaryItem(
                     .padding(horizontal = 8.dp)
                     .padding(top = 5.dp, bottom = 5.dp),
                 style = MaterialTheme.typography.bodySmall.copy(
-                    fontWeight =  FontWeight.Light,
+                    fontWeight = FontWeight.Light,
                     textDecoration = if (strikeThrough) TextDecoration.LineThrough else TextDecoration.None,
                 ),
             )
@@ -143,119 +144,19 @@ fun SecondaryItem(
         }
 
     }
-
-    /*    Card(
-            modifier = modifier
-                .wrapContentWidth()
-                .wrapContentSize()
-                .padding(vertical = 8.dp, horizontal = 8.dp)
-                .alpha(if (strikeThrough) 0.5f else 1f)
-                .clickable {
-                    onItemPressed?.invoke()
-                },
-            colors = CardColors(
-                contentColor = White,
-                containerColor = MaterialTheme.colorScheme.surface,
-                disabledContentColor = Color.Transparent,
-                disabledContainerColor = Color.Transparent
-            )
-
-        ) {
-
-
-            Column(
-                horizontalAlignment = Alignment.End,
-            ) {
-
-                Row(
-                    modifier = modifier.padding(start = 8.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Start
-                ) {
-
-
-                    Image(
-                        modifier = Modifier
-                            .size(16.dp),
-                        imageVector = ImageVector.vectorResource(
-                            icon ?: R.drawable.baseline_circle_24
-                        ),
-                        contentDescription = null,
-                        colorFilter = ColorFilter.tint(if (icon != null) tintIcon else Color.Transparent)
-                    )
-
-                    Text(
-                        modifier = Modifier
-                            .wrapContentWidth()
-                            .padding(start = 8.dp),
-                        text = text ?: "",
-                        textAlign = TextAlign.Start,
-                        style = MaterialTheme.typography.bodyLarge.copy(
-                            fontWeight = if (strikeThrough) FontWeight.Light else FontWeight.Bold,
-                            textDecoration = if (strikeThrough) TextDecoration.LineThrough else TextDecoration.None
-                        ), fontSize = 14.sp,
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                    Spacer(modifier = modifier.weight(1f))
-
-                }
-
-
-
-                Text(
-                    modifier = modifier.fillMaxWidth().padding(vertical = 4.dp),
-                    text = secondaryText ?: "",
-                    fontSize = 10.sp,
-                    color = MaterialTheme.colorScheme.primary,
-                    style = MaterialTheme.typography.bodySmall,
-
-                    )
-
-                Box(
-                    modifier = modifier
-                        .background(
-                            MaterialTheme.colorScheme.onBackground,
-                            RoundedCornerShape(topStart = 10.dp)
-                        )
-                        .padding(horizontal = 8.dp, vertical = 4.dp),
-
-                    ) {
-                    Text(
-                        text = secondaryText ?: "",
-                        fontSize = 10.sp,
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        style = MaterialTheme.typography.bodySmall,
-
-                        )
-                }
-
-            }
-
-        }
-    */
 }
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun SecondaryItemPreview() {
     ReportsGoTheme {
-        Row {
-            SecondaryItem(
-                modifier = Modifier.weight(1f),
-                text = "text",
-                contentText = "contentText",
-                secondaryText = "secondaryText",
-                icon = R.drawable.baseline_circle_24,
-                strikeThrough = false,
-            )
-            SecondaryItem(
-                modifier = Modifier.weight(1f),
-                text = "text",
-                contentText = null,
-                secondaryText = "null",
-                icon = R.drawable.baseline_circle_24,
-                strikeThrough = false,
-            )
-        }
+        SecondaryItem(
+            modifier = Modifier,
+            text = "text",
+            contentText = "Context text",
+            secondaryText = "Secondary text",
+            icon = R.drawable.ic_simple_dot,
+            strikeThrough = false,
+        )
     }
 }

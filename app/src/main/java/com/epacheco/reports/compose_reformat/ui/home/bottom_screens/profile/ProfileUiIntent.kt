@@ -1,7 +1,5 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile
 
-import android.graphics.Bitmap
-import android.net.Uri
 import java.io.File
 
 sealed class ProfileUiIntent {

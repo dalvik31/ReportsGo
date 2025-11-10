@@ -25,7 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.model.Finances.PaymentType
-import com.epacheco.reports.compose_reformat.model.Finances.Sale
+import com.epacheco.reports.compose_reformat.model.sales.Sale
 import com.epacheco.reports.compose_reformat.ui.theme.GreenColor
 import com.epacheco.reports.compose_reformat.ui.theme.RedDark
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
@@ -95,7 +95,7 @@ fun FinanceItem(
 
                         AvatarWithIndicator(
                             avatarUrl = sale.imgProduct,
-                            indicatorRes = R.drawable.baseline_circle_24,
+                            indicatorRes = R.drawable.ic_simple_dot,
                             avatarRes = if (sale.paymentType == PaymentType.PAY) R.drawable.ic_vector_sale else null,
                             avatarSize = 70.dp,
                             indicatorSize = 17.dp,

@@ -5,15 +5,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import coil3.annotation.InternalCoilApi
 import coil3.request.GlobalLifecycle.currentState
-import com.epacheco.reports.compose_reformat.general_components.SelectorDateDialog
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 
@@ -52,8 +48,8 @@ fun FinancesScreen(
         onBackPressed = {
             onBackPressed?.invoke()
         },
-        initialDate = DateUtils.dateFormat(initialDate.toString().ifEmpty { System.currentTimeMillis().toString() }, DateUtils.FORMAT_DATE1),
-        finalDate = DateUtils.dateFormat(finalDate.toString().ifEmpty { System.currentTimeMillis().toString() }, DateUtils.FORMAT_DATE1),
+        initialDate = DateUtils.dateFormat(initialDate.toString().ifEmpty { System.currentTimeMillis().toString() }, DateUtils.FORMAT_DATE3),
+        finalDate = DateUtils.dateFormat(finalDate.toString().ifEmpty { System.currentTimeMillis().toString() }, DateUtils.FORMAT_DATE3),
         onSelectDatePressed = {
             onSelectDateScreen?.invoke()
         },

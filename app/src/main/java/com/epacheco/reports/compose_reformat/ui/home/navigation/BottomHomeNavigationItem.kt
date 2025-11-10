@@ -30,7 +30,7 @@ data class BottomHomeNavigationItem(
                     ".Companion"
                 ),
                 label = R.string.tab_products_option,
-                icon = R.drawable.ic_vector_products_red,
+                icon = R.drawable.ic_vector_products,
                 bottomHomeRoutes = BottomHomeRoutes.ProductBottomHomeRoute()
             ),
 

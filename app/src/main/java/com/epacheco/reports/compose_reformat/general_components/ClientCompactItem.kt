@@ -95,14 +95,14 @@ fun ClientCompactItem(
                     avatarUrl?.let {
                         AvatarWithIndicator(
                             avatarUrl = it,
-                            indicatorRes = R.drawable.baseline_circle_24
+                            indicatorRes = R.drawable.ic_simple_dot
                         )
                     }
 
                     avatarLetters?.let {
                         AvatarWithIndicator(
                             avatarLetters = it,
-                            indicatorRes = R.drawable.baseline_circle_24,
+                            indicatorRes = R.drawable.ic_simple_dot,
                             indicatorSize = 15.dp,
                             avatarSize = 60.dp,
                             tintSaleIndicator = Utils.getClientDotBackground(

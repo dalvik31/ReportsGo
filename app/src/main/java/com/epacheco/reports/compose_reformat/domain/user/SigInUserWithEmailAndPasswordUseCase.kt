@@ -8,6 +8,6 @@ import javax.inject.Inject
 class SigInUserWithEmailAndPasswordUseCase @Inject constructor(private val firebaseAuthRepository: AuthRepository) {
 
     suspend operator fun invoke(userEmail: String, userPassword: String): Resource<FirebaseUser> {
-        return firebaseAuthRepository.login(userEmail, userPassword)
+        return firebaseAuthRepository.signIn(userEmail, userPassword)
     }
 }

@@ -7,9 +7,7 @@ import com.epacheco.reports.compose_reformat.domain.products.GetProductsByNameUs
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -29,8 +27,6 @@ class ProductsViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(ProductsUiState())
     val uiState: StateFlow<ProductsUiState> = _uiState
 
-    private val _effectFlow = MutableSharedFlow<ProductsUiEffect>()
-    val effectFlow: SharedFlow<ProductsUiEffect> = _effectFlow
 
     fun handleIntent(intent: ProductsUiIntent) {
         when (intent) {

@@ -1,10 +1,6 @@
 package com.epacheco.reports.compose_reformat.ui.navigation
 
-import android.app.Activity
-import androidx.compose.foundation.background
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -12,7 +8,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.epacheco.reports.compose_reformat.ui.account.AccountScreen
 import com.epacheco.reports.compose_reformat.ui.home.HomeScreen
-import com.epacheco.reports.compose_reformat.ui.home.MainScreen
 import com.epacheco.reports.compose_reformat.ui.recovery_password.PasswordScreen
 import com.epacheco.reports.compose_reformat.ui.splash.SplashScreen
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
@@ -66,11 +61,6 @@ fun ReportsNavHost(
                         popUpTo(NavHostScreens.HomeRoute) { inclusive = true }
                     }
                 })
-                /*HomeScreen(onNavigateToRegister = {
-                    navController.navigate(NavHostScreens.RegisterRoute) {
-                        popUpTo(NavHostScreens.HomeRoute) { inclusive = true }
-                    }
-                })*/
             }
         }
 

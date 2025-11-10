@@ -26,7 +26,7 @@ private val DarkColorScheme = darkColorScheme(
     onPrimaryContainer = White,
     onBackground = WhiteBackground
 
-    )
+)
 
 private val LightColorScheme = lightColorScheme(
     background = WhiteBackground,
@@ -41,7 +41,8 @@ private val LightColorScheme = lightColorScheme(
     primaryContainer = Black,
     inversePrimary = GrayDark,
     onPrimaryContainer = White,
-    onBackground = BlackBackground)
+    onBackground = BlackBackground
+)
 
 @Composable
 fun ReportsGoTheme(

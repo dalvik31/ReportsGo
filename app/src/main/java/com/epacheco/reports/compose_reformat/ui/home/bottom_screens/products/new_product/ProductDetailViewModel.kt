@@ -6,9 +6,9 @@ import com.epacheco.reports.compose_reformat.ReportsApp
 import com.epacheco.reports.compose_reformat.domain.products.CreateProductUseCase
 import com.epacheco.reports.compose_reformat.domain.products.DeleteProductImgUseCase
 import com.epacheco.reports.compose_reformat.domain.products.DeleteProductUseCase
-import com.epacheco.reports.compose_reformat.domain.products.UploadImgProductUseCase
 import com.epacheco.reports.compose_reformat.domain.products.GetProductByIdUseCase
 import com.epacheco.reports.compose_reformat.domain.products.UpdateProductUseCase
+import com.epacheco.reports.compose_reformat.domain.products.UploadImgProductUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.model.products.Product
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
@@ -37,42 +37,6 @@ class ProductDetailViewModel @Inject constructor(
 ) :
     BaseViewModel() {
 
-    private val _inputProductName = MutableStateFlow("")
-    val inputProductName: StateFlow<String> = _inputProductName
-
-    private val _inputProductDescription = MutableStateFlow("")
-    val inputProductDescription: StateFlow<String> = _inputProductDescription
-
-    private val _inputProductBuyPrice = MutableStateFlow("")
-    val inputProductBuyPrice: StateFlow<String> = _inputProductBuyPrice
-
-    private val _inputProductSellPrice = MutableStateFlow("")
-    val inputProductSellPrice: StateFlow<String> = _inputProductSellPrice
-
-    private val _inputProductSize = MutableStateFlow("")
-    val inputProductSize: StateFlow<String> = _inputProductSize
-
-    private val _isProductSizeNumeric = MutableStateFlow(false)
-    val isProductSizeNumeric: StateFlow<Boolean> = _isProductSizeNumeric
-
-    private val _inputProductColor = MutableStateFlow("")
-    val inputProductColor: StateFlow<String> = _inputProductColor
-
-    private val _inputProductColorCode = MutableStateFlow("")
-    val inputProductColorCode: StateFlow<String> = _inputProductColorCode
-
-    private val _inputProductGender = MutableStateFlow("")
-    val inputProductGender: StateFlow<String> = _inputProductGender
-
-    private val _inputProductStock = MutableStateFlow("")
-    val inputProductStock: StateFlow<String> = _inputProductStock
-
-    private val _inputProductCode = MutableStateFlow("")
-    val inputProductCode: StateFlow<String> = _inputProductCode
-
-    private val _inputProductUrlImg = MutableStateFlow("")
-    val inputProductUrlImg: StateFlow<String> = _inputProductUrlImg
-
     private val _uiState = MutableStateFlow(ProductDetailUiState())
     val uiState: StateFlow<ProductDetailUiState> = _uiState
 
@@ -90,11 +54,6 @@ class ProductDetailViewModel @Inject constructor(
         }
     }
 
-    /**
-     *
-     * Method to search a product by id
-     *
-     * */
     private fun getProductById(productId: String) = viewModelScope.launch {
         loading(true)
         when (val productsByIdResponse = productsByIdUseCase.invoke(productId)) {
@@ -114,12 +73,6 @@ class ProductDetailViewModel @Inject constructor(
         loading(false)
     }
 
-
-    /**
-     *
-     * Methods to create a new product
-     *
-     * */
     private fun validateInfoToCreateProduct() {
         if (validateInputs()) {
             uploadProductImg()
@@ -172,12 +125,6 @@ class ProductDetailViewModel @Inject constructor(
         }
     }
 
-
-    /**
-     *
-     * Methods to update a product
-     *
-     * */
     private fun validateInfoToUpdateProduct(productId: String) {
         if (validateInputs()) {
             if (changeImageProduct()) {
@@ -216,11 +163,6 @@ class ProductDetailViewModel @Inject constructor(
             return false
         }
 
-        if (!validatePrice()) {
-            setErrorMsg(app.getString(R.string.msg_product_inputs_different_prices))
-            return false
-        }
-
         return true
     }
 
@@ -231,6 +173,7 @@ class ProductDetailViewModel @Inject constructor(
             is Resource.Failure -> {
                 setErrorMsg(deleteProductResponse.exception.message)
             }
+
             is Resource.Success -> {
                 deleteProductImgUseCase.invoke(getNameImage())
                 _uiState.value =
@@ -251,23 +194,21 @@ class ProductDetailViewModel @Inject constructor(
     }
 
     private fun validInputs(): Boolean {
-        val name = _inputProductName.value
-        val desc = _inputProductDescription.value
-        val size = _inputProductSize.value
-        val col = _inputProductColor.value
-        val img = _inputProductUrlImg.value
-        val gen = _inputProductGender.value
-        val cod = _inputProductCode.value
-        val stock = _inputProductStock.value
-        val bPri = _inputProductBuyPrice.value
-        val sPri = _inputProductSellPrice.value
-        return (name.isNotEmpty() && desc.isNotEmpty() && size.isNotEmpty() && col.isNotEmpty() &&
-                gen.isNotEmpty() && img.isNotEmpty() && cod.isNotEmpty() && stock
-            .isNotEmpty() && bPri.isNotEmpty() && sPri.isNotEmpty())
-    }
-
-    private fun validatePrice(): Boolean {
-        return _inputProductSellPrice.value.toDouble() > _inputProductBuyPrice.value.toDouble()
+        uiState.value.run {
+            val name = productName
+            val desc = productDescription
+            val size = productSize
+            val col = productColor
+            val img = productUrlImg
+            val gen = productGender
+            val cod = productCode
+            val stock = productStock
+            val bPri = productBuyPrice
+            val sPri = productSellPrice
+            return (name.isNotEmpty() && desc.isNotEmpty() && size.isNotEmpty() && col.isNotEmpty() &&
+                    gen.isNotEmpty() && img.isNotEmpty() && cod.isNotEmpty() && stock
+                .isNotEmpty() && bPri.isNotEmpty() && sPri.isNotEmpty())
+        }
     }
 
     private fun setValuesToEdit(product: Product) {
@@ -290,67 +231,67 @@ class ProductDetailViewModel @Inject constructor(
     private fun getNewProduct(): Product =
         Product(
             productId = DateUtils.now().toString(),
-            productName = _inputProductName.value,
-            productColor = _inputProductColor.value,
-            productColorCode = _inputProductColorCode.value,
-            productCode = _inputProductCode.value,
+            productName = uiState.value.productName,
+            productColor = uiState.value.productColor,
+            productColorCode = uiState.value.productColorCode,
+            productCode = uiState.value.productCode,
             productDate = DateUtils.now().toString(),
-            productSize = _inputProductSize.value,
-            productType = _inputProductGender.value,
-            productDescription = _inputProductDescription.value,
-            productPriceBuy = _inputProductBuyPrice.value.toDouble(),
-            productPriceSale = _inputProductSellPrice.value.toDouble(),
-            productSizeNumeric = _isProductSizeNumeric.value,
-            inStock = _inputProductStock.value.toInt(),
-            urlImage = _inputProductUrlImg.value
+            productSize = uiState.value.productSize,
+            productType = uiState.value.productGender,
+            productDescription = uiState.value.productDescription,
+            productPriceBuy = uiState.value.productBuyPrice.toDouble(),
+            productPriceSale = uiState.value.productSellPrice.toDouble(),
+            productSizeNumeric = uiState.value.isProductSizeNumeric,
+            inStock = uiState.value.productStock.toInt(),
+            urlImage = uiState.value.productUrlImg
         )
 
     fun onInputNameChanged(inputName: String) {
-        _inputProductName.value = inputName
+        _uiState.update { it.copy(productName = inputName) }
     }
 
     fun onInputDescriptionChanged(inputDescription: String) {
-        _inputProductDescription.value = inputDescription
+        _uiState.update { it.copy(productDescription = inputDescription) }
     }
 
     fun onInputBuyPriceChanged(inputBuyPrice: String) {
-        _inputProductBuyPrice.value = inputBuyPrice
+        _uiState.update { it.copy(productBuyPrice = inputBuyPrice) }
     }
 
     fun onInputSellPriceChanged(inputSellPrice: String) {
-        _inputProductSellPrice.value = inputSellPrice
+        _uiState.update { it.copy(productSellPrice = inputSellPrice) }
     }
 
     fun onInputSizeChanged(inputSize: String) {
-        _inputProductSize.value = inputSize
+        _uiState.update { it.copy(productSize = inputSize) }
     }
 
     fun onInputIsNumericSizeChanged(inputIsNumericSize: Boolean) {
-        _isProductSizeNumeric.value = inputIsNumericSize
+        _uiState.update { it.copy(isProductSizeNumeric = inputIsNumericSize) }
     }
 
     fun onInputColorChanged(inputColor: String) {
-        _inputProductColor.value = inputColor
+        _uiState.update { it.copy(productColor = inputColor) }
     }
 
     fun onInputColorCodeChanged(inputColorCode: String) {
-        _inputProductColorCode.value = inputColorCode
+        _uiState.update { it.copy(productColorCode = inputColorCode) }
     }
 
     fun onInputGenderChanged(inputGender: String) {
-        _inputProductGender.value = inputGender
+        _uiState.update { it.copy(productGender = inputGender) }
     }
 
     fun onInputStockChanged(inputStock: String) {
-        _inputProductStock.value = inputStock
+        _uiState.update { it.copy(productStock = inputStock) }
     }
 
     fun onInputCodeChanged(inputCode: String) {
-        _inputProductCode.value = inputCode
+        _uiState.update { it.copy(productCode = inputCode) }
     }
 
     fun onInputImgUrlChanged(urlImg: String) {
-        _inputProductUrlImg.value = urlImg
+        _uiState.update { it.copy(productUrlImg = urlImg) }
     }
 
     private fun setImageFile(imgFile: File) {

@@ -37,7 +37,7 @@ import com.epacheco.reports.compose_reformat.general_components.Header
 import com.epacheco.reports.compose_reformat.general_components.MoneyItem
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
 import com.epacheco.reports.compose_reformat.model.Finances.PaymentType
-import com.epacheco.reports.compose_reformat.model.Finances.Sale
+import com.epacheco.reports.compose_reformat.model.sales.Sale
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 
@@ -67,21 +67,6 @@ fun FinancesView(
             rightImageVector = ImageVector.vectorResource(R.drawable.ic_error),
         )
 
-        /*SecondaryItem(
-            modifier = Modifier.fillMaxWidth(),
-            text = finalDate,
-            secondaryText = stringResource(R.string.finances_final_date),
-            icon = R.drawable.ic_vector_activity,
-            customHeight = 60.dp,
-            onItemPressed = {
-                openFinalDate?.invoke()
-            }
-        )*/
-        /*TextDivider(
-            textDivider = "${orderMainMainList.size} Productos vendidos",
-            modifier = Modifier.padding(horizontal = 5.dp, vertical = 8.dp)
-        )*/
-
 
         val totalSales =
             orderMainMainList.asSequence().filter { it.paymentType  == PaymentType.PAY || it.paymentType  == PaymentType.CASH }.sumOf { it.productPriceSale }
@@ -102,15 +87,15 @@ fun FinancesView(
             MoneyItem(
                 text = "Productos",
                 icon = R.drawable.ic_vector_products,
-                amount = orderMainMainList.size.toString(),
+                secondaryText = orderMainMainList.size.toString(),
                 isAmount = false
             )
-            MoneyItem(text = "Ventas", icon = R.drawable.ic_earns, amount = totalSales.toString())
-            MoneyItem(text = "Inversion", icon = R.drawable.ic_sales, amount = totalBuy.toString())
+            MoneyItem(text = "Ventas", icon = R.drawable.ic_earns, secondaryText = totalSales.toString())
+            MoneyItem(text = "Inversion", icon = R.drawable.ic_sales, secondaryText = totalBuy.toString())
             MoneyItem(
                 text = "Ganancias",
                 icon = R.drawable.ic_vector_sale,
-                amount = (totalSales - totalBuy).toString()
+                secondaryText = (totalSales - totalBuy).toString()
             )
         }
 
@@ -120,7 +105,7 @@ fun FinancesView(
         ) {
 
             TextDivider(
-                textDivider = "${initialDate} a ${finalDate}",
+                text = "${initialDate} a ${finalDate}",
                 modifier = Modifier
                     .padding(horizontal = 15.dp, vertical = 12.dp)
                     .weight(1f)

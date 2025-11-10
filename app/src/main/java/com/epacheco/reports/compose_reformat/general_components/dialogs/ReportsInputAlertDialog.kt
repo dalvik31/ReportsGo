@@ -33,10 +33,11 @@ import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 @Composable
 fun ReportsInputDialog(
-    imgDialog: Int,
+    modifier: Modifier = Modifier,
+    icon: Int,
+    text: String? = null,
     dialogHint: String? = null,
     confirmButtonText: String? = null,
-    input: String? = null,
     tintColor: Color = MaterialTheme.colorScheme.primary,
     onConfirmation: () -> Unit,
     onDismissRequest: (() -> Unit),
@@ -45,19 +46,19 @@ fun ReportsInputDialog(
     Dialog(onDismissRequest = { onDismissRequest.invoke() }) {
         Card(
             shape = RoundedCornerShape(10.dp),
-            modifier = Modifier.padding(10.dp, 5.dp, 10.dp, 10.dp),
+            modifier = modifier.padding(10.dp, 5.dp, 10.dp, 10.dp),
             elevation = androidx.compose.material3.CardDefaults.cardElevation(8.dp)
         ) {
             Column {
 
                 Image(
-                    painter = painterResource(id = imgDialog),
+                    painter = painterResource(id = icon),
                     contentDescription = null, // decorative
                     contentScale = ContentScale.Fit,
                     colorFilter = ColorFilter.tint(
                         color = tintColor
                     ),
-                    modifier = Modifier
+                    modifier = modifier
                         .padding(top = 35.dp)
                         .height(48.dp)
                         .fillMaxWidth(),
@@ -65,10 +66,10 @@ fun ReportsInputDialog(
                     )
 
                 InputTextField(
-                    modifier = Modifier
+                    modifier = modifier
                         .padding(all = 24.dp)
                         .fillMaxWidth(),
-                    textValue = input ?: "",
+                    textValue = text ?: "",
                     capitalization = KeyboardCapitalization.Sentences,
                     textHint = dialogHint ?: "",
                     onTextChange = { onInputChanged?.invoke(it) }
@@ -76,7 +77,7 @@ fun ReportsInputDialog(
                 )
                 //.......................................................................
                 Row(
-                    Modifier
+                    modifier
                         .fillMaxWidth()
                         .padding(top = 10.dp)
                         .background(MaterialTheme.colorScheme.primary),
@@ -92,7 +93,7 @@ fun ReportsInputDialog(
                                 fontWeight = FontWeight.ExtraBold,
                                 color = MaterialTheme.colorScheme.onPrimary,
                                 textAlign = TextAlign.Center,
-                                modifier = Modifier
+                                modifier = modifier
                                     .fillMaxWidth()
                                     .padding(top = 5.dp, bottom = 5.dp)
                             )
@@ -111,7 +112,7 @@ fun ReportsInputDialog(
 fun ReportsInputDialogPreview() {
     ReportsGoTheme {
         ReportsInputDialog(
-            imgDialog = R.drawable.ic_vector_order,
+            icon = R.drawable.ic_vector_order,
             dialogHint = "Nombre de la lista",
             onConfirmation = {}, onDismissRequest = {}, confirmButtonText = "Crear lista"
         )

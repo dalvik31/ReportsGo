@@ -10,11 +10,7 @@ import androidx.lifecycle.Lifecycle
 import coil3.annotation.InternalCoilApi
 import coil3.request.GlobalLifecycle.currentState
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.general_components.Loader
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.view.ClientDetailUiIntent
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.view.ClientDetailView
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.viewModel.DetailClientViewModel
 
 @OptIn(InternalCoilApi::class)
 @Composable

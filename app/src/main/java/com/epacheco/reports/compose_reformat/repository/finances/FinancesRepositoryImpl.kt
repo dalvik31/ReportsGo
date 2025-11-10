@@ -1,9 +1,8 @@
 package com.epacheco.reports.compose_reformat.repository.finances
 
-import android.util.Log
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.firebase.await
-import com.epacheco.reports.compose_reformat.model.Finances.Sale
+import com.epacheco.reports.compose_reformat.model.sales.Sale
 import com.epacheco.reports.compose_reformat.utils.Constants
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE1
@@ -54,11 +53,11 @@ class FinancesRepositoryImpl @Inject constructor(
             val saleList = mutableListOf<Sale>()
             getFinancesReference().orderByChild("idClient").startAt(clientId)
                 .endAt(clientId + "\uf8ff").get().await()?.children?.map { snapShot ->
-                val sale = snapShot.getValue(Sale::class.java)
-                sale?.let {
-                    saleList.add(it)
+                    val sale = snapShot.getValue(Sale::class.java)
+                    sale?.let {
+                        saleList.add(it)
+                    }
                 }
-            }
             saleList.sortByDescending {
                 it.saleDate
             }

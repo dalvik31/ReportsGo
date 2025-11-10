@@ -32,13 +32,10 @@ import com.epacheco.reports.compose_reformat.general_components.Header
 import com.epacheco.reports.compose_reformat.general_components.SecondaryItem
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
 import com.epacheco.reports.compose_reformat.model.orders.Order
-import com.epacheco.reports.compose_reformat.model.orders.Season
-import com.epacheco.reports.compose_reformat.ui.theme.Black
-import com.epacheco.reports.compose_reformat.ui.theme.FallColor
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE2
-import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE5
+import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE4
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -51,7 +48,6 @@ fun OrdersView(
     onBackPressed: (() -> Unit)? = null,
     onOrderClick: ((Order) -> Unit)? = null,
     onCreateOrderClick: (() -> Unit)? = null,
-    onDeleteOrderClick: ((String) -> Unit)? = null,
     onUpdateStatusOrderClick: ((Order) -> Unit)? = null,
     nameOrderMain: String? = null,
     mainOrderId: String? = null
@@ -77,10 +73,10 @@ fun OrdersView(
                 modifier = Modifier
                     .padding(horizontal = 12.dp)
                     .padding(bottom = 16.dp),
-                textDivider = nameOrder.ifEmpty {
-                    DateUtils.format(
-                        mainOrderId?.toLong() ?: 0,
-                        FORMAT_DATE5
+                text = nameOrder.ifEmpty {
+                    DateUtils.dateFormat(
+                        mainOrderId.toString(),
+                        FORMAT_DATE4
                     )
                 }
                     .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() },
@@ -143,62 +139,11 @@ fun OrdersView(
                 }
             }
 
-
-            /* LazyVerticalGrid(
-                  columns = GridCells.Fixed(2),
-                  modifier = Modifier
-                      .fillMaxSize(),
-                  verticalArrangement = Arrangement.spacedBy(4.dp),
-                  contentPadding = PaddingValues(horizontal = 8.dp)
-              ) {
-                  items(orderList) { order ->
-                      OrderItem(
-                          order = order,
-                          onMainOrderClick = {
-                              onOrderClick?.invoke(order)
-                          },
-                          onDeleteOrderClick = {
-                              onDeleteOrderClick?.invoke(order.orderId)
-                          },
-                          onUpdateStatusOrderClick = {
-                              onUpdateStatusOrderClick?.invoke(order)
-                          }
-                      )
-                  }
-              }*/
-            /*LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(color = Color.Transparent)
-            ) {
-                items(orderList) { order ->
-                    OrderItem(
-                        order = order,
-                        onMainOrderClick = {
-                            onOrderClick?.invoke(order)
-                        },
-                        onDeleteOrderClick = {
-                            onDeleteOrderClick?.invoke(order.orderId)
-                        },
-                        onUpdateStatusOrderClick = {
-                            onUpdateStatusOrderClick?.invoke(order)
-                        }
-                    )
-                }
-            }*/
         }
 
 
     }
 }
-
-private fun getCardBackground(order: Order): Color =
-    when (order.orderSeason) {
-        Season.FALL -> FallColor
-        Season.SPRING -> com.epacheco.reports.compose_reformat.ui.theme.SpringColor
-        null -> Black
-    }
-
 
 @Preview
 @Composable

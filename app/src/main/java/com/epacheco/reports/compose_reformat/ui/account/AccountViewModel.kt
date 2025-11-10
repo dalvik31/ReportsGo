@@ -1,11 +1,10 @@
 package com.epacheco.reports.compose_reformat.ui.account
 
-import android.util.Log
 import androidx.credentials.GetCredentialResponse
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.compose_reformat.ReportsApp
-import com.epacheco.reports.compose_reformat.domain.user.SigInUserWithGoogleUseCase
 import com.epacheco.reports.compose_reformat.domain.user.SigInUserWithEmailAndPasswordUseCase
+import com.epacheco.reports.compose_reformat.domain.user.SigInUserWithGoogleUseCase
 import com.epacheco.reports.compose_reformat.domain.user.SignUpUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
@@ -33,18 +32,8 @@ class AccountViewModel @Inject constructor(
     private val _effectFlow = MutableSharedFlow<AccountUiEffect>()
     val effectFlow: SharedFlow<AccountUiEffect> = _effectFlow
 
-    private val _email = MutableStateFlow("")
-    val email: StateFlow<String> = _email
-
-    private val _password = MutableStateFlow("")
-    val password: StateFlow<String> = _password
-
     private val _enabledLoginButton = MutableStateFlow(false)
     val enabledLoginButton: StateFlow<Boolean> = _enabledLoginButton
-
-    init {
-        // getProfile()
-    }
 
     fun handleIntent(intent: AccountUiIntent) {
         when (intent) {
@@ -75,16 +64,17 @@ class AccountViewModel @Inject constructor(
         }
         loading(false)
     }
+
     fun onValueLoginChanged(email: String, password: String) {
-        _email.value = email
-        _password.value = password
+        _uiState.value = _uiState.value.copy(email = email, password = password)
         _enabledLoginButton.value =
             Validations.validateEmailAndPassword(email = email, password = password)
     }
 
     private fun doSignIn() = viewModelScope.launch {
         loading(true)
-        when (val signInResponse = sigInUserWithEmailAndPasswordUseCase(email.value, password.value)) {
+        when (val signInResponse =
+            sigInUserWithEmailAndPasswordUseCase(_uiState.value.email, _uiState.value.password)) {
             is Resource.Failure -> setErrorMsg(
                 signInResponse.exception.message?.getTranslateFireBaseErrorMsg(
                     app
@@ -98,7 +88,7 @@ class AccountViewModel @Inject constructor(
 
     private fun doSignUp() = viewModelScope.launch {
         loading(true)
-        when (val signInResponse = signUpUseCase(email.value, password.value)) {
+        when (val signInResponse = signUpUseCase(_uiState.value.email, _uiState.value.password)) {
             is Resource.Failure -> setErrorMsg(
                 signInResponse.exception.message?.getTranslateFireBaseErrorMsg(
                     app

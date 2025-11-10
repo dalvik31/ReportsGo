@@ -1,16 +1,10 @@
 package com.epacheco.reports.compose_reformat.utils.extensions
 
 import android.content.Context
-import android.util.Log
 import android.util.Patterns
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.model.orders.OrderMain
-import com.epacheco.reports.compose_reformat.model.orders.Season
 import androidx.core.graphics.toColorInt
-import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeNavigationItem
-import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes
+import com.epacheco.reports.R
 
 
 fun String.validateEmail(): Boolean = Patterns.EMAIL_ADDRESS.matcher(this).matches()
@@ -30,13 +24,6 @@ fun String.toColor(): Color {
 }
 
 
-fun String.getNameSeason(): Int =
-    when (this) {
-        Season.FALL.name -> R.string.season_fall
-        Season.SPRING.name -> R.string.season_spring
-        else -> R.string.lbl_empty
-    }
-
 fun String.getTranslateFireBaseErrorMsg(ctx: Context): String =
     ctx.getString(
         when {
@@ -55,7 +42,7 @@ fun String.getNameProductImage(): String =
 
 
 
-fun String.Initials(): String {
+fun String.initials(): String {
     val words = split(" ", "-") // Split by space and hyphen
     val initials = StringBuilder()
     for (word in words) {
@@ -74,4 +61,8 @@ fun String.fromPath(): String {
         this.split("?").first()
     } else this
     return name
+}
+
+fun String.validateContent(): String?{
+    return this.ifEmpty { null }
 }

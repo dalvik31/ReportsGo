@@ -74,7 +74,6 @@
     <string name="lbl_client_amount_hint">$0,0</string>
     <string name="lbl_client_concept_hint">Abono</string>
     <string name="lbl_client_concept">Concepto</string>
-    <string name="btn_abonar">Abonar</string>
     <string name="btn_generate_order">GENERAR PEDIDO</string>
     <string name="btn_generate_ticket">Abrir venta</string>
     <string name="btn_detail_payments">Detalle de pagos</string>
@@ -328,6 +327,7 @@
     <string name="btn_ok_delete">Si, eliminar</string>
     <string name="btn_cancel">Cancelar</string>
     <string name="btn_delete">Eliminar</string>
+    <string name="btn_abonar">Abonar</string>
     <string name="btn_save">Guardar</string>
     <string name="btn_pay">Pagar</string>
     <string name="btn_update">Actualizar</string>
@@ -527,6 +527,43 @@
         <item formatted="true" quantity="one">(%s) Cliente</item>
         <item formatted="true" quantity="other">(%s) Clientes</item>
     </plurals>
+    <string name="lbl_search_client_hint">Nombre del cliente</string>
+    <string name="confirm_delete_client">¿Realmente deseas eliminar el cliente?</string>
+    <string name="update_client_success">Cliente actualizado correctamente.</string>
+    <string name="client_delete_success">Cliente eliminado correctamente.</string>
+    <string name="client_not_found">Cliente no encontrado</string>
+    <string name="option_sale">Venta</string>
+    <string name="option_order">Pedido</string>
+    <string name="option_call">Llamar</string>
+    <string name="option_info">Información</string>
+    <string name="create_new_cliet">Crear nuevo cliente</string>
+    <string name="modify_client">Modificar cliente</string>
+    <string name="add_client_title">Detalles de %s</string>
+    <string name="client_name_title">Nombre</string>
+    <string name="client_name">Nombre(s)</string>
+    <string name="client_earns">Monto a abonar</string>
+    <string name="client_earns_concept">Concepto</string>
+    <string name="operations">Operaciones</string>
+    <string name="client_lastname_title">Apellidos</string>
+    <string name="client_lastname">Apellidos</string>
+    <string name="client_info_title">Información</string>
+    <string name="client_info">Detalles importantes del cliente</string>
+    <string name="client_cel_title">Celular</string>
+    <string name="client_cel">Número celular del cliente</string>
+    <string name="client_credit_title">Crédito</string>
+    <string name="client_credit">Limite de crédito $%s</string>
+    <string name="select_list_main">¿En que lista se generará el pedido?</string>
+    <string name="permission_phone_title">Necesitamos acceder a los contactos de tu dispositivo para poder realizar la llamada.</string>
+    <string name="permission_phone_settings_title">Es necesario permitir el acceso a los contactos del dispositivo para poder realizar la llamada.</string>
+    <string name="msg_client_amount_update_success">¡Abono realizado!.</string>
+    <string name="msg_info_client_not_found">No se encontro información.</string>
+    <string name="msg_clients_not_found">No se encontraron clientes.</string>
+    <string name="error_client_name_not_found">Agrega un nombre para el cliente.</string>
+    <string name="permission_contacts_product_title">Necesitamos acceder a los contactos de tu dispositivo.</string>
+    <string name="permission_contacts_settings_product_title">Es necesario permitir el acceso a los contactos para poder obtener la información del usuario</string>
+    <string name="client_debt_without_concept">Sin concepto</string>
+    <string name="change_client">Cambiar cliente</string>
+
 
     <!--PRODUCTS Fragments-->
     <string name="search_products">Buscando productos guardados…</string>
@@ -615,41 +652,6 @@
     <string name="option_cash">Compra de contado</string>
     <string name="option_unknown">Operación no renocida</string>
 
-    <!--CLIENTS Fragments-->
-    <string name="lbl_search_client_hint">Nombre del cliente</string>
-    <string name="confirm_delete_client">¿Realmente deseas eliminar el cliente?</string>
-    <string name="update_client_success">Cliente actualizado correctamente.</string>
-    <string name="client_delete_success">Cliente eliminado correctamente.</string>
-    <string name="client_not_found">Cliente no encontrado</string>
-    <string name="option_sale">Venta</string>
-    <string name="option_order">Pedido</string>
-    <string name="option_call">Llamar</string>
-    <string name="option_info">Información</string>
-    <string name="create_new_cliet">Crear nuevo cliente</string>
-    <string name="modify_client">Modificar cliente</string>
-    <string name="add_client_title">Detalles de %s</string>
-    <string name="client_name_title">Nombre</string>
-    <string name="client_name">Nombre(s)</string>
-    <string name="client_earns">Monto a abonar</string>
-    <string name="client_earns_concept">Concepto</string>
-    <string name="operations">Operaciones</string>
-    <string name="client_lastname_title">Apellidos</string>
-    <string name="client_lastname">Apellidos</string>
-    <string name="client_info_title">Información</string>
-    <string name="client_info">Detalles importantes del cliente</string>
-    <string name="client_cel_title">Celular</string>
-    <string name="client_cel">Número celular del cliente</string>
-    <string name="client_credit_title">Crédito</string>
-    <string name="client_credit">Limite de crédito $%s</string>
-    <string name="select_list_main">¿En que lista se generará el pedido?</string>
-    <string name="permission_phone_title">Necesitamos acceder a los contactos de tu dispositivo para poder realizar la llamada.</string>
-    <string name="permission_phone_settings_title">Es necesario permitir el acceso a los contactos del dispositivo para poder realizar la llamada.</string>
-    <string name="msg_client_amount_update_success">¡Abono realizado!.</string>
-    <string name="msg_info_client_not_found">No se encontro información.</string>
-    <string name="msg_clients_not_found">No se encontraron clientes.</string>
-    <string name="error_client_name_not_found">Agrega un nombre para el cliente.</string>
-    <string name="permission_contacts_product_title">Necesitamos acceder a los contactos de tu dispositivo.</string>
-    <string name="permission_contacts_settings_product_title">Es necesario permitir el acceso a los contactos para poder obtener la información del usuario</string>
 
     <!--TRANSACTIONS Fragments-->
     <string name="transactions_title">Transacciones</string>

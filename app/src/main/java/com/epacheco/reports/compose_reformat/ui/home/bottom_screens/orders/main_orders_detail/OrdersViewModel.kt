@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,7 +22,6 @@ class OrdersViewModel @Inject constructor(
     private val getOrdersListUseCase: GetOrdersListUseCase,
     private val deleteOrderUseCase: DeleteOrderUseCase,
     private val updateOrderStatusUseCase: UpdateOrderStatusUseCase,
-    private val updateStatusOrderMainUseCase: UpdateStatusOrderMainUseCase,
 ) :
     BaseViewModel() {
 
@@ -103,10 +103,10 @@ class OrdersViewModel @Inject constructor(
 
 
     override fun setErrorMsg(msgError: String?) {
-        _uiState.value = _uiState.value.copy(errorMessage = msgError, successOperationMsg = null)
+        _uiState.update { it.copy(errorMessage = msgError, successOperationMsg = null) }
     }
 
     override fun loading(showLoading: Boolean) {
-        _uiState.value = _uiState.value.copy(isLoading = showLoading)
+        _uiState.update { it.copy(isLoading = showLoading) }
     }
 }

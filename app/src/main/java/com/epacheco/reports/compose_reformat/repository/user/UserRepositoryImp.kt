@@ -12,16 +12,12 @@ import java.io.File
 import javax.inject.Inject
 
 class UserRepositoryImp @Inject constructor(
-    private val firebaseAuth: FirebaseAuth,
-    private val firebaseStorage: FirebaseStorage
-) :
-    UserRepository {
+    private val firebaseAuth: FirebaseAuth, private val firebaseStorage: FirebaseStorage
+) : UserRepository {
     override suspend fun uploadProfileImage(imageFile: File): Resource<Uri> {
         return try {
             val uploadTask = getStorageReference()?.putFile(imageFile.toUri())?.await()
             val downloadUrlImg = uploadTask?.storage?.downloadUrl?.await()
-            //val sendUrlImg = getStorageReference()?.putFile(imageUri)?.await()
-            //val downloadUrlImg = sendUrlImg?.storage?.downloadUrl?.await()
             imageFile.delete()
             Resource.Success(downloadUrlImg.toString().toUri())
         } catch (e: Exception) {
@@ -32,11 +28,8 @@ class UserRepositoryImp @Inject constructor(
 
     override fun getStorageReference(): StorageReference? {
         return firebaseAuth.uid?.let { userId ->
-            firebaseStorage.getReference().child(Constants.DATABASE_FIREBASE_NAME)
-                .child(userId)
+            firebaseStorage.getReference().child(Constants.DATABASE_FIREBASE_NAME).child(userId)
                 .child(Constants.CLIENT_IMAGES_PROFILE_TABLE_FIREBASE).child("$userId.jpg")
         }
     }
-
-
 }

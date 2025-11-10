@@ -24,10 +24,6 @@ import kotlinx.coroutines.flow.collectLatest
 fun ProfileScreen(
     profileViewModel: ProfileViewModel = hiltViewModel<ProfileViewModel>(),
     onNavigateToLogin: () -> Unit,
-    onNavigateToOrders: (() -> Unit)? = null,
-    onNavigateToClients: (() -> Unit)? = null,
-    onNavigateToProducts: (() -> Unit)? = null,
-    onNavigateToFinances: (() -> Unit)? = null
 ) {
 
     val uiState by profileViewModel.uiState.collectAsState()
@@ -48,8 +44,6 @@ fun ProfileScreen(
 
     ProfileView(
         firebaseUser = uiState.userProfile,
-        imageProfile = uiState.imgUser,
-        loading = uiState.isLoading,
         onLogoutClicked = {
             showCloseSessionDialog = true
 
@@ -57,26 +51,11 @@ fun ProfileScreen(
         onUpdateProfilePictureClicked = {
             showProfilePictureDialog = true
         },
-        onNavigateToFinances = {
-            onNavigateToFinances?.invoke()
-        },
-        onNavigateToOrders = {
-            onNavigateToOrders?.invoke()
-        },
-        onNavigateToClients = {
-            onNavigateToClients?.invoke()
-        },
-        onNavigateToProducts = {
-            onNavigateToProducts?.invoke()
-        },
     )
-
-    // Loading Overlay
     if (uiState.isLoading) {
         Loader(false)
     }
 
-    //Message error
     uiState.errorMessage?.let { msgError ->
         ReportsDialog(
             imgDialog = R.drawable.ic_error,
@@ -117,7 +96,7 @@ fun ProfileScreen(
 @Composable
 fun ProfileScreenPreview() {
     ReportsGoTheme {
-        ProfileView(loading = false)
+        ProfileView()
     }
 
 }

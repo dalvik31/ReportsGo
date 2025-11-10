@@ -1,6 +1,6 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.finances
 
-import com.epacheco.reports.compose_reformat.model.Finances.Sale
+import com.epacheco.reports.compose_reformat.model.sales.Sale
 
 data class FinancesUiState(
     val financesList: List<Sale> = emptyList(),

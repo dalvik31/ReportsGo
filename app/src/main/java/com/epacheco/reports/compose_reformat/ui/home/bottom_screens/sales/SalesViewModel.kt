@@ -1,18 +1,17 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.sales
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.domain.clients.GetClientDetailUseCase
-import com.epacheco.reports.compose_reformat.domain.clients.UpdateDebtClientUseCase
 import com.epacheco.reports.compose_reformat.domain.clients.UpdateClientLimitUseCase
-import com.epacheco.reports.compose_reformat.domain.products.UpdateStockProductUseCase
+import com.epacheco.reports.compose_reformat.domain.clients.UpdateDebtClientUseCase
 import com.epacheco.reports.compose_reformat.domain.products.GetProductByIdUseCase
+import com.epacheco.reports.compose_reformat.domain.products.UpdateStockProductUseCase
 import com.epacheco.reports.compose_reformat.domain.sales.CreateSaleUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.model.Finances.PaymentType
-import com.epacheco.reports.compose_reformat.model.Finances.Sale
 import com.epacheco.reports.compose_reformat.model.products.Product
+import com.epacheco.reports.compose_reformat.model.sales.Sale
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import com.epacheco.reports.compose_reformat.utils.Constants
 import com.epacheco.reports.compose_reformat.utils.DateUtils

@@ -121,7 +121,7 @@ fun ReportsInfoDialog(
                     IconButton({
                     }, modifier = Modifier.fillMaxWidth()) {
                         Icon(
-                            painter = painterResource(R.drawable.new_ic_vector_comdin),
+                            painter = painterResource(R.drawable.ic_simple_dot),
                             contentDescription = null,
                             tint = FallColor,
                             modifier = Modifier.size(16.dp)

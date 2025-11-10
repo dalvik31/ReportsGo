@@ -1,6 +1,5 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.new_order
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -13,10 +12,7 @@ import coil3.annotation.InternalCoilApi
 import coil3.request.GlobalLifecycle.currentState
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
-import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.model.orders.Season
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.view.ClientDetailUiIntent
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.sales.SalesUiIntent
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import kotlinx.coroutines.flow.collectLatest
 
@@ -33,14 +29,6 @@ fun NewOrderScreen(
 ) {
 
     val uiState by newOrderViewModel.uiState.collectAsState()
-    val inputName by newOrderViewModel.inputProductName.collectAsState()
-    val inputDescription by newOrderViewModel.inputProductDescription.collectAsState()
-    val inputSize by newOrderViewModel.inputProductSize.collectAsState()
-    val inputColor by newOrderViewModel.inputProductColor.collectAsState()
-    val inputColorCode by newOrderViewModel.inputProductColorCode.collectAsState()
-    val inputGender by newOrderViewModel.inputProductGender.collectAsState()
-    val inputOrderStatus by newOrderViewModel.inputProductStatus.collectAsState()
-    val isNumericSize by newOrderViewModel.isProductSizeNumeric.collectAsState()
 
     LaunchedEffect(Unit) {
         if (currentState.isAtLeast(Lifecycle.State.STARTED)) {
@@ -74,27 +62,27 @@ fun NewOrderScreen(
 
     NewOrderView(
         clientSelected = uiState.client,
-        onInputStatus = inputOrderStatus, onInputStatusChanged = {
+        onInputStatus = uiState.productStatus, onInputStatusChanged = {
             newOrderViewModel.onInputStatusChanged(it)
-        }, onInputIsNumericSize = isNumericSize, onInputIsNumericSizeChanged = {
+        }, onInputIsNumericSize = uiState.isProductSizeNumeric, onInputIsNumericSizeChanged = {
             newOrderViewModel.onIsNumericSizeChanged(it)
-        }, inputName = inputName, onInputNameChanged = {
+        }, inputName = uiState.productName, onInputNameChanged = {
             newOrderViewModel.onInputNameChanged(it)
         },
-        inputDescription = inputDescription, onInputDescriptionChanged = {
+        inputDescription = uiState.productDescription, onInputDescriptionChanged = {
             newOrderViewModel.onInputDescriptionChanged(it)
         },
-        inputSize = inputSize, onInputSizeChanged = {
+        inputSize = uiState.productSize, onInputSizeChanged = {
             newOrderViewModel.onInputSizeChanged(it)
         },
-        inputColor = inputColor, onInputColorChanged = {
+        inputColor = uiState.productColor, onInputColorChanged = {
             newOrderViewModel.onInputColorChanged(it)
         },
-        inputColorCode = inputColorCode,
+        inputColorCode = uiState.productColorCode,
         onInputColorCodeChanged = {
             newOrderViewModel.onInputColorCodeChanged(it)
         },
-        inputGender = inputGender, onInputGenderChanged = {
+        inputGender = uiState.productGender, onInputGenderChanged = {
             newOrderViewModel.onInputGenderChanged(it)
         }, onCreateOrder = {
             mainOrderId?.let {
@@ -112,11 +100,11 @@ fun NewOrderScreen(
                 newOrderViewModel.handleIntent(NewOrderUiIntent.UpdateOrder)
             }
         }, onDeleteOrder = {
-            orderToEdit?.let {
+            uiState.orderToEdit?.let { order ->
                 newOrderViewModel.handleIntent(
                     NewOrderUiIntent.DeleteOrder(
-                        "it.orderId",
-                        "it.orderListId"
+                        order.orderId,
+                        order.orderListId
                     )
                 )
             }
@@ -131,7 +119,6 @@ fun NewOrderScreen(
             newOrderViewModel.handleIntent(NewOrderUiIntent.RemoveClient)
         })
 
-    //Message error
     uiState.errorMessage?.let { msgError ->
         ReportsDialog(
             imgDialog = R.drawable.ic_error,
@@ -142,7 +129,6 @@ fun NewOrderScreen(
             })
     }
 
-    //Message success
     uiState.successOperationMsg?.let { msgSuccessOperation ->
         ReportsDialog(
             imgDialog = R.drawable.ic_vector_ok,

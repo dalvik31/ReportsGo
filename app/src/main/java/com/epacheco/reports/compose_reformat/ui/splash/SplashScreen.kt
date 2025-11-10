@@ -3,10 +3,7 @@ package com.epacheco.reports.compose_reformat.ui.splash
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -22,7 +19,6 @@ fun SplashScreen(
     onNavigateToLogin: () -> Unit,
 ) {
     val uiState by splashViewMode.uiState.collectAsStateWithLifecycle()
-    var showInfoDialog by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
@@ -41,9 +37,6 @@ fun SplashScreen(
         }
     }
 
-    if(showInfoDialog){
-        showInfoDialog = false
-    }
     if (uiState.isLoading) {
         SplashView()
     }

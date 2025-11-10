@@ -1,6 +1,5 @@
 package com.epacheco.reports.compose_reformat.ui.home.navigation
 
-import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.model.orders.Season
 import kotlinx.serialization.Serializable
 

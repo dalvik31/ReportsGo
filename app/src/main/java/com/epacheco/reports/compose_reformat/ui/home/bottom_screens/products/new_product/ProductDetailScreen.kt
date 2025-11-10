@@ -51,18 +51,6 @@ fun NewProductScreen(
     var showDialogConfirmDeleteProduct by remember { mutableStateOf(false) }
 
     val uiState by newProductViewModel.uiState.collectAsState()
-    val inputName by newProductViewModel.inputProductName.collectAsState()
-    val inputDescription by newProductViewModel.inputProductDescription.collectAsState()
-    val inputBuyPrice by newProductViewModel.inputProductBuyPrice.collectAsState()
-    val inputSellPrice by newProductViewModel.inputProductSellPrice.collectAsState()
-    val inputSize by newProductViewModel.inputProductSize.collectAsState()
-    val isNumericSize by newProductViewModel.isProductSizeNumeric.collectAsState()
-    val inputColor by newProductViewModel.inputProductColor.collectAsState()
-    val inputColorCode by newProductViewModel.inputProductColorCode.collectAsState()
-    val inputGender by newProductViewModel.inputProductGender.collectAsState()
-    val inputStock by newProductViewModel.inputProductStock.collectAsState()
-    val inputCode by newProductViewModel.inputProductCode.collectAsState()
-    val inputUrlImg by newProductViewModel.inputProductUrlImg.collectAsState()
 
 
     val context = LocalContext.current
@@ -85,51 +73,51 @@ fun NewProductScreen(
 
     NewProductView(
         productToEdit = productToEdit,
-        inputName = inputName,
+        inputName = uiState.productName,
         onInputNameChanged = {
             newProductViewModel.onInputNameChanged(it)
         },
-        inputDescription = inputDescription,
+        inputDescription = uiState.productDescription,
         onInputDescriptionChanged = {
             newProductViewModel.onInputDescriptionChanged(it)
         },
-        inputBuyPrice = inputBuyPrice,
+        inputBuyPrice = uiState.productBuyPrice,
         onInputBuyPriceChanged = {
             newProductViewModel.onInputBuyPriceChanged(it)
         },
-        inputSellPrice = inputSellPrice,
+        inputSellPrice = uiState.productSellPrice,
         onInputSellPriceChanged = {
             newProductViewModel.onInputSellPriceChanged(it)
         },
-        inputSize = inputSize,
+        inputSize = uiState.productSize,
         onInputSizeChanged = {
             newProductViewModel.onInputSizeChanged(it)
         },
-        onInputIsNumericSize = isNumericSize,
+        onInputIsNumericSize = uiState.isProductSizeNumeric,
         onInputIsNumericSizeChanged = {
             newProductViewModel.onInputIsNumericSizeChanged(it)
         },
-        inputColor = inputColor,
+        inputColor = uiState.productColor,
         onInputColorChanged = {
             newProductViewModel.onInputColorChanged(it)
         },
-        inputColorCode = inputColorCode,
+        inputColorCode = uiState.productColorCode,
         onInputColorCodeChanged = {
             newProductViewModel.onInputColorCodeChanged(it)
         },
-        inputGender = inputGender,
+        inputGender = uiState.productGender,
         onInputGenderChanged = {
             newProductViewModel.onInputGenderChanged(it)
         },
-        inputStock = inputStock,
+        inputStock = uiState.productStock,
         onInputStockChanged = {
             newProductViewModel.onInputStockChanged(it)
         },
-        inputCode = inputCode,
+        inputCode = uiState.productCode,
         onInputCodeChanged = {
             newProductViewModel.onInputCodeChanged(it)
         },
-        inputUrlImg = inputUrlImg,
+        inputUrlImg = uiState.productUrlImg,
         onOpenScanCodeDialog = {
             showScanCodeDialog = true
         },
@@ -145,12 +133,10 @@ fun NewProductScreen(
         }
     )
 
-    // Loading Overlay
     if (uiState.isLoading) {
         Loader(false)
     }
 
-    //Message error
     uiState.errorMessage?.let { msgError ->
         ReportsDialog(
             imgDialog = R.drawable.ic_error,
@@ -179,12 +165,10 @@ fun NewProductScreen(
             })
     }
 
-
-
     if (showScanCodeDialog) {
         CheckPermission(
             permission = android.Manifest.permission.CAMERA,
-            iconPermission = R.drawable.ic_vector_bar_code_scanner,
+            iconPermission = R.drawable.ic_vector_bar_code,
             onGranted = {
                 settingResultRequest.launch(
                     Intent(
@@ -201,10 +185,7 @@ fun NewProductScreen(
         )
 
     }
-
-
-
-
+    
     if (showDialogConfirmDeleteProduct) {
         ReportsDialog(
             imgDialog = R.drawable.ic_vector_remove,

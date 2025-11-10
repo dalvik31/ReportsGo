@@ -21,7 +21,6 @@ import java.io.IOException;
 
 public class ScannedBarcodeActivity extends AppCompatActivity {
   public final static String CODE_SCANNER = "codeScanner";
-  public final static int SCANBAR_ACTIVITY = 0;
   private SurfaceView surfaceView;
   private BarcodeDetector barcodeDetector;
   private CameraSource cameraSource;

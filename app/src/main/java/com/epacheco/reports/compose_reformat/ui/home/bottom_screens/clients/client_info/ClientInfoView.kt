@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.FinanceItem
 import com.epacheco.reports.compose_reformat.general_components.Header
-import com.epacheco.reports.compose_reformat.model.Finances.Sale
+import com.epacheco.reports.compose_reformat.model.sales.Sale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -62,7 +62,7 @@ fun ClientInfoView(
                 )
             }
         ) {
-            if(clientTransaction.isEmpty()){
+            if (clientTransaction.isEmpty()) {
                 Column(
                     Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.Center,
@@ -79,10 +79,11 @@ fun ClientInfoView(
                         modifier = Modifier.padding(top = 12.dp)
                     )
                 }
-            }else{
+            } else {
                 LazyColumn(
                     modifier = Modifier
-                        .fillMaxSize().padding(20.dp),
+                        .fillMaxSize()
+                        .padding(20.dp),
                     verticalArrangement = Arrangement.spacedBy(20.dp),
 
                     ) {
@@ -93,7 +94,6 @@ fun ClientInfoView(
             }
 
         }
-
 
 
     }

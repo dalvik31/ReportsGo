@@ -1,6 +1,5 @@
 package com.epacheco.reports.compose_reformat.ui.home
 
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
@@ -20,18 +19,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.epacheco.reports.compose_reformat.model.orders.Order
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.ClientsScreen
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.client_detail.ClientDetailScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.client_info.ClientInfoScreen
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.view.ClientDetailScreen
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.detailClient.view.NewClientScreen
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.listClients.view.ClientsScreen
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.orders.ClientOrderScreen
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.client_orders.ClientOrderScreen
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.create_client.CreateClientScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.finances.FinancesScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.finances.finances_date.FinancesDateScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.OrdersMainScreen
@@ -45,11 +42,7 @@ import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeNaviga
 import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes
 import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes.MainOrdersBottomHomeRoute
 import com.epacheco.reports.compose_reformat.ui.theme.RedDark
-import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.extensions.fromPath
-import com.epacheco.reports.compose_reformat.utils.extensions.serializableType
-
-import kotlin.reflect.typeOf
 
 @Composable
 fun HomeScreen(onNavigateToRegister: () -> Unit) {
@@ -98,16 +91,10 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                             ),
                             onClick = {
                                 navController.navigate(navigationItem.bottomHomeRoutes) {
-                                    // Pop up to the start destination of the graph to
-                                    // avoid building up a large stack of destinations
-                                    // on the back stack as users select items
                                     popUpTo(navController.graph.startDestinationId) {
                                         saveState = true
                                     }
-                                    // Avoid multiple copies of the same destination when
-                                    // reselecting the same item
                                     launchSingleTop = true
-                                    // Restore state when reselecting previously selected item
                                     restoreState = true
                                 }
                             }
@@ -208,7 +195,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
             composable<BottomHomeRoutes.ClientCreateNewBottomHomeRoute> { backStackEntry ->
                 val clientId: BottomHomeRoutes.ClientCreateNewBottomHomeRoute =
                     backStackEntry.toRoute()
-                NewClientScreen(clientId = clientId.idClient, onBackPressed = {
+                CreateClientScreen(clientId = clientId.idClient, onBackPressed = {
                     navController.navigateUp()
                 })
 
@@ -295,11 +282,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                 val initialDate =
                     backStackEntry.savedStateHandle.getLiveData<String>("initialDate")
                         .observeAsState("")
-
-                /*backStackEntry.savedStateHandle.remove<String>("finalDate")
-                backStackEntry.savedStateHandle.remove<String>("initialDate")*/
-
-                 FinancesScreen(
+                FinancesScreen(
                     initialDate = initialDate.value,
                     finalDate = finalDate.value,
                     onBackPressed = {
@@ -316,7 +299,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                     })
             }
             composable<BottomHomeRoutes.FinancesDateBottomHomeRoute> { backStackEntry ->
-                FinancesDateScreen( onDateSelected = { initialDate, finalDate ->
+                FinancesDateScreen(onDateSelected = { initialDate, finalDate ->
                     navController.previousBackStackEntry?.savedStateHandle?.set(
                         "initialDate",
                         initialDate
@@ -375,36 +358,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                     })
             }
             composable<BottomHomeRoutes.ProfileBottomHomeRoute> {
-                ProfileScreen(
-                    onNavigateToLogin = {
-                        onNavigateToRegister.invoke()
-                    }, onNavigateToFinances = {
-                        goProfileToRoute(
-                            navController,
-                            BottomHomeRoutes.SaleBottomHomeRoute(null)
-                        )
-                    }, onNavigateToOrders = {
-                        navController.navigate(
-                            route =
-                                MainOrdersBottomHomeRoute,
-                        ) {
-                            popUpTo(MainOrdersBottomHomeRoute) {
-                                inclusive = true
-                            }
-                        }
-                    },
-                    onNavigateToClients = {
-                        goProfileToRoute(
-                            navController,
-                            BottomHomeRoutes.ClientBottomHomeRoute()
-                        )
-                    },
-                    onNavigateToProducts = {
-                        goProfileToRoute(
-                            navController,
-                            BottomHomeRoutes.ProductBottomHomeRoute()
-                        )
-                    })
+                ProfileScreen(onNavigateToLogin = { onNavigateToRegister.invoke() })
             }
             composable<BottomHomeRoutes.ClientDetailInformation> { backStackEntry ->
                 val orderMainRoute: BottomHomeRoutes.ClientDetailInformation =
@@ -473,20 +427,6 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
             }
 
 
-        }
-    }
-}
-
-private fun goProfileToRoute(
-    bottomNavController: NavHostController,
-    bottomHomeRoutes: BottomHomeRoutes
-) {
-    bottomNavController.navigate(
-        route =
-            bottomHomeRoutes,
-    ) {
-        popUpTo(BottomHomeRoutes.ProfileBottomHomeRoute) {
-            inclusive = true
         }
     }
 }

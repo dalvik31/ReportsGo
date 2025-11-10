@@ -33,33 +33,8 @@ class NewOrderViewModel @Inject constructor(
 ) :
     BaseViewModel() {
 
-    private val _inputProductStatus = MutableStateFlow(false)
-    val inputProductStatus: StateFlow<Boolean> = _inputProductStatus
-
-    private val _inputProductName = MutableStateFlow("")
-    val inputProductName: StateFlow<String> = _inputProductName
-
-    private val _inputProductDescription = MutableStateFlow("")
-    val inputProductDescription: StateFlow<String> = _inputProductDescription
-
-    private val _inputProductSize = MutableStateFlow("")
-    val inputProductSize: StateFlow<String> = _inputProductSize
-
-    private val _isProductSizeNumeric = MutableStateFlow(false)
-    val isProductSizeNumeric: StateFlow<Boolean> = _isProductSizeNumeric
-
-    private val _inputProductColor = MutableStateFlow("")
-    val inputProductColor: StateFlow<String> = _inputProductColor
-
-    private val _inputProductColorCode = MutableStateFlow<String?>(null)
-    val inputProductColorCode: StateFlow<String?> = _inputProductColorCode
-
-    private val _inputProductGender = MutableStateFlow("")
-    val inputProductGender: StateFlow<String> = _inputProductGender
-
     private val _uiState = MutableStateFlow(NewOrderUiState())
     val uiState: StateFlow<NewOrderUiState> = _uiState
-
 
     private val _effectFlow = MutableSharedFlow<NewOrderUiEffect>()
     val effectFlow: SharedFlow<NewOrderUiEffect> = _effectFlow
@@ -76,11 +51,16 @@ class NewOrderViewModel @Inject constructor(
 
             is NewOrderUiIntent.DeleteOrder -> deleteOrder(intent.orderId, intent.mainOrderId)
             NewOrderUiIntent.HideDialogs -> setErrorMsg()
-             NewOrderUiIntent.UpdateOrder -> if (validInputs()) updateOrder()
+            NewOrderUiIntent.UpdateOrder -> if (validInputs()) updateOrder()
             else setErrorMsg(app.getString(R.string.order_empty_inputs_error))
 
             is NewOrderUiIntent.GetClientById -> getClientById(intent.clientId)
-            is NewOrderUiIntent.GetOrderById -> getOrderById(intent.orderMainId, intent.orderId, intent.callClientInfo)
+            is NewOrderUiIntent.GetOrderById -> getOrderById(
+                intent.orderMainId,
+                intent.orderId,
+                intent.callClientInfo
+            )
+
             NewOrderUiIntent.RemoveClient -> removeClient()
         }
     }
@@ -89,30 +69,31 @@ class NewOrderViewModel @Inject constructor(
         _uiState.value = _uiState.value.copy(client = null)
     }
 
-    private fun getOrderById(orderMainId: String, orderId: String, callClientInfo: Boolean) = viewModelScope.launch {
+    private fun getOrderById(orderMainId: String, orderId: String, callClientInfo: Boolean) =
+        viewModelScope.launch {
 
-        loading(true)
-        when (val orderToEditResponse = getOrderByIdUseCase(orderMainId, orderId)) {
-            is Resource.Failure -> {
-                setErrorMsg(orderToEditResponse.exception.message)
-            }
+            loading(true)
+            when (val orderToEditResponse = getOrderByIdUseCase(orderMainId, orderId)) {
+                is Resource.Failure -> {
+                    setErrorMsg(orderToEditResponse.exception.message)
+                }
 
-            is Resource.Success -> {
-                _uiState.update {
-                    it.copy(
-                        orderToEdit = orderToEditResponse.result
-                    )
+                is Resource.Success -> {
+                    _uiState.update {
+                        it.copy(
+                            orderToEdit = orderToEditResponse.result
+                        )
+                    }
+                    val orderClientId = orderToEditResponse.result?.orderClientId
+                    if (!orderClientId.isNullOrEmpty() && callClientInfo) {
+                        getClientById(orderClientId)
+                    }
+                    setValuesToEdit(orderToEditResponse.result)
                 }
-                val orderClientId =orderToEditResponse.result?.orderClientId
-                if(!orderClientId.isNullOrEmpty() && callClientInfo){
-                    getClientById(orderClientId)
-                }
-                setValuesToEdit(orderToEditResponse.result)
             }
+            loading(false)
+
         }
-        loading(false)
-
-    }
 
     private fun setValuesToEdit(order: Order?) {
         order?.let {
@@ -220,67 +201,66 @@ class NewOrderViewModel @Inject constructor(
     private fun getNewOrder(): Order =
         Order(
             orderId = DateUtils.now().toString(),
-            orderName = _inputProductName.value,
-            orderDescription = _inputProductDescription.value,
-            orderSize = _inputProductSize.value,
-            orderGender = _inputProductGender.value,
-            orderColor = _inputProductColor.value,
-            orderSizeNumeric = _isProductSizeNumeric.value,
-            orderColorCode = _inputProductColorCode.value,
-            orderBuy = _inputProductStatus.value,
+            orderName = uiState.value.productName,
+            orderDescription = uiState.value.productDescription,
+            orderSize = uiState.value.productSize,
+            orderGender = uiState.value.productGender,
+            orderColor = uiState.value.productColor,
+            orderSizeNumeric = uiState.value.isProductSizeNumeric,
+            orderColorCode = uiState.value.productColorCode,
+            orderBuy = uiState.value.productStatus,
             orderClientId = _uiState.value.client?.id,
             orderClientName = _uiState.value.client?.name
         )
 
 
     private fun validInputs(): Boolean {
-        val name = _inputProductName.value
-        val desc = _inputProductDescription.value
-        val size = _inputProductSize.value
-        val col = _inputProductColor.value
-        val gen = _inputProductGender.value
+        val name = uiState.value.productName
+        val desc = uiState.value.productDescription
+        val size = uiState.value.productSize
+        val col = uiState.value.productColor
+        val gen = uiState.value.productGender
         return (name.isNotEmpty() && desc.isNotEmpty() && size.isNotEmpty() && col.isNotEmpty() && gen.isNotEmpty())
     }
 
     fun onInputStatusChanged(inputStatus: Boolean) {
-        _inputProductStatus.value = inputStatus
+        _uiState.update { it.copy(productStatus = inputStatus) }
     }
 
     fun onInputNameChanged(inputName: String) {
-        _inputProductName.value = inputName
+        _uiState.update { it.copy(productName = inputName) }
     }
 
     fun onInputDescriptionChanged(inputDescription: String) {
-        _inputProductDescription.value = inputDescription
+        _uiState.update { it.copy(productDescription = inputDescription) }
     }
 
     fun onInputSizeChanged(inputSize: String) {
-        _inputProductSize.value = inputSize
+        _uiState.update { it.copy(productSize = inputSize) }
     }
 
     fun onIsNumericSizeChanged(isNumericSize: Boolean) {
-        _isProductSizeNumeric.value = isNumericSize
+        _uiState.update { it.copy(isProductSizeNumeric = isNumericSize) }
     }
 
     fun onInputColorChanged(inputColor: String) {
-        _inputProductColor.value = inputColor
+        _uiState.update { it.copy(productColor = inputColor) }
     }
 
     fun onInputColorCodeChanged(inputCodeColor: String?) {
-        _inputProductColorCode.value = inputCodeColor
+        _uiState.update { it.copy(productColorCode = inputCodeColor) }
     }
 
-
     fun onInputGenderChanged(inputGender: String) {
-        _inputProductGender.value = inputGender
+        _uiState.update { it.copy(productGender = inputGender) }
     }
 
     override fun setErrorMsg(msgError: String?) {
-        _uiState.value = _uiState.value.copy(errorMessage = msgError, successOperationMsg = null)
+        _uiState.update { it.copy(errorMessage = msgError, successOperationMsg = null) }
     }
 
     override fun loading(showLoading: Boolean) {
-        _uiState.value = _uiState.value.copy(isLoading = showLoading)
+        _uiState.update { it.copy(isLoading = showLoading) }
     }
 
 }

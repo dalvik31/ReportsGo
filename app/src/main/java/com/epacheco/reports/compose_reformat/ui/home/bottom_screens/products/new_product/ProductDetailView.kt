@@ -31,7 +31,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -54,21 +53,12 @@ import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
 import com.epacheco.reports.compose_reformat.general_components.dialogs.color_picker.ColorPickerDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.picker_dialog.PickerDialog
-import com.epacheco.reports.compose_reformat.general_components.dialogs.picker_dialog.PickerDialogOption
-import com.epacheco.reports.compose_reformat.general_components.header_image.HeaderImage
-import com.epacheco.reports.compose_reformat.general_components.header_image.HeaderImageSize
-import com.epacheco.reports.compose_reformat.model.products.Product
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.new_order.GetBtnSelectColor
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.new_order.colorPosition
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.new_order.colourSaver
-import com.epacheco.reports.compose_reformat.ui.theme.Black
 import com.epacheco.reports.compose_reformat.ui.theme.GrayDark
-import com.epacheco.reports.compose_reformat.ui.theme.GrayLight
-import com.epacheco.reports.compose_reformat.ui.theme.RedDark
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.ui.theme.White
-import com.epacheco.reports.compose_reformat.ui.theme.WhiteBackground
-import com.epacheco.reports.compose_reformat.ui.theme.YellowColor
 import com.epacheco.reports.compose_reformat.utils.extensions.toColor
 import com.epacheco.reports.compose_reformat.utils.extensions.toHexString
 
@@ -119,12 +109,6 @@ fun NewProductView(
         val productName =
             if (inputName.isNullOrEmpty()) stringResource(R.string.add_product_title) else inputName
 
-        /*HeaderImage(
-            urlImage = urlImg,
-            imageSize = HeaderImageSize.LARGE
-        ) {
-            onUpdateProfilePictureClicked?.invoke()
-        }*/
         Box(
             modifier = Modifier
                 .height(250.dp)
@@ -159,24 +143,14 @@ fun NewProductView(
                         },
                     colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
                     contentScale = ContentScale.Fit,
-                )/*Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(
-                            GrayDark,
-                            shape = RoundedCornerShape(bottomEnd = 10.dp, bottomStart = 10.dp)
-                        )
-                        .clickable {
-                            onUpdateProfilePictureClicked?.invoke()
-                        },
-                )*/
+                )
             }
 
 
         }
 
         Spacer(Modifier.padding(vertical = 8.dp))
-        TextDivider(textDivider = productName, fontSize = 16.sp)
+        TextDivider(text = productName, fontSize = 16.sp)
         Spacer(modifier = Modifier.padding(8.dp))
 
         Column {
@@ -339,7 +313,7 @@ fun NewProductView(
                         onOpenScanCodeDialog?.invoke()
                     }) {
                     Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.ic_vector_bar_code_scanner),
+                        imageVector = ImageVector.vectorResource(R.drawable.ic_vector_bar_code),
                         contentDescription = "close",
                         tint = White
                     )
@@ -389,7 +363,7 @@ fun NewProductView(
     }
     if (sizeNumericPickerOpen) {
         PickerDialog(
-            pickerDialogOption = PickerDialogOption.NUMBER_SIZES,
+            items = stringArrayResource(R.array.number_sizes_array),
             onDismiss = { sizeNumericPickerOpen = false },
             onValueSelected = {
                 onInputSizeChanged?.invoke(it)
@@ -399,7 +373,7 @@ fun NewProductView(
 
     if (sizePickerOpen) {
         PickerDialog(
-            pickerDialogOption = PickerDialogOption.SIZES,
+            items = stringArrayResource(R.array.sizes_array),
             onDismiss = { sizePickerOpen = false },
             onValueSelected = {
                 onInputSizeChanged?.invoke(it)
@@ -409,7 +383,7 @@ fun NewProductView(
 
     if (genderPickerOpen) {
         PickerDialog(
-            pickerDialogOption = PickerDialogOption.GENDERS,
+            items = stringArrayResource(R.array.gender_array),
             onDismiss = { genderPickerOpen = false },
             onValueSelected = {
                 onInputGenderChanged?.invoke(it)

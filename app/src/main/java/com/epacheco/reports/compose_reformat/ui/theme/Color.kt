@@ -4,8 +4,6 @@ import androidx.compose.ui.graphics.Color
 
 val WhiteBackground = Color(0xFFeeeeee)
 val BlackBackground = Color(0xFF1C1c1e)
-val RedBackground = Color(0xFFFDD9E4)
-val RedLight = Color(0x70D81636)
 val GrayLight = Color(0xFFCCC2DC)
 val PinkLight = Color(0xFFEFB8C8)
 

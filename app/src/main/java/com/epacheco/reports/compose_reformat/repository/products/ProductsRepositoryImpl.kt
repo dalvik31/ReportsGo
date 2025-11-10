@@ -1,7 +1,6 @@
 package com.epacheco.reports.compose_reformat.repository.products
 
 import android.net.Uri
-import android.util.Log
 import androidx.core.net.toUri
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.model.products.Product

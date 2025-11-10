@@ -41,14 +41,16 @@ fun ProductItem(
     onProductClick: (Product) -> Unit
 ) {
 
-    Column(modifier = Modifier.alpha(if(product.inStock > 0) 1f else 0.4f)) {
+    Column(modifier = Modifier.alpha(if (product.inStock > 0) 1f else 0.4f)) {
 
         Row(
-            Modifier.fillMaxWidth().padding(start = 8.dp),
+            Modifier
+                .fillMaxWidth()
+                .padding(start = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Image(
-                painter = painterResource(R.drawable.baseline_circle_24),
+                painter = painterResource(R.drawable.ic_simple_dot),
                 colorFilter = ColorFilter.tint(product.inStock.stockColor()),
                 contentDescription = null,
                 modifier = Modifier.size(8.dp)
@@ -98,7 +100,7 @@ fun ProductItem(
                     product.productName,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 8.dp,top = 8.dp),
+                        .padding(start = 8.dp, top = 8.dp),
                     fontWeight = FontWeight.Medium,
                     textAlign = TextAlign.Start,
                     color = MaterialTheme.colorScheme.onBackground,

@@ -75,7 +75,6 @@ fun SalesScreen(
 
         },
         clientSelected = uiState.client,
-        productSelected = uiState.product?.productName,
         listProductCart = uiState.cartProducts,
         totalSale = uiState.totalSale,
         onRemoveClient = {
