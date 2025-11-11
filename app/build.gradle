@@ -16,8 +16,8 @@ android {
         applicationId "com.epacheco.reports"
         minSdk 26
         targetSdk 36
-        versionCode 28
-        versionName "2.0.0.101125"
+        versionCode 29
+        versionName "2.0.0.111125"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
@@ -26,10 +26,6 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("reports_keystore_release.jks")
-            storePassword "Emma3103"
-            keyAlias "reports"
-            keyPassword "Emma3103"
         }
 
     }
@@ -38,13 +34,21 @@ android {
         enabled = true
     }
 
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging true
+        }
+    }
 
     buildTypes {
         release {
             signingConfig signingConfigs.release
             minifyEnabled true
             shrinkResources true
-            debuggable true
+            debuggable false
+            ndk {
+                debugSymbolLevel 'FULL'
+            }
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
 
         }
