@@ -2,7 +2,7 @@ package com.epacheco.reports.compose_reformat.model.clients
 
 import androidx.annotation.Keep
 
-
+@Keep
 data class Client(
     val id: String = "",
     val name: String = "",

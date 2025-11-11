@@ -2,7 +2,7 @@ package com.epacheco.reports.compose_reformat.model.products
 
 import androidx.annotation.Keep
 
-
+@Keep
 data class Product(
     val productDate: String = "",
     val productId: String = "",

@@ -3,7 +3,7 @@ package com.epacheco.reports.compose_reformat.model.sales
 import androidx.annotation.Keep
 import com.epacheco.reports.compose_reformat.model.Finances.PaymentType
 
-
+@Keep
 data class Sale(
     val saleId: String = "",
     val imgProduct: String = "",

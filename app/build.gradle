@@ -16,7 +16,7 @@ android {
         applicationId "com.epacheco.reports"
         minSdk 26
         targetSdk 36
-        versionCode 30
+        versionCode 31
         versionName "2.0.0.111125"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
