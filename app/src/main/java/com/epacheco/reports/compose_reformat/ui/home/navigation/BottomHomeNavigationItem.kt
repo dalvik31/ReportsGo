@@ -12,23 +12,19 @@ data class BottomHomeNavigationItem(
     fun bottomNavigationItems(): List<BottomHomeNavigationItem> {
         return listOf(
             BottomHomeNavigationItem(
-                route = MainOrdersBottomHomeRoute.javaClass.canonicalName.substringBefore(".Companion"),
+                route = "com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes.MainOrdersBottomHomeRoute",
                 label = R.string.tab_order_option,
                 icon = R.drawable.ic_vector_order,
                 bottomHomeRoutes = BottomHomeRoutes.MainOrdersBottomHomeRoute()
             ),
             BottomHomeNavigationItem(
-                route = BottomHomeRoutes.ClientBottomHomeRoute.javaClass.canonicalName.substringBefore(
-                    ".Companion"
-                ),
+                route = "com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes.ClientBottomHomeRoute",
                 label = R.string.tab_clients_option,
                 icon = R.drawable.ic_vector_clients,
                 bottomHomeRoutes = BottomHomeRoutes.ClientBottomHomeRoute()
             ),
             BottomHomeNavigationItem(
-                route = BottomHomeRoutes.ProductBottomHomeRoute.javaClass.canonicalName.substringBefore(
-                    ".Companion"
-                ),
+                route = "com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes.ProductBottomHomeRoute",
                 label = R.string.tab_products_option,
                 icon = R.drawable.ic_vector_products,
                 bottomHomeRoutes = BottomHomeRoutes.ProductBottomHomeRoute()
@@ -36,9 +32,7 @@ data class BottomHomeNavigationItem(
 
 
             BottomHomeNavigationItem(
-                route = BottomHomeRoutes.SaleBottomHomeRoute.javaClass.canonicalName.substringBefore(
-                    ".Companion"
-                ),
+                route = "com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes.SaleBottomHomeRoute",
                 label = R.string.tab_sales_option,
                 icon = R.drawable.ic_vector_sale,
                 bottomHomeRoutes = BottomHomeRoutes.SaleBottomHomeRoute()

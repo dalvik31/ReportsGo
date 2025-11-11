@@ -51,10 +51,10 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
     val showBottomBar = currentRoute?.fromPath() in listOf(
-        MainOrdersBottomHomeRoute.javaClass.canonicalName.substringBefore(".Companion"),
-        BottomHomeRoutes.ClientBottomHomeRoute.javaClass.canonicalName.substringBefore(".Companion"),
-        BottomHomeRoutes.ProductBottomHomeRoute.javaClass.canonicalName.substringBefore(".Companion"),
-        BottomHomeRoutes.SaleBottomHomeRoute.javaClass.canonicalName.substringBefore(".Companion"),
+        "com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes.MainOrdersBottomHomeRoute",
+        "com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes.ClientBottomHomeRoute",
+        "com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes.ProductBottomHomeRoute",
+        "com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes.SaleBottomHomeRoute",
 
         )
 
