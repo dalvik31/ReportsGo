@@ -1,6 +1,8 @@
 package com.epacheco.reports.compose_reformat.model.sales
 
+import androidx.annotation.Keep
 import com.epacheco.reports.compose_reformat.model.Finances.PaymentType
+
 
 data class Sale(
     val saleId: String = "",
@@ -16,4 +18,8 @@ data class Sale(
     val saleDate: String = "",
     val paymentType: PaymentType = PaymentType.UNKNOWN,
     val saleConcept: String = "",
-)
+) {
+    @Keep
+    constructor() : this("", "", 0.0, 0.0, "", "", "", "", 0, false, "", PaymentType.UNKNOWN, "")
+
+}

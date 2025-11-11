@@ -1,6 +1,9 @@
 package com.epacheco.reports.compose_reformat.model.orders
 
+import androidx.annotation.Keep
 
+
+@Keep
 data class OrderMain(
     val orderId: String = "",
     val nameOrder: String = "",
@@ -8,8 +11,12 @@ data class OrderMain(
     val orderDate: String = "",
     val orderStatus: OrderStatus = OrderStatus.IN_PROGRESS,
     val orderSeason: Season? = null,
-    var orderLists: HashMap<String?, Order?>? = null
+    var orderLists: HashMap<String?, @JvmSuppressWildcards Order?>? = null
 ) {
+
+    @Keep
+    constructor() : this("", "", "", "", OrderStatus.IN_PROGRESS, null, orderLists = null)
+
     fun geProgressList(): Float {
         var countOrders = 0f
         if (!orderLists.isNullOrEmpty()) {

@@ -1,8 +1,8 @@
 package com.epacheco.reports.compose_reformat.model.products
 
-import kotlinx.serialization.Serializable
+import androidx.annotation.Keep
 
-@Serializable
+
 data class Product(
     val productDate: String = "",
     val productId: String = "",
@@ -26,6 +26,32 @@ data class Product(
     val especificaciones_otro: String = "",
     val typeProduct: String = "",
 ) {
+
+    @Keep
+    constructor() : this(
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        0.0,
+        0.0,
+        "",
+        "",
+        false,
+        "",
+        "",
+        0,
+        0.0,
+        0,
+        "",
+        "",
+        "",
+        "",
+        ""
+    )
+
     fun getSize(): String {
         return talla.ifEmpty {
             productSize.ifEmpty {

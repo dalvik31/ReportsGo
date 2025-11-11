@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'kotlin-parcelize'
+apply plugin: 'org.jetbrains.kotlin.plugin.compose'
 
 
 apply plugin: 'org.jetbrains.kotlin.plugin.serialization'
@@ -25,6 +26,10 @@ android {
 
     signingConfigs {
         release {
+            storeFile file("reports_keystore_release.jks")
+            storePassword "Emma3103"
+            keyAlias "reports"
+            keyPassword "Emma3103"
         }
 
     }
@@ -36,12 +41,16 @@ android {
 
     buildTypes {
         release {
-        signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+
         }
     }
 
     lintOptions {
-
         checkReleaseBuilds false
 
     }
@@ -56,7 +65,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.5.8'
+        kotlinCompilerExtensionVersion '2.0.0'
     }
     packagingOptions {
         resources {
@@ -74,14 +83,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.3.0-alpha01'
     //Dependencia para navigationBottom
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    //Dependencia FireBase
-    implementation 'com.google.firebase:firebase-core:21.1.1'
-    //Dependencia FireBase Login with email
-    implementation 'com.google.firebase:firebase-auth:22.0.0'
-    //Dependencia FireBase Login with google
-    implementation 'com.google.android.gms:play-services-auth:20.5.0'
-    //Dependencia FireBase database
-    implementation 'com.google.firebase:firebase-database:20.2.2'
+
     //Dependencia para descargar imagenes
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.8.3'
@@ -98,13 +100,10 @@ dependencies {
     //Dependencia para inicio de sesion con twitter
     //Dependencia para inicio de sesion con facebook
     implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
-    //Dependencia para subir archivos a firebase
-    implementation 'com.google.firebase:firebase-storage:20.2.0'
+
     //Dependencia para escanear codigo qr y codigo de barras
     implementation 'com.google.android.gms:play-services-vision:20.1.3'
-    //Dependencia para notificaciones
-    implementation 'com.google.firebase:firebase-messaging:23.1.2'
-    implementation 'com.google.firebase:firebase-core:21.1.1'
+
     //Se agrego por un error al inflar el contraint layout con androidx
     implementation 'androidx.constraintlayout:constraintlayout:2.2.0-alpha10'
     //Se agrego por un error al iniciar sesion con google
@@ -122,10 +121,6 @@ dependencies {
     //Libreria para implementar un floatingActionButton desplegable
     implementation 'com.getbase:floatingactionbutton:1.10.1'
 
-    //Dependecias para los crashLytics
-    implementation platform('com.google.firebase:firebase-bom:32.1.0')
-    implementation 'com.google.firebase:firebase-crashlytics'
-    implementation 'com.google.firebase:firebase-analytics'
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
 
@@ -138,6 +133,20 @@ dependencies {
      *
      * */
 
+    //FIREBASE
+    implementation platform('com.google.firebase:firebase-bom:34.5.0')
+    //Login with email
+    implementation 'com.google.firebase:firebase-auth'
+    //Login with google
+    implementation 'com.google.android.gms:play-services-auth'
+    //Database
+    implementation 'com.google.firebase:firebase-database'
+    //Crashlytics
+    implementation 'com.google.firebase:firebase-crashlytics'
+    //Analytics
+    implementation 'com.google.firebase:firebase-analytics'
+    //Storage
+    implementation 'com.google.firebase:firebase-storage'
 
     //Splash core
     implementation("androidx.core:core-splashscreen:1.0.1")
@@ -155,7 +164,8 @@ dependencies {
     implementation 'androidx.hilt:hilt-navigation-compose:1.2.0'
 
     //Async images from URL
-    implementation("io.coil-kt.coil3:coil-compose:3.0.0-rc01")
+    //Async images from URL (using Coil 2 for compatibility)
+    implementation("io.coil-kt:coil-compose:2.6.0")
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.0-rc01")
 
     //Lottie for Compose

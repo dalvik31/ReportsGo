@@ -1,12 +1,12 @@
 package com.epacheco.reports.compose_reformat.model.orders
 
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import androidx.annotation.Keep
 import kotlinx.serialization.Serializable
 
+
+@Keep
 @Serializable
-@Parcelize
 data class Order(
     var orderListId: String = "",
     val orderId: String = "",
@@ -21,4 +21,7 @@ data class Order(
     var orderSeason: Season? = null,
     val orderClientName: String? = null,
     val orderClientId: String? = null,
-) : Parcelable
+)  {
+
+    @Keep constructor() : this("", "", "", "", "", "", "", "", false, false, null, null, null)
+}

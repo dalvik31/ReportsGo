@@ -1,5 +1,7 @@
 package com.epacheco.reports.compose_reformat.model.clients
 
+import androidx.annotation.Keep
+
 
 data class Client(
     val id: String = "",
@@ -11,6 +13,9 @@ data class Client(
     val limit: Double = 0.0,
     var dateClient: String = "",
 ) {
+    @Keep
+    constructor() : this("", "", "", "", "", 0.0, 0.0, "")
+
     fun geProgressLimit(): Float {
         var limitCredit = 0f
         if (debt > 0) {
