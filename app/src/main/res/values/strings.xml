@@ -18,7 +18,6 @@
     <string name="btn_continue_facebook">Continua con Facebook</string>
     <string name="btn_continue_google">Continua con Google</string>
     <string name="btn_continue_twitter">Continua con Twitter</string>
-    <string name="lbl_email">Ingresa correo electrónico</string>
     <string name="lbl_password">Ingresa contraseña</string>
     <string name="lbl_forgot_password">Olvidé mi contraseña</string>
     <string name="lbl_or_account">Ó</string>
@@ -340,6 +339,9 @@
     <string name="lbl_take_photo">Tomar foto</string>
     <string name="lbl_open_camera">Abrir camára</string>
     <string name="lbl_select_gallery">Abrir Galería</string>
+    <string name="lbl_email">Correo electrónico</string>
+    <string name="lbl_yes">Si</string>
+    <string name="lbl_no">No</string>
 
 
     <!--Recovery Password Screen-->
@@ -358,7 +360,7 @@
     <string name="register_screen_btn_login">Iniciar sesión</string>
     <string name="register_screen_btn_sign_up">Crear cuenta</string>
     <string name="register_screen_btn_continue_facebook">Continua con Facebook</string>
-    <string name="register_screen_btn_continue_google">Continua con Google</string>
+    <string name="register_screen_btn_continue_google">Continuar con Google</string>
     <string name="register_screen_btn_continue_twitter">Continua con Twitter</string>
     <string name="register_screen_lbl_or">Ó</string>
     <string name="register_screen_lbl_remember_user">Recordar usuario</string>
@@ -615,10 +617,13 @@
     <!--PROFILE Fragments-->
     <string name="search_profile">Buscando usuario…</string>
     <string name="title_profile">Hola, %s</string>
-    <string name="last_connection">Última conexión: %s</string>
+    <string name="last_connection">Última conexión:</string>
     <string name="title_close_session">Cerrar sesión</string>
     <string name="msg_user_profile_not_found">Usuario no encontrado</string>
     <string name="msg_close_session">¿Realmente desea cerrar sesion?</string>
+    <string name="login_method">Método de inicio de sesión</string>
+    <string name="email_verified">Correo verificado</string>
+    <string name="lbl_send_email_to_verified">Enviar email de verificación</string>
 
     <!--SALES Fragments-->
     <string name="generate_sale">Nuevo ticket</string>

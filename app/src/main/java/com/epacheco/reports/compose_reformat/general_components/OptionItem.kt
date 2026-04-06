@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,9 +26,11 @@ import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.R
 @Composable
 fun OptionItem(
-    icon: Int,
+    icon: Int? =  null,
     text: String,
-    tintText: Color = MaterialTheme.colorScheme.primary,
+    textSecondary:String? = null,
+    tintText: Color = MaterialTheme.colorScheme.secondary,
+    tintTextSecondary: Color = MaterialTheme.colorScheme.primary,
     tintIcon: Color = MaterialTheme.colorScheme.primary,
     onClick: () -> Unit
 ) {
@@ -43,25 +46,31 @@ fun OptionItem(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    painter = painterResource(icon),
-                    contentDescription = null,
-                    tint = RedDark,
-                    modifier = Modifier.size(24.dp)
-                )
-                Spacer(modifier = Modifier.width(16.dp))
+
+                icon?.let {
+                    Icon(
+                        painter = painterResource(icon),
+                        contentDescription = null,
+                        tint = tintIcon,
+                        modifier = Modifier.size(24.dp)
+                    )
+                    Spacer(modifier = Modifier.width(16.dp))
+                }
+
                 Text(
                     text = text,
                     style = MaterialTheme.typography.bodySmall,
                     color = tintText,
                 )
             }
-            Icon(
-                imageVector = Icons.Filled.ChevronRight,
-                contentDescription = null,
-                tint = tintIcon,
-                modifier = Modifier.size(20.dp)
-            )
+            textSecondary?.let {
+                Text(
+                    text = it,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = tintTextSecondary,
+                )
+            }
+
         }
     }
 }
@@ -70,7 +79,7 @@ fun OptionItem(
 @Composable
 private fun OptionItemPreview() {
     ReportsGoTheme {
-        OptionItem(icon = R.drawable.ic_vector_sale, text = "Ventas", onClick = {})
+        OptionItem(icon = R.drawable.ic_vector_sale, text = "Ventas", onClick = {}, textSecondary = "hola")
     }
 
 }

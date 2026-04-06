@@ -115,7 +115,6 @@ fun AccountView(
         PrimaryButton(
             textButton = stringResource(id = R.string.register_screen_btn_continue_google),
             iconBtn = R.drawable.ic_vector_google_logo,
-            colorBackground = GoogleColor,
             modifier = Modifier
         ) {
             onLoginGoogleClicked?.invoke()

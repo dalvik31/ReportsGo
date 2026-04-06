@@ -11,3 +11,8 @@
 /build
 /captures
 .externalNativeBuild
+.idea/AndroidProjectSystem.xml
+.idea/appInsightsSettings.xml
+/.idea
+app/reports_keystore_release.jks
+app/reports_keystore_release.jks

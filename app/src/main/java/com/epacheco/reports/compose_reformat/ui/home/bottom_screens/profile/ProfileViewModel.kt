@@ -1,6 +1,7 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.compose_reformat.ReportsApp
 import com.epacheco.reports.compose_reformat.domain.user.GetUserUseCase
@@ -10,6 +11,7 @@ import com.epacheco.reports.compose_reformat.domain.user.UploadImgProfileUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import com.epacheco.reports.compose_reformat.utils.extensions.compress
+import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -55,6 +57,7 @@ class ProfileViewModel @Inject constructor(
             }
 
             is Resource.Success -> {
+                determineSignInMethod(profileResponse.result)
                 _uiState.update {
                     it.copy(
                         userProfile = profileResponse.result,
@@ -78,6 +81,26 @@ class ProfileViewModel @Inject constructor(
                 }
             }
             loading(false)
+        }
+    }
+
+    private fun determineSignInMethod(user: FirebaseUser) {
+        var signInMethod = ""
+        user.providerData.forEach {
+            Log.e("aqui","vamooooos ${it.providerId}")
+        }
+        user.providerData.last().providerId.let {
+            signInMethod = when (it) {
+                "google.com" -> "Google"
+                "apple.com" -> "Apple"
+                "password" -> "Correo / Contraseña"
+                else -> it
+            }
+        }
+        _uiState.update {
+            it.copy(
+                signInMethod = signInMethod
+            )
         }
     }
 

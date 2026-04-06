@@ -9,5 +9,6 @@ data class ProfileUiState(
     val errorMessage: String? = null,
     val successMsg: String? = null,
     val userProfile: FirebaseUser? = null,
+    val signInMethod: String? = null,
     val imgUser: Uri? = null
 )

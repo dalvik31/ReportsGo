@@ -31,7 +31,10 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.OptionItem
+import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
+import com.epacheco.reports.compose_reformat.general_components.SecondaryButton
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
+import com.epacheco.reports.compose_reformat.ui.theme.GreenColor
 import com.epacheco.reports.compose_reformat.ui.theme.RedDark
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.utils.DateUtils
@@ -45,6 +48,7 @@ fun ProfileView(
     firebaseUser: FirebaseUser? = null,
     onUpdateProfilePictureClicked: (() -> Unit)? = null,
     onLogoutClicked: (() -> Unit)? = null,
+    signInMethod: String? = null
 ) {
     Column(Modifier.fillMaxSize()) {
         DividerProfile(firebaseUser)
@@ -96,17 +100,36 @@ fun ProfileView(
             )
         }
         firebaseUser?.metadata?.lastSignInTimestamp?.let { lastConnection ->
+            /* Text(
+                 text = stringResource(
+                     R.string.last_connection,
+                     DateUtils.dateFormat(lastConnection.toString(), FORMAT_DATE2)
+                 ),
+                 modifier = Modifier.fillMaxWidth(),
+                 textAlign = TextAlign.Center,
+                 fontSize = 10.sp
+
+             )*/
+
             Text(
                 text = stringResource(
-                    R.string.last_connection,
-                    DateUtils.dateFormat(lastConnection.toString(), FORMAT_DATE2)
+                    R.string.last_connection
                 ),
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
                 fontSize = 10.sp
 
             )
+            Text(
+                text = DateUtils.dateFormat(lastConnection.toString(), FORMAT_DATE2),
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                fontSize = 12.sp,
+                style = MaterialTheme.typography.bodySmall,
+
+                )
         }
+
         Spacer(modifier = Modifier.padding(vertical = 16.dp))
 
         Card(
@@ -126,14 +149,46 @@ fun ProfileView(
 
                 Column(modifier = Modifier.fillMaxWidth()) {
                     OptionItem(
-                        icon = R.drawable.ic_vector_logout,
-                        text = stringResource(R.string.lbl_logout),
-                        tintText = RedDark,
-                        tintIcon = RedDark
-                    ) { onLogoutClicked?.invoke() }
+                        text = stringResource(R.string.lbl_email),
+                        textSecondary = firebaseUser?.email
+
+                    ){}
+
+                    OptionItem(
+                        text = stringResource(R.string.login_method),
+                        textSecondary = signInMethod
+                    ){}
+
 
                 }
+
+                if(firebaseUser?.isEmailVerified == true){
+                    OptionItem(
+                        text = stringResource(R.string.email_verified),
+                        textSecondary =  stringResource(R.string.lbl_yes),
+                        tintTextSecondary =  GreenColor
+                    ){}
+
+                }else{
+
+                    OptionItem(
+                        text = stringResource(R.string.email_verified),
+                        textSecondary =  stringResource(R.string.lbl_no),
+                        tintTextSecondary = RedDark
+                    ){}
+                    SecondaryButton(textButton = stringResource(R.string.lbl_send_email_to_verified))
+                }
             }
+        }
+
+        Spacer(Modifier.weight(1f))
+
+        PrimaryButton(
+            modifier = Modifier
+                .padding(horizontal = 24.dp, vertical = 24.dp),
+            textButton =stringResource(R.string.lbl_logout) ) {
+
+            onLogoutClicked?.invoke()
         }
     }
 
@@ -158,6 +213,7 @@ private fun DividerProfile(firebaseUser: FirebaseUser?) {
 @Composable
 fun ProfileViewPreview() {
     ReportsGoTheme {
+
         ProfileView()
     }
 

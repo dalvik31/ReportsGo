@@ -1,0 +1,266 @@
+kotlin version: 2.0.0
+error message: org.jetbrains.kotlin.backend.common.CompilationException: Back-end: Please report this problem https://kotl.in/issue
+/Users/emmanuelpacheco/AndroidStudioProjects/ReportsGo/app/src/main/java/com/epacheco/reports/compose_reformat/model/orders/OrderMain.kt:10:1
+Problem with `@Keep
+@Serializable
+@StabilityInferred(parameters = 0)
+data class OrderMain {
+  constructor(orderId: String = "", nameOrder: String = "", dateOrder: String = "", orderDate: String = "", orderStatus: OrderStatus = OrderStatus.IN_PROGRESS, orderSeason: Season? = null, orderLists: GenericTypeIndicator<Map<String, Order?>?>? = null) /* primary */ {
+    super/*Any*/()
+    /* <init>() */
+
+  }
+
+  val orderId: String
+    field = orderId
+    get
+
+  val nameOrder: String
+    field = nameOrder
+    get
+
+  @Deprecated(message = "orderId is the new value")
+  val dateOrder: String
+    field = dateOrder
+    get
+
+  val orderDate: String
+    field = orderDate
+    get
+
+  val orderStatus: OrderStatus
+    field = orderStatus
+    get
+
+  val orderSeason: Season?
+    field = orderSeason
+    get
+
+  @Contextual
+  var orderLists: GenericTypeIndicator<Map<String, Order?>?>?
+    field = orderLists
+    get
+    set
+
+  @Keep
+  constructor() {
+    this/*OrderMain*/(orderId = "", nameOrder = "", dateOrder = "", orderDate = "", orderStatus = OrderStatus.IN_PROGRESS, orderSeason = null)
+  }
+
+  fun geProgressList(): Float {
+    var countOrders: Float = 0.0F
+    e(p0 = "aqui", p1 = "orderLists orderSeason: " + <this>.<get-orderSeason>()) /*~> Unit */
+    e(p0 = "aqui", p1 = "orderLists: " + <this>.<get-orderLists>()) /*~> Unit */
+    return countOrders
+  }
+
+  companion object Companion {
+    private constructor() /* primary */ {
+      super/*Any*/()
+      /* <init>() */
+
+    }
+
+    fun serializer(): KSerializer<OrderMain>
+
+    /* fake */ override operator fun equals(other: Any?): Boolean
+
+    /* fake */ override fun hashCode(): Int
+
+    /* fake */ override fun toString(): String
+
+  }
+
+  @Deprecated(message = "This synthesized declaration should not be used directly", level = DeprecationLevel.HIDDEN)
+  @StabilityInferred(parameters = 0)
+  object $serializer : GeneratedSerializer<OrderMain> {
+    private constructor() /* primary */ {
+      super/*Any*/()
+      /* <init>() */
+
+    }
+
+    override fun serialize(encoder: Encoder, value: OrderMain)
+
+    override fun deserialize(decoder: Decoder): OrderMain
+
+    override val descriptor: SerialDescriptor
+      override get
+
+    override fun childSerializers(): Array<KSerializer<*>>
+
+    /* fake */ override fun typeParametersSerializers(): Array<KSerializer<*>>
+
+    /* fake */ override operator fun equals(other: Any?): Boolean
+
+    /* fake */ override fun hashCode(): Int
+
+    /* fake */ override fun toString(): String
+
+    /* static final field */ val $stable: Int = 8
+  }
+
+  operator fun component1(): String {
+    return <this>.#orderId
+  }
+
+  operator fun component2(): String {
+    return <this>.#nameOrder
+  }
+
+  operator fun component3(): String {
+    return <this>.#dateOrder
+  }
+
+  operator fun component4(): String {
+    return <this>.#orderDate
+  }
+
+  operator fun component5(): OrderStatus {
+    return <this>.#orderStatus
+  }
+
+  operator fun component6(): Season? {
+    return <this>.#orderSeason
+  }
+
+  operator fun component7(): GenericTypeIndicator<Map<String, Order?>?>? {
+    return <this>.#orderLists
+  }
+
+  fun copy(orderId: String = <this>.#orderId, nameOrder: String = <this>.#nameOrder, dateOrder: String = <this>.#dateOrder, orderDate: String = <this>.#orderDate, orderStatus: OrderStatus = <this>.#orderStatus, orderSeason: Season? = <this>.#orderSeason, orderLists: GenericTypeIndicator<Map<String, Order?>?>? = <this>.#orderLists): OrderMain {
+    return OrderMain(orderId = orderId, nameOrder = nameOrder, dateOrder = dateOrder, orderDate = orderDate, orderStatus = orderStatus, orderSeason = orderSeason, orderLists = orderLists)
+  }
+
+  override fun toString(): String {
+    return "OrderMain(" + "orderId=" + <this>.#orderId + ", " + "nameOrder=" + <this>.#nameOrder + ", " + "dateOrder=" + <this>.#dateOrder + ", " + "orderDate=" + <this>.#orderDate + ", " + "orderStatus=" + <this>.#orderStatus + ", " + "orderSeason=" + <this>.#orderSeason + ", " + "orderLists=" + <this>.#orderLists + ")"
+  }
+
+  override fun hashCode(): Int {
+    var result: Int = <this>.#orderId.hashCode()
+    result = result.times(other = 31).plus(other = <this>.#nameOrder.hashCode())
+    result = result.times(other = 31).plus(other = <this>.#dateOrder.hashCode())
+    result = result.times(other = 31).plus(other = <this>.#orderDate.hashCode())
+    result = result.times(other = 31).plus(other = <this>.#orderStatus.hashCode())
+    result = result.times(other = 31).plus(other = when {
+      EQEQ(arg0 = <this>.#orderSeason, arg1 = null) -> 0
+      else -> <this>.#orderSeason.hashCode()
+    })
+    result = result.times(other = 31).plus(other = when {
+      EQEQ(arg0 = <this>.#orderLists, arg1 = null) -> 0
+      else -> <this>.#orderLists.hashCode()
+    })
+    return result
+  }
+
+  override operator fun equals(other: Any?): Boolean {
+    when {
+      EQEQEQ(arg0 = <this>, arg1 = other) -> return true
+    }
+    when {
+      other !is OrderMain -> return false
+    }
+    val tmp0_other_with_cast: OrderMain = other as OrderMain
+    when {
+      EQEQ(arg0 = <this>.#orderId, arg1 = tmp0_other_with_cast.#orderId).not() -> return false
+    }
+    when {
+      EQEQ(arg0 = <this>.#nameOrder, arg1 = tmp0_other_with_cast.#nameOrder).not() -> return false
+    }
+    when {
+      EQEQ(arg0 = <this>.#dateOrder, arg1 = tmp0_other_with_cast.#dateOrder).not() -> return false
+    }
+    when {
+      EQEQ(arg0 = <this>.#orderDate, arg1 = tmp0_other_with_cast.#orderDate).not() -> return false
+    }
+    when {
+      EQEQ(arg0 = <this>.#orderStatus, arg1 = tmp0_other_with_cast.#orderStatus).not() -> return false
+    }
+    when {
+      EQEQ(arg0 = <this>.#orderSeason, arg1 = tmp0_other_with_cast.#orderSeason).not() -> return false
+    }
+    when {
+      EQEQ(arg0 = <this>.#orderLists, arg1 = tmp0_other_with_cast.#orderLists).not() -> return false
+    }
+    return true
+  }
+
+  /* static final field */ val $stable: Int = 8
+  @JvmStatic
+  internal fun write$Self(self: OrderMain, output: CompositeEncoder, serialDesc: SerialDescriptor)
+
+  internal constructor(seen0: Int, orderId: String?, nameOrder: String?, dateOrder: String?, orderDate: String?, orderStatus: OrderStatus?, orderSeason: Season?, orderLists: GenericTypeIndicator<Map<String, Order?>?>?, serializationConstructorMarker: SerializationConstructorMarker?)
+
+}
+
+`
+Details: kotlinx.serialization compiler plugin internal error: unable to transform declaration, see cause
+	at org.jetbrains.kotlinx.serialization.compiler.extensions.SerializerClassLowering.lower(SerializationLoweringExtension.kt:228)
+	at org.jetbrains.kotlinx.serialization.compiler.extensions.SerializationLoweringExtensionKt$runOnFileInOrder$1.visitClass(SerializationLoweringExtension.kt:46)
+	at org.jetbrains.kotlin.ir.visitors.IrElementVisitorVoid$DefaultImpls.visitClass(IrElementVisitorVoid.kt:44)
+	at org.jetbrains.kotlinx.serialization.compiler.extensions.SerializationLoweringExtensionKt$runOnFileInOrder$1.visitClass(SerializationLoweringExtension.kt:40)
+	at org.jetbrains.kotlinx.serialization.compiler.extensions.SerializationLoweringExtensionKt$runOnFileInOrder$1.visitClass(SerializationLoweringExtension.kt:40)
+	at org.jetbrains.kotlin.ir.declarations.IrClass.accept(IrClass.kt:72)
+	at org.jetbrains.kotlin.ir.declarations.IrFile.acceptChildren(IrFile.kt:34)
+	at org.jetbrains.kotlin.ir.visitors.IrVisitorsKt.acceptChildrenVoid(IrVisitors.kt:15)
+	at org.jetbrains.kotlinx.serialization.compiler.extensions.SerializationLoweringExtensionKt$runOnFileInOrder$1.visitElement(SerializationLoweringExtension.kt:42)
+	at org.jetbrains.kotlin.ir.visitors.IrElementVisitorVoid$DefaultImpls.visitPackageFragment(IrElementVisitorVoid.kt:168)
+	at org.jetbrains.kotlinx.serialization.compiler.extensions.SerializationLoweringExtensionKt$runOnFileInOrder$1.visitPackageFragment(SerializationLoweringExtension.kt:40)
+	at org.jetbrains.kotlin.ir.visitors.IrElementVisitorVoid$DefaultImpls.visitFile(IrElementVisitorVoid.kt:184)
+	at org.jetbrains.kotlinx.serialization.compiler.extensions.SerializationLoweringExtensionKt$runOnFileInOrder$1.visitFile(SerializationLoweringExtension.kt:40)
+	at org.jetbrains.kotlin.ir.visitors.IrElementVisitorVoid$DefaultImpls.visitFile(IrElementVisitorVoid.kt:180)
+	at org.jetbrains.kotlinx.serialization.compiler.extensions.SerializationLoweringExtensionKt$runOnFileInOrder$1.visitFile(SerializationLoweringExtension.kt:40)
+	at org.jetbrains.kotlinx.serialization.compiler.extensions.SerializationLoweringExtensionKt$runOnFileInOrder$1.visitFile(SerializationLoweringExtension.kt:40)
+	at org.jetbrains.kotlin.ir.declarations.IrFile.accept(IrFile.kt:28)
+	at org.jetbrains.kotlin.ir.visitors.IrVisitorsKt.acceptVoid(IrVisitors.kt:11)
+	at org.jetbrains.kotlinx.serialization.compiler.extensions.SerializationLoweringExtensionKt.runOnFileInOrder(SerializationLoweringExtension.kt:40)
+	at org.jetbrains.kotlinx.serialization.compiler.extensions.SerializationLoweringExtension.generate(SerializationLoweringExtension.kt:193)
+	at org.jetbrains.kotlin.fir.pipeline.ConvertToIrKt.applyIrGenerationExtensions(convertToIr.kt:260)
+	at org.jetbrains.kotlin.fir.pipeline.ConvertToIrKt.convertToIrAndActualize(convertToIr.kt:139)
+	at org.jetbrains.kotlin.fir.pipeline.ConvertToIrKt.convertToIrAndActualize$default(convertToIr.kt:65)
+	at org.jetbrains.kotlin.cli.jvm.compiler.pipeline.JvmCompilerPipelineKt.convertToIrAndActualizeForJvm(jvmCompilerPipeline.kt:193)
+	at org.jetbrains.kotlin.cli.jvm.compiler.pipeline.JvmCompilerPipelineKt.convertAnalyzedFirToIr(jvmCompilerPipeline.kt:167)
+	at org.jetbrains.kotlin.cli.jvm.compiler.pipeline.JvmCompilerPipelineKt.compileModulesUsingFrontendIrAndLightTree(jvmCompilerPipeline.kt:138)
+	at org.jetbrains.kotlin.cli.jvm.K2JVMCompiler.doExecute(K2JVMCompiler.kt:155)
+	at org.jetbrains.kotlin.cli.jvm.K2JVMCompiler.doExecute(K2JVMCompiler.kt:50)
+	at org.jetbrains.kotlin.cli.common.CLICompiler.execImpl(CLICompiler.kt:104)
+	at org.jetbrains.kotlin.cli.common.CLICompiler.execImpl(CLICompiler.kt:48)
+	at org.jetbrains.kotlin.cli.common.CLITool.exec(CLITool.kt:101)
+	at org.jetbrains.kotlin.incremental.IncrementalJvmCompilerRunner.runCompiler(IncrementalJvmCompilerRunner.kt:453)
+	at org.jetbrains.kotlin.incremental.IncrementalJvmCompilerRunner.runCompiler(IncrementalJvmCompilerRunner.kt:62)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.doCompile(IncrementalCompilerRunner.kt:506)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.compileImpl(IncrementalCompilerRunner.kt:423)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.tryCompileIncrementally$lambda$9$compile(IncrementalCompilerRunner.kt:249)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.tryCompileIncrementally(IncrementalCompilerRunner.kt:267)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.compile(IncrementalCompilerRunner.kt:120)
+	at org.jetbrains.kotlin.daemon.CompileServiceImplBase.execIncrementalCompiler(CompileServiceImpl.kt:676)
+	at org.jetbrains.kotlin.daemon.CompileServiceImplBase.access$execIncrementalCompiler(CompileServiceImpl.kt:92)
+	at org.jetbrains.kotlin.daemon.CompileServiceImpl.compile(CompileServiceImpl.kt:1661)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(Unknown Source)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Unknown Source)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Unknown Source)
+	at java.base/java.security.AccessController.doPrivileged(Unknown Source)
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Unknown Source)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(Unknown Source)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(Unknown Source)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(Unknown Source)
+	at java.base/java.security.AccessController.doPrivileged(Unknown Source)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.IllegalStateException: Serializer for element of type com.epacheco.reports.compose_reformat.model.orders.Order? has not been found
+	at org.jetbrains.kotlinx.serialization.compiler.backend.ir.SerializerSearchUtilKt.findTypeSerializerOrContext(SerializerSearchUtil.kt:84)
+	at org.jetbrains.kotlinx.serialization.compiler.backend.ir.BaseIrGenerator.serializerInstance(BaseIrGenerator.kt:713)
+	at org.jetbrains.kotlinx.serialization.compiler.backend.ir.BaseIrGenerator.serializerInstance$instantiate(BaseIrGenerator.kt:546)
+	at org.jetbrains.kotlinx.serialization.compiler.backend.ir.BaseIrGenerator.serializerInstance(BaseIrGenerator.kt:601)
+	at org.jetbrains.kotlinx.serialization.compiler.backend.ir.BaseIrGenerator.cacheableChildSerializerInstance(BaseIrGenerator.kt:489)
+	at org.jetbrains.kotlinx.serialization.compiler.backend.ir.BaseIrGenerator.createCachedChildSerializers(BaseIrGenerator.kt:467)
+	at org.jetbrains.kotlinx.serialization.compiler.backend.ir.SerializableIrGenerator.<init>(SerializableIrGenerator.kt:59)
+	at org.jetbrains.kotlinx.serialization.compiler.backend.ir.SerializableIrGenerator$Companion.generate(SerializableIrGenerator.kt:398)
+	at org.jetbrains.kotlinx.serialization.compiler.extensions.SerializerClassLowering.lower(SerializationLoweringExtension.kt:145)
+	... 55 more
+
+

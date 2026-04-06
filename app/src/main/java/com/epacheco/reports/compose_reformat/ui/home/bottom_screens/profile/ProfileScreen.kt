@@ -45,12 +45,13 @@ fun ProfileScreen(
     ProfileView(
         firebaseUser = uiState.userProfile,
         onLogoutClicked = {
-            showCloseSessionDialog = true
+            profileViewModel.handleIntent(ProfileUiIntent.Logout)
 
         },
         onUpdateProfilePictureClicked = {
             showProfilePictureDialog = true
         },
+        signInMethod = profileViewModel.uiState.value.signInMethod ?: ""
     )
     if (uiState.isLoading) {
         Loader(false)
@@ -74,20 +75,6 @@ fun ProfileScreen(
             })
     }
 
-    if (showCloseSessionDialog) {
-        ReportsDialog(
-            imgDialog = R.drawable.ic_notfication,
-            dialogTitle = stringResource(R.string.title_close_session),
-            dialogSubTitle = stringResource(R.string.msg_close_session),
-            confirmButtonText = stringResource(R.string.btn_ok),
-            onConfirmation = {
-                showCloseSessionDialog = false
-                profileViewModel.handleIntent(ProfileUiIntent.Logout)
-            },
-            onDismissRequest = { showCloseSessionDialog = false },
-            cancelButtonText = stringResource(R.string.btn_cancel)
-        )
-    }
 
 }
 
