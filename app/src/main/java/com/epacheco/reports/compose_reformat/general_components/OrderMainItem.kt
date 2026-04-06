@@ -52,7 +52,9 @@ import com.epacheco.reports.compose_reformat.model.orders.Season
 import com.epacheco.reports.compose_reformat.ui.theme.White
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE2
+import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE3
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE4
+import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE5
 import com.epacheco.reports.compose_reformat.utils.Utils
 
 
@@ -103,7 +105,7 @@ fun OrderMainItem(
                     ) {
 
                         Text(
-                            text = DateUtils.dateFormat(orderMain.orderId, FORMAT_DATE2),
+                            text = DateUtils.dateFormat(orderMain.orderId, FORMAT_DATE5),
                             fontSize = 10.sp,
                             color = MaterialTheme.colorScheme.onPrimary,
                             style = MaterialTheme.typography.bodySmall,

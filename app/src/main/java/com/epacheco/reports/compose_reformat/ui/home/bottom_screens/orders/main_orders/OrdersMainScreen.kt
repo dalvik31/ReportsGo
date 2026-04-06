@@ -17,7 +17,9 @@ import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsD
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsInfoDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsInputDialog
 import com.epacheco.reports.compose_reformat.model.orders.Season
+import com.epacheco.reports.compose_reformat.ui.theme.FallColor
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
+import com.epacheco.reports.compose_reformat.ui.theme.SpringColor
 import com.epacheco.reports.compose_reformat.utils.SeasonUtils
 import kotlinx.coroutines.flow.collectLatest
 
@@ -134,7 +136,12 @@ fun OrdersMainScreen(
                 showInfoDialog = false
                 showDialogCreateOrder = true
             },
-            confirmButtonText = stringResource(R.string.btn_understood)
+            confirmButtonText = stringResource(R.string.btn_understood),
+            iconDialog = R.drawable.ic_simple_dot,
+            iconDialogTint = when (currentSeason) {
+                Season.FALL -> FallColor
+                Season.SPRING -> SpringColor
+            },
         )
     }
 

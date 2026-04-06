@@ -47,6 +47,8 @@ import com.epacheco.reports.compose_reformat.ui.theme.FallColor
 fun ReportsInfoDialog(
     imgDialog: Int? = null,
     lottieAnimation: Int? = null,
+    iconDialog: Int? = null,
+    iconDialogTint: Color? = null,
     background: Color? = null,
     dialogTitle: String? = null,
     dialogSubTitle: String? = null,
@@ -118,15 +120,16 @@ fun ReportsInfoDialog(
                             overflow = TextOverflow.Ellipsis,
                         )
                     }
-                    IconButton({
-                    }, modifier = Modifier.fillMaxWidth()) {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_simple_dot),
-                            contentDescription = null,
-                            tint = FallColor,
-                            modifier = Modifier.size(16.dp)
-
-                        )
+                    iconDialog?.let { icon ->
+                        IconButton({
+                        }, modifier = Modifier.fillMaxWidth()) {
+                            Icon(
+                                painter = painterResource(icon),
+                                contentDescription = null,
+                                tint = iconDialogTint ?: MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.size(16.dp)
+                            )
+                        }
                     }
 
                     dialogSubTitle?.let {
@@ -191,6 +194,7 @@ fun ReportsInfoDialogPreview() {
         onDismissRequest = {},
         imgDialog = R.drawable.ic_vector_sale_emmpty,
         lottieAnimation = R.raw.fall,
+        iconDialog = R.drawable.ic_error,
         confirmButtonText = "Aceptar"
     )
 }
