@@ -39,6 +39,7 @@ import com.epacheco.reports.compose_reformat.ui.theme.RedDark
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE2
+import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE6
 import com.epacheco.reports.compose_reformat.utils.extensions.nameProfile
 import com.google.firebase.auth.FirebaseUser
 
@@ -89,28 +90,7 @@ fun ProfileView(
 
         }
 
-        firebaseUser?.email?.let {
-            Text(
-                it,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = if (firebaseUser.email.isNullOrEmpty()) 24.dp else 0.dp),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.titleSmall,
-            )
-        }
         firebaseUser?.metadata?.lastSignInTimestamp?.let { lastConnection ->
-            /* Text(
-                 text = stringResource(
-                     R.string.last_connection,
-                     DateUtils.dateFormat(lastConnection.toString(), FORMAT_DATE2)
-                 ),
-                 modifier = Modifier.fillMaxWidth(),
-                 textAlign = TextAlign.Center,
-                 fontSize = 10.sp
-
-             )*/
-
             Text(
                 text = stringResource(
                     R.string.last_connection
@@ -121,7 +101,7 @@ fun ProfileView(
 
             )
             Text(
-                text = DateUtils.dateFormat(lastConnection.toString(), FORMAT_DATE2),
+                text = DateUtils.dateFormat(lastConnection.toString(), FORMAT_DATE6),
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
                 fontSize = 12.sp,
@@ -152,30 +132,30 @@ fun ProfileView(
                         text = stringResource(R.string.lbl_email),
                         textSecondary = firebaseUser?.email
 
-                    ){}
+                    ) {}
 
                     OptionItem(
                         text = stringResource(R.string.login_method),
                         textSecondary = signInMethod
-                    ){}
+                    ) {}
 
 
                 }
 
-                if(firebaseUser?.isEmailVerified == true){
+                if (firebaseUser?.isEmailVerified == true) {
                     OptionItem(
                         text = stringResource(R.string.email_verified),
-                        textSecondary =  stringResource(R.string.lbl_yes),
-                        tintTextSecondary =  GreenColor
-                    ){}
+                        textSecondary = stringResource(R.string.lbl_yes),
+                        tintTextSecondary = GreenColor
+                    ) {}
 
-                }else{
+                } else {
 
                     OptionItem(
                         text = stringResource(R.string.email_verified),
-                        textSecondary =  stringResource(R.string.lbl_no),
+                        textSecondary = stringResource(R.string.lbl_no),
                         tintTextSecondary = RedDark
-                    ){}
+                    ) {}
                     SecondaryButton(textButton = stringResource(R.string.lbl_send_email_to_verified))
                 }
             }
@@ -186,7 +166,8 @@ fun ProfileView(
         PrimaryButton(
             modifier = Modifier
                 .padding(horizontal = 24.dp, vertical = 24.dp),
-            textButton =stringResource(R.string.lbl_logout) ) {
+            textButton = stringResource(R.string.lbl_logout)
+        ) {
 
             onLogoutClicked?.invoke()
         }

@@ -7,19 +7,25 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.AbsoluteAlignment
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -41,7 +47,8 @@ fun ClientCompactItem(
     avatarLetters: String? = null,
     progressLimit: Float = 0f,
     onClick: (() -> Unit)? = null,
-    onLongClick: (() -> Unit)? = null
+    onLongClick: (() -> Unit)? = null,
+    phoneClick: (() -> Unit)? = null,
 ) {
 
     Card(
@@ -57,23 +64,7 @@ fun ClientCompactItem(
         )
     ) {
 
-        Box {
-            secondaryText?.let {
-                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                    Text(
-                        secondaryText,
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        modifier = Modifier
-                            .background(
-                                MaterialTheme.colorScheme.onBackground,
-                                RoundedCornerShape(bottomStart = 10.dp)
-                            )
-                            .padding(horizontal = 10.dp, vertical = 6.dp),
-                        style = MaterialTheme.typography.bodySmall
-                    )
-                }
-
-            }
+        Box() {
 
             Column(
                 modifier = Modifier.combinedClickable(
@@ -102,7 +93,6 @@ fun ClientCompactItem(
                     avatarLetters?.let {
                         AvatarWithIndicator(
                             avatarLetters = it,
-                            indicatorRes = R.drawable.ic_simple_dot,
                             indicatorSize = 15.dp,
                             avatarSize = 60.dp,
                             tintSaleIndicator = Utils.getClientDotBackground(
@@ -124,7 +114,6 @@ fun ClientCompactItem(
                             text = text ?: "",
                             textAlign = TextAlign.Start,
                             style = MaterialTheme.typography.titleSmall.copy(
-                                fontWeight = FontWeight.Bold,
                                 textDecoration = TextDecoration.None,
                             ),
 
@@ -133,12 +122,33 @@ fun ClientCompactItem(
                         contentText?.let {
                             Text(
                                 contentText,
-                                color = MaterialTheme.colorScheme.primary,
+                                color = Utils.getClientBalanceColor(
+                                    progressLimit
+                                ),
                                 modifier = Modifier,
-                                style = MaterialTheme.typography.bodyMedium
+                                style = MaterialTheme.typography.titleMedium.copy(
+                                    fontWeight = FontWeight.Bold,
+                                    textDecoration = TextDecoration.None,
+                                )
                             )
                         }
                     }
+                    Spacer(modifier = Modifier.weight(1f))
+
+                    secondaryText?.let {
+                        IconButton({
+                            phoneClick?.invoke()
+                        }) {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_vector_phone),
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.size(16.dp)
+
+                            )
+                        }
+                    }
+
 
                 }
 
@@ -158,7 +168,7 @@ fun ClientCompactItemPreview() {
         Row {
             ClientCompactItem(
                 modifier = Modifier,
-                avatarUrl = "",
+                avatarLetters = "EP",
                 text = "text",
                 contentText = "contentText",
                 secondaryText = "secondaryText",

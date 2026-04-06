@@ -33,7 +33,7 @@ fun AvatarWithIndicator(
     avatarUrl: String? = null,
     avatarRes: Int? = null,
     avatarLetters: String? = null,
-    indicatorRes: Int,
+    indicatorRes: Int? = null,
     avatarSize: Dp = 80.dp,
     indicatorSize: Dp = 30.dp,
     tintSaleIndicator: Color = MaterialTheme.colorScheme.primary,
@@ -87,17 +87,21 @@ fun AvatarWithIndicator(
             }
 
         }
-        Image(
-            painter = painterResource(id = indicatorRes),
-            contentDescription = "Status indicator",
-            modifier = Modifier
-                .size(indicatorSize)
-                .align(Alignment.BottomEnd) // Align to the bottom-right
-                .clip(CircleShape)
-                .background(Color.White)
-                .padding(1.dp) // Add a small internal padding
-            , colorFilter = ColorFilter.tint(tintSaleIndicator)
-        )
+        indicatorRes?.let {indicator ->
+
+            Image(
+                painter = painterResource(id = indicator),
+                contentDescription = "Status indicator",
+                modifier = Modifier
+                    .size(indicatorSize)
+                    .align(Alignment.BottomEnd) // Align to the bottom-right
+                    .clip(CircleShape)
+                    .background(Color.White)
+                    .padding(1.dp) // Add a small internal padding
+                , colorFilter = ColorFilter.tint(tintSaleIndicator)
+            )
+        }
+
 
 
     }

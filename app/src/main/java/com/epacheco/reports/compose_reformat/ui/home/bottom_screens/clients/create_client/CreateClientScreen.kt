@@ -1,5 +1,6 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.create_client
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -20,6 +21,7 @@ import androidx.lifecycle.Lifecycle
 import coil3.annotation.InternalCoilApi
 import coil3.request.GlobalLifecycle.currentState
 import com.epacheco.reports.R
+import com.epacheco.reports.compose_reformat.general_components.CheckPermission
 import com.epacheco.reports.compose_reformat.general_components.Loader
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
 import com.epacheco.reports.compose_reformat.utils.extensions.getContactDetails
@@ -36,11 +38,14 @@ fun CreateClientScreen(
 
 
     var showDialogConfirmDeleteClient by remember { mutableStateOf(false) }
+    var showCheckContactsPermission by remember { mutableStateOf(false) }
+
     val context = LocalContext.current
 
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult(),
         onResult = { result ->
+            showCheckContactsPermission = false
             if (result.resultCode == Activity.RESULT_OK) {
                 val contactUri: Uri? = result.data?.data
                 if (contactUri != null) {
@@ -99,12 +104,7 @@ fun CreateClientScreen(
             onBackPressed?.invoke()
         },
         onSelectContact = {
-            val intent = Intent(Intent.ACTION_PICK).apply {
-                type =
-                    ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE // Or other types like ContactsContract.Contacts.CONTENT_TYPE
-            }
-
-            launcher.launch(intent)
+            showCheckContactsPermission = true
         })
 
     if (uiState.isLoading) {
@@ -133,6 +133,23 @@ fun CreateClientScreen(
     }
 
 
+
+    if (showCheckContactsPermission) {
+        CheckPermission(
+            permission = Manifest.permission.READ_CONTACTS,
+            iconPermission = R.drawable.ic_vector_add_photo,
+            onGranted = {
+                val intent = Intent(Intent.ACTION_PICK).apply {
+                    type =
+                        ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE // Or other types like ContactsContract.Contacts.CONTENT_TYPE
+                }
+                launcher.launch(intent)
+            },
+            permissionRationaleTitle = stringResource(R.string.permission_contacts_title),
+            permissionOpenSettingsTitle = stringResource(R.string.permission_contacts_settings_title),
+            onCancel = { showCheckContactsPermission = false }
+        )
+    }
     if (showDialogConfirmDeleteClient) {
         ReportsDialog(
             imgDialog = R.drawable.ic_vector_remove,

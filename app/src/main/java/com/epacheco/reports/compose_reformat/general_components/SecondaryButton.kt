@@ -1,5 +1,6 @@
 package com.epacheco.reports.compose_reformat.general_components
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -16,19 +17,22 @@ fun SecondaryButton(
     enabledButton: Boolean = true,
     onButtonClicked: (() -> Unit)? = null
 ) {
-    TextButton(
-        enabled = enabledButton,
-        onClick = {
-            onButtonClicked?.invoke()
-        }
-    ) {
-        Text(
-            text = textButton,
-            modifier = modifier.fillMaxWidth(),
-            textAlign = TextAlign.Center
-        )
+    Box(modifier = modifier) {
+        TextButton(
+            enabled = enabledButton,
+            onClick = {
+                onButtonClicked?.invoke()
+            }
+        ) {
+            Text(
+                text = textButton.uppercase(),
+                modifier = modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center
+            )
 
+        }
     }
+
 }
 
 

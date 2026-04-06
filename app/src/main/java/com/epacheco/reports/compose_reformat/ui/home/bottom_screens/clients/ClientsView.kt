@@ -34,6 +34,7 @@ import com.epacheco.reports.compose_reformat.general_components.SearchBarElement
 import com.epacheco.reports.compose_reformat.model.clients.Client
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.utils.extensions.initials
+import com.epacheco.reports.compose_reformat.utils.extensions.toCurrencyFormat
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -127,7 +128,7 @@ fun ClientsView(
                         val clientName = client.name.plus(" ").plus(client.lastNanme)
                         ClientCompactItem(
                             text = clientName,
-                            contentText = client.detail.ifEmpty { null },
+                            contentText = client.debt.toCurrencyFormat(),
                             secondaryText = client.phone.ifEmpty { null },
                             onClick = {
                                 onClientSelected.invoke(client)

@@ -20,6 +20,7 @@ import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.Header
 import com.epacheco.reports.compose_reformat.general_components.InputTextField
 import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
+import com.epacheco.reports.compose_reformat.general_components.SecondaryButton
 import com.epacheco.reports.compose_reformat.general_components.SecondaryItem
 import com.epacheco.reports.compose_reformat.ui.theme.GrayDark
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
@@ -132,12 +133,11 @@ fun CreateClientView(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 clientId?.let {
-                    PrimaryButton(
+                    SecondaryButton(
                         modifier = Modifier
                             .weight(1f)
                             .padding(horizontal = 8.dp),
                         textButton = stringResource(R.string.btn_delete),
-                        colorBackground = GrayDark
                     ) {
                         onDeleteClient?.invoke()
                     }
@@ -173,7 +173,7 @@ fun CreateClientView(
 @Composable
 fun CreateClientViewPreview() {
     ReportsGoTheme {
-        CreateClientView()
+        CreateClientView(clientId = "222")
     }
 
 }

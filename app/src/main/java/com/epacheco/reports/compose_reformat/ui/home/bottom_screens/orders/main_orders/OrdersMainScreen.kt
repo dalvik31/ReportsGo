@@ -1,5 +1,6 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders
 
+import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -7,6 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -34,7 +36,7 @@ fun OrdersMainScreen(
     val lifecycleOwner = LocalLifecycleOwner.current
     val currentState = lifecycleOwner.lifecycle.currentState
     val uiState by ordersMainViewModel.uiState.collectAsState()
-
+    val context = LocalContext.current
     var showSelectMainOrder by remember { mutableStateOf(false) }
     var showDialogCreateOrder by remember { mutableStateOf(false) }
 
@@ -106,14 +108,10 @@ fun OrdersMainScreen(
     }
 
     uiState.successOperationMsg?.let { msgSuccessOperation ->
-        ReportsDialog(
-            imgDialog = R.drawable.ic_vector_ok,
-            dialogSubTitle = stringResource(msgSuccessOperation),
-            closeAutomatically = true,
-            onConfirmation = {
-                ordersMainViewModel.handleIntent(OrdersMainUiIntent.HideDialogs)
-            })
+        Toast.makeText(context, stringResource(msgSuccessOperation), Toast.LENGTH_SHORT).show()
+        ordersMainViewModel.handleIntent(OrdersMainUiIntent.HideDialogs)
     }
+
 
     if (showInfoDialog) {
         val currentSeason = SeasonUtils.getSeason()

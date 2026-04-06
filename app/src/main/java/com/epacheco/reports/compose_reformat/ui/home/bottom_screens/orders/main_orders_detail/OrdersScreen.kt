@@ -1,9 +1,11 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders_detail
 
+import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -26,6 +28,7 @@ fun OrdersScreen(
     clientId: String? = null
 ) {
     val uiState by ordersViewModel.uiState.collectAsState()
+    val context = LocalContext.current
     LaunchedEffect(Unit) {
         ordersViewModel.handleIntent(OrdersUiIntent.LoadOrders(mainOrderId))
     }
@@ -89,13 +92,8 @@ fun OrdersScreen(
     }
 
     uiState.successOperationMsg?.let { msgSuccessOperation ->
-        ReportsDialog(
-            imgDialog = R.drawable.ic_vector_ok,
-            dialogSubTitle = stringResource(msgSuccessOperation),
-            closeAutomatically = true,
-            onConfirmation = {
-                ordersViewModel.handleIntent(OrdersUiIntent.HideDialogs)
-            })
+        Toast.makeText(context, stringResource(msgSuccessOperation), Toast.LENGTH_SHORT).show()
+        ordersViewModel.handleIntent(OrdersUiIntent.HideDialogs)
     }
 }
 
