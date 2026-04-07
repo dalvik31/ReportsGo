@@ -57,6 +57,7 @@ class AuthRepositoryImp @Inject constructor(
             result.user?.updateProfile(
                 UserProfileChangeRequest.Builder().setDisplayName(email.getNameFromEmail()).build()
             )?.await()
+            result.user?.sendEmailVerification()?.await()
             Resource.Success(result.user!!)
         } catch (customException: Exception) {
             Resource.Failure(customException)
@@ -78,6 +79,16 @@ class AuthRepositoryImp @Inject constructor(
                 .setPhotoUri(uriImg)
                 .build()
             firebaseAuth.currentUser?.updateProfile(profileImgUpdate)?.await()
+            Resource.Success(Any())
+        } catch (customException: Exception) {
+            Resource.Failure(customException)
+        }
+    }
+
+    override suspend fun sendEmailVerification(): Resource<Any> {
+        return try {
+            val result = firebaseAuth.currentUser
+            result?.sendEmailVerification()?.await()
             Resource.Success(Any())
         } catch (customException: Exception) {
             Resource.Failure(customException)

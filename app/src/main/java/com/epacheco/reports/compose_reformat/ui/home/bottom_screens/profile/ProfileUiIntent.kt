@@ -4,6 +4,7 @@ import java.io.File
 
 sealed class ProfileUiIntent {
     data object Logout : ProfileUiIntent()
+    data object SendEmailVerification : ProfileUiIntent()
     data class UploadProfileImage(val imageFile: File?) : ProfileUiIntent()
     data object Error : ProfileUiIntent()
 }

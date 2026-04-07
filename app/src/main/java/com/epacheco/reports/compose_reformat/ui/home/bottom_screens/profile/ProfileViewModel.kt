@@ -3,9 +3,11 @@ package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ReportsApp
 import com.epacheco.reports.compose_reformat.domain.user.GetUserUseCase
 import com.epacheco.reports.compose_reformat.domain.user.LogoutUseCase
+import com.epacheco.reports.compose_reformat.domain.user.SendEmailVerificationUseCase
 import com.epacheco.reports.compose_reformat.domain.user.UpdateProfileUseCase
 import com.epacheco.reports.compose_reformat.domain.user.UploadImgProfileUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
@@ -28,6 +30,7 @@ class ProfileViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
     private val uploadImgProfileUseCase: UploadImgProfileUseCase,
     private val updateProfileUseCase: UpdateProfileUseCase,
+    private val sendEmailVerificationUseCase: SendEmailVerificationUseCase,
     private val app: ReportsApp
 ) :
     BaseViewModel() {
@@ -46,6 +49,7 @@ class ProfileViewModel @Inject constructor(
             ProfileUiIntent.Logout -> doLogout()
             ProfileUiIntent.Error -> setErrorMsg()
             is ProfileUiIntent.UploadProfileImage -> uploadProfileImage(intent.imageFile)
+            ProfileUiIntent.SendEmailVerification -> sendEmailVerification()
         }
     }
 
@@ -120,6 +124,20 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+    private fun sendEmailVerification() {
+        viewModelScope.launch {
+            when (val sendEmailVerificationResponse = sendEmailVerificationUseCase()) {
+                is Resource.Failure -> {
+                    setErrorMsg(sendEmailVerificationResponse.exception.message)
+                }
+
+                is Resource.Success -> {
+                    _uiState.update { it.copy(successMsg = app.getString(R.string.lbl_send_email_to_verified_success)) }
+                }
+            }
+        }
+    }
+
 
     private fun uploadProfileImage(imageFile: File?) {
         viewModelScope.launch {
@@ -140,7 +158,7 @@ class ProfileViewModel @Inject constructor(
     }
 
     override fun setErrorMsg(msgError: String?) {
-        _uiState.update { it.copy(errorMessage = msgError) }
+        _uiState.update { it.copy(errorMessage = msgError, successMsg = null) }
     }
 
 

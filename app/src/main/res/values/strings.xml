@@ -625,6 +625,7 @@
     <string name="login_method">Método de inicio de sesión</string>
     <string name="email_verified">Correo verificado</string>
     <string name="lbl_send_email_to_verified">Enviar email de verificación</string>
+    <string name="lbl_send_email_to_verified_success"><![CDATA[<b>Correo de verificación enviado</b><br><br>Si tu correo es válido, recibiras un mensaje con instrucciones para continuar.<br><br>Por seguridad, cerraremos tu sesión.<br><br><b>Podras iniciar sesión nuevamente en cualquier momento.</b>]]></string>
 
     <!--SALES Fragments-->
     <string name="generate_sale">Nuevo ticket</string>

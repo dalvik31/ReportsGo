@@ -12,5 +12,6 @@ interface AuthRepository {
     suspend fun signup(email: String, password: String): Resource<FirebaseUser>
     suspend fun recoveryPassword(email: String): Resource<Any>
     suspend fun updateImgProfile(uriImg: Uri?): Resource<Any>
+    suspend fun sendEmailVerification(): Resource<Any>
     fun logout(): Resource<Any>
 }

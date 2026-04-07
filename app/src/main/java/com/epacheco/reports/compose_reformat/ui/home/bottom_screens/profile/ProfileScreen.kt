@@ -51,7 +51,10 @@ fun ProfileScreen(
         onUpdateProfilePictureClicked = {
             showProfilePictureDialog = true
         },
-        signInMethod = profileViewModel.uiState.value.signInMethod ?: ""
+        signInMethod = profileViewModel.uiState.value.signInMethod ?: "",
+        onSendEmailVerificationClicked = {
+            profileViewModel.handleIntent(ProfileUiIntent.SendEmailVerification)
+        }
     )
     if (uiState.isLoading) {
         Loader(false)
@@ -66,6 +69,18 @@ fun ProfileScreen(
                 profileViewModel.handleIntent(ProfileUiIntent.Error)
             })
     }
+
+    uiState.successMsg?.let { successMsg ->
+        ReportsDialog(
+            imgDialog = R.drawable.ic_vector_ok,
+            confirmButtonText = stringResource(R.string.btn_ok),
+            dialogSubTitle = successMsg,
+            onConfirmation = {
+                profileViewModel.handleIntent(ProfileUiIntent.Error)
+                profileViewModel.handleIntent(ProfileUiIntent.Logout)
+            })
+    }
+
 
     if (showProfilePictureDialog) {
         PickerPictureDialog(

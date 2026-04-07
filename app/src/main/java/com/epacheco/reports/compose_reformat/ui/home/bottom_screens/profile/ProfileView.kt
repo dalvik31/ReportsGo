@@ -49,7 +49,8 @@ fun ProfileView(
     firebaseUser: FirebaseUser? = null,
     onUpdateProfilePictureClicked: (() -> Unit)? = null,
     onLogoutClicked: (() -> Unit)? = null,
-    signInMethod: String? = null
+    signInMethod: String? = null,
+    onSendEmailVerificationClicked: (() -> Unit)? = null,
 ) {
     Column(Modifier.fillMaxSize()) {
         DividerProfile(firebaseUser)
@@ -156,7 +157,9 @@ fun ProfileView(
                         textSecondary = stringResource(R.string.lbl_no),
                         tintTextSecondary = RedDark
                     ) {}
-                    SecondaryButton(textButton = stringResource(R.string.lbl_send_email_to_verified))
+                    SecondaryButton(textButton = stringResource(R.string.lbl_send_email_to_verified)) {
+                        onSendEmailVerificationClicked?.invoke()
+                    }
                 }
             }
         }
