@@ -111,7 +111,8 @@ class DetailClientViewModel @Inject constructor(
                         _uiState.update {
                             it.copy(
                                 successMessage = R.string.msg_client_amount_update_success,
-                                clientAmount = ""
+                                clientAmount = "",
+                                clientConcept = ""
                             )
                         }
                         getClient(clientId)
