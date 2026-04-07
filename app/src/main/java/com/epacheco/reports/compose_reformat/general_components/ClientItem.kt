@@ -199,8 +199,11 @@ fun ClientItem(
                                 LinearProgressIndicator(
                                     modifier = Modifier.fillMaxWidth(),
                                     gapSize = (1).dp,
+                                    color = Utils.getClientBalanceColor(
+                                        client.geProgressLimit()
+                                    ),
                                     progress = {
-                                        client?.geProgressLimit() ?: 0f
+                                        client.geProgressLimit()
                                     },
                                     drawStopIndicator = {
                                         drawStopIndicator(

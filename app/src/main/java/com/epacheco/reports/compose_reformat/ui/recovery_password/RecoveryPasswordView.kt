@@ -49,7 +49,7 @@ fun RecoveryPasswordView(
         Card(modifier = Modifier.padding(horizontal = 24.dp)) {
             Column {
                 Spacer(modifier = Modifier.padding(8.dp))
-                Image(
+                /*Image(
                     modifier = Modifier
                         .fillMaxWidth()
                         .size(30.dp),
@@ -69,7 +69,7 @@ fun RecoveryPasswordView(
                     textAlign = TextAlign.Center
                 )
 
-                Spacer(modifier = Modifier.padding(8.dp))
+                Spacer(modifier = Modifier.padding(8.dp))*/
                 Text(
                     color = MaterialTheme.colorScheme.primary,
                     text = stringResource(R.string.recovery_password_body),
@@ -81,22 +81,23 @@ fun RecoveryPasswordView(
             }
 
         }
-
+        Spacer(modifier = Modifier.padding(8.dp))
         InputTextField(
-            modifier = Modifier.padding(all = 24.dp),
+            modifier = Modifier.padding(horizontal = 24.dp),
             textHint = stringResource(R.string.register_screen_hint_email),
             textValue = inputEmail ?: "",
             onTextChange = { onInputEmailChanged?.invoke(it) },
             keyboardType = KeyboardType.Email
         )
-
+        Spacer(modifier = Modifier.weight(1f))
         PrimaryButton(
-            modifier = Modifier.padding(24.dp),
+            modifier = Modifier.padding(horizontal = 24.dp),
             enabledButton = inputEmailIsValid,
             textButton = stringResource(R.string.recovery_password_send_email)
         ) {
             onSendEmail?.invoke()
         }
+        Spacer(modifier = Modifier.padding(8.dp))
     }
 }
 

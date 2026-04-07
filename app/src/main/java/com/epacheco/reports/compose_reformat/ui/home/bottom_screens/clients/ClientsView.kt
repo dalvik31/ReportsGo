@@ -47,6 +47,7 @@ fun ClientsView(
     inputName: String? = null,
     onNavigateToProfile: (() -> Unit)? = null,
     onNavigateToCreateClient: ((String?) -> Unit)? = null,
+    onPhoneClick: ((String) -> Unit)? = null
 ) {
     val state = rememberPullToRefreshState()
 
@@ -136,7 +137,10 @@ fun ClientsView(
                             onLongClick = {
                                 onNavigateToCreateClient?.invoke(client.id)
                             }, avatarLetters = clientName.initials(),
-                            progressLimit = client.geProgressLimit()
+                            progressLimit = client.geProgressLimit(),
+                            phoneClick = {
+                                onPhoneClick?.invoke(client.phone)
+                            }
                         )
                     }
                 }

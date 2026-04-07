@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -52,8 +54,7 @@ fun SplashView(modifier: Modifier = Modifier) {
 
         Image(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
+                .size(200.dp),
             contentScale = ContentScale.FillWidth,
             painter = painterResource(R.drawable.img_logo_reports_go),
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),

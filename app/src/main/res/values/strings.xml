@@ -305,8 +305,8 @@
 
     <!--PERMISSIONS-->
     <string name="permission_title">Selecciona una imagen\n\nPuedes elegir una existente o capturar una nueva</string>
-    <string name="permission_contacts_title">Necesitamos acceder a los contactos del dispositivo para agilizar el proceso de creacion de un cliente.</string>
-    <string name="permission_contacts_settings_title">Es necesario permitir el acceso a los contactos del dispositivo para una mejor experiencia.</string>
+    <string name="permission_contacts_title">Para agilizar la creación de un cliente, es necesario permitir el acceso a los contactos del dispositivo.</string>
+    <string name="permission_contacts_settings_title">Para agilizar la creación de un cliente, es necesario permitir el acceso a los contactos del dispositivo.</string>
     <string name="permission_camera_title">Necesitamos acceder a la camara de tu dispositivo para poder escanear el código.</string>
     <string name="permission_camera_product_title">Necesitamos acceder a la camara del dispositivo para poder tomar fotografias.</string>
     <string name="permission_camera_settings_product_title">Es necesario permitir el acceso a la camara del dispositivo para poder tomar fotografias.</string>
@@ -314,6 +314,7 @@
     <string name="permission_gallery_product_title">Necesitamos acceder a la galeria de tu dispositivo.</string>
     <string name="permission_gallery_settings_product_title">Es necesario permitir el acceso a la galeria del dispositivo para poder elegir una imagen para tu producto.</string>
     <string name="permission_settings_title">Es necesario permitir el acceso a la camara del dispositivo para poder escanear el codigo.</string>
+
     <string name="permission_btn_open_settings">Ir a configuración</string>
     <string name="permission_btn_get_permission">Solicitar permiso</string>
     <!--General errors-->
@@ -347,9 +348,9 @@
 
     <!--Recovery Password Screen-->
     <string name="recovery_password_screen_title">Recuperar contraseña</string>
-    <string name="recovery_password_body">Si olvidaste tu contraseña, puedes ingresar el correo eléctronico con el que creaste tu cuenta y te enviaremos instrucciones para ayudarte a reestablecerla.</string>
+    <string name="recovery_password_body">Ingresa tu correo electrónico y te enviaremos un enlace para que puedas cambiar tu contraseña.</string>
     <string name="recovery_password_hint_email">Ingresa correo electrónico</string>
-    <string name="recovery_password_send_email">Enviar correo electrónico</string>
+    <string name="recovery_password_send_email">Enviar enlace</string>
     <string name="recovery_password_success">Se envio un email al correo que ingresaste, revisa tu bandeja de entrada</string>
     <string name="lbl_remember">Recuerda</string>
 
@@ -556,8 +557,8 @@
     <string name="client_credit_title">Crédito</string>
     <string name="client_credit">Limite de crédito $%s</string>
     <string name="select_list_main">¿En que lista se generará el pedido?</string>
-    <string name="permission_phone_title">Necesitamos acceder a los contactos de tu dispositivo para poder realizar la llamada.</string>
-    <string name="permission_phone_settings_title">Es necesario permitir el acceso a los contactos del dispositivo para poder realizar la llamada.</string>
+    <string name="permission_phone_title">Necesitamos tu autorizacion para poder realizar la llamada.</string>
+    <string name="permission_phone_settings_title">Es necesario permitir el acceso a la aplicacion de Teléfono para poder continuar</string>
     <string name="msg_client_amount_update_success">¡Abono realizado!.</string>
     <string name="msg_info_client_not_found">No se encontro información.</string>
     <string name="msg_clients_not_found">No se encontraron clientes.</string>

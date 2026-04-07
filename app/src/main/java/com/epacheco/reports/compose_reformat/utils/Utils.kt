@@ -33,6 +33,7 @@ object Utils {
     @Composable
     fun getClientBalanceColor(limitCreditPercent: Float): Color =
         when (limitCreditPercent) {
+            0.0f -> MaterialTheme.colorScheme.primary
             in 0.000001f..0.4f -> MaterialTheme.colorScheme.primary
             in 0.4f..0.8f -> YellowColor
             in 0.8f..1f -> RedDark

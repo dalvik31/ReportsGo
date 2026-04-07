@@ -1,17 +1,24 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.client_detail
 
+import android.Manifest
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import coil3.annotation.InternalCoilApi
 import coil3.request.GlobalLifecycle.currentState
 import com.epacheco.reports.R
+import com.epacheco.reports.compose_reformat.general_components.CheckPermission
 import com.epacheco.reports.compose_reformat.general_components.Loader
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
+import com.epacheco.reports.compose_reformat.utils.extensions.gotoApplicationContact
 
 @OptIn(InternalCoilApi::class)
 @Composable
@@ -25,6 +32,8 @@ fun ClientDetailScreen(
 ) {
 
     val uiState by detailClientViewModel.uiState.collectAsState()
+    var showPhoneDialog by remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         if (currentState.isAtLeast(Lifecycle.State.STARTED)) {
@@ -52,6 +61,9 @@ fun ClientDetailScreen(
             detailClientViewModel.handleIntent(
                 ClientDetailUiIntent.UpdateAmountPayClient(it)
             )
+        },
+        onPhoneClick = {
+            showPhoneDialog = true
         })
 
     if (uiState.isLoading) {
@@ -78,5 +90,19 @@ fun ClientDetailScreen(
             })
     }
 
+    if (showPhoneDialog) {
+        CheckPermission(
+            permission = Manifest.permission.CALL_PHONE,
+            iconPermission = R.drawable.ic_vector_phone,
+            onGranted = {
+                context.gotoApplicationContact(uiState.client?.phone)
+                showPhoneDialog = false
+            },
+            permissionRationaleTitle = stringResource(R.string.permission_phone_title),
+            permissionOpenSettingsTitle = stringResource(R.string.permission_phone_settings_title),
+            onCancel = { showPhoneDialog = false }
+        )
+
+    }
 
 }

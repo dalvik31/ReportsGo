@@ -50,6 +50,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.InputTextField
 import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
+import com.epacheco.reports.compose_reformat.general_components.SecondaryButton
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
 import com.epacheco.reports.compose_reformat.general_components.dialogs.color_picker.ColorPickerDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.picker_dialog.PickerDialog
@@ -328,12 +329,11 @@ fun NewProductView(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 productToEdit?.let {
-                    PrimaryButton(
+                    SecondaryButton(
                         modifier = Modifier
                             .weight(1f)
                             .padding(horizontal = 8.dp),
                         textButton = stringResource(R.string.btn_delete),
-                        colorBackground = GrayDark
                     ) {
                         onDeleteProduct?.invoke()
 

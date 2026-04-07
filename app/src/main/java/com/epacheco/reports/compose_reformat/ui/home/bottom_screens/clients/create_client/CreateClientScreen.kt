@@ -137,7 +137,7 @@ fun CreateClientScreen(
     if (showCheckContactsPermission) {
         CheckPermission(
             permission = Manifest.permission.READ_CONTACTS,
-            iconPermission = R.drawable.ic_vector_add_photo,
+            iconPermission = R.drawable.ic_vector_clients,
             onGranted = {
                 val intent = Intent(Intent.ACTION_PICK).apply {
                     type =
