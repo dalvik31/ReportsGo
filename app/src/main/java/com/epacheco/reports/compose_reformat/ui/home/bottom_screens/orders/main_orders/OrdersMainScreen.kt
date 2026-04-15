@@ -162,21 +162,21 @@ fun OrdersMainScreen(
             confirmButtonText = stringResource(R.string.btn_understood)
         )
     }
-   /* if (showDialogCreateOrder) {
-        ReportsInputDialog(
-            icon = R.drawable.ic_vector_order,
-            text = uiState.listName,
-            onInputChanged = { e ->
-                ordersMainViewModel.onValueInputListChanged(input = e)
-            },
-            confirmButtonText = stringResource(R.string.btn_create_order_list),
-            dialogHint = stringResource(R.string.title_create_order_list),
-            onDismissRequest = { showDialogCreateOrder = false },
-            onConfirmation = {
-                showDialogCreateOrder = false
-                ordersMainViewModel.handleIntent(OrdersMainUiIntent.CreateOrderMainList)
-            })
-    }*/
+    /* if (showDialogCreateOrder) {
+         ReportsInputDialog(
+             icon = R.drawable.ic_vector_order,
+             text = uiState.listName,
+             onInputChanged = { e ->
+                 ordersMainViewModel.onValueInputListChanged(input = e)
+             },
+             confirmButtonText = stringResource(R.string.btn_create_order_list),
+             dialogHint = stringResource(R.string.title_create_order_list),
+             onDismissRequest = { showDialogCreateOrder = false },
+             onConfirmation = {
+                 showDialogCreateOrder = false
+                 ordersMainViewModel.handleIntent(OrdersMainUiIntent.CreateOrderMainList)
+             })
+     }*/
 
 }
 

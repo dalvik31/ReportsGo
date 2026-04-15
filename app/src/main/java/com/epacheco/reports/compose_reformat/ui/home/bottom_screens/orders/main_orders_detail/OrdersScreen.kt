@@ -29,6 +29,7 @@ import com.epacheco.reports.compose_reformat.utils.extensions.gotoApplicationCon
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.flow.collectLatest
 import android.location.Address
+import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.utils.extensions.getFormatAddress
 import java.util.Locale
 
@@ -38,6 +39,7 @@ fun OrdersScreen(
     ordersViewModel: OrdersViewModel = hiltViewModel<OrdersViewModel>(),
     onBackPressed: (() -> Unit)? = null,
     onNavigateToCreateOrder: ((String, Season?) -> Unit)? = null,
+    onNavigateToCreateMainOrder: ((List<Order>) -> Unit)? = null,
     onNavigateToEditOrder: ((String, String) -> Unit)? = null,
     mainOrderId: String,
     orderSeason: Season?,
@@ -83,31 +85,30 @@ fun OrdersScreen(
         onOrderClick = {
             if (it == null) {
                 selectionMode = false
-            }else{
+            } else {
                 selectionMode = !selectionMode
             }
-
-            //onNavigateToEditOrder?.invoke(it.orderListId, it.orderId)
         },
         isRefreshing = uiState.isLoading,
         onUpdateStatusOrderClick = {
             showLocationDialog = true
             ordersViewModel.handleIntent(OrdersUiIntent.SetOrderSelected(it))
         },
-        onSelectedModeClick = {
-            selectionMode = !selectionMode
-        },
         isSelectedMode = selectionMode,
         progressList = uiState.progressOrders,
         onRefresh = {
             ordersViewModel.handleIntent(OrdersUiIntent.LoadOrders(mainOrderId))
         },
-        moveSelectedItems = {itemsSelected ->
+        moveSelectedItems = { itemsSelected ->
             itemsSelected.forEach { order ->
-                Log.e("aqui","item: ${order.orderName}")
+                Log.e("aqui", "item: ${order.orderName}")
             }
+            onNavigateToCreateMainOrder?.invoke((itemsSelected))
             //ordersViewModel.handleIntent(OrdersUiIntent.MoveSelectedItems(itemsSelected))
 
+        },
+        onEditOrderClick = {
+            onNavigateToEditOrder?.invoke(it.orderListId, it.orderId)
         }
     )
 

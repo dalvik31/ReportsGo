@@ -225,6 +225,7 @@
     <string name="msg_item_order_removed">Pedido eliminado.</string>
     <string name="msg_zero_orders_elements">No se encontraron pedidos en esta lista %1$s</string>
     <string name="lbl_title_orders">Listas de pedidos</string>
+    <string name="lbl_title_select_orders">Selección de listas de pedidos</string>
     <string name="lbl_title_create_order">Nuevo pedido</string>
     <string name="lbl_title_create_order_name">Nombre</string>
     <string name="lbl_title_create_order_name_hint">Qué pidieron</string>
@@ -343,6 +344,7 @@
     <string name="lbl_email">Correo electrónico</string>
     <string name="lbl_yes">Si</string>
     <string name="lbl_no">No</string>
+    <string name="move">Mover</string>
 
 
     <!--Recovery Password Screen-->
@@ -562,6 +564,7 @@
     <string name="client_cel">Número celular del cliente</string>
     <string name="client_credit_title">Crédito</string>
     <string name="client_credit">Limite de crédito $%s</string>
+    <string name="select_list_main_order">Selecciona la lista a donde mover los pedidos</string>
     <string name="select_list_main">¿En que lista se generará el pedido?</string>
     <string name="permission_phone_title">Necesitamos tu autorizacion para poder realizar la llamada.</string>
     <string name="permission_phone_settings_title">Es necesario permitir el acceso a la aplicacion de Teléfono para poder continuar</string>

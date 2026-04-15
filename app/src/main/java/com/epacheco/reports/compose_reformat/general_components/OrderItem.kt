@@ -6,6 +6,7 @@ import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -72,6 +73,7 @@ import java.util.Locale
 fun OrderItem(
     order: Order,
     onOrderClick: ((Order) -> Unit)? = null,
+    onEditOrderClick: ((Order) -> Unit)? = null,
     onOrderLongClick: ((Order) -> Unit)? = null,
     isModeSelected: Boolean = false,
     isSelectedItem: Boolean = false,
@@ -172,15 +174,26 @@ fun OrderItem(
                                     .size(32.dp),
                                 contentAlignment = Alignment.Center
                             ) {
-                                if (isModeSelected) {
+
                                     Image(
                                         modifier = Modifier
-                                            .size(24.dp),
-                                        painter = painterResource(if (isSelectedItem) R.drawable.ic_check else R.drawable.ic_circle),
+                                            .size(24.dp)
+                                            .clickable {
+                                                if(!isModeSelected){
+                                                    onEditOrderClick?.invoke(order)
+                                                }
+                                            },
+                                        painter = painterResource(
+                                            if (isModeSelected) {
+                                                if (isSelectedItem) R.drawable.ic_check else R.drawable.ic_circle
+                                            } else {
+                                                R.drawable.ic_edit
+                                            }
+                                        ),
                                         contentDescription = null,
                                         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
                                     )
-                                }
+
 
                             }
                         }
@@ -430,7 +443,7 @@ fun OrderItemPreview() {
             orderColor = "Color",
             orderGender = "Genero",
             orderClientName = "Cliente",
-            orderBuy = true
-        ),
+            orderBuy = false,
+        ), isModeSelected = false
     )
 }

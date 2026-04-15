@@ -61,7 +61,7 @@ fun OrdersView(
     onBackPressed: (() -> Unit)? = null,
     onOrderClick: ((Order?) -> Unit)? = null,
     onCreateOrderClick: (() -> Unit)? = null,
-    onSelectedModeClick: (() -> Unit)? = null,
+    onEditOrderClick: ((Order) -> Unit)? = null,
     moveSelectedItems: ((List<Order>) -> Unit)? = null,
     onUpdateStatusOrderClick: ((Order) -> Unit)? = null,
     nameOrderMain: String? = null,
@@ -151,7 +151,7 @@ fun OrdersView(
                             painter = painterResource(R.drawable.ic_vector_empty_orders),
                             contentDescription = null,
 
-                        )
+                            )
                         Text(
                             color = MaterialTheme.colorScheme.primary,
                             text = stringResource(R.string.list_orders_empty),
@@ -181,7 +181,10 @@ fun OrdersView(
                                     else selectedItems.add(index)
                                     onOrderClick?.invoke(orderList[order])
                                 },
-                                isSelectedMode,
+                                isModeSelected = isSelectedMode,
+                                onEditOrderClick = {
+                                    onEditOrderClick?.invoke(it)
+                                },
                                 isSelectedItem = isSelected,
                                 onOrderCheckedClick = {
                                     if (isSelected) selectedItems.remove(index)
