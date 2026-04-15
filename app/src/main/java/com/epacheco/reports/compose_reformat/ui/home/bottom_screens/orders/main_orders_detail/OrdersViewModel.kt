@@ -7,6 +7,7 @@ import com.epacheco.reports.compose_reformat.domain.orders.UpdateStatusOrderMain
 import com.epacheco.reports.compose_reformat.domain.orders.GetOrdersListUseCase
 import com.epacheco.reports.compose_reformat.domain.orders.UpdateOrderStatusUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
+import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -40,8 +41,13 @@ class OrdersViewModel @Inject constructor(
             is OrdersUiIntent.UpdateStatusOrder -> updateStatusOrder(
                 intent.orderId,
                 intent.mainOrderId,
-                intent.orderBuy
+                intent.orderBuy,
+                intent.locationLat,
+                intent.locationLong,
+                address = intent.address
             )
+
+            is OrdersUiIntent.SetOrderSelected -> setSelectedOrder(intent.orderSelected)
         }
     }
 
@@ -60,7 +66,8 @@ class OrdersViewModel @Inject constructor(
                     _uiState.value =
                         _uiState.value.copy(
                             orders = orderResponse.result,
-                            showImgEmptyList = orderResponse.result.isEmpty()
+                            showImgEmptyList = orderResponse.result.isEmpty(),
+                            progressOrders = geProgressList(orderResponse.result)
                         )
 
                 }
@@ -68,6 +75,20 @@ class OrdersViewModel @Inject constructor(
             loading(false)
         }
 
+
+    private fun geProgressList(orderLists: List<Order>): Float {
+        var countOrders = 0f
+        if (orderLists.isNotEmpty()) {
+
+            orderLists.forEach {
+                if (it.orderBuy) {
+                    countOrders++
+                }
+            }
+            countOrders /= orderLists.size
+        }
+        return countOrders
+    }
 
     private fun deleteOrder(orderId: String, mainOrderId: String) =
         viewModelScope.launch {
@@ -83,12 +104,26 @@ class OrdersViewModel @Inject constructor(
             loading(false)
         }
 
-    private fun updateStatusOrder(orderId: String, mainOrderId: String, orderBuy: Boolean) =
+    private fun updateStatusOrder(
+        orderId: String,
+        mainOrderId: String,
+        orderBuy: Boolean,
+        latitude: Double? = null,
+        longitude: Double? = null,
+        address: String? = null
+    ) =
         viewModelScope.launch {
             loading(true)
 
             when (val orderMainResponse =
-                updateOrderStatusUseCase(orderId, mainOrderId = mainOrderId, orderBuy)) {
+                updateOrderStatusUseCase(
+                    orderId,
+                    mainOrderId = mainOrderId,
+                    orderBuy,
+                    latitude,
+                    longitude,
+                    address = address
+                )) {
                 is Resource.Failure -> setErrorMsg(orderMainResponse.exception.message)
                 is Resource.Success -> {
                     _uiState.value =
@@ -99,8 +134,10 @@ class OrdersViewModel @Inject constructor(
             loading(false)
         }
 
-    
 
+    private fun setSelectedOrder(orderSelected: Order?) {
+        _uiState.update { it.copy(orderSelected = orderSelected) }
+    }
 
     override fun setErrorMsg(msgError: String?) {
         _uiState.update { it.copy(errorMessage = msgError, successOperationMsg = null) }

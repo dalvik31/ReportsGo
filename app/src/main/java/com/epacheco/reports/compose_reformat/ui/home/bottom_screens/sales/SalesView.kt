@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -74,8 +76,9 @@ fun SalesView(
                     onNavigateToFinances?.invoke()
                 },
                 tintImageRight = MaterialTheme.colorScheme.primary,
-                onProfileClicked = { onNavigateToProfile?.invoke() },
-                tintIconProfile = MaterialTheme.colorScheme.primary
+                onRightIconSecondClicked = { onNavigateToProfile?.invoke() },
+                tintRightIconSecond = MaterialTheme.colorScheme.primary,
+                rightIconSecondImageVector = Icons.Filled.AccountCircle
             )
 
 

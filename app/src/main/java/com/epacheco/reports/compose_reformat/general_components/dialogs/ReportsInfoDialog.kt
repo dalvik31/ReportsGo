@@ -22,12 +22,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.fromHtml
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,10 +43,12 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.epacheco.reports.R
+import com.epacheco.reports.compose_reformat.general_components.InputTextField
 import com.epacheco.reports.compose_reformat.ui.theme.FallColor
 
 @Composable
 fun ReportsInfoDialog(
+    modifier: Modifier = Modifier,
     imgDialog: Int? = null,
     lottieAnimation: Int? = null,
     iconDialog: Int? = null,
@@ -53,6 +57,9 @@ fun ReportsInfoDialog(
     dialogTitle: String? = null,
     dialogSubTitle: String? = null,
     confirmButtonText: String? = null,
+    inputText: String? = null,
+    inputTextHint: String? = null,
+    onInputChanged: ((String) -> Unit)? = null,
     onDismissRequest: (() -> Unit)? = null,
     onConfirmation: (() -> Unit)? = null,
 ) {
@@ -112,24 +119,28 @@ fun ReportsInfoDialog(
                         Text(
                             text = it,
                             textAlign = TextAlign.Center,
+                            color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier
-                                .padding(top = 5.dp)
+                                .padding(vertical = 10.dp)
                                 .fillMaxWidth(),
                             style = MaterialTheme.typography.titleLarge,
                             maxLines = 2,
                             overflow = TextOverflow.Ellipsis,
                         )
                     }
+
+
                     iconDialog?.let { icon ->
-                        IconButton({
-                        }, modifier = Modifier.fillMaxWidth()) {
-                            Icon(
-                                painter = painterResource(icon),
-                                contentDescription = null,
-                                tint = iconDialogTint ?: MaterialTheme.colorScheme.primary,
-                                modifier = Modifier.size(16.dp)
-                            )
-                        }
+                        val filter =
+                            if (iconDialogTint != null) ColorFilter.tint(iconDialogTint) else null
+                        Image(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .size(16.dp),
+                            painter = painterResource(icon),
+                            contentDescription = null,
+                            colorFilter = ColorFilter.tint(iconDialogTint ?: MaterialTheme.colorScheme.primary),
+                        )
                     }
 
                     dialogSubTitle?.let {
@@ -137,7 +148,7 @@ fun ReportsInfoDialog(
                             text = AnnotatedString.fromHtml(it),
                             textAlign = TextAlign.Center,
                             modifier = Modifier
-                                .padding(top = 10.dp)
+                                .padding(vertical = 10.dp)
                                 .fillMaxWidth(),
                             fontWeight = FontWeight.Normal,
                             color = MaterialTheme.colorScheme.primary,
@@ -146,6 +157,18 @@ fun ReportsInfoDialog(
                         )
                     }
 
+                    inputText?.let {
+                        InputTextField(
+                            modifier = modifier
+                                .padding(horizontal = 24.dp, vertical = 10.dp)
+                                .fillMaxWidth(),
+                            textValue = inputText,
+                            capitalization = KeyboardCapitalization.Sentences,
+                            textHint = inputTextHint ?: "",
+                            onTextChange = { onInputChanged?.invoke(it) }
+
+                        )
+                    }
 
                 }
 
@@ -154,7 +177,6 @@ fun ReportsInfoDialog(
                 Row(
                     Modifier
                         .fillMaxWidth()
-                        .padding(top = 10.dp)
                         .background(MaterialTheme.colorScheme.primary),
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
@@ -195,6 +217,7 @@ fun ReportsInfoDialogPreview() {
         imgDialog = R.drawable.ic_vector_sale_emmpty,
         lottieAnimation = R.raw.fall,
         iconDialog = R.drawable.ic_error,
+        inputText = "",
         confirmButtonText = "Aceptar"
     )
 }

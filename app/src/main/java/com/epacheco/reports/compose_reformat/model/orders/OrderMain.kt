@@ -25,7 +25,7 @@ data class OrderMain(
                     countOrders++
                 }
             }
-            countOrders = (countOrders) / orderLists!!.size
+            countOrders /= orderLists?.size ?: 0
         }
         return countOrders
     }

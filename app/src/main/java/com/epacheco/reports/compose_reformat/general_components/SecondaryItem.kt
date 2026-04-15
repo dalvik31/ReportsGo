@@ -102,6 +102,7 @@ fun SecondaryItem(
                     text = text?.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }
                         ?: "",
                     textAlign = TextAlign.Start,
+
                     style = MaterialTheme.typography.bodyLarge.copy(
                         fontWeight = if (strikeThrough) FontWeight.Light else FontWeight.Bold,
                         textDecoration = if (strikeThrough) TextDecoration.LineThrough else TextDecoration.None,

@@ -9,7 +9,8 @@ sealed class OrdersMainUiIntent {
     data class GoToListOrders(
         val orderMainId: String,
         val orderSeason: Season?,
-        val orderNameMain: String
+        val orderNameMain: String,
+        val progressList: Float
     ) :
         OrdersMainUiIntent()
 

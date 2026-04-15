@@ -40,6 +40,7 @@ import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.model.products.Product
 import com.epacheco.reports.compose_reformat.ui.theme.White
 import com.epacheco.reports.compose_reformat.utils.extensions.stockColor
+import com.epacheco.reports.compose_reformat.utils.extensions.toCurrencyFormat
 
 @Composable
 fun SaleItem(
@@ -96,7 +97,7 @@ fun SaleItem(
                     Spacer(modifier = modifier.weight(1f))
 
                     Text(
-                        stringResource(R.string.lbl_price_sale, product?.productPriceSale ?: 0),
+                        (product?.productPriceSale ?: 0.0).toCurrencyFormat(),
                         modifier = modifier
                             .padding(end = 14.dp),
                         fontWeight = FontWeight.Black,

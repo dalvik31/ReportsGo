@@ -8,12 +8,18 @@ class UpdateOrderStatusUseCase @Inject constructor(private val ordersRepository:
     suspend operator fun invoke(
         orderId: String,
         mainOrderId: String,
-        orderBuy: Boolean
+        orderBuy: Boolean,
+        latitude: Double? = null,
+        longitude: Double? = null,
+        address: String? = null
     ): Resource<Any> {
         return ordersRepository.updateStatusOrder(
             orderId,
             mainOrderId = mainOrderId,
-            orderBuy = orderBuy
+            orderBuy = orderBuy,
+            locationLat = latitude,
+            locationLong = longitude,
+            address = address
         )
     }
 }

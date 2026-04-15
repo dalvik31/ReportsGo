@@ -28,6 +28,7 @@ object DateUtils {
         return dateFormatter.format(zoneFormatDate)
     }
 
+
     fun now() = Calendar.getInstance().time.time
 
 
@@ -37,6 +38,7 @@ object DateUtils {
     const val FORMAT_DATE4 = "dd/MM/yy"
     const val FORMAT_DATE5 = "d MMM yy"
     const val FORMAT_DATE6 = "dd MMM yyyy hh:mm a"
+    const val FORMAT_DATE7 = "W, MMMM YYYY"
 
 
 }

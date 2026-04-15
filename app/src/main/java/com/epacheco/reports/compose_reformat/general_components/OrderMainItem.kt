@@ -4,6 +4,7 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
@@ -36,6 +37,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
@@ -51,10 +53,9 @@ import com.epacheco.reports.compose_reformat.model.orders.OrderStatus
 import com.epacheco.reports.compose_reformat.model.orders.Season
 import com.epacheco.reports.compose_reformat.ui.theme.White
 import com.epacheco.reports.compose_reformat.utils.DateUtils
-import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE2
-import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE3
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE4
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE5
+import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE7
 import com.epacheco.reports.compose_reformat.utils.Utils
 
 
@@ -93,20 +94,19 @@ fun OrderMainItem(
             val numOrders = orderMain.orderLists?.size ?: 0
 
             Box(contentAlignment = Alignment.TopEnd) {
-                if(!orderMain.orderId.isEmpty()){
-                Box(
-                    modifier = Modifier
-                        .background(
-                            MaterialTheme.colorScheme.onBackground,
-                            RoundedCornerShape(bottomStart = 10.dp)
-                        )
-                        .padding(horizontal = 8.dp, vertical = 4.dp),
+                if (!orderMain.orderId.isEmpty()) {
+                    Box(
+                        modifier = Modifier
+                            .background(
+                                MaterialTheme.colorScheme.onBackground,
+                                RoundedCornerShape(bottomStart = 10.dp)
+                            )
+                            .padding(horizontal = 8.dp, vertical = 4.dp),
 
-                    ) {
+                        ) {
 
                         Text(
                             text = DateUtils.dateFormat(orderMain.orderId, FORMAT_DATE5),
-                            fontSize = 10.sp,
                             color = MaterialTheme.colorScheme.onPrimary,
                             style = MaterialTheme.typography.bodySmall,
 
@@ -133,35 +133,47 @@ fun OrderMainItem(
                     ) {
 
                         Row(
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(8.dp),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
 
-                            IconButton({
-                            }) {
-                                Icon(
-                                    painter = painterResource(R.drawable.ic_simple_dot),
-                                    contentDescription = null,
-                                    tint = Utils.getCardBackground(orderMain),
-                                    modifier = Modifier.size(16.dp)
 
-                                )
-                            }
+                            Image(
+                                modifier = Modifier
+                                    .size(16.dp),
+                                painter = when (orderMain.orderSeason) {
+                                    Season.FALL -> painterResource(R.drawable.ic_snow)
+                                    Season.SPRING -> painterResource(R.drawable.ic_sun)
+                                    else -> painterResource(R.drawable.ic_simple_dot)
+                                },
+                                contentDescription = null,
+                                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
+                            )
+
 
                             Text(
                                 color = MaterialTheme.colorScheme.primary,
+
                                 modifier = Modifier
-                                    .wrapContentWidth(),
+                                    .wrapContentWidth()
+                                    .padding(start = 8.dp),
                                 text = orderMain.nameOrder.replaceFirstChar {
                                     if (it.isLowerCase()) it.titlecase(
                                         java.util.Locale.ROOT
                                     ) else it.toString()
                                 }
                                     .ifEmpty {
-                                        DateUtils.dateFormat(
-                                            orderMain.orderId,
-                                            FORMAT_DATE4
+
+                                        stringResource(
+                                            R.string.order_date_week, DateUtils.dateFormat(
+                                                orderMain.orderId,
+                                                FORMAT_DATE7
+                                            )
                                         )
+
+
                                     },
                                 style = MaterialTheme.typography.titleSmall
                             )
@@ -171,6 +183,7 @@ fun OrderMainItem(
 
                         Row(
                             modifier = Modifier
+                                .fillMaxWidth()
                                 .padding(vertical = 12.dp)
                                 .padding(end = 12.dp, start = 12.dp),
                             verticalAlignment = Alignment.CenterVertically,

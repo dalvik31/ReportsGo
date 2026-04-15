@@ -274,7 +274,6 @@
     <string name="lbl_title_investment">Inversión</string>
     <string name="lbl_title_profit">Ganancia</string>
     <string name="lbl_price_zero">$0</string>
-    <string name="lbl_price_sales">$ %s</string>
     <string name="lbl_number_product_sales">%s productos vendidos</string>
     <string name="lbl_empty_sales">No hay ventas en este periodo</string>
     <string name="txt_product_cant"># %s</string>
@@ -398,6 +397,7 @@
     <string name="date_order"> %s</string>
     <string name="create_new_list_orders">Crear nueva lista</string>
     <string name="create_new_order">Crear nuevo pedido</string>
+    <string name="order_date_week">Semana %s</string>
     <string name="title_season">Temporada</string>
     <string name="season_fall_winter">Otoño - Invierno</string>
     <string name="season_warning">Toma esto en cuenta al crear tu lista</string>
@@ -447,12 +447,17 @@
     <string name="msg_order_list_update_success">Lista actualizada correctamente.</string>
     <string name="msg_order_delete_success">Pedido eliminado correctamente.</string>
     <string name="msg_order_update_success">Pedido actualizado correctamente.</string>
-    <string name="msg_current_season"><![CDATA[<b>%s</b><br/><br/>Toma esto en cuenta al crear tu lista.]]></string>
-    <string name="season_title">Temporada</string>
+    <string name="msg_current_season"><![CDATA[Toma esto en cuenta al crear tu lista.]]></string>
+    <string name="season_title">Toma esto en cuenta al crear tu lista</string>
     <string name="season_spring">Primavera - Verano</string>
     <string name="season_fall">Otoño - Invierno</string>
     <string name="order_empty_inputs_error">Faltan campos por completar</string>
     <string name="description_order"><![CDATA[<b>Descripción:</b> %s<br> <b>Talla:</b> %s<br> <b>Color:</b> %s<br> <b>Género:</b> %s<br> <b>Cliente:</b> %s<br>]]></string>
+    <string name="description">Descripción:</string>
+    <string name="size">Talla:</string>
+    <string name="color">Color:</string>
+    <string name="gender">Género:</string>
+    <string name="order_client">Cliente:</string>
 
     <string name="order_name_format"><![CDATA[<b>%s</b> %s]]></string>
     <plurals name="num_orders">
@@ -541,6 +546,7 @@
     <string name="option_call">Llamar</string>
     <string name="option_info">Información</string>
     <string name="create_new_cliet">Crear nuevo cliente</string>
+    <string name="info_client">Información de %s</string>
     <string name="modify_client">Modificar cliente</string>
     <string name="add_client_title">Detalles de %s</string>
     <string name="client_name_title">Nombre</string>
@@ -567,6 +573,9 @@
     <string name="permission_contacts_settings_product_title">Es necesario permitir el acceso a los contactos para poder obtener la información del usuario</string>
     <string name="client_debt_without_concept">Sin concepto</string>
     <string name="change_client">Cambiar cliente</string>
+    <string name="client_limit_info">Podras cambiar el limite de credito en cualquier momento.</string>
+
+
 
 
     <!--PRODUCTS Fragments-->
@@ -576,7 +585,6 @@
         <item formatted="true" quantity="one">(%s) Producto</item>
         <item formatted="true" quantity="other">(%s) Productos</item>
     </plurals>
-    <string name="lbl_price_sale">$%s</string>
     <string name="lbl_stock_sale">%s en existencia</string>
     <string name="lbl_search_product_hint">Nombre del producto</string>
 

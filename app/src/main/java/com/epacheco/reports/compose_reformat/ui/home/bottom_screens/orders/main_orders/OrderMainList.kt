@@ -60,7 +60,7 @@ fun OrderList(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Image(
-                    painter = painterResource(R.drawable.ic_vector_empty_orders),
+                    painter = painterResource(R.drawable.ic_vector_empty_main_orders),
                     contentDescription = null,
                 )
                 Text(

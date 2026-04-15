@@ -54,11 +54,20 @@ class OrdersRepositoryImpl @Inject constructor(
     override suspend fun updateStatusOrder(
         orderId: String,
         mainOrderId: String,
-        orderBuy: Boolean
+        orderBuy: Boolean,
+        locationLat: Double?,
+        locationLong: Double?,
+        address: String?
     ): Resource<Any> {
+        val updatesFields = mapOf<String, Any>(
+            "orderBuy" to orderBuy,
+            "locationLat" to (locationLat ?: 0),
+            "locationLong" to (locationLong ?: 0),
+            "address" to (address ?: ""),
+        )
         return try {
             getOrdersReference().child(mainOrderId).child("orderLists").child(orderId)
-                .child("orderBuy").setValue(orderBuy)
+                .updateChildren(updatesFields)
             Resource.Success(Any())
         } catch (exception: Exception) {
             Resource.Failure(exception)

@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
@@ -52,8 +54,9 @@ fun OrderMainView(
             tintImageRight = MaterialTheme.colorScheme.primary,
             onRightIconClicked = { onCreateOrderMainClick?.invoke() },
             rightImageVector = ImageVector.vectorResource(R.drawable.ic_vector_add),
-            onProfileClicked = { onNavigateToProfile?.invoke() },
-            tintIconProfile = MaterialTheme.colorScheme.primary
+            onRightIconSecondClicked = { onNavigateToProfile?.invoke() },
+            tintRightIconSecond = MaterialTheme.colorScheme.primary,
+            rightIconSecondImageVector = Icons.Filled.AccountCircle
         )
 
         val tabs = listOf(

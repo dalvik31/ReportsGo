@@ -392,6 +392,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                     orderSeason = orderMainRoute.orderSeason,
                     nameOrderMain = orderMainRoute.nameOrderMain,
 
+
                     onNavigateToCreateOrder = { mainOrderId, orderSeason ->
                         navController.navigate(
                             BottomHomeRoutes.CreateOrderBottomHomeRoute(

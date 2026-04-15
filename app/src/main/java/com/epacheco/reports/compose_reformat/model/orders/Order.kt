@@ -21,7 +21,28 @@ data class Order(
     var orderSeason: Season? = null,
     val orderClientName: String? = null,
     val orderClientId: String? = null,
-)  {
+    val locationLat: Double? = null,
+    val locationLong: Double? = null,
+    val address: String? = null
+) {
 
-    @Keep constructor() : this("", "", "", "", "", "", "", "", false, false, null, null, null)
+    @Keep
+    constructor() : this(
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        false,
+        false,
+        null,
+        null,
+        null,
+        locationLat = 0.0,
+        locationLong = 0.0,
+        address = ""
+    )
 }
