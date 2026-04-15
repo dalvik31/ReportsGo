@@ -1,9 +1,12 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.select_orders
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.compose_reformat.domain.orders.CreateMainOrderUseCase
 import com.epacheco.reports.compose_reformat.domain.orders.GetOrdersMainListUseCase
+import com.epacheco.reports.compose_reformat.domain.orders.MoveOrdersUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
+import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.model.orders.OrderMain
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import com.epacheco.reports.compose_reformat.utils.DateUtils
@@ -18,7 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SelectOrdersViewModel @Inject constructor(
     private val getOrdersMainListUseCase: GetOrdersMainListUseCase,
-    private val createOrderMainUseCase: CreateMainOrderUseCase
+    private val createOrderMainUseCase: CreateMainOrderUseCase,
+    private val moveOrdersUseCase: MoveOrdersUseCase
 ) : BaseViewModel() {
     private val _uiState = MutableStateFlow(SelectOrdersUiState())
     val uiState: StateFlow<SelectOrdersUiState> = _uiState
@@ -27,8 +31,18 @@ class SelectOrdersViewModel @Inject constructor(
     fun handleIntent(intent: SelectOrdersUiIntent) {
         when (intent) {
             SelectOrdersUiIntent.HideDialogs -> setErrorMsg()
-            SelectOrdersUiIntent.LoadSelectOrders -> getClientOrders()
             SelectOrdersUiIntent.CreateOrderMain -> createOrderMain()
+            SelectOrdersUiIntent.LoadSelectOrders -> getClientOrders()
+            is SelectOrdersUiIntent.SetOrderMainId -> setOrderMainId(intent.orderMainId)
+        }
+    }
+
+
+    private fun setOrderMainId(orderMainId: String?) {
+        orderMainId?.let {
+            _uiState.update {
+                it.copy(orderMainId = orderMainId)
+            }
         }
     }
 
@@ -36,9 +50,11 @@ class SelectOrdersViewModel @Inject constructor(
         loading(true)
         when (val ordersResponse = getOrdersMainListUseCase()) {
             is Resource.Success -> {
+                val listOrders =
+                    ordersResponse.result.filter { it.orderId != uiState.value.orderMainId }
                 _uiState.update {
                     it.copy(
-                        orderMainList = ordersResponse.result
+                        orderMainList = listOrders
                     )
                 }
             }
@@ -73,8 +89,23 @@ class SelectOrdersViewModel @Inject constructor(
     }
 
 
+    fun moveOrders(orders: List<Order>, mainOrderId: String) = viewModelScope.launch {
+        loading(true)
+        when (val moveOrdersResponse = moveOrdersUseCase(orders, mainOrderId)) {
+            is Resource.Success -> {
+                _uiState.update { it.copy(successMessage = "Se movieron los pedidos") }
+            }
+
+            is Resource.Failure -> {
+                setErrorMsg(moveOrdersResponse.exception.message)
+            }
+        }
+        loading(false)
+
+    }
+
     override fun setErrorMsg(msgError: String?) {
-        _uiState.update { it.copy(errorMessage = msgError) }
+        _uiState.update { it.copy(errorMessage = msgError, successMessage = null) }
     }
 
 

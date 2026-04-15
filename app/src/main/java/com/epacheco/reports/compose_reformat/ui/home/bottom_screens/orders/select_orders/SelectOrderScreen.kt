@@ -6,6 +6,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -28,18 +29,20 @@ fun SelectOrderScreen(
     onOrderMainSelected: ((String, Season?, String, String?) -> Unit)? = null,
     clientId: String? = null,
     orderListSelected: List<Order>? = null,
+    orderMainId: String? = null,
     onBackPressed: (() -> Unit)? = null,
 ) {
     val uiState by selectOrdersViewModel.uiState.collectAsState()
     var showInfoDialog by remember { mutableStateOf(false) }
+    var orderMainIdSelected by rememberSaveable { mutableStateOf("") }
+
 
     var showInfoMoveOrdersDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         if (currentState.isAtLeast(Lifecycle.State.STARTED)) {
-            selectOrdersViewModel.handleIntent(
-                SelectOrdersUiIntent.LoadSelectOrders
-            )
+            selectOrdersViewModel.handleIntent(SelectOrdersUiIntent.SetOrderMainId(orderMainId))
+            selectOrdersViewModel.handleIntent(SelectOrdersUiIntent.LoadSelectOrders)
         }
     }
 
@@ -50,6 +53,7 @@ fun SelectOrderScreen(
             clientId?.let {
                 onOrderMainSelected?.invoke(order.orderId, order.orderSeason, order.nameOrder, it)
             } ?: run {
+                orderMainIdSelected = order.orderId
                 showInfoMoveOrdersDialog = true
             }
 
@@ -111,10 +115,30 @@ fun SelectOrderScreen(
             },
             onConfirmation = {
                 showInfoMoveOrdersDialog = false
-                //clientOrdersViewModel.handleIntent(ClientOrdersUiIntent.CreateOrderMain)
+                selectOrdersViewModel.moveOrders(
+                    orderListSelected ?: emptyList(),
+                    orderMainIdSelected ?: ""
+                )
             },
             confirmButtonText = stringResource(R.string.move),
         )
+    }
+
+    uiState.successMessage?.let {
+
+        ReportsDialog(
+            imgDialog = R.drawable.ic_notfication,
+            dialogTitle = stringResource(R.string.option_info),
+            dialogSubTitle = it,
+            confirmButtonText = stringResource(R.string.btn_ok),
+            closeAutomatically = true,
+            onConfirmation = {
+                selectOrdersViewModel.handleIntent(SelectOrdersUiIntent.HideDialogs)
+                onBackPressed?.invoke()
+            }
+        )
+
+
     }
 }
 

@@ -39,7 +39,7 @@ fun OrdersScreen(
     ordersViewModel: OrdersViewModel = hiltViewModel<OrdersViewModel>(),
     onBackPressed: (() -> Unit)? = null,
     onNavigateToCreateOrder: ((String, Season?) -> Unit)? = null,
-    onNavigateToCreateMainOrder: ((List<Order>) -> Unit)? = null,
+    onNavigateToCreateMainOrder: ((List<Order>, String) -> Unit)? = null,
     onNavigateToEditOrder: ((String, String) -> Unit)? = null,
     mainOrderId: String,
     orderSeason: Season?,
@@ -103,7 +103,7 @@ fun OrdersScreen(
             itemsSelected.forEach { order ->
                 Log.e("aqui", "item: ${order.orderName}")
             }
-            onNavigateToCreateMainOrder?.invoke((itemsSelected))
+            onNavigateToCreateMainOrder?.invoke(itemsSelected, mainOrderId)
             //ordersViewModel.handleIntent(OrdersUiIntent.MoveSelectedItems(itemsSelected))
 
         },

@@ -57,7 +57,8 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
         "com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes.MainOrdersBottomHomeRoute",
         "com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes.ClientBottomHomeRoute",
         "com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes.ProductBottomHomeRoute",
-        "com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes.SaleBottomHomeRoute",)
+        "com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes.SaleBottomHomeRoute",
+    )
 
 
 
@@ -190,7 +191,8 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                         navController.navigate(
                             BottomHomeRoutes.ClientOrdersBottomHomeRoute(
                                 idClient = clientId,
-                                ordersSelected = null
+                                ordersSelected = null,
+                                orderMain = null
                             )
                         )
                     },
@@ -391,10 +393,11 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                                 null,
                                 mainOrderId,
                                 orderSeason,
-                                clientId = openOrder
+                                clientId = openOrder,
                             )
                         )
-                    })
+                    }, orderMainId = clientOrdersRoute.orderMain
+                )
             }
             composable<BottomHomeRoutes.DetailMainOrdersBottomHomeRoute> { backStackEntry ->
                 val orderMainRoute: BottomHomeRoutes.DetailMainOrdersBottomHomeRoute =
@@ -427,11 +430,12 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                     onBackPressed = {
                         navController.navigateUp()
                     }, clientId = orderMainRoute.clientId,
-                    onNavigateToCreateMainOrder = {
+                    onNavigateToCreateMainOrder = { orderSelected, orderMainId ->
                         navController.navigate(
                             BottomHomeRoutes.ClientOrdersBottomHomeRoute(
                                 idClient = null,
-                                ordersSelected = it
+                                ordersSelected = orderSelected,
+                                orderMain = orderMainId
                             )
                         )
                     }

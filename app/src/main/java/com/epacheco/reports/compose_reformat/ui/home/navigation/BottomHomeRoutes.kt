@@ -44,6 +44,7 @@ sealed interface BottomHomeRoutes {
     data class ClientOrdersBottomHomeRoute(
         val route: String = "Clients",
         val idClient: String?,
+        val orderMain: String?,
         val ordersSelected: List<Order>?
     ) :
         BottomHomeRoutes

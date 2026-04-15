@@ -32,8 +32,8 @@ class OrdersRepositoryImpl @Inject constructor(
 
     override suspend fun deleteOrder(orderId: String, mainOrderId: String): Resource<Any> {
         return try {
-            Log.e("aqui","eliminamos lista ordenId: ${orderId}")
-            Log.e("aqui","eliminamos lista mainOrderId: ${mainOrderId}")
+            Log.e("aqui", "eliminamos lista ordenId: ${orderId}")
+            Log.e("aqui", "eliminamos lista mainOrderId: ${mainOrderId}")
             getOrdersReference().child(mainOrderId).child("orderLists").child(orderId).removeValue()
             Resource.Success(Any())
         } catch (e: Exception) {
@@ -68,6 +68,19 @@ class OrdersRepositoryImpl @Inject constructor(
         return try {
             getOrdersReference().child(mainOrderId).child("orderLists").child(orderId)
                 .updateChildren(updatesFields)
+            Resource.Success(Any())
+        } catch (exception: Exception) {
+            Resource.Failure(exception)
+        }
+    }
+
+    override suspend fun moveOrders(order: List<Order>, orderMainId: String): Resource<Any> {
+        val mapOrder: HashMap<String, Order> = hashMapOf()
+        order.forEach {
+            mapOrder[it.orderId] = it
+        }
+        return try {
+            getOrdersReference().child(orderMainId).child("orderLists").setValue(mapOrder)
             Resource.Success(Any())
         } catch (exception: Exception) {
             Resource.Failure(exception)
