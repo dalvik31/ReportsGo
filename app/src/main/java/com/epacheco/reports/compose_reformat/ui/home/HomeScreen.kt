@@ -175,10 +175,10 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                     onBackPressed = {
                         navController.navigateUp()
                     },
-                    openClientTransaction = {
+                    openClientTransaction = { clientId, clientName ->
                         navController.navigate(
                             BottomHomeRoutes.ClientDetailInformation(
-                                it
+                                clientId, clientName
                             )
                         )
                     },
@@ -369,9 +369,12 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
             composable<BottomHomeRoutes.ClientDetailInformation> { backStackEntry ->
                 val orderMainRoute: BottomHomeRoutes.ClientDetailInformation =
                     backStackEntry.toRoute()
-                ClientInfoScreen(clientId = orderMainRoute.idClient, onBackPressed = {
-                    navController.navigateUp()
-                })
+                ClientInfoScreen(
+                    clientId = orderMainRoute.idClient,
+                    clientName = orderMainRoute.clientName,
+                    onBackPressed = {
+                        navController.navigateUp()
+                    })
             }
 
             composable<BottomHomeRoutes.ClientOrdersBottomHomeRoute>(

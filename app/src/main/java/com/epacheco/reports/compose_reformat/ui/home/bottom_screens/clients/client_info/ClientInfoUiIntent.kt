@@ -5,6 +5,9 @@ sealed class ClientInfoUiIntent {
     data class LoadTransactions(val clientId: String) :
         ClientInfoUiIntent()
 
+    data class LoadOrders(val clientId: String) :
+        ClientInfoUiIntent()
+
     data object HideDialogs : ClientInfoUiIntent()
 }
 

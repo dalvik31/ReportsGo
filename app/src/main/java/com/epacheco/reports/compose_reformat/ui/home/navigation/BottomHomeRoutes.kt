@@ -36,7 +36,7 @@ sealed interface BottomHomeRoutes {
     ) : BottomHomeRoutes
 
     @Serializable
-    data class ClientDetailInformation(val idClient: String?) : BottomHomeRoutes {
+    data class ClientDetailInformation(val idClient: String?,val clientName: String?) : BottomHomeRoutes {
 
     }
 

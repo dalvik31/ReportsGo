@@ -78,6 +78,7 @@ fun OrderItem(
     isModeSelected: Boolean = false,
     isSelectedItem: Boolean = false,
     onOrderCheckedClick: ((Order) -> Unit)? = null,
+    showEditBtn: Boolean = true
 ) {
 
     Surface(color = Color.Transparent) {
@@ -174,7 +175,7 @@ fun OrderItem(
                                     .size(32.dp),
                                 contentAlignment = Alignment.Center
                             ) {
-
+                                if(showEditBtn){
                                     Image(
                                         modifier = Modifier
                                             .size(24.dp)
@@ -193,6 +194,9 @@ fun OrderItem(
                                         contentDescription = null,
                                         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
                                     )
+                                }
+
+
 
 
                             }

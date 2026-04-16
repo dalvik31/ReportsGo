@@ -33,7 +33,7 @@ fun ClientDetailView(
     onBackPressed: (() -> Unit)? = null,
     inputConcept: String? = null,
     onInputConceptChanged: ((String) -> Unit)? = null,
-    openClientTransaction: ((String) -> Unit)? = null,
+    openClientTransaction: ((String, String) -> Unit)? = null,
     onCreatePayment: ((String) -> Unit)? = null,
     openClientOrder: ((String) -> Unit)? = null,
     openClientSale: ((String) -> Unit)? = null,
@@ -119,7 +119,7 @@ fun ClientDetailView(
                     icon = R.drawable.ic_vector_activity
                 ) {
                     client?.let {
-                        openClientTransaction?.invoke(client.id)
+                        openClientTransaction?.invoke(client.id, client.name)
                     }
                 }
                 MoneyItem(

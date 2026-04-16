@@ -1,8 +1,11 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.client_info
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.compose_reformat.domain.finances.GetFinancesByClientIdUseCase
+import com.epacheco.reports.compose_reformat.domain.orders.GetOrdersMainListUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
+import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ClientInfoViewModel @Inject constructor(
-    private val getFinancesByClientIdUseCase: GetFinancesByClientIdUseCase
+    private val getFinancesByClientIdUseCase: GetFinancesByClientIdUseCase,
+    private val getOrdersMainListUseCase: GetOrdersMainListUseCase
 ) : BaseViewModel() {
     private val _uiState = MutableStateFlow(ClientInfoUiState())
     val uiState: StateFlow<ClientInfoUiState> = _uiState
@@ -23,6 +27,7 @@ class ClientInfoViewModel @Inject constructor(
         when (intent) {
             ClientInfoUiIntent.HideDialogs -> setErrorMsg()
             is ClientInfoUiIntent.LoadTransactions -> getClientTransactions(intent.clientId)
+            is ClientInfoUiIntent.LoadOrders -> getClientOrders(intent.clientId)
         }
     }
 
@@ -38,6 +43,40 @@ class ClientInfoViewModel @Inject constructor(
             }
 
             is Resource.Failure -> {
+            }
+        }
+        loading(false)
+    }
+
+    fun getClientOrders(clientId: String) = viewModelScope.launch {
+        loading(true)
+        when (val getClientOrderResponse = getOrdersMainListUseCase()) {
+            is Resource.Success -> {
+                val listOrder = arrayListOf<Order>()
+                getClientOrderResponse.result.forEach { orderMainList ->
+                    orderMainList.orderLists?.let {
+
+                        it.forEach { order ->
+                            if (order.value?.orderClientId == clientId) {
+                                order.let {
+                                    listOrder.add(order.value!!)
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+                _uiState.update {
+                    it.copy(
+                        clientOrders = listOrder
+                    )
+                }
+
+            }
+
+            is Resource.Failure -> {
+                setErrorMsg(getClientOrderResponse.exception.message)
             }
         }
         loading(false)

@@ -665,6 +665,7 @@
     <string name="finances_final_date">Fecha final</string>
     <string name="sales_not_found">No hay ventas en este periodo</string>
     <string name="msg_select_date">Selecciona una fecha</string>
+    <string name="msg_select_other_date">Selecciona otra fecha</string>
     <string name="msg_date_selected">Usar esta fecha</string>
     <string name="option_pay">Abono</string>
     <string name="option_credit">Compra a crédito</string>
@@ -673,5 +674,7 @@
 
 
     <!--TRANSACTIONS Fragments-->
+    <string name="operations_title">Operaciones de %s</string>
     <string name="transactions_title">Transacciones</string>
+    <string name="orders_title">Pedidos</string>
 </resources>

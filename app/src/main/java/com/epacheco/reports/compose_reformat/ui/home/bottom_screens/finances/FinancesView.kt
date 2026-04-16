@@ -155,7 +155,7 @@ fun FinancesView(
                         painter = painterResource(R.drawable.ic_sales_empty),
                         contentScale = ContentScale.Crop,
                         contentDescription = null,
-                        modifier = Modifier.size(150.dp).clickable{
+                        modifier = Modifier.clickable{
                             onSelectDatePressed?.invoke()
                         }
                     )
