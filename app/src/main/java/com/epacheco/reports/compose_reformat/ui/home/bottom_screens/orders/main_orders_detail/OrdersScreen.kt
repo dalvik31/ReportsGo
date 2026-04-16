@@ -29,9 +29,15 @@ import com.epacheco.reports.compose_reformat.utils.extensions.gotoApplicationCon
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.flow.collectLatest
 import android.location.Address
+import androidx.compose.runtime.rememberCoroutineScope
 import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.utils.extensions.getFormatAddress
 import java.util.Locale
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.withContext
+import kotlin.coroutines.resume
 
 @SuppressLint("NewApi")
 @Composable
@@ -51,6 +57,7 @@ fun OrdersScreen(
     var selectionMode by remember { mutableStateOf(false) }
 
     val context = LocalContext.current
+    val scope = rememberCoroutineScope()
     LaunchedEffect(Unit) {
         ordersViewModel.handleIntent(OrdersUiIntent.LoadOrders(mainOrderId))
     }
@@ -100,9 +107,6 @@ fun OrdersScreen(
             ordersViewModel.handleIntent(OrdersUiIntent.LoadOrders(mainOrderId))
         },
         moveSelectedItems = { itemsSelected ->
-            itemsSelected.forEach { order ->
-                Log.e("aqui", "item: ${order.orderName}")
-            }
             onNavigateToCreateMainOrder?.invoke(itemsSelected, mainOrderId)
             //ordersViewModel.handleIntent(OrdersUiIntent.MoveSelectedItems(itemsSelected))
 
@@ -138,17 +142,20 @@ fun OrdersScreen(
             onGranted = {
                 showLocationDialog = false
                 getCurrentLocation(context) { lat, long ->
-                    uiState.orderSelected?.let { orderSelected ->
-                        ordersViewModel.handleIntent(
-                            OrdersUiIntent.UpdateStatusOrder(
-                                orderSelected.orderId,
-                                mainOrderId,
-                                orderBuy = !orderSelected.orderBuy,
-                                locationLat = lat,
-                                locationLong = long,
-                                address = getStreetName(context, lat, long)?.getFormatAddress()
+                    scope.launch {
+                        val address = getStreetName(context, lat, long)
+                        uiState.orderSelected?.let { orderSelected ->
+                            ordersViewModel.handleIntent(
+                                OrdersUiIntent.UpdateStatusOrder(
+                                    orderSelected.orderId,
+                                    mainOrderId,
+                                    orderBuy = !orderSelected.orderBuy,
+                                    locationLat = lat,
+                                    locationLong = long,
+                                    address = address?.getFormatAddress()
+                                )
                             )
-                        )
+                        }
                     }
                 }
             },
@@ -160,29 +167,36 @@ fun OrdersScreen(
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
-fun getStreetName(context: Context, lat: Double, lng: Double): Address? {
+suspend fun getStreetName(context: Context, lat: Double, lng: Double): Address? = withContext(Dispatchers.IO) {
     val geocoder = Geocoder(context, Locale.getDefault())
-    return try {
-        var address: Address? = null
-        // Fetches maximum of 1 address result
-
+    return@withContext try {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             // API 33+ (Non-blocking)
-            geocoder.getFromLocation(lat, lng, 1) { addresses ->
-                // Handle list of addresses here
-                address = addresses?.firstOrNull()
+            suspendCancellableCoroutine { continuation ->
+                try {
+                    geocoder.getFromLocation(lat, lng, 1, object : Geocoder.GeocodeListener {
+                        override fun onGeocode(addresses: MutableList<Address>) {
+                            continuation.resume(addresses.firstOrNull())
+                        }
+
+                        override fun onError(errorMessage: String?) {
+                            Log.e("LocationError", "Error getting location (API 33+): $errorMessage")
+                            continuation.resume(null)
+                        }
+                    })
+                } catch (e: Exception) {
+                    Log.e("LocationError", "Error initiating geocoding: ${e.message}")
+                    continuation.resume(null)
+                }
             }
         } else {
-            // Legacy (Blocking - should be run on a background thread)
+            // Legacy (Blocking - run on IO thread)
             @Suppress("DEPRECATION")
             val addresses = geocoder.getFromLocation(lat, lng, 1)
-            address = addresses?.firstOrNull()
+            addresses?.firstOrNull()
         }
-
-        address
     } catch (e: Exception) {
-        e.printStackTrace()
+        Log.e("LocationError", "Error getting location: ${e.message}")
         null
     }
 }
