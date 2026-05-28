@@ -21,6 +21,7 @@ fun SplashScreen(
     val uiState by splashViewMode.uiState.collectAsStateWithLifecycle()
     val coroutineScope = rememberCoroutineScope()
 
+    //agreamos cambio en splash screen 
     LaunchedEffect(Unit) {
         splashViewMode.effectFlow.collectLatest { effect ->
             when (effect) {
@@ -28,6 +29,7 @@ fun SplashScreen(
                 is SplashUiEffect.NavigateToHome -> onNavigateToHome()
             }
         }
+        //Agreamos comentario para poder probar el git rebase
     }
 
     LaunchedEffect(Unit) {
