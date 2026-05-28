@@ -21,6 +21,7 @@ fun SplashScreen(
     val uiState by splashViewMode.uiState.collectAsStateWithLifecycle()
     val coroutineScope = rememberCoroutineScope()
 
+    //agreamos cambio en splash screen 
     LaunchedEffect(Unit) {
         splashViewMode.effectFlow.collectLatest { effect ->
             when (effect) {
