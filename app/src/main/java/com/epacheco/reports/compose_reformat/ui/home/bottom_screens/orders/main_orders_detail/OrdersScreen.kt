@@ -2,7 +2,9 @@ package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
 import android.location.Geocoder
 import android.os.Build
 import android.util.Log
@@ -29,6 +31,7 @@ import com.epacheco.reports.compose_reformat.utils.extensions.gotoApplicationCon
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.flow.collectLatest
 import android.location.Address
+import android.net.Uri
 import androidx.compose.runtime.rememberCoroutineScope
 import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.utils.extensions.getFormatAddress
@@ -38,6 +41,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.resume
+import androidx.core.net.toUri
 
 @SuppressLint("NewApi")
 @Composable
@@ -113,6 +117,9 @@ fun OrdersScreen(
         },
         onEditOrderClick = {
             onNavigateToEditOrder?.invoke(it.orderListId, it.orderId)
+        },
+        onOrderLocationClick = { latitude, longitude ->
+            openGoogleMaps(context, latitude, longitude)
         }
     )
 
@@ -163,43 +170,61 @@ fun OrdersScreen(
             permissionOpenSettingsTitle = stringResource(R.string.permission_phone_settings_title),
             onCancel = { showLocationDialog = false }
         )
-
     }
 }
 
-suspend fun getStreetName(context: Context, lat: Double, lng: Double): Address? = withContext(Dispatchers.IO) {
-    val geocoder = Geocoder(context, Locale.getDefault())
-    return@withContext try {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            // API 33+ (Non-blocking)
-            suspendCancellableCoroutine { continuation ->
-                try {
-                    geocoder.getFromLocation(lat, lng, 1, object : Geocoder.GeocodeListener {
-                        override fun onGeocode(addresses: MutableList<Address>) {
-                            continuation.resume(addresses.firstOrNull())
-                        }
+fun openGoogleMaps(context: Context, latitude: Double, longitude: Double) {
+    val mapUri = "https://www.google.com/maps/dir/?api=1&destination=$latitude,$longitude&travelmode=driving".toUri()
+    val mapIntent = Intent(Intent.ACTION_VIEW, mapUri).apply {
+        setPackage("com.google.android.apps.maps")
+    }
 
-                        override fun onError(errorMessage: String?) {
-                            Log.e("LocationError", "Error getting location (API 33+): $errorMessage")
-                            continuation.resume(null)
-                        }
-                    })
-                } catch (e: Exception) {
-                    Log.e("LocationError", "Error initiating geocoding: ${e.message}")
-                    continuation.resume(null)
+    try {
+        context.startActivity(mapIntent)
+    } catch (e: ActivityNotFoundException) {
+        val browserUri = "https://google.com".toUri()
+        val browserIntent = Intent(Intent.ACTION_VIEW, browserUri)
+        context.startActivity(browserIntent)
+    }
+}
+
+suspend fun getStreetName(context: Context, lat: Double, lng: Double): Address? =
+    withContext(Dispatchers.IO) {
+        val geocoder = Geocoder(context, Locale.getDefault())
+        return@withContext try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                // API 33+ (Non-blocking)
+                suspendCancellableCoroutine { continuation ->
+                    try {
+                        geocoder.getFromLocation(lat, lng, 1, object : Geocoder.GeocodeListener {
+                            override fun onGeocode(addresses: MutableList<Address>) {
+                                continuation.resume(addresses.firstOrNull())
+                            }
+
+                            override fun onError(errorMessage: String?) {
+                                Log.e(
+                                    "LocationError",
+                                    "Error getting location (API 33+): $errorMessage"
+                                )
+                                continuation.resume(null)
+                            }
+                        })
+                    } catch (e: Exception) {
+                        Log.e("LocationError", "Error initiating geocoding: ${e.message}")
+                        continuation.resume(null)
+                    }
                 }
+            } else {
+                // Legacy (Blocking - run on IO thread)
+                @Suppress("DEPRECATION")
+                val addresses = geocoder.getFromLocation(lat, lng, 1)
+                addresses?.firstOrNull()
             }
-        } else {
-            // Legacy (Blocking - run on IO thread)
-            @Suppress("DEPRECATION")
-            val addresses = geocoder.getFromLocation(lat, lng, 1)
-            addresses?.firstOrNull()
+        } catch (e: Exception) {
+            Log.e("LocationError", "Error getting location: ${e.message}")
+            null
         }
-    } catch (e: Exception) {
-        Log.e("LocationError", "Error getting location: ${e.message}")
-        null
     }
-}
 
 @SuppressLint("MissingPermission")
 private fun getCurrentLocation(context: Context, callback: (Double, Double) -> Unit) {

@@ -13,8 +13,8 @@ import com.epacheco.reports.compose_reformat.ui.theme.YellowColor
 
 object Utils {
     @Composable
-    fun getCardBackground(orderMain: OrderMain): Color =
-        when (orderMain.orderSeason) {
+    fun getCardBackground(orderSeason: Season?): Color =
+        when (orderSeason) {
             Season.FALL -> FallColor
             Season.SPRING -> SpringColor
             null -> MaterialTheme.colorScheme.onBackground

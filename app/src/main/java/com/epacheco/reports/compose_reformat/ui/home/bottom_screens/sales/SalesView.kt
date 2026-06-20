@@ -96,7 +96,7 @@ fun SalesView(
                 )
             } ?: run {
                 SecondaryItem(
-                    modifier = Modifier.padding(horizontal = 24.dp),
+                    modifier = Modifier.padding(horizontal = 16.dp),
                     text = stringResource(R.string.search_client),
                     icon = R.drawable.ic_vector_search_client,
                     secondaryText = stringResource(R.string.client_not_selected),
@@ -109,7 +109,7 @@ fun SalesView(
 
             PrimaryButton(
                 textButton = stringResource(R.string.select_product),
-                modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp)
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
             ) {
                 onInputProductChanged?.invoke()
             }

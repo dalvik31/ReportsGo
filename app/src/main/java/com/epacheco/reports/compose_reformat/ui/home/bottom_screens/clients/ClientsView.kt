@@ -56,11 +56,7 @@ fun ClientsView(
 
     Column {
         Header(
-            text = pluralStringResource(
-                R.plurals.title_clients,
-                count = clientsList.size,
-                clientsList.size
-            ),
+            text = stringResource(R.string.title_clients),
             backgroundToolbar = Color.Transparent,
             textColor = MaterialTheme.colorScheme.primary,
             onRightIconClicked = {
@@ -111,12 +107,6 @@ fun ClientsView(
                         modifier = Modifier.clickable {
                             onNavigateToCreateClient?.invoke(null)
                         }
-                    )
-                    Text(
-                        color = MaterialTheme.colorScheme.primary,
-                        text = stringResource(R.string.msg_clients_not_found),
-                        style = MaterialTheme.typography.bodySmall,
-                        modifier = Modifier.padding(top = 12.dp)
                     )
                 }
             } else {

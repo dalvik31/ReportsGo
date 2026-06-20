@@ -15,7 +15,7 @@ fun Address.getFormatAddress(): String {
     val thoroughfare = this.thoroughfare
     val subThoroughfare = this.subThoroughfare
 
-    thoroughfare?.let {
+  /*  thoroughfare?.let {
         fullAddress.append(it)
         fullAddress.append(", ")
     }
@@ -28,20 +28,20 @@ fun Address.getFormatAddress(): String {
     subLocality?.let {
         fullAddress.append(it)
         fullAddress.append(", ")
-    }
+    }*/
 
     locality?.let {
         fullAddress.append(it)
-        fullAddress.append(", ")
+        //fullAddress.append(", ")
     }
-    adminArea?.let {
+  /*  adminArea?.let {
         fullAddress.append(it)
         fullAddress.append(", ")
     }
     countryName?.let {
         fullAddress.append(it)
 
-    }
+    }*/
 
     return fullAddress.toString()
 }

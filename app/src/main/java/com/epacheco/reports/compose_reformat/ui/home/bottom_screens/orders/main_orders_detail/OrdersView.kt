@@ -64,6 +64,7 @@ fun OrdersView(
     onEditOrderClick: ((Order) -> Unit)? = null,
     moveSelectedItems: ((List<Order>) -> Unit)? = null,
     onUpdateStatusOrderClick: ((Order) -> Unit)? = null,
+    onOrderLocationClick: ((latitude: Double, longitude: Double) -> Unit)? = null,
     nameOrderMain: String? = null,
     mainOrderId: String? = null,
     progressList: Float? = null,
@@ -83,9 +84,14 @@ fun OrdersView(
                     orderList.size
                 ),
                 textColor = MaterialTheme.colorScheme.primary,
-                onLeftIconClicked = { if (!isSelectedMode) onBackPressed?.invoke() },
+                onLeftIconClicked = {
+                    if (isSelectedMode) {
+                        selectedItems.clear()
+                        onOrderClick?.invoke(null)
+                    } else onBackPressed?.invoke()
+                },
                 leftImageVector = Icons.Default.ArrowBackIosNew,
-                tintImageLeft = if (isSelectedMode) Color.Transparent else MaterialTheme.colorScheme.primary,
+                tintImageLeft = MaterialTheme.colorScheme.primary,
                 onRightIconClicked = {
                     if (isSelectedMode) {
                         selectedItems.clear()
@@ -152,12 +158,6 @@ fun OrdersView(
                             contentDescription = null,
 
                             )
-                        Text(
-                            color = MaterialTheme.colorScheme.primary,
-                            text = stringResource(R.string.list_orders_empty),
-                            style = MaterialTheme.typography.bodySmall,
-                            modifier = Modifier.padding(top = 12.dp)
-                        )
                     }
                 } else {
 
@@ -165,7 +165,7 @@ fun OrdersView(
                         modifier = Modifier
                             .fillMaxSize(),
                         verticalArrangement = Arrangement.spacedBy(4.dp),
-                        contentPadding = PaddingValues(horizontal = 8.dp)
+                        contentPadding = PaddingValues(horizontal = 16.dp)
                     ) {
                         itemsIndexed(orderList) { order, index ->
 
@@ -189,6 +189,13 @@ fun OrdersView(
                                 onOrderCheckedClick = {
                                     if (isSelected) selectedItems.remove(index)
                                     else selectedItems.add(index)
+                                    if (selectedItems.isEmpty()) {
+                                        selectedItems.clear()
+                                        onOrderClick?.invoke(null)
+                                    }
+                                },
+                                onOrderLocationClick = { latitude, longitude ->
+                                    onOrderLocationClick?.invoke(latitude, longitude)
                                 }
                             )
                         }

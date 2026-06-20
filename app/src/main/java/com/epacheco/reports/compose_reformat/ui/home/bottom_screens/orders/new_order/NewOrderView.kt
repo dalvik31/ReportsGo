@@ -111,7 +111,7 @@ fun NewOrderView(
 
         clientSelected?.let { client ->
             ClientItem(
-                modifier = Modifier.padding(horizontal = 20.dp),
+                modifier = Modifier.padding(horizontal = 16.dp),
                 client = client,
                 actionText = stringResource(
                     if (client.name.isEmpty()) R.string.search_client
@@ -127,7 +127,7 @@ fun NewOrderView(
             )
         } ?: run {
             SecondaryItem(
-                modifier = Modifier.padding(horizontal = 24.dp),
+                modifier = Modifier.padding(horizontal = 16.dp),
                 text = stringResource(R.string.search_client),
                 icon = R.drawable.ic_vector_search_client,
                 secondaryText = stringResource(R.string.client_not_selected),

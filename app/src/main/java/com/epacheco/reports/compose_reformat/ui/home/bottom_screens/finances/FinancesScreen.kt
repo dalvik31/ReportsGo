@@ -30,8 +30,8 @@ fun FinancesScreen(
     LaunchedEffect(Unit) {
         if (currentState.isAtLeast(Lifecycle.State.STARTED)) {
             if(!initialDate.isNullOrEmpty() && !finalDate.isNullOrEmpty()){
-                financesViewModel.handleIntent(FinancesUiIntent.SetInitialDate(initialDate.toLong() ))
-                financesViewModel.handleIntent(FinancesUiIntent.SetFinalDate(finalDate.toLong() ))
+                financesViewModel.handleIntent(FinancesUiIntent.SetInitialDate(initialDate ))
+                financesViewModel.handleIntent(FinancesUiIntent.SetFinalDate(finalDate))
 
             }
              financesViewModel.handleIntent(FinancesUiIntent.LoadFinancesItems)

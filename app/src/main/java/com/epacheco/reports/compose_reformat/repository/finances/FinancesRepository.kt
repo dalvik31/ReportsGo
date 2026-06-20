@@ -5,7 +5,7 @@ import com.epacheco.reports.compose_reformat.model.sales.Sale
 import com.google.firebase.database.DatabaseReference
 
 interface FinancesRepository {
-    suspend fun getFinances(initialDate: Long, finalDate: Long): Resource<List<Sale>>
+    suspend fun getFinances(initialDate: String, finalDate: String): Resource<List<Sale>>
     suspend fun getFinancesByClientId(clientId: String): Resource<List<Sale>>
     fun getFinancesReference(): DatabaseReference
 }

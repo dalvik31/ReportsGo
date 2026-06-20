@@ -88,7 +88,30 @@ fun SelectorDateDialog(
             )
         ) {
             val startDate = state.selectedStartDateMillis ?: System.currentTimeMillis()
-            val endDate = state.selectedEndDateMillis ?: startDate
+
+
+            val endDate = if (state.selectedEndDateMillis != null) {
+                val endDateString = DateUtils.dateFormat(
+                    state.selectedEndDateMillis.toString(),
+                    DateUtils.FORMAT_DATE4,
+                    1
+                )
+                DateUtils.stringDateToLong(
+                    endDateString,
+                    DateUtils.FORMAT_DATE4,
+                )
+            }else{
+                val startDateString = DateUtils.dateFormat(
+                    startDate.toString(),
+                    DateUtils.FORMAT_DATE4,
+                    1
+                )
+                DateUtils.stringDateToLong(
+                    startDateString,
+                    DateUtils.FORMAT_DATE4,
+                )
+            }
+
             onDateSelected?.invoke(
                 startDate,
                 endDate

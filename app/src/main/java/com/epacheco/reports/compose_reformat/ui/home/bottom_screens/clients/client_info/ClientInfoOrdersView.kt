@@ -41,12 +41,6 @@ fun ClientInfoOrdersView(
                     painter = painterResource(R.drawable.ic_vector_empty_orders),
                     contentDescription = null
                 )
-                Text(
-                    color = MaterialTheme.colorScheme.primary,
-                    text = stringResource(R.string.msg_info_client_not_found),
-                    style = MaterialTheme.typography.bodySmall,
-                    modifier = Modifier.padding(top = 12.dp)
-                )
             }
         } else {
             LazyColumn(

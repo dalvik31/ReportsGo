@@ -11,12 +11,15 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -24,28 +27,19 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ProgressIndicatorDefaults
-import androidx.compose.material3.ProgressIndicatorDefaults.drawStopIndicator
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.pluralStringResource
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -53,19 +47,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
-import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsOptionDialog
 import com.epacheco.reports.compose_reformat.model.orders.Order
-import com.epacheco.reports.compose_reformat.model.orders.OrderMain
-import com.epacheco.reports.compose_reformat.model.orders.OrderStatus
 import com.epacheco.reports.compose_reformat.model.orders.Season
+import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.ui.theme.White
 import com.epacheco.reports.compose_reformat.utils.DateUtils
-import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE4
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE5
-import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE7
-import com.epacheco.reports.compose_reformat.utils.Utils
-import java.util.Locale
+import com.epacheco.reports.compose_reformat.utils.Utils.getCardBackground
 
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
@@ -78,13 +66,14 @@ fun OrderItem(
     isModeSelected: Boolean = false,
     isSelectedItem: Boolean = false,
     onOrderCheckedClick: ((Order) -> Unit)? = null,
+    onOrderLocationClick: ((latitude: Double, longitude: Double) -> Unit)? = null,
     showEditBtn: Boolean = true
 ) {
 
     Surface(color = Color.Transparent) {
         Card(
             modifier = Modifier
-                .padding(vertical = 8.dp, horizontal = 8.dp)
+                .padding(vertical = 8.dp, horizontal = 16.dp)
                 .fillMaxWidth()
                 .alpha(if (isSelectedItem) 0.5f else 1f)
                 .wrapContentHeight()
@@ -112,8 +101,10 @@ fun OrderItem(
 
             Row(
                 modifier = Modifier
+                    .fillMaxWidth()
+                    .height(IntrinsicSize.Min)
+                    .background(Color.Transparent)
                     .wrapContentHeight()
-                    .padding(vertical = 10.dp)
                     .animateContentSize(
                         animationSpec = spring(
                             dampingRatio = Spring.DampingRatioMediumBouncy,
@@ -122,12 +113,21 @@ fun OrderItem(
                     )
 
             ) {
+
+                Box(
+                    modifier = Modifier
+                        .width(4.dp)
+                        .fillMaxHeight()
+                        .background(
+                            getCardBackground(order.orderSeason)
+                        )
+                )
                 Column(
                     Modifier.wrapContentHeight(),
                     Arrangement.SpaceBetween,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-
+                    Spacer(modifier = Modifier.padding(vertical = 4.dp))
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -141,28 +141,14 @@ fun OrderItem(
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
-                            Box() {
-                                Image(
-                                    modifier = Modifier
-                                        .size(16.dp),
-                                    painter = when (order.orderSeason) {
-                                        Season.FALL -> painterResource(R.drawable.ic_snow)
-                                        Season.SPRING -> painterResource(R.drawable.ic_sun)
-                                        else -> painterResource(R.drawable.ic_simple_dot)
-                                    },
-                                    contentDescription = null,
-                                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
-                                )
-
-                            }
                             Box(modifier = Modifier.weight(1f, fill = false)) {
                                 Text(
                                     color = MaterialTheme.colorScheme.primary,
                                     textAlign = TextAlign.Start,
                                     textDecoration = if (order.orderBuy) TextDecoration.LineThrough else TextDecoration.None,
+                                    fontWeight = FontWeight.Bold,
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .padding(start = 8.dp)
                                         .alpha(if (order.orderBuy) 0.5f else 1f),
                                     text = order.orderName.replaceFirstChar { it.titlecase() },
                                     style = MaterialTheme.typography.titleSmall
@@ -171,16 +157,15 @@ fun OrderItem(
                             }
                             Box(
                                 modifier = Modifier
-                                    .wrapContentWidth()
-                                    .size(32.dp),
+                                    .wrapContentWidth(),
                                 contentAlignment = Alignment.Center
                             ) {
-                                if(showEditBtn){
+                                if (showEditBtn) {
                                     Image(
                                         modifier = Modifier
                                             .size(24.dp)
                                             .clickable {
-                                                if(!isModeSelected){
+                                                if (!isModeSelected) {
                                                     onEditOrderClick?.invoke(order)
                                                 }
                                             },
@@ -197,8 +182,6 @@ fun OrderItem(
                                 }
 
 
-
-
                             }
                         }
 
@@ -207,17 +190,6 @@ fun OrderItem(
 
                     Row {
                         if (order.orderDescription.isNotEmpty()) {
-                            Text(
-                                color = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier
-                                    .wrapContentWidth()
-                                    .padding(start = 8.dp)
-                                    .alpha(if (order.orderBuy) 0.5f else 1f),
-                                fontWeight = FontWeight.Bold,
-                                text = stringResource(R.string.description),
-                                textDecoration = if (order.orderBuy) TextDecoration.LineThrough else TextDecoration.None,
-                                style = MaterialTheme.typography.titleSmall
-                            )
                             Text(
                                 color = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier
@@ -231,198 +203,93 @@ fun OrderItem(
                             )
                         }
                     }
-                    Row {
-                        if (order.orderSize.isNotEmpty()) {
-                            Text(
-                                color = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier
-                                    .wrapContentWidth()
-                                    .padding(start = 8.dp)
-                                    .alpha(if (order.orderBuy) 0.5f else 1f),
-                                fontWeight = FontWeight.Bold,
-                                text = stringResource(R.string.size),
-                                textDecoration = if (order.orderBuy) TextDecoration.LineThrough else TextDecoration.None,
-
-                                style = MaterialTheme.typography.titleSmall
-                            )
-                            Text(
-                                color = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier
-                                    .wrapContentWidth()
-                                    .fillMaxWidth()
-                                    .alpha(if (order.orderBuy) 0.5f else 1f)
-                                    .padding(start = 8.dp),
-                                text = order.orderSize,
-                                textDecoration = if (order.orderBuy) TextDecoration.LineThrough else TextDecoration.None,
-
-                                style = MaterialTheme.typography.bodyMedium
-                            )
-                        }
-                    }
-
-                    Row {
-                        if (order.orderColor.isNotEmpty()) {
-                            Text(
-                                color = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier
-                                    .wrapContentWidth()
-                                    .padding(start = 8.dp)
-                                    .alpha(if (order.orderBuy) 0.5f else 1f),
-                                fontWeight = FontWeight.Bold,
-                                text = stringResource(R.string.color),
-                                textDecoration = if (order.orderBuy) TextDecoration.LineThrough else TextDecoration.None,
-
-                                style = MaterialTheme.typography.titleSmall
-                            )
-                            Text(
-                                color = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier
-                                    .wrapContentWidth()
-                                    .fillMaxWidth()
-                                    .padding(start = 8.dp)
-                                    .alpha(if (order.orderBuy) 0.5f else 1f),
-                                text = order.orderColor,
-                                textDecoration = if (order.orderBuy) TextDecoration.LineThrough else TextDecoration.None,
-
-                                style = MaterialTheme.typography.bodyMedium
-                            )
-                        }
-                    }
 
 
-                    Row {
-                        if (order.orderGender.isNotEmpty()) {
-                            Text(
-                                color = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier
-                                    .wrapContentWidth()
-                                    .padding(start = 8.dp)
-                                    .alpha(if (order.orderBuy) 0.5f else 1f),
-                                fontWeight = FontWeight.Bold,
-                                text = stringResource(R.string.gender),
-                                textDecoration = if (order.orderBuy) TextDecoration.LineThrough else TextDecoration.None,
-
-                                style = MaterialTheme.typography.titleSmall
-                            )
-                            Text(
-                                color = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier
-                                    .wrapContentWidth()
-                                    .fillMaxWidth()
-                                    .padding(start = 8.dp)
-                                    .alpha(if (order.orderBuy) 0.5f else 1f),
-                                text = order.orderGender,
-                                textDecoration = if (order.orderBuy) TextDecoration.LineThrough else TextDecoration.None,
-
-                                style = MaterialTheme.typography.bodyMedium
-                            )
-                        }
-                    }
-
-                    Row {
-                        if (!order.orderClientName.isNullOrEmpty()) {
-                            Text(
-                                color = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier
-                                    .wrapContentWidth()
-                                    .padding(start = 8.dp)
-                                    .alpha(if (order.orderBuy) 0.5f else 1f),
-                                fontWeight = FontWeight.Bold,
-                                text = stringResource(R.string.order_client),
-                                textDecoration = if (order.orderBuy) TextDecoration.LineThrough else TextDecoration.None,
-
-                                style = MaterialTheme.typography.titleSmall
-                            )
-                            Text(
-                                color = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier
-                                    .wrapContentWidth()
-                                    .fillMaxWidth()
-                                    .padding(start = 8.dp)
-                                    .alpha(if (order.orderBuy) 0.5f else 1f),
-                                text = order.orderClientName,
-                                textDecoration = if (order.orderBuy) TextDecoration.LineThrough else TextDecoration.None,
-
-                                style = MaterialTheme.typography.bodyMedium
-                            )
-                        }
-                    }
-                    Spacer(modifier = Modifier.padding(vertical = 8.dp))
-
+                    Spacer(modifier = Modifier.padding(vertical = 4.dp))
 
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(start = 8.dp),
-                        horizontalArrangement = Arrangement.SpaceEvenly,
-                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
                     ) {
+                        order.orderClientName?.let { clientName ->
+                            IconInfoItem(
+                                icon = ImageVector.vectorResource(R.drawable.ic_vector_account),
+                                text = clientName,
+                                textDecoration = if (order.orderBuy) TextDecoration.LineThrough else TextDecoration.None,
+                                alpha = if (order.orderBuy) 0.5f else 1f
+                            )
+                        }
 
+                        IconInfoItem(
+                            icon = ImageVector.vectorResource(R.drawable.ic_vector_activity),
+                            text = DateUtils.dateFormat(order.orderId, FORMAT_DATE5),
+                            textDecoration = if (order.orderBuy) TextDecoration.LineThrough else TextDecoration.None,
+                            alpha = if (order.orderBuy) 0.5f else 1f,
+                        )
+                    }
+                    Spacer(modifier = Modifier.padding(vertical = 8.dp))
+
+
+                    val orderOptions = order.getOrderOptions()
+                    if (orderOptions.isNotEmpty()) {
                         Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            modifier = Modifier
+                                .padding(start = 8.dp)
+                                .fillMaxWidth()
                         ) {
-
-                            Box() {
-                                if (!order.address.isNullOrEmpty()) {
-                                    Image(
-                                        modifier = Modifier
-                                            .size(24.dp),
-                                        painter = painterResource(R.drawable.ic_map_search),
-                                        contentDescription = null,
-                                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
-                                    )
-                                }
-
-
+                            orderOptions.forEach { tag ->
+                                TagPillItem(
+                                    tag = tag,
+                                    backgroundColor = MaterialTheme.colorScheme.primary,
+                                    textDecoration = if (order.orderBuy) TextDecoration.LineThrough else TextDecoration.None,
+                                    if (order.orderBuy) 0.5f else 1f
+                                )
                             }
-                            Box(modifier = Modifier.weight(1f, fill = false)) {
-                                if (!order.address.isNullOrEmpty()) {
-                                    Text(
-                                        color = MaterialTheme.colorScheme.primary,
-                                        textAlign = TextAlign.Start,
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(start = 8.dp)
-                                            .alpha(if (order.orderBuy) 0.5f else 1f),
-                                        text = order.address,
-                                        style = MaterialTheme.typography.titleSmall,
-                                        textDecoration = if (order.orderBuy) TextDecoration.LineThrough else TextDecoration.None,
-                                    )
-                                }
-                            }
+
+                        }
+                    }
+                    Spacer(modifier = Modifier.padding(vertical = 8.dp))
+                    if (!order.address.isNullOrEmpty() && order.locationLong != null && order.locationLat != null) {
+                        Box(
+                            modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.CenterEnd
+
+                        ) {
                             Box(
-                                modifier = Modifier.wrapContentWidth(),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .background(
-                                            MaterialTheme.colorScheme.onBackground,
-                                            RoundedCornerShape(
-                                                topStart = 10.dp,
-                                                bottomStart = 10.dp
-                                            )
+                                modifier = Modifier
+                                    .background(
+                                        MaterialTheme.colorScheme.onBackground,
+                                        RoundedCornerShape(
+                                            topStart = 10.dp,
                                         )
-                                        .padding(horizontal = 8.dp, vertical = 4.dp),
-
-                                    ) {
-
-                                    Text(
-                                        modifier = Modifier
-                                            .alpha(if (order.orderBuy) 0.8f else 1f)
-                                            .alpha(if (order.orderBuy) 0.5f else 1f),
-                                        text = DateUtils.dateFormat(order.orderId, FORMAT_DATE5),
-                                        fontSize = 10.sp,
-                                        color = MaterialTheme.colorScheme.onPrimary,
-                                        style = MaterialTheme.typography.bodySmall,
-                                        textDecoration = if (order.orderBuy) TextDecoration.LineThrough else TextDecoration.None,
                                     )
-                                }
+                                    .padding(horizontal = 8.dp, vertical = 4.dp),
+
+                                ) {
+
+                                IconInfoItem(
+                                    modifier = Modifier.clickable {
+                                        if (!isModeSelected) {
+                                            onOrderLocationClick?.invoke(
+                                                order.locationLat,
+                                                order.locationLong
+                                            )
+                                        }
+                                    },
+                                    icon = ImageVector.vectorResource(R.drawable.ic_map_search),
+                                    text = order.address,
+                                    textDecoration = if (order.orderBuy) TextDecoration.LineThrough else TextDecoration.None,
+                                    alpha = if (order.orderBuy) 0.5f else 1f,
+                                    color = MaterialTheme.colorScheme.onPrimary
+                                )
+
                             }
                         }
                     }
+
                 }
 
 
@@ -437,17 +304,21 @@ fun OrderItem(
 @Preview
 @Composable
 fun OrderItemPreview() {
-    OrderItem(
-        order = Order(
-            orderId = "0",
-            orderName = "name",
-            orderSeason = Season.SPRING,
-            orderDescription = "descripcion",
-            orderSize = "Grande",
-            orderColor = "Color",
-            orderGender = "Genero",
-            orderClientName = "Cliente",
-            orderBuy = false,
-        ), isModeSelected = false
-    )
+    ReportsGoTheme {
+        OrderItem(
+            order = Order(
+                orderId = "0",
+                orderName = "name",
+                orderSeason = Season.SPRING,
+                orderDescription = "descripcion",
+                orderSize = "Grande",
+                orderColor = "Color",
+                orderGender = "Genero",
+                orderClientName = "Cliente",
+                orderBuy = false,
+                address = "adree"
+            ), isModeSelected = false, showEditBtn = true
+        )
+    }
+
 }

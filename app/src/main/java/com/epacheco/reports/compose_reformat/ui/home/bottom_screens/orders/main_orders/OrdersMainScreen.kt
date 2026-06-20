@@ -121,9 +121,9 @@ fun OrdersMainScreen(
         val currentSeason = SeasonUtils.getSeason()
         ReportsInfoDialog(
             dialogTitle = stringResource(R.string.title_season),
-            lottieAnimation = when (currentSeason) {
-                Season.FALL -> R.raw.shopping_fall
-                Season.SPRING -> R.raw.shopping_spring
+            imgDialog = when (currentSeason) {
+                Season.FALL -> R.drawable.ic_fashion_fall
+                Season.SPRING -> R.drawable.ic_fashion_spring
             },
             background = White,
             dialogSubTitle = when (currentSeason) {
@@ -141,10 +141,11 @@ fun OrdersMainScreen(
                 ordersMainViewModel.onValueInputListChanged(input = it)
             },
             confirmButtonText = stringResource(R.string.btn_create_order_list),
-            iconDialog = when (currentSeason) {
-                Season.FALL -> R.drawable.ic_snow
-                Season.SPRING -> R.drawable.ic_sun
-            },
+            iconDialog = R.drawable.ic_simple_dot,
+            iconDialogTint = when (currentSeason) {
+                Season.FALL -> FallColor
+                Season.SPRING -> SpringColor
+            }
         )
     }
 

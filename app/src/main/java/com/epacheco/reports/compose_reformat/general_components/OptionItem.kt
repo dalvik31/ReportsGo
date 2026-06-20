@@ -26,9 +26,10 @@ import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.R
 @Composable
 fun OptionItem(
-    icon: Int? =  null,
+    modifier: Modifier = Modifier,
+    icon: Int? = null,
     text: String,
-    textSecondary:String? = null,
+    textSecondary: String? = null,
     tintText: Color = MaterialTheme.colorScheme.secondary,
     tintTextSecondary: Color = MaterialTheme.colorScheme.primary,
     tintIcon: Color = MaterialTheme.colorScheme.primary,
@@ -36,7 +37,7 @@ fun OptionItem(
 ) {
     Surface(
         onClick = onClick,
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         color = Color.Transparent
     ) {
         Row(
@@ -79,7 +80,12 @@ fun OptionItem(
 @Composable
 private fun OptionItemPreview() {
     ReportsGoTheme {
-        OptionItem(icon = R.drawable.ic_vector_sale, text = "Ventas", onClick = {}, textSecondary = "hola")
+        OptionItem(
+            icon = R.drawable.ic_vector_sale,
+            text = "Ventas",
+            onClick = {},
+            textSecondary = "hola"
+        )
     }
 
 }

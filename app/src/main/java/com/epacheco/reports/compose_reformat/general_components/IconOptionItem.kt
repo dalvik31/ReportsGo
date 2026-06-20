@@ -26,7 +26,7 @@ import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 @Composable
-fun MoneyItem(
+fun IconOptionItem(
     modifier: Modifier = Modifier,
     text: String? = null,
     secondaryText: String? = null,
@@ -101,9 +101,9 @@ fun MoneyItem(
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
-fun MoneyItemPreview() {
+fun IconOptionItemPreview() {
     ReportsGoTheme {
-        MoneyItem(
+        IconOptionItem(
             text = "Venta",
             icon = R.drawable.ic_simple_dot,
             secondaryText = "lala",

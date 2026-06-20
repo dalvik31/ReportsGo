@@ -49,13 +49,13 @@ class FinancesViewModel @Inject constructor(private val getUserFinancesUseCase: 
         }
 
 
-    private fun setInitialDate(initialDate: Long) {
+    private fun setInitialDate(initialDate: String) {
         _uiState.value =
             _uiState.value.copy(initialDate = initialDate)
 
     }
 
-    private fun setFinalDate(finalDate: Long) {
+    private fun setFinalDate(finalDate: String) {
         _uiState.value =
             _uiState.value.copy(finalDate = finalDate)
 

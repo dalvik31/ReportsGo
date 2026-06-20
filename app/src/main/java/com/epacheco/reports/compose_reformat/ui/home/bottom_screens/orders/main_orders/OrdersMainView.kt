@@ -45,11 +45,7 @@ fun OrderMainView(
     val pagerState = rememberPagerState(initialPage = 0, pageCount = { 2 })
     Column {
         Header(
-            text = pluralStringResource(
-                R.plurals.title_main_orders,
-                count = orderMainMainList.size,
-                orderMainMainList.size,
-            ),
+            text = stringResource(R.string.title_main_orders,),
             textColor = MaterialTheme.colorScheme.primary,
             tintImageRight = MaterialTheme.colorScheme.primary,
             onRightIconClicked = { onCreateOrderMainClick?.invoke() },
@@ -74,7 +70,7 @@ fun OrderMainView(
             selectedTabIndex = pagerState.currentPage,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp),
+                .padding(16.dp),
             containerColor = Color.Transparent,
             divider = {}
         ) {

@@ -383,23 +383,20 @@
     <string name="tab_products_option">Productos</string>
 
     <!--ORDERS Fragments-->
-    <plurals name="title_main_orders">
-        <item formatted="true" quantity="one">(%s) Lista de pedidos</item>
-        <item formatted="true" quantity="other">(%s) Listas de pedidos</item>
-    </plurals>
+
+    <string name="title_main_orders">Listas de pedidos</string>
     <plurals name="title_orders">
-        <item formatted="true" quantity="one">(%s) Pedido</item>
-        <item formatted="true" quantity="other">(%s) Pedidos</item>
+        <item formatted="true" quantity="one">Pedidos</item>
+        <item formatted="true" quantity="other">Pedidos</item>
     </plurals>
-    <string name="tab_count_in_progress">(%s) EN PROGRESO</string>
-    <string name="tab_count_done">(%s) COMPLETADAS</string>
-    <string name="tab_in_progress">EN PROGRESO</string>
+    <string name="tab_in_progress">EN CURSO</string>
     <string name="tab_done">COMPLETADAS</string>
     <string name="search_orders">Buscando listas de pedidos…</string>
     <string name="date_order"> %s</string>
     <string name="create_new_list_orders">Crear nueva lista</string>
     <string name="create_new_order">Crear nuevo pedido</string>
-    <string name="order_date_week">Semana %s</string>
+    <string name="order_date_week">%s</string>
+    <string name="order_date_week_string">Semana %s</string>
     <string name="title_season">Temporada</string>
     <string name="season_fall_winter">Otoño - Invierno</string>
     <string name="season_warning">Toma esto en cuenta al crear tu lista</string>
@@ -534,10 +531,7 @@
     <!--CLIENTS Fragments-->
     <string name="search_clients">Buscando clientes registrados…</string>
     <string name="txt_import_client_from_contacts">\"Importar información de un cliente desde tus contactos\"</string>
-    <plurals name="title_clients">
-        <item formatted="true" quantity="one">(%s) Cliente</item>
-        <item formatted="true" quantity="other">(%s) Clientes</item>
-    </plurals>
+    <string name="title_clients">Clientes</string>
     <string name="lbl_search_client_hint">Nombre del cliente</string>
     <string name="confirm_delete_client">¿Realmente deseas eliminar el cliente?</string>
     <string name="update_client_success">Cliente actualizado correctamente.</string>
@@ -584,10 +578,7 @@
     <!--PRODUCTS Fragments-->
     <string name="search_products">Buscando productos guardados…</string>
     <string name="search_product">Buscar producto</string>
-    <plurals name="title_products">
-        <item formatted="true" quantity="one">(%s) Producto</item>
-        <item formatted="true" quantity="other">(%s) Productos</item>
-    </plurals>
+    <string name="title_products">Productos</string>
     <string name="lbl_stock_sale">%s en existencia</string>
     <string name="lbl_search_product_hint">Nombre del producto</string>
 
@@ -638,6 +629,7 @@
     <string name="email_verified">Correo verificado</string>
     <string name="lbl_send_email_to_verified">Enviar email de verificación</string>
     <string name="lbl_send_email_to_verified_success"><![CDATA[<b>Correo de verificación enviado</b><br><br>Si tu correo es válido, recibiras un mensaje con instrucciones para continuar.<br><br>Por seguridad, cerraremos tu sesión.<br><br><b>Podras iniciar sesión nuevamente en cualquier momento.</b>]]></string>
+    <string name="version_app">Versión:</string>
 
     <!--SALES Fragments-->
     <string name="generate_sale">Nuevo ticket</string>

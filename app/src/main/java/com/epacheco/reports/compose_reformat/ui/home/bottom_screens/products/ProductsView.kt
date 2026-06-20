@@ -52,11 +52,7 @@ fun ProductsView(
 
     Column {
         Header(
-            text = pluralStringResource(
-                R.plurals.title_products,
-                count = productList.size,
-                productList.size,
-            ),
+            text = stringResource(R.string.title_products),
             textColor = MaterialTheme.colorScheme.primary,
             onRightIconClicked = {
                 onGoProductDetailClick?.invoke(null, null)
@@ -106,12 +102,6 @@ fun ProductsView(
                         modifier = Modifier.clickable {
                             onGoProductDetailClick?.invoke(null, null)
                         },
-                    )
-                    Text(
-                        color = MaterialTheme.colorScheme.primary,
-                        text = stringResource(R.string.msg_zero_products),
-                        style = MaterialTheme.typography.bodySmall,
-                        modifier = Modifier.padding(top = 12.dp)
                     )
                 }
             } else {

@@ -111,7 +111,16 @@ fun ProfileView(
                 )
         }
 
-        Spacer(modifier = Modifier.padding(vertical = 16.dp))
+        Spacer(modifier = Modifier.padding(vertical = 8.dp))
+        OptionItem(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            text = stringResource(R.string.version_app),
+            textSecondary = com.epacheco.reports.BuildConfig.VERSION_NAME,
+            icon = R.drawable.ic_mobile_gear,
+            tintIcon = MaterialTheme.colorScheme.onTertiary
+        ) {}
+
+        Spacer(modifier = Modifier.padding(vertical = 8.dp))
 
         Card(
             modifier = Modifier.padding(horizontal = 16.dp), colors = CardColors(

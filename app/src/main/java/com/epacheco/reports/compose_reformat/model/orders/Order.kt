@@ -45,4 +45,18 @@ data class Order(
         locationLong = 0.0,
         address = ""
     )
+
+    fun getOrderOptions(): List<String> {
+        val orderOptionsList = arrayListOf<String>()
+        orderSize.isNotEmpty().let {
+            orderOptionsList.add(orderSize)
+        }
+        orderColor.isNotEmpty().let {
+            orderOptionsList.add(orderColor)
+        }
+        orderGender.isNotEmpty().let {
+            orderOptionsList.add(orderGender)
+        }
+        return orderOptionsList
+    }
 }

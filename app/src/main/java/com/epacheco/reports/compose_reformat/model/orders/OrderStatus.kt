@@ -8,6 +8,6 @@ import kotlinx.serialization.Serializable
 @Keep
 @Serializable
 enum class OrderStatus(val orderStatusName: Int) {
-    IN_PROGRESS(R.string.tab_count_in_progress),
-    DONE(R.string.tab_count_done)
+    IN_PROGRESS(R.string.tab_in_progress),
+    DONE(R.string.tab_done)
 }
