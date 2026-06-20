@@ -117,7 +117,8 @@ fun ProfileView(
             text = stringResource(R.string.version_app),
             textSecondary = com.epacheco.reports.BuildConfig.VERSION_NAME,
             icon = R.drawable.ic_mobile_gear,
-            tintIcon = MaterialTheme.colorScheme.onTertiary
+            tintText = MaterialTheme.colorScheme.primary,
+            tintIcon = MaterialTheme.colorScheme.primary
         ) {}
 
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
