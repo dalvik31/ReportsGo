@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -34,7 +33,7 @@ import androidx.compose.ui.unit.dp
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.FinanceItem
 import com.epacheco.reports.compose_reformat.general_components.Header
-import com.epacheco.reports.compose_reformat.general_components.MoneyItem
+import com.epacheco.reports.compose_reformat.general_components.IconOptionItem
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
 import com.epacheco.reports.compose_reformat.model.Finances.PaymentType
 import com.epacheco.reports.compose_reformat.model.sales.Sale
@@ -84,15 +83,15 @@ fun FinancesView(
                 .padding(vertical = 5.dp),
             horizontalArrangement = Arrangement.SpaceAround
         ) {
-            MoneyItem(
+            IconOptionItem(
                 text = "Productos",
                 icon = R.drawable.ic_vector_products,
                 secondaryText = orderMainMainList.size.toString(),
                 isAmount = false
             )
-            MoneyItem(text = "Ventas", icon = R.drawable.ic_earns, secondaryText = totalSales.toString())
-            MoneyItem(text = "Inversion", icon = R.drawable.ic_sales, secondaryText = totalBuy.toString())
-            MoneyItem(
+            IconOptionItem(text = "Ventas", icon = R.drawable.ic_earns, secondaryText = totalSales.toString())
+            IconOptionItem(text = "Inversion", icon = R.drawable.ic_sales, secondaryText = totalBuy.toString())
+            IconOptionItem(
                 text = "Ganancias",
                 icon = R.drawable.ic_vector_sale,
                 secondaryText = (totalSales - totalBuy).toString()
@@ -155,16 +154,11 @@ fun FinancesView(
                         painter = painterResource(R.drawable.ic_sales_empty),
                         contentScale = ContentScale.Crop,
                         contentDescription = null,
-                        modifier = Modifier.size(150.dp).clickable{
+                        modifier = Modifier.clickable{
                             onSelectDatePressed?.invoke()
                         }
                     )
-                    Text(
-                        color = MaterialTheme.colorScheme.primary,
-                        text = stringResource(R.string.sales_not_found),
-                        style = MaterialTheme.typography.bodySmall,
-                        modifier = Modifier.padding(top = 12.dp)
-                    )
+
                 }
             }else{
                 LazyColumn(

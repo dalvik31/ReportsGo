@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
@@ -43,17 +45,14 @@ fun OrderMainView(
     val pagerState = rememberPagerState(initialPage = 0, pageCount = { 2 })
     Column {
         Header(
-            text = pluralStringResource(
-                R.plurals.title_main_orders,
-                count = orderMainMainList.size,
-                orderMainMainList.size,
-            ),
+            text = stringResource(R.string.title_main_orders,),
             textColor = MaterialTheme.colorScheme.primary,
             tintImageRight = MaterialTheme.colorScheme.primary,
             onRightIconClicked = { onCreateOrderMainClick?.invoke() },
             rightImageVector = ImageVector.vectorResource(R.drawable.ic_vector_add),
-            onProfileClicked = { onNavigateToProfile?.invoke() },
-            tintIconProfile = MaterialTheme.colorScheme.primary
+            onRightIconSecondClicked = { onNavigateToProfile?.invoke() },
+            tintRightIconSecond = MaterialTheme.colorScheme.primary,
+            rightIconSecondImageVector = Icons.Filled.AccountCircle
         )
 
         val tabs = listOf(
@@ -71,7 +70,7 @@ fun OrderMainView(
             selectedTabIndex = pagerState.currentPage,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp),
+                .padding(16.dp),
             containerColor = Color.Transparent,
             divider = {}
         ) {

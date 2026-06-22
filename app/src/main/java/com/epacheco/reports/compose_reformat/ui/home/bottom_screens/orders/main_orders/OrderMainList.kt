@@ -55,25 +55,20 @@ fun OrderList(
     ) {
         if (orderMains.isEmpty() && showImgEmptyList == false) {
             Column(
-                Modifier.fillMaxSize(),
+                Modifier.fillMaxSize().padding(horizontal = 16.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Image(
-                    painter = painterResource(R.drawable.ic_vector_empty_orders),
+                    painter = painterResource(R.drawable.ic_vector_empty_main_orders),
                     contentDescription = null,
                 )
-                Text(
-                    color = MaterialTheme.colorScheme.primary,
-                    text = stringResource(R.string.list_order_empty, status),
-                    style = MaterialTheme.typography.bodySmall,
-                    modifier = Modifier.padding(top = 12.dp)
-                )
+
             }
         } else {
             LazyColumn(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxSize().padding(horizontal = 8.dp)
                     .background(color = Color.Transparent)
             ) {
                 items(orderMains) { order ->

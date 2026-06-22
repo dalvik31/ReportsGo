@@ -4,16 +4,21 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -35,7 +40,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
@@ -51,11 +58,12 @@ import com.epacheco.reports.compose_reformat.model.orders.OrderStatus
 import com.epacheco.reports.compose_reformat.model.orders.Season
 import com.epacheco.reports.compose_reformat.ui.theme.White
 import com.epacheco.reports.compose_reformat.utils.DateUtils
-import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE2
-import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE3
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE4
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE5
+import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE7
+import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE8
 import com.epacheco.reports.compose_reformat.utils.Utils
+import com.epacheco.reports.compose_reformat.utils.Utils.getCardBackground
 
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
@@ -91,127 +99,143 @@ fun OrderMainItem(
             )
         ) {
             val numOrders = orderMain.orderLists?.size ?: 0
-
-            Box(contentAlignment = Alignment.TopEnd) {
-                if(!orderMain.orderId.isEmpty()){
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(IntrinsicSize.Min)
+                    .background(Color.Transparent)
+            ) {
                 Box(
                     modifier = Modifier
+                        .width(4.dp)
+                        .fillMaxHeight()
                         .background(
-                            MaterialTheme.colorScheme.onBackground,
-                            RoundedCornerShape(bottomStart = 10.dp)
+                            getCardBackground(orderMain.orderSeason)
                         )
-                        .padding(horizontal = 8.dp, vertical = 4.dp),
+                )
+                Box(contentAlignment = Alignment.TopEnd) {
+                    if (!orderMain.orderId.isEmpty()) {
+                        Box(
+                            modifier = Modifier
+                                .background(
+                                    MaterialTheme.colorScheme.onBackground,
+                                    RoundedCornerShape(bottomStart = 10.dp)
+                                )
+                                .padding(horizontal = 8.dp, vertical = 4.dp),
 
-                    ) {
+                            ) {
 
-                        Text(
-                            text = DateUtils.dateFormat(orderMain.orderId, FORMAT_DATE5),
-                            fontSize = 10.sp,
-                            color = MaterialTheme.colorScheme.onPrimary,
-                            style = MaterialTheme.typography.bodySmall,
-
-                            )
-                    }
-
-                }
-
-                Row(
-                    modifier = Modifier
-                        .wrapContentHeight()
-                        .animateContentSize(
-                            animationSpec = spring(
-                                dampingRatio = Spring.DampingRatioMediumBouncy,
-                                stiffness = Spring.StiffnessLow
-                            )
-                        )
-
-                ) {
-                    Column(
-                        Modifier.wrapContentHeight(),
-                        Arrangement.SpaceBetween,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
-
-                            IconButton({
-                            }) {
-                                Icon(
-                                    painter = painterResource(R.drawable.ic_simple_dot),
-                                    contentDescription = null,
-                                    tint = Utils.getCardBackground(orderMain),
-                                    modifier = Modifier.size(16.dp)
+                            Text(
+                                text = stringResource(
+                                    R.string.order_date_week_string,
+                                    DateUtils.dateFormat(orderMain.orderId, FORMAT_DATE8)
+                                ),
+                                color = MaterialTheme.colorScheme.onPrimary,
+                                style = MaterialTheme.typography.bodySmall,
 
                                 )
-                            }
-
-                            Text(
-                                color = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier
-                                    .wrapContentWidth(),
-                                text = orderMain.nameOrder.replaceFirstChar {
-                                    if (it.isLowerCase()) it.titlecase(
-                                        java.util.Locale.ROOT
-                                    ) else it.toString()
-                                }
-                                    .ifEmpty {
-                                        DateUtils.dateFormat(
-                                            orderMain.orderId,
-                                            FORMAT_DATE4
-                                        )
-                                    },
-                                style = MaterialTheme.typography.titleSmall
-                            )
-                            Spacer(modifier = Modifier.weight(1f))
-
-                        }
-
-                        Row(
-                            modifier = Modifier
-                                .padding(vertical = 12.dp)
-                                .padding(end = 12.dp, start = 12.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
-
-                            LinearProgressIndicator(
-                                modifier = Modifier.wrapContentWidth(),
-                                gapSize = (1).dp,
-                                progress = { orderMain.geProgressList() },
-                                drawStopIndicator = {
-                                    drawStopIndicator(
-                                        drawScope = this,
-                                        stopSize = ProgressIndicatorDefaults.LinearTrackStopIndicatorSize,
-                                        color = Color.Transparent,
-                                        strokeCap = StrokeCap.Round,
-                                    )
-                                }
-
-                            )
-                            Spacer(modifier = Modifier.weight(1f))
-
-                            Text(
-                                modifier = Modifier.wrapContentWidth(),
-                                text = pluralStringResource(
-                                    R.plurals.num_orders,
-                                    count = numOrders,
-                                    numOrders
-                                ),
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.primary,
-                            )
-
-
                         }
 
                     }
 
+                    Row(
+                        modifier = Modifier
+                            .wrapContentHeight()
+                            .animateContentSize(
+                                animationSpec = spring(
+                                    dampingRatio = Spring.DampingRatioMediumBouncy,
+                                    stiffness = Spring.StiffnessLow
+                                )
+                            )
+
+                    ) {
+                        Column(
+                            Modifier.wrapContentHeight(),
+                            Arrangement.SpaceBetween,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(8.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+
+
+                                Text(
+                                    color = MaterialTheme.colorScheme.primary,
+
+                                    modifier = Modifier
+                                        .wrapContentWidth()
+                                        .padding(start = 8.dp),
+                                    text = orderMain.nameOrder.replaceFirstChar {
+                                        if (it.isLowerCase()) it.titlecase(
+                                            java.util.Locale.ROOT
+                                        ) else it.toString()
+                                    }
+                                        .ifEmpty {
+
+                                            stringResource(
+                                                R.string.order_date_week, DateUtils.dateFormat(
+                                                    orderMain.orderId,
+                                                    FORMAT_DATE7
+                                                )
+                                            )
+
+
+                                        },
+                                    style = MaterialTheme.typography.titleSmall
+                                )
+                                Spacer(modifier = Modifier.weight(1f))
+
+                            }
+
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 12.dp)
+                                    .padding(end = 12.dp, start = 12.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+
+                                LinearProgressIndicator(
+                                    modifier = Modifier.wrapContentWidth(),
+                                    gapSize = (1).dp,
+                                    progress = { orderMain.geProgressList() },
+                                    drawStopIndicator = {
+                                        drawStopIndicator(
+                                            drawScope = this,
+                                            stopSize = ProgressIndicatorDefaults.LinearTrackStopIndicatorSize,
+                                            color = Color.Transparent,
+                                            strokeCap = StrokeCap.Round,
+                                        )
+                                    }
+
+                                )
+                                Spacer(modifier = Modifier.weight(1f))
+
+                                Text(
+                                    modifier = Modifier.wrapContentWidth(),
+                                    text = pluralStringResource(
+                                        R.plurals.num_orders,
+                                        count = numOrders,
+                                        numOrders
+                                    ),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.primary,
+                                )
+
+
+                            }
+
+                        }
+
+                    }
                 }
             }
-        }
 
+        }
     }
 
 
@@ -242,7 +266,17 @@ fun OrderMainItem(
             dialogTitle = stringResource(R.string.msg_delete_main_order_title),
             dialogSubTitle = stringResource(
                 R.string.msg_delete_main_order_list_body,
-                orderMain.nameOrder
+                orderMain.nameOrder.ifEmpty {
+
+                    stringResource(
+                        R.string.order_date_week, DateUtils.dateFormat(
+                            orderMain.orderId,
+                            FORMAT_DATE7
+                        )
+                    )
+
+
+                }
             ),
             confirmButtonText = stringResource(R.string.btn_ok),
             cancelButtonText = stringResource(R.string.btn_cancel),

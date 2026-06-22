@@ -6,7 +6,8 @@ sealed class OrdersMainUiEffect {
     data class NavigateToElementsMain(
         val orderMainId: String,
         val orderSeason: Season?,
-        val orderNameMain: String
+        val orderNameMain: String,
+        val progressList: Float
     ) :
         OrdersMainUiEffect()
 }

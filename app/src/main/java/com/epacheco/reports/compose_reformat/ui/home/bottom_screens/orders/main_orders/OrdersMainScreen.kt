@@ -22,6 +22,7 @@ import com.epacheco.reports.compose_reformat.model.orders.Season
 import com.epacheco.reports.compose_reformat.ui.theme.FallColor
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.ui.theme.SpringColor
+import com.epacheco.reports.compose_reformat.ui.theme.White
 import com.epacheco.reports.compose_reformat.utils.SeasonUtils
 import kotlinx.coroutines.flow.collectLatest
 
@@ -29,7 +30,9 @@ import kotlinx.coroutines.flow.collectLatest
 @Composable
 fun OrdersMainScreen(
     ordersMainViewModel: OrdersMainViewModel = hiltViewModel<OrdersMainViewModel>(),
-    onNavigateToElementsMain: ((String, Season?, String) -> Unit)? = null,
+    onNavigateToElementsMain
+
+    : ((String, Season?, String) -> Unit)? = null,
     onNavigateToProfile: (() -> Unit)? = null,
     clientId: String? = null
 ) {
@@ -59,7 +62,7 @@ fun OrdersMainScreen(
                     onNavigateToElementsMain?.invoke(
                         effect.orderMainId,
                         effect.orderSeason,
-                        effect.orderNameMain
+                        effect.orderNameMain,
                     )
                 }
             }
@@ -74,7 +77,8 @@ fun OrdersMainScreen(
                 OrdersMainUiIntent.GoToListOrders(
                     it.orderId.ifEmpty { it.dateOrder },
                     it.orderSeason,
-                    it.nameOrder
+                    it.nameOrder,
+                    it.geProgressList()
                 )
             )
         },
@@ -116,30 +120,32 @@ fun OrdersMainScreen(
     if (showInfoDialog) {
         val currentSeason = SeasonUtils.getSeason()
         ReportsInfoDialog(
-            dialogTitle = stringResource(R.string.season_title),
-            lottieAnimation = when (currentSeason) {
-                Season.FALL -> R.raw.fall
-                Season.SPRING -> R.raw.spring
+            dialogTitle = stringResource(R.string.title_season),
+            imgDialog = when (currentSeason) {
+                Season.FALL -> R.drawable.ic_fashion_fall
+                Season.SPRING -> R.drawable.ic_fashion_spring
             },
-            dialogSubTitle = stringResource(
-                R.string.msg_current_season, when (currentSeason) {
-                    Season.FALL -> stringResource(R.string.season_fall)
-                    Season.SPRING -> stringResource(R.string.season_spring)
-                }
-            ),
+            background = White,
+            dialogSubTitle = when (currentSeason) {
+                Season.FALL -> stringResource(R.string.season_fall)
+                Season.SPRING -> stringResource(R.string.season_spring)
+            },
             onDismissRequest = {
                 showInfoDialog = false
             },
             onConfirmation = {
                 showInfoDialog = false
-                showDialogCreateOrder = true
+                ordersMainViewModel.handleIntent(OrdersMainUiIntent.CreateOrderMainList)
             },
-            confirmButtonText = stringResource(R.string.btn_understood),
+            onInputChanged = {
+                ordersMainViewModel.onValueInputListChanged(input = it)
+            },
+            confirmButtonText = stringResource(R.string.btn_create_order_list),
             iconDialog = R.drawable.ic_simple_dot,
             iconDialogTint = when (currentSeason) {
                 Season.FALL -> FallColor
                 Season.SPRING -> SpringColor
-            },
+            }
         )
     }
 
@@ -157,21 +163,21 @@ fun OrdersMainScreen(
             confirmButtonText = stringResource(R.string.btn_understood)
         )
     }
-    if (showDialogCreateOrder) {
-        ReportsInputDialog(
-            icon = R.drawable.ic_vector_order,
-            text = uiState.listName,
-            onInputChanged = { e ->
-                ordersMainViewModel.onValueInputListChanged(input = e)
-            },
-            confirmButtonText = stringResource(R.string.btn_create_order_list),
-            dialogHint = stringResource(R.string.title_create_order_list),
-            onDismissRequest = { showDialogCreateOrder = false },
-            onConfirmation = {
-                showDialogCreateOrder = false
-                ordersMainViewModel.handleIntent(OrdersMainUiIntent.CreateOrderMainList)
-            })
-    }
+    /* if (showDialogCreateOrder) {
+         ReportsInputDialog(
+             icon = R.drawable.ic_vector_order,
+             text = uiState.listName,
+             onInputChanged = { e ->
+                 ordersMainViewModel.onValueInputListChanged(input = e)
+             },
+             confirmButtonText = stringResource(R.string.btn_create_order_list),
+             dialogHint = stringResource(R.string.title_create_order_list),
+             onDismissRequest = { showDialogCreateOrder = false },
+             onConfirmation = {
+                 showDialogCreateOrder = false
+                 ordersMainViewModel.handleIntent(OrdersMainUiIntent.CreateOrderMainList)
+             })
+     }*/
 
 }
 

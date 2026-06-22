@@ -4,8 +4,6 @@ import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.firebase.await
 import com.epacheco.reports.compose_reformat.model.sales.Sale
 import com.epacheco.reports.compose_reformat.utils.Constants
-import com.epacheco.reports.compose_reformat.utils.DateUtils
-import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE1
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -18,23 +16,17 @@ class FinancesRepositoryImpl @Inject constructor(
 ) : FinancesRepository {
 
     override suspend fun getFinances(
-        initialDate: Long,
-        finalDate: Long
+        initialDate: String,
+        finalDate: String
     ): Resource<List<Sale>> {
         val saleList = mutableListOf<Sale>()
         val usersRef = getFinancesReference()
         return try {
             var query: Query? = null
 
-            if (initialDate == finalDate) {
-                val dateToSearch = DateUtils.dateFormat(initialDate.toString(), FORMAT_DATE1)
-                query = usersRef.orderByChild("saleId")
-                    .equalTo(dateToSearch)
-            } else {
-                query = usersRef.orderByChild("saleId")
-                    .startAt(DateUtils.dateFormat(initialDate.toString(), FORMAT_DATE1))
-                    .endAt(DateUtils.dateFormat(finalDate.toString(), FORMAT_DATE1))
-            }
+            query = usersRef.orderByChild("saleDate")
+                .startAt(initialDate)
+                .endAt(finalDate)
 
             query.get().await()?.children?.map { snapShot ->
                 val sale = snapShot.getValue(Sale::class.java)

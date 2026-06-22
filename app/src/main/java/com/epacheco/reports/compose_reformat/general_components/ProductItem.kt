@@ -1,7 +1,9 @@
 package com.epacheco.reports.compose_reformat.general_components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.MaterialTheme
@@ -32,7 +35,10 @@ import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.model.products.Product
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.ui.theme.White
+import com.epacheco.reports.compose_reformat.utils.DateUtils
+import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE5
 import com.epacheco.reports.compose_reformat.utils.extensions.stockColor
+import com.epacheco.reports.compose_reformat.utils.extensions.toCurrencyFormat
 
 
 @Composable
@@ -93,11 +99,11 @@ fun ProductItem(
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(100.dp),
+                        .height(250.dp),
                 )
 
                 Text(
-                    product.productName,
+                    product.productName.replaceFirstChar { it.uppercase() },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 8.dp, top = 8.dp),
@@ -107,14 +113,36 @@ fun ProductItem(
                     fontSize = 14.sp
                 )
 
-                Text(
-                    stringResource(R.string.lbl_price_sale, product.productPriceSale),
+
+                Box(contentAlignment = Alignment.TopEnd, modifier = Modifier.fillMaxWidth()) {
+                    Box(
+                        modifier = Modifier
+                            .background(
+                                MaterialTheme.colorScheme.onBackground,
+                                RoundedCornerShape(topStart = 10.dp)
+                            )
+                            .padding(horizontal = 8.dp, vertical = 4.dp),
+                        contentAlignment = Alignment.Center
+
+                    ) {
+
+                        Text(
+                            text = product.productPriceSale.toCurrencyFormat(),
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            style = MaterialTheme.typography.titleSmall
+                        )
+                    }
+
+                }
+
+                /*Text(
+                    product.productPriceSale.toCurrencyFormat(),
                     modifier = Modifier
                         .padding(horizontal = 10.dp, vertical = 8.dp)
                         .align(Alignment.End),
-                    style = MaterialTheme.typography.titleLarge,
+                    style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.primary,
-                )
+                )*/
 
             }
 

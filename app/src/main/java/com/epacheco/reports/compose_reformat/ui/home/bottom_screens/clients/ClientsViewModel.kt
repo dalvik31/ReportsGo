@@ -69,6 +69,13 @@ class ClientsViewModel @Inject constructor(private val getClientByNameUseCase: G
         downloadClients()
     }
 
+    fun onPhoneClientChanged(inputPhone: String) {
+        _uiState.update {
+            it.copy(clientPhone = inputPhone)
+        }
+    }
+
+
     fun getHandler(): Handler? {
         if (handler == null) {
             handler = Handler(Looper.getMainLooper())

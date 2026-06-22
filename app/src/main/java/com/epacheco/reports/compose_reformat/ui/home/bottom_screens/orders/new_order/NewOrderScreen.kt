@@ -82,6 +82,7 @@ fun NewOrderScreen(
         onInputColorCodeChanged = {
             newOrderViewModel.onInputColorCodeChanged(it)
         },
+        orderNameToEdit = uiState.orderToEdit?.orderName,
         inputGender = uiState.productGender, onInputGenderChanged = {
             newOrderViewModel.onInputGenderChanged(it)
         }, onCreateOrder = {

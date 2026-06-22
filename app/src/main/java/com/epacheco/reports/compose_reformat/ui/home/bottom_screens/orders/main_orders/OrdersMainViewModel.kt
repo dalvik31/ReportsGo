@@ -54,7 +54,9 @@ class OrdersMainViewModel @Inject constructor(
             is OrdersMainUiIntent.GoToListOrders -> navigateToElementsOrderList(
                 intent.orderMainId,
                 intent.orderSeason,
-                intent.orderNameMain
+                intent.orderNameMain,
+                intent.progressList
+
             )
         }
     }
@@ -167,14 +169,16 @@ class OrdersMainViewModel @Inject constructor(
     private fun navigateToElementsOrderList(
         orderMainId: String,
         season: Season?,
-        nameOrderMain: String
+        nameOrderMain: String,
+        progressList: Float
     ) {
         viewModelScope.launch {
             _effectFlow.emit(
                 OrdersMainUiEffect.NavigateToElementsMain(
                     orderMainId,
                     season,
-                    nameOrderMain
+                    nameOrderMain,
+                    progressList = progressList
                 )
             )
         }

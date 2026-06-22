@@ -183,7 +183,8 @@ class NewOrderViewModel @Inject constructor(
                             orderListId = orderToEdit.orderListId,
                             orderSeason = orderToEdit.orderSeason,
                             orderClientId = _uiState.value.client?.id ?: order.orderClientId,
-                            orderClientName = _uiState.value.client?.name ?: order.orderClientName
+                            orderClientName = _uiState.value.client?.name ?: order.orderClientName,
+                            address = orderToEdit.address
                         )
                     )) {
                     is Resource.Failure -> setErrorMsg(updateOrderResponse.exception.message)

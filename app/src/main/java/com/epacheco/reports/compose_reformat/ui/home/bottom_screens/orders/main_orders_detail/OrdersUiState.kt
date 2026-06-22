@@ -4,6 +4,8 @@ import com.epacheco.reports.compose_reformat.model.orders.Order
 
 data class OrdersUiState(
     val orders: List<Order> = emptyList(),
+    val orderSelected: Order? = null,
+    val progressOrders: Float = 0f,
     val isLoading: Boolean = false,
     val errorMessage: String? = null,
     val successOperationMsg: Int? = null,

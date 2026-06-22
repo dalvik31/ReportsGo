@@ -16,8 +16,13 @@ interface OrdersRepository {
     suspend fun updateStatusOrder(
         orderId: String,
         mainOrderId: String,
-        orderBuy: Boolean
+        orderBuy: Boolean,
+        locationLat: Double?,
+        locationLong: Double?,
+        address: String?
     ): Resource<Any>
+
+    suspend fun moveOrders(order: List<Order>, orderMainId: String): Resource<Any>
 
 
     //Main orders
@@ -29,6 +34,5 @@ interface OrdersRepository {
     ): Resource<Any>
 
     suspend fun updateStatusMainOrder(orderId: String, orderStatus: OrderStatus): Resource<Any>
-
     fun getOrdersReference(): DatabaseReference
 }

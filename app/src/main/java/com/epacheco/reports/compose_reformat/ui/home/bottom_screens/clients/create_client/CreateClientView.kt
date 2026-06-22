@@ -1,19 +1,27 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.create_client
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.epacheco.reports.R
@@ -49,8 +57,11 @@ fun CreateClientView(
 
     Column {
 
+        val clientName = stringResource(R.string.info_client, (inputName ?: ""))
         val titleHeader =
-            stringResource(if (clientId != null) R.string.modify_client else R.string.create_new_cliet)
+            if (clientId != null) clientName else stringResource(
+                R.string.create_new_cliet
+            )
         Header(
             text = titleHeader,
             backgroundToolbar = Color.Transparent,
@@ -123,8 +134,30 @@ fun CreateClientView(
                 onTextChange = { onInputCreditChanged?.invoke(it) },
                 capitalization = KeyboardCapitalization.Sentences
             )
-            Spacer(modifier = Modifier.padding(8.dp))
+            Spacer(modifier = Modifier.padding(4.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp),
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painterResource(id = R.drawable.ic_info),
+                    modifier = Modifier.size(24.dp),
+                    contentDescription = "Login google",
+                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
+                )
 
+                Text(
+                    color = MaterialTheme.colorScheme.primary,
+                    text = stringResource(R.string.client_limit_info),
+                    modifier = Modifier
+                        .padding(start = 8.dp),
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
+            Spacer(modifier = Modifier.padding(8.dp))
             Row(
                 modifier = Modifier
                     .fillMaxWidth()

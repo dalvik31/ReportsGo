@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -50,19 +52,16 @@ fun ProductsView(
 
     Column {
         Header(
-            text = pluralStringResource(
-                R.plurals.title_products,
-                count = productList.size,
-                productList.size,
-            ),
+            text = stringResource(R.string.title_products),
             textColor = MaterialTheme.colorScheme.primary,
             onRightIconClicked = {
                 onGoProductDetailClick?.invoke(null, null)
             },
             tintImageRight = MaterialTheme.colorScheme.primary,
             rightImageVector = ImageVector.vectorResource(R.drawable.ic_vector_add),
-            onProfileClicked = { onNavigateToProfile?.invoke() },
-            tintIconProfile = MaterialTheme.colorScheme.primary
+            onRightIconSecondClicked = { onNavigateToProfile?.invoke() },
+            tintRightIconSecond = MaterialTheme.colorScheme.primary,
+            rightIconSecondImageVector = Icons.Filled.AccountCircle
         )
 
         SearchBarElement(
@@ -103,12 +102,6 @@ fun ProductsView(
                         modifier = Modifier.clickable {
                             onGoProductDetailClick?.invoke(null, null)
                         },
-                    )
-                    Text(
-                        color = MaterialTheme.colorScheme.primary,
-                        text = stringResource(R.string.msg_zero_products),
-                        style = MaterialTheme.typography.bodySmall,
-                        modifier = Modifier.padding(top = 12.dp)
                     )
                 }
             } else {

@@ -5,8 +5,8 @@ import com.epacheco.reports.compose_reformat.model.orders.Season
 
 sealed class FinancesUiIntent {
     data object LoadFinancesItems : FinancesUiIntent()
-    data class SetInitialDate(val initialDate: Long) : FinancesUiIntent()
-    data class SetFinalDate(val finalDate: Long) : FinancesUiIntent()
+    data class SetInitialDate(val initialDate: String) : FinancesUiIntent()
+    data class SetFinalDate(val finalDate: String) : FinancesUiIntent()
 
 }
 

@@ -231,7 +231,7 @@ class ProductDetailViewModel @Inject constructor(
     private fun getNewProduct(): Product =
         Product(
             productId = DateUtils.now().toString(),
-            productName = uiState.value.productName,
+            productName = uiState.value.productName.lowercase(),
             productColor = uiState.value.productColor,
             productColorCode = uiState.value.productColorCode,
             productCode = uiState.value.productCode,

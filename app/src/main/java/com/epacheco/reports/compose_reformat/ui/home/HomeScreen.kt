@@ -24,16 +24,17 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.ClientsScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.client_detail.ClientDetailScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.client_info.ClientInfoScreen
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.client_orders.ClientOrderScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.create_client.CreateClientScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.finances.FinancesScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.finances.finances_date.FinancesDateScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.OrdersMainScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders_detail.OrdersScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.new_order.NewOrderScreen
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.select_orders.SelectOrderScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products.ProductsScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.products.new_product.NewProductScreen
 import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile.ProfileScreen
@@ -41,8 +42,10 @@ import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.sales.SalesS
 import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeNavigationItem
 import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes
 import com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes.MainOrdersBottomHomeRoute
+import com.epacheco.reports.compose_reformat.ui.home.navigation.OrdersListType
 import com.epacheco.reports.compose_reformat.ui.theme.RedDark
 import com.epacheco.reports.compose_reformat.utils.extensions.fromPath
+import kotlin.reflect.typeOf
 
 @Composable
 fun HomeScreen(onNavigateToRegister: () -> Unit) {
@@ -55,8 +58,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
         "com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes.ClientBottomHomeRoute",
         "com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes.ProductBottomHomeRoute",
         "com.epacheco.reports.compose_reformat.ui.home.navigation.BottomHomeRoutes.SaleBottomHomeRoute",
-
-        )
+    )
 
 
 
@@ -173,10 +175,10 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                     onBackPressed = {
                         navController.navigateUp()
                     },
-                    openClientTransaction = {
+                    openClientTransaction = { clientId, clientName ->
                         navController.navigate(
                             BottomHomeRoutes.ClientDetailInformation(
-                                it
+                                clientId, clientName
                             )
                         )
                     },
@@ -187,7 +189,11 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                     },
                     openClientOrder = { clientId ->
                         navController.navigate(
-                            BottomHomeRoutes.ClientOrdersBottomHomeRoute(idClient = clientId)
+                            BottomHomeRoutes.ClientOrdersBottomHomeRoute(
+                                idClient = clientId,
+                                ordersSelected = null,
+                                orderMain = null
+                            )
                         )
                     },
                 )
@@ -363,26 +369,38 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
             composable<BottomHomeRoutes.ClientDetailInformation> { backStackEntry ->
                 val orderMainRoute: BottomHomeRoutes.ClientDetailInformation =
                     backStackEntry.toRoute()
-                ClientInfoScreen(clientId = orderMainRoute.idClient, onBackPressed = {
-                    navController.navigateUp()
-                })
+                ClientInfoScreen(
+                    clientId = orderMainRoute.idClient,
+                    clientName = orderMainRoute.clientName,
+                    onBackPressed = {
+                        navController.navigateUp()
+                    })
             }
 
-            composable<BottomHomeRoutes.ClientOrdersBottomHomeRoute> { backStackEntry ->
-                val clientId: BottomHomeRoutes.ClientOrdersBottomHomeRoute =
+            composable<BottomHomeRoutes.ClientOrdersBottomHomeRoute>(
+                typeMap = mapOf(typeOf<List<Order>?>() to OrdersListType)
+            ) { backStackEntry ->
+                val clientOrdersRoute: BottomHomeRoutes.ClientOrdersBottomHomeRoute =
                     backStackEntry.toRoute()
-                ClientOrderScreen(clientId = clientId.idClient, onBackPressed = {
-                    navController.navigateUp()
-                }, onOrderMainSelected = { mainOrderId, orderSeason, orderNameMain, openOrder ->
-                    navController.navigate(
-                        BottomHomeRoutes.CreateOrderBottomHomeRoute(
-                            null,
-                            mainOrderId,
-                            orderSeason,
-                            clientId = openOrder
+
+
+                SelectOrderScreen(
+                    clientId = clientOrdersRoute.idClient,
+                    orderListSelected = clientOrdersRoute.ordersSelected,
+                    onBackPressed = {
+                        navController.navigateUp()
+                    },
+                    onOrderMainSelected = { mainOrderId, orderSeason, orderNameMain, openOrder ->
+                        navController.navigate(
+                            BottomHomeRoutes.CreateOrderBottomHomeRoute(
+                                null,
+                                mainOrderId,
+                                orderSeason,
+                                clientId = openOrder,
+                            )
                         )
-                    )
-                })
+                    }, orderMainId = clientOrdersRoute.orderMain
+                )
             }
             composable<BottomHomeRoutes.DetailMainOrdersBottomHomeRoute> { backStackEntry ->
                 val orderMainRoute: BottomHomeRoutes.DetailMainOrdersBottomHomeRoute =
@@ -391,6 +409,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                     mainOrderId = orderMainRoute.idOrderMain,
                     orderSeason = orderMainRoute.orderSeason,
                     nameOrderMain = orderMainRoute.nameOrderMain,
+
 
                     onNavigateToCreateOrder = { mainOrderId, orderSeason ->
                         navController.navigate(
@@ -413,7 +432,17 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                     },
                     onBackPressed = {
                         navController.navigateUp()
-                    }, clientId = orderMainRoute.clientId
+                    }, clientId = orderMainRoute.clientId,
+                    onNavigateToCreateMainOrder = { orderSelected, orderMainId ->
+                        navController.navigate(
+                            BottomHomeRoutes.ClientOrdersBottomHomeRoute(
+                                idClient = null,
+                                ordersSelected = orderSelected,
+                                orderMain = orderMainId
+                            )
+                        )
+                    }
+
                 )
             }
 

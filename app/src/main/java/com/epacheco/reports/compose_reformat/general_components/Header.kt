@@ -1,9 +1,13 @@
 package com.epacheco.reports.compose_reformat.general_components
 
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.ArrowBackIosNew
@@ -16,13 +20,25 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.airbnb.lottie.LottieComposition
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
+import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 
@@ -39,10 +55,29 @@ fun Header(
     onRightIconClicked: (() -> Unit)? = null,
     rightImageVector: ImageVector = Icons.Filled.Clear,
     tintImageRight: Color = MaterialTheme.colorScheme.surface,
-    onProfileClicked: (() -> Unit)? = null,
-    tintIconProfile: Color = MaterialTheme.colorScheme.surface,
+    rightIconSecondImageVector: ImageVector? = null,
+    onRightIconSecondClicked: (() -> Unit)? = null,
+    tintRightIconSecond: Color = MaterialTheme.colorScheme.surface,
+    lottieAnimation: Boolean = false,
 
     ) {
+
+    var lottieComposition: LottieComposition? = null
+    var lottieProgress: Float? = null
+
+    if (lottieAnimation) {
+        val preLoaderLottieComposition by rememberLottieComposition(
+            LottieCompositionSpec.RawRes(R.raw.pulse2)
+        )
+        val preLoaderProgress by animateLottieCompositionAsState(
+            preLoaderLottieComposition,
+            iterations = LottieConstants.IterateForever,
+            isPlaying = true
+        )
+        lottieComposition = preLoaderLottieComposition
+        lottieProgress = preLoaderProgress
+    }
+
     TopAppBar(
         title = {
             text?.let {
@@ -61,13 +96,30 @@ fun Header(
             titleContentColor = textColor
         ),
         actions = {
-            onProfileClicked?.let { profileAction ->
-                IconButton(onClick = profileAction) {
-                    Icon(
-                        imageVector = Icons.Filled.AccountCircle,
-                        contentDescription = "close",
-                        tint = tintIconProfile
-                    )
+
+            onRightIconSecondClicked?.let { profileAction ->
+
+                IconButton(onClick = profileAction, modifier = Modifier.size(50.dp)) {
+                    rightIconSecondImageVector?.let {
+                        lottieComposition?.let {
+                            LottieAnimation(
+                                modifier = Modifier.size(96.dp)
+                                    .clip(RectangleShape)
+                                    .background(color = Color.Unspecified),
+                                composition = it,
+                                progress = lottieProgress ?: 0f,
+                                contentScale = ContentScale.Crop
+                            )
+                        }
+                        Icon(
+                            modifier = Modifier.alpha(if (lottieAnimation) 1f else 1f),
+                            imageVector = it,
+                            contentDescription = "close",
+                            tint = tintRightIconSecond
+                        )
+
+                    }
+
                 }
             }
             onRightIconClicked?.let { rightAction ->
@@ -123,6 +175,16 @@ private fun LeftActionHeaderPreview() {
 @Composable
 private fun BothActionHeaderPreview() {
     ReportsGoTheme {
-        Header(text = "Toolbar", onLeftIconClicked = {}, onRightIconClicked = {})
+        Header(
+            text = "Toolbar",
+            onLeftIconClicked = {},
+            onRightIconClicked = {},
+            lottieAnimation = true,
+            rightIconSecondImageVector = Icons.Filled.ArrowBackIosNew,
+            onRightIconSecondClicked = {},
+            rightImageVector = Icons.Filled.ArrowBackIosNew,
+            tintRightIconSecond = Color.Red,
+            tintImageRight = Color.Green
+        )
     }
 }

@@ -16,8 +16,8 @@ android {
         applicationId "com.epacheco.reports"
         minSdk 26
         targetSdk 36
-        versionCode 32
-        versionName "2.0.0.070426"
+        versionCode 33
+        versionName "2.0.0.200626"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
@@ -67,6 +67,7 @@ android {
     }
     buildFeatures {
         compose true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion '2.0.0'

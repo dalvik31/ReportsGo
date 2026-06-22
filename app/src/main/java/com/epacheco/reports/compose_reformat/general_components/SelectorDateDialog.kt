@@ -1,20 +1,26 @@
 package com.epacheco.reports.compose_reformat.general_components
 
+
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DateRangePicker
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDateRangePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
+import com.epacheco.reports.compose_reformat.utils.DateUtils
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,8 +40,42 @@ fun SelectorDateDialog(
         Column {
             DateRangePicker(
                 state = state,
+                title = {},
                 modifier = modifier
-                    .weight(1f)
+                    .weight(1f),
+                headline = {
+                    // Custom Headline Logic
+
+                    val text =
+                        if (state.selectedStartDateMillis != null && state.selectedEndDateMillis != null) {
+                            val startDate = state.selectedStartDateMillis.toString()
+                            val endDate = state.selectedEndDateMillis.toString()
+                            DateUtils.dateFormat(
+                                startDate,
+                                DateUtils.FORMAT_DATE5
+                            ) + " - " + DateUtils.dateFormat(
+                                endDate,
+                                DateUtils.FORMAT_DATE5
+                            )
+                        } else {
+                            if (state.selectedStartDateMillis != null) {
+                                val startDate = state.selectedStartDateMillis.toString()
+                                DateUtils.dateFormat(
+                                    startDate,
+                                    DateUtils.FORMAT_DATE5
+                                )
+                            } else {
+                                ""
+                            }
+                        }
+                    Text(
+                        modifier = Modifier.padding(horizontal = 24.dp),
+                        text = text,
+                        fontSize = 16.sp,
+                        style = MaterialTheme.typography.titleLarge,
+                        color = Color.Black
+                    )
+                }
             )
         }
 
@@ -48,7 +88,30 @@ fun SelectorDateDialog(
             )
         ) {
             val startDate = state.selectedStartDateMillis ?: System.currentTimeMillis()
-            val endDate = state.selectedEndDateMillis ?: startDate
+
+
+            val endDate = if (state.selectedEndDateMillis != null) {
+                val endDateString = DateUtils.dateFormat(
+                    state.selectedEndDateMillis.toString(),
+                    DateUtils.FORMAT_DATE4,
+                    1
+                )
+                DateUtils.stringDateToLong(
+                    endDateString,
+                    DateUtils.FORMAT_DATE4,
+                )
+            }else{
+                val startDateString = DateUtils.dateFormat(
+                    startDate.toString(),
+                    DateUtils.FORMAT_DATE4,
+                    1
+                )
+                DateUtils.stringDateToLong(
+                    startDateString,
+                    DateUtils.FORMAT_DATE4,
+                )
+            }
+
             onDateSelected?.invoke(
                 startDate,
                 endDate

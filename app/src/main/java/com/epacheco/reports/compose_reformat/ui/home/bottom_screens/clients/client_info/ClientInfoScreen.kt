@@ -17,6 +17,7 @@ import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsD
 fun ClientInfoScreen(
     clientInfoViewModel: ClientInfoViewModel = hiltViewModel<ClientInfoViewModel>(),
     clientId: String? = null,
+    clientName: String? = null,
     onBackPressed: (() -> Unit)? = null,
 ) {
     val uiState by clientInfoViewModel.uiState.collectAsState()
@@ -28,12 +29,14 @@ fun ClientInfoScreen(
                         it
                     )
                 )
+                clientInfoViewModel.handleIntent(ClientInfoUiIntent.LoadOrders(it))
             }
         }
     }
 
     ClientInfoView(
         clientTransaction = uiState.clientTransactions,
+        clientOrders = uiState.clientOrders,
         isRefreshing = uiState.isLoading,
         onRefresh = {
             clientId?.let {
@@ -44,9 +47,11 @@ fun ClientInfoScreen(
                 )
             }
         },
+        clientName = clientName,
         onBackPressed = {
             onBackPressed?.invoke()
-        })
+        },
+    )
 
     uiState.errorMessage?.let { msgError ->
         ReportsDialog(

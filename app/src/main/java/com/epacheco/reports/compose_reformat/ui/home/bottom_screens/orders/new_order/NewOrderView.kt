@@ -41,6 +41,7 @@ import com.epacheco.reports.compose_reformat.general_components.ClientItem
 import com.epacheco.reports.compose_reformat.general_components.Header
 import com.epacheco.reports.compose_reformat.general_components.InputTextField
 import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
+import com.epacheco.reports.compose_reformat.general_components.SecondaryButton
 import com.epacheco.reports.compose_reformat.general_components.SecondaryItem
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
@@ -110,7 +111,7 @@ fun NewOrderView(
 
         clientSelected?.let { client ->
             ClientItem(
-                modifier = Modifier.padding(horizontal = 20.dp),
+                modifier = Modifier.padding(horizontal = 16.dp),
                 client = client,
                 actionText = stringResource(
                     if (client.name.isEmpty()) R.string.search_client
@@ -126,7 +127,7 @@ fun NewOrderView(
             )
         } ?: run {
             SecondaryItem(
-                modifier = Modifier.padding(horizontal = 24.dp),
+                modifier = Modifier.padding(horizontal = 16.dp),
                 text = stringResource(R.string.search_client),
                 icon = R.drawable.ic_vector_search_client,
                 secondaryText = stringResource(R.string.client_not_selected),
@@ -284,12 +285,11 @@ fun NewOrderView(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 orderToEdit?.let {
-                    PrimaryButton(
+                    SecondaryButton(
                         modifier = Modifier
                             .weight(1f)
                             .padding(horizontal = 8.dp),
                         textButton = stringResource(R.string.btn_delete),
-                        colorBackground = GrayDark
                     ) {
                         showDialogConfirmDeleteOrder = true
                     }
@@ -391,7 +391,7 @@ fun GetBtnSelectColor(colorWrote: String) {
     val colorPosition = colorPosition(colorWrote)
     return if (colorPosition > -1) {
         Icon(
-            painter = painterResource(R.drawable.ic_color_picker),
+            painter = painterResource(R.drawable.ic_simple_dot),
             contentDescription = "close",
             tint = getTintColor(colorPosition)
         )

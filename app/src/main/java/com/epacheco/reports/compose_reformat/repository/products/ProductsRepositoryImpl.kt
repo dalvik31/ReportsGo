@@ -1,8 +1,10 @@
 package com.epacheco.reports.compose_reformat.repository.products
 
 import android.net.Uri
+import android.util.Log
 import androidx.core.net.toUri
 import com.epacheco.reports.compose_reformat.firebase.Resource
+import com.epacheco.reports.compose_reformat.firebase.await
 import com.epacheco.reports.compose_reformat.model.products.Product
 import com.epacheco.reports.compose_reformat.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
@@ -10,8 +12,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import kotlinx.coroutines.tasks.await
 import java.io.File
+import java.util.Locale
 import javax.inject.Inject
 
 class ProductsRepositoryImpl @Inject constructor(
@@ -35,13 +37,22 @@ class ProductsRepositoryImpl @Inject constructor(
     override suspend fun getProductsByName(productName: String?): Resource<List<Product>> {
         return try {
             val productList = mutableListOf<Product>()
-            getProductsReference().orderByChild("productName").startAt(productName)
-                .endAt(productName + "\uf8ff").get().await().children.map { snapShot ->
+            getProductsReference().orderByChild("productName")
+                .startAt((productName ?: "").lowercase())
+                .endAt((productName ?: "").lowercase() + "\uf8ff").get()
+                .await().children.forEach { snapShot ->
                     val product = snapShot.getValue(Product::class.java)
                     product?.let {
                         productList.add(it)
                     }
                 }
+            /* getProductsReference().orderByChild("productName").startAt(productName)
+                 .endAt(productName + "\uf8ff").get().await().children.map { snapShot ->
+                     val product = snapShot.getValue(Product::class.java)
+                     product?.let {
+                         productList.add(it)
+                     }
+                 }*/
             Resource.Success(productList)
         } catch (exception: Exception) {
             Resource.Success(emptyList())

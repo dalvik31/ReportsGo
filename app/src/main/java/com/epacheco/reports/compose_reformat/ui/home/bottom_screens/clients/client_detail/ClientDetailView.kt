@@ -20,7 +20,7 @@ import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.ClientItem
 import com.epacheco.reports.compose_reformat.general_components.Header
 import com.epacheco.reports.compose_reformat.general_components.InputTextField
-import com.epacheco.reports.compose_reformat.general_components.MoneyItem
+import com.epacheco.reports.compose_reformat.general_components.IconOptionItem
 import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
 import com.epacheco.reports.compose_reformat.model.clients.Client
@@ -33,7 +33,7 @@ fun ClientDetailView(
     onBackPressed: (() -> Unit)? = null,
     inputConcept: String? = null,
     onInputConceptChanged: ((String) -> Unit)? = null,
-    openClientTransaction: ((String) -> Unit)? = null,
+    openClientTransaction: ((String, String) -> Unit)? = null,
     onCreatePayment: ((String) -> Unit)? = null,
     openClientOrder: ((String) -> Unit)? = null,
     openClientSale: ((String) -> Unit)? = null,
@@ -58,7 +58,7 @@ fun ClientDetailView(
 
         Column(
             modifier = Modifier
-                .padding(horizontal = 24.dp)
+                .padding(horizontal = 16.dp)
         ) {
             ClientItem(client = client, showFullName = true)
             Spacer(modifier = Modifier.padding(8.dp))
@@ -106,7 +106,7 @@ fun ClientDetailView(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                MoneyItem(
+                IconOptionItem(
                     text = stringResource(R.string.option_sale),
                     icon = R.drawable.ic_vector_sale
                 ) {
@@ -114,15 +114,15 @@ fun ClientDetailView(
                         openClientSale?.invoke(it.id)
                     }
                 }
-                MoneyItem(
+                IconOptionItem(
                     text = stringResource(R.string.option_info),
                     icon = R.drawable.ic_vector_activity
                 ) {
                     client?.let {
-                        openClientTransaction?.invoke(client.id)
+                        openClientTransaction?.invoke(client.id, client.name)
                     }
                 }
-                MoneyItem(
+                IconOptionItem(
                     text = stringResource(R.string.option_order),
                     icon = R.drawable.ic_vector_order
                 ) {
@@ -131,7 +131,7 @@ fun ClientDetailView(
                     }
                 }
                 if (!client?.phone.isNullOrEmpty()) {
-                    MoneyItem(
+                    IconOptionItem(
                         text = stringResource(R.string.option_call),
                         icon = R.drawable.ic_vector_phone
                     ) {

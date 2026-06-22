@@ -1,6 +1,7 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients
 
 import android.Manifest
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -33,7 +34,7 @@ fun ClientsScreen(
 ) {
     val uiState by clientsViewModel.uiState.collectAsState()
     var showPhoneDialog by remember { mutableStateOf(false) }
-    var clientPhone: String? = null
+
     val context = LocalContext.current
 
     LaunchedEffect(Unit) {
@@ -74,8 +75,9 @@ fun ClientsScreen(
             clientsViewModel.onInputNameChanged(it)
         },
         onPhoneClick = {
+            clientsViewModel.onPhoneClientChanged(it)
             showPhoneDialog = true
-            clientPhone = it
+            Log.e("phoneClick", "ClientsScreen: ${it}")
         }
     )
 
@@ -84,7 +86,7 @@ fun ClientsScreen(
             permission = Manifest.permission.CALL_PHONE,
             iconPermission = R.drawable.ic_vector_phone,
             onGranted = {
-                context.gotoApplicationContact(clientPhone)
+                context.gotoApplicationContact(uiState.clientPhone)
                 showPhoneDialog = false
             },
             permissionRationaleTitle = stringResource(R.string.permission_phone_title),

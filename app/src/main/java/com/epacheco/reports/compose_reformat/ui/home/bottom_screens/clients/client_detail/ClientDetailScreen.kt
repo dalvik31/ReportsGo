@@ -26,7 +26,7 @@ fun ClientDetailScreen(
     detailClientViewModel: DetailClientViewModel = hiltViewModel<DetailClientViewModel>(),
     clientId: String? = null,
     onBackPressed: (() -> Unit)? = null,
-    openClientTransaction: ((String) -> Unit)? = null,
+    openClientTransaction: ((String, String) -> Unit)? = null,
     openClientOrder: ((String) -> Unit)? = null,
     openClientSale: ((String) -> Unit)? = null,
 ) {
@@ -54,7 +54,9 @@ fun ClientDetailScreen(
         },
         inputConcept = uiState.clientConcept,
         onInputConceptChanged = { detailClientViewModel.onInputConceptChanged(it) },
-        openClientTransaction = { openClientTransaction?.invoke(it) },
+        openClientTransaction = { clientId, clientName ->
+            openClientTransaction?.invoke(clientId, clientName)
+        },
         openClientSale = { openClientSale?.invoke(it) },
         openClientOrder = { openClientOrder?.invoke(it) },
         onCreatePayment = {
