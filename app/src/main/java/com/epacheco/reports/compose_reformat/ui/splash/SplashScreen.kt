@@ -29,6 +29,7 @@ fun SplashScreen(
                 is SplashUiEffect.NavigateToHome -> onNavigateToHome()
             }
         }
+        //Agreamos comentario para poder probar el git rebase
     }
 
     LaunchedEffect(Unit) {
