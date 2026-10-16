@@ -1,23 +1,17 @@
 package com.epacheco.reports.compose_reformat.ui.recovery_password
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -26,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.Header
 import com.epacheco.reports.compose_reformat.general_components.InputTextField
-import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
+import com.epacheco.reports.compose_reformat.general_components.ButtonItem
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 @Composable
@@ -90,7 +84,7 @@ fun RecoveryPasswordView(
             keyboardType = KeyboardType.Email
         )
         Spacer(modifier = Modifier.weight(1f))
-        PrimaryButton(
+        ButtonItem(
             modifier = Modifier.padding(horizontal = 24.dp),
             enabledButton = inputEmailIsValid,
             textButton = stringResource(R.string.recovery_password_send_email)
@@ -102,7 +96,7 @@ fun RecoveryPasswordView(
 }
 
 
-@Preview(showSystemUi = true)
+@Preview(showSystemUi = false)
 @Composable
 fun RecoveryPasswordViewPreview() {
     ReportsGoTheme {

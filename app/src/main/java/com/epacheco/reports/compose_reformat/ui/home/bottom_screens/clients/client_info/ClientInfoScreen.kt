@@ -5,12 +5,14 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import coil3.annotation.InternalCoilApi
 import coil3.request.GlobalLifecycle.currentState
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
+import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 @OptIn(InternalCoilApi::class)
 @Composable
@@ -34,6 +36,7 @@ fun ClientInfoScreen(
         }
     }
 
+
     ClientInfoView(
         clientTransaction = uiState.clientTransactions,
         clientOrders = uiState.clientOrders,
@@ -42,6 +45,11 @@ fun ClientInfoScreen(
             clientId?.let {
                 clientInfoViewModel.handleIntent(
                     ClientInfoUiIntent.LoadTransactions(
+                        it
+                    )
+                )
+                clientInfoViewModel.handleIntent(
+                    ClientInfoUiIntent.LoadOrders(
                         it
                     )
                 )
@@ -62,5 +70,12 @@ fun ClientInfoScreen(
                 clientInfoViewModel.handleIntent(ClientInfoUiIntent.HideDialogs)
             })
     }
+
+}
+
+@Preview(showBackground = true, showSystemUi = false)
+@Composable
+fun ClientInfoPreview() {
+    ReportsGoTheme() { ClientInfoView() }
 
 }

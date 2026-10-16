@@ -23,12 +23,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
+import com.epacheco.reports.compose_reformat.general_components.ButtonItem
 import com.epacheco.reports.compose_reformat.general_components.InputTextField
 import com.epacheco.reports.compose_reformat.general_components.PasswordTextField
-import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
-import com.epacheco.reports.compose_reformat.general_components.SecondaryButton
+import com.epacheco.reports.compose_reformat.general_components.TextButtonItem
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
-import com.epacheco.reports.compose_reformat.ui.theme.GoogleColor
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 
@@ -56,7 +55,9 @@ fun AccountView(
         ) {
         Image(
             painter = painterResource(id = R.drawable.img_logo_reports_go),
-            modifier = Modifier.size(200.dp).align(Alignment.CenterHorizontally),
+            modifier = Modifier
+                .size(200.dp)
+                .align(Alignment.CenterHorizontally),
             contentDescription = null,
             colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(MaterialTheme.colorScheme.primary),
         )
@@ -91,7 +92,7 @@ fun AccountView(
         )
 
         Spacer(Modifier.padding(top = 24.dp))
-        PrimaryButton(
+        ButtonItem(
             textButton = stringResource(id = R.string.register_screen_btn_login).uppercase(),
             colorBackground = MaterialTheme.colorScheme.primary,
             enabledButton = enabledButtonContinue ?: false
@@ -100,7 +101,7 @@ fun AccountView(
 
         }
 
-        SecondaryButton(
+        TextButtonItem(
             textButton = stringResource(id = R.string.register_screen_btn_sign_up).uppercase(),
             enabledButton = enabledButtonContinue ?: false
         ) {
@@ -112,7 +113,7 @@ fun AccountView(
         TextDivider(text = stringResource(id = R.string.register_screen_lbl_or))
         Spacer(Modifier.padding(top = 24.dp))
         Spacer(Modifier.padding(top = 8.dp))
-        PrimaryButton(
+        ButtonItem(
             textButton = stringResource(id = R.string.register_screen_btn_continue_google),
             iconBtn = R.drawable.ic_vector_google_logo,
             modifier = Modifier
@@ -124,7 +125,7 @@ fun AccountView(
 
 }
 
-@Preview(showSystemUi = true)
+@Preview(showSystemUi = false)
 @Composable
 fun ShowRegisterScreenPreview() {
     ReportsGoTheme {

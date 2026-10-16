@@ -13,6 +13,7 @@ import com.epacheco.reports.compose_reformat.model.orders.OrderStatus
 import com.epacheco.reports.compose_reformat.model.orders.Season
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import com.epacheco.reports.compose_reformat.utils.DateUtils
+import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE7
 import com.epacheco.reports.compose_reformat.utils.SeasonUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -22,6 +23,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.text.ifEmpty
 
 @HiltViewModel
 class OrdersMainViewModel @Inject constructor(
@@ -164,6 +166,19 @@ class OrdersMainViewModel @Inject constructor(
 
     fun onValueInputListChanged(input: String) {
         _uiState.update { it.copy(listName = input) }
+    }
+
+    fun onSetOrderMainIdToDelete(orderMainToDelete: OrderMain) {
+        _uiState.update { it.copy(orderMainIdToDelete = orderMainToDelete) }
+    }
+
+    fun onGetOrderMainIdToDelete(): String {
+        return uiState.value.orderMainIdToDelete?.nameOrder?.ifEmpty {
+            DateUtils.dateFormat(
+                uiState.value.orderMainIdToDelete?.orderId ?: "",
+                FORMAT_DATE7
+            )
+        } ?: ""
     }
 
     private fun navigateToElementsOrderList(

@@ -7,6 +7,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -17,12 +18,13 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsInfoDialog
-import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsInputDialog
 import com.epacheco.reports.compose_reformat.model.orders.Season
 import com.epacheco.reports.compose_reformat.ui.theme.FallColor
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.ui.theme.SpringColor
 import com.epacheco.reports.compose_reformat.ui.theme.White
+import com.epacheco.reports.compose_reformat.utils.DateUtils
+import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE7
 import com.epacheco.reports.compose_reformat.utils.SeasonUtils
 import kotlinx.coroutines.flow.collectLatest
 
@@ -31,27 +33,20 @@ import kotlinx.coroutines.flow.collectLatest
 fun OrdersMainScreen(
     ordersMainViewModel: OrdersMainViewModel = hiltViewModel<OrdersMainViewModel>(),
     onNavigateToElementsMain
-
     : ((String, Season?, String) -> Unit)? = null,
     onNavigateToProfile: (() -> Unit)? = null,
-    clientId: String? = null
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
     val currentState = lifecycleOwner.lifecycle.currentState
     val uiState by ordersMainViewModel.uiState.collectAsState()
     val context = LocalContext.current
-    var showSelectMainOrder by remember { mutableStateOf(false) }
     var showDialogCreateOrder by remember { mutableStateOf(false) }
 
-    var showInfoDialog by remember { mutableStateOf(false) }
+    var showDialogConfirmDeleteOrder by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         if (currentState.isAtLeast(Lifecycle.State.CREATED)) {
             ordersMainViewModel.handleIntent(OrdersMainUiIntent.LoadMainOrders)
-        }
-
-        clientId?.let {
-            showSelectMainOrder = true
         }
     }
 
@@ -84,10 +79,11 @@ fun OrdersMainScreen(
         },
         isRefreshing = uiState.isLoading,
         onCreateOrderMainClick = {
-            showInfoDialog = true
+            showDialogCreateOrder = true
         },
-        onDeleteOrderClick = {
-            ordersMainViewModel.handleIntent(OrdersMainUiIntent.DeleteMainList(it))
+        onDeleteOrderClick = { orderMain ->
+            showDialogConfirmDeleteOrder = true
+            ordersMainViewModel.onSetOrderMainIdToDelete(orderMain)
         },
         onUpdateStatusOrderClick = {
             ordersMainViewModel.handleIntent(
@@ -117,7 +113,7 @@ fun OrdersMainScreen(
     }
 
 
-    if (showInfoDialog) {
+    if (showDialogCreateOrder) {
         val currentSeason = SeasonUtils.getSeason()
         ReportsInfoDialog(
             dialogTitle = stringResource(R.string.title_season),
@@ -131,10 +127,10 @@ fun OrdersMainScreen(
                 Season.SPRING -> stringResource(R.string.season_spring)
             },
             onDismissRequest = {
-                showInfoDialog = false
+                showDialogCreateOrder = false
             },
             onConfirmation = {
-                showInfoDialog = false
+                showDialogCreateOrder = false
                 ordersMainViewModel.handleIntent(OrdersMainUiIntent.CreateOrderMainList)
             },
             onInputChanged = {
@@ -148,41 +144,31 @@ fun OrdersMainScreen(
             }
         )
     }
-
-    if (showSelectMainOrder) {
-        ReportsInfoDialog(
-            dialogTitle = stringResource(R.string.title_information),
-            dialogSubTitle = "Selecciona una lista de pedidos",
-            onDismissRequest = {
-                showInfoDialog = false
-            },
+    if (showDialogConfirmDeleteOrder) {
+        ReportsDialog(
+            imgDialog = R.drawable.ic_vector_remove,
+            dialogTitle = stringResource(R.string.msg_delete_main_order_title),
+            dialogSubTitle = stringResource(
+                R.string.msg_delete_main_order_list_body,
+                ordersMainViewModel.onGetOrderMainIdToDelete()
+            ),
+            confirmButtonText = stringResource(R.string.btn_ok),
+            cancelButtonText = stringResource(R.string.btn_cancel),
+            onDismissRequest = { showDialogConfirmDeleteOrder = false },
             onConfirmation = {
-                showInfoDialog = false
-                showDialogCreateOrder = true
-            },
-            confirmButtonText = stringResource(R.string.btn_understood)
+                showDialogConfirmDeleteOrder = false
+                ordersMainViewModel.uiState.value.orderMainIdToDelete?.let {
+                    ordersMainViewModel.handleIntent(OrdersMainUiIntent.DeleteMainList(it.orderId))
+                }
+
+            }
         )
     }
-    /* if (showDialogCreateOrder) {
-         ReportsInputDialog(
-             icon = R.drawable.ic_vector_order,
-             text = uiState.listName,
-             onInputChanged = { e ->
-                 ordersMainViewModel.onValueInputListChanged(input = e)
-             },
-             confirmButtonText = stringResource(R.string.btn_create_order_list),
-             dialogHint = stringResource(R.string.title_create_order_list),
-             onDismissRequest = { showDialogCreateOrder = false },
-             onConfirmation = {
-                 showDialogCreateOrder = false
-                 ordersMainViewModel.handleIntent(OrdersMainUiIntent.CreateOrderMainList)
-             })
-     }*/
 
 }
 
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true, showSystemUi = false)
 @Composable
 fun HomeScreenPreview() {
     ReportsGoTheme {

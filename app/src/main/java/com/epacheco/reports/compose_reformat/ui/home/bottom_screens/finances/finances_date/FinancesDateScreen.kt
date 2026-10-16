@@ -22,7 +22,7 @@ fun FinancesDateScreen(
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = false, showSystemUi = false)
 @Composable
 fun ProductsViewPreview() {
     ReportsGoTheme {

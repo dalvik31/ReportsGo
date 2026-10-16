@@ -94,7 +94,7 @@ fun ProfileScreen(
 }
 
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true, showSystemUi = false)
 @Composable
 fun ProfileScreenPreview() {
     ReportsGoTheme {

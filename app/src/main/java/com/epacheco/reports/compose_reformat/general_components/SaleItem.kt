@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.model.products.Product
+import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.ui.theme.White
 import com.epacheco.reports.compose_reformat.utils.extensions.stockColor
 import com.epacheco.reports.compose_reformat.utils.extensions.toCurrencyFormat
@@ -184,6 +185,8 @@ fun SaleItem(
 @Preview
 @Composable
 fun SaleItemPreview() {
-    SaleItem(Modifier, Product(productName = "nombre producto", productPriceSale = 95.0)) {}
+    ReportsGoTheme {
+        SaleItem(Modifier, Product(productName = "nombre producto", productPriceSale = 95.0)) {}
+    }
 }
 

@@ -1,7 +1,6 @@
 package com.epacheco.reports.compose_reformat.repository.products
 
 import android.net.Uri
-import android.util.Log
 import androidx.core.net.toUri
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.firebase.await
@@ -13,7 +12,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.io.File
-import java.util.Locale
 import javax.inject.Inject
 
 class ProductsRepositoryImpl @Inject constructor(
@@ -46,13 +44,6 @@ class ProductsRepositoryImpl @Inject constructor(
                         productList.add(it)
                     }
                 }
-            /* getProductsReference().orderByChild("productName").startAt(productName)
-                 .endAt(productName + "\uf8ff").get().await().children.map { snapShot ->
-                     val product = snapShot.getValue(Product::class.java)
-                     product?.let {
-                         productList.add(it)
-                     }
-                 }*/
             Resource.Success(productList)
         } catch (exception: Exception) {
             Resource.Success(emptyList())

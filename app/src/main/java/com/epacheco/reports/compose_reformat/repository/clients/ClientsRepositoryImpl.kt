@@ -43,7 +43,7 @@ class ClientsRepositoryImpl @Inject constructor(
         return Resource.Success(Any())
     }
 
-    override suspend fun updateClientDebt(
+    override suspend fun updateClientBalance(
         clientId: String,
         newDebt: Double
     ): Resource<Any> {

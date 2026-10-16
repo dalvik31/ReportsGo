@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -29,16 +30,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.OptionItem
-import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
-import com.epacheco.reports.compose_reformat.general_components.SecondaryButton
+import com.epacheco.reports.compose_reformat.general_components.ButtonItem
+import com.epacheco.reports.compose_reformat.general_components.TextButtonItem
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
 import com.epacheco.reports.compose_reformat.ui.theme.GreenColor
 import com.epacheco.reports.compose_reformat.ui.theme.RedDark
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.utils.DateUtils
-import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE2
 import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE6
 import com.epacheco.reports.compose_reformat.utils.extensions.nameProfile
 import com.google.firebase.auth.FirebaseUser
@@ -61,8 +62,17 @@ fun ProfileView(
         ) {
             firebaseUser?.photoUrl?.let {
                 Image(
-                    painter = rememberAsyncImagePainter(it),
+                    painter = rememberAsyncImagePainter(
+                        ImageRequest.Builder(LocalContext.current)
+                        .data(it)
+                        .listener(
+                            onError = { _, result ->
+                                // Log result.throwable here to see the real error code
+                                println("Coil Error: ${result.throwable.message}")
+                            }
+                        ).build()),
                     contentDescription = null,
+
                     modifier = Modifier
                         .size(130.dp)
                         .padding(10.dp)
@@ -167,7 +177,7 @@ fun ProfileView(
                         textSecondary = stringResource(R.string.lbl_no),
                         tintTextSecondary = RedDark
                     ) {}
-                    SecondaryButton(textButton = stringResource(R.string.lbl_send_email_to_verified)) {
+                    TextButtonItem(textButton = stringResource(R.string.lbl_send_email_to_verified)) {
                         onSendEmailVerificationClicked?.invoke()
                     }
                 }
@@ -176,7 +186,7 @@ fun ProfileView(
 
         Spacer(Modifier.weight(1f))
 
-        PrimaryButton(
+        ButtonItem(
             modifier = Modifier
                 .padding(horizontal = 24.dp, vertical = 24.dp),
             textButton = stringResource(R.string.lbl_logout)
@@ -203,7 +213,7 @@ private fun DividerProfile(firebaseUser: FirebaseUser?) {
     )
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true, showSystemUi = false)
 @Composable
 fun ProfileViewPreview() {
     ReportsGoTheme {

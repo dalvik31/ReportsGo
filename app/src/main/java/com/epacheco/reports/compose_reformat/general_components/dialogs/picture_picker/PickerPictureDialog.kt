@@ -45,12 +45,13 @@ fun PickerPictureDialogScreen(
     var showPermissionCameraDialog by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
 
-    val pickMedia = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        if (uri != null) {
-            onImageSelected?.invoke(permissionsViewModel.getUriToFile(uri))
-            onDismissRequest?.invoke()
+    val pickMedia =
+        rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            if (uri != null) {
+                onImageSelected?.invoke(permissionsViewModel.getUriToFile(uri))
+                onDismissRequest?.invoke()
+            }
         }
-    }
 
     val cameraLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.TakePicturePreview()
@@ -96,7 +97,7 @@ fun PickerPictureDialogScreen(
 
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true, showSystemUi = false)
 @Composable
 fun PermissionsScreenPreview() {
     ReportsGoTheme {

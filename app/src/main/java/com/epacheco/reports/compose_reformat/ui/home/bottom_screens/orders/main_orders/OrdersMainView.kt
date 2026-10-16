@@ -36,13 +36,13 @@ fun OrderMainView(
     onRefresh: (() -> Unit)? = null,
     onOrderClick: ((OrderMain) -> Unit)? = null,
     onCreateOrderMainClick: (() -> Unit)? = null,
-    onDeleteOrderClick: ((String) -> Unit)? = null,
+    onDeleteOrderClick: ((OrderMain) -> Unit)? = null,
     onUpdateStatusOrderClick: ((OrderMain) -> Unit)? = null,
     onNavigateToProfile: (() -> Unit)? = null
 ) {
     val coroutineScope = rememberCoroutineScope()
-
     val pagerState = rememberPagerState(initialPage = 0, pageCount = { 2 })
+
     Column {
         Header(
             text = stringResource(R.string.title_main_orders,),

@@ -13,7 +13,7 @@ interface ClientsRepository {
         newLimitUsed: Double
     ): Resource<Any>
 
-    suspend fun updateClientDebt(
+    suspend fun updateClientBalance(
         clientId: String,
         newDebt: Double,
     ): Resource<Any>

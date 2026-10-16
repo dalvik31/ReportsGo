@@ -115,8 +115,6 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
         ) {
 
             composable<MainOrdersBottomHomeRoute> { backStackEntry ->
-                val clientIdFromClientDetail =
-                    backStackEntry.toRoute<MainOrdersBottomHomeRoute>().idClient
                 OrdersMainScreen(
                     onNavigateToProfile = {
                         navController.navigate(
@@ -131,7 +129,7 @@ fun HomeScreen(onNavigateToRegister: () -> Unit) {
                                 orderNameMain
                             )
                         )
-                    }, clientId = clientIdFromClientDetail
+                    }
                 )
             }
             composable<BottomHomeRoutes.ClientBottomHomeRoute> { backStackEntry ->

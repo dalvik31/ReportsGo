@@ -147,7 +147,7 @@ fun SecondaryItem(
     }
 }
 
-@Preview(showSystemUi = true, showBackground = true)
+@Preview(showSystemUi = false, showBackground = false)
 @Composable
 fun SecondaryItemPreview() {
     ReportsGoTheme {

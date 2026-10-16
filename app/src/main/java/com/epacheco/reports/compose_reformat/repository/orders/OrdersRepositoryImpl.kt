@@ -1,6 +1,5 @@
 package com.epacheco.reports.compose_reformat.repository.orders
 
-import android.util.Log
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ReportsApp
 import com.epacheco.reports.compose_reformat.firebase.Resource
@@ -32,8 +31,6 @@ class OrdersRepositoryImpl @Inject constructor(
 
     override suspend fun deleteOrder(orderId: String, mainOrderId: String): Resource<Any> {
         return try {
-            Log.e("aqui", "eliminamos lista ordenId: ${orderId}")
-            Log.e("aqui", "eliminamos lista mainOrderId: ${mainOrderId}")
             getOrdersReference().child(mainOrderId).child("orderLists").child(orderId).removeValue()
             Resource.Success(Any())
         } catch (e: Exception) {

@@ -19,6 +19,9 @@ import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsD
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsInfoDialog
 import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.model.orders.Season
+import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.OrdersMainUiIntent
+import com.epacheco.reports.compose_reformat.ui.theme.FallColor
+import com.epacheco.reports.compose_reformat.ui.theme.SpringColor
 import com.epacheco.reports.compose_reformat.ui.theme.White
 import com.epacheco.reports.compose_reformat.utils.SeasonUtils
 
@@ -81,6 +84,34 @@ fun SelectOrderScreen(
         val currentSeason = SeasonUtils.getSeason()
         ReportsInfoDialog(
             dialogTitle = stringResource(R.string.title_season),
+            imgDialog = when (currentSeason) {
+                Season.FALL -> R.drawable.ic_fashion_fall
+                Season.SPRING -> R.drawable.ic_fashion_spring
+            },
+            background = White,
+            dialogSubTitle = when (currentSeason) {
+                Season.FALL -> stringResource(R.string.season_fall)
+                Season.SPRING -> stringResource(R.string.season_spring)
+            },
+            onDismissRequest = {
+                showInfoDialog = false
+            },
+            onConfirmation = {
+                showInfoDialog = false
+                selectOrdersViewModel.handleIntent(SelectOrdersUiIntent.CreateOrderMain)
+            },
+            confirmButtonText = stringResource(R.string.btn_create_order_list),
+            iconDialog = R.drawable.ic_simple_dot,
+            iconDialogTint = when (currentSeason) {
+                Season.FALL -> FallColor
+                Season.SPRING -> SpringColor
+            }
+        )
+    }
+   /* if (showInfoDialog) {
+        val currentSeason = SeasonUtils.getSeason()
+        ReportsInfoDialog(
+            dialogTitle = stringResource(R.string.title_season),
             lottieAnimation = when (currentSeason) {
                 Season.FALL -> R.raw.shopping_fall
                 Season.SPRING -> R.raw.shopping_spring
@@ -103,7 +134,7 @@ fun SelectOrderScreen(
                 Season.SPRING -> R.drawable.ic_sun
             },
         )
-    }
+    }*/
 
     if (showInfoMoveOrdersDialog) {
         ReportsInfoDialog(

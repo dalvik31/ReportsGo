@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ReportsApp
 import com.epacheco.reports.compose_reformat.domain.clients.GetClientDetailUseCase
-import com.epacheco.reports.compose_reformat.domain.clients.UpdateDebtClientUseCase
+import com.epacheco.reports.compose_reformat.domain.clients.UpdateBalanceClientUseCase
 import com.epacheco.reports.compose_reformat.domain.sales.CreateSaleUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.model.Finances.PaymentType
@@ -23,7 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailClientViewModel @Inject constructor(
     private val getClientDetailUseCase: GetClientDetailUseCase,
-    private val updateDebtClientUseCase: UpdateDebtClientUseCase,
+    private val updateBalanceClientUseCase: UpdateBalanceClientUseCase,
     private val createSaleUseCase: CreateSaleUseCase,
     private val app: ReportsApp
 ) :
@@ -89,7 +89,7 @@ class DetailClientViewModel @Inject constructor(
         val currentDebt = (_uiState.value.client?.debt) ?: 0.0
         var newDebt = currentDebt - (_uiState.value.clientAmount.toDouble())
         when (val clientUpdateDebtResponse =
-            updateDebtClientUseCase(clientId, newDebt = newDebt)) {
+            updateBalanceClientUseCase(clientId, newDebt = newDebt)) {
 
             is Resource.Success -> {
                 val saleId = DateUtils.now().toString()

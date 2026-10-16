@@ -30,6 +30,7 @@ import com.epacheco.reports.compose_reformat.ui.theme.GreenColor
 
 @Composable
 fun AvatarWithIndicator(
+    modifier: Modifier = Modifier,
     avatarUrl: String? = null,
     avatarRes: Int? = null,
     avatarLetters: String? = null,
@@ -37,7 +38,6 @@ fun AvatarWithIndicator(
     avatarSize: Dp = 80.dp,
     indicatorSize: Dp = 30.dp,
     tintSaleIndicator: Color = MaterialTheme.colorScheme.primary,
-    modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
@@ -112,12 +112,12 @@ fun AvatarWithIndicator(
 @Composable
 fun AvatarWithIndicatorPreview() {
     AvatarWithIndicator(
+        modifier = Modifier.padding(all = 8.dp),
         avatarUrl = null,
         avatarLetters = "EP",
         avatarRes = R.drawable.ic_vector_sale,
         indicatorRes = R.drawable.icon_person,
         avatarSize = 60.dp,
         indicatorSize = 15.dp,
-        modifier = Modifier.padding(all = 8.dp)
     )
 }

@@ -12,12 +12,14 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 @Composable
 fun TagPillItem(
-    tag: String,
+    text: String,
     backgroundColor: Color,
     textDecoration: TextDecoration = TextDecoration.None,
     alpha: Float = 1f
@@ -31,12 +33,21 @@ fun TagPillItem(
         Text(
             modifier = Modifier
                 .alpha(alpha),
-            text = tag,
-            fontSize = 10.sp,
+            text = text,
             textDecoration = textDecoration,
             color = MaterialTheme.colorScheme.onPrimary,
-            style = MaterialTheme.typography.bodySmall,
+            style = MaterialTheme.typography.bodySmall,)
+    }
+}
 
-            )
+
+@Preview(showSystemUi = false, showBackground = true)
+@Composable
+fun TagPillItemPreview() {
+    ReportsGoTheme {
+        TagPillItem(
+            text = "TagPillItemPreview",
+            backgroundColor = MaterialTheme.colorScheme.primary
+        )
     }
 }

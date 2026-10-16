@@ -14,8 +14,7 @@ sealed interface BottomHomeRoutes {
 
     @Serializable
     data class MainOrdersBottomHomeRoute(
-        val route: String = "Orders",
-        val idClient: String? = null
+        val route: String = "Orders"
     ) : BottomHomeRoutes
 
     @Serializable

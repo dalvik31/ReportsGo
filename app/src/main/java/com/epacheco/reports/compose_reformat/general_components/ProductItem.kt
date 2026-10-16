@@ -35,8 +35,6 @@ import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.model.products.Product
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.ui.theme.White
-import com.epacheco.reports.compose_reformat.utils.DateUtils
-import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE5
 import com.epacheco.reports.compose_reformat.utils.extensions.stockColor
 import com.epacheco.reports.compose_reformat.utils.extensions.toCurrencyFormat
 
@@ -134,15 +132,6 @@ fun ProductItem(
                     }
 
                 }
-
-                /*Text(
-                    product.productPriceSale.toCurrencyFormat(),
-                    modifier = Modifier
-                        .padding(horizontal = 10.dp, vertical = 8.dp)
-                        .align(Alignment.End),
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.primary,
-                )*/
 
             }
 

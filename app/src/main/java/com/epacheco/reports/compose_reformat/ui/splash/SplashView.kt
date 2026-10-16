@@ -65,7 +65,7 @@ fun SplashView(modifier: Modifier = Modifier) {
 
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true, showSystemUi = false)
 @Composable
 fun SplashViewPreview() {
     ReportsGoTheme {

@@ -15,7 +15,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults.Indicator
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
@@ -68,9 +67,13 @@ fun FinancesView(
 
 
         val totalSales =
-            orderMainMainList.asSequence().filter { it.paymentType  == PaymentType.PAY || it.paymentType  == PaymentType.CASH }.sumOf { it.productPriceSale }
+            orderMainMainList.asSequence()
+                .filter { it.paymentType == PaymentType.PAY || it.paymentType == PaymentType.CASH }
+                .sumOf { it.productPriceSale }
         val totalBuy =
-            orderMainMainList.asSequence().filter { it.paymentType  == PaymentType.PAY || it.paymentType  == PaymentType.CASH || it.paymentType  == PaymentType.CREDIT }.sumOf { it.productPriceBuy }
+            orderMainMainList.asSequence()
+                .filter { it.paymentType == PaymentType.PAY || it.paymentType == PaymentType.CASH || it.paymentType == PaymentType.CREDIT }
+                .sumOf { it.productPriceBuy }
 
 
 
@@ -89,8 +92,16 @@ fun FinancesView(
                 secondaryText = orderMainMainList.size.toString(),
                 isAmount = false
             )
-            IconOptionItem(text = "Ventas", icon = R.drawable.ic_earns, secondaryText = totalSales.toString())
-            IconOptionItem(text = "Inversion", icon = R.drawable.ic_sales, secondaryText = totalBuy.toString())
+            IconOptionItem(
+                text = "Ventas",
+                icon = R.drawable.ic_earns,
+                secondaryText = totalSales.toString()
+            )
+            IconOptionItem(
+                text = "Inversion",
+                icon = R.drawable.ic_sales,
+                secondaryText = totalBuy.toString()
+            )
             IconOptionItem(
                 text = "Ganancias",
                 icon = R.drawable.ic_vector_sale,
@@ -144,7 +155,7 @@ fun FinancesView(
                 )
             }
         ) {
-            if(orderMainMainList.isEmpty()){
+            if (orderMainMainList.isEmpty()) {
                 Column(
                     Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.Center,
@@ -154,13 +165,13 @@ fun FinancesView(
                         painter = painterResource(R.drawable.ic_sales_empty),
                         contentScale = ContentScale.Crop,
                         contentDescription = null,
-                        modifier = Modifier.clickable{
+                        modifier = Modifier.clickable {
                             onSelectDatePressed?.invoke()
                         }
                     )
 
                 }
-            }else{
+            } else {
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
@@ -178,7 +189,7 @@ fun FinancesView(
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true, showSystemUi = false)
 @Composable
 fun ProductsViewPreview() {
     ReportsGoTheme {

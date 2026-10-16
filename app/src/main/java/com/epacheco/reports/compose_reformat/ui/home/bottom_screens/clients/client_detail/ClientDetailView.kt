@@ -17,11 +17,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
+import com.epacheco.reports.compose_reformat.general_components.ButtonItem
 import com.epacheco.reports.compose_reformat.general_components.ClientItem
 import com.epacheco.reports.compose_reformat.general_components.Header
-import com.epacheco.reports.compose_reformat.general_components.InputTextField
 import com.epacheco.reports.compose_reformat.general_components.IconOptionItem
-import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
+import com.epacheco.reports.compose_reformat.general_components.InputTextField
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
 import com.epacheco.reports.compose_reformat.model.clients.Client
 
@@ -86,7 +86,7 @@ fun ClientDetailView(
             }
 
             Spacer(modifier = Modifier.padding(8.dp))
-            PrimaryButton(
+            ButtonItem(
                 textButton = stringResource(R.string.btn_abonar),
                 iconBtn = R.drawable.ic_vector_sale,
                 iconTint = MaterialTheme.colorScheme.onPrimary
@@ -149,7 +149,7 @@ fun ClientDetailView(
 
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true, showSystemUi = false)
 @Composable
 fun ClientDetailViewPreview() {
     ClientDetailView(Client())

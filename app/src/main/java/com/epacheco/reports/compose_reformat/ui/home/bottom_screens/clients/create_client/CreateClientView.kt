@@ -19,18 +19,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.epacheco.reports.R
+import com.epacheco.reports.compose_reformat.general_components.ButtonItem
 import com.epacheco.reports.compose_reformat.general_components.Header
 import com.epacheco.reports.compose_reformat.general_components.InputTextField
-import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
-import com.epacheco.reports.compose_reformat.general_components.SecondaryButton
 import com.epacheco.reports.compose_reformat.general_components.SecondaryItem
-import com.epacheco.reports.compose_reformat.ui.theme.GrayDark
+import com.epacheco.reports.compose_reformat.general_components.TextButtonItem
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.utils.Constants
 
@@ -166,7 +163,7 @@ fun CreateClientView(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 clientId?.let {
-                    SecondaryButton(
+                    TextButtonItem(
                         modifier = Modifier
                             .weight(1f)
                             .padding(horizontal = 8.dp),
@@ -176,7 +173,7 @@ fun CreateClientView(
                     }
                 }
 
-                PrimaryButton(
+                ButtonItem(
                     modifier = Modifier
                         .weight(1f)
                         .padding(horizontal = 8.dp),
@@ -202,7 +199,7 @@ fun CreateClientView(
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true, showSystemUi = false)
 @Composable
 fun CreateClientViewPreview() {
     ReportsGoTheme {

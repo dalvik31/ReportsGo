@@ -40,15 +40,14 @@ import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.ClientItem
 import com.epacheco.reports.compose_reformat.general_components.Header
 import com.epacheco.reports.compose_reformat.general_components.InputTextField
-import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
-import com.epacheco.reports.compose_reformat.general_components.SecondaryButton
+import com.epacheco.reports.compose_reformat.general_components.ButtonItem
+import com.epacheco.reports.compose_reformat.general_components.TextButtonItem
 import com.epacheco.reports.compose_reformat.general_components.SecondaryItem
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.color_picker.ColorPickerDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.picker_dialog.PickerDialog
 import com.epacheco.reports.compose_reformat.model.clients.Client
-import com.epacheco.reports.compose_reformat.ui.theme.GrayDark
 import com.epacheco.reports.compose_reformat.ui.theme.GrayLight
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.utils.extensions.toColor
@@ -285,7 +284,7 @@ fun NewOrderView(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 orderToEdit?.let {
-                    SecondaryButton(
+                    TextButtonItem(
                         modifier = Modifier
                             .weight(1f)
                             .padding(horizontal = 8.dp),
@@ -295,7 +294,7 @@ fun NewOrderView(
                     }
                 }
 
-                PrimaryButton(
+                ButtonItem(
                     modifier = Modifier
                         .weight(1f)
                         .padding(horizontal = 8.dp),
@@ -421,7 +420,7 @@ fun getTintColor(position: Int): Color {
 }
 
 
-@Preview(showSystemUi = true)
+@Preview(showSystemUi = false)
 @Composable
 fun NewOrderViewPreview() {
     ReportsGoTheme {

@@ -49,8 +49,8 @@ import androidx.core.net.toUri
 import coil.compose.rememberAsyncImagePainter
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.InputTextField
-import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
-import com.epacheco.reports.compose_reformat.general_components.SecondaryButton
+import com.epacheco.reports.compose_reformat.general_components.ButtonItem
+import com.epacheco.reports.compose_reformat.general_components.TextButtonItem
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
 import com.epacheco.reports.compose_reformat.general_components.dialogs.color_picker.ColorPickerDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.picker_dialog.PickerDialog
@@ -329,7 +329,7 @@ fun NewProductView(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 productToEdit?.let {
-                    SecondaryButton(
+                    TextButtonItem(
                         modifier = Modifier
                             .weight(1f)
                             .padding(horizontal = 8.dp),
@@ -340,7 +340,7 @@ fun NewProductView(
                     }
                 }
 
-                PrimaryButton(
+                ButtonItem(
                     modifier = Modifier
                         .weight(1f)
                         .padding(horizontal = 8.dp),
@@ -408,7 +408,7 @@ fun NewProductView(
     }
 }
 
-@Preview(showSystemUi = true)
+@Preview(showSystemUi = false)
 @Composable
 fun ProductsViewPreview() {
     ReportsGoTheme {

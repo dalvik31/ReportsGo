@@ -255,16 +255,12 @@ fun ClientItem(
 }
 
 
-@Preview(showSystemUi = true, showBackground = true)
+
+@Preview(showBackground = true)
 @Composable
-fun ClientItemPreview() {
+fun ClientActionTextItemPreview() {
     ReportsGoTheme {
         Column {
-            ClientItem(
-                client = Client(name = "Cliente", phone = "5548562659"),
-                iconAction = R.drawable.ic_vector_phone, actionText = "5548562659"
-            )
-            ClientItem(iconAction = R.drawable.ic_error, actionText = "5548562659")
             ClientItem(
                 client = Client(name = "Cliente", phone = "5548562659"),
                 iconAction = R.drawable.ic_error,

@@ -243,7 +243,7 @@ private fun getCurrentLocation(context: Context, callback: (Double, Double) -> U
         }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true, showSystemUi = false)
 @Composable
 fun OrdersScreenPreview() {
     ReportsGoTheme {

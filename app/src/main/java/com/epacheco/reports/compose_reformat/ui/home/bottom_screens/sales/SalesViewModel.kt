@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.domain.clients.GetClientDetailUseCase
 import com.epacheco.reports.compose_reformat.domain.clients.UpdateClientLimitUseCase
-import com.epacheco.reports.compose_reformat.domain.clients.UpdateDebtClientUseCase
+import com.epacheco.reports.compose_reformat.domain.clients.UpdateBalanceClientUseCase
 import com.epacheco.reports.compose_reformat.domain.products.GetProductByIdUseCase
 import com.epacheco.reports.compose_reformat.domain.products.UpdateStockProductUseCase
 import com.epacheco.reports.compose_reformat.domain.sales.CreateSaleUseCase
@@ -30,7 +30,7 @@ class SalesViewModel @Inject constructor(
     private val createSaleUseCase: CreateSaleUseCase,
     private val updateClientLimit: UpdateClientLimitUseCase,
     private val updateStockProductUseCase: UpdateStockProductUseCase,
-    private val updateDebtClientUseCase: UpdateDebtClientUseCase
+    private val updateBalanceClientUseCase: UpdateBalanceClientUseCase
 ) :
     BaseViewModel() {
 
@@ -253,7 +253,7 @@ class SalesViewModel @Inject constructor(
                             is Resource.Success -> {
 
 
-                                when (val clientUpdateDebtUseCase = updateDebtClientUseCase(
+                                when (val clientUpdateDebtUseCase = updateBalanceClientUseCase(
                                     clientId = clientId,
                                     newDebt = newDebt ?: 0.0
                                 )) {

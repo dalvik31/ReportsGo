@@ -165,7 +165,7 @@ fun OrdersView(
                         modifier = Modifier
                             .fillMaxSize(),
                         verticalArrangement = Arrangement.spacedBy(4.dp),
-                        contentPadding = PaddingValues(horizontal = 16.dp)
+                        contentPadding = PaddingValues(horizontal = 4.dp)
                     ) {
                         itemsIndexed(orderList) { order, index ->
 

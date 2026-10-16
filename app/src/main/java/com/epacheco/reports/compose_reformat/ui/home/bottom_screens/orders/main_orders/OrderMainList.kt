@@ -31,7 +31,7 @@ fun OrderList(
     orderMains: List<OrderMain>,
     status: String,
     isRefreshing: Boolean = false,
-    onDeleteOrderClick: ((String) -> Unit)? = null,
+    onDeleteOrderClick: ((OrderMain) -> Unit)? = null,
     onUpdateStatusOrderClick: ((OrderMain) -> Unit)? = null,
     onOrderClick: ((OrderMain) -> Unit)? = null,
     onRefresh: (() -> Unit)? = null,
@@ -80,9 +80,6 @@ fun OrderList(
                         onDeleteOrderClick = {
                             onDeleteOrderClick?.invoke(it)
                         },
-                        onUpdateStatusOrderClick = {
-                            onUpdateStatusOrderClick?.invoke(order)
-                        }
                     )
                 }
             }

@@ -29,12 +29,12 @@ fun FinancesScreen(
 
     LaunchedEffect(Unit) {
         if (currentState.isAtLeast(Lifecycle.State.STARTED)) {
-            if(!initialDate.isNullOrEmpty() && !finalDate.isNullOrEmpty()){
-                financesViewModel.handleIntent(FinancesUiIntent.SetInitialDate(initialDate ))
+            if (!initialDate.isNullOrEmpty() && !finalDate.isNullOrEmpty()) {
+                financesViewModel.handleIntent(FinancesUiIntent.SetInitialDate(initialDate))
                 financesViewModel.handleIntent(FinancesUiIntent.SetFinalDate(finalDate))
 
             }
-             financesViewModel.handleIntent(FinancesUiIntent.LoadFinancesItems)
+            financesViewModel.handleIntent(FinancesUiIntent.LoadFinancesItems)
 
         }
     }
@@ -48,8 +48,14 @@ fun FinancesScreen(
         onBackPressed = {
             onBackPressed?.invoke()
         },
-        initialDate = DateUtils.dateFormat(initialDate.toString().ifEmpty { System.currentTimeMillis().toString() }, DateUtils.FORMAT_DATE3),
-        finalDate = DateUtils.dateFormat(finalDate.toString().ifEmpty { System.currentTimeMillis().toString() }, DateUtils.FORMAT_DATE3),
+        initialDate = DateUtils.dateFormat(
+            initialDate.toString().ifEmpty { System.currentTimeMillis().toString() },
+            DateUtils.FORMAT_DATE3
+        ),
+        finalDate = DateUtils.dateFormat(
+            finalDate.toString().ifEmpty { System.currentTimeMillis().toString() },
+            DateUtils.FORMAT_DATE3
+        ),
         onSelectDatePressed = {
             onSelectDateScreen?.invoke()
         },
@@ -58,7 +64,7 @@ fun FinancesScreen(
 
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true, showSystemUi = false)
 @Composable
 fun FinancesScreenPreview() {
     ReportsGoTheme {

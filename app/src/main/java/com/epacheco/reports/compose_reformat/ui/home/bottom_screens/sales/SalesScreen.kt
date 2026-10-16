@@ -190,7 +190,7 @@ fun SalesScreen(
 
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true, showSystemUi = false)
 @Composable
 fun FinancesScreenPreview() {
     ReportsGoTheme {

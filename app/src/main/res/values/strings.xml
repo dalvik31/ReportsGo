@@ -389,8 +389,10 @@
         <item formatted="true" quantity="one">Pedidos</item>
         <item formatted="true" quantity="other">Pedidos</item>
     </plurals>
-    <string name="tab_in_progress">EN CURSO</string>
+    <string name="tab_count_in_progress">(%s) EN CURSO</string>
+    <string name="tab_count_done">(%s) COMPLETADAS</string>
     <string name="tab_done">COMPLETADAS</string>
+    <string name="tab_in_progress">EN CURSO</string>">
     <string name="search_orders">Buscando listas de pedidos…</string>
     <string name="date_order"> %s</string>
     <string name="create_new_list_orders">Crear nueva lista</string>

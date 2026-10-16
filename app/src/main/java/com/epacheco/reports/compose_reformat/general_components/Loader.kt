@@ -49,7 +49,7 @@ fun Loader(
 }
 
 
-@Preview(showSystemUi = true)
+@Preview(showSystemUi = false)
 @Composable
 fun LoaderPreview() {
     Loader(false)

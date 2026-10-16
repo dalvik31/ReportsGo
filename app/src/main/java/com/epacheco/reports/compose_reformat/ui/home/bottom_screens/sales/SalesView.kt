@@ -40,7 +40,7 @@ import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.ClientItem
 import com.epacheco.reports.compose_reformat.general_components.Header
-import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
+import com.epacheco.reports.compose_reformat.general_components.ButtonItem
 import com.epacheco.reports.compose_reformat.general_components.SaleItem
 import com.epacheco.reports.compose_reformat.general_components.SecondaryItem
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
@@ -107,7 +107,7 @@ fun SalesView(
 
             }
 
-            PrimaryButton(
+            ButtonItem(
                 textButton = stringResource(R.string.select_product),
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
             ) {
@@ -224,7 +224,7 @@ fun SalesView(
 
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true, showSystemUi = false)
 @Composable()
 fun SalesViewPreview() {
     ReportsGoTheme {

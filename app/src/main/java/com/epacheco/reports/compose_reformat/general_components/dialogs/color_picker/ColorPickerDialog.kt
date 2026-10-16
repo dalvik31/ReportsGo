@@ -44,7 +44,7 @@ fun ColorPickerDialog(
             ) {
                 itemsIndexed(colorList) { index, color ->
 
-                    var currentColor = color.toColor()
+                    val currentColor = color.toColor()
                     var borderWidth = 0.dp
                     if (currentlySelected == currentColor) {
                         borderWidth = 2.dp

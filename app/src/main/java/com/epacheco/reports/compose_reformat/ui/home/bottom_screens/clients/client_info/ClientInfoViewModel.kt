@@ -1,6 +1,5 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.clients.client_info
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.compose_reformat.domain.finances.GetFinancesByClientIdUseCase
 import com.epacheco.reports.compose_reformat.domain.orders.GetOrdersMainListUseCase

@@ -29,8 +29,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
-import com.epacheco.reports.compose_reformat.general_components.SecondaryButton
+import com.epacheco.reports.compose_reformat.general_components.ButtonItem
+import com.epacheco.reports.compose_reformat.general_components.TextButtonItem
 import kotlinx.coroutines.delay
 
 
@@ -138,13 +138,13 @@ fun CustomDialogUI(
                 } ?: run {
 
                     confirmButtonText?.let {
-                        PrimaryButton(textButton = it.uppercase(), onButtonClicked = {
+                        ButtonItem(textButton = it.uppercase(), onButtonClicked = {
                             onConfirmation?.invoke()
                         })
 
                     }
                     cancelButtonText?.let {
-                        SecondaryButton(textButton = it.uppercase(), onButtonClicked = {
+                        TextButtonItem(textButton = it.uppercase(), onButtonClicked = {
                             onCancel?.invoke()
                             onDismissRequest?.invoke()
                         })

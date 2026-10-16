@@ -3,13 +3,10 @@ package com.epacheco.reports.compose_reformat.general_components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -103,7 +100,8 @@ fun Header(
                     rightIconSecondImageVector?.let {
                         lottieComposition?.let {
                             LottieAnimation(
-                                modifier = Modifier.size(96.dp)
+                                modifier = Modifier
+                                    .size(96.dp)
                                     .clip(RectangleShape)
                                     .background(color = Color.Unspecified),
                                 composition = it,

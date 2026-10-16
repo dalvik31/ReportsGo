@@ -44,8 +44,6 @@ fun SelectorDateDialog(
                 modifier = modifier
                     .weight(1f),
                 headline = {
-                    // Custom Headline Logic
-
                     val text =
                         if (state.selectedStartDateMillis != null && state.selectedEndDateMillis != null) {
                             val startDate = state.selectedStartDateMillis.toString()
@@ -79,7 +77,7 @@ fun SelectorDateDialog(
             )
         }
 
-        PrimaryButton(
+        ButtonItem(
             modifier = Modifier
                 .padding(horizontal = 48.dp)
                 .padding(bottom = 24.dp),
@@ -100,7 +98,7 @@ fun SelectorDateDialog(
                     endDateString,
                     DateUtils.FORMAT_DATE4,
                 )
-            }else{
+            } else {
                 val startDateString = DateUtils.dateFormat(
                     startDate.toString(),
                     DateUtils.FORMAT_DATE4,
@@ -122,7 +120,7 @@ fun SelectorDateDialog(
 
 }
 
-@Preview(showSystemUi = true, showBackground = true)
+@Preview(showSystemUi = false, showBackground = true)
 @Composable
 fun SelectorDateDialogPreview() {
     ReportsGoTheme {

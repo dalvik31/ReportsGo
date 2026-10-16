@@ -10,6 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import coil3.annotation.InternalCoilApi
@@ -18,6 +19,8 @@ import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.CheckPermission
 import com.epacheco.reports.compose_reformat.general_components.Loader
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
+import com.epacheco.reports.compose_reformat.model.clients.Client
+import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.utils.extensions.gotoApplicationContact
 
 @OptIn(InternalCoilApi::class)
@@ -107,4 +110,12 @@ fun ClientDetailScreen(
 
     }
 
+}
+
+@Preview(showBackground = true, showSystemUi = false)
+@Composable
+fun ClientDetailScreenPreview() {
+    ReportsGoTheme {
+        ClientDetailView(Client())
+    }
 }

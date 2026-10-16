@@ -26,7 +26,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -34,7 +33,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -45,7 +43,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.model.orders.Order
 import com.epacheco.reports.compose_reformat.model.orders.Season
@@ -73,7 +70,7 @@ fun OrderItem(
     Surface(color = Color.Transparent) {
         Card(
             modifier = Modifier
-                .padding(vertical = 8.dp, horizontal = 16.dp)
+                .padding(vertical = 8.dp, horizontal = 8.dp)
                 .fillMaxWidth()
                 .alpha(if (isSelectedItem) 0.5f else 1f)
                 .wrapContentHeight()
@@ -242,7 +239,7 @@ fun OrderItem(
                         ) {
                             orderOptions.forEach { tag ->
                                 TagPillItem(
-                                    tag = tag,
+                                    text = tag,
                                     backgroundColor = MaterialTheme.colorScheme.primary,
                                     textDecoration = if (order.orderBuy) TextDecoration.LineThrough else TextDecoration.None,
                                     if (order.orderBuy) 0.5f else 1f

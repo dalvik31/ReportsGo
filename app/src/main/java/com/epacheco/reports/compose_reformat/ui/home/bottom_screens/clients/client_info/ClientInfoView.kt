@@ -25,14 +25,13 @@ import androidx.compose.ui.unit.dp
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.Header
 import com.epacheco.reports.compose_reformat.model.orders.Order
-import com.epacheco.reports.compose_reformat.model.orders.OrderStatus
 import com.epacheco.reports.compose_reformat.model.sales.Sale
-import com.epacheco.reports.compose_reformat.ui.home.bottom_screens.orders.main_orders.OrderList
+import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ClientInfoView(
+fun      ClientInfoView(
     clientTransaction: List<Sale> = emptyList(),
     clientOrders: List<Order> = emptyList(),
     clientName: String? = null,
@@ -43,26 +42,41 @@ fun ClientInfoView(
     val state = rememberPullToRefreshState()
     val coroutineScope = rememberCoroutineScope()
     val pagerState = rememberPagerState(initialPage = 0, pageCount = { 2 })
-    Column {
-        Header(
-            text = stringResource(R.string.operations_title, clientName ?: ""),
-            backgroundToolbar = Color.Transparent,
-            onRightIconClicked = {
-                onBackPressed?.invoke()
-            },
-
-            textColor = MaterialTheme.colorScheme.primary,
-
-            tintImageRight = MaterialTheme.colorScheme.primary
-        )
 
 
+    PullToRefreshBox(
+        isRefreshing = isRefreshing,
+        onRefresh = { onRefresh?.invoke() },
+        state = state,
+        indicator = {
+            Indicator(
+                modifier = Modifier.align(Alignment.TopCenter),
+                isRefreshing = isRefreshing,
+                containerColor = MaterialTheme.colorScheme.onPrimary,
+                color = MaterialTheme.colorScheme.primary,
+                state = state
+            )
+        }
+    ) {
+        Column {
+            Header(
+                text = stringResource(R.string.operations_title, clientName ?: ""),
+                backgroundToolbar = Color.Transparent,
+                onRightIconClicked = {
+                    onBackPressed?.invoke()
+                },
+
+                textColor = MaterialTheme.colorScheme.primary,
+
+                tintImageRight = MaterialTheme.colorScheme.primary
+            )
 
 
             val tabs = listOf(
                 stringResource(R.string.transactions_title),
                 stringResource(
-                    R.string.orders_title)
+                    R.string.orders_title
+                )
 
             )
 
@@ -91,50 +105,19 @@ fun ClientInfoView(
                 when (page) {
                     0 -> ClientInfoTransactionsView(clientTransaction)
 
-                    1 -> ClientInfoOrdersView(clientOrders)
+                    1 -> ClientInfoOrdersView(
+                        clientOrders,
+                    )
                 }
             }
-
-
-            /* if (clientTransaction.isEmpty()) {
-                 Column(
-                     Modifier.fillMaxSize(),
-                     verticalArrangement = Arrangement.Center,
-                     horizontalAlignment = Alignment.CenterHorizontally
-                 ) {
-                     Image(
-                         painter = painterResource(R.drawable.ic_sales_empty),
-                         contentDescription = null
-                     )
-                     Text(
-                         color = MaterialTheme.colorScheme.primary,
-                         text = stringResource(R.string.msg_info_client_not_found),
-                         style = MaterialTheme.typography.bodySmall,
-                         modifier = Modifier.padding(top = 12.dp)
-                     )
-                 }
-             } else {
-                 LazyColumn(
-                     modifier = Modifier
-                         .fillMaxSize()
-                         .padding(20.dp),
-                     verticalArrangement = Arrangement.spacedBy(20.dp),
-
-                     ) {
-                     items(clientTransaction) {
-                         FinanceItem(sale = it)
-                     }
-                 }
-             }*/
-
-
-
-
+        }
     }
+
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true, showSystemUi = false)
 @Composable
 fun ClientInfoViewPreview() {
-    ClientInfoView()
+    ReportsGoTheme() { ClientInfoView() }
+
 }

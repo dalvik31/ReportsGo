@@ -99,7 +99,7 @@ fun IconOptionItem(
 
 }
 
-@Preview(showSystemUi = true, showBackground = true)
+@Preview(showSystemUi = false, showBackground = false)
 @Composable
 fun IconOptionItemPreview() {
     ReportsGoTheme {

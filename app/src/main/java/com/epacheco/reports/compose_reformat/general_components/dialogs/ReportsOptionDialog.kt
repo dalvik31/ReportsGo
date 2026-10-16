@@ -21,7 +21,6 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -30,8 +29,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
-import com.epacheco.reports.compose_reformat.general_components.SecondaryButton
+import com.epacheco.reports.compose_reformat.general_components.ButtonItem
+import com.epacheco.reports.compose_reformat.general_components.TextButtonItem
 import kotlinx.coroutines.delay
 
 
@@ -139,13 +138,13 @@ fun CustomOptionDialogUI(
                 } ?: run {
 
                     firstOptionText?.let {
-                        PrimaryButton(textButton = it.uppercase(), onButtonClicked = {
+                        ButtonItem(textButton = it.uppercase(), onButtonClicked = {
                             onFirstConfirmation?.invoke()
                         })
 
                     }
                     secondOptionText?.let {
-                        SecondaryButton(textButton = it.uppercase(), onButtonClicked = {
+                        TextButtonItem(textButton = it.uppercase(), onButtonClicked = {
                             onSecondConfirmation?.invoke()
                         })
                     }

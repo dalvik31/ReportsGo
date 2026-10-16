@@ -34,7 +34,7 @@ fun IconInfoItem(
         Icon(
             imageVector = icon,
             contentDescription = null,
-            modifier = Modifier.size(14.dp),
+            modifier = Modifier.size(16.dp),
             tint = color
         )
         Spacer(modifier = Modifier.width(4.dp))
@@ -42,10 +42,9 @@ fun IconInfoItem(
             modifier = Modifier
                 .alpha(alpha),
             text = text,
-            fontSize = 10.sp,
             textDecoration = textDecoration,
             color = color,
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.bodySmall,
         )
     }
 }

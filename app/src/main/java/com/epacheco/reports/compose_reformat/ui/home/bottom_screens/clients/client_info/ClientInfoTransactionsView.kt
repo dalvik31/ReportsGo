@@ -8,26 +8,22 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.FinanceItem
 import com.epacheco.reports.compose_reformat.model.sales.Sale
+import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ClientInfoTransactionsView(
     clientTransaction: List<Sale> = emptyList(),
 ) {
-
-
     Column {
         if (clientTransaction.isEmpty()) {
             Column(
@@ -58,8 +54,11 @@ fun ClientInfoTransactionsView(
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true, showSystemUi = false)
 @Composable
 fun ClientInfoTransactionsViewReview() {
-    ClientInfoTransactionsView()
+    ReportsGoTheme() {
+        ClientInfoTransactionsView()
+    }
+
 }

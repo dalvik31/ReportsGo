@@ -11,7 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 @Composable
-fun SecondaryButton(
+fun TextButtonItem(
     textButton: String,
     modifier: Modifier = Modifier,
     enabledButton: Boolean = true,
@@ -38,18 +38,18 @@ fun SecondaryButton(
 
 @Preview
 @Composable
-private fun SecondaryButtonPreview() {
+private fun TextButtonItemPreview() {
     ReportsGoTheme {
-        SecondaryButton(textButton = "Action")
+        TextButtonItem(textButton = "Action")
     }
 
 }
 
 @Preview
 @Composable
-private fun DisableSecondaryButtonPreview() {
+private fun DisableTextButtonItemPreview() {
     ReportsGoTheme {
-        SecondaryButton(textButton = "Action", enabledButton = false)
+        TextButtonItem(textButton = "Action", enabledButton = false)
     }
 
 }

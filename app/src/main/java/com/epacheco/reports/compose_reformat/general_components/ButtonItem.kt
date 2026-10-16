@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -29,7 +28,7 @@ import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
 
 @Composable
-fun PrimaryButton(
+fun ButtonItem(
     modifier: Modifier = Modifier,
     textButton: String,
     iconBtn: Int? = null,
@@ -93,9 +92,9 @@ fun PrimaryButton(
 
 @Preview
 @Composable
-private fun GoogleButtonPreview() {
+private fun GoogleButtonItemPreview() {
     ReportsGoTheme {
-        PrimaryButton(
+        ButtonItem(
             textButton = "Icon button",
             iconBtn = R.drawable.ic_vector_google_logo,
             enabledButton = true
@@ -106,9 +105,9 @@ private fun GoogleButtonPreview() {
 
 @Preview
 @Composable
-private fun FacebookButtonPreview() {
+private fun FacebookButtonItemPreview() {
     ReportsGoTheme {
-        PrimaryButton(
+        ButtonItem(
             textButton = "Icon button",
             iconBtn = R.drawable.ic_vector_facebook_logo,
             colorBackground = FacebookColor,
@@ -120,9 +119,9 @@ private fun FacebookButtonPreview() {
 
 @Preview()
 @Composable
-private fun PrimaryButtonPreview() {
+private fun ButtonItemPreview() {
     ReportsGoTheme {
-        PrimaryButton(
+        ButtonItem(
             textButton = "Primary button",
             enabledButton = true,
         )

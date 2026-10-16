@@ -141,7 +141,7 @@ fun CreateClientScreen(
             onGranted = {
                 val intent = Intent(Intent.ACTION_PICK).apply {
                     type =
-                        ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE // Or other types like ContactsContract.Contacts.CONTENT_TYPE
+                        ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE
                 }
                 launcher.launch(intent)
             },

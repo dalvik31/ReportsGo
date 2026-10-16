@@ -26,7 +26,7 @@ import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.Header
 import com.epacheco.reports.compose_reformat.model.orders.OrderMain
 import com.epacheco.reports.compose_reformat.general_components.OrderMainItem
-import com.epacheco.reports.compose_reformat.general_components.PrimaryButton
+import com.epacheco.reports.compose_reformat.general_components.ButtonItem
 
 @Composable
 fun SelectOrderView(
@@ -98,7 +98,7 @@ fun SelectOrderView(
                     items(clientOrders) { orderMain ->
                         OrderMainItem(orderMain = orderMain, onMainOrderClick = {
                             onOrderSelected?.invoke(orderMain)
-                        }, onDeleteOrderClick = {}) { }
+                        })
                     }
                 }
             }
@@ -112,7 +112,7 @@ fun SelectOrderView(
             contentAlignment = Alignment.BottomCenter,
         ) {
 
-            PrimaryButton(
+            ButtonItem(
                 textButton = stringResource(R.string.create_new_list_orders),
                 modifier = Modifier.padding(horizontal = 24.dp)
             ) {
@@ -124,7 +124,7 @@ fun SelectOrderView(
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true, showSystemUi = false)
 @Composable
 fun SelectOrderViewPreview() {
     SelectOrderView()
