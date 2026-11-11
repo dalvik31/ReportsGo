@@ -13,16 +13,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.Lifecycle
-import coil3.annotation.InternalCoilApi
-import coil3.request.GlobalLifecycle.currentState
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.CheckPermission
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.utils.extensions.gotoApplicationContact
 
-@OptIn(InternalCoilApi::class)
 @Composable
 fun ClientsScreen(
     clientsViewModel: ClientsViewModel = hiltViewModel<ClientsViewModel>(),
@@ -38,9 +34,7 @@ fun ClientsScreen(
     val context = LocalContext.current
 
     LaunchedEffect(Unit) {
-        if (currentState.isAtLeast(Lifecycle.State.STARTED)) {
-            clientsViewModel.handleIntent(ClientUiIntent.LoadClients())
-        }
+        clientsViewModel.handleIntent(ClientUiIntent.LoadClients())
     }
 
     uiState.errorMessage?.let { msgError ->

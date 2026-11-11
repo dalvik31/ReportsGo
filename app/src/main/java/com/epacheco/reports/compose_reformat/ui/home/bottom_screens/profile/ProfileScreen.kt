@@ -42,17 +42,16 @@ fun ProfileScreen(
         }
     }
 
-    ProfileView(
-        firebaseUser = uiState.userProfile,
-        onLogoutClicked = {
+    NewProfileView(
+        userInfoProfile = uiState.userProfile,
+        onLogoutClick = {
             profileViewModel.handleIntent(ProfileUiIntent.Logout)
 
         },
         onUpdateProfilePictureClicked = {
             showProfilePictureDialog = true
         },
-        signInMethod = profileViewModel.uiState.value.signInMethod ?: "",
-        onSendEmailVerificationClicked = {
+        onVerifyEmailClick = {
             profileViewModel.handleIntent(ProfileUiIntent.SendEmailVerification)
         }
     )

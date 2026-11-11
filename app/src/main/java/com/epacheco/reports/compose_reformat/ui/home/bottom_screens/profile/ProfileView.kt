@@ -32,93 +32,93 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.epacheco.reports.R
-import com.epacheco.reports.compose_reformat.general_components.OptionItem
 import com.epacheco.reports.compose_reformat.general_components.ButtonItem
+import com.epacheco.reports.compose_reformat.general_components.OptionItem
 import com.epacheco.reports.compose_reformat.general_components.TextButtonItem
 import com.epacheco.reports.compose_reformat.general_components.TextDivider
 import com.epacheco.reports.compose_reformat.ui.theme.GreenColor
 import com.epacheco.reports.compose_reformat.ui.theme.RedDark
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
-import com.epacheco.reports.compose_reformat.utils.DateUtils
-import com.epacheco.reports.compose_reformat.utils.DateUtils.FORMAT_DATE6
-import com.epacheco.reports.compose_reformat.utils.extensions.nameProfile
-import com.google.firebase.auth.FirebaseUser
-
+import com.epacheco.reports.compose_reformat.utils.extensions.getNameFromEmail
+import io.github.jan.supabase.auth.user.UserInfo
 
 @Composable
 fun ProfileView(
-    firebaseUser: FirebaseUser? = null,
+    userInfo: UserInfo? = null,
     onUpdateProfilePictureClicked: (() -> Unit)? = null,
     onLogoutClicked: (() -> Unit)? = null,
     signInMethod: String? = null,
     onSendEmailVerificationClicked: (() -> Unit)? = null,
 ) {
     Column(Modifier.fillMaxSize()) {
-        DividerProfile(firebaseUser)
+        DividerProfile(userInfo)
         Surface(
             color = Color.Transparent,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
+            modifier =
+                Modifier
+                    .align(Alignment.CenterHorizontally),
         ) {
-            firebaseUser?.photoUrl?.let {
+            userInfo?.userMetadata?.get("avatar_url")?.let {
                 Image(
-                    painter = rememberAsyncImagePainter(
-                        ImageRequest.Builder(LocalContext.current)
-                        .data(it)
-                        .listener(
-                            onError = { _, result ->
-                                // Log result.throwable here to see the real error code
-                                println("Coil Error: ${result.throwable.message}")
-                            }
-                        ).build()),
+                    painter =
+                        rememberAsyncImagePainter(
+                            ImageRequest
+                                .Builder(LocalContext.current)
+                                .data(it)
+                                .listener(
+                                    onError = { _, result ->
+                                        // Log result.throwable here to see the real error code
+                                        println("Coil Error: ${result.throwable.message}")
+                                    },
+                                ).build(),
+                        ),
                     contentDescription = null,
-
-                    modifier = Modifier
-                        .size(130.dp)
-                        .padding(10.dp)
-                        .clip(CircleShape)
-                        .clickable {
-                            onUpdateProfilePictureClicked?.invoke()
-                        },
+                    modifier =
+                        Modifier
+                            .size(130.dp)
+                            .padding(10.dp)
+                            .clip(CircleShape)
+                            .clickable {
+                                onUpdateProfilePictureClicked?.invoke()
+                            },
                     contentScale = ContentScale.Crop,
                 )
             } ?: run {
                 Image(
                     painter = painterResource(id = R.drawable.icon_person),
                     contentDescription = null,
-                    modifier = Modifier
-                        .size(130.dp)
-                        .padding(10.dp)
-                        .clip(shape = RoundedCornerShape(40.dp))
-                        .clickable {
-                            firebaseUser?.let {
-                                onUpdateProfilePictureClicked?.invoke()
-                            }
-                        },
+                    modifier =
+                        Modifier
+                            .size(130.dp)
+                            .padding(10.dp)
+                            .clip(shape = RoundedCornerShape(40.dp))
+                            .clickable {
+                                userInfo?.let {
+                                    onUpdateProfilePictureClicked?.invoke()
+                                }
+                            },
                     contentScale = ContentScale.Crop,
                 )
             }
-
         }
 
-        firebaseUser?.metadata?.lastSignInTimestamp?.let { lastConnection ->
+        userInfo?.lastSignInAt?.let { lastConnection ->
             Text(
-                text = stringResource(
-                    R.string.last_connection
-                ),
+                text =
+                    stringResource(
+                        R.string.last_connection,
+                    ),
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
-                fontSize = 10.sp
-
+                fontSize = 10.sp,
             )
             Text(
-                text = DateUtils.dateFormat(lastConnection.toString(), FORMAT_DATE6),
+                text = lastConnection.toString(),
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
                 fontSize = 12.sp,
                 style = MaterialTheme.typography.bodySmall,
-
-                )
+            )
         }
 
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
@@ -128,55 +128,50 @@ fun ProfileView(
             textSecondary = com.epacheco.reports.BuildConfig.VERSION_NAME,
             icon = R.drawable.ic_mobile_gear,
             tintText = MaterialTheme.colorScheme.primary,
-            tintIcon = MaterialTheme.colorScheme.primary
-        ) {}
+            tintIcon = MaterialTheme.colorScheme.primary,
+        )
 
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
 
         Card(
-            modifier = Modifier.padding(horizontal = 16.dp), colors = CardColors(
-                contentColor = MaterialTheme.colorScheme.onBackground,
-                containerColor = MaterialTheme.colorScheme.surface,
-                disabledContentColor = Color.Transparent,
-                disabledContainerColor = Color.Transparent
-            )
+            modifier = Modifier.padding(horizontal = 16.dp),
+            colors =
+                CardColors(
+                    contentColor = MaterialTheme.colorScheme.onBackground,
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    disabledContentColor = Color.Transparent,
+                    disabledContainerColor = Color.Transparent,
+                ),
         ) {
-
-
             Column(
-                modifier = Modifier
-                    .wrapContentWidth(),
+                modifier =
+                    Modifier
+                        .wrapContentWidth(),
             ) {
-
                 Column(modifier = Modifier.fillMaxWidth()) {
                     OptionItem(
                         text = stringResource(R.string.lbl_email),
-                        textSecondary = firebaseUser?.email
-
-                    ) {}
+                        textSecondary = userInfo?.email,
+                    )
 
                     OptionItem(
                         text = stringResource(R.string.login_method),
-                        textSecondary = signInMethod
-                    ) {}
-
-
+                        textSecondary = signInMethod,
+                    )
                 }
 
-                if (firebaseUser?.isEmailVerified == true) {
+                if (userInfo?.emailConfirmedAt != null) {
                     OptionItem(
                         text = stringResource(R.string.email_verified),
                         textSecondary = stringResource(R.string.lbl_yes),
-                        tintTextSecondary = GreenColor
-                    ) {}
-
+                        tintTextSecondary = GreenColor,
+                    )
                 } else {
-
                     OptionItem(
                         text = stringResource(R.string.email_verified),
                         textSecondary = stringResource(R.string.lbl_no),
-                        tintTextSecondary = RedDark
-                    ) {}
+                        tintTextSecondary = RedDark,
+                    )
                     TextButtonItem(textButton = stringResource(R.string.lbl_send_email_to_verified)) {
                         onSendEmailVerificationClicked?.invoke()
                     }
@@ -187,29 +182,31 @@ fun ProfileView(
         Spacer(Modifier.weight(1f))
 
         ButtonItem(
-            modifier = Modifier
-                .padding(horizontal = 24.dp, vertical = 24.dp),
-            textButton = stringResource(R.string.lbl_logout)
+            modifier =
+                Modifier
+                    .padding(horizontal = 24.dp, vertical = 24.dp),
+            textButton = stringResource(R.string.lbl_logout),
         ) {
-
             onLogoutClicked?.invoke()
         }
     }
-
 }
 
-
 @Composable
-private fun DividerProfile(firebaseUser: FirebaseUser?) {
-    val userName = firebaseUser?.displayName.nameProfile(firebaseUser?.email)
-    val userNameLbl = stringResource(
-        R.string.title_profile,
-        userName
-    )
+private fun DividerProfile(userInfo: UserInfo?) {
+    val name = userInfo?.userMetadata?.get("name").toString()
+
+    val userName =
+        name
+            .ifEmpty {
+                userInfo?.email?.getNameFromEmail()
+            }.toString()
+
+    val userNameLbl = "Hola $userName"
     TextDivider(
         modifier = Modifier.padding(vertical = 16.dp),
         text = if (userName.isEmpty()) stringResource(R.string.msg_user_profile_not_found) else userNameLbl,
-        fontSize = 20.sp
+        fontSize = 20.sp,
     )
 }
 
@@ -217,8 +214,6 @@ private fun DividerProfile(firebaseUser: FirebaseUser?) {
 @Composable
 fun ProfileViewPreview() {
     ReportsGoTheme {
-
         ProfileView()
     }
-
 }

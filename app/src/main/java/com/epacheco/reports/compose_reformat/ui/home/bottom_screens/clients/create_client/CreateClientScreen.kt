@@ -17,9 +17,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.Lifecycle
-import coil3.annotation.InternalCoilApi
-import coil3.request.GlobalLifecycle.currentState
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.CheckPermission
 import com.epacheco.reports.compose_reformat.general_components.Loader
@@ -27,7 +24,6 @@ import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsD
 import com.epacheco.reports.compose_reformat.utils.extensions.getContactDetails
 import kotlinx.coroutines.flow.collectLatest
 
-@OptIn(InternalCoilApi::class)
 @Composable
 fun CreateClientScreen(
     createClientViewModel: CreateClientViewModel = hiltViewModel<CreateClientViewModel>(),
@@ -60,10 +56,8 @@ fun CreateClientScreen(
 
 
     LaunchedEffect(Unit) {
-        if (currentState.isAtLeast(Lifecycle.State.STARTED)) {
-            clientId?.let {
-                createClientViewModel.handleIntent(CreateClientUiIntent.LoadClient(it))
-            }
+        clientId?.let {
+            createClientViewModel.handleIntent(CreateClientUiIntent.LoadClient(it))
         }
     }
 

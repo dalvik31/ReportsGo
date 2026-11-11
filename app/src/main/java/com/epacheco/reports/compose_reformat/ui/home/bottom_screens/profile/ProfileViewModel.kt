@@ -2,6 +2,7 @@ package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile
 
 import android.net.Uri
 import android.util.Log
+import androidx.core.net.toUri
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ReportsApp
@@ -10,11 +11,15 @@ import com.epacheco.reports.compose_reformat.domain.user.LogoutUseCase
 import com.epacheco.reports.compose_reformat.domain.user.SendEmailVerificationUseCase
 import com.epacheco.reports.compose_reformat.domain.user.UpdateProfileUseCase
 import com.epacheco.reports.compose_reformat.domain.user.UploadImgProfileUseCase
+import com.epacheco.reports.compose_reformat.domain.user.supabase.CurrentUserUseCase
+import com.epacheco.reports.compose_reformat.domain.user.supabase.CurrentUserUseCase.Input
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import com.epacheco.reports.compose_reformat.utils.extensions.compress
+import com.epacheco.reports.compose_reformat.utils.extensions.toDomain
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.github.jan.supabase.auth.user.UserInfo
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -28,6 +33,7 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val logoutUseCase: LogoutUseCase,
     private val getUserUseCase: GetUserUseCase,
+    private val currentUserUseCase: CurrentUserUseCase,
     private val uploadImgProfileUseCase: UploadImgProfileUseCase,
     private val updateProfileUseCase: UpdateProfileUseCase,
     private val sendEmailVerificationUseCase: SendEmailVerificationUseCase,
@@ -55,17 +61,15 @@ class ProfileViewModel @Inject constructor(
 
     private fun getProfile() = viewModelScope.launch {
         loading(true)
-        when (val profileResponse = getUserUseCase()) {
-            is Resource.Failure -> {
-                _uiState.update { it.copy(errorMessage = profileResponse.exception.message) }
+        when (val result = currentUserUseCase.execute(Input())) {
+            is CurrentUserUseCase.Output.Failure -> {
+                _uiState.update { it.copy(errorMessage = result.exception.message) }
             }
 
-            is Resource.Success -> {
-                determineSignInMethod(profileResponse.result)
+            is CurrentUserUseCase.Output.Success -> {
                 _uiState.update {
                     it.copy(
-                        userProfile = profileResponse.result,
-                        imgUser = profileResponse.result.photoUrl
+                        userProfile = result.userInfo,
                     )
                 }
             }
@@ -85,26 +89,6 @@ class ProfileViewModel @Inject constructor(
                 }
             }
             loading(false)
-        }
-    }
-
-    private fun determineSignInMethod(user: FirebaseUser) {
-        var signInMethod = ""
-        user.providerData.forEach {
-            Log.e("aqui","vamooooos ${it.providerId}")
-        }
-        user.providerData.last().providerId.let {
-            signInMethod = when (it) {
-                "google.com" -> "Google"
-                "apple.com" -> "Apple"
-                "password" -> "Correo / Contraseña"
-                else -> it
-            }
-        }
-        _uiState.update {
-            it.copy(
-                signInMethod = signInMethod
-            )
         }
     }
 

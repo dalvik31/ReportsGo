@@ -47,6 +47,18 @@ object DateUtils {
     }
 
 
+    fun formatDateIsoToText(isoDateString: String, format: String): String {
+        return try {
+            val instant = Instant.parse(isoDateString)
+            val formatter = DateTimeFormatter.ofPattern(format, Locale.getDefault())
+            instant.atZone(ZoneId.systemDefault()).format(formatter)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            ""
+        }
+    }
+
+
     fun now() = Calendar.getInstance().time.time
 
 
@@ -55,9 +67,10 @@ object DateUtils {
     const val FORMAT_DATE3 = "dd/MMM/YYYY"
     const val FORMAT_DATE4 = "dd/MM/yy"
     const val FORMAT_DATE5 = "d MMM yy"
-    const val FORMAT_DATE6 = "dd MMM yyyy hh:mm a"
+    const val FORMAT_DATE6 = "dd MMMM yyyy"
     const val FORMAT_DATE7 = "EEEE, dd MMMM YYYY"
     const val FORMAT_DATE8 = "W"
+    const val FORMAT_DATE9 = "dd MMM yy - hh:mm a"
 
 
 }

@@ -7,16 +7,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.Lifecycle
-import coil3.annotation.InternalCoilApi
-import coil3.request.GlobalLifecycle.currentState
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
 import com.epacheco.reports.compose_reformat.model.orders.Season
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import kotlinx.coroutines.flow.collectLatest
 
-@OptIn(InternalCoilApi::class)
 @Composable
 fun NewOrderScreen(
     newOrderViewModel: NewOrderViewModel = hiltViewModel<NewOrderViewModel>(),
@@ -31,31 +27,26 @@ fun NewOrderScreen(
     val uiState by newOrderViewModel.uiState.collectAsState()
 
     LaunchedEffect(Unit) {
-        if (currentState.isAtLeast(Lifecycle.State.STARTED)) {
+        clientIdSelected?.let {
+            newOrderViewModel.handleIntent(NewOrderUiIntent.GetClientById(clientIdSelected))
+        }
 
-            clientIdSelected?.let {
-                newOrderViewModel.handleIntent(NewOrderUiIntent.GetClientById(clientIdSelected))
-            }
-
-
-            orderToEdit?.let {
-                newOrderViewModel.handleIntent(
-                    NewOrderUiIntent.GetOrderById(
-                        mainOrderId ?: "",
-                        it,
-                        callClientInfo = clientIdSelected.isNullOrEmpty()
-                    )
+        orderToEdit?.let {
+            newOrderViewModel.handleIntent(
+                NewOrderUiIntent.GetOrderById(
+                    mainOrderId ?: "",
+                    it,
+                    callClientInfo = clientIdSelected.isNullOrEmpty()
                 )
-            }
+            )
+        }
 
-            newOrderViewModel.effectFlow.collectLatest { effect ->
-                when (effect) {
-                    NewOrderUiEffect.NavigateBack -> {
-                        onBackPressed?.invoke()
-                    }
+        newOrderViewModel.effectFlow.collectLatest { effect ->
+            when (effect) {
+                NewOrderUiEffect.NavigateBack -> {
+                    onBackPressed?.invoke()
                 }
             }
-
         }
     }
 

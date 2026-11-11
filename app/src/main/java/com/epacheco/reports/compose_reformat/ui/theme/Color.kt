@@ -31,6 +31,7 @@ val White40 = Color(0x65FFFFFF)
 
 val FacebookColor = Color(0xFF1877F2)
 val GoogleColor = Color(0xFFDB4437)
+val PaypalColor = Color(0xFF00457C)
 val YellowColor = Color(0xFFFFCF7D)
 val GreenColor = Color(0xFF8DC68F)
 val FallColor = Color(0xFFD9A05B)

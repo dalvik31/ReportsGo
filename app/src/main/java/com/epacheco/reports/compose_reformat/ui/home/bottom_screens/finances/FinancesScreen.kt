@@ -7,14 +7,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.Lifecycle
-import coil3.annotation.InternalCoilApi
-import coil3.request.GlobalLifecycle.currentState
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import com.epacheco.reports.compose_reformat.utils.DateUtils
 
 
-@OptIn(InternalCoilApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FinancesScreen(
     financesViewModel: FinancesViewModel = hiltViewModel<FinancesViewModel>(),
@@ -28,15 +25,12 @@ fun FinancesScreen(
 
 
     LaunchedEffect(Unit) {
-        if (currentState.isAtLeast(Lifecycle.State.STARTED)) {
-            if (!initialDate.isNullOrEmpty() && !finalDate.isNullOrEmpty()) {
-                financesViewModel.handleIntent(FinancesUiIntent.SetInitialDate(initialDate))
-                financesViewModel.handleIntent(FinancesUiIntent.SetFinalDate(finalDate))
-
-            }
-            financesViewModel.handleIntent(FinancesUiIntent.LoadFinancesItems)
+        if (!initialDate.isNullOrEmpty() && !finalDate.isNullOrEmpty()) {
+            financesViewModel.handleIntent(FinancesUiIntent.SetInitialDate(initialDate))
+            financesViewModel.handleIntent(FinancesUiIntent.SetFinalDate(finalDate))
 
         }
+        financesViewModel.handleIntent(FinancesUiIntent.LoadFinancesItems)
     }
 
     FinancesView(

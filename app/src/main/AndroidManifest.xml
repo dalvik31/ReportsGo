@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.epacheco.reports">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -37,6 +36,21 @@
         android:theme="@style/AppTheme">
 
         <activity
+            android:name=".compose_reformat.ui.deeplink.DeepLinkHandlerActivity"
+            android:exported="true"
+            android:theme="@style/Theme.App.Starting" >
+
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="login-callback"
+                    android:scheme="myapp" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".compose_reformat.ui.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.App.Starting"
@@ -45,6 +59,8 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+
+
             </intent-filter>
         </activity>
         <!--

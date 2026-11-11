@@ -14,6 +14,7 @@
     <string name="msg_process">Procesando…</string>
     <string name="lbl_login">Iniciar sesión</string>
     <string name="lbl_logout">Cerrar sesión</string>
+    <string name="lbl_paypal">Donar con paypal</string>
     <string name="lbl_sign_up">Crear cuenta</string>
     <string name="btn_continue_facebook">Continua con Facebook</string>
     <string name="btn_continue_google">Continua con Google</string>
@@ -622,13 +623,17 @@
 
     <!--PROFILE Fragments-->
     <string name="search_profile">Buscando usuario…</string>
-    <string name="title_profile">Hola, %s</string>
+    <string name="user_id">ID de usuario:</string>
     <string name="last_connection">Última conexión:</string>
     <string name="title_close_session">Cerrar sesión</string>
     <string name="msg_user_profile_not_found">Usuario no encontrado</string>
     <string name="msg_close_session">¿Realmente desea cerrar sesion?</string>
     <string name="login_method">Método de inicio de sesión</string>
-    <string name="email_verified">Correo verificado</string>
+    <string name="email_verified">Verificado</string>
+    <string name="email_not_verified">No verificado</string>
+    <string name="user">Usuario</string>
+    <string name="email">email@example.com</string>
+    <string name="user_not_verified_title">Usuario no verificado</string>
     <string name="lbl_send_email_to_verified">Enviar email de verificación</string>
     <string name="lbl_send_email_to_verified_success"><![CDATA[<b>Correo de verificación enviado</b><br><br>Si tu correo es válido, recibiras un mensaje con instrucciones para continuar.<br><br>Por seguridad, cerraremos tu sesión.<br><br><b>Podras iniciar sesión nuevamente en cualquier momento.</b>]]></string>
     <string name="version_app">Versión:</string>

@@ -5,8 +5,11 @@ import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.compose_reformat.ReportsApp
 import com.epacheco.reports.compose_reformat.domain.user.SigInUserWithEmailAndPasswordUseCase
 import com.epacheco.reports.compose_reformat.domain.user.SigInUserWithGoogleUseCase
-import com.epacheco.reports.compose_reformat.domain.user.SignUpUseCase
+import com.epacheco.reports.compose_reformat.domain.user.supabase.SignInUseCase
+import com.epacheco.reports.compose_reformat.domain.user.supabase.SignInWithGoogleUseCase
+import com.epacheco.reports.compose_reformat.domain.user.supabase.SignUpUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
+import com.epacheco.reports.compose_reformat.repository.auth.supabase.AuthenticationRepository
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import com.epacheco.reports.compose_reformat.utils.Validations
 import com.epacheco.reports.compose_reformat.utils.extensions.getTranslateFireBaseErrorMsg
@@ -23,7 +26,9 @@ class AccountViewModel @Inject constructor(
     private val sigInUserWithEmailAndPasswordUseCase: SigInUserWithEmailAndPasswordUseCase,
     private val sigInUserWithGoogleUseCase: SigInUserWithGoogleUseCase,
     private val signUpUseCase: SignUpUseCase,
-    private val app: ReportsApp
+    private val signInUseCase: SignInUseCase,
+    private val app: ReportsApp,
+    private val authenticationRepository: AuthenticationRepository
 ) : BaseViewModel() {
 
     private val _uiState = MutableStateFlow(AccountUiState())
@@ -37,11 +42,11 @@ class AccountViewModel @Inject constructor(
 
     fun handleIntent(intent: AccountUiIntent) {
         when (intent) {
-            AccountUiIntent.SignUp -> doSignUp()
+            AccountUiIntent.SignUp -> onSignUp()
             AccountUiIntent.ChangePassword -> navigateToPassword()
-            AccountUiIntent.SignIn -> doSignIn()
+            AccountUiIntent.SignIn -> onSignIn()
             AccountUiIntent.HideMsgError -> setErrorMsg()
-            is AccountUiIntent.GoogleSignIn -> googleSignIn(intent.getCredentialResponse)
+            is AccountUiIntent.GoogleSignIn -> onGoogleSignIn()
         }
     }
 
@@ -71,6 +76,63 @@ class AccountViewModel @Inject constructor(
             Validations.validateEmailAndPassword(email = email, password = password)
     }
 
+    private fun onSignIn() {
+        viewModelScope.launch {
+            loading(true)
+            val result = signInUseCase.execute(
+                SignInUseCase.Input(
+                    email =  _uiState.value.email,
+                    password = _uiState.value.password
+                )
+            )
+            when (result) {
+                is SignInUseCase.Output.Success -> {
+                    navigateToHome()
+                }
+
+                is SignInUseCase.Output.Failure -> {
+                    setErrorMsg(result.exception.message)
+                }
+            }
+            loading(false)
+        }
+    }
+
+    fun onSignUp() {
+        viewModelScope.launch {
+            loading(true)
+            val result = signUpUseCase.execute(
+                SignUpUseCase.Input(
+                    email =  _uiState.value.email,
+                    password = _uiState.value.password
+                )
+            )
+            when (result) {
+                is SignUpUseCase.Output.Success -> {
+                    navigateToHome()
+                }
+                is SignUpUseCase.Output.Failure -> {
+                    setErrorMsg(result.exception.message)
+                }
+            }
+            loading(false)
+        }
+    }
+
+
+    fun onGoogleSignIn() {
+        viewModelScope.launch {
+            when (val result = authenticationRepository.signInWithGoogle()) {
+                is SignInWithGoogleUseCase.Output.Success -> {}
+
+                is SignInWithGoogleUseCase.Output.Failure -> {
+                    setErrorMsg(result.exception.message)
+                }
+            }
+            loading(false)
+        }
+    }
+
     private fun doSignIn() = viewModelScope.launch {
         loading(true)
         when (val signInResponse =
@@ -86,8 +148,9 @@ class AccountViewModel @Inject constructor(
         loading(false)
     }
 
+
     private fun doSignUp() = viewModelScope.launch {
-        loading(true)
+    /*    loading(true)
         when (val signInResponse = signUpUseCase(_uiState.value.email, _uiState.value.password)) {
             is Resource.Failure -> setErrorMsg(
                 signInResponse.exception.message?.getTranslateFireBaseErrorMsg(
@@ -98,7 +161,7 @@ class AccountViewModel @Inject constructor(
             is Resource.Success -> navigateToHome()
 
         }
-        loading(false)
+        loading(false)*/
     }
 
     private fun navigateToPassword() {

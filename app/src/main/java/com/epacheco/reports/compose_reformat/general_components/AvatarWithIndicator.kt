@@ -3,6 +3,7 @@ package com.epacheco.reports.compose_reformat.general_components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ui.theme.GreenColor
+import com.epacheco.reports.compose_reformat.utils.extensions.initials
 
 @Composable
 fun AvatarWithIndicator(
@@ -38,6 +40,7 @@ fun AvatarWithIndicator(
     avatarSize: Dp = 80.dp,
     indicatorSize: Dp = 30.dp,
     tintSaleIndicator: Color = MaterialTheme.colorScheme.primary,
+    onClicked: (() -> Unit)? = null,
 ) {
     Box(
         modifier = modifier
@@ -53,7 +56,10 @@ fun AvatarWithIndicator(
                 modifier = Modifier
                     .matchParentSize()
                     .clip(CircleShape)
-                    .border(2.dp, Color.White, CircleShape) // Optional border
+                    .border(2.dp, Color.White, CircleShape)
+                    .clickable {
+                        onClicked?.invoke()
+                    }
             )
         } else if (avatarRes != null) {
             Image(
@@ -64,7 +70,10 @@ fun AvatarWithIndicator(
                 modifier = Modifier
                     .matchParentSize()
                     .clip(CircleShape)
-                    .border(2.dp, Color.White, CircleShape) // Optional border
+                    .border(2.dp, Color.White, CircleShape)
+                    .clickable {
+                        onClicked?.invoke()
+                    }
             )
         } else if (avatarLetters != null) {
             Box(
@@ -76,19 +85,21 @@ fun AvatarWithIndicator(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = avatarLetters,
+                    text = avatarLetters.initials(),
                     textAlign = TextAlign.Center,
                     style = androidx.compose.ui.text.TextStyle(
                         color = MaterialTheme.colorScheme.onPrimary,
                         fontSize = 18.sp
                     ),
+                    modifier = Modifier.clickable {
+                        onClicked?.invoke()
+                    }
 
-                    )
+                )
             }
 
         }
-        indicatorRes?.let {indicator ->
-
+        indicatorRes?.let { indicator ->
             Image(
                 painter = painterResource(id = indicator),
                 contentDescription = "Status indicator",
@@ -103,7 +114,6 @@ fun AvatarWithIndicator(
         }
 
 
-
     }
 }
 
@@ -114,7 +124,7 @@ fun AvatarWithIndicatorPreview() {
     AvatarWithIndicator(
         modifier = Modifier.padding(all = 8.dp),
         avatarUrl = null,
-        avatarLetters = "EP",
+        avatarLetters = "Emmanuel Pacheco",
         avatarRes = R.drawable.ic_vector_sale,
         indicatorRes = R.drawable.icon_person,
         avatarSize = 60.dp,

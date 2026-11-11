@@ -30,10 +30,8 @@ fun OptionItem(
     tintText: Color = MaterialTheme.colorScheme.secondary,
     tintTextSecondary: Color = MaterialTheme.colorScheme.primary,
     tintIcon: Color = MaterialTheme.colorScheme.primary,
-    onClick: () -> Unit
 ) {
     Surface(
-        onClick = onClick,
         modifier = modifier.fillMaxWidth(),
         color = Color.Transparent
     ) {
@@ -80,7 +78,6 @@ private fun OptionItemPreview() {
         OptionItem(
             icon = R.drawable.ic_vector_sale,
             text = "Ventas",
-            onClick = {},
             textSecondary = "hola"
         )
     }

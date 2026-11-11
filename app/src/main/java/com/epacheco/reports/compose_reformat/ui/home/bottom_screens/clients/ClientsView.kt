@@ -127,7 +127,7 @@ fun ClientsView(
                             },
                             onLongClick = {
                                 onNavigateToCreateClient?.invoke(client.id)
-                            }, avatarLetters = clientName.initials(),
+                            }, avatarLetters = clientName,
                             progressLimit = client.geProgressLimit(),
                             phoneClick = {
                                 onPhoneClick?.invoke(client.phone)

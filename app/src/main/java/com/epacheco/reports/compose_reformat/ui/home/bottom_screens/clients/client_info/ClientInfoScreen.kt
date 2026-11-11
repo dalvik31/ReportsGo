@@ -7,14 +7,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.Lifecycle
-import coil3.annotation.InternalCoilApi
-import coil3.request.GlobalLifecycle.currentState
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 
-@OptIn(InternalCoilApi::class)
 @Composable
 fun ClientInfoScreen(
     clientInfoViewModel: ClientInfoViewModel = hiltViewModel<ClientInfoViewModel>(),
@@ -24,15 +20,13 @@ fun ClientInfoScreen(
 ) {
     val uiState by clientInfoViewModel.uiState.collectAsState()
     LaunchedEffect(Unit) {
-        if (currentState.isAtLeast(Lifecycle.State.STARTED)) {
-            clientId?.let {
-                clientInfoViewModel.handleIntent(
-                    ClientInfoUiIntent.LoadTransactions(
-                        it
-                    )
+        clientId?.let {
+            clientInfoViewModel.handleIntent(
+                ClientInfoUiIntent.LoadTransactions(
+                    it
                 )
-                clientInfoViewModel.handleIntent(ClientInfoUiIntent.LoadOrders(it))
-            }
+            )
+            clientInfoViewModel.handleIntent(ClientInfoUiIntent.LoadOrders(it))
         }
     }
 
