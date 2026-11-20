@@ -1,0 +1,44 @@
+# Keep-alive para Supabase — proyecto ReportsGo (fshzubgifiqtncrotsaj)
+# Para que el proyecto gratis no se pause por inactividad (7 días sin uso).
+#
+# INSTALACIÓN
+# 1. Copia este archivo a tu repo, en: .github/workflows/supabase-keepalive.yml
+#    (o ábrelo directo aquí y pega el contenido:
+#     https://github.com/dalvik31/ReportsGo/new/master/.github/workflows/supabase-keepalive.yml)
+# 2. En GitHub, ve a Settings > Secrets and variables > Actions y agrega:
+#    - Secret SUPABASE_URL      = https://fshzubgifiqtncrotsaj.supabase.co
+#    - Secret SUPABASE_ANON_KEY = la llave "anon public"
+#      (en Supabase: Project Settings > API > Project API keys)
+# 3. Ve a Actions > "Supabase keep-alive (ReportsGo)" > Run workflow,
+#    para probar que responde 200.
+# Corre solo, todos los días a las 08:00 (hora de Ciudad de México).
+# Si algún día falla, GitHub te avisa en la pestaña Actions.
+# La consulta usa el servicio de Auth (el que ya usa la app para el login),
+# no una tabla: pide /auth/v1/health con tu llave anónima. Así no depende
+# de la tabla "products", que aún está pendiente. Si algún día Supabase
+# vuelve a avisar de pausa, lo cambiamos a una consulta real a una tabla.
+
+name: Supabase keep-alive (ReportsGo)
+
+on:
+  schedule:
+    - cron: "0 14 * * *" # 08:00 CST = 14:00 UTC
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Consulta mínima a Supabase Auth
+        run: |
+          code=$(curl -s -o /dev/null -w "%{http_code}" \
+            "${{ secrets.SUPABASE_URL }}/auth/v1/health" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}")
+          echo "HTTP $code"
+          if [ "$code" -ge 200 ] && [ "$code" -lt 300 ]; then
+            echo "Keep-alive OK"
+          else
+            echo "Keep-alive falló con HTTP $code"
+            exit 1
+          fi
