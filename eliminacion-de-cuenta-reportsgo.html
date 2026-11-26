@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<meta name="description" content="Eliminación de cuenta ReportsGo: solicitud de eliminación de cuenta y ejercicio de derechos ARCO. Datos que se eliminan, datos que se conservan y periodos de retención." />
+<link rel="icon" href="data:," />
+<title>Eliminación de cuenta ReportsGo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#f4f6f8; --surface:#ffffff; --surface-2:#eef2f5;
+    --ink:#16202b; --ink-2:#435466; --ink-3:#66788c; --line:#d9e1e8;
+    --teal:#0b6b5e; --teal-dark:#084f46; --teal-soft:#e2f1ed;
+    --amber:#8a5a00; --amber-soft:#fdf0d3;
+    --red:#a61c12; --green:#166534;
+    --shadow:0 1px 2px rgba(16,32,43,.06),0 10px 30px rgba(16,32,43,.06);
+    --radius:14px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0d141b; --surface:#16212c; --surface-2:#1c2a38;
+      --ink:#edf2f6; --ink-2:#b8c6d3; --ink-3:#8fa2b3; --line:#2a3a49;
+      --teal:#3ec9b2; --teal-dark:#7adbc9; --teal-soft:#12332d;
+      --amber:#f2c14e; --amber-soft:#3a2f10;
+      --red:#ff9a8f; --green:#7ed492;
+      --shadow:0 1px 2px rgba(0,0,0,.35),0 10px 30px rgba(0,0,0,.25);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  button,[role="button"],select,summary,input:not([type="checkbox"],[type="radio"]),textarea{ min-height:2.25rem; }
+  a{color:var(--teal);text-underline-offset:3px}
+  .wrap{max-width:880px;margin:0 auto;padding:0 20px 64px}
+
+  .appbar{background:var(--teal-dark);color:#fff;margin:0 -20px;padding:28px 20px 26px}
+  @media (prefers-color-scheme: dark){ .appbar{background:#0a2e29} }
+  .appbar-inner{max-width:880px;margin:0 auto;display:flex;gap:16px;align-items:center}
+  .appmark{width:56px;height:56px;flex:0 0 56px;border-radius:14px;background:#fff;color:#084f46;display:grid;place-items:center;font-family:"Lora",serif;font-weight:700;font-size:26px;line-height:1}
+  @media (prefers-color-scheme: dark){ .appmark{background:#e2f1ed} }
+  .appbar h1{font-family:"Lora",serif;font-size:clamp(25px,5vw,34px);line-height:1.15;margin:0;font-weight:700}
+  .appbar .dev{margin:4px 0 0;font-size:15px;opacity:.92}
+  .appbar .contact{margin:2px 0 0;font-size:14.5px;opacity:.9}
+  .appbar a{color:#fff}
+
+  .updated{font-size:14px;color:var(--ink-3);margin:22px 0 0}
+  section{margin-top:42px}
+  .kicker{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin:0 0 6px}
+  h2{font-family:"Lora",serif;font-size:clamp(23px,4vw,29px);line-height:1.25;margin:0 0 12px;font-weight:700}
+  h3{font-size:17px;margin:0 0 6px;font-weight:700}
+  p{margin:0 0 12px;color:var(--ink-2)}
+  p strong, li strong{color:var(--ink)}
+  .base-text p{max-width:72ch}
+  .req-list{margin:6px 0 14px;padding:0;list-style:none;display:grid;gap:10px;max-width:72ch}
+  .req-list li{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:13px 16px 13px 44px;position:relative;font-size:16px;color:var(--ink)}
+  .req-list li::before{content:"●";position:absolute;left:17px;top:13px;font-size:12px;color:var(--teal)}
+  .mailbox{background:var(--teal-soft);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin:16px 0;max-width:72ch}
+  .mailbox p{margin:0;color:var(--ink)}
+  .mailbox a{font-weight:800;font-size:19px;word-break:break-all}
+
+  .steps{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:12px;counter-reset:step}
+  .steps li{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 18px 16px 70px;position:relative}
+  .steps li::before{counter-increment:step;content:counter(step);position:absolute;left:16px;top:16px;width:38px;height:38px;border-radius:50%;background:var(--teal);color:#fff;display:grid;place-items:center;font-weight:800;font-size:17px}
+  @media (prefers-color-scheme: dark){ .steps li::before{color:#06231e} }
+  .steps p{margin:0;font-size:15.5px}
+  .steps p + p{margin-top:6px}
+
+  .tool{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-top:18px}
+  .tool h3{font-size:18px}
+  .tool .hint{font-size:14.5px;color:var(--ink-3);margin-bottom:16px}
+  .field{margin-bottom:14px}
+  label{display:block;font-size:14px;font-weight:700;margin-bottom:6px}
+  label span{font-weight:400;color:var(--ink-3)}
+  input[type="text"],input[type="email"],textarea{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:11px 12px}
+  textarea.out{min-height:220px;resize:vertical;line-height:1.55;font-size:15px}
+  textarea.small{min-height:84px;resize:vertical}
+  input:focus,textarea:focus{outline:2px solid var(--teal);outline-offset:1px;border-color:var(--teal)}
+  .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+  .btn{appearance:none;border:0;cursor:pointer;border-radius:10px;padding:12px 18px;font:inherit;font-size:15.5px;font-weight:700;min-height:48px;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+  .btn-primary{background:var(--teal);color:#fff}
+  @media (prefers-color-scheme: dark){ .btn-primary{color:#06231e} }
+  .btn-primary:hover{background:var(--teal-dark)}
+  @media (prefers-color-scheme: dark){ .btn-primary:hover{color:#fff} }
+  .btn-ghost{background:var(--surface-2);color:var(--ink);border:1px solid var(--line)}
+  .copied{font-size:14px;font-weight:700;color:var(--green);align-self:center;min-height:20px}
+  .output-wrap{margin-top:18px;display:none}
+  .output-wrap.show{display:block}
+
+  .datagroups{display:grid;gap:14px;margin-top:18px}
+  @media (min-width:720px){ .datagroups{grid-template-columns:1fr 1fr} }
+  .datacard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+  .datacard.del{border-top:4px solid var(--red)}
+  .datacard.keep{border-top:4px solid var(--amber)}
+  .datacard .tag{font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin:0 0 4px}
+  .datacard.del .tag{color:var(--red)}
+  .datacard.keep .tag{color:var(--amber)}
+  .datacard ul{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:12px}
+  .datacard li{font-size:15px;line-height:1.55;color:var(--ink-2)}
+  .datacard li strong{display:block;font-size:15.5px}
+  .retention{display:inline-block;margin-top:4px;font-size:13.5px;font-weight:700;background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:1px 8px;color:var(--ink)}
+
+  footer{margin-top:48px;border-top:1px solid var(--line);padding-top:20px;font-size:14.5px;color:var(--ink-3)}
+  footer p{color:var(--ink-3);margin:0 0 6px}
+  .toplink{display:inline-block;margin-top:8px;padding:8px 0;min-height:36px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="appbar">
+    <div class="appbar-inner">
+      <div class="appmark" aria-hidden="true">R</div>
+      <div>
+        <h1>Eliminación de cuenta ReportsGo</h1>
+        <p class="dev">Responsable: <strong>Erik Emmanuel Pacheco Hernández</strong>, en representación de <strong>ReportsGo</strong></p>
+        <p class="contact">Contacto: <a href="mailto:eeph31@gmail.com">eeph31@gmail.com</a></p>
+      </div>
+    </div>
+  </header>
+
+  <p class="updated">Última actualización: 26 de noviembre de 2026</p>
+
+  <!-- ===== TEXTO BASE (documento original) ===== -->
+  <section class="base-text" aria-labelledby="h-arco">
+    <h2 id="h-arco">Solicitud de eliminación de cuenta y ejercicio de derechos ARCO</h2>
+
+    <p>De conformidad con lo establecido en la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP), el titular de los datos personales podrá, en cualquier momento, solicitar la cancelación de su cuenta, así como la supresión de los datos personales asociados, mediante el ejercicio de sus derechos ARCO (Acceso, Rectificación, Cancelación y Oposición).</p>
+
+    <p>Para ejercer el derecho de cancelación, el titular deberá enviar una solicitud expresa al correo electrónico <a href="mailto:eeph31@gmail.com">eeph31@gmail.com</a>.</p>
+
+    <div class="mailbox">
+      <p>Envía tu solicitud a:<br /><a href="mailto:eeph31@gmail.com">eeph31@gmail.com</a></p>
+    </div>
+
+    <p>El responsable del tratamiento de los datos personales es Erik Emmanuel Pacheco Hernández, quien actúa en representación de ReportsGo. Con la finalidad de dar cumplimiento a lo dispuesto por la legislación aplicable y garantizar la protección de los datos personales, el responsable podrá solicitar información adicional que permita acreditar la identidad del titular o, en su caso, la representación legal correspondiente. La solicitud deberá contener, al menos, la siguiente información:</p>
+
+    <ul class="req-list">
+      <li>Nombre del titular de los datos personales</li>
+      <li>Correo electrónico asociado a la cuenta</li>
+      <li>Descripción clara y precisa de los datos respecto de los que se busca ejercer el derecho de cancelación</li>
+      <li>Cualquier otro elemento que facilite la localización de los datos personales</li>
+    </ul>
+
+    <p>Una vez recibida la solicitud, el responsable comunicará al titular la determinación adoptada en los plazos establecidos por la LFPDPPP. En caso de resultar procedente, se llevará a cabo la cancelación de la cuenta y la supresión de los datos personales correspondientes.</p>
+
+    <p>Es importante señalar que la cancelación de datos dará lugar a un periodo de bloqueo, tras el cual se procederá a la supresión definitiva, conforme a lo dispuesto por la normativa aplicable. Asimismo, el responsable podrá conservar ciertos datos personales cuando sea necesario para el cumplimiento de obligaciones legales, regulatorias o para la atención de posibles responsabilidades derivadas del tratamiento.</p>
+
+    <p>Para cualquier aclaración, seguimiento o ejercicio de otros derechos ARCO, el titular podrá utilizar el mismo medio de contacto.</p>
+  </section>
+
+  <!-- ===== PASOS (resumen del procedimiento anterior) ===== -->
+  <section id="pasos" aria-labelledby="h-pasos">
+    <p class="kicker">Resumen</p>
+    <h2 id="h-pasos">Pasos para solicitar la eliminación de tu cuenta</h2>
+    <ol class="steps">
+      <li>
+        <h3>Prepara tu solicitud</h3>
+        <p>Reúne la información indicada arriba: nombre del titular, correo electrónico asociado a la cuenta, descripción clara y precisa de los datos respecto de los que se busca ejercer el derecho de cancelación, y cualquier otro elemento que facilite la localización de los datos personales.</p>
+      </li>
+      <li>
+        <h3>Envía la solicitud por correo electrónico</h3>
+        <p>Envía una solicitud expresa al correo electrónico <a href="mailto:eeph31@gmail.com"><strong>eeph31@gmail.com</strong></a>. Abajo tienes un generador que arma el texto de la solicitud por ti, listo para copiar y pegar.</p>
+      </li>
+      <li>
+        <h3>Acredita tu identidad si se te solicita</h3>
+        <p>El responsable podrá solicitar información adicional que permita acreditar la identidad del titular o, en su caso, la representación legal correspondiente.</p>
+      </li>
+      <li>
+        <h3>Recibe la determinación</h3>
+        <p>Una vez recibida la solicitud, el responsable comunicará al titular la determinación adoptada en los plazos establecidos por la LFPDPPP. En caso de resultar procedente, se llevará a cabo la cancelación de la cuenta y la supresión de los datos personales correspondientes, previo periodo de bloqueo, tras el cual se procederá a la supresión definitiva.</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ===== GENERADOR ===== -->
+  <section id="generador" aria-labelledby="h-generador">
+    <p class="kicker">Texto listo para enviar</p>
+    <h2 id="h-generador">Genera el texto de tu solicitud</h2>
+    <p>Completa los datos que la solicitud debe contener, genera el mensaje, cópialo y envíalo a <a href="mailto:eeph31@gmail.com"><strong>eeph31@gmail.com</strong></a>. Este formulario funciona solo en tu dispositivo: no envía ni guarda nada por sí mismo.</p>
+
+    <div class="tool">
+      <h3>Información de la solicitud</h3>
+      <p class="hint">Son los datos mínimos que debe contener la solicitud, conforme a lo indicado arriba.</p>
+      <div class="field">
+        <label for="f-nombre">Nombre del titular de los datos personales</label>
+        <input type="text" id="f-nombre" autocomplete="name" placeholder="Ej. María González" />
+      </div>
+      <div class="field">
+        <label for="f-correo">Correo electrónico asociado a la cuenta</label>
+        <input type="email" id="f-correo" autocomplete="email" placeholder="Ej. maria@correo.com" />
+      </div>
+      <div class="field">
+        <label for="f-descripcion">Descripción clara y precisa de los datos respecto de los que se busca ejercer el derecho de cancelación</label>
+        <textarea class="small" id="f-descripcion" placeholder="Ej. Mi cuenta de ReportsGo y todos los datos asociados: mis datos de cuenta, los productos y reportes que creé y las imágenes asociadas."></textarea>
+      </div>
+      <div class="field">
+        <label for="f-otro">Cualquier otro elemento que facilite la localización de los datos personales <span>(opcional)</span></label>
+        <input type="text" id="f-otro" placeholder="Ej. Fecha aproximada de registro de la cuenta" />
+      </div>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" id="btn-generar">Generar texto de solicitud</button>
+      </div>
+
+      <div class="output-wrap" id="output-wrap">
+        <div class="field" style="margin-top:6px">
+          <label for="f-salida">Asunto y mensaje listos para copiar</label>
+          <textarea class="out" id="f-salida" readonly></textarea>
+        </div>
+        <div class="actions">
+          <button type="button" class="btn btn-ghost" id="btn-copiar">Copiar solicitud</button>
+          <a class="btn btn-ghost" id="btn-mailto" href="mailto:eeph31@gmail.com">Abrir en mi app de correo (eeph31@gmail.com)</a>
+          <span class="copied" id="copied-msg" role="status" aria-live="polite"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COMPLEMENTO GOOGLE PLAY: DATOS ===== -->
+  <section id="datos" aria-labelledby="h-datos">
+    <p class="kicker">Datos de la cuenta</p>
+    <h2 id="h-datos">Datos que se eliminan y datos que se conservan</h2>
+
+    <div class="datagroups">
+      <div class="datacard del">
+        <p class="tag">Se eliminan</p>
+        <h3>Datos que se eliminan</h3>
+        <ul>
+          <li><strong>Datos de la cuenta</strong> El nombre y el correo electrónico asociados a la cuenta de ReportsGo, así como los datos de acceso vinculados a dicha cuenta.</li>
+          <li><strong>Productos y reportes creados en la app</strong> Los productos y reportes que el titular haya creado dentro de ReportsGo, con los datos contenidos en ellos.</li>
+          <li><strong>Imágenes asociadas</strong> Las imágenes asociadas a la cuenta, a los productos y a los reportes del titular.</li>
+        </ul>
+        <p style="margin-top:12px;font-size:15px">La supresión de estos datos se realiza tras el periodo de bloqueo indicado en la siguiente sección.</p>
+      </div>
+
+      <div class="datacard keep">
+        <p class="tag">Se conservan</p>
+        <h3>Datos que se conservan y periodos de retención</h3>
+        <ul>
+          <li><strong>Periodo de bloqueo</strong> La cancelación de datos dará lugar a un periodo de bloqueo, durante el cual los datos quedan bloqueados y no se utilizan, tras el cual se procederá a la supresión definitiva, conforme a lo dispuesto por la normativa aplicable. <span class="retention">Periodo de bloqueo: 30 días</span></li>
+          <li><strong>Obligaciones legales o regulatorias</strong> El responsable podrá conservar ciertos datos personales cuando sea necesario para el cumplimiento de obligaciones legales, regulatorias o para la atención de posibles responsabilidades derivadas del tratamiento. <span class="retention">Retención: durante el plazo que exija la ley aplicable</span></li>
+        </ul>
+        <p style="margin-top:12px;font-size:15px">Cumplido el periodo de bloqueo de 30 días —y, en su caso, el plazo que exija la ley aplicable para los datos conservados por obligación legal o regulatoria—, se procederá a la supresión definitiva de los datos personales correspondientes.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p><strong style="color:var(--ink)">ReportsGo</strong> — Responsable del tratamiento de los datos personales: <strong style="color:var(--ink)">Erik Emmanuel Pacheco Hernández</strong>, en representación de ReportsGo.</p>
+    <p>Contacto para eliminación de cuenta y ejercicio de derechos ARCO: <a href="mailto:eeph31@gmail.com">eeph31@gmail.com</a></p>
+    <a class="toplink" href="#pasos">↑ Volver a los pasos de eliminación</a>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var btnGenerar = document.getElementById('btn-generar');
+  var btnCopiar = document.getElementById('btn-copiar');
+  var btnMailto = document.getElementById('btn-mailto');
+  var salida = document.getElementById('f-salida');
+  var wrap = document.getElementById('output-wrap');
+  var copiedMsg = document.getElementById('copied-msg');
+
+  btnGenerar.addEventListener('click', function(){
+    var nombre = document.getElementById('f-nombre').value.trim();
+    var correo = document.getElementById('f-correo').value.trim();
+    var descripcion = document.getElementById('f-descripcion').value.trim();
+    var otro = document.getElementById('f-otro').value.trim();
+
+    var asunto = 'Solicitud de eliminación de cuenta — ReportsGo (derecho de cancelación, derechos ARCO)';
+
+    var lineas = [];
+    lineas.push('Asunto: ' + asunto);
+    lineas.push('');
+    lineas.push('Erik Emmanuel Pacheco Hernández, responsable del tratamiento de los datos personales en representación de ReportsGo:');
+    lineas.push('');
+    lineas.push('De conformidad con la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP), solicito expresamente la cancelación de mi cuenta de ReportsGo y la supresión de los datos personales asociados, mediante el ejercicio de mi derecho de cancelación (derechos ARCO).');
+    lineas.push('');
+    lineas.push('Nombre del titular de los datos personales: ' + (nombre || '[nombre del titular]'));
+    lineas.push('Correo electrónico asociado a la cuenta: ' + (correo || '[correo asociado a la cuenta]'));
+    lineas.push('Descripción clara y precisa de los datos respecto de los que se busca ejercer el derecho de cancelación: ' + (descripcion || '[describe los datos, por ejemplo: mi cuenta y todos los datos asociados]'));
+    if (otro) lineas.push('Otro elemento que facilita la localización de los datos personales: ' + otro);
+    lineas.push('');
+    lineas.push('Quedo atento(a) a la determinación que se me comunique en los plazos establecidos por la LFPDPPP y a cualquier información adicional que se me solicite para acreditar mi identidad.');
+    lineas.push('');
+    lineas.push('Gracias.');
+
+    var texto = lineas.join('\n');
+    salida.value = texto;
+    wrap.classList.add('show');
+    copiedMsg.textContent = '';
+
+    var cuerpo = texto.replace(/^Asunto:.*\n\n/, '');
+    btnMailto.href = 'mailto:eeph31@gmail.com?subject=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(cuerpo);
+    salida.focus();
+    salida.select();
+  });
+
+  btnCopiar.addEventListener('click', function(){
+    var done = function(){ copiedMsg.textContent = '✓ Solicitud copiada. Pégala en tu correo y envíala a eeph31@gmail.com.'; };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(salida.value).then(done, function(){
+        salida.select(); document.execCommand('copy'); done();
+      });
+    } else {
+      salida.select(); document.execCommand('copy'); done();
+    }
+  });
+})();
+</script>
+</body>
+</html>
