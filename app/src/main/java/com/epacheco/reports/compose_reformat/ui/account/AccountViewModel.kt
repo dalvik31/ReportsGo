@@ -1,18 +1,12 @@
 package com.epacheco.reports.compose_reformat.ui.account
 
-import androidx.credentials.GetCredentialResponse
 import androidx.lifecycle.viewModelScope
-import com.epacheco.reports.compose_reformat.ReportsApp
-import com.epacheco.reports.compose_reformat.domain.user.SigInUserWithEmailAndPasswordUseCase
-import com.epacheco.reports.compose_reformat.domain.user.SigInUserWithGoogleUseCase
 import com.epacheco.reports.compose_reformat.domain.user.supabase.SignInUseCase
 import com.epacheco.reports.compose_reformat.domain.user.supabase.SignInWithGoogleUseCase
 import com.epacheco.reports.compose_reformat.domain.user.supabase.SignUpUseCase
-import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.repository.auth.supabase.AuthenticationRepository
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import com.epacheco.reports.compose_reformat.utils.Validations
-import com.epacheco.reports.compose_reformat.utils.extensions.getTranslateFireBaseErrorMsg
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,11 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AccountViewModel @Inject constructor(
-    private val sigInUserWithEmailAndPasswordUseCase: SigInUserWithEmailAndPasswordUseCase,
-    private val sigInUserWithGoogleUseCase: SigInUserWithGoogleUseCase,
     private val signUpUseCase: SignUpUseCase,
     private val signInUseCase: SignInUseCase,
-    private val app: ReportsApp,
     private val authenticationRepository: AuthenticationRepository
 ) : BaseViewModel() {
 
@@ -50,26 +41,6 @@ class AccountViewModel @Inject constructor(
         }
     }
 
-    private fun googleSignIn(credentialResponse: GetCredentialResponse) {
-        loading(true)
-        viewModelScope.launch {
-            try {
-                when (val signInResponse = sigInUserWithGoogleUseCase(credentialResponse)) {
-                    is Resource.Failure -> setErrorMsg(
-                        signInResponse.exception.message?.getTranslateFireBaseErrorMsg(
-                            app
-                        )
-                    )
-
-                    is Resource.Success -> navigateToHome()
-                }
-            } catch (e: Throwable) {
-                e.printStackTrace()
-            }
-        }
-        loading(false)
-    }
-
     fun onValueLoginChanged(email: String, password: String) {
         _uiState.value = _uiState.value.copy(email = email, password = password)
         _enabledLoginButton.value =
@@ -81,7 +52,7 @@ class AccountViewModel @Inject constructor(
             loading(true)
             val result = signInUseCase.execute(
                 SignInUseCase.Input(
-                    email =  _uiState.value.email,
+                    email = _uiState.value.email,
                     password = _uiState.value.password
                 )
             )
@@ -103,7 +74,7 @@ class AccountViewModel @Inject constructor(
             loading(true)
             val result = signUpUseCase.execute(
                 SignUpUseCase.Input(
-                    email =  _uiState.value.email,
+                    email = _uiState.value.email,
                     password = _uiState.value.password
                 )
             )
@@ -111,6 +82,7 @@ class AccountViewModel @Inject constructor(
                 is SignUpUseCase.Output.Success -> {
                     navigateToHome()
                 }
+
                 is SignUpUseCase.Output.Failure -> {
                     setErrorMsg(result.exception.message)
                 }
@@ -133,36 +105,6 @@ class AccountViewModel @Inject constructor(
         }
     }
 
-    private fun doSignIn() = viewModelScope.launch {
-        loading(true)
-        when (val signInResponse =
-            sigInUserWithEmailAndPasswordUseCase(_uiState.value.email, _uiState.value.password)) {
-            is Resource.Failure -> setErrorMsg(
-                signInResponse.exception.message?.getTranslateFireBaseErrorMsg(
-                    app
-                )
-            )
-
-            is Resource.Success -> navigateToHome()
-        }
-        loading(false)
-    }
-
-
-    private fun doSignUp() = viewModelScope.launch {
-    /*    loading(true)
-        when (val signInResponse = signUpUseCase(_uiState.value.email, _uiState.value.password)) {
-            is Resource.Failure -> setErrorMsg(
-                signInResponse.exception.message?.getTranslateFireBaseErrorMsg(
-                    app
-                )
-            )
-
-            is Resource.Success -> navigateToHome()
-
-        }
-        loading(false)*/
-    }
 
     private fun navigateToPassword() {
         viewModelScope.launch {

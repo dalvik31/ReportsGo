@@ -1,6 +1,7 @@
 package com.epacheco.reports.compose_reformat.repository.auth.supabase
 
 import com.epacheco.reports.compose_reformat.domain.user.supabase.CurrentUserUseCase
+import com.epacheco.reports.compose_reformat.domain.user.supabase.SignOutUseCase
 import com.epacheco.reports.compose_reformat.domain.user.supabase.SignInUseCase
 import com.epacheco.reports.compose_reformat.domain.user.supabase.SignInWithGoogleUseCase
 import com.epacheco.reports.compose_reformat.domain.user.supabase.SignUpUseCase
@@ -75,7 +76,7 @@ class AuthenticationRepositoryImpl @Inject constructor(
 
     override suspend fun signUp(email: String, password: String): SignUpUseCase.Output {
         return try {
-            auth.signUpWith(Email, "app://supabase.com/confirm") {
+            auth.signUpWith(Email) {
                 this.email = email
                 this.password = password
             }
@@ -84,7 +85,7 @@ class AuthenticationRepositoryImpl @Inject constructor(
             if (currentUser != null) {
                 return SignUpUseCase.Output.Success(currentUser.toDomain())
             } else {
-                SignUpUseCase.Output.Failure(Exception("No se pudo obtener la información del usuario"))
+                SignUpUseCase.Output.Failure(Exception())
             }
         } catch (e: Exception) {
             SignUpUseCase.Output.Failure(e)
@@ -118,8 +119,14 @@ class AuthenticationRepositoryImpl @Inject constructor(
         return Result.failure(e)
     }
 
-    override suspend fun signOut() {
-        auth.signOut()
+    override suspend fun signOut(): SignOutUseCase.Output {
+        return try {
+            auth.signOut()
+            SignOutUseCase.Output.Success
+        } catch (e: Exception) {
+            SignOutUseCase.Output.Failure(e)
+        }
+
     }
 
     @OptIn(ExperimentalTime::class)

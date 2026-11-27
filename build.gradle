@@ -3,15 +3,14 @@
 buildscript {
 
     ext {
-        agp_version = '8.3.2'
-        agp_version1 = '8.7.0'
+        agp_version = '8.6.0'
     }
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:$agp_version1"
+        classpath "com.android.tools.build:gradle:$agp_version"
         classpath 'com.google.gms:google-services:4.3.15' //Dependencia FireBase
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.5'
         classpath "com.google.dagger:hilt-android-gradle-plugin:2.51.1"

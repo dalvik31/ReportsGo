@@ -125,10 +125,18 @@ fun AccountView(
 
 }
 
-@Preview(showSystemUi = false)
+@Preview(showSystemUi = false, showBackground = true)
 @Composable
 fun ShowRegisterScreenPreview() {
-    ReportsGoTheme {
+    ReportsGoTheme(darkTheme = false) {
+        AccountView()
+    }
+}
+
+@Preview(showSystemUi = false, showBackground = false)
+@Composable
+fun ShowRegisterScreenDarkPreview() {
+    ReportsGoTheme(darkTheme = true) {
         AccountView()
     }
 }

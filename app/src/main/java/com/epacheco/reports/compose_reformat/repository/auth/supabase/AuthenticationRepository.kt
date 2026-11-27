@@ -1,6 +1,7 @@
 package com.epacheco.reports.compose_reformat.repository.auth.supabase
 
 import com.epacheco.reports.compose_reformat.domain.user.supabase.CurrentUserUseCase
+import com.epacheco.reports.compose_reformat.domain.user.supabase.SignOutUseCase
 import com.epacheco.reports.compose_reformat.domain.user.supabase.SignInUseCase
 import com.epacheco.reports.compose_reformat.domain.user.supabase.SignInWithGoogleUseCase
 import com.epacheco.reports.compose_reformat.domain.user.supabase.SignUpUseCase
@@ -15,5 +16,5 @@ interface AuthenticationRepository {
     suspend fun signInWithGoogle(): SignInWithGoogleUseCase.Output
     suspend fun exchangeCodeForSession(code: String): Result<Unit>
     suspend fun verifyEmail(tokenHash: String): Result<Unit>
-    suspend fun signOut()
+    suspend fun signOut(): SignOutUseCase.Output
 }

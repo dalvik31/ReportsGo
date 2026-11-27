@@ -15,6 +15,7 @@ import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.general_components.Loader
 import com.epacheco.reports.compose_reformat.general_components.dialogs.ReportsDialog
 import com.epacheco.reports.compose_reformat.general_components.dialogs.picture_picker.PickerPictureDialog
+import com.epacheco.reports.compose_reformat.model.user.UserInfoProfile
 import com.epacheco.reports.compose_reformat.ui.theme.ReportsGoTheme
 import kotlinx.coroutines.flow.collectLatest
 
@@ -42,7 +43,7 @@ fun ProfileScreen(
         }
     }
 
-    NewProfileView(
+    ProfileView(
         userInfoProfile = uiState.userProfile,
         onLogoutClick = {
             profileViewModel.handleIntent(ProfileUiIntent.Logout)
@@ -92,12 +93,36 @@ fun ProfileScreen(
 
 }
 
-
-@Preview(showBackground = true, showSystemUi = false)
+@Preview(showSystemUi = false, showBackground = true)
 @Composable
 fun ProfileScreenPreview() {
-    ReportsGoTheme {
-        ProfileView()
+    ReportsGoTheme(darkTheme = false) {
+        ProfileView(UserInfoProfile("1", "correo@gmail.com", null, null, null, null), {}, {}, {})
     }
+}
 
+@Preview(showSystemUi = false, showBackground = false)
+@Composable
+fun ProfileScreenDarkPreview() {
+    ReportsGoTheme(darkTheme = true) {
+        ProfileView(UserInfoProfile("1", "correo@gmail.com", null, null, null, null), {}, {}, {})
+
+    }
+}
+
+
+@Preview(showSystemUi = false, showBackground = true)
+@Composable
+fun NewProfileScreenUserNullPreview() {
+    ReportsGoTheme(darkTheme = false) {
+        ProfileView(userInfoProfile = null, {}, {}, {})
+    }
+}
+
+@Preview(showSystemUi = false, showBackground = false)
+@Composable
+fun NewProfileScreenUserNullDarkPreview() {
+    ReportsGoTheme(darkTheme = true) {
+        ProfileView(userInfoProfile = null, {}, {}, {})
+    }
 }

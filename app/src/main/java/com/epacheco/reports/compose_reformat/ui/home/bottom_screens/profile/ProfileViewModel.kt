@@ -1,25 +1,19 @@
 package com.epacheco.reports.compose_reformat.ui.home.bottom_screens.profile
 
 import android.net.Uri
-import android.util.Log
-import androidx.core.net.toUri
 import androidx.lifecycle.viewModelScope
 import com.epacheco.reports.R
 import com.epacheco.reports.compose_reformat.ReportsApp
-import com.epacheco.reports.compose_reformat.domain.user.GetUserUseCase
-import com.epacheco.reports.compose_reformat.domain.user.LogoutUseCase
 import com.epacheco.reports.compose_reformat.domain.user.SendEmailVerificationUseCase
 import com.epacheco.reports.compose_reformat.domain.user.UpdateProfileUseCase
 import com.epacheco.reports.compose_reformat.domain.user.UploadImgProfileUseCase
 import com.epacheco.reports.compose_reformat.domain.user.supabase.CurrentUserUseCase
 import com.epacheco.reports.compose_reformat.domain.user.supabase.CurrentUserUseCase.Input
+import com.epacheco.reports.compose_reformat.domain.user.supabase.SignOutUseCase
 import com.epacheco.reports.compose_reformat.firebase.Resource
 import com.epacheco.reports.compose_reformat.ui.base.BaseViewModel
 import com.epacheco.reports.compose_reformat.utils.extensions.compress
-import com.epacheco.reports.compose_reformat.utils.extensions.toDomain
-import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.github.jan.supabase.auth.user.UserInfo
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -31,8 +25,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val logoutUseCase: LogoutUseCase,
-    private val getUserUseCase: GetUserUseCase,
+    private val signOutUseCase: SignOutUseCase,
     private val currentUserUseCase: CurrentUserUseCase,
     private val uploadImgProfileUseCase: UploadImgProfileUseCase,
     private val updateProfileUseCase: UpdateProfileUseCase,
@@ -94,17 +87,17 @@ class ProfileViewModel @Inject constructor(
 
     private fun doLogout() {
         viewModelScope.launch {
-            when (val logoutResponse = logoutUseCase()) {
-                is Resource.Failure -> {
-                    _uiState.update {
-                        it.copy(errorMessage = logoutResponse.exception.message)
-                    }
-                }
-
-                is Resource.Success -> {
+            loading(true)
+            when (val result = signOutUseCase.execute(SignOutUseCase.Input())) {
+                is SignOutUseCase.Output.Success -> {
                     _effectFlow.emit(ProfileUiEffect.NavigateToLogin)
                 }
+
+                is SignOutUseCase.Output.Failure -> {
+                    setErrorMsg(result.exception.message)
+                }
             }
+            loading(false)
         }
     }
 
